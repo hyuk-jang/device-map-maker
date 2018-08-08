@@ -20,8 +20,7 @@ if (require !== undefined && require.main === module) {
 
   process.on('unhandledRejection', err => {
     // BU.debugConsole();
-    console.error(err.stack);
-    console.log(err.message);
+    console.dir(err);
     console.log('Node NOT Exiting...');
   });
 }
