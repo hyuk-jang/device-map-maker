@@ -176,6 +176,13 @@ const map = {
             dpcId: 'DPC_001',
             nodeList: ['WD_015'],
           },
+          {
+            serial_number: '0013A20040F7AB98',
+            target_code: '016',
+            dccId: 'DCC_001',
+            dpcId: 'DPC_001',
+            nodeList: ['WD_016'],
+          },
         ],
       },
       {
