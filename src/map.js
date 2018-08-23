@@ -3,7 +3,7 @@ require('default-intelligence');
 /**
  * @type {mDeviceMap}
  */
-const map = {
+const map = { 
   drawInfo: {
     frame: {
       mapSize: {
@@ -57,7 +57,16 @@ const map = {
         },
       ],
     },
-    positionList: [{}],
+    positionInfo: {
+      svgPlaceList: [
+        {
+
+        }
+      ],
+      svgNodeList: [
+
+      ]
+    },
   },
   setInfo: {
     mainInfo: {
