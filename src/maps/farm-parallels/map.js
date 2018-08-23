@@ -77,10 +77,10 @@ const map = {
       {
         dccId: 'DCC_002',
         connect_info: {
-          type: 'zigbee',
-          subType: 'xbee',
+          type: 'modbus',
+          subType: 'rtu',
           baudRate: 9600,
-          port: 'COM2',
+          port: 'COM3',
         },
       },
     ],
@@ -88,15 +88,15 @@ const map = {
       {
         dpcId: 'DPC_001',
         protocol_info: {
-          mainCategory: 'UPSAS',
-          subCategory: 'xbee',
+          mainCategory: 'FarmParallel',
+          subCategory: 'youngSanPo',
         },
       },
     ],
     dataLoggerStructureList: [
       {
-        target_prefix: 'D_G',
-        target_name: '수문 DL',
+        target_prefix: 'D_SB',
+        target_name: '센서 Board DL',
         dataLoggerDeviceList: [
           {
             serial_number: '0013A20040F7ACC8',
