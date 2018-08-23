@@ -1,8 +1,8 @@
 require('dotenv').config();
 const _ = require('lodash');
-require('../../default-intelligence');
-const {BU} = require('../../base-util-jh');
-const {BM, TempStorage} = require('../../base-model-jh');
+require('default-intelligence');
+const {BU} = require('base-util-jh');
+const {TempStorage} = require('base-model-jh');
 
 const map = require('./map');
 

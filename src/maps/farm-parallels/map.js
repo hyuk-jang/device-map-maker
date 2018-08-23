@@ -1,5 +1,4 @@
-// require('../../../../default-intelligence');
-// require('./map.jsdoc');
+// require('default-intelligence');
 
 /**
  * @type {mDeviceMap}

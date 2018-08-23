@@ -9,7 +9,7 @@ if (require !== undefined && require.main === module) {
   require('dotenv').config();
 
   const control = new Control();
-  control.startMapUpload();
+  control.startSvgMapMaker();
 
   process.on('uncaughtException', err => {
     // BU.debugConsole();
