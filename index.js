@@ -6,9 +6,8 @@ module.exports = Control;
 if (require !== undefined && require.main === module) {
   console.log('__main__');
 
-  require('dotenv').config();
+  // require('dotenv').config();
 
-  console.log(process.env.HAS_UPLOAD);
   const control = new Control();
   control.startMapMaker();
 

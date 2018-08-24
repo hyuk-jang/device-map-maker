@@ -4,16 +4,33 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/svg.js/2.6.5/svg.js"></script>
   <title>Document</title>
 </head>
 
 <body>
-  hi man 예굳맨 요 베이베 ㄴㄴ 미나ㅓㅇ린아ㅓ리ㅣㄴ아린아ㄴ미ㅓㄹㄴ이ㅣㅇ너
-
-
+  jb _ test
+  <div id="drawing"></div>
+  <div id="drawing2"></div>
 </body>
 
+
+<script src="./out/outputMap.js "></script>
 <script>
+  console.log(map)
+
+  var draw = SVG('drawing').size(300, 130)
+
+  var polygon = draw.polygon('50,0 60,40 100,50 60,60 50,100 40,60 0,50 40,40')
+  polygon.fill('#f06').move(20, 20)
+
+  var draw = SVG('drawing2').size(500, 130)
+
+  var pattern = draw.pattern(20, 20, function (add) {
+    add.rect(20, 20).fill('#f06')
+    add.rect(10, 10).fill('#0f9')
+    add.rect(10, 10).move(10, 10).fill('#fff')
+  })
 </script>
 
 </html>

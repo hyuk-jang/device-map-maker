@@ -1,5 +1,10 @@
 const _ = require('lodash');
 
+const {BU} = require('base-util-jh');
+
+const SVG = require('svg.js');
+const MAP = require('./testSvg/testMap');
+
 class SvgMaker {
   constructor() {
     // this.makeObjList();
@@ -7,13 +12,25 @@ class SvgMaker {
     // this.makeRelation(config.relation, config.objectList, config.valueList);
   }
 
-  startMake() {}
+  startMake() {
+    // TODO: 맵 작업 시작
+    BU.writeFile('./src/out/outputMap.js', `var map = ${JSON.stringify(MAP)}`, 'w', (err, res) => {
+      if (err) {
+        return BU.CLI('Map 자동 생성에 실패하였습니다.');
+      }
+      BU.CLI('맵 자동생성을 하였습니다.', 'outputMap.js');
+    });
+  }
 
-  // getResource(id, option) {
-  //   const strId = id.replace(/\d/g, '');
+  /**
+   * FIXME: 이 리소스는 어떤 작업을 해야할 것 같다. (2018-07-22)
+   * ㅁㅁㅁ
+   */
+  getResource(id, option) {
+    const strId = id.replace(/\d/g, '');
 
-  //   return config.resource[strId][option];
-  // }
+    return config.resource[strId][option];
+  }
 
   // /**
   //  * 대상이 그려질 좌표 정보를 가져옴
