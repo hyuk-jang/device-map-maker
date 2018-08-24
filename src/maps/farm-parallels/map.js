@@ -127,7 +127,6 @@ const map = {
             target_id: 'soilTemperature',
             target_prefix: 'ST',
             target_name: '토양 온도',
-            description: null,
             nodeList: [
               {
                 target_code: '001',
@@ -143,7 +142,6 @@ const map = {
             target_id: 'outsideAirTemperature',
             target_prefix: 'OAT',
             target_name: '외기 온도',
-            description: null,
             nodeList: [
               {
                 target_code: '001',
@@ -168,7 +166,6 @@ const map = {
             target_id: 'soilReh',
             target_prefix: 'SR',
             target_name: '토양 습도',
-            description: null,
             nodeList: [
               {
                 target_code: '001',
@@ -184,7 +181,6 @@ const map = {
             target_id: 'outsideAirReh',
             target_prefix: 'OAR',
             target_name: '외기 습도',
-            description: null,
             nodeList: [
               {
                 target_code: '001',
@@ -208,7 +204,6 @@ const map = {
           {
             target_id: 'windSpeed',
             target_prefix: 'WS',
-            target_name: '풍속',
             nodeList: [
               {
                 target_code: '001',
@@ -232,7 +227,6 @@ const map = {
           {
             target_id: 'windDirection',
             target_prefix: 'WD',
-            target_name: '풍향',
             nodeList: [
               {
                 target_code: '001',
@@ -256,7 +250,6 @@ const map = {
           {
             target_id: 'solar',
             target_prefix: 'SL',
-            target_name: '일사량',
             nodeList: [
               {
                 target_code: '001',
@@ -328,7 +321,6 @@ const map = {
           {
             target_id: 'co2',
             target_prefix: 'CO2',
-            target_name: '이산화탄소',
             nodeList: [
               {
                 target_code: '001',
@@ -360,7 +352,6 @@ const map = {
           {
             target_id: 'lux',
             target_prefix: 'LX',
-            target_name: '조도',
             nodeList: [
               {
                 target_code: '001',
@@ -417,201 +408,7 @@ const map = {
     ],
   },
   realtionInfo: {
-    placeRelationList: [
-      {
-        target_id: 'salternBlock',
-        target_name: '염판',
-        description: null,
-        defList: [
-          {
-            target_id: 'salternEvaporationBlock',
-            target_prefix: 'SEB',
-            target_name: '증발지',
-            placeList: [
-              {
-                target_code: '1_A',
-                depth: 5,
-                place_info: {
-                  maxBrineLevel: 20,
-                  minBrineLevel: 1,
-                  setBrineLevel: 4,
-                },
-                nodeList: ['GV_001', 'WL_001', 'V_001', 'MRT_001'],
-              },
-              {
-                target_code: '1_B',
-                depth: 5,
-                place_info: {
-                  maxBrineLevel: 20,
-                  minBrineLevel: 1,
-                  setBrineLevel: 4,
-                },
-                nodeList: ['GV_002', 'WL_002', 'V_002', 'MRT_002'],
-              },
-              {
-                target_code: '1_C',
-                depth: 5,
-                place_info: {
-                  maxBrineLevel: 20,
-                  minBrineLevel: 1,
-                  setBrineLevel: 4,
-                },
-                nodeList: ['GV_003', 'WL_003', 'V_003', 'MRT_003'],
-              },
-              {
-                target_code: '1_D',
-                depth: 5,
-                place_info: {
-                  maxBrineLevel: 20,
-                  minBrineLevel: 1,
-                  setBrineLevel: 4,
-                },
-                nodeList: ['GV_004', 'WL_004', 'V_004', 'MRT_004'],
-              },
-              {
-                target_code: '일반',
-                depth: 5,
-                place_info: {
-                  maxBrineLevel: 20,
-                  minBrineLevel: 1,
-                  setBrineLevel: 4,
-                },
-                nodeList: ['WD_005'],
-              },
-              {
-                target_code: '2',
-                depth: 4,
-                place_info: {
-                  maxBrineLevel: 20,
-                  minBrineLevel: 1,
-                  setBrineLevel: 4,
-                },
-                nodeList: ['WD_006'],
-              },
-              {
-                target_code: '3',
-                depth: 3,
-                place_info: {
-                  maxBrineLevel: 20,
-                  minBrineLevel: 1,
-                  setBrineLevel: 4,
-                },
-                nodeList: ['WD_006', 'WD_007'],
-              },
-              {
-                target_code: '4',
-                depth: 2,
-                place_info: {
-                  maxBrineLevel: 20,
-                  minBrineLevel: 1,
-                  setBrineLevel: 4,
-                  setSalinity: 18,
-                },
-                nodeList: ['WD_007', 'WD_008'],
-              },
-            ],
-          },
-          {
-            target_id: 'salternCrystalizingBlock',
-            target_prefix: 'SCB',
-            target_name: '결정지',
-            placeList: [
-              {
-                target_code: '',
-                depth: 1,
-                place_info: {
-                  maxBrineLevel: 7,
-                  minBrineLevel: 1,
-                },
-                nodeList: ['WD_009'],
-              },
-            ],
-          },
-        ],
-      },
-      {
-        target_id: 'brineWarehouse',
-        target_name: '해주',
-        description: null,
-        defList: [
-          {
-            target_id: 'brineWarehouse',
-            target_prefix: 'BW',
-            target_name: '해주',
-            placeList: [
-              {
-                target_code: '1',
-                depth: -1,
-                place_info: {
-                  maxBrineLevel: 100,
-                  minBrineLevel: 30,
-                  setBrineLevel: 70,
-                },
-                nodeList: ['WD_010', 'S_001', 'P_003'],
-              },
-              {
-                target_code: '2',
-                depth: -1,
-                place_info: {
-                  maxBrineLevel: 100,
-                  minBrineLevel: 30,
-                  setBrineLevel: 70,
-                },
-                nodeList: ['WD_011', 'S_002', 'P_004'],
-              },
-              {
-                target_code: '3',
-                depth: -1,
-                place_info: {
-                  maxBrineLevel: 100,
-                  minBrineLevel: 30,
-                  setBrineLevel: 70,
-                },
-                nodeList: ['WD_012', 'S_003', 'P_005'],
-              },
-            ],
-          },
-        ],
-      },
-      {
-        target_id: 'reservoir',
-        target_name: '저수조',
-        description: null,
-        defList: [
-          {
-            target_id: 'reservoir',
-            target_prefix: 'RV',
-            target_name: '저수조',
-            placeList: [
-              {
-                target_code: '',
-                depth: -1,
-                nodeList: ['P_002'],
-              },
-            ],
-          },
-        ],
-      },
-      {
-        target_id: 'sea',
-        target_name: '바다',
-        description: null,
-        defList: [
-          {
-            target_id: 'sea',
-            target_prefix: 'SEA',
-            target_name: '바다',
-            placeList: [
-              {
-                target_code: '',
-                depth: -1,
-                nodeList: ['P_001'],
-              },
-            ],
-          },
-        ],
-      },
-    ],
+    placeRelationList: [],
     brineFlowRelationList: [
       {
         currNodeId: 'P_001',
