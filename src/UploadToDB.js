@@ -8,6 +8,9 @@ const map = require('./map');
 
 const BiModule = require('./BiModule');
 
+const NODE_DEF_KEY = ['target_id', 'target_prefix', 'target_name', 'description'];
+const PLACE_DEF_KEY = ['target_id', 'target_prefix', 'target_name'];
+
 class UploadToDB {
   constructor() {
     const dbInfo = {
@@ -195,9 +198,20 @@ class UploadToDB {
 
     tempStorage.setExistStorage(prevNDList);
 
+    // Node Class 리스트 순회
     this.map.setInfo.nodeStructureList.forEach(nodeClassInfo => {
+      // DEF 목록 순회
       nodeClassInfo.defList.forEach(nodeDefInfo => {
+        // nodeList Key 제외 Pick
         const pickInfo = _.omit(nodeDefInfo, 'nodeList');
+
+        // Def에서 필수 구성 Key가 존재하지 않는다면 Class 정보를 복사
+        _.forEach(NODE_DEF_KEY, defKey => {
+          if (!_.has(pickInfo, defKey)) {
+            _.set(pickInfo, defKey, _.get(nodeClassInfo, defKey, null));
+          }
+        });
+
         _.assign(pickInfo, {
           node_class_seq: _.get(
             _.find(prevNCList, {target_id: nodeClassInfo.target_id}),
@@ -328,6 +342,14 @@ class UploadToDB {
       placeClassInfo.defList.forEach(placeDefInfo => {
         // 장소 상세 리스트를 제외하고 선택
         const pickInfo = _.omit(placeDefInfo, 'placeList');
+
+        // Def에서 필수 구성 Key가 존재하지 않는다면 Class 정보를 복사
+        _.forEach(PLACE_DEF_KEY, defKey => {
+          if (!_.has(pickInfo, defKey)) {
+            _.set(pickInfo, defKey, _.get(placeClassInfo, defKey, null));
+          }
+        });
+
         // pickInfo에 place_class_seq key 추가
         _.assign(pickInfo, {
           place_class_seq: _.get(
