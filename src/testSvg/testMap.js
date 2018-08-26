@@ -1,6 +1,8 @@
 /**
  * @type {mDeviceMap}
  */
+test
+
 const map = {
   drawInfo: {
     frame: {
