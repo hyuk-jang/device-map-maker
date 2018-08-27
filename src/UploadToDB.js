@@ -111,7 +111,7 @@ class UploadToDB {
     const tempStorage = new TempStorage();
 
     /** @type {DV_DATA_LOGGER_DEF[]} */
-    const prevDLGList = await this.biModule.getTable('DV_DATA_LOGGER_DEF');
+    const prevDLDList = await this.biModule.getTable('DV_DATA_LOGGER_DEF');
     /** @type {DV_DATA_LOGGER[]} */
     const prevDLList = await this.biModule.getDataLoggerTbl([this.main_seq]);
 
@@ -142,7 +142,7 @@ class UploadToDB {
         const dataLoggerInfo = {
           main_seq: this.main_seq,
           data_logger_def_seq: _.get(
-            _.find(prevDLGList, {target_prefix: dataLoggerClassInfo.target_prefix}),
+            _.find(prevDLDList, {target_prefix: dataLoggerClassInfo.target_prefix}),
             'data_logger_def_seq',
             null,
           ),
