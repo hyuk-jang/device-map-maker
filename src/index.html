@@ -9,27 +9,60 @@
 </head>
 
 <body>
-  jb _ test
-  <div id="drawing"></div>
-  <div id="drawing2"></div>
+<div id="text"></div>
+<div id="rect"></div>
+<div id="cicle"></div >
+<div id="smailCicle"></div >
+<div id="polygon"></div >
+<div id="line"></div >
+<div id="pattern"></div >
+<div id="gradient"></div >
 </body>
 
 
-<script src="./out/outputMap.js "></script>
+<script src="./testSvg/outputMap.js "></script>
 <script>
-  console.log(map)
-
-  var draw = SVG('drawing').size(300, 130)
-
-  var polygon = draw.polygon('50,0 60,40 100,50 60,60 50,100 40,60 0,50 40,40')
+  //텍스트
+  var draw = SVG('text').size(300, 130)
+  var text = draw.text("JB_HOME_TEST").move(120,40).fill('#f06')
+  //사각형
+  var draw1 = SVG('rect').size(300, 130)
+  var rect = draw1.rect(100, 100).fill('#f06').move(20, 20)
+  //작은사각형
+  var draw1_2 = SVG('rect').size(300, 130)
+  var smailRect = draw1_2.rect(100, 100).fill('#f06').move(20, 20)
+  //원형
+  var draw2 = SVG('cicle').size(300, 130)
+  var cicle = draw2.circle(100).fill('#f06').move(20, 20)
+  //작은원형
+  var draw3 = SVG('smailCicle').size(300, 130)
+  var smailCicle = draw3.circle(30).fill('#f06').move(20, 20)
+  //마름모
+  var draw4 = SVG('polygon').size(300, 130)
+  var polygon = draw4.polygon('50,0 100,50 50,100 0,50')
   polygon.fill('#f06').move(20, 20)
-
-  var draw = SVG('drawing2').size(500, 130)
-
-  var pattern = draw.pattern(20, 20, function (add) {
-    add.rect(20, 20).fill('#f06')
-    add.rect(10, 10).fill('#0f9')
-    add.rect(10, 10).move(10, 10).fill('#fff')
+  //라인
+  var draw5 = SVG('line').size(300, 100)
+  var line = draw5.line(0, 100, 100, 100).move(20, 20)
+  line.stroke({ color: '#f06', width: 10, linecap: '' })
+  //태양열모듈
+  var draw6 = SVG('pattern').size(500, 130)
+  var pattern = draw6.pattern(20, 20, function(add) {
+  add.rect(20,20).fill('#f06')
+  add.rect(10,10).fill('#0f9')
+  add.rect(10,10).move(10,10).fill('#fff')
+  })
+  draw6.rect(100, 100).move(20, 20).radius(10).fill(pattern)
+  // 저수지 or 바다
+  var draw7 = SVG('gradient').size(500, 130)
+  var linear = draw7.gradient('linear', function(stop) {
+    stop.at(0, '#f06')
+    stop.at(1, '#0f9')
+  })
+  draw.rect(100, 100).move(20, 20).radius(10).fill(linear)
+  var radial = draw7.gradient('radial', function(stop) {
+    stop.at(0, '#0f9')
+    stop.at(1, '#f06')
   })
 </script>
 
