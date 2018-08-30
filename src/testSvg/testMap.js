@@ -1,7 +1,6 @@
 /**
  * @type {mDeviceMap}
  */
-test
 
 const map = {
   drawInfo: {
@@ -11,17 +10,41 @@ const map = {
         height: 1230,
       },
       svgModelResourceList: [
+        //TODO: image 적용을 위한 color 값 변경
+        {
+          id: 'moduleBlock_001',
+          type: 'rect',
+          elementDrawInfo: {
+            width: 100,
+            height: 150,
+          },
+        },
         {
           id: 'salternBlock_001',
           type: 'rect',
           elementDrawInfo: {
             width: 100,
             height: 150,
-            color: '#33ffff',
           },
         },
         {
-          id: 'salternBlock_002',
+          id: 'crystalBlock_001',
+          type: 'rect',
+          elementDrawInfo: {
+            width: 100,
+            height: 150,
+          },
+        },
+        {
+          id: 'reservoir_001',
+          type: 'rect',
+          elementDrawInfo: {
+            width: 100,
+            height: 150,
+          },
+        },
+        {
+          id: 'waterTank_001',
           type: 'rect',
           elementDrawInfo: {
             width: 100,
@@ -30,11 +53,34 @@ const map = {
           },
         },
         {
+          id: 'waterDoor_001',
+          type: 'rect',
+          elementDrawInfo: {
+            width: 100,
+            height: 150,
+            color: '#33ffff',
+          },
+        },
+        {
+          id: 'ocean',
+          type: 'rect',
+          elementDrawInfo: {
+            width: 100,
+            height: 150,
+          },
+        },
+        {
           id: 'salternLine_001',
           type: 'line',
           elementDrawInfo: {
-            strokeWidth: 100,
-            color: '#33ccff',
+            //TODO: 라인 설정 값 svg.js 기준으로 변경
+          },
+        },
+        {
+          id: 'pipe_001',
+          type: 'line',
+          elementDrawInfo: {
+            //TODO: 라인 설정 값 svg.js 기준으로 변경
           },
         },
         {
@@ -46,21 +92,27 @@ const map = {
           },
         },
         {
-          id: 'valve_001',
-          type: 'rhombus',
+          id: 'outlet_001',
+          type: 'circle',
           elementDrawInfo: {
-            width: 20,
-            height: 20,
-            rotate: 45,
-            color: '#efb4ce',
+            radius: 20,
+            color: '#9fe667',
+          },
+        },
+        {
+          id: 'valve_001',
+          type: 'polygon',
+          elementDrawInfo: {
+            //TODO: 마름모 설정 값 svg.js 기준으로 변경
           },
         },
       ],
     },
     positionInfo: {
+      //TODO: positionInfo 정의
       svgPlaceList: [
         {
-          wh: {
+          xy: {
             x: 1,
             y: 1,
           },
