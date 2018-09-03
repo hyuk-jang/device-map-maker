@@ -10,7 +10,7 @@ const map = {
         height: 1230,
       },
       svgModelResourceList: [
-        //TODO: image 적용을 위한 color 값 변경
+        // TODO: image 적용을 위한 color 값 변경
         {
           id: 'moduleBlock_001',
           type: 'rect',
@@ -73,14 +73,14 @@ const map = {
           id: 'salternLine_001',
           type: 'line',
           elementDrawInfo: {
-            //TODO: 라인 설정 값 svg.js 기준으로 변경
+            // TODO: 라인 설정 값 svg.js 기준으로 변경
           },
         },
         {
           id: 'pipe_001',
           type: 'line',
           elementDrawInfo: {
-            //TODO: 라인 설정 값 svg.js 기준으로 변경
+            // TODO: 라인 설정 값 svg.js 기준으로 변경
           },
         },
         {
@@ -103,13 +103,13 @@ const map = {
           id: 'valve_001',
           type: 'polygon',
           elementDrawInfo: {
-            //TODO: 마름모 설정 값 svg.js 기준으로 변경
+            // TODO: 마름모 설정 값 svg.js 기준으로 변경
           },
         },
       ],
     },
     positionInfo: {
-      //TODO: positionInfo 정의
+      // TODO: positionInfo 정의
       svgPlaceList: [
         {
           xy: {
