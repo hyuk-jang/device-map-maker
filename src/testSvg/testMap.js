@@ -635,4 +635,4 @@ const map = {
   },
 };
 
-module.exports = map;
+// module.exports = map;

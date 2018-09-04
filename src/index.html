@@ -14,7 +14,8 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/svg.js/2.6.5/svg.js"></script>
 <script src="/mapSample/6kw 맵/jquery-1.10.2.min.js"></script>
-<script src="/mapSample/IndexSetting.js"></script>
+<script src="/src/testSvg/testMap.js"></script>
+<script src="/src/testSvg/testModule.js"></script>
 <script>
   // 마우스 위치 값
   let mouseX = 0;
@@ -32,10 +33,18 @@
 </script>
 
 <script>
-  //TODO: map을 불러와서 svg 에 적용 해야하는데 삽질 많이 했음.. 이어서 할것..
+  const testX = map.drawInfo.frame.mapSize.width;
+  const testY = map.drawInfo.frame.mapSize.width;
 
   const canvas = SVG('canvas').size(1800, 900);
-  const rect = canvas.rect(3000, 3000).fill('#a99'); //FIXME: canvers 크기를 보기 위한것. 작업 후 삭제할 것!
+  const background = canvas.rect(testX, testY).fill('#a99'); //FIXME: canvers 크기를 보기 위한것. 작업 후 삭제할 것!
+  console.log('' + map.find(function (id) {
+    return id == 'moduleBlock_001';
+  }))
+
+  const svgDrawing = (id, type, ) => {
+    //TODO: 간편하게 그리기 위한 메소드화 진행할 것..
+  }
 </script>
 
 <script>
