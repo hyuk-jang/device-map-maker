@@ -6,24 +6,28 @@ const map = {
   drawInfo: {
     frame: {
       mapSize: {
-        width: 880,
+        width: 1500,
         height: 1230,
       },
       svgModelResourceList: [
         // TODO: image 적용을 위한 color 값 변경
         {
           id: 'moduleBlock_001',
+          // FIXME: 이미지 적용후 type을 image로 변경
           type: 'rect',
           elementDrawInfo: {
-            width: 100,
-            height: 150,
+            width: 210,
+            height: 130,
+            // FIXME: 후에 이미지 적용 시 'color' 삭제
+            color: '#a99',
+            image: '/src/testImage/testModule.jpg',
           },
         },
         {
           id: 'salternBlock_001',
           type: 'rect',
           elementDrawInfo: {
-            width: 100,
+            width: 230,
             height: 150,
           },
         },
@@ -31,7 +35,7 @@ const map = {
           id: 'crystalBlock_001',
           type: 'rect',
           elementDrawInfo: {
-            width: 100,
+            width: 230,
             height: 150,
           },
         },
@@ -47,7 +51,7 @@ const map = {
           id: 'waterTank_001',
           type: 'rect',
           elementDrawInfo: {
-            width: 100,
+            width: 170,
             height: 150,
             color: '#33ffff',
           },
@@ -104,6 +108,15 @@ const map = {
           type: 'polygon',
           elementDrawInfo: {
             // TODO: 마름모 설정 값 svg.js 기준으로 변경
+            x1: 20,
+            y1: 0,
+            x2: 40,
+            y2: 20,
+            x3: 40,
+            y3: 20,
+            x4: 0,
+            y4: 20,
+            color: '',
           },
         },
       ],
@@ -112,9 +125,19 @@ const map = {
       // TODO: positionInfo 정의
       svgPlaceList: [
         {
+          id: '',
           xy: {
             x: 1,
             y: 1,
+          },
+        },
+      ],
+      svgNodeList: [
+        {
+          id: '',
+          nodeXY: {
+            nodeX: 1,
+            nodeY: 1,
           },
         },
       ],
