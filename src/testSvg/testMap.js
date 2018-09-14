@@ -4,27 +4,80 @@
 
 const map = {
   drawInfo: {
-    frame: {
-      mapSize: {
-        width: 1500,
+    mapSize: {
+      frame: {
+        width: 3000,
         height: 1230,
       },
       svgModelResourceList: [
-        // TODO: image 적용을 위한 color 값 변경
+        // FIXME: 염판 명칭 앞에 saltern 붙히기
+        // FIXME: 이미지 적용후 type을 image로 변경
         {
           id: 'moduleBlock_001',
-          // FIXME: 이미지 적용후 type을 image로 변경
           type: 'rect',
           elementDrawInfo: {
             width: 210,
             height: 130,
-            // FIXME: 후에 이미지 적용 시 'color' 삭제
+            color: '#a99',
+            image: '/src/testImage/testModule.jpg',
+          },
+        },
+        {
+          id: 'moduleBlock_002',
+          type: 'rect',
+          elementDrawInfo: {
+            width: 210,
+            height: 130,
+            color: '#a99',
+            image: '/src/testImage/testModule.jpg',
+          },
+        },
+        {
+          id: 'moduleBlock_003',
+          type: 'rect',
+          elementDrawInfo: {
+            width: 210,
+            height: 130,
+            color: '#a99',
+            image: '/src/testImage/testModule.jpg',
+          },
+        },
+        {
+          id: 'moduleBlock_004',
+          type: 'rect',
+          elementDrawInfo: {
+            width: 210,
+            height: 130,
             color: '#a99',
             image: '/src/testImage/testModule.jpg',
           },
         },
         {
           id: 'salternBlock_001',
+          type: 'rect',
+          elementDrawInfo: {
+            width: 230,
+            height: 150,
+          },
+        },
+        {
+          id: 'salternBlock_002',
+          type: 'rect',
+          elementDrawInfo: {
+            width: 230,
+            height: 150,
+          },
+        },
+        {
+          id: 'salternBlock_003',
+          type: 'rect',
+          elementDrawInfo: {
+            width: 230,
+            height: 150,
+          },
+        },
+        {
+          id: 'salternBlock_004',
           type: 'rect',
           elementDrawInfo: {
             width: 230,
@@ -57,6 +110,24 @@ const map = {
           },
         },
         {
+          id: 'waterTank_002',
+          type: 'rect',
+          elementDrawInfo: {
+            width: 170,
+            height: 150,
+            color: '#33ffff',
+          },
+        },
+        {
+          id: 'waterTank_003',
+          type: 'rect',
+          elementDrawInfo: {
+            width: 170,
+            height: 150,
+            color: '#33ffff',
+          },
+        },
+        {
           id: 'waterDoor_001',
           type: 'rect',
           elementDrawInfo: {
@@ -66,7 +137,142 @@ const map = {
           },
         },
         {
-          id: 'ocean',
+          id: 'waterDoor_002',
+          type: 'rect',
+          elementDrawInfo: {
+            width: 100,
+            height: 150,
+            color: '#33ffff',
+          },
+        },
+        {
+          id: 'waterDoor_003',
+          type: 'rect',
+          elementDrawInfo: {
+            width: 100,
+            height: 150,
+            color: '#33ffff',
+          },
+        },
+        {
+          id: 'waterDoor_004',
+          type: 'rect',
+          elementDrawInfo: {
+            width: 100,
+            height: 150,
+            color: '#33ffff',
+          },
+        },
+        {
+          id: 'waterDoor_005',
+          type: 'rect',
+          elementDrawInfo: {
+            width: 100,
+            height: 150,
+            color: '#33ffff',
+          },
+        },
+        {
+          id: 'waterDoor_006',
+          type: 'rect',
+          elementDrawInfo: {
+            width: 100,
+            height: 150,
+            color: '#33ffff',
+          },
+        },
+        {
+          id: 'waterDoor_007',
+          type: 'rect',
+          elementDrawInfo: {
+            width: 100,
+            height: 150,
+            color: '#33ffff',
+          },
+        },
+        {
+          id: 'waterDoor_008',
+          type: 'rect',
+          elementDrawInfo: {
+            width: 100,
+            height: 150,
+            color: '#33ffff',
+          },
+        },
+        {
+          id: 'waterDoor_009',
+          type: 'rect',
+          elementDrawInfo: {
+            width: 100,
+            height: 150,
+            color: '#33ffff',
+          },
+        },
+        {
+          id: 'waterDoor_010',
+          type: 'rect',
+          elementDrawInfo: {
+            width: 100,
+            height: 150,
+            color: '#33ffff',
+          },
+        },
+        {
+          id: 'waterDoor_011',
+          type: 'rect',
+          elementDrawInfo: {
+            width: 100,
+            height: 150,
+            color: '#33ffff',
+          },
+        },
+        {
+          id: 'waterDoor_012',
+          type: 'rect',
+          elementDrawInfo: {
+            width: 100,
+            height: 150,
+            color: '#33ffff',
+          },
+        },
+        {
+          id: 'waterDoor_013',
+          type: 'rect',
+          elementDrawInfo: {
+            width: 100,
+            height: 150,
+            color: '#33ffff',
+          },
+        },
+        {
+          id: 'waterDoor_014',
+          type: 'rect',
+          elementDrawInfo: {
+            width: 100,
+            height: 150,
+            color: '#33ffff',
+          },
+        },
+        {
+          id: 'waterDoor_015',
+          type: 'rect',
+          elementDrawInfo: {
+            width: 100,
+            height: 150,
+            color: '#33ffff',
+          },
+        },
+        {
+          id: 'waterDoor_016',
+          type: 'rect',
+          elementDrawInfo: {
+            width: 100,
+            height: 150,
+            color: '#33ffff',
+          },
+        },
+        {
+          id: 'sea',
           type: 'rect',
           elementDrawInfo: {
             width: 100,
@@ -96,6 +302,38 @@ const map = {
           },
         },
         {
+          id: 'pump_002',
+          type: 'circle',
+          elementDrawInfo: {
+            radius: 20,
+            color: '#9fe667',
+          },
+        },
+        {
+          id: 'pump_003',
+          type: 'circle',
+          elementDrawInfo: {
+            radius: 20,
+            color: '#9fe667',
+          },
+        },
+        {
+          id: 'pump_004',
+          type: 'circle',
+          elementDrawInfo: {
+            radius: 20,
+            color: '#9fe667',
+          },
+        },
+        {
+          id: 'pump_005',
+          type: 'circle',
+          elementDrawInfo: {
+            radius: 20,
+            color: '#9fe667',
+          },
+        },
+        {
           id: 'outlet_001',
           type: 'circle',
           elementDrawInfo: {
@@ -108,15 +346,69 @@ const map = {
           type: 'polygon',
           elementDrawInfo: {
             // TODO: 마름모 설정 값 svg.js 기준으로 변경
-            x1: 20,
-            y1: 0,
-            x2: 40,
-            y2: 20,
-            x3: 40,
-            y3: 20,
-            x4: 0,
-            y4: 20,
-            color: '',
+            width: 40,
+            height: 40,
+            color: '#9fe667',
+          },
+        },
+        {
+          id: 'valve_002',
+          type: 'polygon',
+          elementDrawInfo: {
+            // TODO: 마름모 설정 값 svg.js 기준으로 변경
+            width: 40,
+            height: 40,
+            color: '#9fe667',
+          },
+        },
+        {
+          id: 'valve_003',
+          type: 'polygon',
+          elementDrawInfo: {
+            // TODO: 마름모 설정 값 svg.js 기준으로 변경
+            width: 40,
+            height: 40,
+            color: '#9fe667',
+          },
+        },
+        {
+          id: 'valve_004',
+          type: 'polygon',
+          elementDrawInfo: {
+            // TODO: 마름모 설정 값 svg.js 기준으로 변경
+            width: 40,
+            height: 40,
+            color: '#9fe667',
+          },
+        },
+        {
+          id: 'valve_005',
+          type: 'polygon',
+          elementDrawInfo: {
+            // TODO: 마름모 설정 값 svg.js 기준으로 변경
+            width: 40,
+            height: 40,
+            color: '#9fe667',
+          },
+        },
+        {
+          id: 'valve_006',
+          type: 'polygon',
+          elementDrawInfo: {
+            // TODO: 마름모 설정 값 svg.js 기준으로 변경
+            width: 40,
+            height: 40,
+            color: '#9fe667',
+          },
+        },
+        {
+          id: 'valve_007',
+          type: 'polygon',
+          elementDrawInfo: {
+            // TODO: 마름모 설정 값 svg.js 기준으로 변경
+            width: 40,
+            height: 40,
+            color: '#9fe667',
           },
         },
       ],
@@ -125,11 +417,17 @@ const map = {
       // TODO: positionInfo 정의
       svgPlaceList: [
         {
-          id: '',
-          xy: {
-            x: 1,
-            y: 1,
-          },
+          key: 'salternModuleBlock',
+          placeList: [
+            {
+              id: 'SMB_1_A',
+              placePosition: [0, 3],
+            },
+          ],
+        },
+        {
+          key: 'brineWarehouse',
+          list: [{}],
         },
       ],
       svgNodeList: [
@@ -492,7 +790,169 @@ const map = {
     ],
   },
   realtionInfo: {
-    placeRelationList: [],
+    placeRelationList: [
+      // FIXME: 각 요소에 대한 'placeList' 작성.
+      {
+        target_id: 'salternBlcock',
+        target_name: '염판',
+        defList: [
+          {
+            target_id: 'salternModuleBlock',
+            target_prefix: 'SMB',
+            target_name: '모듈 증발지',
+            placeList: [
+              {
+                target_code: '1_A',
+                nodeList: [], // TODO: nodeList 작성.
+              },
+              {
+                target_code: '1_B',
+                nodeList: [], // TODO: nodeList 작성.
+              },
+              {
+                target_code: '1_C',
+                nodeList: [], // TODO: nodeList 작성.
+              },
+              {
+                target_code: '1_D',
+                nodeList: [], // TODO: nodeList 작성.
+              },
+            ],
+          },
+          {
+            target_id: 'salternNormalBlock',
+            target_prefix: 'SNB',
+            target_name: '일반 증발지',
+            placeList: [
+              {
+                // TODO:
+                target_code: '',
+                nodeList: [],
+              },
+              {
+                // TODO:
+                target_code: '',
+                nodeList: [],
+              },
+              {
+                // TODO:
+                target_code: '',
+                nodeList: [],
+              },
+              {
+                // TODO:
+                target_code: '',
+                nodeList: [],
+              },
+            ],
+          },
+          {
+            target_id: 'salternCrystalBlock',
+            target_prefix: 'SCB',
+            target_name: '결정지',
+            placeList: [
+              {
+                // TODO:
+                target_code: '',
+                nodeList: [],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        target_id: 'brineWarehouse',
+        target_name: '해주',
+        defList: [
+          {
+            target_id: 'brineWarehouse',
+            target_name: '해주',
+            target_prefix: 'BW',
+            placeList: [
+              {
+                target_code: '',
+                nodeList: [],
+              },
+              {
+                target_code: '',
+                nodeList: [],
+              },
+              {
+                target_code: '',
+                nodeList: [],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        target_id: 'reservoir',
+        target_name: '저수조',
+        defList: [
+          {
+            target_id: 'reservoir',
+            target_name: '저수조',
+            target_prefix: 'RV',
+            placeList: [
+              {
+                target_code: '',
+                nodeList: [],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        target_id: 'sea',
+        target_name: '바다',
+        defList: [
+          {
+            target_id: 'sea',
+            target_name: '바다',
+            target_prefix: 'SEA',
+            placeList: [
+              {
+                target_code: '',
+                nodeList: [],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        target_id: 'sulternLine',
+        target_name: '수로',
+        defList: [
+          {
+            target_id: 'sulternLine',
+            target_name: '수로',
+            target_prefix: 'SL',
+            placeList: [
+              {
+                target_code: '',
+                nodeList: [],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        target_id: 'valve',
+        target_name: '벨브',
+        defList: [
+          {
+            target_id: 'valve',
+            target_name: '벨브',
+            target_prefix: 'V',
+            placeList: [
+              {
+                target_code: '001',
+              },
+            ],
+          },
+        ],
+      },
+    ],
     brineFlowRelationList: [
       {
         currNodeId: 'P_001',

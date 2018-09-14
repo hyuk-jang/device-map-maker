@@ -60,6 +60,7 @@
       const model = canvas.circle(svgModelResource.elementDrawInfo.radius).move(x, y);
     } else if (modelType == 'polygon') {
       const model = canvas.polygon('50,0 100,50 50,100 0,50').move(x, y)
+      model.size(40, 40)
     } else if (modelType == 'line') {
       const model = canvas.line(0, 0, 100, 150).stroke({
         width: 50,
@@ -87,7 +88,7 @@
   svgDrawing('waterTank_001', 580, 100);
   svgDrawing('waterTank_001', 760, 100);
 
-  svgDrawing('salternLine_001', 760, 100);
+  svgDrawing('valve_001', 10, 10);
 </script>
 
 <script>
