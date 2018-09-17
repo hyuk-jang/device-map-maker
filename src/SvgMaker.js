@@ -114,6 +114,8 @@ class SvgMaker {
     });
   }
 
+  
+
   /**
    * 해당 객체 ID가 그려지고 있는 좌표 포인트를 가져옴
    * @param {String} baseId id

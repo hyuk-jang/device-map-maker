@@ -1,6 +1,12 @@
 
 
 module.exports = {
+  idImgRelationList: [
+    {
+      setIdList: ['gateValve', 'valve'],
+      resourceId: 'salternModuleBlock'
+    }
+  ],
   relation: 
     {
       SaltPlateData: [

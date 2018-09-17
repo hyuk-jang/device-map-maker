@@ -1,3 +1,5 @@
+require('default-intelligence');
+
 /**
  * @type {mDeviceMap}
  */
@@ -11,541 +13,221 @@ const map = {
       },
       svgModelResourceList: [
         {
-          id: 'salternModuleBlock_001',
+          id: 'salternModuleBlock',
           type: 'pattern',
-          code: 'SMB_1_A',
           elementDrawInfo: {
             width: 200,
             height: 130,
-            color: '#a99',
+            color: '', // TODO:
           },
         },
         {
-          id: 'salternModuleBlock_002',
-          type: 'pattern',
-          code: 'SMB_1_B',
+          id: 'salternNomalBlock',
+          type: 'rect',
           elementDrawInfo: {
-            width: 210,
+            width: 200,
             height: 130,
-            color: '#a99',
-            image: '/src/testImage/testModule.jpg',
+            color: '', // TODO:
           },
         },
         {
-          id: 'salternModuleBlock_003',
-          type: 'pattern',
-          code: 'SMB_1_C',
+          id: 'salternCrystalBlock',
+          type: 'rect',
           elementDrawInfo: {
-            width: 210,
+            width: 200,
             height: 130,
-            color: '#a99',
-            image: '/src/testImage/testModule.jpg',
+            color: '', // TODO:
           },
         },
         {
-          id: 'salternModuleBlock_004',
-          type: 'pattern',
-          code: 'SMB_1_D',
-          elementDrawInfo: {
-            width: 210,
-            height: 130,
-            color: '#a99',
-            image: '/src/testImage/testModule.jpg',
-          },
-        },
-        {
-          id: 'salternNomalBlock_001',
+          id: 'brineWarehouse',
           type: 'rect',
-          code: 'SNB_001',
-          elementDrawInfo: {
-            width: 210,
-            height: 130,
-          },
-        },
-        {
-          id: 'salternNomalBlock_002',
-          type: 'rect',
-          code: 'SNB_002',
-          elementDrawInfo: {
-            width: 230,
-            height: 150,
-          },
-        },
-        {
-          id: 'salternNomalBlock_003',
-          type: 'rect',
-          code: 'SNB_003',
-          elementDrawInfo: {
-            width: 230,
-            height: 150,
-          },
-        },
-        {
-          id: 'salternNomalBlock_004',
-          type: 'rect',
-          code: 'SNB_004',
-          elementDrawInfo: {
-            width: 230,
-            height: 150,
-          },
-        },
-        {
-          id: 'salternCrystalBlock_001',
-          type: 'rect',
-          code: 'SCB_001',
-          elementDrawInfo: {
-            width: 230,
-            height: 150,
-          },
-        },
-        {
-          id: 'brineWarehouse_001',
-          type: 'rect',
-          code: 'BW_001',
           elementDrawInfo: {
             width: 170,
             height: 150,
-            color: '#33ffff',
+            color: '', // TODO:
           },
         },
         {
-          id: 'brineWarehouse_002',
+          id: 'waterDoor',
           type: 'rect',
-          code: 'BW_002',
           elementDrawInfo: {
-            width: 170,
-            height: 150,
-            color: '#33ffff',
+            width: 50,
+            height: 50,
+            color: '', // TODO:
           },
         },
         {
-          id: 'brineWarehouse_003',
+          id: 'sea',
           type: 'rect',
-          code: 'BW_003',
           elementDrawInfo: {
+            // FIXME:
             width: 170,
             height: 150,
-            color: '#33ffff',
+            color: '', // TODO:
           },
         },
-        // {
-        //   id: 'waterDoor_001',
-        //   type: 'rect',
-        //   code: 'WD_001',
-        //   elementDrawInfo: {
-        //     width: 50,
-        //     height: 50,
-        //     color: '#5CD1E5',
-        //   },
-        // },
-        // {
-        //   id: 'waterDoor_002',
-        //   type: 'rect',
-        //   code: 'WD_002',
-        //   elementDrawInfo: {
-        //     width: 50,
-        //     height: 50,
-        //     color: '#33ffff',
-        //   },
-        // },
-        // {
-        //   id: 'waterDoor_003',
-        //   type: 'rect',
-        //   code: 'WD_003',
-        //   elementDrawInfo: {
-        //     width: 50,
-        //     height: 50,
-        //     color: '#33ffff',
-        //   },
-        // },
-        // {
-        //   id: 'waterDoor_004',
-        //   type: 'rect',
-        //   code: 'WD_004',
-        //   elementDrawInfo: {
-        //     width: 50,
-        //     height: 50,
-        //     color: '#33ffff',
-        //   },
-        // },
-        // {
-        //   id: 'waterDoor_005',
-        //   type: 'rect',
-        //   code: 'WD_005',
-        //   elementDrawInfo: {
-        //     width: 50,
-        //     height: 50,
-        //     color: '#33ffff',
-        //   },
-        // },
-        // {
-        //   id: 'waterDoor_006',
-        //   type: 'rect',
-        //   code: 'WD_006',
-        //   elementDrawInfo: {
-        //     width: 50,
-        //     height: 50,
-        //     color: '#33ffff',
-        //   },
-        // },
-        // {
-        //   id: 'waterDoor_007',
-        //   type: 'rect',
-        //   code: 'WD_007',
-        //   elementDrawInfo: {
-        //     width: 50,
-        //     height: 50,
-        //     color: '#33ffff',
-        //   },
-        // },
-        // {
-        //   id: 'waterDoor_008',
-        //   type: 'rect',
-        //   code: 'WD_008',
-        //   elementDrawInfo: {
-        //     width: 50,
-        //     height: 50,
-        //     color: '#33ffff',
-        //   },
-        // },
-        // {
-        //   id: 'waterDoor_009',
-        //   type: 'rect',
-        //   code: 'WD_009',
-        //   elementDrawInfo: {
-        //     width: 50,
-        //     height: 50,
-        //     color: '#33ffff',
-        //   },
-        // },
-        // {
-        //   id: 'waterDoor_010',
-        //   type: 'rect',
-        //   code: 'WD_010',
-        //   elementDrawInfo: {
-        //     width: 50,
-        //     height: 50,
-        //     color: '#33ffff',
-        //   },
-        // },
-        // {
-        //   id: 'waterDoor_011',
-        //   type: 'rect',
-        //   code: 'WD_011',
-        //   elementDrawInfo: {
-        //     width: 50,
-        //     height: 50,
-        //     color: '#33ffff',
-        //   },
-        // },
-        // {
-        //   id: 'waterDoor_012',
-        //   type: 'rect',
-        //   code: 'WD_012',
-        //   elementDrawInfo: {
-        //     width: 50,
-        //     height: 50,
-        //     color: '#33ffff',
-        //   },
-        // },
-        // {
-        //   id: 'waterDoor_013',
-        //   type: 'rect',
-        //   code: 'WD_013',
-        //   elementDrawInfo: {
-        //     width: 50,
-        //     height: 50,
-        //     color: '#33ffff',
-        //   },
-        // },
-        // {
-        //   id: 'waterDoor_014',
-        //   type: 'rect',
-        //   code: 'WD_014',
-        //   elementDrawInfo: {
-        //     width: 50,
-        //     height: 50,
-        //     color: '#33ffff',
-        //   },
-        // },
-        // {
-        //   id: 'waterDoor_015',
-        //   type: 'rect',
-        //   code: 'WD_015',
-        //   elementDrawInfo: {
-        //     width: 50,
-        //     height: 50,
-        //     color: '#33ffff',
-        //   },
-        // },
-        // {
-        //   id: 'waterDoor_016',
-        //   type: 'rect',
-        //   code: 'WD_016',
-        //   elementDrawInfo: {
-        //     width: 50,
-        //     height: 50,
-        //     color: '#33ffff',
-        //   },
-        // },
-        // {
-        //   id: 'sea',
-        //   type: 'rect',
-        //   code: 'SEA',
-        //   elementDrawInfo: {
-        //     width: 100,
-        //     height: 150,
-        //   },
-        // },
-        // {
-        //   id: 'salternLine_001',
-        //   type: 'line',
-        //   elementDrawInfo: {
-        //     // TODO: 라인 설정 값 svg.js 기준으로 변경
-        //   },
-        // },
-        // {
-        //   id: 'pipe_001',
-        //   type: 'line',
-        //   elementDrawInfo: {
-        //     // TODO: 라인 설정 값 svg.js 기준으로 변경
-        //   },
-        // },
-        // {
-        //   id: 'pump_001',
-        //   type: 'circle',
-        //   elementDrawInfo: {
-        //     radius: 20,
-        //     color: '#9fe667',
-        //   },
-        // },
-        // {
-        //   id: 'pump_002',
-        //   type: 'circle',
-        //   elementDrawInfo: {
-        //     radius: 20,
-        //     color: '#9fe667',
-        //   },
-        // },
-        // {
-        //   id: 'pump_003',
-        //   type: 'circle',
-        //   elementDrawInfo: {
-        //     radius: 20,
-        //     color: '#9fe667',
-        //   },
-        // },
-        // {
-        //   id: 'pump_004',
-        //   type: 'circle',
-        //   elementDrawInfo: {
-        //     radius: 20,
-        //     color: '#9fe667',
-        //   },
-        // },
-        // {
-        //   id: 'pump_005',
-        //   type: 'circle',
-        //   elementDrawInfo: {
-        //     radius: 20,
-        //     color: '#9fe667',
-        //   },
-        // },
-        // {
-        //   id: 'outlet_001',
-        //   type: 'circle',
-        //   elementDrawInfo: {
-        //     radius: 20,
-        //     color: '#9fe667',
-        //   },
-        // },
-        // {
-        //   id: 'valve_001',
-        //   type: 'polygon',
-        //   elementDrawInfo: {
-        //     // TODO: 마름모 설정 값 svg.js 기준으로 변경
-        //     width: 40,
-        //     height: 40,
-        //     color: '#9fe667',
-        //   },
-        // },
-        // {
-        //   id: 'valve_002',
-        //   type: 'polygon',
-        //   elementDrawInfo: {
-        //     // TODO: 마름모 설정 값 svg.js 기준으로 변경
-        //     width: 40,
-        //     height: 40,
-        //     color: '#9fe667',
-        //   },
-        // },
-        // {
-        //   id: 'valve_003',
-        //   type: 'polygon',
-        //   elementDrawInfo: {
-        //     // TODO: 마름모 설정 값 svg.js 기준으로 변경
-        //     width: 40,
-        //     height: 40,
-        //     color: '#9fe667',
-        //   },
-        // },
-        // {
-        //   id: 'valve_004',
-        //   type: 'polygon',
-        //   elementDrawInfo: {
-        //     // TODO: 마름모 설정 값 svg.js 기준으로 변경
-        //     width: 40,
-        //     height: 40,
-        //     color: '#9fe667',
-        //   },
-        // },
-        // {
-        //   id: 'valve_005',
-        //   type: 'polygon',
-        //   elementDrawInfo: {
-        //     // TODO: 마름모 설정 값 svg.js 기준으로 변경
-        //     width: 40,
-        //     height: 40,
-        //     color: '#9fe667',
-        //   },
-        // },
-        // {
-        //   id: 'valve_006',
-        //   type: 'polygon',
-        //   elementDrawInfo: {
-        //     // TODO: 마름모 설정 값 svg.js 기준으로 변경
-        //     width: 40,
-        //     height: 40,
-        //     color: '#9fe667',
-        //   },
-        // },
-        // {
-        //   id: 'valve_007',
-        //   type: 'polygon',
-        //   elementDrawInfo: {
-        //     // TODO: 마름모 설정 값 svg.js 기준으로 변경
-        //     width: 40,
-        //     height: 40,
-        //     color: '#9fe667',
-        //   },
-        // },
-        // {
-        //   id: 'reservoir_001',
-        //   type: 'rect',
-        //   elementDrawInfo: {
-        //     width: 100,
-        //     height: 150,
-        //   },
-        // },
+        {
+          id: 'valve',
+          type: 'polygon',
+          elementDrawInfo: {
+            // FIXME:
+            width: 170,
+            height: 150,
+            color: '', // TODO:
+          },
+        },
+        {
+          id: 'pipe',
+          type: 'line',
+          elementDrawInfo: {
+            // FIXME:
+            width: 170,
+            height: 150,
+            color: '', // TODO:
+          },
+        },
+        {
+          id: 'outlet',
+          type: 'cicle',
+          elementDrawInfo: {
+            // FIXME:
+            width: 170,
+            height: 150,
+            color: '', // TODO:
+          },
+        },
+        {
+          id: 'waterLine',
+          type: 'line',
+          elementDrawInfo: {
+            // FIXME:
+            width: 170,
+            height: 150,
+            color: '', // TODO:
+          },
+        },
+        {
+          id: 'reservoir',
+          type: 'rect',
+          elementDrawInfo: {
+            // FIXME:
+            width: 170,
+            height: 150,
+            color: '', // TODO:
+          },
+        },
+        {
+          id: 'sea',
+          type: 'rect',
+          elementDrawInfo: {
+            // FIXME:
+            width: 170,
+            height: 150,
+            color: '', // TODO:
+          },
+        },
       ],
     },
     positionInfo: {
       // TODO: positionInfo 정의
       svgPlaceList: [
         {
-          id: 'salternModuleBlock_001',
-          code: 'SMB_1_A',
-          placeList: {
-            placePosition: [160, 850],
-          },
+          placeId: 'salternBlock',
+          placeName: '염판',
+          placeList: [
+            {
+              id: 'SMB_1_A',
+              resourceId: 'salternModuleBlock',
+              placePosition: [200, 850], // FIXME:
+            },
+            {
+              id: 'SMB_1_B',
+              resourceId: 'salternModuleBlock',
+              placePosition: [200, 850], // FIXME:
+            },
+            {
+              id: 'SMB_1_C',
+              resourceId: 'salternModuleBlock',
+              placePosition: [200, 850], // FIXME:
+            },
+            {
+              id: 'SMB_1_D',
+              resourceId: 'salternModuleBlock',
+              placePosition: [200, 850], // FIXME:
+            },
+            {
+              id: 'SNB_001',
+              resourceId: 'salternNomalBlock',
+              placePosition: [200, 850], // FIXME:
+            },
+            {
+              id: 'SNB_002',
+              resourceId: 'salternNomalBlock',
+              placePosition: [200, 850], // FIXME:
+            },
+            {
+              id: 'SNB_003',
+              resourceId: 'salternNomalBlock',
+              placePosition: [200, 850], // FIXME:
+            },
+            {
+              id: 'SNB_004',
+              resourceId: 'salternNomalBlock',
+              placePosition: [200, 850], // FIXME:
+            },
+            {
+              id: 'SCB_001',
+              resourceId: 'salternCrystalBlock',
+              placePosition: [200, 850], // FIXME:
+            },
+          ],
         },
         {
-          id: 'salternModuleBlock_002',
-          code: 'SMB_1_B',
-          placeList: {
-            placePosition: [160, 680],
-          },
+          placeId: 'brineWarehoust',
+          placeName: '해주',
+          placeList: [
+            {
+              id: 'BW_001',
+              resourceId: 'brineWarehouse',
+              placePosition: [200, 850], // FIXME:
+            },
+            {
+              id: 'BW_002',
+              resourceId: 'brineWarehouse',
+              placePosition: [200, 850], // FIXME:
+            },
+            {
+              id: 'BW_003',
+              resourceId: 'brineWarehouse',
+              placePosition: [200, 850], // FIXME:
+            },
+          ],
         },
         {
-          id: 'salternModuleBlock_003',
-          code: 'SMB_1_C',
-          placeList: {
-            placePosition: [160, 510],
-          },
+          placeId: 'reservoir',
+          placeName: '저수조',
+          placeList: [
+            {
+              id: 'RESERVOIR',
+              resourceId: 'reservoir',
+              placePosition: [0, 0], // FIXME:
+            },
+          ],
         },
         {
-          id: 'salternModuleBlock_004',
-          code: 'SMB_1_D',
-          placeList: {
-            placePosition: [160, 340],
-          },
-        },
-        {
-          id: 'salternNomalBlock_001',
-          code: 'SNB_001',
-          placeList: {
-            placePosition: [160, 170],
-          },
-        },
-        {
-          id: 'salternNomalBlock_002',
-          code: 'SNB_002',
-          placeList: {
-            placePosition: [430, 300],
-          },
-        },
-        {
-          id: 'salternNomalBlock_003',
-          code: 'SNB_003',
-          placeList: {
-            placePosition: [430, 475],
-          },
-        },
-        {
-          id: 'salternNomalBlock_004',
-          code: 'SNB_004',
-          placeList: {
-            placePosition: [430, 655],
-          },
-        },
-        {
-          id: 'salternCrystalBlock_001',
-          code: 'SCB_001',
-          placeList: {
-            placePosition: [430, 830],
-          },
-        },
-        {
-          id: 'brineWarehouse_001',
-          code: 'BW_001',
-          placeList: {
-            placePosition: [400, 100],
-          },
-        },
-        {
-          id: 'brineWarehouse_002',
-          code: 'BW_002',
-          placeList: {
-            placePosition: [580, 100],
-          },
-        },
-        {
-          id: 'brineWarehouse_003',
-          code: 'BW_003',
-          placeList: {
-            placePosition: [760, 100],
-          },
-        },
-        {
-          id: 'waterDoor_001',
-          code: 'WD_001',
-          placeList: {
-            placePosition: [320, 930],
-          },
+          placeId: 'sea',
+          placeName: '바다',
+          placeList: [
+            {
+              id: 'SEA',
+              resourceId: 'sea',
+              placePosition: [0, 0], // FIXME:
+            },
+          ],
         },
       ],
-      svgNodeList: [
-        {
-          id: 'waterDoor_001',
-          type: 'rect',
-          code: 'WD_001',
-          elementDrawInfo: {
-            width: 50,
-            height: 50,
-            color: '#5CD1E5',
-          },
-        },
-      ],
+      svgNodeList: [],
     },
   },
   setInfo: {
@@ -894,44 +576,313 @@ const map = {
         description: null,
         defList: [],
       },
-    ],
-  },
-  relationInfo: {
-    placeRelationList: [
-      // FIXME: 각 요소에 대한 'placeList' 작성.
+      // TODO: pump, waterDoor, valve, outlet ↓
       {
-        target_id: 'salternModuleBlock',
-        target_name: '모듈 증발지',
+        target_id: 'vavle',
+        target_name: '밸브',
+        is_sensor: 0,
+        data_unit: null,
+        description: null,
         defList: [
           {
-            target_id: 'salternModuleBlock',
-            target_name: '모듈 증발지',
-            target_prefix: 'SMB',
-            placeList: [
+            target_id: 'valve',
+            target_prefix: 'V',
+            target_name: '밸브',
+            description: null,
+            nodeList: [
               {
-                target_code: '1_A',
-                nodeList: ['WD_001'], // FIXME: nodeList 수정.
+                target_code: '001',
+                data_logger_index: 0,
+                axis: [0, 0],
+                moveScale: [0, 0], // FIXME:
               },
               {
-                target_code: '1_B',
-                nodeList: [], // FIXME: nodeList 수정.
+                target_code: '002',
+                data_logger_index: 0,
+                axis: [0, 0],
+                moveScale: [0, 0], // FIXME:
               },
               {
-                target_code: '1_C',
-                nodeList: [], // FIXME: nodeList 수정.
+                target_code: '003',
+                data_logger_index: 0,
+                axis: [0, 0],
+                moveScale: [0, 0], // FIXME:
               },
               {
-                target_code: '1_D',
-                nodeList: [], // FIXME: nodeList 수정.
+                target_code: '004',
+                data_logger_index: 0,
+                axis: [0, 0],
+                moveScale: [0, 0], // FIXME:
+              },
+              {
+                target_code: '005',
+                data_logger_index: 0,
+                axis: [0, 0],
+                moveScale: [0, 0], // FIXME:
+              },
+              {
+                target_code: '006',
+                data_logger_index: 0,
+                axis: [0, 0],
+                moveScale: [0, 0], // FIXME:
               },
             ],
           },
         ],
       },
       {
-        target_id: 'salternNomalBlock',
-        target_name: '일반 증발지',
+        target_id: 'gateValve',
+        target_name: '수문',
+        is_sensor: 0,
+        data_unit: null,
+        description: null,
         defList: [
+          {
+            target_id: 'gateValve',
+            target_prefix: 'GV',
+            target_name: '수문',
+            description: null,
+            nodeList: [
+              {
+                target_code: '001',
+                data_logger_index: 0,
+                axis: [0, 0],
+                moveScale: [0, 0], // FIXME:
+              },
+              {
+                target_code: '002',
+                data_logger_index: 0,
+                axis: [0, 0],
+                moveScale: [0, 0], // FIXME:
+              },
+              {
+                target_code: '003',
+                data_logger_index: 0,
+                axis: [0, 0],
+                moveScale: [0, 0], // FIXME:
+              },
+              {
+                target_code: '004',
+                data_logger_index: 0,
+                axis: [0, 0],
+                moveScale: [0, 0], // FIXME:
+              },
+            ],
+          },
+        ],
+      },
+      {
+        target_id: 'waterDoor',
+        target_name: '수문',
+        is_sensor: 0,
+        data_unit: null,
+        description: null,
+        defList: [
+          {
+            target_id: 'waterDoor',
+            target_prefix: 'WD',
+            target_name: '수문',
+            description: null,
+            nodeList: [
+              {
+                target_code: '005',
+                data_logger_index: 0,
+                axis: [0, 0],
+                moveScale: [0, 0], // FIXME:
+              },
+              {
+                target_code: '006',
+                data_logger_index: 0,
+                axis: [0, 0],
+                moveScale: [0, 0], // FIXME:
+              },
+              {
+                target_code: '007',
+                data_logger_index: 0,
+                axis: [0, 0],
+                moveScale: [0, 0], // FIXME:
+              },
+              {
+                target_code: '008',
+                data_logger_index: 0,
+                axis: [0, 0],
+                moveScale: [0, 0], // FIXME:
+              },
+              {
+                target_code: '009',
+                data_logger_index: 0,
+                axis: [0, 0],
+                moveScale: [0, 0], // FIXME:
+              },
+              {
+                target_code: '010',
+                data_logger_index: 0,
+                axis: [0, 0],
+                moveScale: [0, 0], // FIXME:
+              },
+              {
+                target_code: '011',
+                data_logger_index: 0,
+                axis: [0, 0],
+                moveScale: [0, 0], // FIXME:
+              },
+              {
+                target_code: '012',
+                data_logger_index: 0,
+                axis: [0, 0],
+                moveScale: [0, 0], // FIXME:
+              },
+              {
+                target_code: '013',
+                data_logger_index: 0,
+                axis: [0, 0],
+                moveScale: [0, 0], // FIXME:
+              },
+              {
+                target_code: '014',
+                data_logger_index: 0,
+                axis: [0, 0],
+                moveScale: [0, 0], // FIXME:
+              },
+              {
+                target_code: '015',
+                data_logger_index: 0,
+                axis: [0, 0],
+                moveScale: [0, 0], // FIXME:
+              },
+              {
+                target_code: '016',
+                data_logger_index: 0,
+                axis: [0, 0],
+                moveScale: [0, 0], // FIXME:
+              },
+            ],
+          },
+        ],
+      },
+      {
+        target_id: 'pump',
+        target_name: '펌프',
+        is_sensor: 0,
+        data_unit: null,
+        description: null,
+        defList: [
+          {
+            target_id: 'pump',
+            target_prefix: 'PU',
+            target_name: '펌프',
+            description: null,
+            nodeList: [
+              {
+                target_code: '001',
+                data_logger_index: 0,
+                axis: [0, 0],
+                moveScale: [0, 0], // FIXME:
+              },
+              {
+                target_code: '002',
+                data_logger_index: 0,
+                axis: [0, 0],
+                moveScale: [0, 0], // FIXME:
+              },
+              {
+                target_code: '003',
+                data_logger_index: 0,
+                axis: [0, 0],
+                moveScale: [0, 0], // FIXME:
+              },
+              {
+                target_code: '004',
+                data_logger_index: 0,
+                axis: [0, 0],
+                moveScale: [0, 0], // FIXME:
+              },
+              {
+                target_code: '005',
+                data_logger_index: 0,
+                axis: [0, 0],
+                moveScale: [0, 0], // FIXME:
+              },
+            ],
+          },
+        ],
+      },
+      {
+        target_id: 'outlet',
+        target_name: '배출구',
+        is_sensor: 0,
+        data_unit: null,
+        description: null,
+        defList: [
+          {
+            target_id: 'outlet',
+            target_prefix: 'O',
+            target_name: '배출구',
+            description: null,
+            nodeList: [
+              {
+                target_code: '001',
+                data_logger_index: 0,
+                axis: [0, 0],
+                moveScale: [0, 0], // FIXME:
+              },
+              {
+                target_code: '002',
+                data_logger_index: 0,
+                axis: [0, 0],
+                moveScale: [0, 0], // FIXME:
+              },
+              {
+                target_code: '003',
+                data_logger_index: 0,
+                axis: [0, 0],
+                moveScale: [0, 0], // FIXME:
+              },
+              {
+                target_code: '004',
+                data_logger_index: 0,
+                axis: [0, 0],
+                moveScale: [0, 0], // FIXME:
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
+  relationInfo: {
+    placeRelationList: [
+      {
+        target_id: 'salternBlock',
+        target_name: '증발지',
+        defList: [
+          {
+            target_id: 'salternModuleBlock',
+            target_prefix: 'SMB',
+            target_name: '모듈 증발지',
+            placeList: [
+              {
+                target_code: '1_A',
+                depth: 0, // FIXME:
+                nodeList: ['GV_001', 'V_001', 'O_001'],
+              },
+              {
+                target_code: '1_B',
+                depth: 0, // FIXME:
+                nodeList: ['GV_002', 'V_002', 'O_002'],
+              },
+              {
+                target_code: '1_C',
+                depth: 0, // FIXME:
+                nodeList: ['GV_003', 'V_003', 'O_003'],
+              },
+              {
+                target_code: '1_D',
+                depth: 0, // FIXME:
+                nodeList: ['GV_004', 'V_004', 'O_004'],
+              },
+            ],
+          },
           {
             target_id: 'salternNormalBlock',
             target_prefix: 'SNB',
@@ -939,20 +890,23 @@ const map = {
             placeList: [
               {
                 target_code: '001',
-                nodeList: [],
+                depth: 0, // FIXME:
+                nodeList: ['WD_005'],
               },
               {
-                // FIXME: 배출구 재확인
                 target_code: '002',
-                nodeList: [],
+                depth: 0, // FIXME:
+                nodeList: ['WD_006'],
               },
               {
                 target_code: '003',
-                nodeList: [],
+                depth: 0, // FIXME:
+                nodeList: ['WD_006', 'WD_007'],
               },
               {
                 target_code: '004',
-                nodeList: [],
+                depth: 0, // FIXME:
+                nodeList: ['WD_007', 'WD_008'],
               },
             ],
           },
@@ -962,27 +916,9 @@ const map = {
             target_name: '결정지',
             placeList: [
               {
-                // FIXME: 배출구 재확인
                 target_code: '001',
-                nodeList: [],
-              },
-            ],
-          },
-        ],
-      },
-      {
-        target_id: 'salternCrystalBlock',
-        target_name: '결정지',
-        defList: [
-          {
-            target_id: 'salternCrystalBlock',
-            target_prefix: 'SCB',
-            target_name: '결정지',
-            placeList: [
-              {
-                // FIXME: 배출구 재확인
-                target_code: '001',
-                nodeList: [],
+                depth: 0, // FIXME:
+                nodeList: ['WD_009'],
               },
             ],
           },
@@ -994,159 +930,42 @@ const map = {
         defList: [
           {
             target_id: 'brineWarehouse',
-            target_name: '해주',
             target_prefix: 'BW',
+            target_name: '해주',
             placeList: [
               {
                 target_code: '001',
-                nodeList: [],
+                nodeList: ['WD_010', 'PU_003'],
               },
               {
                 target_code: '002',
-                nodeList: [],
+                nodeList: ['WD_011', 'PU_004'],
               },
               {
                 target_code: '003',
-                nodeList: [],
+                nodeList: ['WD_012', 'PU_005'],
               },
             ],
           },
         ],
       },
       {
-        target_id: 'waterDoor',
-        target_name: '수문',
+        target_id: 'reservoir',
+        target_name: '저수조',
         defList: [
           {
-            target_id: 'waterDoor',
-            target_prefix: 'WD',
-            target_name: '수문',
+            target_id: 'reservoir',
+            target_prefix: 'RESERVOIR',
+            target_name: '저수조',
             placeList: [
               {
-                target_code: '001',
-                nodeList: [],
+                target_code: '',
+                nodeList: ['PU_001', 'PU_002'],
               },
             ],
           },
         ],
       },
-      // {
-      //   target_id: 'reservoir',
-      //   target_name: '저수조',
-      //   defList: [
-      //     {
-      //       target_id: 'reservoir',
-      //       target_name: '저수조',
-      //       target_prefix: 'RV',
-      //       placeList: [
-      //         {
-      //           target_code: '',
-      //           nodeList: [],
-      //         },
-      //       ],
-      //     },
-      //   ],
-      // },
-      // {
-      //   target_id: 'sea',
-      //   target_name: '바다',
-      //   defList: [
-      //     {
-      //       target_id: 'sea',
-      //       target_name: '바다',
-      //       target_prefix: 'SEA',
-      //       placeList: [
-      //         {
-      //           target_code: '',
-      //           nodeList: [],
-      //         },
-      //       ],
-      //     },
-      //   ],
-      // },
-      // {
-      //   target_id: 'sulternLine',
-      //   target_name: '수로',
-      //   defList: [
-      //     {
-      //       target_id: 'sulternLine',
-      //       target_name: '수로',
-      //       target_prefix: 'SL',
-      //       placeList: [
-      //         {
-      //           target_code: '',
-      //           nodeList: [],
-      //         },
-      //       ],
-      //     },
-      //   ],
-      // },
-      // {
-      //   target_id: 'valve',
-      //   target_name: '벨브',
-      //   defList: [
-      //     {
-      //       target_id: 'valve',
-      //       target_name: '벨브',
-      //       target_prefix: 'V',
-      //       placeList: [
-      //         {
-      //           target_code: '001',
-      //         },
-      //       ],
-      //     },
-      //   ],
-      // },
-      // {
-      //   target_id: 'outlet',
-      //   target_name: '배출구',
-      //   defList: [
-      //     {
-      //       target_id: 'outlet',
-      //       target_name: '배출구',
-      //       target_prefix: 'O',
-      //       placeList: [
-      //         {
-      //           target_code: '001',
-      //           nodeList: [],
-      //         },
-      //         {
-      //           target_code: '002',
-      //           nodeList: [],
-      //         },
-      //         {
-      //           target_code: '003',
-      //           nodeList: [],
-      //         },
-      //         {
-      //           target_code: '004',
-      //           nodeList: [],
-      //         },
-      //         {
-      //           target_code: '005',
-      //           nodeList: [],
-      //         },
-      //         {
-      //           target_code: '006',
-      //           nodeList: [],
-      //         },
-      //         {
-      //           target_code: '007',
-      //           nodeList: [],
-      //         },
-      //         {
-      //           target_code: '008',
-      //           nodeList: [],
-      //         },
-      //         {
-      //           target_code: '009',
-      //           nodeList: [],
-      //         },
-      //       ],
-      //     },
-      //   ],
-      // },
-      // TODO: text, pipe, pump, sulternLine 작성할 것
     ],
     brineFlowRelationList: [
       {
@@ -1313,4 +1132,4 @@ const map = {
   },
 };
 
-// module.exports = map;
+module.exports = map;
