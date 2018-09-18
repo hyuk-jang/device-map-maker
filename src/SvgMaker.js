@@ -6,8 +6,8 @@ const map = require('./testSvg/testMap');
 class SvgMaker {
   constructor() {
     this.makeObjList();
-    this.makeValueList();
-    this.makeRelation(config.relation, config.objectList, config.valueList);
+    // this.makeValueList();
+    // this.makeRelation(config.relation, config.objectList, config.valueList);
   }
 
   startMake() {
@@ -71,6 +71,8 @@ class SvgMaker {
    * @param {Array} objectList config.js 에서 설정한 objectList 값
    */
   makeObjList(objectList) {
+    BU.CLI('wtf');
+    // BU.CLI('??', objectList);
     objectList.forEach(objList => {
       _.forEach(objList, (obj, index) => {
         // BU.CLI(obj)
@@ -113,8 +115,6 @@ class SvgMaker {
       });
     });
   }
-
-  
 
   /**
    * 해당 객체 ID가 그려지고 있는 좌표 포인트를 가져옴
