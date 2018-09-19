@@ -6,8 +6,8 @@ const map = require('./testSvg/testMap');
 class SvgMaker {
   constructor() {
     this.makeObjList();
-    // this.makeValueList();
-    // this.makeRelation(config.relation, config.objectList, config.valueList);
+    this.makeValueList();
+    this.makeRelation(config.relation, config.objectList, config.valueList);
   }
 
   startMake() {
