@@ -128,105 +128,112 @@ const map = {
         },
       ],
     },
-    positionInfo: {
+    positionList: {
       // TODO: positionInfo 정의
       svgPlaceList: [
         {
-          placeId: 'salternBlock',
-          placeName: '염판',
-          placeList: [
+          target_id: 'salternBlock',
+          defList: [
             {
               id: 'SMB_1_A',
               resourceId: 'salternModuleBlock',
-              placePosition: [200, 850], // FIXME:
+              position: [], // TODO:
             },
             {
               id: 'SMB_1_B',
               resourceId: 'salternModuleBlock',
-              placePosition: [200, 850], // FIXME:
+              position: [], // TODO:
             },
             {
               id: 'SMB_1_C',
               resourceId: 'salternModuleBlock',
-              placePosition: [200, 850], // FIXME:
+              position: [], // TODO:
             },
             {
               id: 'SMB_1_D',
               resourceId: 'salternModuleBlock',
-              placePosition: [200, 850], // FIXME:
+              position: [], // TODO:
             },
             {
               id: 'SNB_001',
               resourceId: 'salternNomalBlock',
-              placePosition: [200, 850], // FIXME:
+              position: [], // TODO:
             },
             {
               id: 'SNB_002',
               resourceId: 'salternNomalBlock',
-              placePosition: [200, 850], // FIXME:
+              position: [], // TODO:
             },
             {
               id: 'SNB_003',
               resourceId: 'salternNomalBlock',
-              placePosition: [200, 850], // FIXME:
+              position: [], // TODO:
             },
             {
               id: 'SNB_004',
               resourceId: 'salternNomalBlock',
-              placePosition: [200, 850], // FIXME:
+              position: [], // TODO:
             },
             {
               id: 'SCB_001',
               resourceId: 'salternCrystalBlock',
-              placePosition: [200, 850], // FIXME:
+              position: [],
             },
           ],
         },
         {
-          placeId: 'brineWarehoust',
-          placeName: '해주',
-          placeList: [
+          target_id: 'brineWarehouse',
+          defList: [
             {
               id: 'BW_001',
-              resourceId: 'brineWarehouse',
-              placePosition: [200, 850], // FIXME:
+              resourceId: 'salternModuleBlock',
+              position: [], // TODO:
             },
             {
               id: 'BW_002',
-              resourceId: 'brineWarehouse',
-              placePosition: [200, 850], // FIXME:
+              resourceId: 'salternModuleBlock',
+              position: [], // TODO:
             },
             {
               id: 'BW_003',
-              resourceId: 'brineWarehouse',
-              placePosition: [200, 850], // FIXME:
+              resourceId: 'salternModuleBlock',
+              position: [], // TODO:
             },
           ],
         },
         {
-          placeId: 'reservoir',
-          placeName: '저수조',
-          placeList: [
+          target_id: 'reservoir',
+          defList: [
             {
-              id: 'RESERVOIR',
+              id: 'RV',
               resourceId: 'reservoir',
-              placePosition: [0, 0], // FIXME:
+              position: [],
             },
           ],
         },
         {
-          placeId: 'sea',
-          placeName: '바다',
-          placeList: [
+          target_id: 'sea',
+          defList: [
             {
               id: 'SEA',
               resourceId: 'sea',
-              placePosition: [0, 0], // FIXME:
+              position: [],
             },
           ],
         },
       ],
-      svgNodeList: [],
+      svgNodeList: [
+        {
+          target_id: 'valve',
+          defList: [
+            {
+              id: '',
+              resourceId: '',
+              position: '',
+            },
+          ],
+        },
+      ],
     },
   },
   setInfo: {
@@ -909,7 +916,7 @@ const map = {
                   minBrineLevel: 1,
                   setBrineLevel: 4,
                 },
-                nodeList: ['GV_001', 'WL_001', 'V_001', 'MRT_001'],
+                nodeList: ['GV_001', 'WL_001', 'V_001', 'MRT_001', 'O_001'],
               },
               {
                 target_code: '1_B',
@@ -919,7 +926,7 @@ const map = {
                   minBrineLevel: 1,
                   setBrineLevel: 4,
                 },
-                nodeList: ['GV_002', 'WL_002', 'V_002', 'MRT_002'],
+                nodeList: ['GV_002', 'WL_002', 'V_002', 'MRT_002', 'O_002'],
               },
               {
                 target_code: '1_C',
@@ -929,7 +936,7 @@ const map = {
                   minBrineLevel: 1,
                   setBrineLevel: 4,
                 },
-                nodeList: ['GV_003', 'WL_003', 'V_003', 'MRT_003'],
+                nodeList: ['GV_003', 'WL_003', 'V_003', 'MRT_003', 'O_003'],
               },
               {
                 target_code: '1_D',
@@ -939,7 +946,7 @@ const map = {
                   minBrineLevel: 1,
                   setBrineLevel: 4,
                 },
-                nodeList: ['GV_004', 'WL_004', 'V_004', 'MRT_004'],
+                nodeList: ['GV_004', 'WL_004', 'V_004', 'MRT_004', 'O_004'],
               },
               {
                 target_code: '일반',
@@ -1118,6 +1125,65 @@ const map = {
       },
     ],
     brineFeedRankRelationList: [],
+    imgContactList: [
+      {
+        targetIdList: ['SMB_1_A', 'SMB_1_B', 'SMB_1_C', 'SMB_1_D'],
+        resourceIdList: ['salternModuleBlock'],
+      },
+      {
+        targetIdList: ['SNB_001', 'SNB_002', 'SNB_003', 'SNB_004'],
+        resourceIdList: ['salternNomalBlock'],
+      },
+      {
+        targetIdList: ['SCB_001'],
+        resourceIdList: ['salternCrystalBlock'],
+      },
+      {
+        targetIdList: ['BW_001', 'BW_002', 'BW_003'],
+        resourceIdList: ['brineWarehouse'],
+      },
+      {
+        targetIdList: ['RV'],
+        resourceIdList: ['reservoir'],
+      },
+      {
+        targetIdList: ['SEA'],
+        resourceIdList: ['sea'],
+      },
+      {
+        targetIdList: [
+          'GV_001',
+          'GV_002',
+          'GV_003',
+          'GV_004',
+          'WD_005',
+          'WD_006',
+          'WD_007',
+          'WD_008',
+          'WD_009',
+          'WD_010',
+          'WD_011',
+          'WD_012',
+          'WD_013',
+          'WD_014',
+          'WD_015',
+          'WD_016',
+        ],
+        resourceIdList: ['waterDoor'],
+      },
+      {
+        targetIdList: ['P_001', 'P_002', 'P_003', 'P_004', 'P_005'],
+        resourceIdList: ['pump'],
+      },
+      {
+        targetIdList: ['V_001', 'V_002', 'V_003', 'V_004', 'V_006', 'V_007'],
+        resourceIdList: ['valve'],
+      },
+      {
+        targetIdList: ['O_001', 'O_002', 'O_003', 'O_004', 'O_005', 'O_006', 'O_007', 'O_008'],
+        resourceIdList: ['outlet'],
+      },
+    ],
   },
   controlInfo: {
     tempControlList: [
