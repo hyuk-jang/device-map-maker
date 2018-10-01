@@ -13,7 +13,7 @@ const map = {
       svgModelResourceList: [
         {
           id: 'salternModuleBlock',
-          type: 'pattern',
+          type: 'rect',
           elementDrawInfo: {
             width: 200,
             height: 130,
@@ -135,47 +135,47 @@ const map = {
           target_id: 'salternBlock',
           defList: [
             {
-              id: 'SMB_1_A',
+              id: 'SEB_1_A',
               resourceId: 'salternModuleBlock',
               position: [], // TODO:
             },
             {
-              id: 'SMB_1_B',
+              id: 'SEB_1_B',
               resourceId: 'salternModuleBlock',
               position: [], // TODO:
             },
             {
-              id: 'SMB_1_C',
+              id: 'SEB_1_C',
               resourceId: 'salternModuleBlock',
               position: [], // TODO:
             },
             {
-              id: 'SMB_1_D',
+              id: 'SEB_1_D',
               resourceId: 'salternModuleBlock',
               position: [], // TODO:
             },
             {
-              id: 'SNB_001',
+              id: 'SEB_일반',
               resourceId: 'salternNomalBlock',
               position: [], // TODO:
             },
             {
-              id: 'SNB_002',
+              id: 'SEB_2',
               resourceId: 'salternNomalBlock',
               position: [], // TODO:
             },
             {
-              id: 'SNB_003',
+              id: 'SEB_3',
               resourceId: 'salternNomalBlock',
               position: [], // TODO:
             },
             {
-              id: 'SNB_004',
+              id: 'SEB_4',
               resourceId: 'salternNomalBlock',
               position: [], // TODO:
             },
             {
-              id: 'SCB_001',
+              id: 'SCB_1',
               resourceId: 'salternCrystalBlock',
               position: [],
             },
@@ -185,17 +185,17 @@ const map = {
           target_id: 'brineWarehouse',
           defList: [
             {
-              id: 'BW_001',
+              id: 'BW_1',
               resourceId: 'salternModuleBlock',
               position: [], // TODO:
             },
             {
-              id: 'BW_002',
+              id: 'BW_2',
               resourceId: 'salternModuleBlock',
               position: [], // TODO:
             },
             {
-              id: 'BW_003',
+              id: 'BW_3',
               resourceId: 'salternModuleBlock',
               position: [], // TODO:
             },
@@ -689,73 +689,73 @@ const map = {
               {
                 target_code: '005',
                 data_logger_index: 0,
-                axis: [0, 0],
+                axisScale: [0, 0],
                 moveScale: [0, 0], // FIXME:
               },
               {
                 target_code: '006',
                 data_logger_index: 0,
-                axis: [0, 0],
+                axisScale: [0, 0],
                 moveScale: [0, 0], // FIXME:
               },
               {
                 target_code: '007',
                 data_logger_index: 0,
-                axis: [0, 0],
+                axisScale: [0, 0],
                 moveScale: [0, 0], // FIXME:
               },
               {
                 target_code: '008',
                 data_logger_index: 0,
-                axis: [0, 0],
+                axisScale: [0, 0],
                 moveScale: [0, 0], // FIXME:
               },
               {
                 target_code: '009',
                 data_logger_index: 0,
-                axis: [0, 0],
+                axisScale: [0, 0],
                 moveScale: [0, 0], // FIXME:
               },
               {
                 target_code: '010',
                 data_logger_index: 0,
-                axis: [0, 0],
+                axisScale: [0, 0],
                 moveScale: [0, 0], // FIXME:
               },
               {
                 target_code: '011',
                 data_logger_index: 0,
-                axis: [0, 0],
+                axisScale: [0, 0],
                 moveScale: [0, 0], // FIXME:
               },
               {
                 target_code: '012',
                 data_logger_index: 0,
-                axis: [0, 0],
+                axisScale: [0, 0],
                 moveScale: [0, 0], // FIXME:
               },
               {
                 target_code: '013',
                 data_logger_index: 0,
-                axis: [0, 0],
+                axisScale: [0, 0],
                 moveScale: [0, 0], // FIXME:
               },
               {
                 target_code: '014',
                 data_logger_index: 0,
-                axis: [0, 0],
+                axisScale: [0, 0],
                 moveScale: [0, 0], // FIXME:
               },
               {
                 target_code: '015',
                 data_logger_index: 0,
-                axis: [0, 0],
+                axisScale: [0, 0],
                 moveScale: [0, 0], // FIXME:
               },
               {
                 target_code: '016',
                 data_logger_index: 0,
-                axis: [0, 0],
+                axisScale: [0, 0],
                 moveScale: [0, 0], // FIXME:
               },
             ],
@@ -778,37 +778,37 @@ const map = {
               {
                 target_code: '001',
                 data_logger_index: 0,
-                axis: [0, 0],
+                axisScale: [0, 0],
                 moveScale: [0, 0], // FIXME:
               },
               {
                 target_code: '002',
                 data_logger_index: 0,
-                axis: [0, 0],
+                axisScale: [0, 0],
                 moveScale: [0, 0], // FIXME:
               },
               {
                 target_code: '003',
                 data_logger_index: 0,
-                axis: [0, 0],
+                axisScale: [0, 0],
                 moveScale: [0, 0], // FIXME:
               },
               {
                 target_code: '004',
                 data_logger_index: 0,
-                axis: [0, 0],
+                axisScale: [0, 0],
                 moveScale: [0, 0], // FIXME:
               },
               {
                 target_code: '006',
                 data_logger_index: 0,
-                axis: [0, 0],
+                axisScale: [0, 0],
                 moveScale: [0, 0], // FIXME:
               },
               {
                 target_code: '007',
                 data_logger_index: 0,
-                axis: [0, 0],
+                axisScale: [0, 0],
                 moveScale: [0, 0], // FIXME:
               },
             ],
@@ -822,25 +822,25 @@ const map = {
               {
                 target_code: '001',
                 data_logger_index: 0,
-                axis: [0, 0],
+                axisScale: [0, 0],
                 moveScale: [0, 0], // FIXME:
               },
               {
                 target_code: '002',
                 data_logger_index: 0,
-                axis: [0, 0],
+                axisScale: [0, 0],
                 moveScale: [0, 0], // FIXME:
               },
               {
                 target_code: '003',
                 data_logger_index: 0,
-                axis: [0, 0],
+                axisScale: [0, 0],
                 moveScale: [0, 0], // FIXME:
               },
               {
                 target_code: '004',
                 data_logger_index: 0,
-                axis: [0, 0],
+                axisScale: [0, 0],
                 moveScale: [0, 0], // FIXME:
               },
             ],
@@ -863,31 +863,31 @@ const map = {
               {
                 target_code: '001',
                 data_logger_index: 0,
-                axis: [0, 0],
+                axisScale: [0, 0],
                 moveScale: [0, 0], // FIXME:
               },
               {
                 target_code: '002',
                 data_logger_index: 0,
-                axis: [0, 0],
+                axisScale: [0, 0],
                 moveScale: [0, 0], // FIXME:
               },
               {
                 target_code: '003',
                 data_logger_index: 0,
-                axis: [0, 0],
+                axisScale: [0, 0],
                 moveScale: [0, 0], // FIXME:
               },
               {
                 target_code: '004',
                 data_logger_index: 0,
-                axis: [0, 0],
+                axisScale: [0, 0],
                 moveScale: [0, 0], // FIXME:
               },
               {
                 target_code: '005',
                 data_logger_index: 0,
-                axis: [0, 0],
+                axisScale: [0, 0],
                 moveScale: [0, 0], // FIXME:
               },
             ],
@@ -904,7 +904,7 @@ const map = {
         description: null,
         defList: [
           {
-            target_id: 'salternEvaporationBlock',
+            target_id: 'salternEvapvaporationBlock',
             target_prefix: 'SEB',
             target_name: '증발지',
             placeList: [
@@ -1127,19 +1127,19 @@ const map = {
     brineFeedRankRelationList: [],
     imgContactList: [
       {
-        targetIdList: ['SMB_1_A', 'SMB_1_B', 'SMB_1_C', 'SMB_1_D'],
+        targetIdList: ['SEB_1_A', 'SEB_1_B', 'SEB_1_C', 'SEB_1_D'],
         resourceIdList: ['salternModuleBlock'],
       },
       {
-        targetIdList: ['SNB_001', 'SNB_002', 'SNB_003', 'SNB_004'],
+        targetIdList: ['SEB_일반', 'SEB_2', 'SEB_3', 'SEB_4'],
         resourceIdList: ['salternNomalBlock'],
       },
       {
-        targetIdList: ['SCB_001'],
+        targetIdList: ['SCB'],
         resourceIdList: ['salternCrystalBlock'],
       },
       {
-        targetIdList: ['BW_001', 'BW_002', 'BW_003'],
+        targetIdList: ['BW_1', 'BW_2', 'BW_3'],
         resourceIdList: ['brineWarehouse'],
       },
       {
@@ -1178,6 +1178,14 @@ const map = {
       {
         targetIdList: ['V_001', 'V_002', 'V_003', 'V_004', 'V_006', 'V_007'],
         resourceIdList: ['valve'],
+      },
+      {
+        targetIdList: ['O_001', 'O_002', 'O_003', 'O_004', 'O_005', 'O_006', 'O_007', 'O_008'],
+        resourceIdList: ['outlet'],
+      },
+      {
+        targetIdList: ['O_001', 'O_002', 'O_003', 'O_004', 'O_005', 'O_006', 'O_007', 'O_008'],
+        resourceIdList: ['outlet'],
       },
       {
         targetIdList: ['O_001', 'O_002', 'O_003', 'O_004', 'O_005', 'O_006', 'O_007', 'O_008'],
