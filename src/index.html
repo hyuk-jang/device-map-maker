@@ -1,237 +1,31 @@
-<html lang="en">
+<!DOCTYPE html>
+<html>
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>6kw</title>
+  <meta charset="EUC-KR">
+  <title></title>
+
 </head>
 
-<body onclick="moustPoint()">
-  <div id="canvas"></div>
+<body>
+  test
+  <div id="test"></div>
 </body>
-
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/svg.js/2.6.5/svg.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.10/lodash.min.js"></script>
-<script src="/mapSample/6kw 맵/jquery-1.10.2.min.js"></script>
-<script src="/src/testSvg/testMap.js"></script>
-<script>
-  // 마우스 위치 값
-  let mouseX = 0;
-  let mouseY = 0;
-
-  $(document).mousemove((e) => {
-    mouseX = e.pageX;
-    mouseY = e.pageY;
-  });
-
-
-  const moustPoint = () => {
-    console.log("x: " + mouseX + ", y: " + mouseY);
-  }
-</script>
+<script src="/mapSample/jquery-1.10.2.min.js"></script>
+<script src='./testSvg/testIndex.js'></script>
+<script src='./testSvg/outputMap.js'></script>
+<script src='https://cdn.jsdelivr.net/npm/lodash@4.17.11/lodash.min.js'></script>
+<script src='./svg.js'></script>
 
 <script>
-  //////////////////////////  시작  ///////////////////////////////////
-  const bgWidth = map.drawInfo.frame.mapSize.width;
-  const bgHeight = map.drawInfo.frame.mapSize.height;
+  drawTest('test');
+  // const draw = SVG('test').size(300, 130);
 
-  const canvas = SVG('canvas').size(bgWidth, bgHeight);
-  const background = canvas.rect(bgWidth, bgHeight).fill('#a99'); //FIXME: canvers 크기를 보기 위한것. 작업 후 삭제할 것!
-
-  //TODO: new....
-  const svgDrawing = () => {
-    const svgList = map.drawInfo.positionInfo.svgPlaceList
-    for (let i of svgList) {
-      const placeId = i.placeId;
-      const placeName = i.placeName;
-      const placeList = i.placeList
-      for (let j of placeList) {
-        const id = j.id;
-        const resourceId = j.resourceId;
-        const elementDrawInfo = _.find(map.drawInfo.frame.svgModelResourceList, (o) => {
-          return o.id == resourceId;
-        })
-        console.log('what: ' + elementDrawInfo.width)
-        const model = canvas.rect(elementDrawInfo.width, elementDrawInfo.height);
-      }
-
-    }
-    //const svgPlaceId = map.positionInfo.svgPlaceList.placeId;
-    // const svgPlaceName = map.positionInfo.svgPlaceList.svgPlaceName;
-  }
-
-  svgDrawing();
-
-
-
-  //TODO: 간편하게 그리기 위한 메소드화 진행할 것..
-  // const svgModelResourceList = map.drawInfo.frame.svgModelResourceList;
-  // const svgDrawing = () => {
-
-  //   for (let i = 0; i < svgModelResourceList.length; i++) {
-  //     const svgModelResource = svgModelResourceList[i] // 요소들의 정보 (id,type,elmentDrawInfo)
-  //     const modelCode = svgModelResource.code; // 'svgModelResource' code 값 저장
-  //     const modelType = svgModelResource.type; // 'svgModelResource' type 값 저장
-  //     const width = svgModelResource.elementDrawInfo.width; // 요소 가로 정보
-  //     const height = svgModelResource.elementDrawInfo.height; // 요소 세로 정보
-  //     const color = svgModelResource.elementDrawInfo.color; // 요소 컬러 정보
-  //     const modelPlaceObject = _.find(map.drawInfo.positionInfo.svgPlaceList, (l) => {
-  //       return l.code == modelCode;
-  //     }) // id 값을 검색하여 위치 정보 리스트 검색
-  //     const positionX = modelPlaceObject.placeList.placePosition[0];
-  //     const positionY = modelPlaceObject.placeList.placePosition[1];
-  //     const code = modelPlaceObject.code;
-
-  //     const realtionList = _.find(map.relationInfo.placeRelationList, (l) => {
-  //       return l.target_id == _.split(svgModelResource.id, '_', 1);
-  //     })
-  //     const defList = _.find(realtionList.defList, (l) => {
-  //       return l.target_prefix == _.split(code, '_', 1)
-  //     })
-  //     const placeList = defList.placeList;
-  // for (let j = 0; j < placeList.length; j++) {
-  //   const nodeList = defList.placeList[j].nodeList;
-  //   for (let k = 0; k < nodeList.length; k++) {
-  //     const nodePositionList = _.find(map.drawInfo.positionInfo.svgPlaceList, (l) => {
-  //       return l.code == nodeList[0];
-  //     })
-  //     const nodePlaceList = _.find(map.drawInfo.frame.svgModelResourceList, (l) => {
-  //       return l.code == nodeList[0]
-  //     })
-  //     const nodeWidth = nodePlaceList.elementDrawInfo.width;
-  //     const nodeHeight = nodePlaceList.elementDrawInfo.height;
-  //     console.log('what: ' + (positionX + width - nodeWidth))
-
-  //   }
-  // }
-
-  //     if (modelType == 'pattern') {
-  //       const pattern = canvas.pattern(20, 20, (add) => {
-  //         add.rect(20, 20).fill('#f06')
-  //         add.rect(10, 10).fill('#fff')
-  //       })
-  //       canvas.rect(width, height).move(positionX, positionY).fill(pattern);
-  //     } else if (modelType == 'rect') {
-  //       const model = canvas.rect(width, height).fill(color).move(positionX, positionY);
-  //     }
-  //   }
-  // }
-
-  ////////////////node는 따로 처리? //////////////
-  // const svgNodeDrawing = () => {
-  //   const svgNodeList = map.drawInfo.positionInfo.svgNodeList;
-  //   const nodeInfo = _.find(svgNodeList, (l) => {
-  //     return l.code == 'WD_001';
-  //   })
-  //   const svgPlaceList = map.drawInfo.positionInfo.svgPlaceList;
-  //   const placeInfo = _.find(svgPlaceList, (l) => {
-  //     return l.code == 'SMB_1_A';
-  //   })
-  //   const resourceInfo = _.find(svgModelResourceList, (l) => {
-  //     return l.code == 'SMB_1_A'
-  //   })
-  //   const nodeX = placeInfo.placeList.placePosition[0] + resourceInfo.elementDrawInfo.width - nodeInfo.elementDrawInfo
-  //     .width;
-  //   const nodeY = placeInfo.placeList.placePosition[1] + resourceInfo.elementDrawInfo.height - nodeInfo.elementDrawInfo
-  //     .height;
-  //   console.log('where: ' + nodeY)
-  //   const model = canvas.rect(nodeInfo.elementDrawInfo.width, nodeInfo.elementDrawInfo.height).move(nodeX, nodeY)
-  // }
-
-
-
-
-  // svgDrawing();
-  // svgNodeDrawing();
-
-
-  //   if (modelType == 'rect') {
-  //     const model = canvas.rect(width, height).move(x, y);
-  //   } else if (modelType == 'text') {
-  //     //TODO: 
-  //     console.log("pipe의 기본값을 설정해야 합니다.")
-  //   } else if (modelType == 'circle') {
-  //     const model = canvas.circle(svgModelResource.elementDrawInfo.radius).move(x, y);
-  //   } else if (modelType == 'polygon') {
-  //     const model = canvas.polygon('50,0 100,50 50,100 0,50').move(x, y)
-  //     model.size(40, 40)
-  //   } else if (modelType == 'line') {
-  //     const model = canvas.line(0, 0, 100, 150).stroke({
-  //       width: 50,
-  //       color: '#a55'
-  //     })
-  //   } else if (modelType == 'pattern') {
-
-  //     const model = canvas.pattern(20, 20, function (add) {
-  //       add.rect(20, 20).fill('#f06')
-  //       add.rect(20, 15).move(5, 5).fill('#fff')
-  //     })
-  //     canvas.rect(width, height).move(20, 20).fill(pattern)
-  //   }
-  // svgDrawing('salternModuleBlock_001', 160, 850);
-  // svgDrawing('salternModuleBlock_001', 160, 680);
-  // svgDrawing('salternModuleBlock_001', 160, 510);
-  // svgDrawing('salternModuleBlock_001', 160, 340);
-
-  // svgDrawing('moduleBlock_001', 160, 170);
-
-  // svgDrawing('salternBlock_001', 430, 300);
-  // svgDrawing('salternBlock_001', 430, 475);
-  // svgDrawing('salternBlock_001', 430, 655);
-  // svgDrawing('crystalBlock_001', 430, 830);
-
-  // svgDrawing('waterTank_001', 400, 100);
-  // svgDrawing('waterTank_001', 580, 100);
-  // svgDrawing('waterTank_001', 760, 100);
-
-  // svgDrawing('valve_001', 10, 10);
+  // const rect = draw
+  //   .rect(100, 100)
+  //   .fill('#f06')
+  //   .move(20, 20);
 </script>
 
-<script>
-  // //텍스트
-  // var draw = SVG('text').size(300, 130)
-  // var text = draw.text("JB_HOME_TEST").move(120, 40).fill('#z00')
-  // //사각형
-  // var draw1 = SVG('rect').size(300, 130)
-  // var rect = draw1.rect(100, 100).fill('#z00').move(20, 20)
-  // //작은사각형
-  // var draw1_2 = SVG('rect').size(300, 130)
-  // var smailRect = draw1_2.rect(30, 30).fill('#z00').move(20, 20)
-  // //원형
-  // var draw2 = SVG('cicle').size(300, 130)
-  // var cicle = draw2.circle(100).fill('#z00').move(20, 20)
-  // //작은원형
-  // var draw3 = SVG('smailCicle').size(300, 130)
-  // var smailCicle = draw3.circle(30).fill('#z00').move(20, 20)
-  // //마름모
-  // var draw4 = SVG('polygon').size(300, 130)
-  // var polygon = draw4.polygon('50,0 100,50 50,100 0,50')
-  // polygon.fill('#z00').move(20, 20)
-  // //라인
-  // var draw5 = SVG('line').size(300, 100)
-  // var line = draw5.line(0, 100, 100, 100).move(20, 20)
-  // line.stroke({
-  //   color: '#z00',
-  //   width: 10,
-  //   linecap: ''
-  // })
-  // //태양열모듈
-  // var draw6 = SVG('pattern').size(300, 300)
-  // var image = draw6.image('/src/testImage/testModule.jpg')
-  // image.size(100, 100).move(20, 20)
-  // // 저수지 or 바다
-  // var draw7 = SVG('gradient').size(500, 130)
-  // var linear = draw7.gradient('linear', function (stop) {
-  //   stop.at(0, '#z00')
-  //   stop.at(1, '#0f9')
-  // })
-  // draw.rect(100, 100).move(20, 20).radius(10).fill(linear)
-  // var radial = draw7.gradient('radial', function (stop) {
-  //   stop.at(0, '#0f9')
-  //   stop.at(1, '#z00')
-  // })
-</script>
 
 </html>
