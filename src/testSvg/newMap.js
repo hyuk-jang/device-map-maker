@@ -7,240 +7,57 @@ const map = {
   drawInfo: {
     frame: {
       mapSize: {
-        width: 3000,
+        width: 880,
         height: 1230,
       },
       svgModelResourceList: [
         {
-          id: 'salternModuleBlock',
+          id: 'salternBlock_001',
           type: 'rect',
           elementDrawInfo: {
-            width: 240,
+            width: 100,
             height: 150,
-            color: '#D1B2FF', // TODO:
+            color: '#33ffff',
           },
         },
         {
-          id: 'salternNomalBlock_A',
+          id: 'salternBlock_002',
           type: 'rect',
           elementDrawInfo: {
-            width: 240,
+            width: 100,
             height: 150,
-            color: '', // TODO:
+            color: '#33ffff',
           },
         },
         {
-          id: 'salternNomalBlock_B',
-          type: 'rect',
-          elementDrawInfo: {
-            width: 260,
-            height: 180,
-            color: '', // TODO:
-          },
-        },
-        {
-          id: 'salternCrystalBlock',
-          type: 'rect',
-          elementDrawInfo: {
-            width: 260,
-            height: 180,
-            color: '', // TODO:
-          },
-        },
-        {
-          id: 'brineWarehouse',
-          type: 'rect',
-          elementDrawInfo: {
-            width: 170,
-            height: 150,
-            color: '', // TODO:
-          },
-        },
-        {
-          id: 'waterDoor',
-          type: 'rect',
-          elementDrawInfo: {
-            width: 55,
-            height: 55,
-            color: '#5F00FF', // TODO:
-          },
-        },
-        {
-          id: 'sea',
-          type: 'rect',
-          elementDrawInfo: {
-            width: 115,
-            height: 120,
-            color: '', // TODO:
-          },
-        },
-        {
-          id: 'valve',
-          type: 'polygon',
-          elementDrawInfo: {
-            width: 30,
-            height: 30,
-            color: '#9FC93C', // TODO:
-          },
-        },
-        {
-          id: 'pipe',
+          id: 'salternLine_001',
           type: 'line',
           elementDrawInfo: {
-            // FIXME:
-            width: 170,
-            height: 150,
-            color: '', // TODO:
+            strokeWidth: 100,
+            color: '#33ccff',
           },
         },
         {
-          id: 'outlet',
+          id: 'pump_001',
           type: 'circle',
           elementDrawInfo: {
-            // FIXME:
-            width: 170,
-            height: 150,
-            color: '', // TODO:
+            radius: 20,
+            color: '#9fe667',
           },
         },
         {
-          id: 'waterLine',
-          type: 'line',
+          id: 'valve_001',
+          type: 'rhombus',
           elementDrawInfo: {
-            // FIXME:
-            width: 170,
-            height: 150,
-            color: '', // TODO:
-          },
-        },
-        {
-          id: 'reservoir',
-          type: 'rect',
-          elementDrawInfo: {
-            // FIXME:
-            width: 550,
-            height: 120,
-            color: '#0100FF', // TODO:
-          },
-        },
-        {
-          id: 'sea',
-          type: 'rect',
-          elementDrawInfo: {
-            // FIXME:
-            width: 170,
-            height: 150,
-            color: '', // TODO:
-          },
-        },
-        {
-          id: 'pump',
-          type: 'circle',
-          elementDrawInfo: {
-            width: 50,
-            height: 50,
-            radius: 50,
-            color: '#f06', // TODO:
+            width: 20,
+            height: 20,
+            rotate: 45,
+            color: '#efb4ce',
           },
         },
       ],
     },
-    positionList: {
-      // TODO: positionInfo 정의
-      svgPlaceList: [
-        {
-          target_id: 'salternBlock',
-          defList: [
-            {
-              id: 'SEB_1_A',
-              resourceId: 'salternModuleBlock',
-              position: [140, 950],
-            },
-            {
-              id: 'SEB_1_B',
-              resourceId: 'salternModuleBlock',
-              position: [140, 760],
-            },
-            {
-              id: 'SEB_1_C',
-              resourceId: 'salternModuleBlock',
-              position: [140, 570],
-            },
-            {
-              id: 'SEB_1_D',
-              resourceId: 'salternModuleBlock',
-              position: [140, 380],
-            },
-            {
-              id: 'SEB_일반',
-              resourceId: 'salternNomalBlock_A',
-              position: [140, 190],
-            },
-            {
-              id: 'SEB_2',
-              resourceId: 'salternNomalBlock_B',
-              position: [435, 340],
-            },
-            {
-              id: 'SEB_3',
-              resourceId: 'salternNomalBlock_B',
-              position: [435, 532],
-            },
-            {
-              id: 'SEB_4',
-              resourceId: 'salternNomalBlock_B',
-              position: [435, 727],
-            },
-            {
-              id: 'SCB',
-              resourceId: 'salternCrystalBlock',
-              position: [435, 920],
-            },
-          ],
-        },
-        {
-          target_id: 'brineWarehouse',
-          defList: [
-            {
-              id: 'BW_1',
-              resourceId: 'brineWarehouse',
-              position: [400, 135],
-            },
-            {
-              id: 'BW_2',
-              resourceId: 'brineWarehouse',
-              position: [590, 135],
-            },
-            {
-              id: 'BW_3',
-              resourceId: 'brineWarehouse',
-              position: [780, 135],
-            },
-          ],
-        },
-        {
-          target_id: 'reservoir',
-          defList: [
-            {
-              id: 'RV',
-              resourceId: 'reservoir',
-              position: [400, 10],
-            },
-          ],
-        },
-        {
-          target_id: 'sea',
-          defList: [
-            {
-              id: 'SEA',
-              resourceId: 'sea',
-              position: [845, 980],
-            },
-          ],
-        },
-      ],
-      svgNodeList: [],
-    },
+    positionList: [{}],
   },
   setInfo: {
     mainInfo: {
@@ -284,84 +101,84 @@ const map = {
           {
             serial_number: '0013A20040F7ACC8',
             target_code: '005',
-            dccId: 'DCC_002',
+            dccId: 'DCC_001',
             dpcId: 'DPC_001',
             nodeList: ['WD_005'],
           },
           {
             serial_number: '0013A20040F7B486',
             target_code: '006',
-            dccId: 'DCC_002',
+            dccId: 'DCC_001',
             dpcId: 'DPC_001',
             nodeList: ['WD_006'],
           },
           {
             serial_number: '0013A20040F7B47C',
             target_code: '007',
-            dccId: 'DCC_002',
+            dccId: 'DCC_001',
             dpcId: 'DPC_001',
             nodeList: ['WD_007'],
           },
           {
             serial_number: '0013A20040F7AB9C',
             target_code: '008',
-            dccId: 'DCC_002',
+            dccId: 'DCC_001',
             dpcId: 'DPC_001',
             nodeList: ['WD_008'],
           },
           {
             serial_number: '0013A20040F7B430',
             target_code: '009',
-            dccId: 'DCC_002',
+            dccId: 'DCC_001',
             dpcId: 'DPC_001',
             nodeList: ['WD_009'],
           },
           {
             serial_number: '0013A20040F7AB7D',
             target_code: '010',
-            dccId: 'DCC_002',
+            dccId: 'DCC_001',
             dpcId: 'DPC_001',
             nodeList: ['WD_010', 'S_001'],
           },
           {
             serial_number: '0013A20040F7B4A9',
             target_code: '011',
-            dccId: 'DCC_002',
+            dccId: 'DCC_001',
             dpcId: 'DPC_001',
             nodeList: ['WD_011', 'S_002'],
           },
           {
             serial_number: '0013A20040F7B460',
             target_code: '012',
-            dccId: 'DCC_002',
+            dccId: 'DCC_001',
             dpcId: 'DPC_001',
             nodeList: ['WD_012', 'S_003'],
           },
           {
             serial_number: '0013A20040F7B49B',
             target_code: '013',
-            dccId: 'DCC_002',
+            dccId: 'DCC_001',
             dpcId: 'DPC_001',
             nodeList: ['WD_013'],
           },
           {
             serial_number: '0013A20040F7B453',
             target_code: '014',
-            dccId: 'DCC_002',
+            dccId: 'DCC_001',
             dpcId: 'DPC_001',
             nodeList: ['WD_014'],
           },
           {
             serial_number: '0013A20040F7B474',
             target_code: '015',
-            dccId: 'DCC_002',
+            dccId: 'DCC_001',
             dpcId: 'DPC_001',
             nodeList: ['WD_015'],
           },
           {
             serial_number: '0013A20040F7AB98',
             target_code: '016',
-            dccId: 'DCC_002',
+            dccId: 'DCC_001',
             dpcId: 'DPC_001',
             nodeList: ['WD_016'],
           },
@@ -374,42 +191,42 @@ const map = {
           {
             serial_number: '0013A20040F7B47F',
             target_code: '001',
-            dccId: 'DCC_002',
+            dccId: 'DCC_001',
             dpcId: 'DPC_001',
             nodeList: ['V_001', 'MRT_001', 'BT_001'],
           },
           {
             serial_number: '0013A20040F7B4A4',
             target_code: '002',
-            dccId: 'DCC_002',
+            dccId: 'DCC_001',
             dpcId: 'DPC_001',
             nodeList: ['V_002', 'MRT_002', 'BT_002'],
           },
           {
             serial_number: '0013A20040F7B455',
             target_code: '003',
-            dccId: 'DCC_002',
+            dccId: 'DCC_001',
             dpcId: 'DPC_001',
             nodeList: ['V_003', 'MRT_003', 'BT_003'],
           },
           {
             serial_number: '0013A20040F7B43C',
             target_code: '004',
-            dccId: 'DCC_002',
+            dccId: 'DCC_001',
             dpcId: 'DPC_001',
             nodeList: ['V_004', 'MRT_004', 'BT_004'],
           },
           {
             serial_number: '0013A20040F7B469',
             target_code: '006',
-            dccId: 'DCC_002',
+            dccId: 'DCC_001',
             dpcId: 'DPC_001',
             nodeList: ['V_006'],
           },
           {
             serial_number: '0013A20040F7B4A7',
             target_code: '007',
-            dccId: 'DCC_002',
+            dccId: 'DCC_001',
             dpcId: 'DPC_001',
             nodeList: ['V_007'],
           },
@@ -422,28 +239,28 @@ const map = {
           {
             serial_number: '0013A20040F7AB81',
             target_code: '001',
-            dccId: 'DCC_002',
+            dccId: 'DCC_001',
             dpcId: 'DPC_001',
             nodeList: ['GV_001', 'WL_001'],
           },
           {
             serial_number: '0013A20040F7AB76',
             target_code: '002',
-            dccId: 'DCC_002',
+            dccId: 'DCC_001',
             dpcId: 'DPC_001',
             nodeList: ['GV_002', 'WL_002'],
           },
           {
             serial_number: '0013A20040F7AB69',
             target_code: '003',
-            dccId: 'DCC_002',
+            dccId: 'DCC_001',
             dpcId: 'DPC_001',
             nodeList: ['GV_003', 'WL_003'],
           },
           {
             serial_number: '0013A20040F7AB96',
             target_code: '004',
-            dccId: 'DCC_002',
+            dccId: 'DCC_001',
             dpcId: 'DPC_001',
             nodeList: ['GV_004', 'WL_004'],
           },
@@ -456,7 +273,7 @@ const map = {
           {
             serial_number: '0013A20040F7AB86',
             target_code: '001',
-            dccId: 'DCC_002',
+            dccId: 'DCC_001',
             dpcId: 'DPC_001',
             nodeList: ['MRT_005', 'MRT_006'],
           },
@@ -469,35 +286,35 @@ const map = {
           {
             serial_number: '0013A20040F7B451',
             target_code: '001',
-            dccId: 'DCC_002',
+            dccId: 'DCC_001',
             dpcId: 'DPC_001',
             nodeList: ['P_001'],
           },
           {
             serial_number: '0013A20040F7B446',
             target_code: '002',
-            dccId: 'DCC_002',
+            dccId: 'DCC_001',
             dpcId: 'DPC_001',
             nodeList: ['P_002'],
           },
           {
             serial_number: '0013A20040F7B44A',
             target_code: '003',
-            dccId: 'DCC_002',
+            dccId: 'DCC_001',
             dpcId: 'DPC_001',
             nodeList: ['P_003'],
           },
           {
             serial_number: '0013A20040F7A4E0',
             target_code: '004',
-            dccId: 'DCC_002',
+            dccId: 'DCC_001',
             dpcId: 'DPC_001',
             nodeList: ['P_004'],
           },
           {
             serial_number: '0013A20040F7A4D8',
             target_code: '005',
-            dccId: 'DCC_002',
+            dccId: 'DCC_001',
             dpcId: 'DPC_001',
             nodeList: ['P_005'],
           },
@@ -719,74 +536,50 @@ const map = {
               {
                 target_code: '005',
                 data_logger_index: 0,
-                axisScale: [1, 1],
-                moveScale: [0, 0],
               },
               {
                 target_code: '006',
                 data_logger_index: 0,
-                axisScale: [0, 1],
-                moveScale: [0, 0.6],
               },
               {
                 target_code: '007',
                 data_logger_index: 0,
-                axisScale: [0, 1],
-                moveScale: [0, 0.6],
               },
               {
                 target_code: '008',
                 data_logger_index: 0,
-                axisScale: [1, 1],
-                moveScale: [0, 0],
               },
               {
                 target_code: '009',
                 data_logger_index: 0,
-                axisScale: [1, 1],
-                moveScale: [0, 0],
               },
               {
                 target_code: '010',
                 data_logger_index: 0,
-                axisScale: [0, 1],
-                moveScale: [1, 0],
               },
               {
                 target_code: '011',
                 data_logger_index: 0,
-                axisScale: [0, 1],
-                moveScale: [1, 0],
               },
               {
                 target_code: '012',
                 data_logger_index: 0,
-                axisScale: [0, 1],
-                moveScale: [1, 0],
               },
               {
                 target_code: '013',
                 data_logger_index: 0,
-                axisScale: [0, 0],
-                moveScale: [0, 0], // FIXME:
               },
               {
                 target_code: '014',
                 data_logger_index: 0,
-                axisScale: [0, 0],
-                moveScale: [0, 0], // FIXME:
               },
               {
                 target_code: '015',
                 data_logger_index: 0,
-                axisScale: [0, 0],
-                moveScale: [0, 0], // FIXME:
               },
               {
                 target_code: '016',
                 data_logger_index: 0,
-                axisScale: [0, 0],
-                moveScale: [0, 0], // FIXME:
               },
             ],
           },
@@ -808,38 +601,26 @@ const map = {
               {
                 target_code: '001',
                 data_logger_index: 0,
-                axisScale: [0, 0],
-                moveScale: [0, 0],
               },
               {
                 target_code: '002',
                 data_logger_index: 0,
-                axisScale: [0, 1],
-                moveScale: [0, 0],
               },
               {
                 target_code: '003',
                 data_logger_index: 0,
-                axisScale: [0, 0],
-                moveScale: [0, 0],
               },
               {
                 target_code: '004',
                 data_logger_index: 0,
-                axisScale: [0, 1],
-                moveScale: [0, 0],
               },
               {
                 target_code: '006',
                 data_logger_index: 0,
-                axisScale: [0, 0],
-                moveScale: [0, 0], // FIXME:
               },
               {
                 target_code: '007',
                 data_logger_index: 0,
-                axisScale: [0, 0],
-                moveScale: [0, 0], // FIXME:
               },
             ],
           },
@@ -852,26 +633,18 @@ const map = {
               {
                 target_code: '001',
                 data_logger_index: 0,
-                axisScale: [1, 1],
-                moveScale: [0, -0.8],
               },
               {
                 target_code: '002',
                 data_logger_index: 0,
-                axisScale: [1, 1],
-                moveScale: [0, -0.8],
               },
               {
                 target_code: '003',
                 data_logger_index: 0,
-                axisScale: [1, 1],
-                moveScale: [0, -0.8],
               },
               {
                 target_code: '004',
                 data_logger_index: 0,
-                axisScale: [1, 1],
-                moveScale: [0, -0.8],
               },
             ],
           },
@@ -893,91 +666,22 @@ const map = {
               {
                 target_code: '001',
                 data_logger_index: 0,
-                axisScale: [1, 1],
-                moveScale: [0, 0],
               },
               {
                 target_code: '002',
                 data_logger_index: 0,
-                axisScale: [0, 0],
-                moveScale: [0, 0],
               },
               {
                 target_code: '003',
                 data_logger_index: 0,
-                axisScale: [0, 0],
-                moveScale: [0, 0],
               },
               {
                 target_code: '004',
                 data_logger_index: 0,
-                axisScale: [0, 0],
-                moveScale: [0, 0],
               },
               {
                 target_code: '005',
                 data_logger_index: 0,
-                axisScale: [1, 0],
-                moveScale: [0, 0],
-              },
-            ],
-          },
-        ],
-      },
-      {
-        target_id: 'outlet',
-        target_name: '배출구',
-        is_sensor: 0,
-        data_unit: null,
-        description: null,
-        defList: [
-          {
-            target_id: 'outlet',
-            target_prefix: 'O',
-            target_name: '배출구',
-            description: null,
-            nodeList: [
-              {
-                target_code: '001',
-                data_logger_index: 0,
-                axisScale: [0, 0],
-                moveScale: [0, 0], // FIXME:
-              },
-              {
-                target_code: '002',
-                data_logger_index: 0,
-                axisScale: [0, 0],
-                moveScale: [0, 0], // FIXME:
-              },
-              {
-                target_code: '003',
-                data_logger_index: 0,
-                axisScale: [0, 0],
-                moveScale: [0, 0], // FIXME:
-              },
-              {
-                target_code: '004',
-                data_logger_index: 0,
-                axisScale: [0, 0],
-                moveScale: [0, 0], // FIXME:
-              },
-              {
-                target_code: '005',
-                data_logger_index: 0,
-                axisScale: [0, 0],
-                moveScale: [0, 0], // FIXME:
-              },
-              {
-                target_code: '006',
-                data_logger_index: 0,
-                axisScale: [0, 0],
-                moveScale: [0, 0], // FIXME:
-              },
-              {
-                target_code: '007',
-                data_logger_index: 0,
-                axisScale: [0, 0],
-                moveScale: [0, 0], // FIXME:
               },
             ],
           },
@@ -993,7 +697,7 @@ const map = {
         description: null,
         defList: [
           {
-            target_id: 'salternEvapvaporationBlock',
+            target_id: 'salternEvaporationBlock',
             target_prefix: 'SEB',
             target_name: '증발지',
             placeList: [
@@ -1005,7 +709,7 @@ const map = {
                   minBrineLevel: 1,
                   setBrineLevel: 4,
                 },
-                nodeList: ['GV_001', 'WL_001', 'V_001', 'MRT_001', 'O_001', 'BT_001'],
+                nodeList: ['GV_001', 'WL_001', 'V_001', 'MRT_001', 'BT_001'],
               },
               {
                 target_code: '1_B',
@@ -1015,7 +719,7 @@ const map = {
                   minBrineLevel: 1,
                   setBrineLevel: 4,
                 },
-                nodeList: ['GV_002', 'WL_002', 'V_002', 'MRT_002', 'O_002', 'BT_002'],
+                nodeList: ['GV_002', 'WL_002', 'V_002', 'MRT_002', 'BT_002'],
               },
               {
                 target_code: '1_C',
@@ -1025,7 +729,7 @@ const map = {
                   minBrineLevel: 1,
                   setBrineLevel: 4,
                 },
-                nodeList: ['GV_003', 'WL_003', 'V_003', 'MRT_003', 'O_003', 'BT_003'],
+                nodeList: ['GV_003', 'WL_003', 'V_003', 'MRT_003', 'BT_003'],
               },
               {
                 target_code: '1_D',
@@ -1035,7 +739,7 @@ const map = {
                   minBrineLevel: 1,
                   setBrineLevel: 4,
                 },
-                nodeList: ['GV_004', 'WL_004', 'V_004', 'MRT_004', 'O_004', 'BT_004'],
+                nodeList: ['GV_004', 'WL_004', 'V_004', 'MRT_004', 'BT_004'],
               },
               {
                 target_code: '일반',
@@ -1055,7 +759,7 @@ const map = {
                   minBrineLevel: 1,
                   setBrineLevel: 4,
                 },
-                nodeList: ['WD_006', 'O_005'],
+                nodeList: ['WD_006'],
               },
               {
                 target_code: '3',
@@ -1092,7 +796,7 @@ const map = {
                   maxBrineLevel: 7,
                   minBrineLevel: 1,
                 },
-                nodeList: ['WD_009', 'O_006'],
+                nodeList: ['WD_009'],
               },
             ],
           },
@@ -1155,7 +859,7 @@ const map = {
               {
                 target_code: '',
                 depth: -1,
-                nodeList: ['P_002', 'O_007'],
+                nodeList: ['P_002'],
               },
             ],
           },
@@ -1214,69 +918,6 @@ const map = {
       },
     ],
     brineFeedRankRelationList: [],
-    imgContactList: [
-      {
-        targetIdList: ['SEB_1_A', 'SEB_1_B', 'SEB_1_C', 'SEB_1_D'],
-        resourceIdList: ['salternModuleBlock'],
-      },
-      {
-        targetIdList: ['SEB_일반'],
-        resourceIdList: ['salternNomalBlock_A'],
-      },
-      {
-        targetIdList: ['SEB_2', 'SEB_3', 'SEB_4'],
-        resourceIdList: ['salternNomalBlock_B'],
-      },
-      {
-        targetIdList: ['SCB'],
-        resourceIdList: ['salternCrystalBlock'],
-      },
-      {
-        targetIdList: ['BW_1', 'BW_2', 'BW_3'],
-        resourceIdList: ['brineWarehouse'],
-      },
-      {
-        targetIdList: ['RV'],
-        resourceIdList: ['reservoir'],
-      },
-      {
-        targetIdList: ['SEA'],
-        resourceIdList: ['sea'],
-      },
-      {
-        targetIdList: [
-          'GV_001',
-          'GV_002',
-          'GV_003',
-          'GV_004',
-          'WD_005',
-          'WD_006',
-          'WD_007',
-          'WD_008',
-          'WD_009',
-          'WD_010',
-          'WD_011',
-          'WD_012',
-          'WD_013',
-          'WD_014',
-          'WD_015',
-          'WD_016',
-        ],
-        resourceIdList: ['waterDoor'],
-      },
-      {
-        targetIdList: ['P_001', 'P_002', 'P_003', 'P_004', 'P_005'],
-        resourceIdList: ['pump'],
-      },
-      {
-        targetIdList: ['V_001', 'V_002', 'V_003', 'V_004', 'V_006', 'V_007'],
-        resourceIdList: ['valve'],
-      },
-      {
-        targetIdList: ['O_001', 'O_002', 'O_003', 'O_004', 'O_005', 'O_006', 'O_007'],
-        resourceIdList: ['outlet'],
-      },
-    ],
   },
   controlInfo: {
     tempControlList: [

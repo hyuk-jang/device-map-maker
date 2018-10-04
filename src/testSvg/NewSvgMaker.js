@@ -139,7 +139,6 @@ class NewSvgMaker {
   makeSvgNodeList() {
     const objectList = this.storageList;
     /** @type {svgNodeInfo[]} */
-    const svgNodeList = [];
     objectList.forEach(objList => {
       _.forEach(objList.list, (obj, index) => {
         const targetPoint = this.discoverObjectPoint(obj.placeId);
@@ -153,14 +152,16 @@ class NewSvgMaker {
           point: finalObj.point,
         };
 
-        let foundIt = _.find(svgNodeList, {nodeClassId: objList.nodeClassId});
+        let foundIt = _.find(map.drawInfo.positionList.svgNodeList, {
+          nodeClassId: objList.nodeClassId,
+        });
         // 그룹 존재 체크
         if (_.isEmpty(foundIt)) {
           foundIt = {
             nodeClassId: objList.nodeClassId,
             list: [],
           };
-          svgNodeList.push(foundIt);
+          map.drawInfo.positionList.svgNodeList.push(foundIt);
         }
 
         const foundNodeIt = _.find(foundIt.list, {nodeId: finalObj.nodeId});
@@ -170,7 +171,8 @@ class NewSvgMaker {
       });
     });
     // BU.CLI(svgNodeList);
-    map.drawInfo.positionList.svgNodeList.push(svgNodeList);
+    // const test = _.concat(map.drawInfo.positionList.svgNodeList, svgNodeList);
+    // map.drawInfo.positionList.svgNodeList.push(svgNodeList);
   }
 
   /**
@@ -199,6 +201,24 @@ class NewSvgMaker {
         y -
         nodeInfo.axisScale[1] * nodeElementDraw.height +
         nodeInfo.moveScale[1] * nodeElementDraw.height;
+    } else if (nodeType === 'circle') {
+      x =
+        x -
+        nodeInfo.axisScale[0] * nodeElementDraw.width +
+        nodeInfo.moveScale[0] * nodeElementDraw.width;
+      y =
+        y -
+        nodeInfo.axisScale[1] * nodeElementDraw.height +
+        nodeInfo.moveScale[1] * nodeElementDraw.height;
+    } else if (nodeType === 'polygon') {
+      x =
+        x -
+        nodeInfo.axisScale[0] * (nodeElementDraw.width * 2) +
+        nodeInfo.moveScale[0] * (nodeElementDraw.width * 2);
+      y =
+        y -
+        nodeInfo.axisScale[1] * (nodeElementDraw.height * 2) +
+        nodeInfo.moveScale[1] * (nodeElementDraw.height * 2);
     } else {
       // TODO: 다른 조건 작성
     }
@@ -227,6 +247,13 @@ class NewSvgMaker {
       const targetType = svgModelResourceInfo.type;
       const targetDrawInfo = svgModelResourceInfo.elementDrawInfo;
       if (targetType === 'rect') {
+        targetPoint = [
+          targetInfo.position[0],
+          targetInfo.position[1],
+          targetInfo.position[0] + targetDrawInfo.width,
+          targetInfo.position[1] + targetDrawInfo.height,
+        ];
+      } else if (targetType === 'circle') {
         targetPoint = [
           targetInfo.position[0],
           targetInfo.position[1],
