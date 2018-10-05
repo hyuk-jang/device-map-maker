@@ -253,13 +253,23 @@ class NewSvgMaker {
           targetInfo.position[0] + targetDrawInfo.width,
           targetInfo.position[1] + targetDrawInfo.height,
         ];
-      } else if (targetType === 'circle') {
-        targetPoint = [
-          targetInfo.position[0],
-          targetInfo.position[1],
-          targetInfo.position[0] + targetDrawInfo.width,
-          targetInfo.position[1] + targetDrawInfo.height,
-        ];
+        // line position:(x1,y1,x2,y2)
+      } else if (targetType === 'line') {
+        if (targetInfo.position[1] === targetInfo.position[3]) {
+          targetPoint = [
+            targetInfo.position[0],
+            targetInfo.position[1] - targetDrawInfo.width / 2,
+            targetInfo.position[2],
+            targetInfo.position[3] - targetDrawInfo.width / 2,
+          ];
+        } else {
+          targetPoint = [
+            targetInfo.position[0] - targetDrawInfo.width / 2,
+            targetInfo.position[1] - targetDrawInfo.width,
+            targetInfo.position[2] - targetDrawInfo.width / 2,
+            targetInfo.position[3] + targetDrawInfo.width,
+          ];
+        }
       } else {
         // TODO: 다른 조건문 작성
       }

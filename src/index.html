@@ -7,16 +7,29 @@
 
 </head>
 
-<body>
+<body onclick="mousePoint()">
   <div id="canvas"></div>
 </body>
-<script src='./testSvg/newIndex.js'></script>
+<script src='/mapSample/jquery-1.10.2.min.js'></script>
+<script src='./testSvg/drawSvg.js'></script>
 <script src='./testSvg/outputMap.js'></script>
-<script src='./testSvg/core.min.js'></script>
+<script src='./core.min.js'></script>
 <script src='./svg.js'></script>
 
 <script>
   svgDrawing('canvas');
+
+  let mouseX, mouseY;
+
+  function mousePoint() {
+    $(document).mousemove(function (e) {
+      mouseX = e.pageX
+      mouseY = e.pageY
+
+    })
+    console.log('x : ' + mouseX + ', y : ' + mouseY)
+
+  }
 </script>
 
 

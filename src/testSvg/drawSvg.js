@@ -21,6 +21,8 @@ function svgDrawing(dom) {
       const placeX = defInfo.position[0];
       const placeY = defInfo.position[1];
 
+      if (_.isUndefined(placeResourceId)) return false;
+
       // resourceId를 이용해 그리기 위한 정보 수집
       const resourceInfo = _.find(map.drawInfo.frame.svgModelResourceList, {
         id: placeResourceId,
@@ -28,7 +30,8 @@ function svgDrawing(dom) {
       const placeWidth = resourceInfo.elementDrawInfo.width;
       const placeHeight = resourceInfo.elementDrawInfo.height;
       const placeColor = resourceInfo.elementDrawInfo.color;
-      const placeType = resourceInfo.type; // rect, circlr, polygon
+      const placeType = resourceInfo.type; // rect, line
+      // console.log(`placeType : ${placeType}`);
 
       // SVG.js
       if (placeType === 'rect') {
@@ -36,16 +39,22 @@ function svgDrawing(dom) {
           .rect(placeWidth, placeHeight)
           .fill(placeColor)
           .move(placeX, placeY);
+      } else if (placeType === 'line') {
+        const placeX2 = defInfo.position[2];
+        const placeY2 = defInfo.position[3];
+        console.log(placeX, placeY, placeX2, placeY2);
+        const model = canvas.line(placeX, placeY, placeX2, placeY2);
+        model.stroke({color: placeColor, width: placeWidth});
       } else {
         // TODO:
       }
     });
   });
+
   // node 그리기
   map.drawInfo.positionList.svgNodeList.forEach(svgNodeInfo => {
     svgNodeInfo.list.forEach(listInfo => {
       const nodeResourceId = listInfo.resourceId;
-      console.log(nodeResourceId);
       const nodeX = listInfo.point[0];
       const nodeY = listInfo.point[1];
 
@@ -57,7 +66,8 @@ function svgDrawing(dom) {
       const nodeWidth = resourceInfo.elementDrawInfo.width;
       const nodeHeight = resourceInfo.elementDrawInfo.height;
       const nodeColor = resourceInfo.elementDrawInfo.color;
-      const nodeType = resourceInfo.type;
+      const nodeType = resourceInfo.type; // rect, circle, polygon
+      // console.log(`nodeType : ${nodeType}`);
 
       // SVG.js
       if (nodeType === 'rect') {

@@ -25,7 +25,7 @@ const map = {
           type: 'rect',
           elementDrawInfo: {
             width: 240,
-            height: 150,
+            height: 130,
             color: '', // TODO:
           },
         },
@@ -35,6 +35,15 @@ const map = {
           elementDrawInfo: {
             width: 260,
             height: 180,
+            color: '', // TODO:
+          },
+        },
+        {
+          id: 'salternNomalBlock_C',
+          type: 'rect',
+          elementDrawInfo: {
+            width: 300,
+            height: 300,
             color: '', // TODO:
           },
         },
@@ -69,7 +78,7 @@ const map = {
           id: 'sea',
           type: 'rect',
           elementDrawInfo: {
-            width: 115,
+            width: 135,
             height: 120,
             color: '', // TODO:
           },
@@ -84,7 +93,7 @@ const map = {
           },
         },
         {
-          id: 'pipe',
+          id: 'pipeLine',
           type: 'line',
           elementDrawInfo: {
             // FIXME:
@@ -97,27 +106,24 @@ const map = {
           id: 'outlet',
           type: 'circle',
           elementDrawInfo: {
-            // FIXME:
-            width: 170,
-            height: 150,
-            color: '', // TODO:
+            width: 30,
+            height: 30,
+            radius: 30,
+            color: '#AEB404', // TODO:
           },
         },
         {
-          id: 'waterLine',
+          id: 'waterWay',
           type: 'line',
           elementDrawInfo: {
-            // FIXME:
-            width: 170,
-            height: 150,
-            color: '', // TODO:
+            width: 55,
+            color: '#f06', // TODO:
           },
         },
         {
           id: 'reservoir',
           type: 'rect',
           elementDrawInfo: {
-            // FIXME:
             width: 550,
             height: 120,
             color: '#0100FF', // TODO:
@@ -127,7 +133,6 @@ const map = {
           id: 'sea',
           type: 'rect',
           elementDrawInfo: {
-            // FIXME:
             width: 170,
             height: 150,
             color: '', // TODO:
@@ -146,7 +151,6 @@ const map = {
       ],
     },
     positionList: {
-      // TODO: positionInfo 정의
       svgPlaceList: [
         {
           target_id: 'salternBlock',
@@ -172,9 +176,14 @@ const map = {
               position: [140, 380],
             },
             {
+              id: 'SEB_1_E',
+              resourceId: 'salternNomalBlock_C',
+              position: [1000, 400],
+            },
+            {
               id: 'SEB_일반',
               resourceId: 'salternNomalBlock_A',
-              position: [140, 190],
+              position: [140, 210],
             },
             {
               id: 'SEB_2',
@@ -234,7 +243,142 @@ const map = {
             {
               id: 'SEA',
               resourceId: 'sea',
-              position: [845, 980],
+              position: [825, 980],
+            },
+          ],
+        },
+        {
+          target_id: 'waterWay',
+          defList: [
+            {
+              id: 'WW_001',
+              resourceId: 'waterWay',
+              position: [407.5, 1100, 407.5, 340],
+            },
+            {
+              id: 'WW_002',
+              resourceId: 'waterWay',
+              position: [380, 312.5, 570, 312.5],
+            },
+            {
+              id: 'WW_003',
+              resourceId: 'waterWay',
+              position: [722, 1100, 722, 340],
+            },
+            {
+              id: 'WW_004',
+              resourceId: 'waterWay',
+              position: [570, 312.5, 835, 312.5],
+            },
+            {
+              id: 'WW_005',
+              resourceId: 'waterWay',
+              position: [807.5, 340, 807.5, 1100],
+            },
+            {
+              id: 'WW_006',
+              resourceId: 'waterWay',
+              position: [1027.5, 700, 1027.5, 1045],
+            },
+            {
+              id: 'WW_007',
+              resourceId: 'waterWay',
+              position: [1055, 1072, 960, 1072],
+            },
+          ],
+        },
+        {
+          target_id: 'pipeLine',
+          defList: [
+            {
+              id: 'PL_001',
+              resourceId: 'pipeLine',
+              position: [0, 0, 0, 0], // FIXME:
+            },
+            {
+              id: 'PL_002',
+              resourceId: 'pipeLine',
+              position: [0, 0, 0, 0], // FIXME:
+            },
+            {
+              id: 'PL_003',
+              resourceId: 'pipeLine',
+              position: [0, 0, 0, 0], // FIXME:
+            },
+            {
+              id: 'PL_004',
+              resourceId: 'pipeLine',
+              position: [0, 0, 0, 0], // FIXME:
+            },
+            {
+              id: 'PL_005',
+              resourceId: 'pipeLine',
+              position: [0, 0, 0, 0], // FIXME:
+            },
+            {
+              id: 'PL_006',
+              resourceId: 'pipeLine',
+              position: [0, 0, 0, 0], // FIXME:
+            },
+            {
+              id: 'PL_007',
+              resourceId: 'pipeLine',
+              position: [0, 0, 0, 0], // FIXME:
+            },
+            {
+              id: 'PL_008',
+              resourceId: 'pipeLine',
+              position: [0, 0, 0, 0], // FIXME:
+            },
+            {
+              id: 'PL_009',
+              resourceId: 'pipeLine',
+              position: [0, 0, 0, 0], // FIXME:
+            },
+            {
+              id: 'PL_010',
+              resourceId: 'pipeLine',
+              position: [0, 0, 0, 0], // FIXME:
+            },
+            {
+              id: 'PL_011',
+              resourceId: 'pipeLine',
+              position: [0, 0, 0, 0], // FIXME:
+            },
+            {
+              id: 'PL_012',
+              resourceId: 'pipeLine',
+              position: [0, 0, 0, 0], // FIXME:
+            },
+            {
+              id: 'PL_013',
+              resourceId: 'pipeLine',
+              position: [0, 0, 0, 0], // FIXME:
+            },
+            {
+              id: 'PL_014',
+              resourceId: 'pipeLine',
+              position: [0, 0, 0, 0], // FIXME:
+            },
+            {
+              id: 'PL_015',
+              resourceId: 'pipeLine',
+              position: [0, 0, 0, 0], // FIXME:
+            },
+            {
+              id: 'PL_016',
+              resourceId: 'pipeLine',
+              position: [0, 0, 0, 0], // FIXME:
+            },
+            {
+              id: 'PL_017',
+              resourceId: 'pipeLine',
+              position: [0, 0, 0, 0], // FIXME:
+            },
+            {
+              id: 'PL_018',
+              resourceId: 'pipeLine',
+              position: [0, 0, 0, 0], // FIXME:
             },
           ],
         },
@@ -549,6 +693,10 @@ const map = {
                 target_code: '006',
                 data_logger_index: 0,
               },
+              {
+                target_code: '007',
+                data_logger_index: 0,
+              },
             ],
           },
           {
@@ -571,6 +719,10 @@ const map = {
               },
               {
                 target_code: '004',
+                data_logger_index: 0,
+              },
+              {
+                target_code: '005',
                 data_logger_index: 0,
               },
             ],
@@ -699,6 +851,42 @@ const map = {
                 target_code: '004',
                 data_logger_index: 0,
               },
+              {
+                target_code: '005',
+                data_logger_index: 0,
+              },
+              {
+                target_code: '006',
+                data_logger_index: 0,
+              },
+              {
+                target_code: '007',
+                data_logger_index: 0,
+              },
+              {
+                target_code: '008',
+                data_logger_index: 0,
+              },
+              {
+                target_code: '009',
+                data_logger_index: 0,
+              },
+              {
+                target_code: '010',
+                data_logger_index: 0,
+              },
+              {
+                target_code: '011',
+                data_logger_index: 0,
+              },
+              {
+                target_code: '012',
+                data_logger_index: 0,
+              },
+              {
+                target_code: '013',
+                data_logger_index: 0,
+              },
             ],
           },
         ],
@@ -762,31 +950,31 @@ const map = {
                 target_code: '012',
                 data_logger_index: 0,
                 axisScale: [0, 1],
-                moveScale: [1, 0],
+                moveScale: [0, 0],
               },
               {
                 target_code: '013',
                 data_logger_index: 0,
-                axisScale: [0, 0],
-                moveScale: [0, 0], // FIXME:
+                axisScale: [0, 1],
+                moveScale: [0, 0],
               },
               {
                 target_code: '014',
                 data_logger_index: 0,
-                axisScale: [0, 0],
-                moveScale: [0, 0], // FIXME:
+                axisScale: [0, 1],
+                moveScale: [0, 0],
               },
               {
                 target_code: '015',
                 data_logger_index: 0,
-                axisScale: [0, 0],
-                moveScale: [0, 0], // FIXME:
+                axisScale: [1, 0],
+                moveScale: [0, 1],
               },
               {
                 target_code: '016',
                 data_logger_index: 0,
-                axisScale: [0, 0],
-                moveScale: [0, 0], // FIXME:
+                axisScale: [1, 0],
+                moveScale: [0, 0],
               },
             ],
           },
@@ -833,13 +1021,13 @@ const map = {
                 target_code: '006',
                 data_logger_index: 0,
                 axisScale: [0, 0],
-                moveScale: [0, 0], // FIXME:
+                moveScale: [-4.5, 0],
               },
               {
                 target_code: '007',
                 data_logger_index: 0,
                 axisScale: [0, 0],
-                moveScale: [0, 0], // FIXME:
+                moveScale: [-4.5, 0],
               },
             ],
           },
@@ -873,6 +1061,12 @@ const map = {
                 axisScale: [1, 1],
                 moveScale: [0, -0.8],
               },
+              {
+                target_code: '005',
+                data_logger_index: 0,
+                axisScale: [0, 1],
+                moveScale: [0, 0],
+              },
             ],
           },
         ],
@@ -893,7 +1087,7 @@ const map = {
               {
                 target_code: '001',
                 data_logger_index: 0,
-                axisScale: [1, 1],
+                axisScale: [1, 0],
                 moveScale: [0, 0],
               },
               {
@@ -920,6 +1114,12 @@ const map = {
                 axisScale: [1, 0],
                 moveScale: [0, 0],
               },
+              {
+                target_code: '006',
+                data_logger_index: 0,
+                axisScale: [1, 1],
+                moveScale: [0, 0],
+              },
             ],
           },
         ],
@@ -941,43 +1141,49 @@ const map = {
                 target_code: '001',
                 data_logger_index: 0,
                 axisScale: [0, 0],
-                moveScale: [0, 0], // FIXME:
+                moveScale: [0.5, 2],
               },
               {
                 target_code: '002',
                 data_logger_index: 0,
-                axisScale: [0, 0],
-                moveScale: [0, 0], // FIXME:
+                axisScale: [0, 1],
+                moveScale: [0.5, -2],
               },
               {
                 target_code: '003',
                 data_logger_index: 0,
                 axisScale: [0, 0],
-                moveScale: [0, 0], // FIXME:
+                moveScale: [0.5, 2],
               },
               {
                 target_code: '004',
                 data_logger_index: 0,
-                axisScale: [0, 0],
-                moveScale: [0, 0], // FIXME:
+                axisScale: [0, 1],
+                moveScale: [0.5, -2],
               },
               {
                 target_code: '005',
                 data_logger_index: 0,
-                axisScale: [0, 0],
-                moveScale: [0, 0], // FIXME:
+                axisScale: [1, 0],
+                moveScale: [-2.2, 0],
               },
               {
                 target_code: '006',
                 data_logger_index: 0,
-                axisScale: [0, 0],
-                moveScale: [0, 0], // FIXME:
+                axisScale: [1, 0],
+                moveScale: [0, 0],
               },
               {
                 target_code: '007',
                 data_logger_index: 0,
+                axisScale: [1, 0],
+                moveScale: [0, 0],
+              },
+              {
+                target_code: '008',
+                data_logger_index: 0,
                 axisScale: [0, 0],
-                moveScale: [0, 0], // FIXME:
+                moveScale: [2, 0],
               },
             ],
           },
@@ -987,6 +1193,29 @@ const map = {
   },
   realtionInfo: {
     placeRelationList: [
+      // TODO:
+      {
+        target_id: 'earth',
+        target_name: '육상',
+        description: null,
+        defList: [
+          {
+            target_id: 'earth',
+            target_name: '육상',
+            target_prefix: 'EA',
+            placeList: [
+              {
+                target_code: '일반',
+                nodeList: ['MRT_006'],
+              },
+              {
+                target_code: 'G2G',
+                nodeList: ['MRT_005'],
+              },
+            ],
+          },
+        ],
+      },
       {
         target_id: 'salternBlock',
         target_name: '염판',
@@ -1036,6 +1265,16 @@ const map = {
                   setBrineLevel: 4,
                 },
                 nodeList: ['GV_004', 'WL_004', 'V_004', 'MRT_004', 'O_004', 'BT_004'],
+              },
+              {
+                target_code: '1_E',
+                depth: 5,
+                place_info: {
+                  maxBrineLevel: 20,
+                  minBrineLevel: 1,
+                  setBrineLevel: 4,
+                },
+                nodeList: ['GV_005', 'O_008'],
               },
               {
                 target_code: '일반',
@@ -1155,7 +1394,7 @@ const map = {
               {
                 target_code: '',
                 depth: -1,
-                nodeList: ['P_002', 'O_007'],
+                nodeList: ['P_002', 'P_006', 'O_007'],
               },
             ],
           },
@@ -1180,8 +1419,144 @@ const map = {
           },
         ],
       },
+      {
+        target_id: 'waterWay',
+        target_name: '수로',
+        description: null,
+        defList: [
+          {
+            target_id: 'waterWay',
+            target_prefix: 'WW',
+            target_name: '수로',
+            placeList: [
+              {
+                target_code: '001',
+                depth: -1, // FIXME:
+                nodeList: ['GV_001', 'GV_002', 'GV_003', 'GV_004', 'WD_013'],
+              },
+              {
+                target_code: '002',
+                depth: -1, // FIXME:
+                nodeList: ['WD_004', 'WD_010', 'WD_013', 'WD_016'],
+              },
+              {
+                target_code: '003',
+                depth: -1, // FIXME:
+                nodeList: ['WD_008', 'WD_009', 'WD_014'],
+              },
+              {
+                target_code: '004',
+                depth: -1, // FIXME:
+                nodeList: ['WD_011', 'WD_012', 'WD_014', 'WD_015', 'WD_016'],
+              },
+              {
+                target_code: '005',
+                depth: -1, // FIXME:
+                nodeList: ['WD_015'],
+              },
+              {
+                target_code: '006',
+                depth: -1, // FIXME:
+                nodeList: ['GV_005'],
+              },
+              {
+                target_code: '007',
+                depth: -1, // FIXME:
+                nodeList: [],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        target_id: 'pipeLine',
+        target_name: '파이프',
+        description: null,
+        defList: [
+          {
+            target_id: 'pipeLine',
+            target_prefix: 'PL',
+            target_name: '파이프',
+            placeList: [
+              {
+                target_code: '001',
+                nodeList: [], // FIXME:
+              },
+              {
+                target_code: '002',
+                nodeList: [], // FIXME:
+              },
+              {
+                target_code: '003',
+                nodeList: [], // FIXME:
+              },
+              {
+                target_code: '004',
+                nodeList: [], // FIXME:
+              },
+              {
+                target_code: '005',
+                nodeList: [], // FIXME:
+              },
+              {
+                target_code: '006',
+                nodeList: [], // FIXME:
+              },
+              {
+                target_code: '007',
+                nodeList: [], // FIXME:
+              },
+              {
+                target_code: '008',
+                nodeList: [], // FIXME:
+              },
+              {
+                target_code: '009',
+                nodeList: [], // FIXME:
+              },
+              {
+                target_code: '010',
+                nodeList: [], // FIXME:
+              },
+              {
+                target_code: '011',
+                nodeList: [], // FIXME:
+              },
+              {
+                target_code: '012',
+                nodeList: [], // FIXME:
+              },
+              {
+                target_code: '013',
+                nodeList: [], // FIXME:
+              },
+              {
+                target_code: '014',
+                nodeList: [], // FIXME:
+              },
+              {
+                target_code: '015',
+                nodeList: [], // FIXME:
+              },
+              {
+                target_code: '016',
+                nodeList: [], // FIXME:
+              },
+              {
+                target_code: '017',
+                nodeList: [], // FIXME:
+              },
+              {
+                target_code: '018',
+                nodeList: [], // FIXME:
+              },
+            ],
+          },
+        ],
+      },
     ],
     brineFlowRelationList: [
+      // FIXME:
       {
         currNodeId: 'P_001',
         placeIdList: ['RV'],
@@ -1228,6 +1603,10 @@ const map = {
         resourceIdList: ['salternNomalBlock_B'],
       },
       {
+        targetIdList: ['SEB_1_E'],
+        resourceIdList: ['salternModuleBlock_C'],
+      },
+      {
         targetIdList: ['SCB'],
         resourceIdList: ['salternCrystalBlock'],
       },
@@ -1249,6 +1628,7 @@ const map = {
           'GV_002',
           'GV_003',
           'GV_004',
+          'GV_005',
           'WD_005',
           'WD_006',
           'WD_007',
@@ -1265,7 +1645,7 @@ const map = {
         resourceIdList: ['waterDoor'],
       },
       {
-        targetIdList: ['P_001', 'P_002', 'P_003', 'P_004', 'P_005'],
+        targetIdList: ['P_001', 'P_002', 'P_003', 'P_004', 'P_005', 'P_006'],
         resourceIdList: ['pump'],
       },
       {
@@ -1273,8 +1653,12 @@ const map = {
         resourceIdList: ['valve'],
       },
       {
-        targetIdList: ['O_001', 'O_002', 'O_003', 'O_004', 'O_005', 'O_006', 'O_007'],
+        targetIdList: ['O_001', 'O_002', 'O_003', 'O_004', 'O_005', 'O_006', 'O_007', 'O_008'],
         resourceIdList: ['outlet'],
+      },
+      {
+        targetIdList: ['WW_001', 'WW_002', 'WW_003', 'WW_004', 'WW_005', 'WW_006', 'WW_007'],
+        resourceIdList: ['waterWay'],
       },
     ],
   },
@@ -1365,6 +1749,7 @@ const map = {
         trueList: ['V_006', 'V_004', 'P_002'],
         falseList: ['GV_004'],
       },
+      // TODO: '저수지 → 증발지 1E
       {
         cmdName: '해주 1 → 증발지 1A',
         trueList: ['V_007', 'V_001', 'P_003'],
