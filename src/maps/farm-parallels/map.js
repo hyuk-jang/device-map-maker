@@ -89,7 +89,7 @@ const map = {
         dpcId: 'DPC_001',
         protocol_info: {
           mainCategory: 'FarmParallel',
-          subCategory: 'youngSanPo',
+          subCategory: 'YeongSanPo',
         },
       },
     ],
