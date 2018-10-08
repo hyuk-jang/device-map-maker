@@ -12,12 +12,21 @@ const map = {
       },
       svgModelResourceList: [
         {
-          id: 'salternModuleBlock',
+          id: 'salternModuleBlock_A',
           type: 'rect',
           elementDrawInfo: {
             width: 240,
             height: 150,
             color: '#D1B2FF', // TODO:
+          },
+        },
+        {
+          id: 'salternModuleBlock_B',
+          type: 'rect',
+          elementDrawInfo: {
+            width: 300,
+            height: 300,
+            color: '', // TODO:
           },
         },
         {
@@ -35,15 +44,6 @@ const map = {
           elementDrawInfo: {
             width: 260,
             height: 180,
-            color: '', // TODO:
-          },
-        },
-        {
-          id: 'salternNomalBlock_C',
-          type: 'rect',
-          elementDrawInfo: {
-            width: 300,
-            height: 300,
             color: '', // TODO:
           },
         },
@@ -78,7 +78,7 @@ const map = {
           id: 'sea',
           type: 'rect',
           elementDrawInfo: {
-            width: 135,
+            width: 175,
             height: 120,
             color: '', // TODO:
           },
@@ -96,10 +96,8 @@ const map = {
           id: 'pipeLine',
           type: 'line',
           elementDrawInfo: {
-            // FIXME:
-            width: 170,
-            height: 150,
-            color: '', // TODO:
+            width: 3,
+            color: '#f06', // TODO:
           },
         },
         {
@@ -133,7 +131,7 @@ const map = {
           id: 'sea',
           type: 'rect',
           elementDrawInfo: {
-            width: 170,
+            width: 190,
             height: 150,
             color: '', // TODO:
           },
@@ -157,53 +155,53 @@ const map = {
           defList: [
             {
               id: 'SEB_1_A',
-              resourceId: 'salternModuleBlock',
-              position: [140, 950],
+              resourceId: 'salternModuleBlock_A',
+              point: [140, 950],
             },
             {
               id: 'SEB_1_B',
-              resourceId: 'salternModuleBlock',
-              position: [140, 760],
+              resourceId: 'salternModuleBlock_A',
+              point: [140, 760],
             },
             {
               id: 'SEB_1_C',
-              resourceId: 'salternModuleBlock',
-              position: [140, 570],
+              resourceId: 'salternModuleBlock_A',
+              point: [140, 570],
             },
             {
               id: 'SEB_1_D',
-              resourceId: 'salternModuleBlock',
-              position: [140, 380],
+              resourceId: 'salternModuleBlock_A',
+              point: [140, 380],
             },
             {
               id: 'SEB_1_E',
-              resourceId: 'salternNomalBlock_C',
-              position: [1000, 400],
+              resourceId: 'salternModuleBlock_B',
+              point: [1020, 400],
             },
             {
               id: 'SEB_일반',
               resourceId: 'salternNomalBlock_A',
-              position: [140, 210],
+              point: [140, 210],
             },
             {
               id: 'SEB_2',
               resourceId: 'salternNomalBlock_B',
-              position: [435, 340],
+              point: [435, 340],
             },
             {
               id: 'SEB_3',
               resourceId: 'salternNomalBlock_B',
-              position: [435, 532],
+              point: [435, 532],
             },
             {
               id: 'SEB_4',
               resourceId: 'salternNomalBlock_B',
-              position: [435, 727],
+              point: [435, 727],
             },
             {
               id: 'SCB',
               resourceId: 'salternCrystalBlock',
-              position: [435, 920],
+              point: [435, 920],
             },
           ],
         },
@@ -213,17 +211,17 @@ const map = {
             {
               id: 'BW_1',
               resourceId: 'brineWarehouse',
-              position: [400, 135],
+              point: [400, 135],
             },
             {
               id: 'BW_2',
               resourceId: 'brineWarehouse',
-              position: [590, 135],
+              point: [590, 135],
             },
             {
               id: 'BW_3',
               resourceId: 'brineWarehouse',
-              position: [780, 135],
+              point: [780, 135],
             },
           ],
         },
@@ -233,7 +231,7 @@ const map = {
             {
               id: 'RV',
               resourceId: 'reservoir',
-              position: [400, 10],
+              point: [400, 10],
             },
           ],
         },
@@ -243,7 +241,7 @@ const map = {
             {
               id: 'SEA',
               resourceId: 'sea',
-              position: [825, 980],
+              point: [825, 980],
             },
           ],
         },
@@ -253,37 +251,37 @@ const map = {
             {
               id: 'WW_001',
               resourceId: 'waterWay',
-              position: [407.5, 1100, 407.5, 340],
+              point: [407.5, 1100, 407.5, 340],
             },
             {
               id: 'WW_002',
               resourceId: 'waterWay',
-              position: [380, 312.5, 570, 312.5],
+              point: [380, 312.5, 570, 312.5],
             },
             {
               id: 'WW_003',
               resourceId: 'waterWay',
-              position: [722, 1100, 722, 340],
+              point: [722, 1100, 722, 340],
             },
             {
               id: 'WW_004',
               resourceId: 'waterWay',
-              position: [570, 312.5, 835, 312.5],
+              point: [570, 312.5, 835, 312.5],
             },
             {
               id: 'WW_005',
               resourceId: 'waterWay',
-              position: [807.5, 340, 807.5, 1100],
+              point: [807.5, 1100, 807.5, 340],
             },
             {
               id: 'WW_006',
               resourceId: 'waterWay',
-              position: [1027.5, 700, 1027.5, 1045],
+              point: [1047.5, 1045, 1047.5, 700],
             },
             {
               id: 'WW_007',
               resourceId: 'waterWay',
-              position: [1055, 1072, 960, 1072],
+              point: [1075, 1072, 1000, 1072],
             },
           ],
         },
@@ -293,92 +291,92 @@ const map = {
             {
               id: 'PL_001',
               resourceId: 'pipeLine',
-              position: [0, 0, 0, 0], // FIXME:
+              point: [950, 24, 976, 24],
             },
             {
               id: 'PL_002',
               resourceId: 'pipeLine',
-              position: [0, 0, 0, 0], // FIXME:
+              point: [975, 980, 975, 24],
             },
             {
               id: 'PL_003',
               resourceId: 'pipeLine',
-              position: [0, 0, 0, 0], // FIXME:
+              point: [100, 35, 400, 35],
             },
             {
               id: 'PL_004',
               resourceId: 'pipeLine',
-              position: [0, 0, 0, 0], // FIXME:
+              point: [100, 160, 400, 160],
             },
             {
               id: 'PL_005',
               resourceId: 'pipeLine',
-              position: [0, 0, 0, 0], // FIXME:
+              point: [100, 150, 100, 35],
             },
             {
               id: 'PL_006',
               resourceId: 'pipeLine',
-              position: [0, 0, 0, 0], // FIXME:
+              point: [100, 550, 100, 150],
             },
             {
               id: 'PL_007',
               resourceId: 'pipeLine',
-              position: [0, 0, 0, 0], // FIXME:
+              point: [100, 550, 170, 550],
             },
             {
               id: 'PL_008',
               resourceId: 'pipeLine',
-              position: [0, 0, 0, 0], // FIXME:
+              point: [170, 550, 170, 530],
             },
             {
               id: 'PL_009',
               resourceId: 'pipeLine',
-              position: [0, 0, 0, 0], // FIXME:
+              point: [170, 570, 170, 550],
             },
             {
               id: 'PL_010',
               resourceId: 'pipeLine',
-              position: [0, 0, 0, 0], // FIXME:
+              point: [100, 930, 100, 550],
             },
             {
               id: 'PL_011',
               resourceId: 'pipeLine',
-              position: [0, 0, 0, 0], // FIXME:
+              point: [100, 930, 170, 930],
             },
             {
               id: 'PL_012',
               resourceId: 'pipeLine',
-              position: [0, 0, 0, 0], // FIXME:
+              point: [170, 930, 170, 910],
             },
             {
               id: 'PL_013',
               resourceId: 'pipeLine',
-              position: [0, 0, 0, 0], // FIXME:
+              point: [170, 950, 170, 930],
             },
             {
               id: 'PL_014',
               resourceId: 'pipeLine',
-              position: [0, 0, 0, 0], // FIXME:
+              point: [615, 340, 615, 185],
             },
             {
               id: 'PL_015',
               resourceId: 'pipeLine',
-              position: [0, 0, 0, 0], // FIXME:
+              point: [925, 935, 925, 185],
             },
             {
               id: 'PL_016',
               resourceId: 'pipeLine',
-              position: [0, 0, 0, 0], // FIXME:
+              point: [695, 935, 925, 935],
             },
             {
               id: 'PL_017',
               resourceId: 'pipeLine',
-              position: [0, 0, 0, 0], // FIXME:
+              point: [950, 105, 1095, 105],
             },
             {
               id: 'PL_018',
               resourceId: 'pipeLine',
-              position: [0, 0, 0, 0], // FIXME:
+              point: [1095, 400, 1095, 105],
             },
           ],
         },
@@ -1021,13 +1019,13 @@ const map = {
                 target_code: '006',
                 data_logger_index: 0,
                 axisScale: [0, 0],
-                moveScale: [-4.5, 0],
+                moveScale: [0, -0.5],
               },
               {
                 target_code: '007',
                 data_logger_index: 0,
                 axisScale: [0, 0],
-                moveScale: [-4.5, 0],
+                moveScale: [0, -0.5],
               },
             ],
           },
@@ -1488,11 +1486,11 @@ const map = {
               },
               {
                 target_code: '003',
-                nodeList: [], // FIXME:
+                nodeList: ['V_006'], // FIXME:
               },
               {
                 target_code: '004',
-                nodeList: [], // FIXME:
+                nodeList: ['V_007'], // FIXME:
               },
               {
                 target_code: '005',
@@ -1592,7 +1590,7 @@ const map = {
     imgContactList: [
       {
         targetIdList: ['SEB_1_A', 'SEB_1_B', 'SEB_1_C', 'SEB_1_D'],
-        resourceIdList: ['salternModuleBlock'],
+        resourceIdList: ['salternModuleBlock_A'],
       },
       {
         targetIdList: ['SEB_일반'],
@@ -1604,7 +1602,7 @@ const map = {
       },
       {
         targetIdList: ['SEB_1_E'],
-        resourceIdList: ['salternModuleBlock_C'],
+        resourceIdList: ['salternModuleBlock_B'],
       },
       {
         targetIdList: ['SCB'],
