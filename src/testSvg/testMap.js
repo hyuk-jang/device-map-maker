@@ -17,7 +17,7 @@ const map = {
           elementDrawInfo: {
             width: 240,
             height: 150,
-            color: '#D1B2FF', // TODO:
+            color: '#2b6cc4', // TODO:
           },
         },
         {
@@ -26,7 +26,7 @@ const map = {
           elementDrawInfo: {
             width: 300,
             height: 300,
-            color: '', // TODO:
+            color: '#2b6cc4', // TODO:
           },
         },
         {
@@ -35,7 +35,7 @@ const map = {
           elementDrawInfo: {
             width: 240,
             height: 130,
-            color: '', // TODO:
+            color: '#cdc0b0', // TODO:
           },
         },
         {
@@ -44,7 +44,7 @@ const map = {
           elementDrawInfo: {
             width: 260,
             height: 180,
-            color: '', // TODO:
+            color: '#cdc0b0', // TODO:
           },
         },
         {
@@ -53,7 +53,7 @@ const map = {
           elementDrawInfo: {
             width: 260,
             height: 180,
-            color: '', // TODO:
+            color: '#8b8378', // TODO:
           },
         },
         {
@@ -71,7 +71,7 @@ const map = {
           elementDrawInfo: {
             width: 55,
             height: 55,
-            color: '#5F00FF', // TODO:
+            color: '#223056', // TODO:
           },
         },
         {
@@ -97,7 +97,7 @@ const map = {
           type: 'line',
           elementDrawInfo: {
             width: 3,
-            color: '#f06', // TODO:
+            color: '#ff7256', // TODO:
           },
         },
         {
@@ -115,7 +115,7 @@ const map = {
           type: 'line',
           elementDrawInfo: {
             width: 55,
-            color: '#f06', // TODO:
+            color: '#BFBFBF', // TODO:
           },
         },
         {
@@ -133,7 +133,7 @@ const map = {
           elementDrawInfo: {
             width: 190,
             height: 150,
-            color: '', // TODO:
+            color: '#1A4876', // TODO:
           },
         },
         {

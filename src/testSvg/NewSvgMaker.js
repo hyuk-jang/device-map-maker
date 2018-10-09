@@ -272,6 +272,8 @@ class NewSvgMaker {
     });
     return targetPoint;
   }
+
+  makeValueList()
 }
 module.exports = NewSvgMaker;
 
