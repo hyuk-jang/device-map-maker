@@ -10,14 +10,16 @@
 <body onclick="mousePoint()">
   <div id="canvas"></div>
 </body>
-<script src='/mapSample/jquery-1.10.2.min.js'></script>
+<!-- <script src='/mapSample/jquery-1.10.2.min.js'></script> -->
 <script src='./testSvg/drawSvg.js'></script>
 <script src='./testSvg/outputMap.js'></script>
 <script src='./core.min.js'></script>
 <script src='./svg.js'></script>
+<script src='https://cdn.jsdelivr.net/npm/lodash@4.17.11/lodash.min.js'></script>
 
 <script>
   svgDrawing('canvas');
+  changeTextSvgNode('GV_002', '1');
 
   let mouseX, mouseY;
 
