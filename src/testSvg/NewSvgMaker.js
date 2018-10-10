@@ -186,41 +186,60 @@ class NewSvgMaker {
     const nodeType = nodeResourceInfo.type;
 
     let targetAxis = [];
+    let x;
+    let y;
+    if (
+      nodeResourceInfo.id === 'moduleRearTemperature' ||
+      nodeResourceInfo.id === 'brineTemperature' ||
+      nodeResourceInfo.id === 'WLSensor'
+    ) {
+      if (nodeResourceInfo.id === 'moduleRearTemperature') {
+        x = placePoint[0] + (placePoint[2] - placePoint[0]) / 2 - nodeElementDraw.width;
+        y = placePoint[1] + (placePoint[3] - placePoint[1]) / 2 + nodeElementDraw.height / 2;
+      } else if (nodeResourceInfo.id === 'brineTemperature') {
+        x = placePoint[0] + (placePoint[2] - placePoint[0]) / 2 + 10;
+        y = placePoint[1] + (placePoint[3] - placePoint[1]) / 2 + nodeElementDraw.height / 2;
+      } else {
+        x = placePoint[0] + (placePoint[2] - placePoint[0]) / 2 - nodeElementDraw.width;
+        y = placePoint[1] + (placePoint[3] - placePoint[1]) / 2 - nodeElementDraw.height - 10;
+      }
 
-    let x = placePoint[0] + nodeInfo.axisScale[0] * (placePoint[2] - placePoint[0]);
-    let y = placePoint[1] + nodeInfo.axisScale[1] * (placePoint[3] - placePoint[1]);
-    if (nodeType === 'rect') {
-      x =
-        x -
-        nodeInfo.axisScale[0] * nodeElementDraw.width +
-        nodeInfo.moveScale[0] * nodeElementDraw.width;
-      y =
-        y -
-        nodeInfo.axisScale[1] * nodeElementDraw.height +
-        nodeInfo.moveScale[1] * nodeElementDraw.height;
-    } else if (nodeType === 'circle') {
-      x =
-        x -
-        nodeInfo.axisScale[0] * nodeElementDraw.width +
-        nodeInfo.moveScale[0] * nodeElementDraw.width;
-      y =
-        y -
-        nodeInfo.axisScale[1] * nodeElementDraw.height +
-        nodeInfo.moveScale[1] * nodeElementDraw.height;
-    } else if (nodeType === 'polygon') {
-      x =
-        x -
-        nodeInfo.axisScale[0] * (nodeElementDraw.width * 2) +
-        nodeInfo.moveScale[0] * (nodeElementDraw.width * 2);
-      y =
-        y -
-        nodeInfo.axisScale[1] * (nodeElementDraw.height * 2) +
-        nodeInfo.moveScale[1] * (nodeElementDraw.height * 2);
+      targetAxis = [x, y];
     } else {
-      // TODO: 다른 조건 작성
+      x = placePoint[0] + nodeInfo.axisScale[0] * (placePoint[2] - placePoint[0]);
+      y = placePoint[1] + nodeInfo.axisScale[1] * (placePoint[3] - placePoint[1]);
+      if (nodeType === 'rect') {
+        x =
+          x -
+          nodeInfo.axisScale[0] * nodeElementDraw.width +
+          nodeInfo.moveScale[0] * nodeElementDraw.width;
+        y =
+          y -
+          nodeInfo.axisScale[1] * nodeElementDraw.height +
+          nodeInfo.moveScale[1] * nodeElementDraw.height;
+      } else if (nodeType === 'circle') {
+        x =
+          x -
+          nodeInfo.axisScale[0] * nodeElementDraw.width +
+          nodeInfo.moveScale[0] * nodeElementDraw.width;
+        y =
+          y -
+          nodeInfo.axisScale[1] * nodeElementDraw.height +
+          nodeInfo.moveScale[1] * nodeElementDraw.height;
+      } else if (nodeType === 'polygon') {
+        x =
+          x -
+          nodeInfo.axisScale[0] * (nodeElementDraw.width * 2) +
+          nodeInfo.moveScale[0] * (nodeElementDraw.width * 2);
+        y =
+          y -
+          nodeInfo.axisScale[1] * (nodeElementDraw.height * 2) +
+          nodeInfo.moveScale[1] * (nodeElementDraw.height * 2);
+      } else {
+        // TODO: 다른 조건 작성
+      }
+      targetAxis = [x, y];
     }
-    targetAxis = [x, y];
-
     return targetAxis;
   }
 
@@ -273,7 +292,7 @@ class NewSvgMaker {
     return targetPoint;
   }
 
-  makeValueList()
+  makeValueList() {}
 }
 module.exports = NewSvgMaker;
 

@@ -17,7 +17,7 @@ const map = {
           elementDrawInfo: {
             width: 240,
             height: 150,
-            color: '#2b6cc4', // TODO:
+            color: '#3e68b6', // TODO:
           },
         },
         {
@@ -26,7 +26,7 @@ const map = {
           elementDrawInfo: {
             width: 300,
             height: 300,
-            color: '#2b6cc4', // TODO:
+            color: '#3e68b6', // TODO:
           },
         },
         {
@@ -35,7 +35,7 @@ const map = {
           elementDrawInfo: {
             width: 240,
             height: 130,
-            color: '#cdc0b0', // TODO:
+            color: '#2b4570', // TODO:
           },
         },
         {
@@ -44,7 +44,7 @@ const map = {
           elementDrawInfo: {
             width: 260,
             height: 180,
-            color: '#cdc0b0', // TODO:
+            color: '#2b4570', // TODO:
           },
         },
         {
@@ -53,7 +53,7 @@ const map = {
           elementDrawInfo: {
             width: 260,
             height: 180,
-            color: '#8b8378', // TODO:
+            color: '#152642', // TODO:
           },
         },
         {
@@ -89,7 +89,7 @@ const map = {
           elementDrawInfo: {
             width: 30,
             height: 30,
-            color: '#9FC93C', // TODO:
+            color: '#208974', // TODO:
           },
         },
         {
@@ -107,7 +107,7 @@ const map = {
             width: 30,
             height: 30,
             radius: 30,
-            color: '#AEB404', // TODO:
+            color: '#124e42', // TODO:
           },
         },
         {
@@ -115,7 +115,7 @@ const map = {
           type: 'line',
           elementDrawInfo: {
             width: 55,
-            color: '#BFBFBF', // TODO:
+            color: '#6f6f6f', // TODO:
           },
         },
         {
@@ -124,7 +124,7 @@ const map = {
           elementDrawInfo: {
             width: 550,
             height: 120,
-            color: '#0100FF', // TODO:
+            color: '#03396c', // TODO:
           },
         },
         {
@@ -144,6 +144,33 @@ const map = {
             height: 50,
             radius: 50,
             color: '#f06', // TODO:
+          },
+        },
+        {
+          id: 'WLSensor',
+          type: 'rect',
+          elementDrawInfo: {
+            width: 50,
+            height: 20,
+            color: '#dedede', // TODO:
+          },
+        },
+        {
+          id: 'moduleRearTemperature',
+          type: 'rect',
+          elementDrawInfo: {
+            width: 50,
+            height: 20,
+            color: '#dedede', // TODO:
+          },
+        },
+        {
+          id: 'brineTemperature',
+          type: 'rect',
+          elementDrawInfo: {
+            width: 50,
+            height: 20,
+            color: '#dedede', // TODO:
           },
         },
       ],
@@ -1272,7 +1299,7 @@ const map = {
                   minBrineLevel: 1,
                   setBrineLevel: 4,
                 },
-                nodeList: ['GV_005', 'O_008'],
+                nodeList: ['GV_005', 'O_008', 'MRT_007', 'WL_005', 'BT_005'],
               },
               {
                 target_code: '일반',
@@ -1657,6 +1684,32 @@ const map = {
       {
         targetIdList: ['WW_001', 'WW_002', 'WW_003', 'WW_004', 'WW_005', 'WW_006', 'WW_007'],
         resourceIdList: ['waterWay'],
+      },
+      {
+        targetIdList: ['MRT_001', 'MRT_002', 'MRT_003', 'MRT_004', 'MRT_005', 'MRT_006', 'MRT_007'],
+        resourceIdList: ['moduleRearTemperature'],
+      },
+      {
+        targetIdList: [
+          'WL_001',
+          'WL_002',
+          'WL_003',
+          'WL_004',
+          'WL_005',
+          'WL_006',
+          'WL_007',
+          'WL_008',
+          'WL_009',
+          'WL_010',
+          'WL_011',
+          'WL_012',
+          'WL_013',
+        ],
+        resourceIdList: ['WLSensor'],
+      },
+      {
+        targetIdList: ['BT_001', 'BT_002', 'BT_003', 'BT_004', 'BT_005'],
+        resourceIdList: ['brineTemperature'],
       },
     ],
   },
