@@ -59,11 +59,9 @@ class NewSvgMaker {
       placeRelationInfo.defList.forEach(defInfo => {
         defInfo.placeList.forEach(placeInfo => {
           let placeId = defInfo.target_prefix;
-          let placeIdKr = defInfo.target_name;
           // placeId 중 code 유무 체크
           if (placeInfo.target_code) {
             placeId += `_${placeInfo.target_code}`;
-            placeIdKr += `_${placeInfo.target_code}`;
           }
 
           _.forEach(placeInfo.nodeList, nodeId => {
@@ -75,7 +73,6 @@ class NewSvgMaker {
             const detailNode = {
               nodeId,
               placeId,
-              placeIdKr,
               resourceId,
               point: [],
               axisScale,
@@ -135,22 +132,20 @@ class NewSvgMaker {
    */
   makeSvgNodeList() {
     const objectList = this.storageList;
-    /** @type {svgNodeInfo[]} */
+    /** @type {mSvgNodeInfo[]} */
     objectList.forEach(objList => {
       _.forEach(objList.defList, (obj, index) => {
         const targetPoint = this.discoverObjectPoint(obj.placeId);
         const finalAxis = this.calcPlacePoint(obj, targetPoint);
 
         const finalObj = _.set(obj, 'point', finalAxis);
-        /** @type {detailNodeInfo} */
+        /** @type {defInfo} */
         const newDetailNode = {
           id: finalObj.nodeId,
           placeId: finalObj.placeId,
-          placeIdKr: finalObj.placeIdKr,
           resourceId: finalObj.resourceId,
           point: finalObj.point,
         };
-
         let foundIt = _.find(map.drawInfo.positionList.svgNodeList, {
           nodeClassId: objList.nodeClassId,
         });
@@ -302,18 +297,13 @@ module.exports = NewSvgMaker;
  * @property {detailNodeInfo[]} defList
  */
 
-/**
- * @typedef {Object} svgNodeInfo
- * @property {string} nodeClassId
- * @property {detailNodeInfo[]} defList
- */
 
-/**
- * @typedef {Object} detailNodeInfo
- * @property {string} placeId
- * @property {string} nodeId
- * @property {string} resourceId
- * @property {number[]} axisScale
- * @property {number[]} moveScale
- * @property {number[]} point 최종 적으로 나올 좌표 정보
- */
+// /**
+//  * @typedef {Object} detailNodeInfo
+//  * @property {string} placeId
+//  * @property {string} nodeId
+//  * @property {string} resourceId
+//  * @property {number[]} axisScale
+//  * @property {number[]} moveScale
+//  * @property {number[]} point 최종 적으로 나올 좌표 정보
+//  */

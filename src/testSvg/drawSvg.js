@@ -5,15 +5,17 @@
 // document.write("<script src='./testSvg/outputMap.js'></script>");
 
 function svgDrawing(dom) {
-  /** @type {mDeviceMap} */
-  const realMap = map;
+  // /** @type {mDeviceMap} */
+  // const map = map;
   // svg를 그리기 위한 공간 생성
-  const canvasWidth = realMap.drawInfo.frame.mapSize.width;
-  const canvasHeight = realMap.drawInfo.frame.mapSize.width;
+  const canvasWidth = map.drawInfo.frame.mapSize.width;
+  const canvasHeight = map.drawInfo.frame.mapSize.width;
   const canvas = SVG(dom).size(canvasWidth, canvasHeight);
+  const bg = canvas.image('/src/testSvg/20181010_162720_217.jpg');
+  bg.size(1000, 1500).move(50, 0);
 
   // Place 그리기
-  realMap.drawInfo.positionList.svgPlaceList.forEach(svgPlaceInfo => {
+  map.drawInfo.positionList.svgPlaceList.forEach(svgPlaceInfo => {
     svgPlaceInfo.defList.forEach(defInfo => {
       const placeResourceId = defInfo.resourceId;
       const placeX = defInfo.point[0];
@@ -22,7 +24,7 @@ function svgDrawing(dom) {
       if (_.isUndefined(placeResourceId)) return false;
 
       // resourceId를 이용해 그리기 위한 정보 수집
-      const resourceInfo = _.find(realMap.drawInfo.frame.svgModelResourceList, {
+      const resourceInfo = _.find(map.drawInfo.frame.svgModelResourceList, {
         id: placeResourceId,
       });
       const placeWidth = resourceInfo.elementDrawInfo.width;
@@ -39,7 +41,7 @@ function svgDrawing(dom) {
       } else if (placeType === 'line') {
         const placeX2 = defInfo.point[2];
         const placeY2 = defInfo.point[3];
-        console.log(placeX, placeY, placeX2, placeY2);
+        // console.log(placeX, placeY, placeX2, placeY2);
         const model = canvas.line(placeX, placeY, placeX2, placeY2);
         model.stroke({color: placeColor, width: placeWidth});
       } else if (placeType === 'pattern') {
@@ -60,53 +62,49 @@ function svgDrawing(dom) {
       }
       // TODO:
       writeText(canvas, defInfo, resourceInfo);
+      // FIXME: test
     });
   });
 
+  this.makeSvgNodeInfo();
   // node 그리기
-  realMap.drawInfo.positionList.svgNodeList.forEach(svgNodeInfo => {
-    svgNodeInfo.defList.forEach(defInfo => {
-      makeSvgNodeInfo(defInfo);
-
-      const resourceInfo = _.find(realMap.drawInfo.frame.svgModelResourceList, {
-        id: nodeObjInfo.resourceId,
-      });
-
-      if (_.isUndefined(resourceInfo)) return false;
-
-      const nodeX = nodeObjInfo.point[0];
-      const nodeY = nodeObjInfo.point[1];
-
-      const nodeWidth = resourceInfo.elementDrawInfo.width;
-      const nodeHeight = resourceInfo.elementDrawInfo.height;
-      const nodeColor = resourceInfo.elementDrawInfo.color;
-      const nodeType = resourceInfo.type; // rect, circle, polygon, text
-
-      // SVG.js를 이용해 그리기
-      if (nodeType === 'rect') {
-        const model = canvas
-          .rect(nodeWidth, nodeHeight)
-          .fill(nodeColor)
-          .move(nodeX, nodeY);
-      } else if (nodeType === 'circle') {
-        const nodeRadius = resourceInfo.elementDrawInfo.radius;
-        const model = canvas
-          .circle(nodeRadius)
-          .fill(nodeColor)
-          .move(nodeX, nodeY);
-      } else if (nodeType === 'polygon') {
-        const model = canvas.polyline(
-          `${nodeWidth},${0} ${nodeWidth * 2},${nodeHeight} ${nodeWidth},${nodeHeight *
-            2} ${0},${nodeHeight}`,
-        );
-        model.fill(nodeColor).move(nodeX, nodeY);
-      } else {
-        // TODO: 다른조건
-      }
-      // TODO:
-      writeText(canvas, nodeObjInfo, resourceInfo);
-    });
+  const resourceInfo = _.find(map.drawInfo.frame.svgModelResourceList, {
+    id: nodeObjInfo.resourceId,
   });
+
+  if (_.isUndefined(resourceInfo)) return false;
+
+  const nodeX = nodeObjInfo.point[0];
+  const nodeY = nodeObjInfo.point[1];
+
+  const nodeWidth = resourceInfo.elementDrawInfo.width;
+  const nodeHeight = resourceInfo.elementDrawInfo.height;
+  const nodeColor = resourceInfo.elementDrawInfo.color;
+  const nodeType = resourceInfo.type; // rect, circle, polygon, text
+
+  // SVG.js를 이용해 그리기
+  if (nodeType === 'rect') {
+    const model = canvas
+      .rect(nodeWidth, nodeHeight)
+      .fill(nodeColor)
+      .move(nodeX, nodeY);
+  } else if (nodeType === 'circle') {
+    const nodeRadius = resourceInfo.elementDrawInfo.radius;
+    const model = canvas
+      .circle(nodeRadius)
+      .fill(nodeColor)
+      .move(nodeX, nodeY);
+  } else if (nodeType === 'polygon') {
+    const model = canvas.polyline(
+      `${nodeWidth},${0} ${nodeWidth * 2},${nodeHeight} ${nodeWidth},${nodeHeight *
+        2} ${0},${nodeHeight}`,
+    );
+    model.fill(nodeColor).move(nodeX, nodeY);
+  } else {
+    // TODO: 다른조건
+  }
+  // TODO:
+  writeText(canvas, nodeObjInfo, resourceInfo);
 }
 
 /**
@@ -165,7 +163,20 @@ function writeText(canvas, defInfo, resourceInfo) {
  */
 function changeTextSvgNode(nodeId, nodeValue) {
   // 1. nodeId와 일치하는 SVG 객체를 불러와 nodeValue 반영
-  // 2. 해당 nodeId를 가지고 있는 realMap.drawInfo.positionList.svgNodeList 에서 draw 정보를 가져와 reDraw
+  const nodeObjectList = this.nodeobjList;
+  const nodeObjectInfo = _.find(nodeObjectList, {id: nodeId});
+  const dataSettedInfo = _.set(nodeObjectInfo, 'data', nodeValue);
+
+  /** @type {detailNodeObjInfo} */
+  const newDetailNodeObj = {
+    id: dataSettedInfo.id,
+    resourceId: dataSettedInfo.resourceId,
+    point: dataSettedInfo.point,
+    data: dataSettedInfo.data,
+  };
+  // TODO: push 작업
+
+  // 2.해당 nodeId를 가지고 있는 realMap.drawInfo.positionList.svgNodeList 에서 draw 정보를 가져와 reDraw
 }
 
 /**
@@ -180,23 +191,39 @@ function changeTextSvgNodes(nodeList) {
  * 그리기 위한 객체 정보를 담아두는 공간 생성
  * @param {defInfo} defInfo 위치 정보 id, resourceId, point[]
  */
-function makeSvgNodeInfo(defInfo) {
-  const nodeObjList = [];
-  const {id, point, resourceId} = defInfo;
-  // console.log(id);
-  /** @type {nodeObjInfo} */
-  const nodeObjInfo = {
-    id,
-    resourceId,
-    point,
-    data: 0,
-  };
+function makeSvgNodeInfo() {
+  /** @type {mDeviceMap} */
+  const realMap = map;
+  /** @type {svgNodeStorageInfo[]} */
+  const svgNodeStorageList = [];
+  realMap.drawInfo.positionList.svgNodeList.forEach(svgNodeInfo => {
+    svgNodeInfo.console.dir(svgNodeInfo);
+    // svgNodeInfo.defList.forEach(defInfo => {
+    //   const {id, point, resourceId} = defInfo;
+    //   // console.log(id);
+    //   /** @type {detailNodeObjInfo} */
+    //   const nodeObjInfo = {
+    //     id,
+    //     resourceId,
+    //     point,
+    //     data: 0,
+    //   };
 
-  this.nodeObjInfo = nodeObjInfo;
+    //   this.nodeobjList = svgNodeStorageList;
+    // });
+  });
 }
 
 /**
- * @typedef {Object} nodeObjInfo
+ * @typedef {Object} svgNodeStorageInfo
+ * @property {string} id
+ * @property {string} resourceId
+ * @property {number[]} point
+ * @property {number} data
+ */
+
+/**
+ * @typedef {Object} detailNodeObjInfo
  * @property {string} id
  * @property {string} resourceId
  * @property {number[]} point
