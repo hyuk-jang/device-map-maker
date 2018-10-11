@@ -378,7 +378,7 @@ const map = {
         description: '출력',
         defList: [
           {
-            target_id: 'inverterKW',
+            target_id: 'inverter',
             target_name: '인버터 출력',
             target_prefix: 'kW_I',
             description: '33kW급',

@@ -1,8 +1,8 @@
 require('dotenv').config();
 const _ = require('lodash');
-require('default-intelligence');
-const {BU} = require('base-util-jh');
-const {TempStorage} = require('base-model-jh');
+require('../../default-intelligence');
+const { BU } = require('base-util-jh');
+const { TempStorage } = require('base-model-jh');
 
 const map = require('./map');
 
@@ -15,7 +15,14 @@ const NODE_DEF_KEY = ['target_id', 'target_prefix', 'target_name', 'description'
 const NODE_KEY = ['target_code', 'target_name', 'data_logger_index', 'serial_number'];
 const PLACE_CLASS_KEY = ['target_id', 'target_name', 'description'];
 const PLACE_DEF_KEY = ['target_id', 'target_prefix', 'target_name'];
-const PLACE_KEY = ['target_code', 'target_name', 'chart_color', 'chart_sort_rank', 'depth'];
+const PLACE_KEY = [
+  'target_code',
+  'target_name',
+  'chart_color',
+  'chart_sort_rank',
+  'depth',
+  'place_info',
+];
 
 class UploadToDB {
   constructor() {
@@ -103,9 +110,9 @@ class UploadToDB {
 
     this.map.setInfo.dataLoggerStructureList.forEach(dataLoggerInfo => {
       const pickInfo = {};
-      _.forEach(NODE_DEF_KEY, key => {
-        if (!_.has(dataLoggerInfo, key)) {
-          _.set(pickInfo, key, _.get(dataLoggerInfo, key, ''));
+      _.forEach(LOGGER_DEF_KEY, key => {
+        if (!_.has(pickInfo, key)) {
+          _.set(pickInfo, key, _.get(dataLoggerInfo, key, null));
         }
       });
 
@@ -129,7 +136,7 @@ class UploadToDB {
 
     // BU.CLI(prevDLList)
 
-    const {dccConstructorList, dpcConstructorList} = this.setInfo;
+    const { dccConstructorList, dpcConstructorList } = this.setInfo;
 
     tempStorage.setExistStorage(prevDLList);
 
@@ -146,30 +153,31 @@ class UploadToDB {
          * Device ID(S/N)를 설정하기 위하여 별도로 작업
          * @type {protocol_info}
          */
-        const protocolInfo = _.find(dpcConstructorList, {dpcId: dataLoggerDeviceInfo.dpcId})
+        const protocolInfo = _.find(dpcConstructorList, { dpcId: dataLoggerDeviceInfo.dpcId })
           .protocol_info;
         protocolInfo.deviceId = dataLoggerDeviceInfo.serial_number;
+
+        const connectInfo = _.find(dccConstructorList, { dccId: dataLoggerDeviceInfo.dccId })
+          .connect_info;
 
         /** @type {DV_DATA_LOGGER} */
         const dataLoggerInfo = {
           main_seq: this.main_seq,
           data_logger_def_seq: _.get(
-            _.find(prevDLDList, {target_prefix: dataLoggerClassInfo.target_prefix}),
+            _.find(prevDLDList, { target_prefix: dataLoggerClassInfo.target_prefix }),
             'data_logger_def_seq',
             null,
           ),
-          serial_number: dataLoggerDeviceInfo.serial_number,
-          target_code: dataLoggerDeviceInfo.target_code,
-          connect_info: JSON.stringify(
-            _.find(dccConstructorList, {dccId: dataLoggerDeviceInfo.dccId}).connect_info,
-          ),
-          protocol_info: JSON.stringify(protocolInfo),
+          serial_number: dataLoggerDeviceInfo.serial_number || null,
+          target_code: dataLoggerDeviceInfo.target_code || null,
+          connect_info: _.isObject(connectInfo) ? JSON.stringify(connectInfo) : null,
+          protocol_info: _.isObject(protocolInfo) ? JSON.stringify(protocolInfo) : null,
         };
 
         // DV_NODE 경우 uniqueKey가 Seq이기 때문에 update일 경우에 해당 seq를 삽입한 확장
-        const dataLoggerSeq = _.get(_.find(prevDLList, {dataLoggerId}), 'data_logger_seq', null);
+        const dataLoggerSeq = _.get(_.find(prevDLList, { dataLoggerId }), 'data_logger_seq', null);
         if (_.isNumber(dataLoggerSeq)) {
-          _.assign(dataLoggerInfo, {data_logger_seq: dataLoggerSeq});
+          _.assign(dataLoggerInfo, { data_logger_seq: dataLoggerSeq });
         }
         tempStorage.addStorage(dataLoggerInfo, 'data_logger_seq', 'data_logger_seq');
       });
@@ -191,15 +199,15 @@ class UploadToDB {
 
     this.map.setInfo.nodeStructureList.forEach(nodeClassInfo => {
       const pickInfo = {};
-      _.forEach(NODE_CLASS_KEY, classKey => {
-        if (!_.has(nodeClassInfo, classKey)) {
-          _.set(pickInfo, classKey, _.get(nodeClassInfo, classKey, ''));
+      _.forEach(NODE_CLASS_KEY, key => {
+        if (!_.has(pickInfo, key)) {
+          _.set(pickInfo, key, _.get(nodeClassInfo, key, null));
         }
       });
       tempStorage.addStorage(pickInfo, 'target_id', 'node_class_seq');
     });
 
-    return this.doQuery(tempStorage, 'DV_NODE_CLASS', ['node_class_seq'], true);
+    return this.doQuery(tempStorage, 'DV_NODE_CLASS', ['node_class_seq'], false);
   }
 
   /**
@@ -212,6 +220,7 @@ class UploadToDB {
     const prevNCList = await this.biModule.getTable('DV_NODE_CLASS');
     /** @type {DV_NODE_DEF[]} */
     const prevNDList = await this.biModule.getTable('DV_NODE_DEF');
+    // BU.CLI(prevNDList);
 
     tempStorage.setExistStorage(prevNDList);
 
@@ -225,23 +234,30 @@ class UploadToDB {
 
         // Def에서 필수 구성 Key가 존재하지 않는다면 Class 정보를 복사
         _.forEach(NODE_DEF_KEY, key => {
-          if (_.has(nodeDefInfo, key)) {
-            _.set(pickInfo, key, _.get(nodeDefInfo, key, ''));
-          } else {
-            _.set(pickInfo, key, _.get(nodeClassInfo, key, ''));
+          if (!_.has(pickInfo, key)) {
+            if (_.get(nodeDefInfo, key, null) === null) {
+              _.set(pickInfo, key, _.get(nodeClassInfo, key, null));
+            } else {
+              _.set(pickInfo, key, _.get(nodeDefInfo, key, null));
+            }
           }
         });
 
+        //  Node Def가 NodeClass Seq를 가지고 있다면 삽입
         _.assign(pickInfo, {
           node_class_seq: _.get(
-            _.find(prevNCList, {target_id: nodeClassInfo.target_id}),
+            _.find(prevNCList, { target_id: nodeClassInfo.target_id }),
             'node_class_seq',
             null,
           ),
         });
+        // BU.CLI(pickInfo);
+
         tempStorage.addStorage(pickInfo, 'target_id', 'node_def_seq');
       });
     });
+
+    // BU.CLI(tempStorage);
 
     return this.doQuery(tempStorage, 'DV_NODE_DEF', ['node_def_seq'], false);
   }
@@ -292,7 +308,7 @@ class UploadToDB {
           usedDataLoggerIdList.forEach(dataLoggerId => {
             // dataLoggerId를 가진 DataLoggerList 목록에서 data_logger_seq 값을 정의
             const dataLoggerSeq = _.get(
-              _.find(prevDLList, {dataLoggerId}),
+              _.find(prevDLList, { dataLoggerId }),
               'data_logger_seq',
               null,
             );
@@ -302,19 +318,19 @@ class UploadToDB {
              * @type {DV_NODE}
              */
             const dvNodeInfo = {
-              target_code: nodeInfo.target_code,
-              data_logger_index: nodeInfo.data_logger_index,
+              target_code: nodeInfo.target_code || null,
+              data_logger_index: nodeInfo.data_logger_index || 0,
               node_def_seq: _.get(
-                _.find(prevNDList, {target_id: nodeDefInfo.target_id}),
+                _.find(prevNDList, { target_id: nodeDefInfo.target_id }),
                 'node_def_seq',
                 null,
               ),
               data_logger_seq: dataLoggerSeq,
             };
             // DV_NODE 경우 uniqueKey가 Seq이기 때문에 update일 경우에 해당 seq를 삽입한 확장
-            const nodeSeq = _.get(_.find(prevNList, {nodeId}), 'node_seq', null);
+            const nodeSeq = _.get(_.find(prevNList, { nodeId }), 'node_seq', null);
             if (_.isNumber(nodeSeq)) {
-              _.assign(dvNodeInfo, {node_seq: nodeSeq});
+              _.assign(dvNodeInfo, { node_seq: nodeSeq });
             }
             tempStorage.addStorage(dvNodeInfo, 'node_seq', 'node_seq');
           });
@@ -337,7 +353,13 @@ class UploadToDB {
     tempStorage.setExistStorage(prevPCList);
 
     this.map.realtionInfo.placeRelationList.forEach(placeClassInfo => {
-      const pickInfo = _.omit(placeClassInfo, ['defList']);
+      const pickInfo = {};
+      _.forEach(PLACE_CLASS_KEY, key => {
+        if (!_.has(pickInfo, key)) {
+          _.set(pickInfo, key, _.get(placeClassInfo, key, null));
+        }
+      });
+
       tempStorage.addStorage(pickInfo, 'target_id', 'place_class_seq');
     });
 
@@ -360,24 +382,27 @@ class UploadToDB {
     this.map.realtionInfo.placeRelationList.forEach(placeClassInfo => {
       // 장소 개요 목록 순회
       placeClassInfo.defList.forEach(placeDefInfo => {
-        // 장소 상세 리스트를 제외하고 선택
-        const pickInfo = _.omit(placeDefInfo, 'placeList');
+        const pickInfo = {};
 
         // Def에서 필수 구성 Key가 존재하지 않는다면 Class 정보를 복사
-        _.forEach(PLACE_DEF_KEY, defKey => {
-          if (!_.has(pickInfo, defKey)) {
-            _.set(pickInfo, defKey, _.get(placeClassInfo, defKey, null));
+        _.forEach(PLACE_DEF_KEY, key => {
+          if (!_.has(pickInfo, key)) {
+            if (_.get(placeDefInfo, key, null) === null) {
+              _.set(pickInfo, key, _.get(placeClassInfo, key, null));
+            } else {
+              _.set(pickInfo, key, _.get(placeDefInfo, key, null));
+            }
           }
         });
 
-        // pickInfo에 place_class_seq key 추가
         _.assign(pickInfo, {
           place_class_seq: _.get(
-            _.find(prevPCList, {target_id: placeClassInfo.target_id}),
+            _.find(prevPCList, { target_id: placeClassInfo.target_id }),
             'place_class_seq',
             null,
           ),
         });
+
         tempStorage.addStorage(pickInfo, 'target_id', 'place_def_seq');
       });
     });
@@ -394,7 +419,7 @@ class UploadToDB {
     /** @type {DV_PLACE_DEF[]} */
     const prevPDList = await this.biModule.getTable('DV_PLACE_DEF');
     /** @type {DV_PLACE[]} */
-    const prevPList = await this.biModule.getPlaceTbl();
+    const prevPList = await this.biModule.getPlaceTbl(this.main_seq);
 
     tempStorage.setExistStorage(prevPList);
 
@@ -410,42 +435,31 @@ class UploadToDB {
             placeId += `_${placeInfo.target_code}`;
           }
 
-          const pickInfo = _.omit(placeInfo, 'nodeList');
+          const pickInfo = {};
           // Def에서 필수 구성 Key가 존재하지 않는다면 null
-          _.forEach(PLACE_KEY, placeKey => {
-            if (!_.has(pickInfo, placeKey)) {
-              _.set(pickInfo, placeKey, null);
+          _.forEach(PLACE_KEY, key => {
+            if (!_.has(pickInfo, key)) {
+              _.set(pickInfo, key, _.get(placeInfo, key, null));
             }
           });
 
           // pickInfo에 place_class_seq key 추가
           _.assign(pickInfo, {
             place_def_seq: _.get(
-              _.find(prevPDList, {target_id: placeDefInfo.target_id}),
+              _.find(prevPDList, { target_id: placeDefInfo.target_id }),
               'place_def_seq',
               null,
             ),
           });
 
-          pickInfo.place_info =
-            typeof placeInfo.place_info === 'object' && JSON.stringify(placeInfo.place_info);
-
-          // /** @type {DV_PLACE} */
-          // const dvPlaceInfo = {
-          //   place_def_seq: _.get(
-          //     _.find(prevPDList, {target_id: placeDefInfo.target_id}),
-          //     'place_def_seq',
-          //     null,
-          //   ),
-          //   target_code: placeInfo.target_code,
-          //   depth: _.get(placeInfo, 'depth', null),
-          //   place_info: JSON.stringify(placeInfo.place_info),
-          // };
+          pickInfo.place_info = _.isObject(pickInfo.place_info)
+            ? JSON.stringify(placeInfo.place_info)
+            : null;
 
           // DV_PLACE 경우 uniqueKey가 Seq이기 때문에 update일 경우에 해당 seq를 삽입한 확장
-          const placeSeq = _.get(_.find(prevPList, {placeId}), 'place_seq', null);
+          const placeSeq = _.get(_.find(prevPList, { placeId }), 'place_seq', null);
           if (_.isNumber(placeSeq)) {
-            _.assign(pickInfo, {place_seq: placeSeq});
+            _.assign(pickInfo, { place_seq: placeSeq });
           }
 
           tempStorage.addStorage(pickInfo, 'place_seq', 'place_seq');
@@ -480,17 +494,24 @@ class UploadToDB {
           if (placeInfo.target_code) {
             placeId += `_${placeInfo.target_code}`;
           }
-
-          const placeModelInfo = _.find(prevPList, {placeId});
+          const placeModelInfo = _.find(prevPList, { placeId });
 
           placeInfo.nodeList.forEach(nodeId => {
-            const nodeInfo = _.find(prevNList, {nodeId});
+            const nodeInfo = _.find(prevNList, { nodeId });
 
             /** @type {DV_PLACE_RELATION} */
             const placeRelationInfo = {
-              node_seq: nodeInfo.node_seq,
-              place_seq: placeModelInfo.place_seq,
+              node_seq: _.get(nodeInfo, 'node_seq', undefined),
+              place_seq: _.get(placeModelInfo, 'place_seq', undefined),
             };
+
+            // 관계 장치중에 Node Structure에 없거나 Place 정보가 없다면 관계가 없는 것으로 판단하고 해당 값은 입력하지 않음
+            if (
+              _(placeRelationInfo)
+                .values()
+                .includes(undefined)
+            )
+              return false;
 
             tempStorage.addStorage(placeRelationInfo, 'place_relation_seq', 'place_relation_seq');
           });

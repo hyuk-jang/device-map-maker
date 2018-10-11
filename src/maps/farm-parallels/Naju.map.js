@@ -602,14 +602,17 @@ const map = {
             placeList: [
               {
                 target_code: '고정식',
+                target_name: '고정식',
                 nodeList: ['kW_I_001'],
               },
               {
                 target_code: '가변식',
+                target_name: '가변식',
                 nodeList: ['kW_I_002'],
               },
               {
                 target_code: '수평',
+                target_name: '수평',
                 nodeList: ['kW_I_003'],
               },
             ],
@@ -627,6 +630,7 @@ const map = {
             target_name: '고정식 태양광',
             placeList: [
               {
+                target_code: '하부',
                 target_name: '하부',
                 chart_color: '#212529',
                 chart_sort_rank: 1,
@@ -641,7 +645,8 @@ const map = {
                 ],
               },
               {
-                target_name: '외부',
+                target_code: '외곽',
+                target_name: '외곽',
                 chart_color: '#c92a2a',
                 chart_sort_rank: 2,
                 nodeList: ['LX_002', 'S_I_002', 'CO2_002', 'WV_S_002', 'T_S_002', 'RH_S_002'],
@@ -671,7 +676,7 @@ const map = {
                 target_code: '외곽',
                 chart_color: '#862e9c',
                 chart_sort_rank: 4,
-                nodeList: ['LX_004', 'S_I_004', 'CO4_004', 'WV_S_004', 'T_S_004', 'RH_S_004'],
+                nodeList: ['LX_004', 'S_I_004', 'CO2_004', 'WV_S_004', 'T_S_004', 'RH_S_004'],
               },
             ],
           },
@@ -698,7 +703,7 @@ const map = {
                 target_code: '외곽',
                 chart_color: '#364fc7',
                 chart_sort_rank: 6,
-                nodeList: ['LX_006', 'S_I_006', 'CO6_006', 'WV_S_006', 'T_S_006', 'RH_S_006'],
+                nodeList: ['LX_006', 'S_I_006', 'CO2_006', 'WV_S_006', 'T_S_006', 'RH_S_006'],
               },
             ],
           },
