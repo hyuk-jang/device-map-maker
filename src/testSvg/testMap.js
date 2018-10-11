@@ -7,7 +7,7 @@ const map = {
   drawInfo: {
     frame: {
       mapSize: {
-        width: 3000,
+        width: 1500,
         height: 1230,
       },
       svgModelResourceList: [
@@ -17,7 +17,7 @@ const map = {
           elementDrawInfo: {
             width: 240,
             height: 150,
-            color: '#3e68b6', // TODO:
+            color: '#3e68b6',
           },
         },
         {
@@ -26,7 +26,7 @@ const map = {
           elementDrawInfo: {
             width: 300,
             height: 300,
-            color: '#3e68b6', // TODO:
+            color: '#3e68b6',
           },
         },
         {
@@ -62,7 +62,7 @@ const map = {
           elementDrawInfo: {
             width: 170,
             height: 150,
-            color: '', // TODO:
+            color: '#32706f', // TODO:
           },
         },
         {
@@ -80,7 +80,7 @@ const map = {
           elementDrawInfo: {
             width: 175,
             height: 120,
-            color: '', // TODO:
+            color: '#77a1c1', // TODO:
           },
         },
         {
@@ -97,7 +97,7 @@ const map = {
           type: 'line',
           elementDrawInfo: {
             width: 3,
-            color: '#ff7256', // TODO:
+            color: '#F47994', // TODO:
           },
         },
         {
@@ -124,7 +124,7 @@ const map = {
           elementDrawInfo: {
             width: 550,
             height: 120,
-            color: '#03396c', // TODO:
+            color: '#484144', // TODO:
           },
         },
         {
@@ -143,7 +143,7 @@ const map = {
             width: 50,
             height: 50,
             radius: 50,
-            color: '#f06', // TODO:
+            color: '#EE204D', // TODO:
           },
         },
         {
@@ -151,7 +151,7 @@ const map = {
           type: 'rect',
           elementDrawInfo: {
             width: 50,
-            height: 20,
+            height: 40,
             color: '#dedede', // TODO:
           },
         },
@@ -160,7 +160,7 @@ const map = {
           type: 'rect',
           elementDrawInfo: {
             width: 50,
-            height: 20,
+            height: 40,
             color: '#dedede', // TODO:
           },
         },
@@ -169,7 +169,7 @@ const map = {
           type: 'rect',
           elementDrawInfo: {
             width: 50,
-            height: 20,
+            height: 40,
             color: '#dedede', // TODO:
           },
         },
@@ -178,7 +178,7 @@ const map = {
     positionList: {
       svgPlaceList: [
         {
-          target_id: 'salternBlock',
+          placeClassId: 'salternBlock',
           defList: [
             {
               id: 'SEB_1_A',
@@ -233,7 +233,7 @@ const map = {
           ],
         },
         {
-          target_id: 'brineWarehouse',
+          placeClassId: 'brineWarehouse',
           defList: [
             {
               id: 'BW_1',
@@ -253,7 +253,7 @@ const map = {
           ],
         },
         {
-          target_id: 'reservoir',
+          placeClassId: 'reservoir',
           defList: [
             {
               id: 'RV',
@@ -263,7 +263,7 @@ const map = {
           ],
         },
         {
-          target_id: 'sea',
+          placeClassId: 'sea',
           defList: [
             {
               id: 'SEA',
@@ -273,7 +273,7 @@ const map = {
           ],
         },
         {
-          target_id: 'waterWay',
+          placeClassId: 'waterWay',
           defList: [
             {
               id: 'WW_001',
@@ -313,7 +313,7 @@ const map = {
           ],
         },
         {
-          target_id: 'pipeLine',
+          placeClassId: 'pipeLine',
           defList: [
             {
               id: 'PL_001',
@@ -1614,7 +1614,7 @@ const map = {
       },
     ],
     brineFeedRankRelationList: [],
-    imgContactList: [
+    svgResourceConnectionList: [
       {
         targetIdList: ['SEB_1_A', 'SEB_1_B', 'SEB_1_C', 'SEB_1_D'],
         resourceIdList: ['salternModuleBlock_A'],

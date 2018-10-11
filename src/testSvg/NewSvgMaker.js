@@ -24,7 +24,8 @@ class NewSvgMaker {
   }
 
   /**
-   * @param {string} id replace 하려는 id 값
+   * 아이디 값을 가져와 접두사 또는 넘버 분리 ex) SEB_001 → 'SEB' or '001'
+   * @param {string} id ex) 'SEB_001', 'MRT_002' ...
    * @param {string} pattern 정규식
    */
   getReplace(id, pattern) {
@@ -34,27 +35,31 @@ class NewSvgMaker {
   }
 
   /**
-   * @param {string} targetId resource 정보를 찾으려고 하는 타켓의 아이디
+   * svgModelResourceList 에서 원하는 정보 값 가져오기
+   * @param {string} targetId  ex) 'SEB_001', 'MRT_002' ...
    */
   getResourceInfo(targetId) {
-    const foundImgContactInfo = _.find(map.realtionInfo.imgContactList, {
+    const foundSVGResourceConnectionInfo = _.find(map.realtionInfo.svgResourceConnectionList, {
       targetIdList: [targetId],
     });
-    if (foundImgContactInfo != null) {
-      const resourceId = foundImgContactInfo.resourceIdList[0];
-      // BU.CLI(resourceId);
-      const resourceInfo = _.find(map.drawInfo.frame.svgModelResourceList, {id: resourceId});
-      // BU.CLI(resourceInfo);
+
+    if (foundSVGResourceConnectionInfo != null) {
+      const resourceId = foundSVGResourceConnectionInfo.resourceIdList[0];
+      const resourceInfo = _.find(map.drawInfo.frame.svgModelResourceList, {
+        id: resourceId,
+      });
+
       return resourceInfo;
     }
   }
 
   /**
-   * svgNodeList를 만들기위한 node 정보 저장
+   * svgNodeList를 만들기위한 node 정보 수집
    */
   makeObjInfo() {
     /** @type {storageInfo[]} */
     const storageList = [];
+
     map.realtionInfo.placeRelationList.forEach(placeRelationInfo => {
       placeRelationInfo.defList.forEach(defInfo => {
         defInfo.placeList.forEach(placeInfo => {
@@ -68,7 +73,7 @@ class NewSvgMaker {
             const {axisScale, moveScale} = this.getAxisMoveScale(nodeId);
             const resourceInfo = this.getResourceInfo(nodeId);
             const resourceId = _.result(resourceInfo, 'id');
-            // BU.CLI(resourceId);
+
             /** @type {detailNodeInfo} */
             const detailNode = {
               nodeId,
@@ -78,8 +83,9 @@ class NewSvgMaker {
               axisScale,
               moveScale,
             };
-            let foundIt = _.find(storageList, {nodeClassId: resourceId});
+
             // 그룹 존재 체크
+            let foundIt = _.find(storageList, {nodeClassId: resourceId});
             if (_.isEmpty(foundIt)) {
               foundIt = {
                 nodeClassId: resourceId,
@@ -102,8 +108,8 @@ class NewSvgMaker {
   }
 
   /**
-   * axisScale 과 moveScale 찾아가기
-   * @param {string} targetId
+   * axisScale, moveScale 값 가져오기
+   * @param {string} targetId ex) 'SEB_001', 'MRT_002' ...
    * @return {{axisScale: [], moveScale: []}}
    */
   getAxisMoveScale(targetId) {
@@ -116,7 +122,9 @@ class NewSvgMaker {
     };
 
     map.setInfo.nodeStructureList.forEach(nodeStructureInfo => {
-      const targetDefInfo = _.find(nodeStructureInfo.defList, {target_prefix: targetPrefix});
+      const targetDefInfo = _.find(nodeStructureInfo.defList, {
+        target_prefix: targetPrefix,
+      });
       if (targetDefInfo != null) {
         const targetNodeInfo = _.find(targetDefInfo.nodeList, {target_code: targetCode});
         returnValue = _.pick(targetNodeInfo, ['axisScale', 'moveScale']);
@@ -127,18 +135,19 @@ class NewSvgMaker {
   }
 
   /**
-   * 최종으로 저장될 svgnodeList 생성
-   * @param {*} objectList storageList;
+   * 최종으로 저장될 svgNodeList 생성
+   * @param {*} objectList =storageList;
    */
   makeSvgNodeList() {
     const objectList = this.storageList;
+
     /** @type {mSvgNodeInfo[]} */
     objectList.forEach(objList => {
       _.forEach(objList.defList, (obj, index) => {
         const targetPoint = this.discoverObjectPoint(obj.placeId);
         const finalAxis = this.calcPlacePoint(obj, targetPoint);
-
         const finalObj = _.set(obj, 'point', finalAxis);
+
         /** @type {defInfo} */
         const newDetailNode = {
           id: finalObj.nodeId,
@@ -146,10 +155,10 @@ class NewSvgMaker {
           resourceId: finalObj.resourceId,
           point: finalObj.point,
         };
+        // 그룹 존재 체크
         let foundIt = _.find(map.drawInfo.positionList.svgNodeList, {
           nodeClassId: objList.nodeClassId,
         });
-        // 그룹 존재 체크
         if (_.isEmpty(foundIt)) {
           foundIt = {
             nodeClassId: objList.nodeClassId,
@@ -167,19 +176,18 @@ class NewSvgMaker {
   }
 
   /**
-   * axisScale과 moveScale을 이용해 노드 point를 설정
-   * @param {*} nodeInfo
-   * @param {*} placePoint
+   * 장소에 따른 노드의 위치 지정
+   * @param {*} nodeInfo storageList에 저장된 defList 정보
+   * @param {*} placePoint 장소의 (x1,y1,x2,y2) 정보
    */
   calcPlacePoint(nodeInfo, placePoint) {
     // BU.CLIS(nodeInfo, placePoint);
     const nodeResourceInfo = this.getResourceInfo(nodeInfo.nodeId);
-    // BU.CLI(nodeInfo.nodeId);
     if (_.isUndefined(nodeResourceInfo)) return false; // FIXME: 센서류 때문에 작성.
-    // BU.CLI(nodeResourceInfo);
     const nodeElementDraw = nodeResourceInfo.elementDrawInfo;
     const nodeType = nodeResourceInfo.type;
 
+    // FIXME: ↓ 후에 더 좋은 방법으로 수정
     let targetAxis = [];
     let x;
     let y;
@@ -198,7 +206,6 @@ class NewSvgMaker {
         x = placePoint[0] + (placePoint[2] - placePoint[0]) / 2 - nodeElementDraw.width;
         y = placePoint[1] + (placePoint[3] - placePoint[1]) / 2 - nodeElementDraw.height - 10;
       }
-
       targetAxis = [x, y];
     } else {
       x = placePoint[0] + nodeInfo.axisScale[0] * (placePoint[2] - placePoint[0]);
@@ -230,8 +237,6 @@ class NewSvgMaker {
           y -
           nodeInfo.axisScale[1] * (nodeElementDraw.height * 2) +
           nodeInfo.moveScale[1] * (nodeElementDraw.height * 2);
-      } else {
-        // TODO: 다른 조건 작성
       }
       targetAxis = [x, y];
     }
@@ -239,14 +244,14 @@ class NewSvgMaker {
   }
 
   /**
-   * place 정보를 이용해 (x1,y1) 과 (x2,y2)를 구한다
-   * @param {string} baseId placeId
+   * 장소의 정보를 이용해 (x1,y1) 과 (x2,y2)를 구한다
+   * @param {string} placeId ex) 'SEB_001'
    */
-  discoverObjectPoint(baseId) {
-    // BU.CLI(baseId);
+  discoverObjectPoint(placeId) {
     let targetPoint = []; // [x1,y1,x2,y2]
+
     map.drawInfo.positionList.svgPlaceList.forEach(svgPlaceInfo => {
-      const targetInfo = _.find(svgPlaceInfo.defList, {id: baseId});
+      const targetInfo = _.find(svgPlaceInfo.defList, {id: placeId});
       if (_.isUndefined(targetInfo)) return false;
       const targetResourceId = targetInfo.resourceId;
       // BU.CLI(targetResourceId);
@@ -286,8 +291,6 @@ class NewSvgMaker {
     });
     return targetPoint;
   }
-
-  makeValueList() {}
 }
 module.exports = NewSvgMaker;
 
@@ -297,13 +300,12 @@ module.exports = NewSvgMaker;
  * @property {detailNodeInfo[]} defList
  */
 
-
-// /**
-//  * @typedef {Object} detailNodeInfo
-//  * @property {string} placeId
-//  * @property {string} nodeId
-//  * @property {string} resourceId
-//  * @property {number[]} axisScale
-//  * @property {number[]} moveScale
-//  * @property {number[]} point 최종 적으로 나올 좌표 정보
-//  */
+/**
+ * @typedef {Object} detailNodeInfo
+ * @property {string} placeId
+ * @property {string} nodeId
+ * @property {string} resourceId
+ * @property {number[]} axisScale
+ * @property {number[]} moveScale
+ * @property {number[]} point 최종 적으로 나올 좌표 정보
+ */
