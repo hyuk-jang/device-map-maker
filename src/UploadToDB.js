@@ -8,8 +8,14 @@ const map = require('./map');
 
 const BiModule = require('./BiModule');
 
+const LOGGER_DEF_KEY = ['target_name', 'target_prefix'];
+const LOGGER_KEY = ['serial_number', 'target_code', 'connect_info', 'protocol_info'];
+const NODE_CLASS_KEY = ['target_id', 'target_name', 'is_sensor', 'data_unit', 'description'];
 const NODE_DEF_KEY = ['target_id', 'target_prefix', 'target_name', 'description'];
+const NODE_KEY = ['target_code', 'target_name', 'data_logger_index', 'serial_number'];
+const PLACE_CLASS_KEY = ['target_id', 'target_name', 'description'];
 const PLACE_DEF_KEY = ['target_id', 'target_prefix', 'target_name'];
+const PLACE_KEY = ['target_code', 'target_name', 'chart_color', 'chart_sort_rank', 'depth'];
 
 class UploadToDB {
   constructor() {
@@ -96,7 +102,13 @@ class UploadToDB {
     tempStorage.setExistStorage(prevDLGList);
 
     this.map.setInfo.dataLoggerStructureList.forEach(dataLoggerInfo => {
-      const pickInfo = _.pick(dataLoggerInfo, ['target_prefix', 'target_name']);
+      const pickInfo = {};
+      _.forEach(NODE_DEF_KEY, key => {
+        if (!_.has(dataLoggerInfo, key)) {
+          _.set(pickInfo, key, _.get(dataLoggerInfo, key, ''));
+        }
+      });
+
       tempStorage.addStorage(pickInfo, 'target_prefix', 'data_logger_def_seq');
     });
 
@@ -178,11 +190,16 @@ class UploadToDB {
     tempStorage.setExistStorage(prevNCList);
 
     this.map.setInfo.nodeStructureList.forEach(nodeClassInfo => {
-      const pickInfo = _.omit(nodeClassInfo, ['defList']);
+      const pickInfo = {};
+      _.forEach(NODE_CLASS_KEY, classKey => {
+        if (!_.has(nodeClassInfo, classKey)) {
+          _.set(pickInfo, classKey, _.get(nodeClassInfo, classKey, ''));
+        }
+      });
       tempStorage.addStorage(pickInfo, 'target_id', 'node_class_seq');
     });
 
-    return this.doQuery(tempStorage, 'DV_NODE_CLASS', ['node_class_seq'], false);
+    return this.doQuery(tempStorage, 'DV_NODE_CLASS', ['node_class_seq'], true);
   }
 
   /**
@@ -202,13 +219,16 @@ class UploadToDB {
     this.map.setInfo.nodeStructureList.forEach(nodeClassInfo => {
       // DEF 목록 순회
       nodeClassInfo.defList.forEach(nodeDefInfo => {
+        // const pickInfo = _.omit(nodeDefInfo, 'nodeList');
         // nodeList Key 제외 Pick
-        const pickInfo = _.omit(nodeDefInfo, 'nodeList');
+        const pickInfo = {};
 
         // Def에서 필수 구성 Key가 존재하지 않는다면 Class 정보를 복사
-        _.forEach(NODE_DEF_KEY, defKey => {
-          if (!_.has(pickInfo, defKey)) {
-            _.set(pickInfo, defKey, _.get(nodeClassInfo, defKey, null));
+        _.forEach(NODE_DEF_KEY, key => {
+          if (_.has(nodeDefInfo, key)) {
+            _.set(pickInfo, key, _.get(nodeDefInfo, key, ''));
+          } else {
+            _.set(pickInfo, key, _.get(nodeClassInfo, key, ''));
           }
         });
 
@@ -390,25 +410,45 @@ class UploadToDB {
             placeId += `_${placeInfo.target_code}`;
           }
 
-          /** @type {DV_PLACE} */
-          const dvPlaceInfo = {
+          const pickInfo = _.omit(placeInfo, 'nodeList');
+          // Def에서 필수 구성 Key가 존재하지 않는다면 null
+          _.forEach(PLACE_KEY, placeKey => {
+            if (!_.has(pickInfo, placeKey)) {
+              _.set(pickInfo, placeKey, null);
+            }
+          });
+
+          // pickInfo에 place_class_seq key 추가
+          _.assign(pickInfo, {
             place_def_seq: _.get(
               _.find(prevPDList, {target_id: placeDefInfo.target_id}),
               'place_def_seq',
               null,
             ),
-            target_code: placeInfo.target_code,
-            depth: placeInfo.depth,
-            place_info: JSON.stringify(placeInfo.place_info),
-          };
+          });
+
+          pickInfo.place_info =
+            typeof placeInfo.place_info === 'object' && JSON.stringify(placeInfo.place_info);
+
+          // /** @type {DV_PLACE} */
+          // const dvPlaceInfo = {
+          //   place_def_seq: _.get(
+          //     _.find(prevPDList, {target_id: placeDefInfo.target_id}),
+          //     'place_def_seq',
+          //     null,
+          //   ),
+          //   target_code: placeInfo.target_code,
+          //   depth: _.get(placeInfo, 'depth', null),
+          //   place_info: JSON.stringify(placeInfo.place_info),
+          // };
 
           // DV_PLACE 경우 uniqueKey가 Seq이기 때문에 update일 경우에 해당 seq를 삽입한 확장
           const placeSeq = _.get(_.find(prevPList, {placeId}), 'place_seq', null);
           if (_.isNumber(placeSeq)) {
-            _.assign(dvPlaceInfo, {place_seq: placeSeq});
+            _.assign(pickInfo, {place_seq: placeSeq});
           }
 
-          tempStorage.addStorage(dvPlaceInfo, 'place_seq', 'place_seq');
+          tempStorage.addStorage(pickInfo, 'place_seq', 'place_seq');
         });
       });
     });
