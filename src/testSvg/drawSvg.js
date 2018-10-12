@@ -20,6 +20,7 @@ function svgDrawing(documentId) {
       if (_.isUndefined(placeResourceId)) return false;
 
       // resourceId를 이용해 그리기 위한 정보 수집
+      /** @type {mSvgModelResource} */
       const resourceInfo = _.find(map.drawInfo.frame.svgModelResourceList, {
         id: placeResourceId,
       });
@@ -29,16 +30,28 @@ function svgDrawing(documentId) {
       const placeType = resourceInfo.type; // rect, line
 
       // SVG.js 이용해 그리기
+      let model;
       if (placeType === 'rect') {
-        const model = canvas
+        model = canvas
           .rect(placeWidth, placeHeight)
           .fill(placeColor)
           .move(placeX, placeY);
+
+        // 그림자 효과
+        model.filter(add => {
+          const blur = add
+            .offset(5, 5)
+            .in(add.sourceAlpha)
+            .gaussianBlur(2);
+
+          add.blend(add.source, blur);
+        });
       } else if (placeType === 'line') {
         const placeX2 = defInfo.point[2];
         const placeY2 = defInfo.point[3];
-        const model = canvas.line(placeX, placeY, placeX2, placeY2);
-        model.stroke({color: placeColor, width: placeWidth});
+        model = canvas
+          .line(placeX, placeY, placeX2, placeY2)
+          .stroke({color: placeColor, width: placeWidth});
       }
       writeText(canvas, defInfo, resourceInfo);
     });
@@ -47,6 +60,7 @@ function svgDrawing(documentId) {
   // node 그리기
   map.drawInfo.positionList.svgNodeList.forEach(svgNodeInfo => {
     svgNodeInfo.defList.forEach(defInfo => {
+      /** @type {mSvgModelResource} */
       const resourceInfo = _.find(map.drawInfo.frame.svgModelResourceList, {
         id: defInfo.resourceId,
       });
@@ -80,6 +94,15 @@ function svgDrawing(documentId) {
         );
         model.fill(nodeColor).move(nodeX, nodeY);
       }
+      // 그림자 효과
+      model.filter(add => {
+        const blur = add
+          .offset(1, 1)
+          .in(add.sourceAlpha)
+          .gaussianBlur(2);
+
+        add.blend(add.source, blur);
+      });
       writeText(canvas, defInfo, resourceInfo);
     });
   });
@@ -129,7 +152,12 @@ function writeText(canvas, defInfo, resourceInfo) {
   textY = defInfo.point[1] + resourceInfo.elementDrawInfo.height / 2;
 
   if (resourceInfo.type === 'rect') {
-    if (defInfo.id.match(/MRT/) || defInfo.id.match(/BT/) || defInfo.id.match(/WL/)) {
+    if (
+      defInfo.id.match(/MRT_/) ||
+      defInfo.id.match(/BT_/) ||
+      defInfo.id.match(/WL_/) ||
+      defInfo.id.match(/S_/)
+    ) {
       textColor = '#2958ae';
     }
   } else if (resourceInfo.type === 'line') {
@@ -158,6 +186,7 @@ function writeText(canvas, defInfo, resourceInfo) {
 
   // 그려진 node id, text 정보 수집
   const svgId = defInfo.id;
+
   const svgNode = {
     id: svgId,
     text,
