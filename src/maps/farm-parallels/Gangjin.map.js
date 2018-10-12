@@ -1,5 +1,3 @@
-require('../../../../default-intelligence');
-
 /**
  * @type {mDeviceMap}
  */
@@ -103,7 +101,7 @@ const map = {
             target_code: '008',
             dccId: 'DCC_001',
             dpcId: 'DPC_001',
-            nodeList: ['LX_008', 'S_I_008', 'CO2_008', 'WV_S_008', 'T_S_008', 'RH_S_008'],
+            nodeList: ['LX_008', 'S_H_008', 'CO2_008', 'WV_S_008', 'T_S_008', 'RH_S_008'],
           },
         ],
       },
@@ -118,7 +116,7 @@ const map = {
             dpcId: 'DPC_001',
             nodeList: [
               'LX_009',
-              'S_I_009',
+              'S_H_009',
               'CO2_009',
               'WV_S_009',
               'T_S_009',
@@ -150,6 +148,9 @@ const map = {
               {
                 target_code: '008',
               },
+              {
+                target_code: '009',
+              },
             ],
           },
           {
@@ -178,6 +179,9 @@ const map = {
             nodeList: [
               {
                 target_code: '008',
+              },
+              {
+                target_code: '009',
               },
             ],
           },
@@ -238,19 +242,22 @@ const map = {
         defList: [
           {
             target_id: 'horizontalSolar',
-            target_name: '수평 일사량',
+            target_name: '일사량',
             target_prefix: 'S_H',
-            nodeList: [],
+            nodeList: [
+              {
+                target_code: '008',
+              },
+              {
+                target_code: '009',
+              },
+            ],
           },
           {
             target_id: 'inclinedSolar',
             target_name: '경사 일사량',
             target_prefix: 'S_I',
-            nodeList: [
-              {
-                target_code: '008',
-              },
-            ],
+            nodeList: [],
           },
         ],
       },
@@ -306,6 +313,9 @@ const map = {
               {
                 target_code: '008',
               },
+              {
+                target_code: '009',
+              },
             ],
           },
         ],
@@ -332,6 +342,9 @@ const map = {
               {
                 target_code: '008',
               },
+              {
+                target_code: '009',
+              },
             ],
           },
         ],
@@ -350,6 +363,9 @@ const map = {
             nodeList: [
               {
                 target_code: '008',
+              },
+              {
+                target_code: '009',
               },
             ],
           },
@@ -423,10 +439,11 @@ const map = {
             target_name: '태양광',
             placeList: [
               {
+                target_name: '008',
                 target_code: '하부',
                 chart_color: '#0b7285',
                 chart_sort_rank: 8,
-                nodeList: ['LX_008', 'S_I_008', 'CO2_008', 'WV_S_008', 'T_S_008', 'RH_S_008'],
+                nodeList: ['LX_008', 'S_H_008', 'CO2_008', 'WV_S_008', 'T_S_008', 'RH_S_008'],
               },
             ],
           },
@@ -441,13 +458,14 @@ const map = {
           {
             target_id: 'outside',
             target_prefix: 'OS',
-            chart_color: '#087f5b',
-            chart_sort_rank: 9,
             placeList: [
               {
+                target_code: '009',
+                chart_color: '#087f5b',
+                chart_sort_rank: 9,
                 nodeList: [
                   'LX_009',
-                  'S_I_009',
+                  'S_H_009',
                   'CO2_009',
                   'WV_S_009',
                   'T_S_009',

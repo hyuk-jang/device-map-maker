@@ -1,5 +1,3 @@
-require('../../../../default-intelligence');
-
 /**
  * @type {mDeviceMap}
  */
@@ -103,14 +101,14 @@ const map = {
             target_code: '014',
             dccId: 'DCC_001',
             dpcId: 'DPC_001',
-            nodeList: ['LX_014', 'S_I_014', 'CO2_014', 'WV_S_014', 'T_S_014', 'RH_S_014'],
+            nodeList: ['LX_014', 'S_H_014', 'CO2_014', 'WV_S_014', 'T_S_014', 'RH_S_014'],
           },
           {
             serial_number: 15,
             target_code: '015',
             dccId: 'DCC_001',
             dpcId: 'DPC_001',
-            nodeList: ['LX_015', 'S_I_015', 'CO2_015', 'WV_S_015', 'T_S_015', 'RH_S_015'],
+            nodeList: ['LX_015', 'S_H_015', 'CO2_015', 'WV_S_015', 'T_S_015', 'RH_S_015'],
           },
         ],
       },
@@ -125,7 +123,7 @@ const map = {
             dpcId: 'DPC_001',
             nodeList: [
               'LX_016',
-              'S_I_016',
+              'S_H_016',
               'CO2_016',
               'WV_S_016',
               'T_S_016',
@@ -160,6 +158,9 @@ const map = {
               {
                 target_code: '015',
               },
+              {
+                target_code: '016',
+              },
             ],
           },
           {
@@ -191,6 +192,9 @@ const map = {
               },
               {
                 target_code: '015',
+              },
+              {
+                target_code: '016',
               },
             ],
           },
@@ -251,14 +255,8 @@ const map = {
         defList: [
           {
             target_id: 'horizontalSolar',
-            target_name: '수평 일사량',
+            target_name: '일사량',
             target_prefix: 'S_H',
-            nodeList: [],
-          },
-          {
-            target_id: 'inclinedSolar',
-            target_name: '경사 일사량',
-            target_prefix: 'S_I',
             nodeList: [
               {
                 target_code: '014',
@@ -266,7 +264,16 @@ const map = {
               {
                 target_code: '015',
               },
+              {
+                target_code: '016',
+              },
             ],
+          },
+          {
+            target_id: 'inclinedSolar',
+            target_name: '경사 일사량',
+            target_prefix: 'S_I',
+            nodeList: [],
           },
         ],
       },
@@ -325,6 +332,9 @@ const map = {
               {
                 target_code: '015',
               },
+              {
+                target_code: '016',
+              },
             ],
           },
         ],
@@ -354,6 +364,9 @@ const map = {
               {
                 target_code: '015',
               },
+              {
+                target_code: '016',
+              },
             ],
           },
         ],
@@ -375,6 +388,9 @@ const map = {
               },
               {
                 target_code: '015',
+              },
+              {
+                target_code: '016',
               },
             ],
           },
@@ -462,10 +478,11 @@ const map = {
             target_name: '일반 구조물',
             placeList: [
               {
-                target_code: '하부',
+                target_code: '014',
+                target_name: '하부',
                 chart_color: '#868e96',
                 chart_sort_rank: 14,
-                nodeList: ['LX_014', 'S_I_014', 'CO2_014', 'WV_S_014', 'T_S_014', 'RH_S_014'],
+                nodeList: ['LX_014', 'S_H_014', 'CO2_014', 'WV_S_014', 'T_S_014', 'RH_S_014'],
               },
             ],
           },
@@ -475,10 +492,11 @@ const map = {
             target_name: '태양광 구조물',
             placeList: [
               {
-                target_code: '하부',
+                target_code: '015',
+                target_name: '하부',
                 chart_color: '#b9560d',
                 chart_sort_rank: 15,
-                nodeList: ['LX_015', 'S_I_015', 'CO2_015', 'WV_S_015', 'T_S_015', 'RH_S_015'],
+                nodeList: ['LX_015', 'S_H_015', 'CO2_015', 'WV_S_015', 'T_S_015', 'RH_S_015'],
               },
             ],
           },
@@ -493,13 +511,14 @@ const map = {
           {
             target_id: 'outside',
             target_prefix: 'OS',
-            chart_color: '#3bc9db',
-            chart_sort_rank: 16,
             placeList: [
               {
+                target_code: '016',
+                chart_color: '#3bc9db',
+                chart_sort_rank: 16,
                 nodeList: [
                   'LX_016',
-                  'S_I_016',
+                  'S_H_016',
                   'CO2_016',
                   'WV_S_016',
                   'T_S_016',

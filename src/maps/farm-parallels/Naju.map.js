@@ -1,5 +1,3 @@
-require('../../../../default-intelligence');
-
 /**
  * @type {mDeviceMap}
  */
@@ -106,7 +104,7 @@ const map = {
             dpcId: 'DPC_001',
             nodeList: [
               'LX_001',
-              'S_I_001',
+              'S_H_001',
               'CO2_001',
               'WV_S_001',
               'T_PR_001',
@@ -120,7 +118,7 @@ const map = {
             target_name: '나주 고정식 외부',
             dccId: 'DCC_001',
             dpcId: 'DPC_001',
-            nodeList: ['LX_002', 'S_I_002', 'CO2_002', 'WV_S_002', 'T_S_002', 'RH_S_002'],
+            nodeList: ['LX_002', 'S_H_002', 'CO2_002', 'WV_S_002', 'T_S_002', 'RH_S_002'],
           },
           {
             serial_number: 3,
@@ -130,7 +128,7 @@ const map = {
             dpcId: 'DPC_001',
             nodeList: [
               'LX_003',
-              'S_I_003',
+              'S_H_003',
               'CO2_003',
               'WV_S_003',
               'T_PR_003',
@@ -144,7 +142,7 @@ const map = {
             target_name: '나주 가변식 외부',
             dccId: 'DCC_001',
             dpcId: 'DPC_001',
-            nodeList: ['LX_004', 'S_I_004', 'CO2_004', 'WV_S_004', 'T_S_004', 'RH_S_004'],
+            nodeList: ['LX_004', 'S_H_004', 'CO2_004', 'WV_S_004', 'T_S_004', 'RH_S_004'],
           },
           {
             serial_number: 5,
@@ -154,7 +152,7 @@ const map = {
             dpcId: 'DPC_001',
             nodeList: [
               'LX_005',
-              'S_I_005',
+              'S_H_005',
               'CO2_005',
               'WV_S_005',
               'T_PR_005',
@@ -168,7 +166,7 @@ const map = {
             target_name: '나주 수평 외부',
             dccId: 'DCC_001',
             dpcId: 'DPC_001',
-            nodeList: ['LX_006', 'S_I_006', 'CO2_006', 'WV_S_006', 'T_S_006', 'RH_S_006'],
+            nodeList: ['LX_006', 'S_H_006', 'CO2_006', 'WV_S_006', 'T_S_006', 'RH_S_006'],
           },
         ],
       },
@@ -184,7 +182,7 @@ const map = {
             dpcId: 'DPC_001',
             nodeList: [
               'LX_007',
-              'S_I_007',
+              'S_H_007',
               'CO2_007',
               'WV_S_007',
               'T_S_007',
@@ -356,9 +354,12 @@ const map = {
         defList: [
           {
             target_id: 'horizontalSolar',
-            target_name: '수평 일사량',
+            target_name: '일사량',
             target_prefix: 'S_H',
             nodeList: [
+              {
+                target_code: '001',
+              },
               {
                 target_code: '002',
               },
@@ -383,11 +384,7 @@ const map = {
             target_id: 'inclinedSolar',
             target_name: '경사 일사량',
             target_prefix: 'S_I',
-            nodeList: [
-              {
-                target_code: '001',
-              },
-            ],
+            nodeList: [],
           },
         ],
       },
@@ -630,13 +627,13 @@ const map = {
             target_name: '고정식 태양광',
             placeList: [
               {
-                target_code: '하부',
+                target_code: '001',
                 target_name: '하부',
                 chart_color: '#212529',
                 chart_sort_rank: 1,
                 nodeList: [
                   'LX_001',
-                  'S_I_001',
+                  'S_H_001',
                   'CO2_001',
                   'WV_S_001',
                   'T_PR_001',
@@ -645,11 +642,11 @@ const map = {
                 ],
               },
               {
-                target_code: '외곽',
+                target_code: '002',
                 target_name: '외곽',
                 chart_color: '#c92a2a',
                 chart_sort_rank: 2,
-                nodeList: ['LX_002', 'S_I_002', 'CO2_002', 'WV_S_002', 'T_S_002', 'RH_S_002'],
+                nodeList: ['LX_002', 'S_H_002', 'CO2_002', 'WV_S_002', 'T_S_002', 'RH_S_002'],
               },
             ],
           },
@@ -659,12 +656,13 @@ const map = {
             target_name: '가변식 태양광',
             placeList: [
               {
-                target_code: '하부',
+                target_code: '003',
+                target_name: '하부',
                 chart_color: '#a61e4d',
                 chart_sort_rank: 3,
                 nodeList: [
                   'LX_003',
-                  'S_I_003',
+                  'S_H_003',
                   'CO2_003',
                   'WV_S_003',
                   'T_PR_003',
@@ -673,10 +671,11 @@ const map = {
                 ],
               },
               {
-                target_code: '외곽',
+                target_code: '004',
+                target_name: '외곽',
                 chart_color: '#862e9c',
                 chart_sort_rank: 4,
-                nodeList: ['LX_004', 'S_I_004', 'CO2_004', 'WV_S_004', 'T_S_004', 'RH_S_004'],
+                nodeList: ['LX_004', 'S_H_004', 'CO2_004', 'WV_S_004', 'T_S_004', 'RH_S_004'],
               },
             ],
           },
@@ -686,12 +685,13 @@ const map = {
             target_name: '수평 태양광',
             placeList: [
               {
-                target_code: '하부',
+                target_code: '005',
+                target_name: '하부',
                 chart_color: '#5f3dc4',
                 chart_sort_rank: 5,
                 nodeList: [
                   'LX_005',
-                  'S_I_005',
+                  'S_H_005',
                   'CO2_005',
                   'WV_S_005',
                   'T_PR_005',
@@ -700,10 +700,11 @@ const map = {
                 ],
               },
               {
-                target_code: '외곽',
+                target_code: '006',
+                target_name: '외곽',
                 chart_color: '#364fc7',
                 chart_sort_rank: 6,
-                nodeList: ['LX_006', 'S_I_006', 'CO2_006', 'WV_S_006', 'T_S_006', 'RH_S_006'],
+                nodeList: ['LX_006', 'S_H_006', 'CO2_006', 'WV_S_006', 'T_S_006', 'RH_S_006'],
               },
             ],
           },
@@ -720,11 +721,12 @@ const map = {
             target_prefix: 'OS',
             placeList: [
               {
+                target_code: '007',
                 chart_color: '#1864ab',
                 chart_sort_rank: 7,
                 nodeList: [
                   'LX_007',
-                  'S_I_007',
+                  'S_H_007',
                   'CO2_007',
                   'WV_S_007',
                   'T_S_007',
