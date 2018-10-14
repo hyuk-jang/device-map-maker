@@ -245,7 +245,7 @@ const map = {
             ],
           },
           {
-            target_id: 'moduleRearTemperature',
+            target_id: 'pvRearTemperature',
             target_prefix: 'T_PR',
             target_name: '모듈 뒷면 온도',
             nodeList: [
