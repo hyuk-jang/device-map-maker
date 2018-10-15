@@ -1,7 +1,7 @@
 const _ = require('lodash');
 require('default-intelligence');
-const {BU} = require('base-util-jh');
-const {BM} = require('base-model-jh');
+const { BU } = require('base-util-jh');
+const { BM } = require('base-model-jh');
 
 class BiModule extends BM {
   constructor(dbInfo) {
@@ -41,10 +41,11 @@ class BiModule extends BM {
   }
 
   /**
+   * @param {number[]=} mainSeqList
    * @return {DV_PLACE}
    */
-  getPlaceTbl() {
-    const sql = `
+  getPlaceTbl(mainSeqList) {
+    let sql = `
       SELECT 
           dp.*,
           dpd.target_prefix,
@@ -58,6 +59,9 @@ class BiModule extends BM {
       JOIN dv_place_def dpd
       ON dpd.place_def_seq = dp.place_def_seq
     `;
+    if (mainSeqList.length) {
+      sql += ` WHERE dp.main_seq IN (${mainSeqList})`;
+    }
 
     return this.db.single(sql);
   }

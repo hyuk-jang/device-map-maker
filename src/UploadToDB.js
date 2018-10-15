@@ -41,12 +41,11 @@ class UploadToDB {
     this.realtionInfo = map.realtionInfo;
     this.controlInfo = map.controlInfo;
 
-    this.main_seq = this.setInfo.mainInfo.main_seq;
-
     this.map = map;
   }
 
   async startUpload() {
+    await this.getMainSeq();
     console.time('setDataLoggerDef');
     await this.setDataLoggerDef();
     console.timeEnd('setDataLoggerDef');
@@ -96,6 +95,22 @@ class UploadToDB {
     );
 
     return true;
+  }
+
+  /**
+   * @desc Step 0. Main_Seq 설정
+   */
+  async getMainSeq() {
+    /** @type {MAIN} */
+    const mainRow = await this.biModule.getTableRow(
+      'MAIN',
+      { uuid: this.map.setInfo.mainInfo.uuid },
+      false,
+    );
+    if (_.isEmpty(mainRow)) {
+      throw new Error(`해당 Main UUID는 존재하지 않습니다.${this.map.setInfo.mainInfo.uuid}`);
+    }
+    this.main_seq = mainRow.main_seq;
   }
 
   /**
@@ -176,6 +191,7 @@ class UploadToDB {
 
         // DV_NODE 경우 uniqueKey가 Seq이기 때문에 update일 경우에 해당 seq를 삽입한 확장
         const dataLoggerSeq = _.get(_.find(prevDLList, { dataLoggerId }), 'data_logger_seq', null);
+        // BU.CLI(dataLoggerSeq)
         if (_.isNumber(dataLoggerSeq)) {
           _.assign(dataLoggerInfo, { data_logger_seq: dataLoggerSeq });
         }
@@ -419,7 +435,7 @@ class UploadToDB {
     /** @type {DV_PLACE_DEF[]} */
     const prevPDList = await this.biModule.getTable('DV_PLACE_DEF');
     /** @type {DV_PLACE[]} */
-    const prevPList = await this.biModule.getPlaceTbl(this.main_seq);
+    const prevPList = await this.biModule.getPlaceTbl([this.main_seq]);
 
     tempStorage.setExistStorage(prevPList);
 
@@ -445,6 +461,7 @@ class UploadToDB {
 
           // pickInfo에 place_class_seq key 추가
           _.assign(pickInfo, {
+            main_seq: this.main_seq,
             place_def_seq: _.get(
               _.find(prevPDList, { target_id: placeDefInfo.target_id }),
               'place_def_seq',
@@ -482,7 +499,7 @@ class UploadToDB {
     /** @type {DV_NODE[]} */
     const prevNList = await this.biModule.getNodeTbl([this.main_seq]);
     /** @type {DV_PLACE[]} */
-    const prevPList = await this.biModule.getPlaceTbl();
+    const prevPList = await this.biModule.getPlaceTbl([this.main_seq]);
     // 해당 main seq와 관련이 있는 Rows 삭제
     await this.biModule.deletePlaceTbl([this.main_seq]);
 
@@ -501,8 +518,8 @@ class UploadToDB {
 
             /** @type {DV_PLACE_RELATION} */
             const placeRelationInfo = {
-              node_seq: _.get(nodeInfo, 'node_seq', undefined),
-              place_seq: _.get(placeModelInfo, 'place_seq', undefined),
+              node_seq: _.get(nodeInfo, 'node_seq'),
+              place_seq: _.get(placeModelInfo, 'place_seq'),
             };
 
             // 관계 장치중에 Node Structure에 없거나 Place 정보가 없다면 관계가 없는 것으로 판단하고 해당 값은 입력하지 않음
