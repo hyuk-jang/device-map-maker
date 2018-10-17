@@ -5,13 +5,16 @@ const svgNodeTextList = [];
  * @param {string} documentId
  */
 function svgDrawing(documentId) {
+  /** @type {mDeviceMap} */
+  const realMap = map;
+
   // canvas 생성
-  const canvasWidth = map.drawInfo.frame.mapSize.width;
-  const canvasHeight = map.drawInfo.frame.mapSize.height;
+  const canvasWidth = realMap.drawInfo.frame.mapSize.width;
+  const canvasHeight = realMap.drawInfo.frame.mapSize.height;
   const canvas = SVG(documentId).size(canvasWidth, canvasHeight);
 
   // Place 그리기
-  map.drawInfo.positionList.svgPlaceList.forEach(svgPlaceInfo => {
+  realMap.drawInfo.positionList.svgPlaceList.forEach(svgPlaceInfo => {
     svgPlaceInfo.defList.forEach(defInfo => {
       const placeResourceId = defInfo.resourceId;
       const placeX = defInfo.point[0];
@@ -21,7 +24,7 @@ function svgDrawing(documentId) {
 
       // resourceId를 이용해 그리기 위한 정보 수집
       /** @type {mSvgModelResource} */
-      const resourceInfo = _.find(map.drawInfo.frame.svgModelResourceList, {
+      const resourceInfo = _.find(realMap.drawInfo.frame.svgModelResourceList, {
         id: placeResourceId,
       });
       const placeWidth = resourceInfo.elementDrawInfo.width;
@@ -51,17 +54,17 @@ function svgDrawing(documentId) {
         const placeY2 = defInfo.point[3];
         model = canvas
           .line(placeX, placeY, placeX2, placeY2)
-          .stroke({color: placeColor, width: placeWidth});
+          .stroke({ color: placeColor, width: placeWidth });
       }
       writeText(canvas, defInfo, resourceInfo);
     });
   });
 
   // node 그리기
-  map.drawInfo.positionList.svgNodeList.forEach(svgNodeInfo => {
+  realMap.drawInfo.positionList.svgNodeList.forEach(svgNodeInfo => {
     svgNodeInfo.defList.forEach(defInfo => {
       /** @type {mSvgModelResource} */
-      const resourceInfo = _.find(map.drawInfo.frame.svgModelResourceList, {
+      const resourceInfo = _.find(realMap.drawInfo.frame.svgModelResourceList, {
         id: defInfo.resourceId,
       });
 
@@ -108,11 +111,11 @@ function svgDrawing(documentId) {
   });
   // FIXME: ↓ TEST
   drawExistCanvasValues([
-    {nodeId: 'GV_001', svgValue: 1},
-    {nodeId: 'GV_002', svgValue: 2},
-    {nodeId: 'GV_003', svgValue: 3},
-    {nodeId: 'GV_004', svgValue: 4},
-    {nodeId: 'WL_001', svgValue: 1},
+    { nodeId: 'GV_001', svgValue: 1 },
+    { nodeId: 'GV_002', svgValue: 2 },
+    { nodeId: 'GV_003', svgValue: 3 },
+    { nodeId: 'GV_004', svgValue: 4 },
+    { nodeId: 'WL_001', svgValue: 1 },
   ]);
 }
 
@@ -121,7 +124,7 @@ function svgDrawing(documentId) {
  * @param {*} svgValue
  */
 function drawExistCanvasValue(nodeId = '', svgValue) {
-  const foundCanvas = _.find(svgNodeTextList, {id: nodeId});
+  const foundCanvas = _.find(svgNodeTextList, { id: nodeId });
   const nodeX = foundCanvas.text.node.attributes.x.value;
   foundCanvas.text.node.innerHTML = `<tspan dy="8">${nodeId}</tspan><tspan dy="13" x=${nodeX}>${svgValue}</tspan>`;
 }

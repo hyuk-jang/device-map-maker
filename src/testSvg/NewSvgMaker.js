@@ -1,4 +1,4 @@
-const {BU} = require('base-util-jh');
+const { BU } = require('base-util-jh');
 const _ = require('lodash');
 const map = require('./testMap');
 
@@ -74,7 +74,7 @@ class NewSvgMaker {
           }
 
           _.forEach(placeInfo.nodeList, nodeId => {
-            const {axisScale, moveScale} = this.getAxisMoveScale(nodeId);
+            const { axisScale, moveScale } = this.getAxisMoveScale(nodeId);
             const resourceInfo = this.getResourceInfo(nodeId);
             const resourceId = _.result(resourceInfo, 'id');
 
@@ -90,7 +90,7 @@ class NewSvgMaker {
 
             // 그룹 존재
             /** @type {storageInfo[]} */
-            let foundIt = _.find(storageList, {nodeClassId: resourceId});
+            let foundIt = _.find(storageList, { nodeClassId: resourceId });
             if (_.isEmpty(foundIt)) {
               foundIt = {
                 nodeClassId: resourceId,
@@ -98,9 +98,9 @@ class NewSvgMaker {
               };
               storageList.push(foundIt);
             }
-
+            // /** @type {{nodeId: string, nodeName: '', text: textElement}[]} */
             /** @type {defInfo} */
-            const foundNodeIt = _.find(foundIt.defList, {nodeId});
+            const foundNodeIt = _.find(foundIt.defList, { nodeId });
             if (_.isEmpty(foundNodeIt)) {
               foundIt.defList.push(detailNode);
             }
@@ -134,7 +134,7 @@ class NewSvgMaker {
       });
       if (targetDefInfo != null) {
         /** @type {mNodeModelInfo} */
-        const targetNodeInfo = _.find(targetDefInfo.nodeList, {target_code: targetCode});
+        const targetNodeInfo = _.find(targetDefInfo.nodeList, { target_code: targetCode });
         returnValue = _.pick(targetNodeInfo, ['axisScale', 'moveScale']);
       }
     });
@@ -177,7 +177,7 @@ class NewSvgMaker {
         }
 
         /** @type {defInfo} */
-        const foundNodeIt = _.find(foundIt.defList, {nodeId: finalObj.nodeId});
+        const foundNodeIt = _.find(foundIt.defList, { nodeId: finalObj.nodeId });
         if (_.isEmpty(foundNodeIt)) {
           foundIt.defList.push(newDetailNode);
         }
@@ -252,7 +252,7 @@ class NewSvgMaker {
 
     map.drawInfo.positionList.svgPlaceList.forEach(svgPlaceInfo => {
       /** @type {defInfo} */
-      const targetInfo = _.find(svgPlaceInfo.defList, {id: placeId});
+      const targetInfo = _.find(svgPlaceInfo.defList, { id: placeId });
       if (_.isUndefined(targetInfo)) return false;
       const targetResourceId = targetInfo.resourceId;
       /** @type {mSvgModelResource} */
