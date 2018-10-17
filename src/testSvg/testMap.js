@@ -1,4 +1,4 @@
-require('default-intelligence');
+require('../../../default-intelligence');
 
 /**
  * @type {mDeviceMap}
@@ -7,7 +7,7 @@ const map = {
   drawInfo: {
     frame: {
       mapSize: {
-        width: 1500,
+        width: 1700,
         height: 1230,
       },
       svgModelResourceList: [
@@ -35,7 +35,7 @@ const map = {
           elementDrawInfo: {
             width: 240,
             height: 130,
-            color: '#2b4570', // TODO:
+            color: '#2b4570',
           },
         },
         {
@@ -44,7 +44,16 @@ const map = {
           elementDrawInfo: {
             width: 260,
             height: 180,
-            color: '#2b4570', // TODO:
+            color: '#2b4570',
+          },
+        },
+        {
+          id: 'earth',
+          type: 'rect',
+          elementDrawInfo: {
+            width: 240,
+            height: 120,
+            color: '#3e68b6',
           },
         },
         {
@@ -53,7 +62,7 @@ const map = {
           elementDrawInfo: {
             width: 260,
             height: 180,
-            color: '#152642', // TODO:
+            color: '#152642',
           },
         },
         {
@@ -62,7 +71,7 @@ const map = {
           elementDrawInfo: {
             width: 170,
             height: 150,
-            color: '#32706f', // TODO:
+            color: '#32706f',
           },
         },
         {
@@ -71,7 +80,7 @@ const map = {
           elementDrawInfo: {
             width: 55,
             height: 55,
-            color: '#223056', // TODO:
+            color: '#223056',
           },
         },
         {
@@ -80,7 +89,7 @@ const map = {
           elementDrawInfo: {
             width: 175,
             height: 120,
-            color: '#77a1c1', // TODO:
+            color: '#77a1c1',
           },
         },
         {
@@ -89,7 +98,7 @@ const map = {
           elementDrawInfo: {
             width: 30,
             height: 30,
-            color: '#208974', // TODO:
+            color: '#208974',
           },
         },
         {
@@ -97,7 +106,7 @@ const map = {
           type: 'line',
           elementDrawInfo: {
             width: 3,
-            color: '#F47994', // TODO:
+            color: '#F47994',
           },
         },
         {
@@ -107,7 +116,7 @@ const map = {
             width: 30,
             height: 30,
             radius: 30,
-            color: '#124e42', // TODO:
+            color: '#124e42',
           },
         },
         {
@@ -115,7 +124,7 @@ const map = {
           type: 'line',
           elementDrawInfo: {
             width: 55,
-            color: '#6f6f6f', // TODO:
+            color: '#6f6f6f',
           },
         },
         {
@@ -124,7 +133,7 @@ const map = {
           elementDrawInfo: {
             width: 550,
             height: 120,
-            color: '#484144', // TODO:
+            color: '#484144',
           },
         },
         {
@@ -133,7 +142,7 @@ const map = {
           elementDrawInfo: {
             width: 190,
             height: 150,
-            color: '#1A4876', // TODO:
+            color: '#1A4876',
           },
         },
         {
@@ -143,7 +152,7 @@ const map = {
             width: 50,
             height: 50,
             radius: 50,
-            color: '#EE204D', // TODO:
+            color: '#EE204D',
           },
         },
         {
@@ -152,7 +161,7 @@ const map = {
           elementDrawInfo: {
             width: 50,
             height: 40,
-            color: '#dedede', // TODO:
+            color: '#dedede',
           },
         },
         {
@@ -161,7 +170,7 @@ const map = {
           elementDrawInfo: {
             width: 50,
             height: 40,
-            color: '#dedede', // TODO:
+            color: '#dedede',
           },
         },
         {
@@ -170,7 +179,16 @@ const map = {
           elementDrawInfo: {
             width: 50,
             height: 40,
-            color: '#dedede', // TODO:
+            color: '#dedede',
+          },
+        },
+        {
+          id: 'salinity',
+          type: 'rect',
+          elementDrawInfo: {
+            width: 50,
+            height: 40,
+            color: '#dedede',
           },
         },
       ],
@@ -183,52 +201,67 @@ const map = {
             {
               id: 'SEB_1_A',
               resourceId: 'salternModuleBlock_A',
-              point: [140, 950],
+              point: [340, 950],
             },
             {
               id: 'SEB_1_B',
               resourceId: 'salternModuleBlock_A',
-              point: [140, 760],
+              point: [340, 760],
             },
             {
               id: 'SEB_1_C',
               resourceId: 'salternModuleBlock_A',
-              point: [140, 570],
+              point: [340, 570],
             },
             {
               id: 'SEB_1_D',
               resourceId: 'salternModuleBlock_A',
-              point: [140, 380],
+              point: [340, 380],
             },
             {
               id: 'SEB_1_E',
               resourceId: 'salternModuleBlock_B',
-              point: [1020, 400],
+              point: [1220, 400],
             },
             {
               id: 'SEB_일반',
               resourceId: 'salternNomalBlock_A',
-              point: [140, 210],
+              point: [340, 210],
             },
             {
               id: 'SEB_2',
               resourceId: 'salternNomalBlock_B',
-              point: [435, 340],
+              point: [635, 340],
             },
             {
               id: 'SEB_3',
               resourceId: 'salternNomalBlock_B',
-              point: [435, 532],
+              point: [635, 532],
             },
             {
               id: 'SEB_4',
               resourceId: 'salternNomalBlock_B',
-              point: [435, 727],
+              point: [635, 727],
             },
             {
               id: 'SCB',
               resourceId: 'salternCrystalBlock',
-              point: [435, 920],
+              point: [635, 920],
+            },
+          ],
+        },
+        {
+          placeClassId: 'earth',
+          defList: [
+            {
+              id: 'EA_일반',
+              resourceId: 'earth',
+              point: [0, 855],
+            },
+            {
+              id: 'EA_G2G',
+              resourceId: 'earth',
+              point: [0, 980],
             },
           ],
         },
@@ -238,17 +271,17 @@ const map = {
             {
               id: 'BW_1',
               resourceId: 'brineWarehouse',
-              point: [400, 135],
+              point: [600, 135],
             },
             {
               id: 'BW_2',
               resourceId: 'brineWarehouse',
-              point: [590, 135],
+              point: [790, 135],
             },
             {
               id: 'BW_3',
               resourceId: 'brineWarehouse',
-              point: [780, 135],
+              point: [980, 135],
             },
           ],
         },
@@ -258,7 +291,7 @@ const map = {
             {
               id: 'RV',
               resourceId: 'reservoir',
-              point: [400, 10],
+              point: [600, 10],
             },
           ],
         },
@@ -268,7 +301,7 @@ const map = {
             {
               id: 'SEA',
               resourceId: 'sea',
-              point: [825, 980],
+              point: [1025, 980],
             },
           ],
         },
@@ -278,37 +311,37 @@ const map = {
             {
               id: 'WW_001',
               resourceId: 'waterWay',
-              point: [407.5, 1100, 407.5, 340],
+              point: [607.5, 1100, 607.5, 340],
             },
             {
               id: 'WW_002',
               resourceId: 'waterWay',
-              point: [380, 312.5, 570, 312.5],
+              point: [580, 312.5, 770, 312.5],
             },
             {
               id: 'WW_003',
               resourceId: 'waterWay',
-              point: [722, 1100, 722, 340],
+              point: [922, 1100, 922, 340],
             },
             {
               id: 'WW_004',
               resourceId: 'waterWay',
-              point: [570, 312.5, 835, 312.5],
+              point: [770, 312.5, 1035, 312.5],
             },
             {
               id: 'WW_005',
               resourceId: 'waterWay',
-              point: [807.5, 1100, 807.5, 340],
+              point: [1007.5, 1100, 1007.5, 340],
             },
             {
               id: 'WW_006',
               resourceId: 'waterWay',
-              point: [1047.5, 1045, 1047.5, 700],
+              point: [1247.5, 1045, 1247.5, 700],
             },
             {
               id: 'WW_007',
               resourceId: 'waterWay',
-              point: [1075, 1072, 1000, 1072],
+              point: [1275, 1072, 1200, 1072],
             },
           ],
         },
@@ -318,92 +351,92 @@ const map = {
             {
               id: 'PL_001',
               resourceId: 'pipeLine',
-              point: [950, 24, 976, 24],
+              point: [1150, 24, 1176, 24],
             },
             {
               id: 'PL_002',
               resourceId: 'pipeLine',
-              point: [975, 980, 975, 24],
+              point: [1175, 980, 1175, 24],
             },
             {
               id: 'PL_003',
               resourceId: 'pipeLine',
-              point: [100, 35, 400, 35],
+              point: [300, 35, 600, 35],
             },
             {
               id: 'PL_004',
               resourceId: 'pipeLine',
-              point: [100, 160, 400, 160],
+              point: [300, 160, 600, 160],
             },
             {
               id: 'PL_005',
               resourceId: 'pipeLine',
-              point: [100, 150, 100, 35],
+              point: [300, 150, 300, 35],
             },
             {
               id: 'PL_006',
               resourceId: 'pipeLine',
-              point: [100, 550, 100, 150],
+              point: [300, 550, 300, 150],
             },
             {
               id: 'PL_007',
               resourceId: 'pipeLine',
-              point: [100, 550, 170, 550],
+              point: [300, 550, 370, 550],
             },
             {
               id: 'PL_008',
               resourceId: 'pipeLine',
-              point: [170, 550, 170, 530],
+              point: [370, 550, 370, 530],
             },
             {
               id: 'PL_009',
               resourceId: 'pipeLine',
-              point: [170, 570, 170, 550],
+              point: [370, 570, 370, 550],
             },
             {
               id: 'PL_010',
               resourceId: 'pipeLine',
-              point: [100, 930, 100, 550],
+              point: [300, 930, 300, 550],
             },
             {
               id: 'PL_011',
               resourceId: 'pipeLine',
-              point: [100, 930, 170, 930],
+              point: [300, 930, 370, 930],
             },
             {
               id: 'PL_012',
               resourceId: 'pipeLine',
-              point: [170, 930, 170, 910],
+              point: [370, 930, 370, 910],
             },
             {
               id: 'PL_013',
               resourceId: 'pipeLine',
-              point: [170, 950, 170, 930],
+              point: [370, 950, 370, 930],
             },
             {
               id: 'PL_014',
               resourceId: 'pipeLine',
-              point: [615, 340, 615, 185],
+              point: [815, 340, 815, 185],
             },
             {
               id: 'PL_015',
               resourceId: 'pipeLine',
-              point: [925, 935, 925, 185],
+              point: [1125, 935, 1125, 185],
             },
             {
               id: 'PL_016',
               resourceId: 'pipeLine',
-              point: [695, 935, 925, 935],
+              point: [895, 935, 1125, 935],
             },
             {
               id: 'PL_017',
               resourceId: 'pipeLine',
-              point: [950, 105, 1095, 105],
+              point: [1150, 105, 1295, 105],
             },
             {
               id: 'PL_018',
               resourceId: 'pipeLine',
-              point: [1095, 400, 1095, 105],
+              point: [1295, 400, 1295, 105],
             },
           ],
         },
@@ -412,10 +445,7 @@ const map = {
     },
   },
   setInfo: {
-    mainInfo: {
-      main_seq: 1,
-      uuid: 'aaaaa',
-    },
+    mainInfo: {main_seq: 1, uuid: 'aaaaa'},
     dccConstructorList: [
       {
         dccId: 'DCC_001',
@@ -616,6 +646,13 @@ const map = {
             dpcId: 'DPC_001',
             nodeList: ['GV_004', 'WL_004'],
           },
+          {
+            serial_number: '0013A20040F7B4AB',
+            target_code: '005',
+            dccId: 'DCC_002',
+            dpcId: 'DPC_001',
+            nodeList: ['GV_005', 'WL_005', 'BT_005', 'MRT_007'],
+          },
         ],
       },
       {
@@ -670,6 +707,13 @@ const map = {
             dpcId: 'DPC_001',
             nodeList: ['P_005'],
           },
+          {
+            serial_number: '0013A20040F7AB1C',
+            target_code: '006',
+            dccId: 'DCC_002',
+            dpcId: 'DPC_001',
+            nodeList: ['P_006'],
+          },
         ],
       },
     ],
@@ -697,30 +741,44 @@ const map = {
               {
                 target_code: '001',
                 data_logger_index: 0,
+                axisScale: [0, 0],
+                moveScale: [0, 0],
               },
               {
                 target_code: '002',
                 data_logger_index: 0,
+                axisScale: [0, 0],
+                moveScale: [0, 0],
               },
               {
                 target_code: '003',
                 data_logger_index: 0,
+                axisScale: [0, 0],
+                moveScale: [0, 0],
               },
               {
                 target_code: '004',
                 data_logger_index: 0,
+                axisScale: [0, 0],
+                moveScale: [0, 0],
               },
               {
                 target_code: '005',
-                data_logger_index: 1,
+                data_logger_index: 0,
+                axisScale: [0, 0],
+                moveScale: [0, 0],
               },
               {
                 target_code: '006',
                 data_logger_index: 0,
+                axisScale: [0, 0],
+                moveScale: [0, 0],
               },
               {
                 target_code: '007',
                 data_logger_index: 0,
+                axisScale: [0, 0],
+                moveScale: [0, 0],
               },
             ],
           },
@@ -733,22 +791,32 @@ const map = {
               {
                 target_code: '001',
                 data_logger_index: 0,
+                axisScale: [0, 0],
+                moveScale: [0, 0],
               },
               {
                 target_code: '002',
                 data_logger_index: 0,
+                axisScale: [0, 0],
+                moveScale: [0, 0],
               },
               {
                 target_code: '003',
                 data_logger_index: 0,
+                axisScale: [0, 0],
+                moveScale: [0, 0],
               },
               {
                 target_code: '004',
                 data_logger_index: 0,
+                axisScale: [0, 0],
+                moveScale: [0, 0],
               },
               {
                 target_code: '005',
                 data_logger_index: 0,
+                axisScale: [0, 0],
+                moveScale: [0, 0],
               },
             ],
           },
@@ -834,14 +902,20 @@ const map = {
               {
                 target_code: '001',
                 data_logger_index: 0,
+                axisScale: [0, 0],
+                moveScale: [0, 0],
               },
               {
                 target_code: '002',
                 data_logger_index: 0,
+                axisScale: [0, 0],
+                moveScale: [0, 0],
               },
               {
                 target_code: '003',
                 data_logger_index: 0,
+                axisScale: [0, 0],
+                moveScale: [0, 0],
               },
             ],
           },
@@ -863,54 +937,32 @@ const map = {
               {
                 target_code: '001',
                 data_logger_index: 0,
+                axisScale: [0, 0],
+                moveScale: [0, 0],
               },
               {
                 target_code: '002',
                 data_logger_index: 0,
+                axisScale: [0, 0],
+                moveScale: [0, 0],
               },
               {
                 target_code: '003',
                 data_logger_index: 0,
+                axisScale: [0, 0],
+                moveScale: [0, 0],
               },
               {
                 target_code: '004',
                 data_logger_index: 0,
+                axisScale: [0, 0],
+                moveScale: [0, 0],
               },
               {
                 target_code: '005',
                 data_logger_index: 0,
-              },
-              {
-                target_code: '006',
-                data_logger_index: 0,
-              },
-              {
-                target_code: '007',
-                data_logger_index: 0,
-              },
-              {
-                target_code: '008',
-                data_logger_index: 0,
-              },
-              {
-                target_code: '009',
-                data_logger_index: 0,
-              },
-              {
-                target_code: '010',
-                data_logger_index: 0,
-              },
-              {
-                target_code: '011',
-                data_logger_index: 0,
-              },
-              {
-                target_code: '012',
-                data_logger_index: 0,
-              },
-              {
-                target_code: '013',
-                data_logger_index: 0,
+                axisScale: [0, 0],
+                moveScale: [0, 0],
               },
             ],
           },
@@ -1152,7 +1204,7 @@ const map = {
       {
         target_id: 'outlet',
         target_name: '배출구',
-        is_sensor: 0,
+        is_sensor: -1,
         data_unit: null,
         description: null,
         defList: [
@@ -1218,7 +1270,6 @@ const map = {
   },
   realtionInfo: {
     placeRelationList: [
-      // TODO:
       {
         target_id: 'earth',
         target_name: '육상',
@@ -1456,37 +1507,37 @@ const map = {
             placeList: [
               {
                 target_code: '001',
-                depth: -1, // FIXME:
+                depth: 0.4,
                 nodeList: ['GV_001', 'GV_002', 'GV_003', 'GV_004', 'WD_013'],
               },
               {
                 target_code: '002',
-                depth: -1, // FIXME:
-                nodeList: ['WD_004', 'WD_010', 'WD_013', 'WD_016'],
+                depth: 0.3,
+                nodeList: ['GV_004', 'WD_010', 'WD_013', 'WD_016'],
               },
               {
                 target_code: '003',
-                depth: -1, // FIXME:
+                depth: 0.3,
                 nodeList: ['WD_008', 'WD_009', 'WD_014'],
               },
               {
                 target_code: '004',
-                depth: -1, // FIXME:
+                depth: 0.2,
                 nodeList: ['WD_011', 'WD_012', 'WD_014', 'WD_015', 'WD_016'],
               },
               {
                 target_code: '005',
-                depth: -1, // FIXME:
+                depth: 0.1,
                 nodeList: ['WD_015'],
               },
               {
                 target_code: '006',
-                depth: -1, // FIXME:
+                depth: 0.4,
                 nodeList: ['GV_005'],
               },
               {
                 target_code: '007',
-                depth: -1, // FIXME:
+                depth: 0.3,
                 nodeList: [],
               },
             ],
@@ -1505,75 +1556,75 @@ const map = {
             placeList: [
               {
                 target_code: '001',
-                nodeList: [], // FIXME:
+                nodeList: [],
               },
               {
                 target_code: '002',
-                nodeList: [], // FIXME:
+                nodeList: [],
               },
               {
                 target_code: '003',
-                nodeList: ['V_006'], // FIXME:
+                nodeList: ['V_006'],
               },
               {
                 target_code: '004',
-                nodeList: ['V_007'], // FIXME:
+                nodeList: ['V_007'],
               },
               {
                 target_code: '005',
-                nodeList: [], // FIXME:
+                nodeList: [],
               },
               {
                 target_code: '006',
-                nodeList: [], // FIXME:
+                nodeList: [],
               },
               {
                 target_code: '007',
-                nodeList: [], // FIXME:
+                nodeList: [],
               },
               {
                 target_code: '008',
-                nodeList: [], // FIXME:
+                nodeList: [],
               },
               {
                 target_code: '009',
-                nodeList: [], // FIXME:
+                nodeList: [],
               },
               {
                 target_code: '010',
-                nodeList: [], // FIXME:
+                nodeList: [],
               },
               {
                 target_code: '011',
-                nodeList: [], // FIXME:
+                nodeList: [],
               },
               {
                 target_code: '012',
-                nodeList: [], // FIXME:
+                nodeList: [],
               },
               {
                 target_code: '013',
-                nodeList: [], // FIXME:
+                nodeList: [],
               },
               {
                 target_code: '014',
-                nodeList: [], // FIXME:
+                nodeList: [],
               },
               {
                 target_code: '015',
-                nodeList: [], // FIXME:
+                nodeList: [],
               },
               {
                 target_code: '016',
-                nodeList: [], // FIXME:
+                nodeList: [],
               },
               {
                 target_code: '017',
-                nodeList: [], // FIXME:
+                nodeList: [],
               },
               {
                 target_code: '018',
-                nodeList: [], // FIXME:
+                nodeList: [],
               },
             ],
           },
@@ -1581,7 +1632,6 @@ const map = {
       },
     ],
     brineFlowRelationList: [
-      // FIXME:
       {
         currNodeId: 'P_001',
         placeIdList: ['RV'],
@@ -1634,6 +1684,10 @@ const map = {
       {
         targetIdList: ['SCB'],
         resourceIdList: ['salternCrystalBlock'],
+      },
+      {
+        targetIdList: ['EA_일반', 'EA_G2G'],
+        resourceIdList: ['earth'],
       },
       {
         targetIdList: ['BW_1', 'BW_2', 'BW_3'],
@@ -1690,26 +1744,16 @@ const map = {
         resourceIdList: ['moduleRearTemperature'],
       },
       {
-        targetIdList: [
-          'WL_001',
-          'WL_002',
-          'WL_003',
-          'WL_004',
-          'WL_005',
-          'WL_006',
-          'WL_007',
-          'WL_008',
-          'WL_009',
-          'WL_010',
-          'WL_011',
-          'WL_012',
-          'WL_013',
-        ],
+        targetIdList: ['WL_001', 'WL_002', 'WL_003', 'WL_004', 'WL_005'],
         resourceIdList: ['WLSensor'],
       },
       {
         targetIdList: ['BT_001', 'BT_002', 'BT_003', 'BT_004', 'BT_005'],
         resourceIdList: ['brineTemperature'],
+      },
+      {
+        targetIdList: ['S_001', 'S_002', 'S_003'],
+        resourceIdList: ['salinity'],
       },
     ],
   },
@@ -1719,6 +1763,11 @@ const map = {
         cmdName: '바다 → 저수지',
         trueList: ['P_001'],
         falseList: [],
+      },
+      {
+        cmdName: '저수조 → 증발지 1_E',
+        trueList: ['P_006'],
+        falseList: ['GV_005'],
       },
       {
         cmdName: '저수조 → 증발지 1',
@@ -1800,7 +1849,6 @@ const map = {
         trueList: ['V_006', 'V_004', 'P_002'],
         falseList: ['GV_004'],
       },
-      // TODO: '저수지 → 증발지 1E
       {
         cmdName: '해주 1 → 증발지 1A',
         trueList: ['V_007', 'V_001', 'P_003'],
@@ -1844,5 +1892,4 @@ const map = {
     ],
   },
 };
-
 module.exports = map;

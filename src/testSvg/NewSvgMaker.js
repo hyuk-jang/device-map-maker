@@ -1,6 +1,8 @@
-const {BU} = require('base-util-jh');
+const { BU } = require('base-util-jh');
 const _ = require('lodash');
 const map = require('./testMap');
+
+require('../../../default-intelligence');
 
 class NewSvgMaker {
   constructor() {
@@ -39,12 +41,14 @@ class NewSvgMaker {
    * @param {string} targetId  ex) 'SEB_001', 'MRT_002' ...
    */
   getResourceInfo(targetId) {
+    /** @type {mSvgResourceConnectionInfo} */
     const foundSVGResourceConnectionInfo = _.find(map.realtionInfo.svgResourceConnectionList, {
       targetIdList: [targetId],
     });
 
     if (foundSVGResourceConnectionInfo != null) {
       const resourceId = foundSVGResourceConnectionInfo.resourceIdList[0];
+      /** @type {mSvgModelResource} */
       const resourceInfo = _.find(map.drawInfo.frame.svgModelResourceList, {
         id: resourceId,
       });
@@ -70,7 +74,7 @@ class NewSvgMaker {
           }
 
           _.forEach(placeInfo.nodeList, nodeId => {
-            const {axisScale, moveScale} = this.getAxisMoveScale(nodeId);
+            const { axisScale, moveScale } = this.getAxisMoveScale(nodeId);
             const resourceInfo = this.getResourceInfo(nodeId);
             const resourceId = _.result(resourceInfo, 'id');
 
@@ -84,8 +88,9 @@ class NewSvgMaker {
               moveScale,
             };
 
-            // 그룹 존재 체크
-            let foundIt = _.find(storageList, {nodeClassId: resourceId});
+            // 그룹 존재
+            /** @type {storageInfo[]} */
+            let foundIt = _.find(storageList, { nodeClassId: resourceId });
             if (_.isEmpty(foundIt)) {
               foundIt = {
                 nodeClassId: resourceId,
@@ -93,8 +98,9 @@ class NewSvgMaker {
               };
               storageList.push(foundIt);
             }
-
-            const foundNodeIt = _.find(foundIt.defList, {nodeId});
+            // /** @type {{nodeId: string, nodeName: '', text: textElement}[]} */
+            /** @type {defInfo} */
+            const foundNodeIt = _.find(foundIt.defList, { nodeId });
             if (_.isEmpty(foundNodeIt)) {
               foundIt.defList.push(detailNode);
             }
@@ -122,11 +128,13 @@ class NewSvgMaker {
     };
 
     map.setInfo.nodeStructureList.forEach(nodeStructureInfo => {
+      /** @type {mNodeDefInfo} */
       const targetDefInfo = _.find(nodeStructureInfo.defList, {
         target_prefix: targetPrefix,
       });
       if (targetDefInfo != null) {
-        const targetNodeInfo = _.find(targetDefInfo.nodeList, {target_code: targetCode});
+        /** @type {mNodeModelInfo} */
+        const targetNodeInfo = _.find(targetDefInfo.nodeList, { target_code: targetCode });
         returnValue = _.pick(targetNodeInfo, ['axisScale', 'moveScale']);
       }
     });
@@ -136,7 +144,6 @@ class NewSvgMaker {
 
   /**
    * 최종으로 저장될 svgNodeList 생성
-   * @param {*} objectList =storageList;
    */
   makeSvgNodeList() {
     const objectList = this.storageList;
@@ -155,7 +162,9 @@ class NewSvgMaker {
           resourceId: finalObj.resourceId,
           point: finalObj.point,
         };
-        // 그룹 존재 체크
+        // 그룹 존재
+
+        /** @type {mSvgNodeInfo} */
         let foundIt = _.find(map.drawInfo.positionList.svgNodeList, {
           nodeClassId: objList.nodeClassId,
         });
@@ -167,7 +176,8 @@ class NewSvgMaker {
           map.drawInfo.positionList.svgNodeList.push(foundIt);
         }
 
-        const foundNodeIt = _.find(foundIt.defList, {nodeId: finalObj.nodeId});
+        /** @type {defInfo} */
+        const foundNodeIt = _.find(foundIt.defList, { nodeId: finalObj.nodeId });
         if (_.isEmpty(foundNodeIt)) {
           foundIt.defList.push(newDetailNode);
         }
@@ -177,66 +187,56 @@ class NewSvgMaker {
 
   /**
    * 장소에 따른 노드의 위치 지정
-   * @param {*} nodeInfo storageList에 저장된 defList 정보
-   * @param {*} placePoint 장소의 (x1,y1,x2,y2) 정보
+   * @param {detailNodeInfo} storageDefInfo storageList에 저장된 defList 정보
+   * @param {number[]} placePoint 장소의 (x1,y1,x2,y2) 정보
    */
-  calcPlacePoint(nodeInfo, placePoint) {
-    // BU.CLIS(nodeInfo, placePoint);
-    const nodeResourceInfo = this.getResourceInfo(nodeInfo.nodeId);
+  calcPlacePoint(storageDefInfo, placePoint) {
+    // BU.CLIS(storageDefInfo, placePoint);
+    const nodeResourceInfo = this.getResourceInfo(storageDefInfo.nodeId);
     if (_.isUndefined(nodeResourceInfo)) return false; // FIXME: 센서류 때문에 작성.
     const nodeElementDraw = nodeResourceInfo.elementDrawInfo;
     const nodeType = nodeResourceInfo.type;
 
-    // FIXME: ↓ 후에 더 좋은 방법으로 수정
+    const [axisX, axisY] = storageDefInfo.axisScale;
+    const [moveX, moveY] = storageDefInfo.moveScale;
+    const [x1, y1, x2, y2] = placePoint;
+
+    // FIXME: ↓ 후에 더 좋은 방법으로 수정, 센서도 axis,move 필요 그에 맞게 수정
     let targetAxis = [];
     let x;
     let y;
     if (
       nodeResourceInfo.id === 'moduleRearTemperature' ||
       nodeResourceInfo.id === 'brineTemperature' ||
-      nodeResourceInfo.id === 'WLSensor'
+      nodeResourceInfo.id === 'WLSensor' ||
+      nodeResourceInfo.id === 'salinity'
     ) {
       if (nodeResourceInfo.id === 'moduleRearTemperature') {
-        x = placePoint[0] + (placePoint[2] - placePoint[0]) / 2 - nodeElementDraw.width;
-        y = placePoint[1] + (placePoint[3] - placePoint[1]) / 2 + nodeElementDraw.height / 2;
+        x = x1 + (x2 - x1) / 2 - nodeElementDraw.width;
+        y = y1 + (y2 - y1) / 2 + nodeElementDraw.height / 2;
       } else if (nodeResourceInfo.id === 'brineTemperature') {
-        x = placePoint[0] + (placePoint[2] - placePoint[0]) / 2 + 10;
-        y = placePoint[1] + (placePoint[3] - placePoint[1]) / 2 + nodeElementDraw.height / 2;
+        x = x1 + (x2 - x1) / 2 + 10;
+        y = y1 + (y2 - y1) / 2 + nodeElementDraw.height / 2;
+      } else if (nodeResourceInfo.id === 'salinity') {
+        x = x1 + (x2 - x1) / 2;
+        y = y1 + (y2 - y1) / 2 - nodeElementDraw.height - 10;
       } else {
-        x = placePoint[0] + (placePoint[2] - placePoint[0]) / 2 - nodeElementDraw.width;
-        y = placePoint[1] + (placePoint[3] - placePoint[1]) / 2 - nodeElementDraw.height - 10;
+        x = x1 + (x2 - x1) / 2 - nodeElementDraw.width;
+        y = y1 + (y2 - y1) / 2 - nodeElementDraw.height - 10;
       }
       targetAxis = [x, y];
     } else {
-      x = placePoint[0] + nodeInfo.axisScale[0] * (placePoint[2] - placePoint[0]);
-      y = placePoint[1] + nodeInfo.axisScale[1] * (placePoint[3] - placePoint[1]);
+      x = x1 + axisX * (x2 - x1);
+      y = y1 + axisY * (y2 - y1);
       if (nodeType === 'rect') {
-        x =
-          x -
-          nodeInfo.axisScale[0] * nodeElementDraw.width +
-          nodeInfo.moveScale[0] * nodeElementDraw.width;
-        y =
-          y -
-          nodeInfo.axisScale[1] * nodeElementDraw.height +
-          nodeInfo.moveScale[1] * nodeElementDraw.height;
+        x = x - axisX * nodeElementDraw.width + moveX * nodeElementDraw.width;
+        y = y - axisY * nodeElementDraw.height + moveY * nodeElementDraw.height;
       } else if (nodeType === 'circle') {
-        x =
-          x -
-          nodeInfo.axisScale[0] * nodeElementDraw.width +
-          nodeInfo.moveScale[0] * nodeElementDraw.width;
-        y =
-          y -
-          nodeInfo.axisScale[1] * nodeElementDraw.height +
-          nodeInfo.moveScale[1] * nodeElementDraw.height;
+        x = x - axisX * nodeElementDraw.width + moveX * nodeElementDraw.width;
+        y = y - axisY * nodeElementDraw.height + moveY * nodeElementDraw.height;
       } else if (nodeType === 'polygon') {
-        x =
-          x -
-          nodeInfo.axisScale[0] * (nodeElementDraw.width * 2) +
-          nodeInfo.moveScale[0] * (nodeElementDraw.width * 2);
-        y =
-          y -
-          nodeInfo.axisScale[1] * (nodeElementDraw.height * 2) +
-          nodeInfo.moveScale[1] * (nodeElementDraw.height * 2);
+        x = x - axisX * (nodeElementDraw.width * 2) + moveX * (nodeElementDraw.width * 2);
+        y = y - axisY * (nodeElementDraw.height * 2) + moveY * (nodeElementDraw.height * 2);
       }
       targetAxis = [x, y];
     }
@@ -251,16 +251,17 @@ class NewSvgMaker {
     let targetPoint = []; // [x1,y1,x2,y2]
 
     map.drawInfo.positionList.svgPlaceList.forEach(svgPlaceInfo => {
-      const targetInfo = _.find(svgPlaceInfo.defList, {id: placeId});
+      /** @type {defInfo} */
+      const targetInfo = _.find(svgPlaceInfo.defList, { id: placeId });
       if (_.isUndefined(targetInfo)) return false;
       const targetResourceId = targetInfo.resourceId;
-      // BU.CLI(targetResourceId);
+      /** @type {mSvgModelResource} */
       const svgModelResourceInfo = _.find(map.drawInfo.frame.svgModelResourceList, {
         id: targetResourceId,
       });
-
       const targetType = svgModelResourceInfo.type;
       const targetDrawInfo = svgModelResourceInfo.elementDrawInfo;
+      // const [x,y] = targetInfo; // TODO:
       if (targetType === 'rect') {
         targetPoint = [
           targetInfo.point[0],
