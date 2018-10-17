@@ -427,13 +427,13 @@ const map = {
             description: '33kW급',
             nodeList: [
               {
-                target_code: '014',
+                target_code: '009',
               },
               {
-                target_code: '015',
+                target_code: '010',
               },
               {
-                target_code: '016',
+                target_code: '011',
               },
             ],
           },
@@ -454,19 +454,25 @@ const map = {
             target_prefix: 'IVT',
             placeList: [
               {
-                target_code: '014',
+                target_code: '009',
                 target_name: '일반 구조물',
-                nodeList: ['kW_I_014'],
+                chart_color: '#868e96',
+                chart_sort_rank: 9,
+                nodeList: ['kW_I_009'],
               },
               {
-                target_code: '015',
+                target_code: '010',
                 target_name: '태양광 구조물',
-                nodeList: ['kW_I_015'],
+                chart_color: '#b9560d',
+                chart_sort_rank: 10,
+                nodeList: ['kW_I_010'],
               },
               {
-                target_code: '016',
+                target_code: '011',
                 target_name: '외부',
-                nodeList: ['kW_I_016'],
+                chart_color: '#3bc9db',
+                chart_sort_rank: 11,
+                nodeList: ['kW_I_011'],
               },
             ],
           },

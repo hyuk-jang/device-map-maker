@@ -402,7 +402,7 @@ const map = {
             description: '33kW급',
             nodeList: [
               {
-                target_code: '008',
+                target_code: '004',
               },
             ],
           },
@@ -423,9 +423,11 @@ const map = {
             target_prefix: 'IVT',
             placeList: [
               {
-                target_code: '008',
+                target_code: '004',
                 target_name: '외부',
-                nodeList: ['kW_I_008'],
+                chart_color: '#0b7285',
+                chart_sort_rank: 4,
+                nodeList: ['kW_I_004'],
               },
             ],
           },

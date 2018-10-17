@@ -402,13 +402,13 @@ const map = {
             description: '33kW급',
             nodeList: [
               {
-                target_code: '012',
+                target_code: '006',
               },
               {
-                target_code: '013',
+                target_code: '007',
               },
               {
-                target_code: '014',
+                target_code: '008',
               },
             ],
           },
@@ -429,19 +429,25 @@ const map = {
             target_prefix: 'IVT',
             placeList: [
               {
-                target_code: '012',
+                target_code: '006',
                 target_name: '1',
-                nodeList: ['kW_I_012'],
+                chart_color: '#e67700',
+                chart_sort_rank: 6,
+                nodeList: ['kW_I_006'],
               },
               {
-                target_code: '013',
+                target_code: '007',
                 target_name: '2',
-                nodeList: ['kW_I_013'],
+                chart_color: '#d9480f',
+                chart_sort_rank: 7,
+                nodeList: ['kW_I_007'],
               },
               {
-                target_code: '014',
+                target_code: '008',
                 target_name: '3',
-                nodeList: ['kW_I_014'],
+                chart_color: '#c92a2a',
+                chart_sort_rank: 8,
+                nodeList: ['kW_I_008'],
               },
             ],
           },

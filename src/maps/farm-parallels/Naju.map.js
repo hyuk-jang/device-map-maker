@@ -602,16 +602,22 @@ const map = {
               {
                 target_code: '001',
                 target_name: '고정식',
+                chart_color: '#212529',
+                chart_sort_rank: 1,
                 nodeList: ['kW_I_001'],
               },
               {
                 target_code: '002',
                 target_name: '가변식',
+                chart_color: '#a61e4d',
+                chart_sort_rank: 2,
                 nodeList: ['kW_I_002'],
               },
               {
                 target_code: '003',
                 target_name: '수평',
+                chart_color: '#5f3dc4',
+                chart_sort_rank: 3,
                 nodeList: ['kW_I_003'],
               },
             ],
