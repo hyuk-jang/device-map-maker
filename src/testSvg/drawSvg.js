@@ -7,7 +7,6 @@ const svgNodeTextList = [];
 function svgDrawing(documentId) {
   /** @type {mDeviceMap} */
   const realMap = map;
-
   // canvas 생성
   const canvasWidth = realMap.drawInfo.frame.mapSize.width;
   const canvasHeight = realMap.drawInfo.frame.mapSize.height;
@@ -109,14 +108,6 @@ function svgDrawing(documentId) {
       writeText(canvas, defInfo, resourceInfo);
     });
   });
-  // FIXME: ↓ TEST
-  drawExistCanvasValues([
-    { nodeId: 'GV_001', svgValue: 1 },
-    { nodeId: 'GV_002', svgValue: 2 },
-    { nodeId: 'GV_003', svgValue: 3 },
-    { nodeId: 'GV_004', svgValue: 4 },
-    { nodeId: 'WL_001', svgValue: 1 },
-  ]);
 }
 
 /**
@@ -150,53 +141,93 @@ function writeText(canvas, defInfo, resourceInfo) {
   const textSize = 10;
   let textColor = '#FFFF00';
 
-  // 센서를 찾아 글자색 변경
-  textX = defInfo.point[0] + resourceInfo.elementDrawInfo.width / 2;
-  textY = defInfo.point[1] + resourceInfo.elementDrawInfo.height / 2;
+  // TODO: 제외목록 서칭
+  const writeTextBoolean = excludeText(defInfo.id);
+  console.log(writeTextBoolean);
+  if (writeTextBoolean === true) {
+    // 센서를 찾아 글자색 변경
+    textX = defInfo.point[0] + resourceInfo.elementDrawInfo.width / 2;
+    textY = defInfo.point[1] + resourceInfo.elementDrawInfo.height / 2;
 
-  if (resourceInfo.type === 'rect') {
-    if (
-      defInfo.id.match(/MRT_/) ||
-      defInfo.id.match(/BT_/) ||
-      defInfo.id.match(/WL_/) ||
-      defInfo.id.match(/S_/)
-    ) {
-      textColor = '#2958ae';
+    if (resourceInfo.type === 'rect') {
+      if (
+        defInfo.id.match(/MRT_/) ||
+        defInfo.id.match(/BT_/) ||
+        defInfo.id.match(/WL_/) ||
+        defInfo.id.match(/S_/)
+      ) {
+        textColor = '#2958ae';
+      }
+    } else if (resourceInfo.type === 'line') {
+      if (defInfo.point[0] === defInfo.point[2]) {
+        textX = defInfo.point[0];
+        textY = defInfo.point[1] - (defInfo.point[1] - defInfo.point[3]) / 2;
+      } else {
+        textX = defInfo.point[0] + (defInfo.point[2] - defInfo.point[0]) / 2;
+        textY = defInfo.point[1];
+      }
+    } else if (resourceInfo.type === 'circle') {
+      textX = defInfo.point[0] + resourceInfo.elementDrawInfo.radius / 2;
+      textY = defInfo.point[1] + resourceInfo.elementDrawInfo.radius / 2;
+    } else if (resourceInfo.type === 'polygon') {
+      textX = defInfo.point[0] + resourceInfo.elementDrawInfo.width;
+      textY = defInfo.point[1] + resourceInfo.elementDrawInfo.height;
     }
-  } else if (resourceInfo.type === 'line') {
-    if (defInfo.point[0] === defInfo.point[2]) {
-      textX = defInfo.point[0];
-      textY = defInfo.point[1] - (defInfo.point[1] - defInfo.point[3]) / 2;
-    } else {
-      textX = defInfo.point[0] + (defInfo.point[2] - defInfo.point[0]) / 2;
-      textY = defInfo.point[1];
-    }
-  } else if (resourceInfo.type === 'circle') {
-    textX = defInfo.point[0] + resourceInfo.elementDrawInfo.radius / 2;
-    textY = defInfo.point[1] + resourceInfo.elementDrawInfo.radius / 2;
-  } else if (resourceInfo.type === 'polygon') {
-    textX = defInfo.point[0] + resourceInfo.elementDrawInfo.width;
-    textY = defInfo.point[1] + resourceInfo.elementDrawInfo.height;
+    const text = canvas.text(`${defInfo.name}`);
+    text.move(textX, textY).font({
+      fill: textColor,
+      size: textSize,
+      anchor: 'middle',
+      // leading: '2em',
+      weight: 'bold',
+    });
+
+    // 그려진 node id, text 정보 수집
+    const svgId = defInfo.id;
+
+    const svgNode = {
+      id: svgId,
+      text,
+    };
+    svgNodeTextList.push(svgNode);
+  } else {
+    return false;
   }
-  const text = canvas.text(`${defInfo.id}`);
-  text.move(textX, textY).font({
-    fill: textColor,
-    size: textSize,
-    anchor: 'middle',
-    // leading: '2em',
-    weight: 'bold',
-  });
-
-  // 그려진 node id, text 정보 수집
-  const svgId = defInfo.id;
-
-  const svgNode = {
-    id: svgId,
-    text,
-  };
-  svgNodeTextList.push(svgNode);
 }
 
+/**
+ * text를 제외할 요소 찾기
+ * @param {string} id
+ */
+function excludeText(id) {
+  /** @type {mDeviceMap} */
+  const realMap = map;
+
+  let findExclusion;
+
+  realMap.drawInfo.positionList.svgPlaceList.forEach(svgPlaceInfo => {
+    /** @type {defInfo} */
+    const foundIt = _.find(svgPlaceInfo.defList, { id });
+    if (!_.isUndefined(foundIt)) {
+      const placeClassId = svgPlaceInfo.placeClassId;
+      findExclusion = _.indexOf(realMap.realtionInfo.excludeNameList, placeClassId);
+    }
+  });
+
+  realMap.drawInfo.positionList.svgNodeList.forEach(svgNodeInfo => {
+    /** @type {defInfo} */
+    const foundIt = _.find(svgNodeInfo.defList, { id });
+    if (!_.isUndefined(foundIt)) {
+      const nodeClassId = svgNodeInfo.nodeClassId;
+      findExclusion = _.indexOf(realMap.realtionInfo.excludeNameList, nodeClassId);
+    }
+  });
+
+  if (findExclusion === -1) {
+    return true;
+  }
+  return false;
+}
 /**
  * @typedef {Object} svgNodeStorageInfo
  * @property {string} id

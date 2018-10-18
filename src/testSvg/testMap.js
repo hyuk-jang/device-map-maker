@@ -200,51 +200,61 @@ const map = {
           defList: [
             {
               id: 'SEB_1_A',
+              name: '증발지1A',
               resourceId: 'salternModuleBlock_A',
               point: [340, 950],
             },
             {
               id: 'SEB_1_B',
+              name: '증발지1B',
               resourceId: 'salternModuleBlock_A',
               point: [340, 760],
             },
             {
               id: 'SEB_1_C',
+              name: '증발지1C',
               resourceId: 'salternModuleBlock_A',
               point: [340, 570],
             },
             {
               id: 'SEB_1_D',
+              name: '증발지1D',
               resourceId: 'salternModuleBlock_A',
               point: [340, 380],
             },
             {
               id: 'SEB_1_E',
+              name: '증발지1E',
               resourceId: 'salternModuleBlock_B',
               point: [1220, 400],
             },
             {
               id: 'SEB_일반',
+              name: '증발지 일반',
               resourceId: 'salternNomalBlock_A',
               point: [340, 210],
             },
             {
               id: 'SEB_2',
+              name: '증발지2',
               resourceId: 'salternNomalBlock_B',
               point: [635, 340],
             },
             {
               id: 'SEB_3',
+              name: '증발지3',
               resourceId: 'salternNomalBlock_B',
               point: [635, 532],
             },
             {
               id: 'SEB_4',
+              name: '증발지4',
               resourceId: 'salternNomalBlock_B',
               point: [635, 727],
             },
             {
               id: 'SCB',
+              name: '결정지',
               resourceId: 'salternCrystalBlock',
               point: [635, 920],
             },
@@ -255,11 +265,13 @@ const map = {
           defList: [
             {
               id: 'EA_일반',
+              name: '육상 일반',
               resourceId: 'earth',
               point: [0, 855],
             },
             {
               id: 'EA_G2G',
+              name: '육상 G2G',
               resourceId: 'earth',
               point: [0, 980],
             },
@@ -270,16 +282,19 @@ const map = {
           defList: [
             {
               id: 'BW_1',
+              name: '해주1',
               resourceId: 'brineWarehouse',
               point: [600, 135],
             },
             {
               id: 'BW_2',
+              name: '해주2',
               resourceId: 'brineWarehouse',
               point: [790, 135],
             },
             {
               id: 'BW_3',
+              name: '해주3',
               resourceId: 'brineWarehouse',
               point: [980, 135],
             },
@@ -290,6 +305,7 @@ const map = {
           defList: [
             {
               id: 'RV',
+              name: '저수조',
               resourceId: 'reservoir',
               point: [600, 10],
             },
@@ -300,6 +316,7 @@ const map = {
           defList: [
             {
               id: 'SEA',
+              name: '바다',
               resourceId: 'sea',
               point: [1025, 980],
             },
@@ -310,36 +327,43 @@ const map = {
           defList: [
             {
               id: 'WW_001',
+              name: '수로1',
               resourceId: 'waterWay',
               point: [607.5, 1100, 607.5, 340],
             },
             {
               id: 'WW_002',
+              name: '수로2',
               resourceId: 'waterWay',
               point: [580, 312.5, 770, 312.5],
             },
             {
               id: 'WW_003',
+              name: '수로3',
               resourceId: 'waterWay',
               point: [922, 1100, 922, 340],
             },
             {
               id: 'WW_004',
+              name: '수로4',
               resourceId: 'waterWay',
               point: [770, 312.5, 1035, 312.5],
             },
             {
               id: 'WW_005',
+              name: '수로5',
               resourceId: 'waterWay',
               point: [1007.5, 1100, 1007.5, 340],
             },
             {
               id: 'WW_006',
+              name: '수로6',
               resourceId: 'waterWay',
               point: [1247.5, 1045, 1247.5, 700],
             },
             {
               id: 'WW_007',
+              name: '수로7',
               resourceId: 'waterWay',
               point: [1275, 1072, 1200, 1072],
             },
@@ -350,91 +374,109 @@ const map = {
           defList: [
             {
               id: 'PL_001',
+              name: '파이프1',
               resourceId: 'pipeLine',
               point: [1150, 24, 1176, 24],
             },
             {
               id: 'PL_002',
+              name: '파이프2',
               resourceId: 'pipeLine',
               point: [1175, 980, 1175, 24],
             },
             {
               id: 'PL_003',
+              name: '파이프3',
               resourceId: 'pipeLine',
               point: [300, 35, 600, 35],
             },
             {
               id: 'PL_004',
+              name: '파이프4',
               resourceId: 'pipeLine',
               point: [300, 160, 600, 160],
             },
             {
               id: 'PL_005',
+              name: '파이프5',
               resourceId: 'pipeLine',
               point: [300, 150, 300, 35],
             },
             {
               id: 'PL_006',
+              name: '파이프6',
               resourceId: 'pipeLine',
               point: [300, 550, 300, 150],
             },
             {
               id: 'PL_007',
+              name: '파이프7',
               resourceId: 'pipeLine',
               point: [300, 550, 370, 550],
             },
             {
               id: 'PL_008',
+              name: '파이프8',
               resourceId: 'pipeLine',
               point: [370, 550, 370, 530],
             },
             {
               id: 'PL_009',
+              name: '파이프9',
               resourceId: 'pipeLine',
               point: [370, 570, 370, 550],
             },
             {
               id: 'PL_010',
+              name: '파이프10',
               resourceId: 'pipeLine',
               point: [300, 930, 300, 550],
             },
             {
               id: 'PL_011',
+              name: '파이프11',
               resourceId: 'pipeLine',
               point: [300, 930, 370, 930],
             },
             {
               id: 'PL_012',
+              name: '파이프12',
               resourceId: 'pipeLine',
               point: [370, 930, 370, 910],
             },
             {
               id: 'PL_013',
+              name: '파이프13',
               resourceId: 'pipeLine',
               point: [370, 950, 370, 930],
             },
             {
               id: 'PL_014',
+              name: '파이프14',
               resourceId: 'pipeLine',
               point: [815, 340, 815, 185],
             },
             {
               id: 'PL_015',
+              name: '파이프15',
               resourceId: 'pipeLine',
               point: [1125, 935, 1125, 185],
             },
             {
               id: 'PL_016',
+              name: '파이프16',
               resourceId: 'pipeLine',
               point: [895, 935, 1125, 935],
             },
             {
               id: 'PL_017',
+              name: '파이프17',
               resourceId: 'pipeLine',
               point: [1150, 105, 1295, 105],
             },
             {
               id: 'PL_018',
+              name: '파이프18',
               resourceId: 'pipeLine',
               point: [1295, 400, 1295, 105],
             },
@@ -445,7 +487,7 @@ const map = {
     },
   },
   setInfo: {
-    mainInfo: {main_seq: 1, uuid: 'aaaaa'},
+    mainInfo: { main_seq: 1, uuid: 'aaaaa' },
     dccConstructorList: [
       {
         dccId: 'DCC_001',
@@ -1756,6 +1798,7 @@ const map = {
         resourceIdList: ['salinity'],
       },
     ],
+    excludeNameList: ['waterWay', 'pipeLine'],
   },
   controlInfo: {
     tempControlList: [

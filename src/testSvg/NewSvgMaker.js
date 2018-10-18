@@ -98,7 +98,6 @@ class NewSvgMaker {
               };
               storageList.push(foundIt);
             }
-            // /** @type {{nodeId: string, nodeName: '', text: textElement}[]} */
             /** @type {defInfo} */
             const foundNodeIt = _.find(foundIt.defList, { nodeId });
             if (_.isEmpty(foundNodeIt)) {
@@ -154,14 +153,18 @@ class NewSvgMaker {
         const targetPoint = this.discoverObjectPoint(obj.placeId);
         const finalAxis = this.calcPlacePoint(obj, targetPoint);
         const finalObj = _.set(obj, 'point', finalAxis);
+        const name = this.findNodeName(obj.nodeId);
 
         /** @type {defInfo} */
         const newDetailNode = {
           id: finalObj.nodeId,
+          name,
           placeId: finalObj.placeId,
           resourceId: finalObj.resourceId,
           point: finalObj.point,
         };
+
+        // BU.CLI(newDetailNode);
         // 그룹 존재
 
         /** @type {mSvgNodeInfo} */
@@ -193,7 +196,7 @@ class NewSvgMaker {
   calcPlacePoint(storageDefInfo, placePoint) {
     // BU.CLIS(storageDefInfo, placePoint);
     const nodeResourceInfo = this.getResourceInfo(storageDefInfo.nodeId);
-    if (_.isUndefined(nodeResourceInfo)) return false; // FIXME: 센서류 때문에 작성.
+    if (_.isUndefined(nodeResourceInfo)) return false;
     const nodeElementDraw = nodeResourceInfo.elementDrawInfo;
     const nodeType = nodeResourceInfo.type;
 
@@ -261,7 +264,6 @@ class NewSvgMaker {
       });
       const targetType = svgModelResourceInfo.type;
       const targetDrawInfo = svgModelResourceInfo.elementDrawInfo;
-      // const [x,y] = targetInfo; // TODO:
       if (targetType === 'rect') {
         targetPoint = [
           targetInfo.point[0],
@@ -287,11 +289,32 @@ class NewSvgMaker {
           ];
         }
       } else {
-        // TODO: 다른 조건문 작성
+        // 다른 조건문 작성
       }
     });
     return targetPoint;
   }
+
+  /**
+   * node의 name을 찾는 함수
+   * @param {string} nodeId
+   */
+  findNodeName(nodeId) {
+    const nodePrefix = this.getReplace(nodeId, /[_\d]/g);
+    const nodeCode = this.getReplace(nodeId, /\D/g);
+    // BU.CLIS(nodeId, nodePrefix, nodeCode);
+    let nodeName;
+
+    map.setInfo.nodeStructureList.forEach(nodeStructureInfo => {
+      const findDefInfo = _.find(nodeStructureInfo.defList, { target_prefix: nodePrefix });
+      if (_.isUndefined(findDefInfo)) return false;
+      nodeName = findDefInfo.target_name + nodeCode;
+      // BU.CLI(nodeName);
+    });
+    return nodeName;
+  }
+
+ 
 }
 module.exports = NewSvgMaker;
 
@@ -305,6 +328,7 @@ module.exports = NewSvgMaker;
  * @typedef {Object} detailNodeInfo
  * @property {string} placeId
  * @property {string} nodeId
+ * @property {string} name
  * @property {string} resourceId
  * @property {number[]} axisScale
  * @property {number[]} moveScale

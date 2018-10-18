@@ -4,33 +4,126 @@
 <head>
   <meta charset="EUC-KR">
   <title></title>
+  <script src='./testSvg/drawSvg.js'></script>
+  <script src='./testSvg/outputMap.js'></script>
+  <script src='./library/lodash.min.js'></script>
+  <script src='./library/svg.js'></script>
+  <script src='./library/svg.filter.js'></script>
+  <style>
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 60px;
+      height: 34px;
+    }
 
+    /* Hide default HTML checkbox */
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    /* The slider */
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      -webkit-transition: .4s;
+      transition: .4s;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 26px;
+      width: 26px;
+      left: 4px;
+      bottom: 4px;
+      background-color: white;
+      -webkit-transition: .4s;
+      transition: .4s;
+    }
+
+    input:checked + .slider {
+      background-color: #2196F3;
+    }
+
+    input:focus + .slider {
+      box-shadow: 0 0 1px #2196F3;
+    }
+
+    input:checked + .slider:before {
+      -webkit-transform: translateX(26px);
+      transform: translateX(26px);
+    }
+
+    #zoom {
+      display: flex;
+      justify-content: center;
+    }
+
+    #canvas {
+      display: flex;
+      justify-content: center;
+    }
+  </style>
 </head>
 
-<body onclick="mousePoint()">
-  <div id="canvas"></div>
-</body>
-<!-- <script src='/mapSample/jquery-1.10.2.min.js'></script> -->
-<script src='./testSvg/drawSvg.js'></script>
-<script src='./testSvg/outputMap.js'></script>
-<script src='./library/lodash.min.js'></script>
-<script src='./library/svg.js'></script>
-<script src='./library/svg.filter.js'></script>
+<body>
+  <!-- zoom -->
+  <div id="zoom">
+    <button class="zoom-in">ZOOM-IN</button>
+    <button class="zoom-out">ZOOM-OUT</button>
+    <button class="reset">RESET</button>
+    <label class="switch">
+      <input id="checkbox" type="checkbox">
+      <span class="slider"></span>
+    </label>
+  </div>
 
+  <!-- canvas -->
+  <div>
+    <div id="canvas"></div>
+  </div>
+
+</body>
+<script src='//code.jquery.com/jquery-latest.min.js'></script>
+<script src='./library/jquery.panzoom.js'></script>
+<script>
+  // TODO: 한글화 개행 필요
+  // TODO: 바다로 연결된 파이프선 재배치
+
+  // TODO: 유동적인 센서 배치
+  // TODO: 상태 변경 기능 (액션에 반응하여 색 변경)
+
+  // TODO: data 박스 표시
+  // TODO: zoom in/out 기능 (but on/off 활용하여 필요시에만 사용)
+
+
+  const checkbox = document.getElementById('checkbox');
+  if (checkbox.checked == true) {} else {}
+
+  $('.checkbox').on(() => {
+
+  })
+
+
+  // panzoom 기능
+  // $('.on').on('click', () => {
+  $('#canvas').panzoom({
+    $zoomIn: $('.zoom-in'),
+    $zoomOut: $('.zoom-out'),
+    $reset: $('.reset'),
+  })
+  // })
+</script>
 <script>
   svgDrawing('canvas');
-
-  // let mouseX, mouseY;
-
-  // function mousePoint() {
-  //   $(document).mousemove(function (e) {
-  //     mouseX = e.pageX
-  //     mouseY = e.pageY
-
-  //   })
-  //   console.log('x : ' + mouseX + ', y : ' + mouseY)
-
-  // }
 </script>
 
 
