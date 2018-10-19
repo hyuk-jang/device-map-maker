@@ -1,3 +1,16 @@
+const test = [1, 2, 3, 4];
+const test2 = { a: 1, b: 2 };
+
+// const [x1, y1, x2, y2] = test;
+// console.log(x1, y1, x2, y2)
+const { a, b, c: nodeId = 0 } = test2;
+console.log(a, b, nodeId);
+
+test.a = 4;
+
+console.log(a);
+console.log(test2);
+
 const { BU } = require('base-util-jh');
 const _ = require('lodash');
 const map = require('./testMap');
@@ -11,7 +24,6 @@ class NewSvgMaker {
   }
 
   startMake() {
-    // BU.CLI(map);
     BU.writeFile(
       './src/testSvg/outputMap.js',
       `var map = ${JSON.stringify(map)}`,
@@ -146,15 +158,15 @@ class NewSvgMaker {
    */
   makeSvgNodeList() {
     const objectList = this.storageList;
-
     /** @type {mSvgNodeInfo[]} */
-    objectList.forEach(objList => {
-      _.forEach(objList.defList, (obj, index) => {
-        const targetPoint = this.discoverObjectPoint(obj.placeId);
-        const finalAxis = this.calcPlacePoint(obj, targetPoint);
-        const finalObj = _.set(obj, 'point', finalAxis);
-        const name = this.findNodeName(obj.nodeId);
-
+    objectList.forEach(objectInfo => {
+      _.forEach(objectInfo.defList, (defInfo, index) => {
+        const targetPoint = this.discoverObjectPoint(defInfo.placeId);
+        const finalAxis = this.calcPlacePoint(defInfo, targetPoint);
+        // const {axisScale, moveScale, name, nodeId: id, placeId, point, resourceId} = _.set(defInfo, 'point', finalAxis);
+        const finalObj = _.set(defInfo, 'point', finalAxis);
+        const name = this.findNodeName(defInfo.nodeId);
+        const isSensor = this.findIsSensorValue(defInfo);
         /** @type {defInfo} */
         const newDetailNode = {
           id: finalObj.nodeId,
@@ -163,17 +175,17 @@ class NewSvgMaker {
           resourceId: finalObj.resourceId,
           point: finalObj.point,
         };
-
         // BU.CLI(newDetailNode);
         // 그룹 존재
 
         /** @type {mSvgNodeInfo} */
         let foundIt = _.find(map.drawInfo.positionList.svgNodeList, {
-          nodeClassId: objList.nodeClassId,
+          nodeClassId: objectInfo.nodeClassId,
         });
         if (_.isEmpty(foundIt)) {
           foundIt = {
-            nodeClassId: objList.nodeClassId,
+            nodeClassId: objectInfo.nodeClassId,
+            is_sensor: isSensor,
             defList: [],
           };
           map.drawInfo.positionList.svgNodeList.push(foundIt);
@@ -194,11 +206,11 @@ class NewSvgMaker {
    * @param {number[]} placePoint 장소의 (x1,y1,x2,y2) 정보
    */
   calcPlacePoint(storageDefInfo, placePoint) {
-    // BU.CLIS(storageDefInfo, placePoint);
     const nodeResourceInfo = this.getResourceInfo(storageDefInfo.nodeId);
     if (_.isUndefined(nodeResourceInfo)) return false;
     const nodeElementDraw = nodeResourceInfo.elementDrawInfo;
     const nodeType = nodeResourceInfo.type;
+    const isSensor = this.findIsSensorValue(storageDefInfo);
 
     const [axisX, axisY] = storageDefInfo.axisScale;
     const [moveX, moveY] = storageDefInfo.moveScale;
@@ -208,25 +220,11 @@ class NewSvgMaker {
     let targetAxis = [];
     let x;
     let y;
-    if (
-      nodeResourceInfo.id === 'moduleRearTemperature' ||
-      nodeResourceInfo.id === 'brineTemperature' ||
-      nodeResourceInfo.id === 'WLSensor' ||
-      nodeResourceInfo.id === 'salinity'
-    ) {
-      if (nodeResourceInfo.id === 'moduleRearTemperature') {
-        x = x1 + (x2 - x1) / 2 - nodeElementDraw.width;
-        y = y1 + (y2 - y1) / 2 + nodeElementDraw.height / 2;
-      } else if (nodeResourceInfo.id === 'brineTemperature') {
-        x = x1 + (x2 - x1) / 2 + 10;
-        y = y1 + (y2 - y1) / 2 + nodeElementDraw.height / 2;
-      } else if (nodeResourceInfo.id === 'salinity') {
-        x = x1 + (x2 - x1) / 2;
-        y = y1 + (y2 - y1) / 2 - nodeElementDraw.height - 10;
-      } else {
-        x = x1 + (x2 - x1) / 2 - nodeElementDraw.width;
-        y = y1 + (y2 - y1) / 2 - nodeElementDraw.height - 10;
-      }
+
+    if (isSensor === 1) {
+      x = x1 + (x2 - x1) / 2 - nodeElementDraw.width / 2 + moveX;
+      y = y1 + (y2 - y1) / 2 - nodeElementDraw.height / 2 + moveY;
+
       targetAxis = [x, y];
     } else {
       x = x1 + axisX * (x2 - x1);
@@ -308,13 +306,41 @@ class NewSvgMaker {
     map.setInfo.nodeStructureList.forEach(nodeStructureInfo => {
       const findDefInfo = _.find(nodeStructureInfo.defList, { target_prefix: nodePrefix });
       if (_.isUndefined(findDefInfo)) return false;
-      nodeName = findDefInfo.target_name + nodeCode;
+      nodeName = `${findDefInfo.target_name}_${nodeCode}`;
       // BU.CLI(nodeName);
     });
     return nodeName;
   }
 
- 
+  /**
+   * 1: sensor, 0: device, -1: nothing
+   * @param {detailNodeInfo} defInfo
+   */
+  findIsSensorValue(defInfo) {
+    const nodeId = defInfo.nodeId;
+    const nodePrefix = this.getReplace(nodeId, /[_\d]/g);
+
+    let isSensor;
+    map.setInfo.nodeStructureList.forEach(nodeStructureInfo => {
+      const foundDefInfo = _.find(nodeStructureInfo.defList, { target_prefix: nodePrefix });
+      if (_.isUndefined(foundDefInfo)) return false;
+
+      const foundNodeStructureInfo = _.find(map.setInfo.nodeStructureList, {
+        defList: [foundDefInfo],
+      });
+      isSensor = foundNodeStructureInfo.is_sensor;
+    });
+
+    return isSensor;
+  }
+
+  // TODO:
+  /**
+   * @param {detailNodeInfo} defInfo storageList에 저장된 defList 정보
+   */
+  testFunction(defInfo) {
+    map.realtionInfo.placeRelationList;
+  }
 }
 module.exports = NewSvgMaker;
 

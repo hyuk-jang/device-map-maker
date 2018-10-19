@@ -71,6 +71,8 @@ function svgDrawing(documentId) {
 
       const [nodeX, nodeY] = defInfo.point;
 
+      const { color, height, image } = resourceInfo.elementDrawInfo;
+
       const nodeWidth = resourceInfo.elementDrawInfo.width;
       const nodeHeight = resourceInfo.elementDrawInfo.height;
       const nodeColor = resourceInfo.elementDrawInfo.color;
@@ -141,14 +143,15 @@ function writeText(canvas, defInfo, resourceInfo) {
   const textSize = 10;
   let textColor = '#FFFF00';
 
-  // TODO: 제외목록 서칭
+  // 제외목록 서칭
   const writeTextBoolean = excludeText(defInfo.id);
-  console.log(writeTextBoolean);
+
   if (writeTextBoolean === true) {
     // 센서를 찾아 글자색 변경
     textX = defInfo.point[0] + resourceInfo.elementDrawInfo.width / 2;
     textY = defInfo.point[1] + resourceInfo.elementDrawInfo.height / 2;
 
+    // FIXME:
     if (resourceInfo.type === 'rect') {
       if (
         defInfo.id.match(/MRT_/) ||
@@ -173,7 +176,8 @@ function writeText(canvas, defInfo, resourceInfo) {
       textX = defInfo.point[0] + resourceInfo.elementDrawInfo.width;
       textY = defInfo.point[1] + resourceInfo.elementDrawInfo.height;
     }
-    const text = canvas.text(`${defInfo.name}`);
+
+    const text = canvas.text(defInfo.name);
     text.move(textX, textY).font({
       fill: textColor,
       size: textSize,
