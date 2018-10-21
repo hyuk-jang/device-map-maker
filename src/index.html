@@ -71,6 +71,18 @@
       display: flex;
       justify-content: center;
     }
+
+    .data {
+      fill: white;
+      animation: mymove 1s infinite;
+    }
+
+@keyframes mymove {
+    0% {fill: red;}
+    50% {fill: white;}
+    100% {fill: red;}
+}
+
   </style>
 </head>
 
@@ -92,39 +104,42 @@
   </div>
 
 </body>
-<script src='//code.jquery.com/jquery-latest.min.js'></script>
-<script src='./library/jquery.panzoom.js'></script>
+<!-- <script src='//code.jquery.com/jquery-latest.min.js'></script> -->
+<!-- <script src='./library/jquery.panzoom.js'></script> -->
 <script>
-  // TODO: 바다로 연결된 파이프선 재배치
-
-  // TODO: 유동적인 센서 배치
   // TODO: 상태 변경 기능 (액션에 반응하여 색 변경) 0, 1 ,err
-
-  // TODO: data 박스 표시
   // TODO: zoom in/out 기능 (but on/off 활용하여 필요시에만 사용)
 
 
-  const falseValueList = ['CLOSE', 'OFF', 0, '0']
-  const trueValueList = ['OPEN', 'ON', 1, '1']
+  // const falseValueList = ['CLOSE', 'OFF', 0, '0']
+  // const trueValueList = ['OPEN', 'ON', 1, '1']
 
-  const checkbox = document.getElementById('checkbox');
-  if (checkbox.checked == true) {} else {}
+  // const checkbox = document.getElementById('checkbox');
+  // if (checkbox.checked == true) {} else {}
 
-  $('.checkbox').on(() => {
+  // $('.checkbox').on(() => {
 
-  })
-
-  // panzoom 기능
-  // $('.on').on('click', () => {
-  // $('#canvas').panzoom({
-  //   $zoomIn: $('.zoom-in'),
-  //   $zoomOut: $('.zoom-out'),
-  //   $reset: $('.reset'),
   // })
-  // })
+
+  // // panzoom 기능
+  // // $('.on').on('click', () => {
+  // // $('#canvas').panzoom({
+  // //   $zoomIn: $('.zoom-in'),
+  // //   $zoomOut: $('.zoom-out'),
+  // //   $reset: $('.reset'),
+  // // })
+  // // })
 </script>
 <script>
   svgDrawing('canvas');
+
+  testEventFunction();
+  // const test = SVG.get('SvgjsRect1188')
+  // test.click(function () {
+  //   this.fill({
+  //     color: 'red'
+  //   })
+  // })
 </script>
 
 

@@ -1,4 +1,4 @@
-require('../../../default-intelligence');
+// require('../../../default-intelligence');
 
 /**
  * @type {mDeviceMap}
@@ -376,13 +376,13 @@ const map = {
               id: 'PL_001',
               name: '파이프_1',
               resourceId: 'pipeLine',
-              point: [1150, 24, 1176, 24],
+              point: [1150, 24, 1550, 24],
             },
             {
               id: 'PL_002',
               name: '파이프_2',
               resourceId: 'pipeLine',
-              point: [1175, 980, 1175, 24],
+              point: [1550, 1005, 1550, 24],
             },
             {
               id: 'PL_003',
@@ -479,6 +479,12 @@ const map = {
               name: '파이프_18',
               resourceId: 'pipeLine',
               point: [1295, 400, 1295, 105],
+            },
+            {
+              id: 'PL_019',
+              name: '파이프_19',
+              resourceId: 'pipeLine',
+              point: [1200, 1005, 1550, 1005],
             },
           ],
         },
@@ -1780,6 +1786,30 @@ const map = {
       {
         targetIdList: ['WW_001', 'WW_002', 'WW_003', 'WW_004', 'WW_005', 'WW_006', 'WW_007'],
         resourceIdList: ['waterWay'],
+      },
+      {
+        targetIdList: [
+          'PL_001',
+          'PL_002',
+          'PL_003',
+          'PL_004',
+          'PL_005',
+          'PL_006',
+          'PL_007',
+          'PL_008',
+          'PL_009',
+          'PL_010',
+          'PL_011',
+          'PL_012',
+          'PL_013',
+          'PL_014',
+          'PL_015',
+          'PL_016',
+          'PL_017',
+          'PL_018',
+          'PL_019',
+        ],
+        resourceIdList: ['pipeLine'],
       },
       {
         targetIdList: ['MRT_001', 'MRT_002', 'MRT_003', 'MRT_004', 'MRT_005', 'MRT_006', 'MRT_007'],

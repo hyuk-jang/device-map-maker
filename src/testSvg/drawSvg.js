@@ -84,19 +84,30 @@ function svgDrawing(documentId) {
         model = canvas
           .rect(nodeWidth, nodeHeight)
           .fill(nodeColor)
-          .move(nodeX, nodeY);
+          .move(nodeX, nodeY)
+          .attr({
+            id: defInfo.id,
+          });
       } else if (nodeType === 'circle') {
         const nodeRadius = resourceInfo.elementDrawInfo.radius;
         model = canvas
           .circle(nodeRadius)
           .fill(nodeColor)
-          .move(nodeX, nodeY);
+          .move(nodeX, nodeY)
+          .attr({
+            id: defInfo.id,
+          });
       } else if (nodeType === 'polygon') {
         model = canvas.polyline(
           `${nodeWidth},${0} ${nodeWidth * 2},${nodeHeight} ${nodeWidth},${nodeHeight *
             2} ${0},${nodeHeight}`,
         );
-        model.fill(nodeColor).move(nodeX, nodeY);
+        model
+          .fill(nodeColor)
+          .move(nodeX, nodeY)
+          .attr({
+            id: defInfo.id,
+          });
       }
       // 그림자 효과
       model.filter(add => {
@@ -119,7 +130,8 @@ function svgDrawing(documentId) {
 function drawExistCanvasValue(nodeId = '', svgValue) {
   const foundCanvas = _.find(svgNodeTextList, { id: nodeId });
   const nodeX = foundCanvas.text.node.attributes.x.value;
-  foundCanvas.text.node.innerHTML = `<tspan dy="8">${nodeId}</tspan><tspan dy="13" x=${nodeX}>${svgValue}</tspan>`;
+  foundCanvas.text.node.innerHTML = `<tspan dy="5">${foundCanvas.name}</tspan>`;
+  foundCanvas.text.node.innerHTML += `<tspan class='data' dy="14" x=${nodeX}>${svgValue}</tspan>`;
 }
 
 /**
@@ -191,6 +203,7 @@ function writeText(canvas, defInfo, resourceInfo) {
 
     const svgNode = {
       id: svgId,
+      name: defInfo.name,
       text,
     };
     svgNodeTextList.push(svgNode);
@@ -232,6 +245,43 @@ function excludeText(id) {
   }
   return false;
 }
+function testEventFunction() {
+  // TODO:
+  map.drawInfo.positionList.svgNodeList.forEach(svgNodeInfo => {
+    svgNodeInfo.defList.forEach(defInfo => {
+      const getSvgElement = SVG.get(defInfo.id);
+      getSvgElement.click(() => {
+        const inputString = prompt(`${defInfo.id}의 값을 입력하세요`);
+        // console.log(defInfo.id, inputString);
+        drawExistCanvasValue(defInfo.id, inputString);
+
+        // FIXME:
+        if (inputString === '1') {
+          getSvgElement.attr({
+            fill: '#1c951f',
+          });
+        } else if (inputString === '0') {
+          getSvgElement.attr({
+            fill: '#223056',
+          });
+        } else {
+          getSvgElement.attr({
+            fill: ' #981616',
+          });
+        }
+      });
+    });
+  });
+  console.log('test');
+
+  // const test = SVG.get('SvgjsRect1188')
+  // test.click(function () {
+  //   this.fill({
+  //     color: 'red'
+  //   })
+  // })
+}
+
 /**
  * @typedef {Object} svgNodeStorageInfo
  * @property {string} id

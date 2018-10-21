@@ -1,26 +1,14 @@
-const test = [1, 2, 3, 4];
-const test2 = { a: 1, b: 2 };
-
-// const [x1, y1, x2, y2] = test;
-// console.log(x1, y1, x2, y2)
-const { a, b, c: nodeId = 0 } = test2;
-console.log(a, b, nodeId);
-
-test.a = 4;
-
-console.log(a);
-console.log(test2);
-
 const { BU } = require('base-util-jh');
 const _ = require('lodash');
 const map = require('./testMap');
 
-require('../../../default-intelligence');
+// require('../../../default-intelligence');
 
 class NewSvgMaker {
   constructor() {
     this.makeObjInfo();
     this.makeSvgNodeList();
+    this.testFunction(); // FIXME:
   }
 
   startMake() {
@@ -157,16 +145,16 @@ class NewSvgMaker {
    * 최종으로 저장될 svgNodeList 생성
    */
   makeSvgNodeList() {
-    const objectList = this.storageList;
+    const storageList = this.storageList;
     /** @type {mSvgNodeInfo[]} */
-    objectList.forEach(objectInfo => {
-      _.forEach(objectInfo.defList, (defInfo, index) => {
+    storageList.forEach(storageInfo => {
+      _.forEach(storageInfo.defList, (defInfo, index) => {
         const targetPoint = this.discoverObjectPoint(defInfo.placeId);
         const finalAxis = this.calcPlacePoint(defInfo, targetPoint);
         // const {axisScale, moveScale, name, nodeId: id, placeId, point, resourceId} = _.set(defInfo, 'point', finalAxis);
         const finalObj = _.set(defInfo, 'point', finalAxis);
         const name = this.findNodeName(defInfo.nodeId);
-        const isSensor = this.findIsSensorValue(defInfo);
+        const isSensor = this.findIsSensorValue(defInfo.nodeId);
         /** @type {defInfo} */
         const newDetailNode = {
           id: finalObj.nodeId,
@@ -175,24 +163,25 @@ class NewSvgMaker {
           resourceId: finalObj.resourceId,
           point: finalObj.point,
         };
-        // BU.CLI(newDetailNode);
-        // 그룹 존재
 
+        // 그룹 존재
         /** @type {mSvgNodeInfo} */
         let foundIt = _.find(map.drawInfo.positionList.svgNodeList, {
-          nodeClassId: objectInfo.nodeClassId,
+          nodeClassId: storageInfo.nodeClassId,
         });
         if (_.isEmpty(foundIt)) {
           foundIt = {
-            nodeClassId: objectInfo.nodeClassId,
+            nodeClassId: storageInfo.nodeClassId,
             is_sensor: isSensor,
             defList: [],
           };
-          map.drawInfo.positionList.svgNodeList.push(foundIt);
+          if (foundIt.is_sensor != 1) {
+            map.drawInfo.positionList.svgNodeList.push(foundIt);
+          }
         }
 
         /** @type {defInfo} */
-        const foundNodeIt = _.find(foundIt.defList, { nodeId: finalObj.nodeId });
+        const foundNodeIt = _.find(foundIt.defList, { id: finalObj.nodeId });
         if (_.isEmpty(foundNodeIt)) {
           foundIt.defList.push(newDetailNode);
         }
@@ -210,7 +199,7 @@ class NewSvgMaker {
     if (_.isUndefined(nodeResourceInfo)) return false;
     const nodeElementDraw = nodeResourceInfo.elementDrawInfo;
     const nodeType = nodeResourceInfo.type;
-    const isSensor = this.findIsSensorValue(storageDefInfo);
+    const isSensor = this.findIsSensorValue(storageDefInfo.nodeId);
 
     const [axisX, axisY] = storageDefInfo.axisScale;
     const [moveX, moveY] = storageDefInfo.moveScale;
@@ -314,10 +303,9 @@ class NewSvgMaker {
 
   /**
    * 1: sensor, 0: device, -1: nothing
-   * @param {detailNodeInfo} defInfo
+   * @param {string} nodeId
    */
-  findIsSensorValue(defInfo) {
-    const nodeId = defInfo.nodeId;
+  findIsSensorValue(nodeId) {
     const nodePrefix = this.getReplace(nodeId, /[_\d]/g);
 
     let isSensor;
@@ -334,13 +322,125 @@ class NewSvgMaker {
     return isSensor;
   }
 
-  // TODO:
-  /**
-   * @param {detailNodeInfo} defInfo storageList에 저장된 defList 정보
-   */
-  testFunction(defInfo) {
-    map.realtionInfo.placeRelationList;
+  // TODO: sensor 재배치
+  testFunction() {
+    map.realtionInfo.placeRelationList.forEach(placeRelationInfo => {
+      placeRelationInfo.defList.forEach(defInfo => {
+        defInfo.placeList.forEach(placeInfo => {
+          const sensorStorage = [];
+          placeInfo.nodeList.forEach(nodeId => {
+            const foundSensorValue = this.findIsSensorValue(nodeId);
+            if (foundSensorValue === 1) {
+              sensorStorage.push(nodeId);
+            }
+          });
+          this.sensorStorage = sensorStorage;
+          // //////////////////////////////////////////////////////////////////////////////////////////////////////
+          let placeId = defInfo.target_prefix;
+          // placeId 중 code 유무 체크
+          if (placeInfo.target_code) {
+            placeId += `_${placeInfo.target_code}`;
+          }
+
+          // console.log(placeId); // FIXME:
+          // console.log(sensorStorage); // FIXME:
+          // console.log('----------'); // FIXME:
+
+          // sensorStorage.forEach(sensorId, int => {
+          // for (let i; i < sensorStorage.length; i++) {
+          //   const sensorId = sensorStorage[i];
+          _.forEach(sensorStorage, (sensorId, index) => {
+            const sensorPrefix = this.getReplace(sensorId, /[_\d]/g);
+            const placePoint = this.discoverObjectPoint(placeId);
+            let moveScale = [[]];
+            if (sensorStorage.length === 1) {
+              moveScale = [0, -1];
+            } else if (sensorStorage.length === 2) {
+              moveScale = [[-0.8, -0.8], [0.8, -0.8]];
+              moveScale = moveScale[index];
+            } else if (sensorStorage.length === 3) {
+              moveScale = [[-0.8, -0.8], [0.8, -0.8], [-0.8, 0.8]];
+              moveScale = moveScale[index];
+            } else {
+              moveScale = [0, 0];
+            }
+
+            const resourceInfo = this.getResourceInfo(sensorId);
+            const { width, height, color } = resourceInfo.elementDrawInfo;
+            // BU.CLIS(width, height, color);
+            const [x1, y1, x2, y2] = placePoint;
+            let x;
+            let y;
+            let targetAxis = [];
+            const len = 10; // FI1XME:
+
+            x = x1 + (x2 - x1) / 2 - width / 2 + moveScale[0] * width;
+            y = y1 + (y2 - y1) / 2 - height / 2 + moveScale[1] * height;
+
+            this.x = x;
+
+            targetAxis = [x, y];
+            BU.CLIS(placeId, sensorId, targetAxis);
+            // //////////////////////////////////////////////////////////////////////////////////////////
+            // className을 찾기.
+            map.setInfo.nodeStructureList.forEach(nodeStructureInfo => {
+              const foundSensorInfo = _.find(nodeStructureInfo.defList, {
+                target_prefix: sensorPrefix,
+              });
+              if (_.isUndefined(foundSensorInfo)) return false;
+              const sensorClassName = foundSensorInfo.target_id;
+
+              const newDefInfo = {
+                id: sensorId,
+                name: this.findNodeName(sensorId),
+                placeId,
+                resourceId: sensorClassName,
+                point: targetAxis,
+              };
+              // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+              // 그룹 존재
+              let foundSensor = _.find(map.drawInfo.positionList.svgNodeList, {
+                nodeClassId: sensorClassName,
+              });
+              if (_.isEmpty(foundSensor)) {
+                foundSensor = {
+                  nodeClassId: sensorClassName,
+                  is_sensor: nodeStructureInfo.is_sensor,
+                  defList: [],
+                };
+                map.drawInfo.positionList.svgNodeList.push(foundSensor);
+              }
+              /** @type {defInfo} */
+              const foundNodeIt = _.find(foundSensor.defList, { id: sensorId });
+              if (_.isEmpty(foundNodeIt)) {
+                foundSensor.defList.push(newDefInfo);
+              }
+            });
+          });
+        });
+      });
+    });
   }
+
+  // FIXME: 함수 네임 변경
+  // testSensorCalcPlacePoint(sensorStorage, sensorId, placePoint) {
+  //   const resourceInfo = this.getResourceInfo(sensorId);
+  //   const { width, height, color } = resourceInfo.elementDrawInfo;
+  //   // BU.CLIS(width, height, color);
+  //   const [x1, y1, x2, y2] = placePoint;
+  //   let x;
+  //   let y;
+  //   let targetAxis = [];
+  //   const len = 10; // FIXME:
+
+  //   x = x1 + (x2 - x1) / 2 - width - len;
+  //   y = y1 + (y2 - y1) / 2 - height - len;
+  //   this.x = x;
+
+  //   targetAxis = [x, y];
+
+  //   return targetAxis;
+  // }
 }
 module.exports = NewSvgMaker;
 
