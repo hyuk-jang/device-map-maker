@@ -1,4 +1,4 @@
-require('default-intelligence');
+require('../../../../default-intelligence');
 
 /**
  * @type {mDeviceMap}
@@ -867,25 +867,45 @@ const map = {
               {
                 target_code: '1_A',
                 depth: 5,
-                place_info: { maxBrineLevel: 20, minBrineLevel: 1, setBrineLevel: 4 },
+                place_info: {
+                  maxBrineLevel: 20,
+                  minBrineLevel: 1,
+                  setBrineLevel: 4,
+                  placeSize: { width: 300, height: 320, depth: 20 },
+                },
                 nodeList: ['GV_001', 'WL_001', 'V_001', 'MRT_001', 'O_001', 'BT_001'],
               },
               {
                 target_code: '1_B',
                 depth: 5,
-                place_info: { maxBrineLevel: 20, minBrineLevel: 1, setBrineLevel: 4 },
+                place_info: {
+                  maxBrineLevel: 20,
+                  minBrineLevel: 1,
+                  setBrineLevel: 4,
+                  placeSize: { width: 300, height: 320, depth: 20 },
+                },
                 nodeList: ['GV_002', 'WL_002', 'V_002', 'MRT_002', 'O_002', 'BT_002'],
               },
               {
                 target_code: '1_C',
                 depth: 5,
-                place_info: { maxBrineLevel: 20, minBrineLevel: 1, setBrineLevel: 4 },
+                place_info: {
+                  maxBrineLevel: 20,
+                  minBrineLevel: 1,
+                  setBrineLevel: 4,
+                  placeSize: { width: 300, height: 320, depth: 20 },
+                },
                 nodeList: ['GV_003', 'WL_003', 'V_003', 'MRT_003', 'O_003', 'BT_003'],
               },
               {
                 target_code: '1_D',
                 depth: 5,
-                place_info: { maxBrineLevel: 20, minBrineLevel: 1, setBrineLevel: 4 },
+                place_info: {
+                  maxBrineLevel: 20,
+                  minBrineLevel: 1,
+                  setBrineLevel: 4,
+                  placeSize: { width: 300, height: 320, depth: 20 },
+                },
                 nodeList: ['GV_004', 'WL_004', 'V_004', 'MRT_004', 'O_004', 'BT_004'],
               },
               {
@@ -953,19 +973,37 @@ const map = {
               {
                 target_code: '1',
                 depth: -1,
-                place_info: { maxBrineLevel: 100, minBrineLevel: 30, setBrineLevel: 70 },
+                place_info: {
+                  maxBrineLevel: 100,
+                  minBrineLevel: 30,
+                  setBrineLevel: 70,
+                  setSalinity: 5,
+                  placeSize: { width: 200, height: 200, depth: 100 },
+                },
                 nodeList: ['WD_010', 'S_001', 'P_003'],
               },
               {
                 target_code: '2',
                 depth: -1,
-                place_info: { maxBrineLevel: 100, minBrineLevel: 30, setBrineLevel: 70 },
+                place_info: {
+                  maxBrineLevel: 100,
+                  minBrineLevel: 30,
+                  setBrineLevel: 70,
+                  setSalinity: 10,
+                  placeSize: { width: 200, height: 200, depth: 100 },
+                },
                 nodeList: ['WD_011', 'S_002', 'P_004'],
               },
               {
                 target_code: '3',
                 depth: -1,
-                place_info: { maxBrineLevel: 100, minBrineLevel: 30, setBrineLevel: 70 },
+                place_info: {
+                  maxBrineLevel: 100,
+                  minBrineLevel: 30,
+                  setBrineLevel: 70,
+                  setSalinity: 18,
+                  placeSize: { width: 200, height: 200, depth: 100 },
+                },
                 nodeList: ['WD_012', 'S_003', 'P_005'],
               },
             ],
@@ -981,7 +1019,16 @@ const map = {
             target_id: 'reservoir',
             target_prefix: 'RV',
             target_name: '저수조',
-            placeList: [{ target_code: '', depth: -1, nodeList: ['P_002', 'P_006', 'O_007'] }],
+            placeList: [
+              {
+                target_code: '',
+                depth: -1,
+                place_info: {
+                  placeSize: { width: 500, height: 100, depth: 100 },
+                },
+                nodeList: ['P_002', 'P_006', 'O_007'],
+              },
+            ],
           },
         ],
       },
@@ -1071,7 +1118,251 @@ const map = {
       { currNodeId: 'P_004', placeIdList: ['SEB_2'], parentNodeIdList: [], childrenNodeIdList: [] },
       { currNodeId: 'P_005', placeIdList: ['SCB'], parentNodeIdList: [], childrenNodeIdList: [] },
     ],
-    brineFeedRankRelationList: [],
+    brineFeedRankRelationList: [
+      {
+        placeId: 'SEB_1_A',
+        feedCmdList: [
+          {
+            srcPlaceId: 'BW_1',
+            cmdId: '해주 1 → 증발지 1A',
+            trueList: ['V_007', 'V_001', 'P_003'],
+            falseList: ['V_002', 'V_003', 'V_004', 'GV_001'],
+          },
+          {
+            srcPlaceId: 'RV',
+            cmdId: '저수조 → 증발지 1A',
+            trueList: ['V_006', 'V_001', 'P_002'],
+            falseList: ['V_002', 'V_003', 'V_004', 'GV_001'],
+          },
+        ],
+      },
+      {
+        placeId: 'SEB_1_B',
+        feedCmdList: [
+          {
+            srcPlaceId: 'BW_1',
+            cmdId: '해주 1 → 증발지 1B',
+            trueList: ['V_007', 'V_002', 'P_003'],
+            falseList: ['V_001', 'V_003', 'V_004', 'GV_002'],
+          },
+          {
+            srcPlaceId: 'RV',
+            cmdId: '저수조 → 증발지 1B',
+            trueList: ['V_006', 'V_002', 'P_002'],
+            falseList: ['V_001', 'V_003', 'V_004', 'GV_002'],
+          },
+        ],
+      },
+      {
+        placeId: 'SEB_1_C',
+        feedCmdList: [
+          {
+            srcPlaceId: 'BW_1',
+            cmdId: '해주 1 → 증발지 1B',
+            trueList: ['V_007', 'V_003', 'P_003'],
+            falseList: ['V_001', 'V_002', 'V_004', 'GV_003'],
+          },
+          {
+            srcPlaceId: 'RV',
+            cmdId: '저수조 → 증발지 1B',
+            trueList: ['V_006', 'V_003', 'P_002'],
+            falseList: ['V_001', 'V_002', 'V_004', 'GV_003'],
+          },
+        ],
+      },
+      {
+        placeId: 'SEB_1_D',
+        feedCmdList: [
+          {
+            srcPlaceId: 'BW_1',
+            cmdId: '해주 1 → 증발지 1B',
+            trueList: ['V_007', 'V_004', 'P_003'],
+            falseList: ['V_001', 'V_002', 'V_003', 'GV_004'],
+          },
+          {
+            srcPlaceId: 'RV',
+            cmdId: '저수조 → 증발지 1B',
+            trueList: ['V_006', 'V_004', 'P_002'],
+            falseList: ['V_001', 'V_002', 'V_003', 'GV_004'],
+          },
+        ],
+      },
+      {
+        placeId: 'SEB_1_E',
+        feedCmdList: [
+          {
+            srcPlaceId: 'RV',
+            cmdId: '저수조 → 증발지 1_E',
+            trueList: ['P_006'],
+            falseList: ['GV_005'],
+          },
+        ],
+      },
+      {
+        placeId: 'SEB_2',
+        feedCmdList: [
+          {
+            srcPlaceId: 'BW_2',
+            cmdId: '해주 2 → 증발지 2',
+            trueList: ['P_004'],
+            falseList: ['WD_006'],
+          },
+        ],
+      },
+      {
+        placeId: 'SEB_3',
+        feedCmdList: [
+          {
+            srcPlaceId: 'SEB_2',
+            cmdId: '증발지 2 → 증발지 3',
+            trueList: ['WD_006'],
+            falseList: ['WD_007'],
+          },
+        ],
+      },
+      {
+        placeId: 'SEB_4',
+        feedCmdList: [
+          {
+            srcPlaceId: 'SEB_3',
+            cmdId: '증발지 4 → 증발지 4',
+            trueList: ['WD_007'],
+            falseList: ['WD_008'],
+          },
+        ],
+      },
+      {
+        placeId: 'SCB',
+        feedCmdList: [
+          {
+            srcPlaceId: 'BW_003',
+            cmdId: '해주 3 → 결정지',
+            trueList: ['P_005'],
+            falseList: ['WD_009'],
+          },
+        ],
+      },
+    ],
+    brineDrainRankRelationList: [
+      {
+        placeId: 'SEB_1_A',
+        drainCmdList: [
+          {
+            destPlaceId: 'BW_2',
+            cmdId: '증발지 1A → 해주 2',
+            trueList: ['GV_001', 'WD_013', 'WD_011', 'WD_016'],
+            falseList: ['WD_010', 'WD_012', 'WD_014', 'WD_015'],
+          },
+          {
+            destPlaceId: 'BW_1',
+            cmdId: '증발지 1A → 해주 1',
+            trueList: ['GV_001', 'WD_013', 'WD_010'],
+            falseList: ['WD_016'],
+          },
+        ],
+      },
+      {
+        placeId: 'SEB_1_B',
+        drainCmdList: [
+          {
+            destPlaceId: 'BW_2',
+            cmdId: '증발지 1A → 해주 1',
+            trueList: ['GV_002', 'WD_013', 'WD_011', 'WD_016'],
+            falseList: ['WD_010', 'WD_012', 'WD_014', 'WD_015'],
+          },
+          {
+            destPlaceId: 'BW_1',
+            cmdId: '증발지 1A → 해주 1',
+            trueList: ['GV_002', 'WD_013', 'WD_010'],
+            falseList: ['WD_016'],
+          },
+        ],
+      },
+      {
+        placeId: 'SEB_1_C',
+        drainCmdList: [
+          {
+            destPlaceId: 'BW_2',
+            cmdId: '증발지 1A → 해주 1',
+            trueList: ['GV_003', 'WD_013', 'WD_011', 'WD_016'],
+            falseList: ['WD_010', 'WD_012', 'WD_014', 'WD_015'],
+          },
+          {
+            destPlaceId: 'BW_1',
+            cmdId: '증발지 1A → 해주 1',
+            trueList: ['GV_003', 'WD_013', 'WD_010'],
+            falseList: ['WD_016'],
+          },
+        ],
+      },
+      {
+        placeId: 'SEB_1_D',
+        drainCmdList: [
+          {
+            destPlaceId: 'BW_2',
+            cmdId: '증발지 1A → 해주 1',
+            trueList: ['GV_004', 'WD_013', 'WD_011', 'WD_016'],
+            falseList: ['WD_010', 'WD_012', 'WD_014', 'WD_015'],
+          },
+          {
+            destPlaceId: 'BW_1',
+            cmdId: '증발지 1A → 해주 1',
+            trueList: ['GV_004', 'WD_013', 'WD_010'],
+            falseList: ['WD_016'],
+          },
+        ],
+      },
+      {
+        placeId: 'SEB_2',
+        drainCmdList: [
+          {
+            destPlaceId: 'SEB_3',
+            cmdId: '증발지 2 → 증발지 3',
+            trueList: ['WD_006'],
+            falseList: ['WD_007'],
+          },
+        ],
+      },
+      {
+        placeId: 'SEB_3',
+        drainCmdList: [
+          {
+            destPlaceId: 'SEB_4',
+            cmdId: '증발지 3 → 증발지 4',
+            trueList: ['WD_007'],
+            falseList: ['WD_008'],
+          },
+        ],
+      },
+      {
+        placeId: 'SEB_4',
+        drainCmdList: [
+          {
+            destPlaceId: 'BW_3',
+            cmdId: '증발지 4 → 해주3',
+            trueList: ['WD_008', 'WD_014', 'WD_012'],
+            falseList: ['WD_009', 'WD_011', 'WD_015'],
+          },
+          {
+            destPlaceId: 'BW_2',
+            cmdId: '증발지 4 → 해주2',
+            trueList: ['WD_008', 'WD_014', 'WD_011'],
+            falseList: ['WD_009', 'WD_012', 'WD_015'],
+          },
+        ],
+      },
+      {
+        placeId: 'SCB',
+        drainCmdList: [
+          {
+            destPlaceId: 'BW_3',
+            cmdId: '결정지 → 해주 3',
+            trueList: ['WD_009', 'WD_014', 'WD_012'],
+            falseList: ['WD_008', 'WD_011', 'WD_015'],
+          },
+        ],
+      },
+    ],
     svgResourceConnectionList: [
       {
         targetIdList: ['SEB_1_A', 'SEB_1_B', 'SEB_1_C', 'SEB_1_D'],
