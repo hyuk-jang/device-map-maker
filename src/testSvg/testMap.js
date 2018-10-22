@@ -1,4 +1,4 @@
-// require('../../../default-intelligence');
+require('../../../default-intelligence');
 
 /**
  * @type {mDeviceMap}
@@ -17,7 +17,7 @@ const map = {
           elementDrawInfo: {
             width: 240,
             height: 150,
-            color: '#3e68b6',
+            color: '#91a8bd',
           },
         },
         {
@@ -26,7 +26,7 @@ const map = {
           elementDrawInfo: {
             width: 300,
             height: 300,
-            color: '#3e68b6',
+            color: '#91a8bd',
           },
         },
         {
@@ -35,7 +35,7 @@ const map = {
           elementDrawInfo: {
             width: 240,
             height: 130,
-            color: '#2b4570',
+            color: '#0b3f6d',
           },
         },
         {
@@ -44,7 +44,7 @@ const map = {
           elementDrawInfo: {
             width: 260,
             height: 180,
-            color: '#2b4570',
+            color: '#0b3f6d',
           },
         },
         {
@@ -53,7 +53,7 @@ const map = {
           elementDrawInfo: {
             width: 240,
             height: 120,
-            color: '#3e68b6',
+            color: '#91a8bd',
           },
         },
         {
@@ -71,7 +71,7 @@ const map = {
           elementDrawInfo: {
             width: 170,
             height: 150,
-            color: '#32706f',
+            color: '#118e34',
           },
         },
         {
@@ -80,14 +80,23 @@ const map = {
           elementDrawInfo: {
             width: 55,
             height: 55,
-            color: '#223056',
+            color: ['#222d4f', '#1ee500', '#ff0000'],
+          },
+        },
+        {
+          id: 'gateValve',
+          type: 'rect',
+          elementDrawInfo: {
+            width: 55,
+            height: 55,
+            color: ['#222d4f', 'yellow', '#ff0000'], // FIXME:
           },
         },
         {
           id: 'sea',
           type: 'rect',
           elementDrawInfo: {
-            width: 175,
+            width: 170,
             height: 120,
             color: '#77a1c1',
           },
@@ -98,7 +107,7 @@ const map = {
           elementDrawInfo: {
             width: 30,
             height: 30,
-            color: '#208974',
+            color: ['#208974', '#6ed6c1', '#ff0000'], // FIXME:
           },
         },
         {
@@ -116,7 +125,7 @@ const map = {
             width: 30,
             height: 30,
             radius: 30,
-            color: '#124e42',
+            color: ['#006d7c', 'yellow', '#ff0000'], // FIXME:
           },
         },
         {
@@ -124,7 +133,7 @@ const map = {
           type: 'line',
           elementDrawInfo: {
             width: 55,
-            color: '#6f6f6f',
+            color: '#347de3',
           },
         },
         {
@@ -133,16 +142,7 @@ const map = {
           elementDrawInfo: {
             width: 550,
             height: 120,
-            color: '#484144',
-          },
-        },
-        {
-          id: 'sea',
-          type: 'rect',
-          elementDrawInfo: {
-            width: 190,
-            height: 150,
-            color: '#1A4876',
+            color: '#655d5d',
           },
         },
         {
@@ -152,16 +152,16 @@ const map = {
             width: 50,
             height: 50,
             radius: 50,
-            color: '#EE204D',
+            color: ['#EE204D', 'yellow', '#ff0000'], // FIXME:
           },
         },
         {
-          id: 'WLSensor',
+          id: 'waterLevel',
           type: 'rect',
           elementDrawInfo: {
             width: 50,
             height: 40,
-            color: '#dedede',
+            color: ['#ececec', 'yellow', '#ff0000'], // FIXME:
           },
         },
         {
@@ -170,7 +170,7 @@ const map = {
           elementDrawInfo: {
             width: 50,
             height: 40,
-            color: '#dedede',
+            color: ['#ececec', 'yellow', '#ff0000'], // FIXME:
           },
         },
         {
@@ -179,7 +179,7 @@ const map = {
           elementDrawInfo: {
             width: 50,
             height: 40,
-            color: '#dedede',
+            color: ['#ececec', 'yellow', '#ff0000'], // FIXME:
           },
         },
         {
@@ -188,7 +188,7 @@ const map = {
           elementDrawInfo: {
             width: 50,
             height: 40,
-            color: '#dedede',
+            color: ['#ececec', 'yellow', '#ff0000'], // FIXME:
           },
         },
       ],
@@ -202,25 +202,25 @@ const map = {
               id: 'SEB_1_A',
               name: '증발지_1A',
               resourceId: 'salternModuleBlock_A',
-              point: [340, 950],
+              point: [335, 950],
             },
             {
               id: 'SEB_1_B',
               name: '증발지_1B',
               resourceId: 'salternModuleBlock_A',
-              point: [340, 760],
+              point: [335, 760],
             },
             {
               id: 'SEB_1_C',
               name: '증발지_1C',
               resourceId: 'salternModuleBlock_A',
-              point: [340, 570],
+              point: [335, 570],
             },
             {
               id: 'SEB_1_D',
               name: '증발지_1D',
               resourceId: 'salternModuleBlock_A',
-              point: [340, 380],
+              point: [335, 380],
             },
             {
               id: 'SEB_1_E',
@@ -232,7 +232,7 @@ const map = {
               id: 'SEB_일반',
               name: '증발지_일반',
               resourceId: 'salternNomalBlock_A',
-              point: [340, 210],
+              point: [335, 210],
             },
             {
               id: 'SEB_2',
@@ -284,19 +284,19 @@ const map = {
               id: 'BW_1',
               name: '해주_1',
               resourceId: 'brineWarehouse',
-              point: [600, 135],
+              point: [600, 130],
             },
             {
               id: 'BW_2',
               name: '해주_2',
               resourceId: 'brineWarehouse',
-              point: [790, 135],
+              point: [790, 130],
             },
             {
               id: 'BW_3',
               name: '해주_3',
               resourceId: 'brineWarehouse',
-              point: [980, 135],
+              point: [980, 130],
             },
           ],
         },
@@ -307,7 +307,7 @@ const map = {
               id: 'RV',
               name: '저수조',
               resourceId: 'reservoir',
-              point: [600, 10],
+              point: [600, 3],
             },
           ],
         },
@@ -318,7 +318,7 @@ const map = {
               id: 'SEA',
               name: '바다',
               resourceId: 'sea',
-              point: [1025, 980],
+              point: [1030, 980],
             },
           ],
         },
@@ -341,7 +341,7 @@ const map = {
               id: 'WW_003',
               name: '수로_3',
               resourceId: 'waterWay',
-              point: [922, 1100, 922, 340],
+              point: [928, 1100, 928, 340],
             },
             {
               id: 'WW_004',
@@ -359,13 +359,13 @@ const map = {
               id: 'WW_006',
               name: '수로_6',
               resourceId: 'waterWay',
-              point: [1247.5, 1045, 1247.5, 700],
+              point: [1247.5, 1045, 1247.5, 705],
             },
             {
               id: 'WW_007',
               name: '수로_7',
               resourceId: 'waterWay',
-              point: [1275, 1072, 1200, 1072],
+              point: [1275, 1072, 1205, 1072],
             },
           ],
         },
@@ -412,19 +412,19 @@ const map = {
               id: 'PL_007',
               name: '파이프_7',
               resourceId: 'pipeLine',
-              point: [300, 550, 370, 550],
+              point: [300, 550, 365, 550],
             },
             {
               id: 'PL_008',
               name: '파이프_8',
               resourceId: 'pipeLine',
-              point: [370, 550, 370, 530],
+              point: [365, 550, 365, 530],
             },
             {
               id: 'PL_009',
               name: '파이프_9',
               resourceId: 'pipeLine',
-              point: [370, 570, 370, 550],
+              point: [365, 570, 365, 550],
             },
             {
               id: 'PL_010',
@@ -436,19 +436,19 @@ const map = {
               id: 'PL_011',
               name: '파이프_11',
               resourceId: 'pipeLine',
-              point: [300, 930, 370, 930],
+              point: [300, 930, 365, 930],
             },
             {
               id: 'PL_012',
               name: '파이프_12',
               resourceId: 'pipeLine',
-              point: [370, 930, 370, 910],
+              point: [365, 930, 365, 910],
             },
             {
               id: 'PL_013',
               name: '파이프_13',
               resourceId: 'pipeLine',
-              point: [370, 950, 370, 930],
+              point: [365, 950, 365, 930],
             },
             {
               id: 'PL_014',
@@ -1751,11 +1751,6 @@ const map = {
       },
       {
         targetIdList: [
-          'GV_001',
-          'GV_002',
-          'GV_003',
-          'GV_004',
-          'GV_005',
           'WD_005',
           'WD_006',
           'WD_007',
@@ -1770,6 +1765,10 @@ const map = {
           'WD_016',
         ],
         resourceIdList: ['waterDoor'],
+      },
+      {
+        targetIdList: ['GV_001', 'GV_002', 'GV_003', 'GV_004', 'GV_005'],
+        resourceIdList: ['gateValve'],
       },
       {
         targetIdList: ['P_001', 'P_002', 'P_003', 'P_004', 'P_005', 'P_006'],
@@ -1817,7 +1816,7 @@ const map = {
       },
       {
         targetIdList: ['WL_001', 'WL_002', 'WL_003', 'WL_004', 'WL_005'],
-        resourceIdList: ['WLSensor'],
+        resourceIdList: ['waterLevel'],
       },
       {
         targetIdList: ['BT_001', 'BT_002', 'BT_003', 'BT_004', 'BT_005'],
@@ -1828,7 +1827,7 @@ const map = {
         resourceIdList: ['salinity'],
       },
     ],
-    excludeNameList: ['waterWay', 'pipeLine'],
+    excludeNameList: ['pipeLine', 'waterWay'],
   },
   controlInfo: {
     tempControlList: [

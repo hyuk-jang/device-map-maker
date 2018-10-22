@@ -342,27 +342,26 @@ class NewSvgMaker {
             placeId += `_${placeInfo.target_code}`;
           }
 
-          // console.log(placeId); // FIXME:
-          // console.log(sensorStorage); // FIXME:
-          // console.log('----------'); // FIXME:
-
-          // sensorStorage.forEach(sensorId, int => {
-          // for (let i; i < sensorStorage.length; i++) {
-          //   const sensorId = sensorStorage[i];
           _.forEach(sensorStorage, (sensorId, index) => {
             const sensorPrefix = this.getReplace(sensorId, /[_\d]/g);
             const placePoint = this.discoverObjectPoint(placeId);
             let moveScale = [[]];
             if (sensorStorage.length === 1) {
               moveScale = [0, -1];
-            } else if (sensorStorage.length === 2) {
-              moveScale = [[-0.8, -0.8], [0.8, -0.8]];
+            } else if (sensorStorage.length > 2 < 5) {
+              moveScale = [[-0.8, -0.8], [0.8, -0.8], [-0.8, 0.8], [0.8, 0.8]];
               moveScale = moveScale[index];
-            } else if (sensorStorage.length === 3) {
-              moveScale = [[-0.8, -0.8], [0.8, -0.8], [-0.8, 0.8]];
-              moveScale = moveScale[index];
-            } else {
-              moveScale = [0, 0];
+            } else if (sensorStorage.length > 4 < 10) {
+              moveScale = [
+                [-1.2, -1.2],
+                [0, -1.2],
+                [1.2, -1.2],
+                [-1.2, 0],
+                [0, 1.2],
+                [-1.2, 1.2],
+                [0, 1.2],
+                [1.2, 1.2],
+              ];
             }
 
             const resourceInfo = this.getResourceInfo(sensorId);
@@ -380,7 +379,7 @@ class NewSvgMaker {
             this.x = x;
 
             targetAxis = [x, y];
-            BU.CLIS(placeId, sensorId, targetAxis);
+            // BU.CLIS(placeId, sensorId, targetAxis);
             // //////////////////////////////////////////////////////////////////////////////////////////
             // className을 찾기.
             map.setInfo.nodeStructureList.forEach(nodeStructureInfo => {
@@ -388,8 +387,8 @@ class NewSvgMaker {
                 target_prefix: sensorPrefix,
               });
               if (_.isUndefined(foundSensorInfo)) return false;
-              const sensorClassName = foundSensorInfo.target_id;
 
+              const sensorClassName = foundSensorInfo.target_id;
               const newDefInfo = {
                 id: sensorId,
                 name: this.findNodeName(sensorId),

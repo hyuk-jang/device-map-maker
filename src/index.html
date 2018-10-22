@@ -49,15 +49,15 @@
       transition: .4s;
     }
 
-    input:checked + .slider {
+    input:checked+.slider {
       background-color: #2196F3;
     }
 
-    input:focus + .slider {
+    input:focus+.slider {
       box-shadow: 0 0 1px #2196F3;
     }
 
-    input:checked + .slider:before {
+    input:checked+.slider:before {
       -webkit-transform: translateX(26px);
       transform: translateX(26px);
     }
@@ -74,15 +74,11 @@
 
     .data {
       fill: white;
-      animation: mymove 1s infinite;
     }
 
-@keyframes mymove {
-    0% {fill: red;}
-    50% {fill: white;}
-    100% {fill: red;}
-}
-
+    .node {
+      cursor: pointer;
+    }
   </style>
 </head>
 
@@ -92,10 +88,6 @@
     <button class="zoom-in">ZOOM-IN</button>
     <button class="zoom-out">ZOOM-OUT</button>
     <button class="reset">RESET</button>
-    <label class="switch">
-      <input id="checkbox" type="checkbox">
-      <span class="slider"></span>
-    </label>
   </div>
 
   <!-- canvas -->
@@ -104,42 +96,22 @@
   </div>
 
 </body>
-<!-- <script src='//code.jquery.com/jquery-latest.min.js'></script> -->
-<!-- <script src='./library/jquery.panzoom.js'></script> -->
+<script src='//code.jquery.com/jquery-latest.min.js'></script>
+<script src='./library/jquery.panzoom.js'></script>
 <script>
-  // TODO: 상태 변경 기능 (액션에 반응하여 색 변경) 0, 1 ,err
-  // TODO: zoom in/out 기능 (but on/off 활용하여 필요시에만 사용)
+  // TODO: 전체 배경 설정 
 
-
-  // const falseValueList = ['CLOSE', 'OFF', 0, '0']
-  // const trueValueList = ['OPEN', 'ON', 1, '1']
-
-  // const checkbox = document.getElementById('checkbox');
-  // if (checkbox.checked == true) {} else {}
-
-  // $('.checkbox').on(() => {
-
-  // })
-
-  // // panzoom 기능
-  // // $('.on').on('click', () => {
-  // // $('#canvas').panzoom({
-  // //   $zoomIn: $('.zoom-in'),
-  // //   $zoomOut: $('.zoom-out'),
-  // //   $reset: $('.reset'),
-  // // })
-  // // })
+  // panzoom 기능
+  $('#canvas').panzoom({
+    $zoomIn: $('.zoom-in'),
+    $zoomOut: $('.zoom-out'),
+    $reset: $('.reset'),
+  })
 </script>
+
 <script>
   svgDrawing('canvas');
-
-  testEventFunction();
-  // const test = SVG.get('SvgjsRect1188')
-  // test.click(function () {
-  //   this.fill({
-  //     color: 'red'
-  //   })
-  // })
+  dataInstallEvent();
 </script>
 
 

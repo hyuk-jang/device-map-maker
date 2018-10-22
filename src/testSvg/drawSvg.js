@@ -83,19 +83,21 @@ function svgDrawing(documentId) {
       if (nodeType === 'rect') {
         model = canvas
           .rect(nodeWidth, nodeHeight)
-          .fill(nodeColor)
+          .fill(nodeColor[0])
           .move(nodeX, nodeY)
           .attr({
             id: defInfo.id,
+            class: 'node',
           });
       } else if (nodeType === 'circle') {
         const nodeRadius = resourceInfo.elementDrawInfo.radius;
         model = canvas
           .circle(nodeRadius)
-          .fill(nodeColor)
+          .fill(nodeColor[0])
           .move(nodeX, nodeY)
           .attr({
             id: defInfo.id,
+            class: 'node',
           });
       } else if (nodeType === 'polygon') {
         model = canvas.polyline(
@@ -103,10 +105,11 @@ function svgDrawing(documentId) {
             2} ${0},${nodeHeight}`,
         );
         model
-          .fill(nodeColor)
+          .fill(nodeColor[0])
           .move(nodeX, nodeY)
           .attr({
             id: defInfo.id,
+            class: 'node',
           });
       }
       // 그림자 효과
@@ -150,11 +153,13 @@ function drawExistCanvasValues(changeCanvasList) {
  * @param {mSvgModelResource} resourceInfo 그려질 정보 id, type, elemetDrawInfo[width,height,radius,...]
  */
 function writeText(canvas, defInfo, resourceInfo) {
-  let textX;
-  let textY;
-  const textSize = 10;
-  let textColor = '#FFFF00';
+  let [textX, textY, textSize, textColor, leading] = [, , 10, 'yellow'];
 
+  // svgPositionList를 검색하여 장치인지 센서인지 정의
+  let foundSvgInfo = _.find(map.drawInfo.positionList.svgNodeList, { defList: [defInfo] });
+  if (_.isUndefined(foundSvgInfo)) {
+    foundSvgInfo = _.find(map.drawInfo.positionList.svgPlaceList, { defList: [defInfo] });
+  }
   // 제외목록 서칭
   const writeTextBoolean = excludeText(defInfo.id);
 
@@ -163,15 +168,15 @@ function writeText(canvas, defInfo, resourceInfo) {
     textX = defInfo.point[0] + resourceInfo.elementDrawInfo.width / 2;
     textY = defInfo.point[1] + resourceInfo.elementDrawInfo.height / 2;
 
-    // FIXME:
     if (resourceInfo.type === 'rect') {
-      if (
-        defInfo.id.match(/MRT_/) ||
-        defInfo.id.match(/BT_/) ||
-        defInfo.id.match(/WL_/) ||
-        defInfo.id.match(/S_/)
-      ) {
-        textColor = '#2958ae';
+      // 노드중 sensor style 지정
+      if (foundSvgInfo.is_sensor === 1) {
+        textColor = '#0404B6';
+      }
+      // 장소 text style 지정
+      if (!_.isUndefined(foundSvgInfo.placeClassId)) {
+        textSize = 17;
+        leading = '0.8em';
       }
     } else if (resourceInfo.type === 'line') {
       if (defInfo.point[0] === defInfo.point[2]) {
@@ -190,13 +195,19 @@ function writeText(canvas, defInfo, resourceInfo) {
     }
 
     const text = canvas.text(defInfo.name);
-    text.move(textX, textY).font({
-      fill: textColor,
-      size: textSize,
-      anchor: 'middle',
-      // leading: '2em',
-      weight: 'bold',
-    });
+    text
+      .move(textX, textY)
+      .font({
+        fill: textColor,
+        size: textSize,
+        anchor: 'middle',
+        leading,
+        weight: 'bold',
+      })
+      // text 커서 무시
+      .attr({
+        'pointer-events': 'none',
+      });
 
     // 그려진 node id, text 정보 수집
     const svgId = defInfo.id;
@@ -245,41 +256,45 @@ function excludeText(id) {
   }
   return false;
 }
-function testEventFunction() {
+function dataInstallEvent() {
   // TODO:
   map.drawInfo.positionList.svgNodeList.forEach(svgNodeInfo => {
     svgNodeInfo.defList.forEach(defInfo => {
       const getSvgElement = SVG.get(defInfo.id);
-      getSvgElement.click(() => {
+      getSvgElement.click(e => {
         const inputString = prompt(`${defInfo.id}의 값을 입력하세요`);
-        // console.log(defInfo.id, inputString);
-        drawExistCanvasValue(defInfo.id, inputString);
 
-        // FIXME:
-        if (inputString === '1') {
-          getSvgElement.attr({
-            fill: '#1c951f',
-          });
-        } else if (inputString === '0') {
-          getSvgElement.attr({
-            fill: '#223056',
-          });
-        } else {
-          getSvgElement.attr({
-            fill: ' #981616',
-          });
+        const resourceInfo = _.find(map.drawInfo.frame.svgModelResourceList, {
+          id: defInfo.resourceId,
+        });
+        const color = resourceInfo.elementDrawInfo.color;
+        // true fals 값 체크
+        const falseValueList = ['CLOSE', 'OFF', 0, '0'];
+        const trueValueList = ['OPEN', 'ON', 1, '1'];
+
+        const trueValueCheck = _.indexOf(trueValueList, _.toUpper(inputString));
+        const falseValueCheck = _.indexOf(falseValueList, _.toUpper(inputString));
+
+        if (inputString != null) {
+          // FIXME:
+          drawExistCanvasValue(defInfo.id, inputString);
+          if (trueValueCheck != -1) {
+            getSvgElement.attr({
+              fill: color[1],
+            });
+          } else if (falseValueCheck != -1) {
+            getSvgElement.attr({
+              fill: color[0],
+            });
+          } else {
+            getSvgElement.attr({
+              fill: color[2],
+            });
+          }
         }
       });
     });
   });
-  console.log('test');
-
-  // const test = SVG.get('SvgjsRect1188')
-  // test.click(function () {
-  //   this.fill({
-  //     color: 'red'
-  //   })
-  // })
 }
 
 /**
