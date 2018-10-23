@@ -2,13 +2,13 @@ const { BU } = require('base-util-jh');
 const _ = require('lodash');
 const map = require('./testMap');
 
-// require('../../../default-intelligence');
+require('../../../default-intelligence');
 
 class NewSvgMaker {
   constructor() {
     this.makeObjInfo();
     this.makeSvgNodeList();
-    this.testFunction(); // FIXME:
+    this.makeSensorList();
   }
 
   startMake() {
@@ -46,7 +46,7 @@ class NewSvgMaker {
       targetIdList: [targetId],
     });
 
-    if (foundSVGResourceConnectionInfo != null) {
+    if (_.isObject(foundSVGResourceConnectionInfo)) {
       const resourceId = foundSVGResourceConnectionInfo.resourceIdList[0];
       /** @type {mSvgModelResource} */
       const resourceInfo = _.find(map.drawInfo.frame.svgModelResourceList, {
@@ -131,7 +131,7 @@ class NewSvgMaker {
       const targetDefInfo = _.find(nodeStructureInfo.defList, {
         target_prefix: targetPrefix,
       });
-      if (targetDefInfo != null) {
+      if (_.isObject(targetDefInfo)) {
         /** @type {mNodeModelInfo} */
         const targetNodeInfo = _.find(targetDefInfo.nodeList, { target_code: targetCode });
         returnValue = _.pick(targetNodeInfo, ['axisScale', 'moveScale']);
@@ -151,7 +151,6 @@ class NewSvgMaker {
       _.forEach(storageInfo.defList, (defInfo, index) => {
         const targetPoint = this.discoverObjectPoint(defInfo.placeId);
         const finalAxis = this.calcPlacePoint(defInfo, targetPoint);
-        // const {axisScale, moveScale, name, nodeId: id, placeId, point, resourceId} = _.set(defInfo, 'point', finalAxis);
         const finalObj = _.set(defInfo, 'point', finalAxis);
         const name = this.findNodeName(defInfo.nodeId);
         const isSensor = this.findIsSensorValue(defInfo.nodeId);
@@ -205,7 +204,6 @@ class NewSvgMaker {
     const [moveX, moveY] = storageDefInfo.moveScale;
     const [x1, y1, x2, y2] = placePoint;
 
-    // FIXME: ↓ 후에 더 좋은 방법으로 수정, 센서도 axis,move 필요 그에 맞게 수정
     let targetAxis = [];
     let x;
     let y;
@@ -250,29 +248,29 @@ class NewSvgMaker {
         id: targetResourceId,
       });
       const targetType = svgModelResourceInfo.type;
-      const targetDrawInfo = svgModelResourceInfo.elementDrawInfo;
+      const { width, height } = svgModelResourceInfo.elementDrawInfo;
       if (targetType === 'rect') {
         targetPoint = [
           targetInfo.point[0],
           targetInfo.point[1],
-          targetInfo.point[0] + targetDrawInfo.width,
-          targetInfo.point[1] + targetDrawInfo.height,
+          targetInfo.point[0] + width,
+          targetInfo.point[1] + height,
         ];
         // line position:(x1,y1,x2,y2)
       } else if (targetType === 'line') {
         if (targetInfo.point[1] === targetInfo.point[3]) {
           targetPoint = [
             targetInfo.point[0],
-            targetInfo.point[1] - targetDrawInfo.width / 2,
+            targetInfo.point[1] - width / 2,
             targetInfo.point[2],
-            targetInfo.point[3] - targetDrawInfo.width / 2,
+            targetInfo.point[3] - width / 2,
           ];
         } else {
           targetPoint = [
-            targetInfo.point[0] - targetDrawInfo.width / 2,
-            targetInfo.point[1] - targetDrawInfo.width,
-            targetInfo.point[2] - targetDrawInfo.width / 2,
-            targetInfo.point[3] + targetDrawInfo.width,
+            targetInfo.point[0] - width / 2,
+            targetInfo.point[1] - width,
+            targetInfo.point[2] - width / 2,
+            targetInfo.point[3] + width,
           ];
         }
       } else {
@@ -322,8 +320,10 @@ class NewSvgMaker {
     return isSensor;
   }
 
-  // TODO: sensor 재배치
-  testFunction() {
+  /**
+   * 센서 자동 배치 함수
+   */
+  makeSensorList() {
     map.realtionInfo.placeRelationList.forEach(placeRelationInfo => {
       placeRelationInfo.defList.forEach(defInfo => {
         defInfo.placeList.forEach(placeInfo => {
@@ -366,7 +366,6 @@ class NewSvgMaker {
 
             const resourceInfo = this.getResourceInfo(sensorId);
             const { width, height, color } = resourceInfo.elementDrawInfo;
-            // BU.CLIS(width, height, color);
             const [x1, y1, x2, y2] = placePoint;
             let x;
             let y;
@@ -379,8 +378,6 @@ class NewSvgMaker {
             this.x = x;
 
             targetAxis = [x, y];
-            // BU.CLIS(placeId, sensorId, targetAxis);
-            // //////////////////////////////////////////////////////////////////////////////////////////
             // className을 찾기.
             map.setInfo.nodeStructureList.forEach(nodeStructureInfo => {
               const foundSensorInfo = _.find(nodeStructureInfo.defList, {
@@ -396,7 +393,6 @@ class NewSvgMaker {
                 resourceId: sensorClassName,
                 point: targetAxis,
               };
-              // //////////////////////////////////////////////////////////////////////////////////////////////////////////////////
               // 그룹 존재
               let foundSensor = _.find(map.drawInfo.positionList.svgNodeList, {
                 nodeClassId: sensorClassName,
@@ -420,26 +416,6 @@ class NewSvgMaker {
       });
     });
   }
-
-  // FIXME: 함수 네임 변경
-  // testSensorCalcPlacePoint(sensorStorage, sensorId, placePoint) {
-  //   const resourceInfo = this.getResourceInfo(sensorId);
-  //   const { width, height, color } = resourceInfo.elementDrawInfo;
-  //   // BU.CLIS(width, height, color);
-  //   const [x1, y1, x2, y2] = placePoint;
-  //   let x;
-  //   let y;
-  //   let targetAxis = [];
-  //   const len = 10; // FIXME:
-
-  //   x = x1 + (x2 - x1) / 2 - width - len;
-  //   y = y1 + (y2 - y1) / 2 - height - len;
-  //   this.x = x;
-
-  //   targetAxis = [x, y];
-
-  //   return targetAxis;
-  // }
 }
 module.exports = NewSvgMaker;
 

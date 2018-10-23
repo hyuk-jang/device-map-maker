@@ -17,7 +17,7 @@ const map = {
           elementDrawInfo: {
             width: 240,
             height: 150,
-            color: '#91a8bd',
+            color: ['#91a8bd'],
           },
         },
         {
@@ -26,7 +26,7 @@ const map = {
           elementDrawInfo: {
             width: 300,
             height: 300,
-            color: '#91a8bd',
+            color: ['#91a8bd'],
           },
         },
         {
@@ -35,7 +35,7 @@ const map = {
           elementDrawInfo: {
             width: 240,
             height: 130,
-            color: '#0b3f6d',
+            color: ['#0b3f6d'],
           },
         },
         {
@@ -44,7 +44,7 @@ const map = {
           elementDrawInfo: {
             width: 260,
             height: 180,
-            color: '#0b3f6d',
+            color: ['#0b3f6d'],
           },
         },
         {
@@ -53,7 +53,7 @@ const map = {
           elementDrawInfo: {
             width: 240,
             height: 120,
-            color: '#91a8bd',
+            color: ['#91a8bd'],
           },
         },
         {
@@ -62,7 +62,7 @@ const map = {
           elementDrawInfo: {
             width: 260,
             height: 180,
-            color: '#152642',
+            color: ['#152642'],
           },
         },
         {
@@ -71,7 +71,7 @@ const map = {
           elementDrawInfo: {
             width: 170,
             height: 150,
-            color: '#118e34',
+            color: ['#118e34'],
           },
         },
         {
@@ -98,7 +98,7 @@ const map = {
           elementDrawInfo: {
             width: 170,
             height: 120,
-            color: '#77a1c1',
+            color: ['#77a1c1'],
           },
         },
         {
@@ -115,7 +115,7 @@ const map = {
           type: 'line',
           elementDrawInfo: {
             width: 3,
-            color: '#F47994',
+            color: ['#F47994'],
           },
         },
         {
@@ -133,7 +133,7 @@ const map = {
           type: 'line',
           elementDrawInfo: {
             width: 55,
-            color: '#347de3',
+            color: ['#347de3'],
           },
         },
         {
@@ -142,7 +142,7 @@ const map = {
           elementDrawInfo: {
             width: 550,
             height: 120,
-            color: '#655d5d',
+            color: ['#655d5d'],
           },
         },
         {
