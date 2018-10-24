@@ -79,7 +79,7 @@ function drawExistCanvasValues(changeCanvasList) {
  * @param {mSvgModelResource} resourceInfo 그려질 정보 id, type, elemetDrawInfo[width,height,radius,...]
  */
 function writeText(canvas, defInfo, resourceInfo) {
-  let [textX, textY, textSize, textColor, leading] = [0, 0, 10, 'yellow', '1.1em'];
+  let [textX, textY, textSize, textColor, leading] = [0, 0, 10, '#fdfe02', '1.1em'];
   const { width, height, radius } = resourceInfo.elementDrawInfo;
   const [x1, y1, x2, y2] = defInfo.point;
 
@@ -95,13 +95,13 @@ function writeText(canvas, defInfo, resourceInfo) {
     textX = x1 + width / 2;
     textY = y1 + height / 2;
 
-    if (resourceInfo.type === 'rect') {
+    if (resourceInfo.type === 'rect' || resourceInfo.type === 'pattern') {
       // 노드중 sensor style 지정
       if (foundSvgInfo.is_sensor === 1) {
-        textColor = '#0404B6';
+        textColor = 'black';
       }
       // 장소 text style 지정
-      if (_.isObject(foundSvgInfo.placeClassId)) {
+      if (_.isString(foundSvgInfo.placeClassId)) {
         textSize = 17;
         leading = '0.8em';
       }
@@ -235,16 +235,19 @@ function dataInstallEvent() {
 function svgDrawing(canvas, type, point, elementDrawInfo, id) {
   switch (type.toString()) {
     case 'rect':
-      svgDrawRect(canvas, point, elementDrawInfo, id);
+      svgDrawingRect(canvas, point, elementDrawInfo, id);
       break;
     case 'line':
-      svgDrawLine(canvas, point, elementDrawInfo, id);
+      svgDrawingLine(canvas, point, elementDrawInfo, id);
       break;
     case 'circle':
-      svgDrawCircle(canvas, point, elementDrawInfo, id);
+      svgDrawingCircle(canvas, point, elementDrawInfo, id);
       break;
     case 'polygon':
-      svgDrawPolygon(canvas, point, elementDrawInfo, id);
+      svgDrawingPolygon(canvas, point, elementDrawInfo, id);
+      break;
+    case 'pattern':
+      svgDrawingPattern(canvas, point, elementDrawInfo, id);
       break;
     default:
       break;
@@ -254,12 +257,11 @@ function svgDrawing(canvas, type, point, elementDrawInfo, id) {
 /**
  *
  * @param {*} canvas
- * @param {string} type rect, polygon, circle, line ...
- * @param {Object} point point[]
+ * @param {number[]} point point[]
  * @param {mElementDrawInfo} elementDrawInfo {width, height, radius, color}
  * @param {string} id 그려진 obj의 이
  */
-function svgDrawRect(canvas, point, elementDrawInfo, id) {
+function svgDrawingRect(canvas, point, elementDrawInfo, id) {
   const [x, y] = point;
   const { width, height, color } = elementDrawInfo;
   const model = canvas
@@ -269,18 +271,17 @@ function svgDrawRect(canvas, point, elementDrawInfo, id) {
     .attr({
       id,
     });
-  svgDrawShadow(model);
+  svgDrawingShadow(model, id);
 }
 
 /**
  *
  * @param {*} canvas
- * @param {string} type rect, polygon, circle, line ...
- * @param {Object} point point[]
+ * @param {number[]} point point[]
  * @param {mElementDrawInfo} elementDrawInfo {width, height, radius, color}
  * @param {string} id 그려진 obj의 이
  */
-function svgDrawLine(canvas, point, elementDrawInfo, id) {
+function svgDrawingLine(canvas, point, elementDrawInfo, id) {
   const [x1, y1, x2, y2] = point;
   const { width, color } = elementDrawInfo;
   canvas
@@ -294,12 +295,11 @@ function svgDrawLine(canvas, point, elementDrawInfo, id) {
 /**
  *
  * @param {*} canvas
- * @param {string} type rect, polygon, circle, line ...
- * @param {Object} point point[]
+ * @param {number[]} point point[]
  * @param {mElementDrawInfo} elementDrawInfo {width, height, radius, color}
  * @param {string} id 그려진 obj의 이
  */
-function svgDrawCircle(canvas, point, elementDrawInfo, id) {
+function svgDrawingCircle(canvas, point, elementDrawInfo, id) {
   const [x, y] = point;
   const { radius, color } = elementDrawInfo;
   const model = canvas
@@ -309,18 +309,17 @@ function svgDrawCircle(canvas, point, elementDrawInfo, id) {
     .attr({
       id,
     });
-  svgDrawShadow(model);
+  svgDrawingShadow(model, id);
 }
 
 /**
  *
  * @param {*} canvas
- * @param {string} type rect, polygon, circle, line ...
- * @param {Object} point point[]
+ * @param {number[]} point point[]
  * @param {mElementDrawInfo} elementDrawInfo {width, height, radius, color}
  * @param {string} id 그려진 obj의 이
  */
-function svgDrawPolygon(canvas, point, elementDrawInfo, id) {
+function svgDrawingPolygon(canvas, point, elementDrawInfo, id) {
   const [x, y] = point;
   const { width, height, color } = elementDrawInfo;
   const model = canvas.polyline(
@@ -332,22 +331,79 @@ function svgDrawPolygon(canvas, point, elementDrawInfo, id) {
     .attr({
       id,
     });
-  svgDrawShadow(model);
+  svgDrawingShadow(model, id);
+}
+
+/**
+ *
+ * @param {*} canvas
+ * @param {number[]} point point[]
+ * @param {mElementDrawInfo} elementDrawInfo {width, height, radius, color}
+ * @param {string} id 그려진 obj의 이
+ */
+function svgDrawingPattern(canvas, point, elementDrawInfo, id) {
+  const [x, y] = point;
+  const { width, height, color } = elementDrawInfo;
+
+  // 그림자를 적용하기위한 가려진 사각형 그리기.
+  const model = canvas.rect(width, height);
+  model.move(x, y).stroke({ color: 'black' });
+  svgDrawingShadow(model, id);
+
+  // pattern 안의 작은 사각형의 크기
+  const patternSize = 21;
+  const pattern = canvas.pattern(patternSize, patternSize, add => {
+    add.rect(patternSize, patternSize).fill('white');
+    add
+      .rect(patternSize, patternSize)
+      .move(0.5, 0.5)
+      .fill(color[0])
+      .radius(3);
+  });
+  canvas
+    .rect(width, height)
+    .move(x, y)
+    .fill(pattern)
+    .attr({
+      id,
+    });
 }
 
 /**
  *
  * @param {*} model 그려질 장소.
  */
-function svgDrawShadow(model) {
-  model.filter(add => {
-    const blur = add
-      .offset(4, 4)
-      .in(add.sourceAlpha)
-      .gaussianBlur(2.5);
+function svgDrawingShadow(model, id) {
+  const isSensor = foundIsSensor(id);
+  if (_.isUndefined(isSensor)) {
+    model.filter(add => {
+      const blur = add
+        .offset(4, 4)
+        .in(add.sourceAlpha)
+        .gaussianBlur(2.5);
 
-    add.blend(add.source, blur);
-  });
+      add.blend(add.source, blur);
+    });
+  } else {
+    model.filter(add => {
+      const blur = add
+        .offset(0, 4)
+        .in(add.sourceAlpha)
+        .gaussianBlur(2);
+      add.blend(add.source, blur);
+    });
+  }
+}
+
+/**
+ *
+ * @param {string} id
+ */
+function foundIsSensor(id) {
+  const foundIsSensor = _.find(map.drawInfo.positionList.svgNodeList, { defList: [{ id }] });
+  if (_.isUndefined(foundIsSensor)) return undefined;
+
+  return foundIsSensor.is_sensor;
 }
 
 /**

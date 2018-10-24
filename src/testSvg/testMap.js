@@ -13,20 +13,20 @@ const map = {
       svgModelResourceList: [
         {
           id: 'salternModuleBlock_A',
-          type: 'rect',
+          type: 'pattern',
           elementDrawInfo: {
             width: 240,
             height: 150,
-            color: ['#91a8bd'],
+            color: ['#194775'],
           },
         },
         {
           id: 'salternModuleBlock_B',
-          type: 'rect',
+          type: 'pattern',
           elementDrawInfo: {
             width: 300,
             height: 300,
-            color: ['#91a8bd'],
+            color: ['#194775'],
           },
         },
         {
@@ -35,7 +35,7 @@ const map = {
           elementDrawInfo: {
             width: 240,
             height: 130,
-            color: ['#0b3f6d'],
+            color: ['#986639'],
           },
         },
         {
@@ -44,16 +44,16 @@ const map = {
           elementDrawInfo: {
             width: 260,
             height: 180,
-            color: ['#0b3f6d'],
+            color: ['#986639'],
           },
         },
         {
           id: 'earth',
-          type: 'rect',
+          type: 'pattern',
           elementDrawInfo: {
             width: 240,
             height: 120,
-            color: ['#91a8bd'],
+            color: ['#4c7093'],
           },
         },
         {
@@ -62,7 +62,7 @@ const map = {
           elementDrawInfo: {
             width: 260,
             height: 180,
-            color: ['#152642'],
+            color: ['#70441c'],
           },
         },
         {
@@ -71,7 +71,7 @@ const map = {
           elementDrawInfo: {
             width: 170,
             height: 150,
-            color: ['#118e34'],
+            color: ['#787f83'],
           },
         },
         {
@@ -80,7 +80,7 @@ const map = {
           elementDrawInfo: {
             width: 55,
             height: 55,
-            color: ['#222d4f', '#1ee500', '#ff0000'],
+            color: ['#343d46', '#1ee500', '#ff0000'], // FIXME:
           },
         },
         {
@@ -89,7 +89,7 @@ const map = {
           elementDrawInfo: {
             width: 55,
             height: 55,
-            color: ['#222d4f', 'yellow', '#ff0000'], // FIXME:
+            color: ['#343d46', 'yellow', '#ff0000'], // FIXME: //FIXME:
           },
         },
         {
@@ -98,7 +98,7 @@ const map = {
           elementDrawInfo: {
             width: 170,
             height: 120,
-            color: ['#77a1c1'],
+            color: ['#326ada'], // FIXME:
           },
         },
         {
@@ -107,7 +107,7 @@ const map = {
           elementDrawInfo: {
             width: 30,
             height: 30,
-            color: ['#208974', '#6ed6c1', '#ff0000'], // FIXME:
+            color: ['#ea58a1', '#6ed6c1', '#ff0000'], // FIXME: //FIXME:
           },
         },
         {
@@ -115,7 +115,7 @@ const map = {
           type: 'line',
           elementDrawInfo: {
             width: 3,
-            color: ['#F47994'],
+            color: ['#ff9a9a'], // FIXME:
           },
         },
         {
@@ -125,7 +125,7 @@ const map = {
             width: 30,
             height: 30,
             radius: 30,
-            color: ['#006d7c', 'yellow', '#ff0000'], // FIXME:
+            color: ['#666666'],
           },
         },
         {
@@ -133,7 +133,7 @@ const map = {
           type: 'line',
           elementDrawInfo: {
             width: 55,
-            color: ['#347de3'],
+            color: ['#8fd2ec'], 
           },
         },
         {
@@ -142,7 +142,7 @@ const map = {
           elementDrawInfo: {
             width: 550,
             height: 120,
-            color: ['#655d5d'],
+            color: ['#6b6b6b'], 
           },
         },
         {
@@ -152,7 +152,7 @@ const map = {
             width: 50,
             height: 50,
             radius: 50,
-            color: ['#EE204D', 'yellow', '#ff0000'], // FIXME:
+            color: ['#2baa29', 'yellow', '#ff0000'], // FIXME: //FIXME:
           },
         },
         {
@@ -160,8 +160,8 @@ const map = {
           type: 'rect',
           elementDrawInfo: {
             width: 50,
-            height: 40,
-            color: ['#ececec', 'yellow', '#ff0000'], // FIXME:
+            height: 30,
+            color: ['white', 'white', '#ff0000'],
           },
         },
         {
@@ -169,8 +169,8 @@ const map = {
           type: 'rect',
           elementDrawInfo: {
             width: 50,
-            height: 40,
-            color: ['#ececec', 'yellow', '#ff0000'], // FIXME:
+            height: 30,
+            color: ['white', 'white', '#ff0000'],
           },
         },
         {
@@ -178,8 +178,8 @@ const map = {
           type: 'rect',
           elementDrawInfo: {
             width: 50,
-            height: 40,
-            color: ['#ececec', 'yellow', '#ff0000'], // FIXME:
+            height: 30,
+            color: ['white', 'white', '#ff0000'],
           },
         },
         {
@@ -187,8 +187,8 @@ const map = {
           type: 'rect',
           elementDrawInfo: {
             width: 50,
-            height: 40,
-            color: ['#ececec', 'yellow', '#ff0000'], // FIXME:
+            height: 30,
+            color: ['white', 'white', '#ff0000'],
           },
         },
       ],
@@ -1099,7 +1099,7 @@ const map = {
                 target_code: '016',
                 data_logger_index: 0,
                 axisScale: [1, 0],
-                moveScale: [0, 0],
+                moveScale: [0, -0.05],
               },
             ],
           },

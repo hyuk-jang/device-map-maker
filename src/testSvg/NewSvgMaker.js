@@ -247,31 +247,19 @@ class NewSvgMaker {
       const svgModelResourceInfo = _.find(map.drawInfo.frame.svgModelResourceList, {
         id: targetResourceId,
       });
+
       const targetType = svgModelResourceInfo.type;
       const { width, height } = svgModelResourceInfo.elementDrawInfo;
-      if (targetType === 'rect') {
-        targetPoint = [
-          targetInfo.point[0],
-          targetInfo.point[1],
-          targetInfo.point[0] + width,
-          targetInfo.point[1] + height,
-        ];
+      const [x, y, x1, y1] = targetInfo.point;
+
+      if (targetType === 'rect' || targetType === 'pattern') {
+        targetPoint = [x, y, x + width, y + height];
         // line position:(x1,y1,x2,y2)
       } else if (targetType === 'line') {
-        if (targetInfo.point[1] === targetInfo.point[3]) {
-          targetPoint = [
-            targetInfo.point[0],
-            targetInfo.point[1] - width / 2,
-            targetInfo.point[2],
-            targetInfo.point[3] - width / 2,
-          ];
+        if (y === y1) {
+          targetPoint = [x, y - width / 2, x1, y1 - width / 2];
         } else {
-          targetPoint = [
-            targetInfo.point[0] - width / 2,
-            targetInfo.point[1] - width,
-            targetInfo.point[2] - width / 2,
-            targetInfo.point[3] + width,
-          ];
+          targetPoint = [x - width / 2, y - width, x1 - width / 2, y1 + width];
         }
       } else {
         // 다른 조건문 작성
