@@ -64,15 +64,6 @@ function drawExistCanvasValue(nodeId = '', svgValue) {
 }
 
 /**
- * @param {{nodeId: string, svgValue:*}[]} changeCanvasList
- */
-function drawExistCanvasValues(changeCanvasList) {
-  changeCanvasList.forEach(existCanvasInfo => {
-    drawExistCanvasValue(existCanvasInfo.nodeId, existCanvasInfo.svgValue);
-  });
-}
-
-/**
  * 텍스트 그리기
  * @param {*} canvas
  * @param {defInfo} defInfo 위치 정보 id, resourceId, point[]
@@ -121,7 +112,7 @@ function writeText(canvas, defInfo, resourceInfo) {
       textY = y1 + height;
     }
 
-    const text = canvas.text(defInfo.name);
+    const text = canvas.text(defInfo.id);
     text
       .move(textX, textY)
       .font({
@@ -164,7 +155,7 @@ function excludeText(id) {
     /** @type {defInfo} */
     const foundIt = _.find(svgPlaceInfo.defList, { id });
     if (_.isObject(foundIt)) {
-      findExclusion = _.indexOf(realMap.realtionInfo.excludeNameList, svgPlaceInfo.placeClassId);
+      findExclusion = _.indexOf(realMap.realtionInfo.nameExclusionList, svgPlaceInfo.placeClassId);
     }
   });
 
@@ -172,7 +163,7 @@ function excludeText(id) {
     /** @type {defInfo} */
     const foundIt = _.find(svgNodeInfo.defList, { id });
     if (_.isObject(foundIt)) {
-      findExclusion = _.indexOf(realMap.realtionInfo.excludeNameList, svgNodeInfo.nodeClassId);
+      findExclusion = _.indexOf(realMap.realtionInfo.nameExclusionList, svgNodeInfo.nodeClassId);
     }
   });
   // -1 : 제외목록에서 찾았을 때 없음을 나타낸다.
@@ -195,8 +186,10 @@ function dataInstallEvent() {
         const resourceInfo = _.find(map.drawInfo.frame.svgModelResourceList, {
           id: defInfo.resourceId,
         });
-        const { color } = resourceInfo.elementDrawInfo;
-        // true fals 값 체크
+        let { color } = resourceInfo.elementDrawInfo;
+        // color가 배열이 아니면 배열로 변환
+        color = Array.isArray(color) ? color : [color];
+
         const falseValueList = ['CLOSE', 'OFF', 0, '0'];
         const trueValueList = ['OPEN', 'ON', 1, '1'];
 
@@ -263,11 +256,15 @@ function svgDrawing(canvas, type, point, elementDrawInfo, id) {
  */
 function svgDrawingRect(canvas, point, elementDrawInfo, id) {
   const [x, y] = point;
-  const { width, height, color } = elementDrawInfo;
+  let { width, height, color } = elementDrawInfo;
+  // color가 배열이 아니면 배열로 변환
+  color = Array.isArray(color) ? color : [color];
+
   const model = canvas
     .rect(width, height)
     .fill(color[0])
     .move(x, y)
+    .stroke({ width: 0.5 })
     .attr({
       id,
     });
@@ -283,7 +280,10 @@ function svgDrawingRect(canvas, point, elementDrawInfo, id) {
  */
 function svgDrawingLine(canvas, point, elementDrawInfo, id) {
   const [x1, y1, x2, y2] = point;
-  const { width, color } = elementDrawInfo;
+  let { width, color } = elementDrawInfo;
+  // color가 배열이 아니면 배열로 변환
+  color = Array.isArray(color) ? color : [color];
+
   canvas
     .line(x1, y1, x2, y2)
     .stroke({ color: color[0], width })
@@ -301,11 +301,15 @@ function svgDrawingLine(canvas, point, elementDrawInfo, id) {
  */
 function svgDrawingCircle(canvas, point, elementDrawInfo, id) {
   const [x, y] = point;
-  const { radius, color } = elementDrawInfo;
+  let { radius, color } = elementDrawInfo;
+  // color가 배열이 아니면 배열로 변환
+  color = Array.isArray(color) ? color : [color];
+
   const model = canvas
     .circle(radius)
     .fill(color[0])
     .move(x, y)
+    .stroke({ width: 0.5 })
     .attr({
       id,
     });
@@ -321,13 +325,17 @@ function svgDrawingCircle(canvas, point, elementDrawInfo, id) {
  */
 function svgDrawingPolygon(canvas, point, elementDrawInfo, id) {
   const [x, y] = point;
-  const { width, height, color } = elementDrawInfo;
+  let { width, height, color } = elementDrawInfo;
+  // color가 배열이 아니면 배열로 변환
+  color = Array.isArray(color) ? color : [color];
+
   const model = canvas.polyline(
     `${width},${0} ${width * 2},${height} ${width},${height * 2} ${0},${height}`,
   );
   model
     .fill(color[0])
     .move(x, y)
+    .stroke({ width: 0.5 })
     .attr({
       id,
     });
@@ -343,7 +351,9 @@ function svgDrawingPolygon(canvas, point, elementDrawInfo, id) {
  */
 function svgDrawingPattern(canvas, point, elementDrawInfo, id) {
   const [x, y] = point;
-  const { width, height, color } = elementDrawInfo;
+  let { width, height, color } = elementDrawInfo;
+  // color가 배열이 아니면 배열로 변환
+  color = Array.isArray(color) ? color : [color];
 
   // 그림자를 적용하기위한 가려진 사각형 그리기.
   const model = canvas.rect(width, height);
@@ -356,9 +366,9 @@ function svgDrawingPattern(canvas, point, elementDrawInfo, id) {
     add.rect(patternSize, patternSize).fill('white');
     add
       .rect(patternSize, patternSize)
-      .move(0.5, 0.5)
+      .move(0.4, 0.4)
       .fill(color[0])
-      .radius(3);
+      .radius(3.5);
   });
   canvas
     .rect(width, height)

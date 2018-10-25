@@ -17,7 +17,7 @@ const map = {
           elementDrawInfo: {
             width: 240,
             height: 150,
-            color: ['#194775'],
+            color: '#3e4379',
           },
         },
         {
@@ -26,7 +26,7 @@ const map = {
           elementDrawInfo: {
             width: 300,
             height: 300,
-            color: ['#194775'],
+            color: '#3e4379',
           },
         },
         {
@@ -35,7 +35,7 @@ const map = {
           elementDrawInfo: {
             width: 240,
             height: 130,
-            color: ['#986639'],
+            color: '#86623b',
           },
         },
         {
@@ -44,7 +44,7 @@ const map = {
           elementDrawInfo: {
             width: 260,
             height: 180,
-            color: ['#986639'],
+            color: '#86623b',
           },
         },
         {
@@ -53,7 +53,7 @@ const map = {
           elementDrawInfo: {
             width: 240,
             height: 120,
-            color: ['#4c7093'],
+            color: '#4c7093',
           },
         },
         {
@@ -62,7 +62,7 @@ const map = {
           elementDrawInfo: {
             width: 260,
             height: 180,
-            color: ['#70441c'],
+            color: '#4f351a',
           },
         },
         {
@@ -71,7 +71,7 @@ const map = {
           elementDrawInfo: {
             width: 170,
             height: 150,
-            color: ['#787f83'],
+            color: '#5b666c',
           },
         },
         {
@@ -80,7 +80,7 @@ const map = {
           elementDrawInfo: {
             width: 55,
             height: 55,
-            color: ['#343d46', '#1ee500', '#ff0000'], // FIXME:
+            color: ['#3e65b8', '#5cf045', '#dc1d1f'],
           },
         },
         {
@@ -89,7 +89,7 @@ const map = {
           elementDrawInfo: {
             width: 55,
             height: 55,
-            color: ['#343d46', 'yellow', '#ff0000'], // FIXME: //FIXME:
+            color: ['#b450ba', '#5cf045', '#dc1d1f'],
           },
         },
         {
@@ -98,7 +98,7 @@ const map = {
           elementDrawInfo: {
             width: 170,
             height: 120,
-            color: ['#326ada'], // FIXME:
+            color: '#0f587c',
           },
         },
         {
@@ -107,7 +107,7 @@ const map = {
           elementDrawInfo: {
             width: 30,
             height: 30,
-            color: ['#ea58a1', '#6ed6c1', '#ff0000'], // FIXME: //FIXME:
+            color: ['#2da1a1', '#5cf045', '#dc1d1f'],
           },
         },
         {
@@ -115,7 +115,7 @@ const map = {
           type: 'line',
           elementDrawInfo: {
             width: 3,
-            color: ['#ff9a9a'], // FIXME:
+            color: '#ff9a9a',
           },
         },
         {
@@ -125,7 +125,7 @@ const map = {
             width: 30,
             height: 30,
             radius: 30,
-            color: ['#666666'],
+            color: '#222222',
           },
         },
         {
@@ -133,7 +133,7 @@ const map = {
           type: 'line',
           elementDrawInfo: {
             width: 55,
-            color: ['#8fd2ec'], 
+            color: '#82acc1',
           },
         },
         {
@@ -142,7 +142,7 @@ const map = {
           elementDrawInfo: {
             width: 550,
             height: 120,
-            color: ['#6b6b6b'], 
+            color: '#3d4448',
           },
         },
         {
@@ -152,7 +152,7 @@ const map = {
             width: 50,
             height: 50,
             radius: 50,
-            color: ['#2baa29', 'yellow', '#ff0000'], // FIXME: //FIXME:
+            color: ['#e78856', '#5cf045', '#dc1d1f'],
           },
         },
         {
@@ -161,7 +161,7 @@ const map = {
           elementDrawInfo: {
             width: 50,
             height: 30,
-            color: ['white', 'white', '#ff0000'],
+            color: '#f0f0f0',
           },
         },
         {
@@ -170,7 +170,7 @@ const map = {
           elementDrawInfo: {
             width: 50,
             height: 30,
-            color: ['white', 'white', '#ff0000'],
+            color: '#f0f0f0',
           },
         },
         {
@@ -179,7 +179,7 @@ const map = {
           elementDrawInfo: {
             width: 50,
             height: 30,
-            color: ['white', 'white', '#ff0000'],
+            color: '#f0f0f0',
           },
         },
         {
@@ -188,7 +188,7 @@ const map = {
           elementDrawInfo: {
             width: 50,
             height: 30,
-            color: ['white', 'white', '#ff0000'],
+            color: '#f0f0f0',
           },
         },
       ],
@@ -1827,7 +1827,7 @@ const map = {
         resourceIdList: ['salinity'],
       },
     ],
-    excludeNameList: ['pipeLine', 'waterWay'],
+    nameExclusionList: ['pipeLine', 'waterWay'],
   },
   controlInfo: {
     tempControlList: [

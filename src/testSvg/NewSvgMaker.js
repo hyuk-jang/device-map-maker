@@ -350,6 +350,21 @@ class NewSvgMaker {
                 [0, 1.2],
                 [1.2, 1.2],
               ];
+            } else if (sensorStorage.length > 9 < 17) {
+              moveScale = [
+                [-1.5, -1],
+                [-0.7, -1],
+                [0.7, -1],
+                [1.5, -1],
+                [-1.5, -0.5],
+                [1.5, -0.5],
+                [-1.5, 0.5],
+                [1.5, 0.5],
+                [-1.5, 1],
+                [-0.7, 1],
+                [0.7, 1],
+                [1.5, 1],
+              ];
             }
 
             const resourceInfo = this.getResourceInfo(sensorId);
