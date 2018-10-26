@@ -165,7 +165,7 @@ class NewSvgMaker {
 
         // 그룹 존재
         /** @type {mSvgNodeInfo} */
-        let foundIt = _.find(map.drawInfo.positionList.svgNodeList, {
+        let foundIt = _.find(map.drawInfo.positionInfo.svgNodeList, {
           nodeClassId: storageInfo.nodeClassId,
         });
         if (_.isEmpty(foundIt)) {
@@ -175,7 +175,7 @@ class NewSvgMaker {
             defList: [],
           };
           if (foundIt.is_sensor != 1) {
-            map.drawInfo.positionList.svgNodeList.push(foundIt);
+            map.drawInfo.positionInfo.svgNodeList.push(foundIt);
           }
         }
 
@@ -196,7 +196,7 @@ class NewSvgMaker {
   calcPlacePoint(storageDefInfo, placePoint) {
     const nodeResourceInfo = this.getResourceInfo(storageDefInfo.nodeId);
     if (_.isUndefined(nodeResourceInfo)) return false;
-    const nodeElementDraw = nodeResourceInfo.elementDrawInfo;
+    const { width, height } = nodeResourceInfo.elementDrawInfo;
     const nodeType = nodeResourceInfo.type;
     const isSensor = this.findIsSensorValue(storageDefInfo.nodeId);
 
@@ -209,22 +209,22 @@ class NewSvgMaker {
     let y;
 
     if (isSensor === 1) {
-      x = x1 + (x2 - x1) / 2 - nodeElementDraw.width / 2 + moveX;
-      y = y1 + (y2 - y1) / 2 - nodeElementDraw.height / 2 + moveY;
+      x = x1 + (x2 - x1) / 2 - width / 2 + moveX;
+      y = y1 + (y2 - y1) / 2 - height / 2 + moveY;
 
       targetAxis = [x, y];
     } else {
       x = x1 + axisX * (x2 - x1);
       y = y1 + axisY * (y2 - y1);
       if (nodeType === 'rect') {
-        x = x - axisX * nodeElementDraw.width + moveX * nodeElementDraw.width;
-        y = y - axisY * nodeElementDraw.height + moveY * nodeElementDraw.height;
+        x = x - axisX * width + moveX * width;
+        y = y - axisY * height + moveY * height;
       } else if (nodeType === 'circle') {
-        x = x - axisX * nodeElementDraw.width + moveX * nodeElementDraw.width;
-        y = y - axisY * nodeElementDraw.height + moveY * nodeElementDraw.height;
+        x = x - axisX * width + moveX * width;
+        y = y - axisY * height + moveY * height;
       } else if (nodeType === 'polygon') {
-        x = x - axisX * (nodeElementDraw.width * 2) + moveX * (nodeElementDraw.width * 2);
-        y = y - axisY * (nodeElementDraw.height * 2) + moveY * (nodeElementDraw.height * 2);
+        x = x - axisX * (width * 2) + moveX * (width * 2);
+        y = y - axisY * (height * 2) + moveY * (height * 2);
       }
       targetAxis = [x, y];
     }
@@ -238,7 +238,7 @@ class NewSvgMaker {
   discoverObjectPoint(placeId) {
     let targetPoint = []; // [x1,y1,x2,y2]
 
-    map.drawInfo.positionList.svgPlaceList.forEach(svgPlaceInfo => {
+    map.drawInfo.positionInfo.svgPlaceList.forEach(svgPlaceInfo => {
       /** @type {defInfo} */
       const targetInfo = _.find(svgPlaceInfo.defList, { id: placeId });
       if (_.isUndefined(targetInfo)) return false;
@@ -323,7 +323,6 @@ class NewSvgMaker {
             }
           });
           this.sensorStorage = sensorStorage;
-          // //////////////////////////////////////////////////////////////////////////////////////////////////////
           let placeId = defInfo.target_prefix;
           // placeId 중 code 유무 체크
           if (placeInfo.target_code) {
@@ -333,6 +332,15 @@ class NewSvgMaker {
           _.forEach(sensorStorage, (sensorId, index) => {
             const sensorPrefix = this.getReplace(sensorId, /[_\d]/g);
             const placePoint = this.discoverObjectPoint(placeId);
+            // FIXME: 테스트 소스
+            // const sensorCode = this.getReplace(sensorId, /[_\D]/g);
+            // // BU.CLI(sensorCode);
+            // const foundTest = _.find(map.setInfo.nodeStructureList, {
+            //   defList: [{ target_prefix: sensorPrefix }],
+            // });
+            // const
+            // BU.CLI(foundTest);
+            // //////// END ///////////
             let moveScale = [[]];
             if (sensorStorage.length === 1) {
               moveScale = [0, -1];
@@ -397,7 +405,7 @@ class NewSvgMaker {
                 point: targetAxis,
               };
               // 그룹 존재
-              let foundSensor = _.find(map.drawInfo.positionList.svgNodeList, {
+              let foundSensor = _.find(map.drawInfo.positionInfo.svgNodeList, {
                 nodeClassId: sensorClassName,
               });
               if (_.isEmpty(foundSensor)) {
@@ -406,7 +414,7 @@ class NewSvgMaker {
                   is_sensor: nodeStructureInfo.is_sensor,
                   defList: [],
                 };
-                map.drawInfo.positionList.svgNodeList.push(foundSensor);
+                map.drawInfo.positionInfo.svgNodeList.push(foundSensor);
               }
               /** @type {defInfo} */
               const foundNodeIt = _.find(foundSensor.defList, { id: sensorId });

@@ -193,7 +193,7 @@ const map = {
         },
       ],
     },
-    positionList: {
+    positionInfo: {
       svgPlaceList: [
         {
           placeClassId: 'salternBlock',

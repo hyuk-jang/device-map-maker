@@ -7,12 +7,13 @@ const svgNodeTextList = [];
 function svgCanvas(documentId) {
   /** @type {mDeviceMap} */
   const realMap = map;
+
   // canvas 생성
   const { width: canvasWidth, height: canvasHeight } = realMap.drawInfo.frame.mapSize;
   const canvas = SVG(documentId).size(canvasWidth, canvasHeight);
 
   // Place 그리기
-  realMap.drawInfo.positionList.svgPlaceList.forEach(svgPlaceInfo => {
+  realMap.drawInfo.positionInfo.svgPlaceList.forEach(svgPlaceInfo => {
     svgPlaceInfo.defList.forEach(defInfo => {
       /** @type {mSvgModelResource} */
       const resourceInfo = _.find(realMap.drawInfo.frame.svgModelResourceList, {
@@ -32,7 +33,7 @@ function svgCanvas(documentId) {
   });
 
   // node 그리기
-  realMap.drawInfo.positionList.svgNodeList.forEach(svgNodeInfo => {
+  realMap.drawInfo.positionInfo.svgNodeList.forEach(svgNodeInfo => {
     svgNodeInfo.defList.forEach(defInfo => {
       /** @type {mSvgModelResource} */
       const resourceInfo = _.find(realMap.drawInfo.frame.svgModelResourceList, {
@@ -56,11 +57,60 @@ function svgCanvas(documentId) {
  * @param {string} nodeId
  * @param {*} svgValue
  */
-function drawExistCanvasValue(nodeId = '', svgValue) {
+function drawExistCanvasValue(nodeId, svgValue = '') {
+  /** @type {mDeviceMap} */
+  const realMap = map;
+
+  // const svgValueString = _.toString(svgValue);
   const foundCanvas = _.find(svgNodeTextList, { id: nodeId });
   const nodeX = foundCanvas.text.node.attributes.x.value;
   foundCanvas.text.node.innerHTML = `<tspan dy="5">${foundCanvas.name}</tspan>`;
   foundCanvas.text.node.innerHTML += `<tspan class='data' dy="14" x=${nodeX}>${svgValue}</tspan>`;
+
+  const getSvgElement = SVG.get(nodeId);
+  let resourceId;
+  realMap.drawInfo.positionInfo.svgNodeList.forEach(svgNodeInfo => {
+    const foundDefInfo = _.find(svgNodeInfo.defList, { id: nodeId });
+    if (_.isUndefined(foundDefInfo)) return false;
+    console.log(foundDefInfo);
+  });
+  console.log(resourceId);
+  let { color } = resourceInfo.elementDrawInfo;
+  // color가 배열이 아니면 배열로 변환
+  color = Array.isArray(color) ? color : [color];
+  let trueValueCheck;
+  let falseValueCheck;
+
+  const isSensor = foundIsSensor(nodeId);
+  if (isSensor === 1) {
+    getSvgElement.attr({
+      fill: color[0],
+    });
+  } else {
+    const svgValueString = svgValue.toString();
+    const trueValueList = ['OPEN', 'OPENING', 'ON', 1, '1'];
+    const falseValueList = ['CLOSE', 'CLOSING', 'OFF', 0, '0'];
+
+    trueValueCheck = _.indexOf(trueValueList, svgValueString.toUpperCase());
+    if (trueValueCheck === -1) {
+      falseValueCheck = _.indexOf(falseValueList, svgValueString.toUpperCase());
+    }
+
+    if (falseValueCheck !== -1) {
+      getSvgElement.attr({
+        fill: color[0],
+      });
+    } else if (trueValueCheck !== -1) {
+      getSvgElement.attr({
+        fill: color[1],
+      });
+    } else {
+      console.log(getSvgElement);
+      getSvgElement.attr({
+        fill: color[2],
+      });
+    }
+  }
 }
 
 /**
@@ -70,15 +120,23 @@ function drawExistCanvasValue(nodeId = '', svgValue) {
  * @param {mSvgModelResource} resourceInfo 그려질 정보 id, type, elemetDrawInfo[width,height,radius,...]
  */
 function writeText(canvas, defInfo, resourceInfo) {
+  /** @type {mDeviceMap} */
+  const realMap = map;
+
   let [textX, textY, textSize, textColor, leading] = [0, 0, 10, '#fdfe02', '1.1em'];
   const { width, height, radius } = resourceInfo.elementDrawInfo;
   const [x1, y1, x2, y2] = defInfo.point;
 
   // svgPositionList를 검색하여 장치인지 센서인지 정의
-  let foundSvgInfo = _.find(map.drawInfo.positionList.svgNodeList, { defList: [defInfo] });
+  let foundSvgInfo = _.find(realMap.drawInfo.positionInfo.svgNodeList, svgNodeInfo =>
+    _.map(svgNodeInfo.defList, 'id').includes(defInfo.id),
+  );
   if (_.isUndefined(foundSvgInfo)) {
-    foundSvgInfo = _.find(map.drawInfo.positionList.svgPlaceList, { defList: [defInfo] });
+    foundSvgInfo = _.find(realMap.drawInfo.positionInfo.svgPlaceList, svgNodeInfo =>
+      _.map(svgNodeInfo.defList, 'id').includes(defInfo.id),
+    );
   }
+
   // 제외목록 서칭
   const writeTextBoolean = excludeText(defInfo.id);
   if (writeTextBoolean === true) {
@@ -151,7 +209,7 @@ function excludeText(id) {
 
   let findExclusion;
 
-  realMap.drawInfo.positionList.svgPlaceList.forEach(svgPlaceInfo => {
+  realMap.drawInfo.positionInfo.svgPlaceList.forEach(svgPlaceInfo => {
     /** @type {defInfo} */
     const foundIt = _.find(svgPlaceInfo.defList, { id });
     if (_.isObject(foundIt)) {
@@ -159,7 +217,7 @@ function excludeText(id) {
     }
   });
 
-  realMap.drawInfo.positionList.svgNodeList.forEach(svgNodeInfo => {
+  realMap.drawInfo.positionInfo.svgNodeList.forEach(svgNodeInfo => {
     /** @type {defInfo} */
     const foundIt = _.find(svgNodeInfo.defList, { id });
     if (_.isObject(foundIt)) {
@@ -177,24 +235,27 @@ function excludeText(id) {
  * view에서 데이터를 입력하기위한 이벤트 함수
  */
 function dataInstallEvent() {
-  map.drawInfo.positionList.svgNodeList.forEach(svgNodeInfo => {
+  /** @type {mDeviceMap} */
+  const realMap = map;
+
+  realMap.drawInfo.positionInfo.svgNodeList.forEach(svgNodeInfo => {
     svgNodeInfo.defList.forEach(defInfo => {
       const getSvgElement = SVG.get(defInfo.id);
       getSvgElement.click(e => {
         const inputValue = prompt(`${defInfo.name}의 값을 입력하세요`);
 
-        const resourceInfo = _.find(map.drawInfo.frame.svgModelResourceList, {
+        const resourceInfo = _.find(realMap.drawInfo.frame.svgModelResourceList, {
           id: defInfo.resourceId,
         });
         let { color } = resourceInfo.elementDrawInfo;
         // color가 배열이 아니면 배열로 변환
         color = Array.isArray(color) ? color : [color];
 
-        const falseValueList = ['CLOSE', 'OFF', 0, '0'];
-        const trueValueList = ['OPEN', 'ON', 1, '1'];
+        const falseValueList = ['CLOSE', 'CLOSING', 'OFF', 0, '0'];
+        const trueValueList = ['OPEN', 'OPENING', 'ON', 1, '1'];
 
-        const trueValueCheck = _.indexOf(trueValueList, _.toUpper(inputValue));
-        const falseValueCheck = _.indexOf(falseValueList, _.toUpper(inputValue));
+        const trueValueCheck = _.indexOf(trueValueList, inputValue.toUpperCase());
+        const falseValueCheck = _.indexOf(falseValueList, inputValue.toUpperCase());
 
         if (inputValue != null) {
           drawExistCanvasValue(defInfo.id, inputValue);
@@ -410,7 +471,12 @@ function svgDrawingShadow(model, id) {
  * @param {string} id
  */
 function foundIsSensor(id) {
-  const foundIsSensor = _.find(map.drawInfo.positionList.svgNodeList, { defList: [{ id }] });
+  /** @type {mDeviceMap} */
+  const realMap = map;
+
+  const foundIsSensor = _.find(realMap.drawInfo.positionInfo.svgNodeList, svgNodeInfo =>
+    _.map(svgNodeInfo.defList, 'id').includes(id),
+  );
   if (_.isUndefined(foundIsSensor)) return undefined;
 
   return foundIsSensor.is_sensor;
