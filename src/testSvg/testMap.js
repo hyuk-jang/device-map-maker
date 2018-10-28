@@ -1,4 +1,4 @@
-require('../../../default-intelligence');
+// require('../../../default-intelligence');
 
 /**
  * @type {mDeviceMap}
@@ -80,7 +80,7 @@ const map = {
           elementDrawInfo: {
             width: 55,
             height: 55,
-            color: ['#3e65b8', '#5cf045', '#dc1d1f'],
+            color: ['#d7dcee', '#2858f9', '#dc1d1f'],
           },
         },
         {
@@ -89,7 +89,7 @@ const map = {
           elementDrawInfo: {
             width: 55,
             height: 55,
-            color: ['#b450ba', '#5cf045', '#dc1d1f'],
+            color: ['#d7dcee', '#2858f9', '#dc1d1f'],
           },
         },
         {
@@ -107,7 +107,7 @@ const map = {
           elementDrawInfo: {
             width: 30,
             height: 30,
-            color: ['#2da1a1', '#5cf045', '#dc1d1f'],
+            color: ['#d5e5e2', '#11d8ae', '#dc1d1f'],
           },
         },
         {
@@ -152,7 +152,7 @@ const map = {
             width: 50,
             height: 50,
             radius: 50,
-            color: ['#e78856', '#5cf045', '#dc1d1f'],
+            color: ['#f6e0d4', '#ff813f', '#dc1d1f'],
           },
         },
         {

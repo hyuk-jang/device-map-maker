@@ -57,58 +57,50 @@ function svgCanvas(documentId) {
  * @param {string} nodeId
  * @param {*} svgValue
  */
+// FIXME: 작동 오류
 function drawExistCanvasValue(nodeId, svgValue = '') {
   /** @type {mDeviceMap} */
   const realMap = map;
+  let foundColor;
 
-  // const svgValueString = _.toString(svgValue);
   const foundCanvas = _.find(svgNodeTextList, { id: nodeId });
+  if (_.isUndefined(foundCanvas)) return false;
   const nodeX = foundCanvas.text.node.attributes.x.value;
   foundCanvas.text.node.innerHTML = `<tspan dy="5">${foundCanvas.name}</tspan>`;
   foundCanvas.text.node.innerHTML += `<tspan class='data' dy="14" x=${nodeX}>${svgValue}</tspan>`;
 
-  const getSvgElement = SVG.get(nodeId);
-  let resourceId;
+  // 받아온 id 값으로  color 값 찾기
   realMap.drawInfo.positionInfo.svgNodeList.forEach(svgNodeInfo => {
-    const foundDefInfo = _.find(svgNodeInfo.defList, { id: nodeId });
-    if (_.isUndefined(foundDefInfo)) return false;
-    console.log(foundDefInfo);
-  });
-  console.log(resourceId);
-  let { color } = resourceInfo.elementDrawInfo;
-  // color가 배열이 아니면 배열로 변환
-  color = Array.isArray(color) ? color : [color];
-  let trueValueCheck;
-  let falseValueCheck;
+    const founddefInfo = _.find(svgNodeInfo.defList, { id: nodeId });
+    if (_.isUndefined(founddefInfo)) return false;
 
-  const isSensor = foundIsSensor(nodeId);
-  if (isSensor === 1) {
-    getSvgElement.attr({
-      fill: color[0],
+    const foundSvgModelResourceInfo = _.find(realMap.drawInfo.frame.svgModelResourceList, {
+      id: founddefInfo.resourceId,
     });
-  } else {
-    const svgValueString = svgValue.toString();
-    const trueValueList = ['OPEN', 'OPENING', 'ON', 1, '1'];
+    foundColor = foundSvgModelResourceInfo.elementDrawInfo.color;
+  });
+
+  // 받아온 id 값이 sensor인지 체크  0: 장치, 1: 센서, -1: 미분류
+  const foundSvgNodeInfo = _.find(realMap.drawInfo.positionInfo.svgNodeList, svgNodeInfo =>
+    _.map(svgNodeInfo.defList, 'id').includes(nodeId),
+  );
+  if (_.isUndefined(foundSvgNodeInfo)) return false;
+
+  // 받아온 value 값을 체크
+  if (foundSvgNodeInfo.is_sensor === 0) {
     const falseValueList = ['CLOSE', 'CLOSING', 'OFF', 0, '0'];
+    const trueValueList = ['OPEN', 'OPENING', 'ON', 1, '1'];
 
-    trueValueCheck = _.indexOf(trueValueList, svgValueString.toUpperCase());
-    if (trueValueCheck === -1) {
-      falseValueCheck = _.indexOf(falseValueList, svgValueString.toUpperCase());
-    }
+    const falseValueCheck = _.includes(falseValueList, svgValue.toUpperCase());
+    const trueValueCheck = _.includes(trueValueList, svgValue.toUpperCase());
 
-    if (falseValueCheck !== -1) {
-      getSvgElement.attr({
-        fill: color[0],
-      });
-    } else if (trueValueCheck !== -1) {
-      getSvgElement.attr({
-        fill: color[1],
-      });
+    const getSvgElement = SVG.get(nodeId);
+    if (falseValueCheck === true && trueValueCheck === false) {
+      getSvgElement.attr({ fill: foundColor[0] });
+    } else if (falseValueCheck === false && trueValueCheck === true) {
+      getSvgElement.attr({ fill: foundColor[1] });
     } else {
-      console.log(getSvgElement);
-      getSvgElement.attr({
-        fill: color[2],
-      });
+      getSvgElement.attr({ fill: foundColor[2] });
     }
   }
 }
@@ -254,23 +246,17 @@ function dataInstallEvent() {
         const falseValueList = ['CLOSE', 'CLOSING', 'OFF', 0, '0'];
         const trueValueList = ['OPEN', 'OPENING', 'ON', 1, '1'];
 
-        const trueValueCheck = _.indexOf(trueValueList, inputValue.toUpperCase());
-        const falseValueCheck = _.indexOf(falseValueList, inputValue.toUpperCase());
-
         if (inputValue != null) {
           drawExistCanvasValue(defInfo.id, inputValue);
-          if (trueValueCheck != -1) {
-            getSvgElement.attr({
-              fill: color[1],
-            });
-          } else if (falseValueCheck != -1) {
-            getSvgElement.attr({
-              fill: color[0],
-            });
+          const falseValueCheck = _.includes(falseValueList, inputValue.toUpperCase());
+          const trueValueCheck = _.includes(trueValueList, inputValue.toUpperCase());
+
+          if (falseValueCheck === true && trueValueCheck === false) {
+            getSvgElement.attr({ fill: color[0] });
+          } else if (falseValueCheck === false && trueValueCheck === true) {
+            getSvgElement.attr({ fill: color[1] });
           } else {
-            getSvgElement.attr({
-              fill: color[2],
-            });
+            getSvgElement.attr({ fill: color[2] });
           }
         }
       });
