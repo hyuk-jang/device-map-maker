@@ -57,7 +57,6 @@ function svgCanvas(documentId) {
  * @param {string} nodeId
  * @param {*} svgValue
  */
-// FIXME: 작동 오류
 function drawExistCanvasValue(nodeId, svgValue = '') {
   /** @type {mDeviceMap} */
   const realMap = map;

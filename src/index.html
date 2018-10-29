@@ -9,29 +9,34 @@
   <script src='./library/lodash.min.js'></script>
   <script src='./library/svg.js'></script>
   <script src='./library/svg.filter.js'></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
   <style>
     button {
-      background-color: #ccc;
       cursor: pointer;
-      transition: .4s;
-      border: none;
-      height: 34px;
-      margin-right: 5px;
+      margin: 5px;
     }
 
     #zoom {
+      /* position: absolute;
+        z-index: 2; */
+      margin: 5px;
       display: flex;
       justify-content: center;
+      /* flex-direction: column; */
     }
 
     #canvas {
       display: flex;
       justify-content: center;
+      margin: 5px;
       cursor: non
     }
 
     .data {
-      fill: red;
+      fill: rgb(2, 236, 33);
+      font-size: 8pt;
+      stroke: rgb(2, 236, 33);
+      stroke-width: 0.2
     }
 
     .node {
@@ -43,9 +48,10 @@
 <body>
   <!-- zoom -->
   <div id="zoom">
-    <button class="zoom-in">ZOOM-IN</button>
-    <button class="zoom-out">ZOOM-OUT</button>
-    <button class="reset">RESET</button>
+    <button id="zoom-in" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-zoom-in"></span> Zoom-in</button>
+    <button id="zoom-out" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-zoom-out"></span>
+      Zoom-out</button>
+    <button id="reset" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-refresh"></span> Reset</button>
   </div>
 
   <!-- canvas -->
@@ -54,16 +60,16 @@
   </div>
 
 </body>
-<!-- <script src='//code.jquery.com/jquery-latest.min.js'></script> -->
-<!-- <script src='./library/jquery.panzoom.js'></script> -->
+<script src='//code.jquery.com/jquery-latest.min.js'></script>
+<script src='./library/jquery.panzoom.js'></script>
 <script>
   // panzoom 기능
-  // $('#canvas').panzoom({
-  //   $zoomIn: $('.zoom-in'),
-  //   $zoomOut: $('.zoom-out'),
-  //   $reset: $('.reset'),
-  //   cursor: "context-menu",
-  // })
+  $('#canvas').panzoom({
+    $zoomIn: $('#zoom-in'),
+    $zoomOut: $('#zoom-out'),
+    $reset: $('#reset'),
+    cursor: "context-menu",
+  })
 </script>
 
 <script>

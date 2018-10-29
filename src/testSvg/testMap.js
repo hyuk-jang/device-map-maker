@@ -1,4 +1,4 @@
-// require('../../../default-intelligence');
+require('../../../default-intelligence');
 
 /**
  * @type {mDeviceMap}
