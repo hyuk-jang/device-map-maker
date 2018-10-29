@@ -244,7 +244,7 @@ const map = {
         defList: [
           {
             target_id: 'horizontalSolar',
-            target_name: '일사량',
+            target_name: '수평 일사량',
             target_prefix: 'S_H',
             nodeList: [
               {
