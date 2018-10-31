@@ -11,6 +11,7 @@ function svgCanvas(documentId) {
   // canvas 생성
   const { width: canvasWidth, height: canvasHeight } = realMap.drawInfo.frame.mapSize;
   const canvas = SVG(documentId).size(canvasWidth, canvasHeight);
+  canvas.attr({ id: 'canvasId' });
 
   // Place 그리기
   realMap.drawInfo.positionInfo.svgPlaceList.forEach(svgPlaceInfo => {
@@ -57,7 +58,8 @@ function svgCanvas(documentId) {
  * @param {string} nodeId
  * @param {*} svgValue
  */
-function drawExistCanvasValue(nodeId, svgValue = '') {
+function drawExistCanvasValue(nodeId, svgValue) {
+  if (_.isUndefined(svgValue)) svgValue = 'no-data';
   /** @type {mDeviceMap} */
   const realMap = map;
   let foundColor;
@@ -161,7 +163,8 @@ function writeText(canvas, defInfo, resourceInfo) {
       textY = y1 + height;
     }
 
-    const text = canvas.text(defInfo.id);
+    // 한글 or 영문 선택
+    const text = canvas.text(defInfo.name);
     text
       .move(textX, textY)
       .font({
@@ -231,8 +234,9 @@ function dataInstallEvent() {
 
   realMap.drawInfo.positionInfo.svgNodeList.forEach(svgNodeInfo => {
     svgNodeInfo.defList.forEach(defInfo => {
-      const getSvgElement = SVG.get(defInfo.id);
-      getSvgElement.click(e => {
+      const getSvgElement = $(`#${defInfo.id}`);
+      // const getSvgElement = SVG.get(defInfo.id);
+      getSvgElement.on('click touchstart', e => {
         const inputValue = prompt(`${defInfo.name}의 값을 입력하세요`);
 
         const resourceInfo = _.find(realMap.drawInfo.frame.svgModelResourceList, {
