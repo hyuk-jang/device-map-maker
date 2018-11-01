@@ -425,7 +425,7 @@ const map = {
             placeList: [
               {
                 target_code: '005',
-                target_name: '외부',
+                target_name: '',
                 chart_color: '#2b8a3e',
                 chart_sort_rank: 5,
                 nodeList: ['kW_I_005', 'S_I_010'],
