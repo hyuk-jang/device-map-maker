@@ -48,7 +48,6 @@ function svgCanvas(documentId) {
         defInfo.point,
         resourceInfo.elementDrawInfo,
         defInfo.id,
-        0,
       );
       writeText(canvas, defInfo, resourceInfo);
     });
@@ -236,10 +235,61 @@ function dataInstallEvent(socket) {
     svgNodeInfo.defList.forEach(defInfo => {
       const getSvgElement = $(`#${defInfo.id}`);
       getSvgElement.on('click touchstart', e => {
+        // 장치 or 센서 구분  1: 센서, 0: 장치, -1: 미분류
+        const foundSvgNodeInfo = _.find(realMap.drawInfo.positionInfo.svgNodeList, info =>
+          _.map(info.defList, 'id').includes(defInfo.id),
+        );
+        if (_.isUndefined(foundSvgNodeInfo)) return false;
+
+        // TODO: dailog 작업
+        if (foundSvgNodeInfo.is_sensor === 1) {
+          // prompt(`${defInfo.name}의 값을 입력하세요`);
+          $.confirm({
+            title: `${defInfo.name}의 값을 입력하세요.`,
+            content:
+              '' +
+              '<form action="" class="formName">' +
+              '<div class="form-group">' +
+              '<input type="text" placeholder="here" class="name form-control" required />' +
+              '</div>' +
+              '</form>',
+            buttons: {
+              formSubmit: {
+                text: 'OK',
+                btnClass: 'btn-blue',
+                action() {
+                  controlValue = this.$content.find('.name').val();
+                  if (_.isUndefined(controlValue)) return false;
+                },
+              },
+              cancel() {
+                // close
+              },
+            },
+          });
+        } else {
+          $.confirm({
+            title: '',
+            content: `${defInfo.name}의 상태를 변경합니다.`,
+            buttons: {
+              confirm: {
+                text: 'OPEN',
+                action() {},
+              },
+              somethingElse: {
+                text: 'CLOSE',
+              },
+              cancel: {
+                text: 'CANCEL',
+                btnClass: 'btn-blue',
+              },
+            },
+          });
+        }
+        console.log(controlValue);
         const falseValueList = ['CLOSE', 'CLOSING', 'OFF', 0, '0'];
         const trueValueList = ['OPEN', 'OPENING', 'ON', 1, '1'];
 
-        controlValue = prompt(`${defInfo.name}의 값을 입력하세요`);
         if (controlValue != null) {
           const falseValueCheck = _.includes(falseValueList, controlValue.toUpperCase());
           const trueValueCheck = _.includes(trueValueList, controlValue.toUpperCase());
@@ -261,8 +311,8 @@ function dataInstallEvent(socket) {
               rank: 2,
             },
           };
-          console.log(requestMsg);
-          socket.emit('executeCommand', requestMsg);
+          // console.log(requestMsg);
+          // socket.emit('executeCommand', requestMsg);
         }
       });
     });
@@ -276,24 +326,23 @@ function dataInstallEvent(socket) {
  * @param {Object} point point[]
  * @param {mElementDrawInfo} elementDrawInfo {width, height, radius, color}
  * @param {string} id 그려진 obj의 이
- * @param {number=} isSensor 0: 장치, 1: 센서, -1: 미분류
  */
-function svgDrawing(canvas, type, point, elementDrawInfo, id, isSensor) {
+function svgDrawing(canvas, type, point, elementDrawInfo, id) {
   switch (type.toString()) {
     case 'rect':
-      svgDrawingRect(canvas, point, elementDrawInfo, id, isSensor);
+      svgDrawingRect(canvas, point, elementDrawInfo, id);
       break;
     case 'line':
-      svgDrawingLine(canvas, point, elementDrawInfo, id, isSensor);
+      svgDrawingLine(canvas, point, elementDrawInfo, id);
       break;
     case 'circle':
-      svgDrawingCircle(canvas, point, elementDrawInfo, id, isSensor);
+      svgDrawingCircle(canvas, point, elementDrawInfo, id);
       break;
     case 'polygon':
-      svgDrawingPolygon(canvas, point, elementDrawInfo, id, isSensor);
+      svgDrawingPolygon(canvas, point, elementDrawInfo, id);
       break;
     case 'pattern':
-      svgDrawingPattern(canvas, point, elementDrawInfo, id, isSensor);
+      svgDrawingPattern(canvas, point, elementDrawInfo, id);
       break;
     default:
       break;
@@ -306,16 +355,13 @@ function svgDrawing(canvas, type, point, elementDrawInfo, id, isSensor) {
  * @param {number[]} point point[]
  * @param {mElementDrawInfo} elementDrawInfo {width, height, radius, color}
  * @param {string} id 그려진 obj의 이
- * @param {number=} isSensor 그려진 obj의 이
  */
-function svgDrawingRect(canvas, point, elementDrawInfo, id, isSensor) {
+function svgDrawingRect(canvas, point, elementDrawInfo, id) {
   const [x, y] = point;
 
   let { width, height, color } = elementDrawInfo;
   // color가 배열이 아니면 배열로 변환
   color = Array.isArray(color) ? color : [color];
-  const onmouseover = isSensor === 0 ? `evt.target.setAttribute("fill", "${color[1]}")` : '';
-  const onmouseout = isSensor === 0 ? `evt.target.setAttribute("fill", "${color[0]}")` : '';
 
   const model = canvas
     .rect(width, height)
@@ -324,9 +370,6 @@ function svgDrawingRect(canvas, point, elementDrawInfo, id, isSensor) {
     .stroke({ width: 0.5 })
     .attr({
       id,
-      onmouseover,
-      onmouseout,
-      // style: 'cursor:pointer',
     });
   svgDrawingShadow(model, id);
 }
