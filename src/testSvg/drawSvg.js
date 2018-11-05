@@ -48,6 +48,7 @@ function svgCanvas(documentId) {
         defInfo.point,
         resourceInfo.elementDrawInfo,
         defInfo.id,
+        0,
       );
       writeText(canvas, defInfo, resourceInfo);
     });
@@ -275,23 +276,24 @@ function dataInstallEvent(socket) {
  * @param {Object} point point[]
  * @param {mElementDrawInfo} elementDrawInfo {width, height, radius, color}
  * @param {string} id 그려진 obj의 이
+ * @param {number=} isSensor 0: 장치, 1: 센서, -1: 미분류
  */
-function svgDrawing(canvas, type, point, elementDrawInfo, id) {
+function svgDrawing(canvas, type, point, elementDrawInfo, id, isSensor) {
   switch (type.toString()) {
     case 'rect':
-      svgDrawingRect(canvas, point, elementDrawInfo, id);
+      svgDrawingRect(canvas, point, elementDrawInfo, id, isSensor);
       break;
     case 'line':
-      svgDrawingLine(canvas, point, elementDrawInfo, id);
+      svgDrawingLine(canvas, point, elementDrawInfo, id, isSensor);
       break;
     case 'circle':
-      svgDrawingCircle(canvas, point, elementDrawInfo, id);
+      svgDrawingCircle(canvas, point, elementDrawInfo, id, isSensor);
       break;
     case 'polygon':
-      svgDrawingPolygon(canvas, point, elementDrawInfo, id);
+      svgDrawingPolygon(canvas, point, elementDrawInfo, id, isSensor);
       break;
     case 'pattern':
-      svgDrawingPattern(canvas, point, elementDrawInfo, id);
+      svgDrawingPattern(canvas, point, elementDrawInfo, id, isSensor);
       break;
     default:
       break;
@@ -304,12 +306,16 @@ function svgDrawing(canvas, type, point, elementDrawInfo, id) {
  * @param {number[]} point point[]
  * @param {mElementDrawInfo} elementDrawInfo {width, height, radius, color}
  * @param {string} id 그려진 obj의 이
+ * @param {number=} isSensor 그려진 obj의 이
  */
-function svgDrawingRect(canvas, point, elementDrawInfo, id) {
+function svgDrawingRect(canvas, point, elementDrawInfo, id, isSensor) {
   const [x, y] = point;
+
   let { width, height, color } = elementDrawInfo;
   // color가 배열이 아니면 배열로 변환
   color = Array.isArray(color) ? color : [color];
+  const onmouseover = isSensor === 0 ? `evt.target.setAttribute("fill", "${color[1]}")` : '';
+  const onmouseout = isSensor === 0 ? `evt.target.setAttribute("fill", "${color[0]}")` : '';
 
   const model = canvas
     .rect(width, height)
@@ -318,6 +324,9 @@ function svgDrawingRect(canvas, point, elementDrawInfo, id) {
     .stroke({ width: 0.5 })
     .attr({
       id,
+      onmouseover,
+      onmouseout,
+      // style: 'cursor:pointer',
     });
   svgDrawingShadow(model, id);
 }
