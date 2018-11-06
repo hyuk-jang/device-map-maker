@@ -229,27 +229,28 @@ function excludeText(id) {
 function dataInstallEvent(socket) {
   /** @type {mDeviceMap} */
   const realMap = map;
-  let controlValue;
 
   realMap.drawInfo.positionInfo.svgNodeList.forEach(svgNodeInfo => {
     svgNodeInfo.defList.forEach(defInfo => {
       const getSvgElement = $(`#${defInfo.id}`);
       getSvgElement.on('click touchstart', e => {
+        let controlValue;
+
         // 장치 or 센서 구분  1: 센서, 0: 장치, -1: 미분류
         const foundSvgNodeInfo = _.find(realMap.drawInfo.positionInfo.svgNodeList, info =>
           _.map(info.defList, 'id').includes(defInfo.id),
         );
         if (_.isUndefined(foundSvgNodeInfo)) return false;
 
-        // TODO: dailog 작업
+        // ' $.confirm ' : jquery dailog
         if (foundSvgNodeInfo.is_sensor === 1) {
-          // prompt(`${defInfo.name}의 값을 입력하세요`);
           $.confirm({
-            title: `${defInfo.name}의 값을 입력하세요.`,
+            title: '',
             content:
               '' +
               '<form action="" class="formName">' +
               '<div class="form-group">' +
+              `'${defInfo.name}' 의 값을 입력하세요.` +
               '<input type="text" placeholder="here" class="name form-control" required />' +
               '</div>' +
               '</form>',
@@ -270,14 +271,19 @@ function dataInstallEvent(socket) {
         } else {
           $.confirm({
             title: '',
-            content: `${defInfo.name}의 상태를 변경합니다.`,
+            content: `'${defInfo.name}' 의 상태를 변경합니다.`,
             buttons: {
               confirm: {
                 text: 'OPEN',
-                action() {},
+                action() {
+                  controlValue = 'open';
+                },
               },
               somethingElse: {
                 text: 'CLOSE',
+                action() {
+                  controlValue = 'close';
+                },
               },
               cancel: {
                 text: 'CANCEL',
@@ -286,7 +292,6 @@ function dataInstallEvent(socket) {
             },
           });
         }
-        console.log(controlValue);
         const falseValueList = ['CLOSE', 'CLOSING', 'OFF', 0, '0'];
         const trueValueList = ['OPEN', 'OPENING', 'ON', 1, '1'];
 
@@ -311,8 +316,8 @@ function dataInstallEvent(socket) {
               rank: 2,
             },
           };
-          // console.log(requestMsg);
-          // socket.emit('executeCommand', requestMsg);
+          console.log(requestMsg);
+          socket.emit('executeCommand', requestMsg);
         }
       });
     });
