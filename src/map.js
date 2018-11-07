@@ -59,8 +59,8 @@ const map = {
   },
   setInfo: {
     mainInfo: {
-      main_seq: 2,
-      uuid: '002',
+      main_seq: 5,
+      uuid: '005',
     },
     dccConstructorList: [
       {
@@ -70,6 +70,7 @@ const map = {
           subType: '',
           host: 'localhost',
           port: 9000,
+          hasPassive: true,
         },
       },
       {
@@ -79,6 +80,7 @@ const map = {
           subType: 'rtu',
           baudRate: 9600,
           port: 'COM3',
+          hasPassive: true,
         },
       },
     ],
@@ -88,6 +90,7 @@ const map = {
         protocol_info: {
           mainCategory: 'FarmParallel',
           subCategory: 'dmTech',
+          wrapperCategory: 'default',
         },
       },
     ],
@@ -97,11 +100,18 @@ const map = {
         target_name: 'Crops Environment (작물 생육 환경)',
         dataLoggerDeviceList: [
           {
-            serial_number: 8,
-            target_code: '008',
+            serial_number: 14,
+            target_code: '014',
             dccId: 'DCC_001',
             dpcId: 'DPC_001',
-            nodeList: ['LX_008', 'S_H_008', 'CO2_008', 'WV_S_008', 'T_S_008', 'RH_S_008'],
+            nodeList: ['LX_014', 'S_I_014', 'CO2_014', 'WV_S_014', 'T_S_014', 'RH_S_014'],
+          },
+          {
+            serial_number: 15,
+            target_code: '015',
+            dccId: 'DCC_001',
+            dpcId: 'DPC_001',
+            nodeList: ['LX_015', 'S_I_015', 'CO2_015', 'WV_S_015', 'T_S_015', 'RH_S_015'],
           },
         ],
       },
@@ -110,23 +120,23 @@ const map = {
         target_name: 'Outside Environment (외기 환경)',
         dataLoggerDeviceList: [
           {
-            serial_number: 9,
-            target_code: '009',
+            serial_number: 16,
+            target_code: '016',
             dccId: 'DCC_001',
             dpcId: 'DPC_001',
             nodeList: [
-              'LX_009',
-              'S_H_009',
-              'CO2_009',
-              'WV_S_009',
-              'T_S_009',
-              'RH_S_009',
-              'T_OA_009',
-              'RH_OA_009',
-              'W_D_009',
-              'W_S_009',
-              'RF1_009',
-              'IR_009',
+              'LX_016',
+              'S_H_016',
+              'CO2_016',
+              'WV_S_016',
+              'T_S_016',
+              'RH_S_016',
+              'T_OA_016',
+              'RH_OA_016',
+              'W_D_016',
+              'W_S_016',
+              'RF1_016',
+              'IR_016',
             ],
           },
         ],
@@ -146,10 +156,13 @@ const map = {
             target_name: '토양 온도',
             nodeList: [
               {
-                target_code: '008',
+                target_code: '014',
               },
               {
-                target_code: '009',
+                target_code: '015',
+              },
+              {
+                target_code: '016',
               },
             ],
           },
@@ -159,7 +172,7 @@ const map = {
             target_name: '외기 온도',
             nodeList: [
               {
-                target_code: '009',
+                target_code: '016',
               },
             ],
           },
@@ -178,10 +191,13 @@ const map = {
             target_name: '토양 습도',
             nodeList: [
               {
-                target_code: '008',
+                target_code: '014',
               },
               {
-                target_code: '009',
+                target_code: '015',
+              },
+              {
+                target_code: '016',
               },
             ],
           },
@@ -191,7 +207,7 @@ const map = {
             target_name: '외기 습도',
             nodeList: [
               {
-                target_code: '009',
+                target_code: '016',
               },
             ],
           },
@@ -209,7 +225,7 @@ const map = {
             target_prefix: 'W_S',
             nodeList: [
               {
-                target_code: '009',
+                target_code: '016',
               },
             ],
           },
@@ -219,15 +235,14 @@ const map = {
         target_id: 'wd',
         target_name: '풍향',
         is_sensor: 1,
-        data_unit: '°',
-        description: '바람이 불어오는 방향을 360 각도로 표현',
+        description: '풍향 0~7 (북, 북동, 동, 남동, 남, 남서, 서, 북서)',
         defList: [
           {
             target_id: 'windDirection',
             target_prefix: 'W_D',
             nodeList: [
               {
-                target_code: '009',
+                target_code: '016',
               },
             ],
           },
@@ -242,14 +257,11 @@ const map = {
         defList: [
           {
             target_id: 'horizontalSolar',
-            target_name: '일사량',
+            target_name: '수평 일사량',
             target_prefix: 'S_H',
             nodeList: [
               {
-                target_code: '008',
-              },
-              {
-                target_code: '009',
+                target_code: '016',
               },
             ],
           },
@@ -257,7 +269,14 @@ const map = {
             target_id: 'inclinedSolar',
             target_name: '경사 일사량',
             target_prefix: 'S_I',
-            nodeList: [],
+            nodeList: [
+              {
+                target_code: '014',
+              },
+              {
+                target_code: '015',
+              },
+            ],
           },
         ],
       },
@@ -274,7 +293,7 @@ const map = {
             target_name: '시간당 강우량',
             nodeList: [
               {
-                target_code: '009',
+                target_code: '016',
               },
             ],
           },
@@ -293,7 +312,7 @@ const map = {
             target_name: '강우 감지 여부',
             nodeList: [
               {
-                target_code: '009',
+                target_code: '016',
               },
             ],
           },
@@ -311,10 +330,13 @@ const map = {
             target_prefix: 'CO2',
             nodeList: [
               {
-                target_code: '008',
+                target_code: '014',
               },
               {
-                target_code: '009',
+                target_code: '015',
+              },
+              {
+                target_code: '016',
               },
             ],
           },
@@ -340,10 +362,13 @@ const map = {
             target_prefix: 'LX',
             nodeList: [
               {
-                target_code: '008',
+                target_code: '014',
               },
               {
-                target_code: '009',
+                target_code: '015',
+              },
+              {
+                target_code: '016',
               },
             ],
           },
@@ -362,10 +387,13 @@ const map = {
             target_name: '토양 수분 값',
             nodeList: [
               {
-                target_code: '008',
+                target_code: '014',
               },
               {
-                target_code: '009',
+                target_code: '015',
+              },
+              {
+                target_code: '016',
               },
             ],
           },
@@ -400,7 +428,13 @@ const map = {
             description: '33kW급',
             nodeList: [
               {
-                target_code: '001',
+                target_code: '009',
+              },
+              {
+                target_code: '010',
+              },
+              {
+                target_code: '011',
               },
             ],
           },
@@ -421,8 +455,25 @@ const map = {
             target_prefix: 'IVT',
             placeList: [
               {
-                target_code: '001',
-                nodeList: ['kW_I_001'],
+                target_code: '009',
+                target_name: '1',
+                chart_color: '#868e96',
+                chart_sort_rank: 9,
+                nodeList: ['kW_I_009', 'S_I_015'],
+              },
+              {
+                target_code: '010',
+                target_name: '2',
+                chart_color: '#b9560d',
+                chart_sort_rank: 10,
+                nodeList: ['kW_I_010', 'S_I_015'],
+              },
+              {
+                target_code: '011',
+                target_name: '3',
+                chart_color: '#3bc9db',
+                chart_sort_rank: 11,
+                nodeList: ['kW_I_011', 'S_I_015'],
               },
             ],
           },
@@ -434,16 +485,30 @@ const map = {
         description: '농업 병행 태양광 부지로 작물 생육 환경 센서가 존재',
         defList: [
           {
-            target_id: 'normalPV',
-            target_prefix: 'PV_N',
-            target_name: '태양광',
+            target_id: 'normalStructure',
+            target_prefix: 'N_S',
+            target_name: '일반 구조물',
             placeList: [
               {
-                target_name: '008',
-                target_code: '하부',
-                chart_color: '#0b7285',
-                chart_sort_rank: 8,
-                nodeList: ['LX_008', 'S_H_008', 'CO2_008', 'WV_S_008', 'T_S_008', 'RH_S_008'],
+                target_code: '014',
+                target_name: '하부',
+                chart_color: '#868e96',
+                chart_sort_rank: 14,
+                nodeList: ['LX_014', 'S_I_014', 'CO2_014', 'WV_S_014', 'T_S_014', 'RH_S_014'],
+              },
+            ],
+          },
+          {
+            target_id: 'photovoltaicStructure',
+            target_prefix: 'PV_S',
+            target_name: '태양광 구조물',
+            placeList: [
+              {
+                target_code: '015',
+                target_name: '하부',
+                chart_color: '#b9560d',
+                chart_sort_rank: 15,
+                nodeList: ['LX_015', 'S_I_015', 'CO2_015', 'WV_S_015', 'T_S_015', 'RH_S_015'],
               },
             ],
           },
@@ -460,22 +525,22 @@ const map = {
             target_prefix: 'OS',
             placeList: [
               {
-                target_code: '009',
-                chart_color: '#087f5b',
-                chart_sort_rank: 9,
+                target_code: '016',
+                chart_color: '#3bc9db',
+                chart_sort_rank: 16,
                 nodeList: [
-                  'LX_009',
-                  'S_H_009',
-                  'CO2_009',
-                  'WV_S_009',
-                  'T_S_009',
-                  'RH_S_009',
-                  'T_OA_009',
-                  'RH_OA_009',
-                  'W_D_009',
-                  'W_S_009',
-                  'RF1_009',
-                  'IR_009',
+                  'LX_016',
+                  'S_H_016',
+                  'CO2_016',
+                  'WV_S_016',
+                  'T_S_016',
+                  'RH_S_016',
+                  'T_OA_016',
+                  'RH_OA_016',
+                  'W_D_016',
+                  'W_S_016',
+                  'RF1_016',
+                  'IR_016',
                 ],
               },
             ],
