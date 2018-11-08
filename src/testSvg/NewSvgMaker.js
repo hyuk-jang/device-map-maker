@@ -8,10 +8,10 @@ class NewSvgMaker {
   constructor() {
     this.makeObjInfo();
     this.makeSvgNodeList();
+    this.makeSensorList();
   }
 
   startMake() {
-    // BU.CLI(map);
     BU.writeFile(
       './src/testSvg/outputMap.js',
       `var map = ${JSON.stringify(map)}`,
@@ -46,7 +46,7 @@ class NewSvgMaker {
       targetIdList: [targetId],
     });
 
-    if (foundSVGResourceConnectionInfo != null) {
+    if (_.isObject(foundSVGResourceConnectionInfo)) {
       const resourceId = foundSVGResourceConnectionInfo.resourceIdList[0];
       /** @type {mSvgModelResource} */
       const resourceInfo = _.find(map.drawInfo.frame.svgModelResourceList, {
@@ -98,7 +98,6 @@ class NewSvgMaker {
               };
               storageList.push(foundIt);
             }
-            // /** @type {{nodeId: string, nodeName: '', text: textElement}[]} */
             /** @type {defInfo} */
             const foundNodeIt = _.find(foundIt.defList, { nodeId });
             if (_.isEmpty(foundNodeIt)) {
@@ -132,7 +131,7 @@ class NewSvgMaker {
       const targetDefInfo = _.find(nodeStructureInfo.defList, {
         target_prefix: targetPrefix,
       });
-      if (targetDefInfo != null) {
+      if (_.isObject(targetDefInfo)) {
         /** @type {mNodeModelInfo} */
         const targetNodeInfo = _.find(targetDefInfo.nodeList, { target_code: targetCode });
         returnValue = _.pick(targetNodeInfo, ['axisScale', 'moveScale']);
@@ -146,38 +145,42 @@ class NewSvgMaker {
    * 최종으로 저장될 svgNodeList 생성
    */
   makeSvgNodeList() {
-    const objectList = this.storageList;
-
+    const storageList = this.storageList;
     /** @type {mSvgNodeInfo[]} */
-    objectList.forEach(objList => {
-      _.forEach(objList.defList, (obj, index) => {
-        const targetPoint = this.discoverObjectPoint(obj.placeId);
-        const finalAxis = this.calcPlacePoint(obj, targetPoint);
-        const finalObj = _.set(obj, 'point', finalAxis);
-
+    storageList.forEach(storageInfo => {
+      _.forEach(storageInfo.defList, (defInfo, index) => {
+        const targetPoint = this.discoverObjectPoint(defInfo.placeId);
+        const finalAxis = this.calcPlacePoint(defInfo, targetPoint);
+        const finalObj = _.set(defInfo, 'point', finalAxis);
+        const name = this.findNodeName(defInfo.nodeId);
+        const isSensor = this.findIsSensorValue(defInfo.nodeId);
         /** @type {defInfo} */
         const newDetailNode = {
           id: finalObj.nodeId,
+          name,
           placeId: finalObj.placeId,
           resourceId: finalObj.resourceId,
           point: finalObj.point,
         };
-        // 그룹 존재
 
+        // 그룹 존재
         /** @type {mSvgNodeInfo} */
-        let foundIt = _.find(map.drawInfo.positionList.svgNodeList, {
-          nodeClassId: objList.nodeClassId,
+        let foundIt = _.find(map.drawInfo.positionInfo.svgNodeList, {
+          nodeClassId: storageInfo.nodeClassId,
         });
         if (_.isEmpty(foundIt)) {
           foundIt = {
-            nodeClassId: objList.nodeClassId,
+            nodeClassId: storageInfo.nodeClassId,
+            is_sensor: isSensor,
             defList: [],
           };
-          map.drawInfo.positionList.svgNodeList.push(foundIt);
+          if (foundIt.is_sensor != 1) {
+            map.drawInfo.positionInfo.svgNodeList.push(foundIt);
+          }
         }
 
         /** @type {defInfo} */
-        const foundNodeIt = _.find(foundIt.defList, { nodeId: finalObj.nodeId });
+        const foundNodeIt = _.find(foundIt.defList, { id: finalObj.nodeId });
         if (_.isEmpty(foundNodeIt)) {
           foundIt.defList.push(newDetailNode);
         }
@@ -191,52 +194,37 @@ class NewSvgMaker {
    * @param {number[]} placePoint 장소의 (x1,y1,x2,y2) 정보
    */
   calcPlacePoint(storageDefInfo, placePoint) {
-    // BU.CLIS(storageDefInfo, placePoint);
     const nodeResourceInfo = this.getResourceInfo(storageDefInfo.nodeId);
-    if (_.isUndefined(nodeResourceInfo)) return false; // FIXME: 센서류 때문에 작성.
-    const nodeElementDraw = nodeResourceInfo.elementDrawInfo;
+    if (_.isUndefined(nodeResourceInfo)) return false;
+    const { width, height } = nodeResourceInfo.elementDrawInfo;
     const nodeType = nodeResourceInfo.type;
+    const isSensor = this.findIsSensorValue(storageDefInfo.nodeId);
 
     const [axisX, axisY] = storageDefInfo.axisScale;
     const [moveX, moveY] = storageDefInfo.moveScale;
     const [x1, y1, x2, y2] = placePoint;
 
-    // FIXME: ↓ 후에 더 좋은 방법으로 수정, 센서도 axis,move 필요 그에 맞게 수정
     let targetAxis = [];
     let x;
     let y;
-    if (
-      nodeResourceInfo.id === 'moduleRearTemperature' ||
-      nodeResourceInfo.id === 'brineTemperature' ||
-      nodeResourceInfo.id === 'WLSensor' ||
-      nodeResourceInfo.id === 'salinity'
-    ) {
-      if (nodeResourceInfo.id === 'moduleRearTemperature') {
-        x = x1 + (x2 - x1) / 2 - nodeElementDraw.width;
-        y = y1 + (y2 - y1) / 2 + nodeElementDraw.height / 2;
-      } else if (nodeResourceInfo.id === 'brineTemperature') {
-        x = x1 + (x2 - x1) / 2 + 10;
-        y = y1 + (y2 - y1) / 2 + nodeElementDraw.height / 2;
-      } else if (nodeResourceInfo.id === 'salinity') {
-        x = x1 + (x2 - x1) / 2;
-        y = y1 + (y2 - y1) / 2 - nodeElementDraw.height - 10;
-      } else {
-        x = x1 + (x2 - x1) / 2 - nodeElementDraw.width;
-        y = y1 + (y2 - y1) / 2 - nodeElementDraw.height - 10;
-      }
+
+    if (isSensor === 1) {
+      x = x1 + (x2 - x1) / 2 - width / 2 + moveX;
+      y = y1 + (y2 - y1) / 2 - height / 2 + moveY;
+
       targetAxis = [x, y];
     } else {
       x = x1 + axisX * (x2 - x1);
       y = y1 + axisY * (y2 - y1);
       if (nodeType === 'rect') {
-        x = x - axisX * nodeElementDraw.width + moveX * nodeElementDraw.width;
-        y = y - axisY * nodeElementDraw.height + moveY * nodeElementDraw.height;
+        x = x - axisX * width + moveX * width;
+        y = y - axisY * height + moveY * height;
       } else if (nodeType === 'circle') {
-        x = x - axisX * nodeElementDraw.width + moveX * nodeElementDraw.width;
-        y = y - axisY * nodeElementDraw.height + moveY * nodeElementDraw.height;
+        x = x - axisX * width + moveX * width;
+        y = y - axisY * height + moveY * height;
       } else if (nodeType === 'polygon') {
-        x = x - axisX * (nodeElementDraw.width * 2) + moveX * (nodeElementDraw.width * 2);
-        y = y - axisY * (nodeElementDraw.height * 2) + moveY * (nodeElementDraw.height * 2);
+        x = x - axisX * (width * 2) + moveX * (width * 2);
+        y = y - axisY * (height * 2) + moveY * (height * 2);
       }
       targetAxis = [x, y];
     }
@@ -250,7 +238,7 @@ class NewSvgMaker {
   discoverObjectPoint(placeId) {
     let targetPoint = []; // [x1,y1,x2,y2]
 
-    map.drawInfo.positionList.svgPlaceList.forEach(svgPlaceInfo => {
+    map.drawInfo.positionInfo.svgPlaceList.forEach(svgPlaceInfo => {
       /** @type {defInfo} */
       const targetInfo = _.find(svgPlaceInfo.defList, { id: placeId });
       if (_.isUndefined(targetInfo)) return false;
@@ -259,38 +247,185 @@ class NewSvgMaker {
       const svgModelResourceInfo = _.find(map.drawInfo.frame.svgModelResourceList, {
         id: targetResourceId,
       });
+
       const targetType = svgModelResourceInfo.type;
-      const targetDrawInfo = svgModelResourceInfo.elementDrawInfo;
-      // const [x,y] = targetInfo; // TODO:
-      if (targetType === 'rect') {
-        targetPoint = [
-          targetInfo.point[0],
-          targetInfo.point[1],
-          targetInfo.point[0] + targetDrawInfo.width,
-          targetInfo.point[1] + targetDrawInfo.height,
-        ];
+      const { width, height } = svgModelResourceInfo.elementDrawInfo;
+      const [x, y, x1, y1] = targetInfo.point;
+
+      if (targetType === 'rect' || targetType === 'pattern') {
+        targetPoint = [x, y, x + width, y + height];
         // line position:(x1,y1,x2,y2)
       } else if (targetType === 'line') {
-        if (targetInfo.point[1] === targetInfo.point[3]) {
-          targetPoint = [
-            targetInfo.point[0],
-            targetInfo.point[1] - targetDrawInfo.width / 2,
-            targetInfo.point[2],
-            targetInfo.point[3] - targetDrawInfo.width / 2,
-          ];
+        if (y === y1) {
+          targetPoint = [x, y - width / 2, x1, y1 - width / 2];
         } else {
-          targetPoint = [
-            targetInfo.point[0] - targetDrawInfo.width / 2,
-            targetInfo.point[1] - targetDrawInfo.width,
-            targetInfo.point[2] - targetDrawInfo.width / 2,
-            targetInfo.point[3] + targetDrawInfo.width,
-          ];
+          targetPoint = [x - width / 2, y - width, x1 - width / 2, y1 + width];
         }
       } else {
-        // TODO: 다른 조건문 작성
+        // 다른 조건문 작성
       }
     });
     return targetPoint;
+  }
+
+  /**
+   * node의 name을 찾는 함수
+   * @param {string} nodeId
+   */
+  findNodeName(nodeId) {
+    const nodePrefix = this.getReplace(nodeId, /[_\d]/g);
+    const nodeCode = this.getReplace(nodeId, /\D/g);
+    // BU.CLIS(nodeId, nodePrefix, nodeCode);
+    let nodeName;
+
+    map.setInfo.nodeStructureList.forEach(nodeStructureInfo => {
+      const findDefInfo = _.find(nodeStructureInfo.defList, { target_prefix: nodePrefix });
+      if (_.isUndefined(findDefInfo)) return false;
+      nodeName = `${findDefInfo.target_name}_${nodeCode}`;
+      // BU.CLI(nodeName);
+    });
+    return nodeName;
+  }
+
+  /**
+   * 1: sensor, 0: device, -1: nothing
+   * @param {string} nodeId
+   */
+  findIsSensorValue(nodeId) {
+    const nodePrefix = this.getReplace(nodeId, /[_\d]/g);
+
+    let isSensor;
+    map.setInfo.nodeStructureList.forEach(nodeStructureInfo => {
+      const foundDefInfo = _.find(nodeStructureInfo.defList, { target_prefix: nodePrefix });
+      if (_.isUndefined(foundDefInfo)) return false;
+
+      const foundNodeStructureInfo = _.find(map.setInfo.nodeStructureList, {
+        defList: [foundDefInfo],
+      });
+      isSensor = foundNodeStructureInfo.is_sensor;
+    });
+
+    return isSensor;
+  }
+
+  /**
+   * 센서 자동 배치 함수
+   */
+  makeSensorList() {
+    map.realtionInfo.placeRelationList.forEach(placeRelationInfo => {
+      placeRelationInfo.defList.forEach(defInfo => {
+        defInfo.placeList.forEach(placeInfo => {
+          const sensorStorage = [];
+          placeInfo.nodeList.forEach(nodeId => {
+            const foundSensorValue = this.findIsSensorValue(nodeId);
+            if (foundSensorValue === 1) {
+              sensorStorage.push(nodeId);
+            }
+          });
+          this.sensorStorage = sensorStorage;
+          let placeId = defInfo.target_prefix;
+          // placeId 중 code 유무 체크
+          if (placeInfo.target_code) {
+            placeId += `_${placeInfo.target_code}`;
+          }
+
+          _.forEach(sensorStorage, (sensorId, index) => {
+            const sensorPrefix = this.getReplace(sensorId, /[_\d]/g);
+            const placePoint = this.discoverObjectPoint(placeId);
+            // FIXME: 테스트 소스
+            // const sensorCode = this.getReplace(sensorId, /[_\D]/g);
+            // // BU.CLI(sensorCode);
+            // const foundTest = _.find(map.setInfo.nodeStructureList, {
+            //   defList: [{ target_prefix: sensorPrefix }],
+            // });
+            // const
+            // BU.CLI(foundTest);
+            // //////// END ///////////
+            let moveScale = [[]];
+            if (sensorStorage.length === 1) {
+              moveScale = [0, -1];
+            } else if (sensorStorage.length > 2 < 5) {
+              moveScale = [[-0.8, -0.8], [0.8, -0.8], [-0.8, 0.8], [0.8, 0.8]];
+              moveScale = moveScale[index];
+            } else if (sensorStorage.length > 4 < 10) {
+              moveScale = [
+                [-1.2, -1.2],
+                [0, -1.2],
+                [1.2, -1.2],
+                [-1.2, 0],
+                [0, 1.2],
+                [-1.2, 1.2],
+                [0, 1.2],
+                [1.2, 1.2],
+              ];
+            } else if (sensorStorage.length > 9 < 17) {
+              moveScale = [
+                [-1.5, -1],
+                [-0.7, -1],
+                [0.7, -1],
+                [1.5, -1],
+                [-1.5, -0.5],
+                [1.5, -0.5],
+                [-1.5, 0.5],
+                [1.5, 0.5],
+                [-1.5, 1],
+                [-0.7, 1],
+                [0.7, 1],
+                [1.5, 1],
+              ];
+            }
+
+            const resourceInfo = this.getResourceInfo(sensorId);
+            const { width, height, color } = resourceInfo.elementDrawInfo;
+            const [x1, y1, x2, y2] = placePoint;
+            let x;
+            let y;
+            let targetAxis = [];
+            const len = 10; // FI1XME:
+
+            x = x1 + (x2 - x1) / 2 - width / 2 + moveScale[0] * width;
+            y = y1 + (y2 - y1) / 2 - height / 2 + moveScale[1] * height;
+
+            this.x = x;
+
+            targetAxis = [x, y];
+            // className을 찾기.
+            map.setInfo.nodeStructureList.forEach(nodeStructureInfo => {
+              const foundSensorInfo = _.find(nodeStructureInfo.defList, {
+                target_prefix: sensorPrefix,
+              });
+              if (_.isUndefined(foundSensorInfo)) return false;
+
+              const sensorClassName = foundSensorInfo.target_id;
+              const newDefInfo = {
+                id: sensorId,
+                name: this.findNodeName(sensorId),
+                placeId,
+                resourceId: sensorClassName,
+                point: targetAxis,
+              };
+              // 그룹 존재
+              let foundSensor = _.find(map.drawInfo.positionInfo.svgNodeList, {
+                nodeClassId: sensorClassName,
+              });
+              if (_.isEmpty(foundSensor)) {
+                foundSensor = {
+                  nodeClassId: sensorClassName,
+                  is_sensor: nodeStructureInfo.is_sensor,
+                  defList: [],
+                };
+                map.drawInfo.positionInfo.svgNodeList.push(foundSensor);
+              }
+              /** @type {defInfo} */
+              const foundNodeIt = _.find(foundSensor.defList, { id: sensorId });
+              if (_.isEmpty(foundNodeIt)) {
+                foundSensor.defList.push(newDefInfo);
+              }
+            });
+          });
+        });
+      });
+    });
   }
 }
 module.exports = NewSvgMaker;
@@ -305,6 +440,7 @@ module.exports = NewSvgMaker;
  * @typedef {Object} detailNodeInfo
  * @property {string} placeId
  * @property {string} nodeId
+ * @property {string} name
  * @property {string} resourceId
  * @property {number[]} axisScale
  * @property {number[]} moveScale

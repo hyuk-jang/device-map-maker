@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <%- include("../master/head.html") %>
+    <script type="text/javascript" src="js/lodash.js"></script>
+    <script type="text/javascript" src="js/svg.js"></script>
+    <script type="text/javascript" src="js/svg.filter.js"></script>
+    <script type="text/javascript" src="js/jquery.panzoom.js"></script>
+    <script type="text/javascript" src="js/contents/svgMap/drawSvg.js"></script>
+    <style>
+        #zoom {
+            /* position: absolute;
+            z-index: 2; */
+            display: flex;
+            justify-content: center;
+            /* flex-direction: column; */
+        }
+
+        #canvas {
+            display: flex;
+            justify-content: center;
+            margin: 5px;
+            cursor: non
+        }
+
+        .data {
+            fill: rgb(2, 236, 33);
+            font-size: 8pt;
+            stroke: rgb(2, 236, 33);
+            stroke-width: 0.2
+        }
+
+        .node {
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <!--네비-->
+    <%- include("../master/header.html") %>
+    <!--메인-->
+    <div class="jumbotron text-center jumbotron_line">
+        <div class="row row_st_line min_h_780">
+            <div id="zoom">
+                <button id="zoom-in" class="btn btn-default btn-sm" style="margin-right: 5px"><span class="glyphicon glyphicon-zoom-in"></span>
+                    Zoom-in</button>
+                <button id="zoom-out" class="btn btn-default btn-sm" style="margin-right: 5px"><span class="glyphicon glyphicon-zoom-out"></span>
+                    Zoom-out</button>
+                <button id="reset" class="btn btn-default btn-sm" style="margin-right: 5px"><span class="glyphicon glyphicon-refresh"></span>
+                    Reset</button>
+                <button id="reset" class="btn btn-default btn-sm" style="margin-right: 5px"><span class="glyphicon glyphicon-refresh"></span>
+                    Reset</button>
+                <input id="toggle-event" type="checkbox" data-toggle="toggle">
+            </div>
+            <!-- canvas -->
+            <div>
+                <div id="canvas"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var map = <%- JSON.stringify(map) %>
+        svgCanvas('canvas');
+
+        // size 재설정
+        var svgMap = SVG.get('canvasId')
+        var canvas = document.getElementById('canvas')
+        canvas.style.width = svgMap.node.width.baseVal.value + 'px'
+        canvas.style.height = svgMap.node.height.baseVal.value + 'px'
+
+        // panzoom 기능
+        var $panzoom = $('#canvas').panzoom({
+            // $zoomIn: $('#zoom-in'),
+            // $zoomOut: $('#zoom-out'),
+            // $reset: $('#reset'),
+            cursor: "context-menu",
+            startTransform: 'matrix(0.6, 0, 0, 0.6, -256, -245)',
+            disablePan: true,
+            disableZoom: true
+        })
+
+        //toggle 이벤트
+        $('#toggle-event').change(function () {
+            if ($(this).prop('checked')) {
+                $panzoom.on('panzoomzoom', function (e, panzoom) {
+                    alert('on')
+                })
+            } else {
+                alert('off')
+            }
+        })
+
+
+        dataInstallEvent();
+        // drawExistCanvasValue(id, value)
+    </script>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        $(function () {
+            var socket = io();
+            // 접속한 사용자의 정보를 보내줌.
+            socket.emit("certifySocket", {
+                sessionID: "<%- sessionID %>",
+                sessionUserInfo: <%- JSON.stringify(user) %>
+            });
+
+            // 노드 관련 갱신 반영
+            socket.on("updateNodeInfo", function (nodeList) {
+                // console.log(nodeList)
+                _.forEach(nodeList, nodeInfo => {
+                    // console.log(nodeInfo.node_id, nodeInfo.data)
+                    drawExistCanvasValue(nodeInfo.node_id, nodeInfo.data)
+                })
+                // $MS_node_table.bootstrapTable('destroy').bootstrapTable({
+                //     data: nodeList
+                // });
+                // document.getElementById("CMD_node_date").innerText = new Date().toLocaleString();
+            });
+
+        })
+    </script>
+
+    <%- include("../master/footer.html") %>
+</body>
+
+</html>

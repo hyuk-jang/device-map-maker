@@ -13,20 +13,20 @@ const map = {
       svgModelResourceList: [
         {
           id: 'salternModuleBlock_A',
-          type: 'rect',
+          type: 'pattern',
           elementDrawInfo: {
             width: 240,
             height: 150,
-            color: '#3e68b6',
+            color: '#3e4379',
           },
         },
         {
           id: 'salternModuleBlock_B',
-          type: 'rect',
+          type: 'pattern',
           elementDrawInfo: {
             width: 300,
             height: 300,
-            color: '#3e68b6',
+            color: '#3e4379',
           },
         },
         {
@@ -35,7 +35,7 @@ const map = {
           elementDrawInfo: {
             width: 240,
             height: 130,
-            color: '#2b4570',
+            color: '#86623b',
           },
         },
         {
@@ -44,16 +44,16 @@ const map = {
           elementDrawInfo: {
             width: 260,
             height: 180,
-            color: '#2b4570',
+            color: '#86623b',
           },
         },
         {
           id: 'earth',
-          type: 'rect',
+          type: 'pattern',
           elementDrawInfo: {
             width: 240,
             height: 120,
-            color: '#3e68b6',
+            color: '#4c7093',
           },
         },
         {
@@ -62,7 +62,7 @@ const map = {
           elementDrawInfo: {
             width: 260,
             height: 180,
-            color: '#152642',
+            color: '#4f351a',
           },
         },
         {
@@ -71,7 +71,7 @@ const map = {
           elementDrawInfo: {
             width: 170,
             height: 150,
-            color: '#32706f',
+            color: '#5b666c',
           },
         },
         {
@@ -80,16 +80,25 @@ const map = {
           elementDrawInfo: {
             width: 55,
             height: 55,
-            color: '#223056',
+            color: ['#d7dcee', '#2858f9', '#dc1d1f'],
+          },
+        },
+        {
+          id: 'gateValve',
+          type: 'rect',
+          elementDrawInfo: {
+            width: 55,
+            height: 55,
+            color: ['#d7dcee', '#2858f9', '#dc1d1f'],
           },
         },
         {
           id: 'sea',
           type: 'rect',
           elementDrawInfo: {
-            width: 175,
+            width: 170,
             height: 120,
-            color: '#77a1c1',
+            color: '#0f587c',
           },
         },
         {
@@ -98,7 +107,7 @@ const map = {
           elementDrawInfo: {
             width: 30,
             height: 30,
-            color: '#208974',
+            color: ['#d5e5e2', '#11d8ae', '#dc1d1f'],
           },
         },
         {
@@ -106,7 +115,7 @@ const map = {
           type: 'line',
           elementDrawInfo: {
             width: 3,
-            color: '#F47994',
+            color: '#ff9a9a',
           },
         },
         {
@@ -116,7 +125,7 @@ const map = {
             width: 30,
             height: 30,
             radius: 30,
-            color: '#124e42',
+            color: '#222222',
           },
         },
         {
@@ -124,7 +133,7 @@ const map = {
           type: 'line',
           elementDrawInfo: {
             width: 55,
-            color: '#6f6f6f',
+            color: '#82acc1',
           },
         },
         {
@@ -133,16 +142,7 @@ const map = {
           elementDrawInfo: {
             width: 550,
             height: 120,
-            color: '#484144',
-          },
-        },
-        {
-          id: 'sea',
-          type: 'rect',
-          elementDrawInfo: {
-            width: 190,
-            height: 150,
-            color: '#1A4876',
+            color: '#3d4448',
           },
         },
         {
@@ -152,16 +152,16 @@ const map = {
             width: 50,
             height: 50,
             radius: 50,
-            color: '#EE204D',
+            color: ['#f6e0d4', '#ff813f', '#dc1d1f'],
           },
         },
         {
-          id: 'WLSensor',
+          id: 'waterLevel',
           type: 'rect',
           elementDrawInfo: {
             width: 50,
-            height: 40,
-            color: '#dedede',
+            height: 30,
+            color: '#f0f0f0',
           },
         },
         {
@@ -169,8 +169,8 @@ const map = {
           type: 'rect',
           elementDrawInfo: {
             width: 50,
-            height: 40,
-            color: '#dedede',
+            height: 30,
+            color: '#f0f0f0',
           },
         },
         {
@@ -178,8 +178,8 @@ const map = {
           type: 'rect',
           elementDrawInfo: {
             width: 50,
-            height: 40,
-            color: '#dedede',
+            height: 30,
+            color: '#f0f0f0',
           },
         },
         {
@@ -187,64 +187,74 @@ const map = {
           type: 'rect',
           elementDrawInfo: {
             width: 50,
-            height: 40,
-            color: '#dedede',
+            height: 30,
+            color: '#f0f0f0',
           },
         },
       ],
     },
-    positionList: {
+    positionInfo: {
       svgPlaceList: [
         {
           placeClassId: 'salternBlock',
           defList: [
             {
               id: 'SEB_1_A',
+              name: '증발지_1A',
               resourceId: 'salternModuleBlock_A',
-              point: [340, 950],
+              point: [335, 950],
             },
             {
               id: 'SEB_1_B',
+              name: '증발지_1B',
               resourceId: 'salternModuleBlock_A',
-              point: [340, 760],
+              point: [335, 760],
             },
             {
               id: 'SEB_1_C',
+              name: '증발지_1C',
               resourceId: 'salternModuleBlock_A',
-              point: [340, 570],
+              point: [335, 570],
             },
             {
               id: 'SEB_1_D',
+              name: '증발지_1D',
               resourceId: 'salternModuleBlock_A',
-              point: [340, 380],
+              point: [335, 380],
             },
             {
               id: 'SEB_1_E',
+              name: '증발지_1E',
               resourceId: 'salternModuleBlock_B',
               point: [1220, 400],
             },
             {
               id: 'SEB_일반',
+              name: '증발지_일반',
               resourceId: 'salternNomalBlock_A',
-              point: [340, 210],
+              point: [335, 210],
             },
             {
               id: 'SEB_2',
+              name: '증발지_2',
               resourceId: 'salternNomalBlock_B',
               point: [635, 340],
             },
             {
               id: 'SEB_3',
+              name: '증발지_3',
               resourceId: 'salternNomalBlock_B',
               point: [635, 532],
             },
             {
               id: 'SEB_4',
+              name: '증발지_4',
               resourceId: 'salternNomalBlock_B',
               point: [635, 727],
             },
             {
               id: 'SCB',
+              name: '결정지',
               resourceId: 'salternCrystalBlock',
               point: [635, 920],
             },
@@ -255,11 +265,13 @@ const map = {
           defList: [
             {
               id: 'EA_일반',
+              name: '육상_일반',
               resourceId: 'earth',
               point: [0, 855],
             },
             {
               id: 'EA_G2G',
+              name: '육상_G2G',
               resourceId: 'earth',
               point: [0, 980],
             },
@@ -270,18 +282,21 @@ const map = {
           defList: [
             {
               id: 'BW_1',
+              name: '해주_1',
               resourceId: 'brineWarehouse',
-              point: [600, 135],
+              point: [600, 130],
             },
             {
               id: 'BW_2',
+              name: '해주_2',
               resourceId: 'brineWarehouse',
-              point: [790, 135],
+              point: [790, 130],
             },
             {
               id: 'BW_3',
+              name: '해주_3',
               resourceId: 'brineWarehouse',
-              point: [980, 135],
+              point: [980, 130],
             },
           ],
         },
@@ -290,8 +305,9 @@ const map = {
           defList: [
             {
               id: 'RV',
+              name: '저수조',
               resourceId: 'reservoir',
-              point: [600, 10],
+              point: [600, 3],
             },
           ],
         },
@@ -300,8 +316,9 @@ const map = {
           defList: [
             {
               id: 'SEA',
+              name: '바다',
               resourceId: 'sea',
-              point: [1025, 980],
+              point: [1030, 980],
             },
           ],
         },
@@ -310,38 +327,45 @@ const map = {
           defList: [
             {
               id: 'WW_001',
+              name: '수로_1',
               resourceId: 'waterWay',
               point: [607.5, 1100, 607.5, 340],
             },
             {
               id: 'WW_002',
+              name: '수로_2',
               resourceId: 'waterWay',
               point: [580, 312.5, 770, 312.5],
             },
             {
               id: 'WW_003',
+              name: '수로_3',
               resourceId: 'waterWay',
-              point: [922, 1100, 922, 340],
+              point: [928, 1100, 928, 340],
             },
             {
               id: 'WW_004',
+              name: '수로_4',
               resourceId: 'waterWay',
               point: [770, 312.5, 1035, 312.5],
             },
             {
               id: 'WW_005',
+              name: '수로_5',
               resourceId: 'waterWay',
               point: [1007.5, 1100, 1007.5, 340],
             },
             {
               id: 'WW_006',
+              name: '수로_6',
               resourceId: 'waterWay',
-              point: [1247.5, 1045, 1247.5, 700],
+              point: [1247.5, 1045, 1247.5, 705],
             },
             {
               id: 'WW_007',
+              name: '수로_7',
               resourceId: 'waterWay',
-              point: [1275, 1072, 1200, 1072],
+              point: [1275, 1072, 1205, 1072],
             },
           ],
         },
@@ -350,93 +374,117 @@ const map = {
           defList: [
             {
               id: 'PL_001',
+              name: '파이프_1',
               resourceId: 'pipeLine',
-              point: [1150, 24, 1176, 24],
+              point: [1150, 24, 1550, 24],
             },
             {
               id: 'PL_002',
+              name: '파이프_2',
               resourceId: 'pipeLine',
-              point: [1175, 980, 1175, 24],
+              point: [1550, 1005, 1550, 24],
             },
             {
               id: 'PL_003',
+              name: '파이프_3',
               resourceId: 'pipeLine',
               point: [300, 35, 600, 35],
             },
             {
               id: 'PL_004',
+              name: '파이프_4',
               resourceId: 'pipeLine',
               point: [300, 160, 600, 160],
             },
             {
               id: 'PL_005',
+              name: '파이프_5',
               resourceId: 'pipeLine',
               point: [300, 150, 300, 35],
             },
             {
               id: 'PL_006',
+              name: '파이프_6',
               resourceId: 'pipeLine',
               point: [300, 550, 300, 150],
             },
             {
               id: 'PL_007',
+              name: '파이프_7',
               resourceId: 'pipeLine',
-              point: [300, 550, 370, 550],
+              point: [300, 550, 365, 550],
             },
             {
               id: 'PL_008',
+              name: '파이프_8',
               resourceId: 'pipeLine',
-              point: [370, 550, 370, 530],
+              point: [365, 550, 365, 530],
             },
             {
               id: 'PL_009',
+              name: '파이프_9',
               resourceId: 'pipeLine',
-              point: [370, 570, 370, 550],
+              point: [365, 570, 365, 550],
             },
             {
               id: 'PL_010',
+              name: '파이프_10',
               resourceId: 'pipeLine',
               point: [300, 930, 300, 550],
             },
             {
               id: 'PL_011',
+              name: '파이프_11',
               resourceId: 'pipeLine',
-              point: [300, 930, 370, 930],
+              point: [300, 930, 365, 930],
             },
             {
               id: 'PL_012',
+              name: '파이프_12',
               resourceId: 'pipeLine',
-              point: [370, 930, 370, 910],
+              point: [365, 930, 365, 910],
             },
             {
               id: 'PL_013',
+              name: '파이프_13',
               resourceId: 'pipeLine',
-              point: [370, 950, 370, 930],
+              point: [365, 950, 365, 930],
             },
             {
               id: 'PL_014',
+              name: '파이프_14',
               resourceId: 'pipeLine',
               point: [815, 340, 815, 185],
             },
             {
               id: 'PL_015',
+              name: '파이프_15',
               resourceId: 'pipeLine',
               point: [1125, 935, 1125, 185],
             },
             {
               id: 'PL_016',
+              name: '파이프_16',
               resourceId: 'pipeLine',
               point: [895, 935, 1125, 935],
             },
             {
               id: 'PL_017',
+              name: '파이프_17',
               resourceId: 'pipeLine',
               point: [1150, 105, 1295, 105],
             },
             {
               id: 'PL_018',
+              name: '파이프_18',
               resourceId: 'pipeLine',
               point: [1295, 400, 1295, 105],
+            },
+            {
+              id: 'PL_019',
+              name: '파이프_19',
+              resourceId: 'pipeLine',
+              point: [1200, 1005, 1550, 1005],
             },
           ],
         },
@@ -445,7 +493,7 @@ const map = {
     },
   },
   setInfo: {
-    mainInfo: {main_seq: 1, uuid: 'aaaaa'},
+    mainInfo: { main_seq: 1, uuid: 'aaaaa' },
     dccConstructorList: [
       {
         dccId: 'DCC_001',
@@ -1051,7 +1099,7 @@ const map = {
                 target_code: '016',
                 data_logger_index: 0,
                 axisScale: [1, 0],
-                moveScale: [0, 0],
+                moveScale: [0, -0.05],
               },
             ],
           },
@@ -1703,11 +1751,6 @@ const map = {
       },
       {
         targetIdList: [
-          'GV_001',
-          'GV_002',
-          'GV_003',
-          'GV_004',
-          'GV_005',
           'WD_005',
           'WD_006',
           'WD_007',
@@ -1722,6 +1765,10 @@ const map = {
           'WD_016',
         ],
         resourceIdList: ['waterDoor'],
+      },
+      {
+        targetIdList: ['GV_001', 'GV_002', 'GV_003', 'GV_004', 'GV_005'],
+        resourceIdList: ['gateValve'],
       },
       {
         targetIdList: ['P_001', 'P_002', 'P_003', 'P_004', 'P_005', 'P_006'],
@@ -1740,12 +1787,36 @@ const map = {
         resourceIdList: ['waterWay'],
       },
       {
+        targetIdList: [
+          'PL_001',
+          'PL_002',
+          'PL_003',
+          'PL_004',
+          'PL_005',
+          'PL_006',
+          'PL_007',
+          'PL_008',
+          'PL_009',
+          'PL_010',
+          'PL_011',
+          'PL_012',
+          'PL_013',
+          'PL_014',
+          'PL_015',
+          'PL_016',
+          'PL_017',
+          'PL_018',
+          'PL_019',
+        ],
+        resourceIdList: ['pipeLine'],
+      },
+      {
         targetIdList: ['MRT_001', 'MRT_002', 'MRT_003', 'MRT_004', 'MRT_005', 'MRT_006', 'MRT_007'],
         resourceIdList: ['moduleRearTemperature'],
       },
       {
         targetIdList: ['WL_001', 'WL_002', 'WL_003', 'WL_004', 'WL_005'],
-        resourceIdList: ['WLSensor'],
+        resourceIdList: ['waterLevel'],
       },
       {
         targetIdList: ['BT_001', 'BT_002', 'BT_003', 'BT_004', 'BT_005'],
@@ -1756,6 +1827,7 @@ const map = {
         resourceIdList: ['salinity'],
       },
     ],
+    nameExclusionList: ['pipeLine', 'waterWay'],
   },
   controlInfo: {
     tempControlList: [
