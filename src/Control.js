@@ -8,7 +8,6 @@ class Control {
     // mDrawInfo 연관이 깊음.
     if (process.env.HAS_SVG === 'true') {
       this.svgMaker = new SvgMaker();
-      this.svgMaker.startMake();
     }
 
     // map 정보를 읽어 들여 DB에 Setting (setInfo.)
