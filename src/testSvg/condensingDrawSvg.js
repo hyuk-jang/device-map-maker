@@ -69,11 +69,20 @@ function drawExistCanvasValue(nodeId, svgValue) {
 
   const foundCanvas = _.find(svgNodeTextList, { id: nodeId });
   if (_.isUndefined(foundCanvas)) return false;
-  const nodeX = foundCanvas.textX;
 
-  // foundCanvas.text.node.innerHTML = `<tspan dy="0.5%">${foundCanvas.name}</tspan>`; // FIXME: 수정 필요
-  // foundCanvas.text.node.innerHTML = `<tspan class="data" style="font-size: 20pt; stroke: #00c51a; stroke-width: 0.2" dx="0.5%" dy="0.9%">${svgValue}</tspan>`;
-  foundCanvas.text.node.innerHTML = `<tspan class="data" style="text-align: right; font-size: 20pt; stroke: #00c51a; stroke-width: 0.2" dy="0.9%">${svgValue}</tspan>`;
+  foundCanvas.text.node.innerHTML = `<tspan class="data" style="font-size: 20pt; stroke: #00c51a; stroke-width: 0.2" dx="1.1%" dy="0.9%">${svgValue}</tspan>`;
+  const getSvgElement = $(`#${nodeId}`);
+  const x1 = getSvgElement[0].x.animVal.value + getSvgElement[0].width.baseVal.value;
+  const textX1 = foundCanvas.textX + foundCanvas.text.node.textLength.baseVal.value;
+  console.log(foundCanvas);
+  let x;
+  if (textX1 > x1) {
+    x = foundCanvas.text.node.attributes.x.value - (textX1 - x1);
+    console.log(x);
+  } else {
+    return false;
+  }
+  foundCanvas.text.node.innerHTML = `<tspan class="data" style="font-size: 20pt; stroke: #00c51a; stroke-width: 0.2" x="${x}" dx="1.1%" dy="0.9%">${svgValue}</tspan>`;
 
   // 받아온 id 값으로  color 값 찾기
   realMap.drawInfo.positionInfo.svgNodeList.forEach(svgNodeInfo => {
