@@ -211,8 +211,8 @@ class NewSvgMaker {
     let y;
 
     if (isSensor === 1) {
-      x = x1 + (x2 - x1) / 2 - width / 2 + moveX;
-      y = y1 + (y2 - y1) / 2 - height / 2 + moveY;
+      x = x1 + ((x2 - x1) / 2 - width / 2) + moveX;
+      y = y1 + ((y2 - y1) / 2 - height / 2) + moveY;
 
       targetAxis = [x, y];
     } else {
@@ -343,9 +343,11 @@ class NewSvgMaker {
             // const
             // BU.CLI(foundTest);
             // //////// END ///////////
+            const { axisScale } = this.getAxisMoveScale(sensorId);
             let moveScale = [[]];
             if (sensorStorage.length === 1) {
-              moveScale = [0, 0];
+              console.log(sensorId);
+              moveScale = axisScale;
             } else if (sensorStorage.length > 2 < 5) {
               moveScale = [[-0.8, -0.8], [0.8, -0.8], [-0.8, 0.8], [0.8, 0.8]];
               moveScale = moveScale[index];

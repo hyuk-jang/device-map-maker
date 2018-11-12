@@ -5,7 +5,7 @@ const svgNodeTextList = [];
  * @param {string} documentId
  * @param {string=} img
  */
-function svgCanvas(documentId, image) {
+function svgCanvas(documentId, image, title) {
   /** @type {mDeviceMap} */
   const realMap = map;
 
@@ -13,6 +13,15 @@ function svgCanvas(documentId, image) {
   const { width: canvasWidth, height: canvasHeight } = realMap.drawInfo.frame.mapSize;
   const canvas = SVG(documentId).size(canvasWidth, canvasHeight);
   const img = canvas.image(image, canvasWidth, canvasHeight);
+  // TODO:
+  canvas
+    .text(title)
+    .move(20, 450)
+    .font({
+      fill: 'white',
+      size: 50,
+      weight: 'bold',
+    });
   img.move(0, 0);
   canvas.attr({ id: 'canvasId' });
 
@@ -70,17 +79,8 @@ function drawExistCanvasValue(nodeId, svgValue) {
   const foundCanvas = _.find(svgNodeTextList, { id: nodeId });
   if (_.isUndefined(foundCanvas)) return false;
 
-  foundCanvas.text.node.innerHTML = `<tspan class="data" style="font-size: 20pt; stroke: #00c51a; stroke-width: 0.2" dx="1.1%" dy="0.9%">${svgValue}</tspan>`;
-  // const getSvgElement = $(`#${nodeId}`);
-  // const x1 = getSvgElement[0].x.animVal.value + getSvgElement[0].width.baseVal.value;
-  // const textX1 = foundCanvas.textX + foundCanvas.text.node.textLength.baseVal.value;
-  // let x;
-  // if (textX1 > x1) {
-  //   x = foundCanvas.text.node.attributes.x.value - (textX1 - x1);
-  // } else {
-  //   return false;
-  // }
-  // foundCanvas.text.node.innerHTML = `<tspan class="data" style="font-size: 20pt; stroke: #00c51a; stroke-width: 0.2" x="${x}" dx="1.1%" dy="0.9%">${svgValue}</tspan>`;
+  const dataUnit = foundDataUnit(nodeId);
+  foundCanvas.text.node.innerHTML = `<tspan class="data" style="font-size: 20pt;  stroke-width: 0.2" dx="1.1%" dy="0.9%">${svgValue} </tspan><tspan style="font-size: 20pt; stroke-width: 0.2">${dataUnit}</tspan>`;
 
   // 받아온 id 값으로  color 값 찾기
   realMap.drawInfo.positionInfo.svgNodeList.forEach(svgNodeInfo => {
@@ -157,8 +157,10 @@ function writeText(canvas, defInfo, resourceInfo) {
       }
       // 장소 text style 지정
       if (_.isString(foundSvgInfo.placeId)) {
-        textSize = 17;
-        leading = '0.8em';
+        textSize = 25;
+        leading = '0.7em';
+        textX = x1 + 130;
+        textColor = 'white';
       }
     } else if (resourceInfo.type === 'line') {
       if (x1 === x2) {
@@ -380,8 +382,8 @@ function svgDrawing(canvas, type, point, elementDrawInfo, id) {
 function svgDrawingRect(canvas, point, elementDrawInfo, id) {
   const [x, y] = point;
 
-  let { width, height, color, opacity, radius } = elementDrawInfo;
-  if (_.isUndefined(radius)) return 0;
+  let { width, height, color, radius, opacity } = elementDrawInfo;
+  // if (_.isUndefined(radius)) return 1;
 
   // color가 배열이 아니면 배열로 변환
   color = Array.isArray(color) ? color : [color];
@@ -390,12 +392,11 @@ function svgDrawingRect(canvas, point, elementDrawInfo, id) {
     .fill(color[0])
     .move(x, y)
     .radius(radius)
-    // .stroke({ width: 0.5 })
     .attr({
       id,
       opacity,
     });
-  // svgDrawingShadow(model, id);
+  svgDrawingShadow(model, id);
 }
 
 /**
@@ -515,18 +516,18 @@ function svgDrawingShadow(model, id) {
   if (_.isUndefined(isSensor)) {
     model.filter(add => {
       const blur = add
-        .offset(4, 4)
+        .offset(7, 7)
         .in(add.sourceAlpha)
-        .gaussianBlur(2.5);
+        .gaussianBlur(4);
 
       add.blend(add.source, blur);
     });
   } else {
     model.filter(add => {
       const blur = add
-        .offset(0, 4)
+        .offset(0, 5)
         .in(add.sourceAlpha)
-        .gaussianBlur(2);
+        .gaussianBlur(4);
       add.blend(add.source, blur);
     });
   }
@@ -546,6 +547,17 @@ function foundIsSensor(id) {
   if (_.isUndefined(foundIsSensor)) return undefined;
 
   return foundIsSensor.is_sensor;
+}
+
+function foundDataUnit(id) {
+  /** @type {mDeviceMap} */
+  const realMap = map;
+
+  const foundUnit = _.find(realMap.setInfo.nodeStructureList, nodeStructureInfo =>
+    _.map(nodeStructureInfo.defList, 'target_prefix').includes(_.replace(id, /[_\d]/g, '')),
+  );
+
+  return foundUnit.data_unit;
 }
 
 /**

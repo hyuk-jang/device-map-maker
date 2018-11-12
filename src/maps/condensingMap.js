@@ -12,33 +12,67 @@ const map = {
       },
       svgModelResourceList: [
         {
-          id: 'invisiblePlace',
+          id: 'dateArea',
           type: 'rect',
           elementDrawInfo: {
-            width: 80,
-            height: 45,
-            opacity: 0.3,
-            color: '#3e4379',
+            width: 300,
+            height: 50,
+            radius: 5,
+            opacity: 0,
+            color: '#343d46',
+          },
+        },
+        {
+          id: 'time',
+          type: 'rect',
+          elementDrawInfo: {
+            width: 100,
+            height: 40,
+            radius: 5,
+            opacity: 0,
+            color: 'white',
+          },
+        },
+        {
+          id: 'accDataPlace',
+          type: 'rect',
+          elementDrawInfo: {
+            width: 480,
+            height: 60,
+            radius: 0,
+            color: '#d9534f',
+          },
+        },
+        {
+          id: 'sensorPlace',
+          type: 'rect',
+          elementDrawInfo: {
+            width: 370,
+            height: 60,
+            radius: 0,
+            color: '#5cb85c',
           },
         },
         {
           id: 'sensor_A',
           type: 'rect',
           elementDrawInfo: {
-            width: 87,
+            width: 100,
             height: 40,
             radius: 5,
-            color: '#f0f0f0',
+            opacity: 1,
+            color: '#e1e1e1',
           },
         },
         {
           id: 'sensor_B',
           type: 'rect',
           elementDrawInfo: {
-            width: 140,
+            width: 200,
             height: 43,
             radius: 5,
-            color: '#f0f0f0',
+            opacity: 1,
+            color: '#e1e1e1',
           },
         },
       ],
@@ -50,39 +84,51 @@ const map = {
           defList: [
             {
               id: 'CGT_P_1',
-              name: '집광기입구온도장소_1',
-              resourceId: 'invisiblePlace',
-              point: [430, 1290],
+              name: '집광기 입구온도',
+              resourceId: 'sensorPlace',
+              point: [200, 1280],
             },
             {
               id: 'COT_P_1',
-              name: '집광기출구온도장소_1',
-              resourceId: 'invisiblePlace',
-              point: [995, 605],
+              name: '집광기 출구온도',
+              resourceId: 'sensorPlace',
+              point: [850, 570],
             },
             {
               id: 'HMST_P_1',
-              name: '열매체공급온도장소_1',
-              resourceId: 'invisiblePlace',
-              point: [1338, 770],
+              name: '열매체 공급온도',
+              resourceId: 'sensorPlace',
+              point: [1150, 700],
             },
             {
               id: 'SAP_P_1',
-              name: '태양열누적생산장소_1',
-              resourceId: 'invisiblePlace',
-              point: [1700, 465],
+              name: '태양열 누적 생산',
+              resourceId: 'accDataPlace',
+              point: [1500, 465],
             },
             {
               id: 'TAPP_P_1',
-              name: '터빈누적생산전력장소_1',
-              resourceId: 'invisiblePlace',
-              point: [1700, 523],
+              name: '터빈 누적 생산전력',
+              resourceId: 'accDataPlace',
+              point: [1500, 525],
             },
             {
               id: 'STP_P_1',
-              name: '스팀터빈발전량장소_1',
-              resourceId: 'invisiblePlace',
-              point: [1645, 810],
+              name: '스팀터빈 발전량',
+              resourceId: 'sensorPlace',
+              point: [1450, 800],
+            },
+            {
+              id: 'UT_P_1',
+              name: '갱신 시간',
+              resourceId: 'dateArea',
+              point: [800, 500],
+            },
+            {
+              id: 'CT_P_1',
+              name: '현재 시간',
+              resourceId: 'dateArea',
+              point: [800, 450],
             },
           ],
         },
@@ -96,6 +142,103 @@ const map = {
     dpcConstructorList: [],
     dataLoggerStructureList: [],
     nodeStructureList: [
+      {
+        target_id: 'time',
+        target_name: '시분초',
+        is_sensor: 1,
+        data_unit: '',
+        description: '시간',
+        defList: [
+          {
+            target_id: 'currentTime',
+            target_prefix: 'CT',
+            target_name: '현재 시간',
+            description: null,
+            nodeList: [
+              {
+                target_code: '001',
+                data_logger_index: 0,
+                axisScale: [1, 0],
+                moveScale: [0, 0],
+              },
+            ],
+          },
+          {
+            target_id: 'updateTime',
+            target_prefix: 'UT',
+            target_name: '갱신 시간',
+            description: null,
+            nodeList: [
+              {
+                target_code: '001',
+                data_logger_index: 0,
+                axisScale: [1, 0],
+                moveScale: [0, 0],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        target_id: 'power',
+        target_name: '전력',
+        is_sensor: 1,
+        data_unit: 'kW',
+        description: '키로와트',
+        defList: [
+          {
+            target_id: 'solarAccProduction',
+            target_prefix: 'SAP',
+            target_name: '태양열 누적 생산',
+            description: null,
+            nodeList: [
+              {
+                target_code: '001',
+                data_logger_index: 0,
+                axisScale: [0.6, 0],
+                moveScale: [0, 0],
+              },
+            ],
+          },
+          {
+            target_id: 'steamTurbinePower',
+            target_prefix: 'STP',
+            target_name: '스팀 터빈 발전량',
+            description: null,
+            nodeList: [
+              {
+                target_code: '001',
+                data_logger_index: 0,
+                axisScale: [1.2, 0],
+                moveScale: [0, 0],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        target_id: 'calorie',
+        target_name: '열량',
+        is_sensor: 1,
+        data_unit: 'Mkcal',
+        description: '메가키로칼로리',
+        defList: [
+          {
+            target_id: 'turbinAccProductionPower',
+            target_prefix: 'TAPP',
+            target_name: '터빈 누적 생산 전력',
+            description: null,
+            nodeList: [
+              {
+                target_code: '001',
+                data_logger_index: 0,
+                axisScale: [0.6, 0],
+                moveScale: [0, 0],
+              },
+            ],
+          },
+        ],
+      },
       {
         target_id: 'temp',
         target_name: '온도',
@@ -112,7 +255,7 @@ const map = {
               {
                 target_code: '001',
                 data_logger_index: 0,
-                axisScale: [0, 0],
+                axisScale: [1.2, 0],
                 moveScale: [0, 0],
               },
             ],
@@ -126,7 +269,7 @@ const map = {
               {
                 target_code: '001',
                 data_logger_index: 0,
-                axisScale: [0, 0],
+                axisScale: [1.2, 0],
                 moveScale: [0, 0],
               },
             ],
@@ -140,49 +283,7 @@ const map = {
               {
                 target_code: '001',
                 data_logger_index: 0,
-                axisScale: [0, 0],
-                moveScale: [0, 0],
-              },
-            ],
-          },
-          {
-            target_id: 'solarAccProduction',
-            target_prefix: 'SAP',
-            target_name: '태양열 누적 생산',
-            description: null,
-            nodeList: [
-              {
-                target_code: '001',
-                data_logger_index: 0,
-                axisScale: [0, 0],
-                moveScale: [0, 0],
-              },
-            ],
-          },
-          {
-            target_id: 'turbinAccProductionPower',
-            target_prefix: 'TAPP',
-            target_name: '터빈 누적 생산 전력',
-            description: null,
-            nodeList: [
-              {
-                target_code: '001',
-                data_logger_index: 0,
-                axisScale: [0, 0],
-                moveScale: [0, 0],
-              },
-            ],
-          },
-          {
-            target_id: 'steamTurbinePower',
-            target_prefix: 'STP',
-            target_name: '스팀 터빈 발전량',
-            description: null,
-            nodeList: [
-              {
-                target_code: '001',
-                data_logger_index: 0,
-                axisScale: [0, 0],
+                axisScale: [1.2, 0],
                 moveScale: [0, 0],
               },
             ],
@@ -264,13 +365,39 @@ const map = {
               },
             ],
           },
+          {
+            target_id: 'currentTimePlace',
+            target_prefix: 'CT_P_1',
+            target_name: '현재 시간',
+            placeList: [
+              {
+                target_id: '1',
+                nodeList: ['CT_001'],
+              },
+            ],
+          },
+          {
+            target_id: 'updateTimePlace',
+            target_prefix: 'UT_P_1',
+            target_name: '갱신 시간',
+            placeList: [
+              {
+                target_id: '1',
+                nodeList: ['UT_001'],
+              },
+            ],
+          },
         ],
       },
     ],
     svgResourceConnectionList: [
       {
-        targetIdList: ['CGT_P_1', 'COT_P_1', 'HMST_P_1', 'SAP_P_1', 'TAPP_P_1', 'STP_P_1'],
-        resourceIdList: ['invisiblePlace'],
+        targetIdList: ['CGT_P_1', 'COT_P_1', 'HMST_P_1', 'STP_P_1'],
+        resourceIdList: ['sensorPlace'],
+      },
+      {
+        targetIdList: ['SAP_P_1', 'TAPP_P_1'],
+        resourceIdList: ['accDataPlace'],
       },
       {
         targetIdList: ['CGT_001', 'COT_001', 'HMST_001', 'STP_001'],
@@ -279,6 +406,14 @@ const map = {
       {
         targetIdList: ['SAP_001', 'TAPP_001'],
         resourceIdList: ['sensor_B'],
+      },
+      {
+        targetIdList: ['CT_001', 'UT_001'],
+        resourceIdList: ['time'],
+      },
+      {
+        targetIdList: ['UT_P_1', 'CT_P_1'],
+        resourceIdList: ['dateArea'],
       },
     ],
     // nameExclusionList: [
@@ -290,7 +425,7 @@ const map = {
     //   'turbinAccProductionPower',
     //   'steamTurbinePower',
     // ],
-    nameExclusionList: ['dataPlace'],
+    nameExclusionList: [],
   },
   controlInfo: {},
 };
