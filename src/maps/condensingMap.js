@@ -1,4 +1,4 @@
-require('../../../default-intelligence');
+// require('../../../default-intelligence');
 
 /**
  * @type {mDeviceMap}
@@ -12,14 +12,14 @@ const map = {
       },
       svgModelResourceList: [
         {
-          id: 'dateArea',
+          id: 'timeArea',
           type: 'rect',
           elementDrawInfo: {
-            width: 300,
+            width: 350,
             height: 50,
-            radius: 5,
-            opacity: 0,
-            color: '#343d46',
+            radius: 0,
+            opacity: 1,
+            color: '#667e99',
           },
         },
         {
@@ -61,7 +61,7 @@ const map = {
             height: 40,
             radius: 5,
             opacity: 1,
-            color: '#e1e1e1',
+            color: '#dfdfdf',
           },
         },
         {
@@ -72,7 +72,7 @@ const map = {
             height: 43,
             radius: 5,
             opacity: 1,
-            color: '#e1e1e1',
+            color: '#dfdfdf',
           },
         },
       ],
@@ -119,16 +119,16 @@ const map = {
               point: [1450, 800],
             },
             {
-              id: 'UT_P_1',
-              name: '갱신 시간',
-              resourceId: 'dateArea',
-              point: [800, 500],
-            },
-            {
               id: 'CT_P_1',
               name: '현재 시간',
-              resourceId: 'dateArea',
-              point: [800, 450],
+              resourceId: 'timeArea',
+              point: [900, 455],
+            },
+            {
+              id: 'UT_P_1',
+              name: '갱신 시간',
+              resourceId: 'timeArea',
+              point: [900, 500],
             },
           ],
         },
@@ -413,7 +413,7 @@ const map = {
       },
       {
         targetIdList: ['UT_P_1', 'CT_P_1'],
-        resourceIdList: ['dateArea'],
+        resourceIdList: ['timeArea'],
       },
     ],
     // nameExclusionList: [

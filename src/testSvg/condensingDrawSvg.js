@@ -3,7 +3,8 @@ const svgNodeTextList = [];
 
 /**
  * @param {string} documentId
- * @param {string=} img
+ * @param {string=} image // 배경 이미지 url
+ * @param {string=} title // 제목
  */
 function svgCanvas(documentId, image, title) {
   /** @type {mDeviceMap} */
@@ -13,12 +14,13 @@ function svgCanvas(documentId, image, title) {
   const { width: canvasWidth, height: canvasHeight } = realMap.drawInfo.frame.mapSize;
   const canvas = SVG(documentId).size(canvasWidth, canvasHeight);
   const img = canvas.image(image, canvasWidth, canvasHeight);
-  // TODO:
+  //
+
   canvas
     .text(title)
-    .move(20, 450)
+    .move(50, 450)
     .font({
-      fill: 'white',
+      fill: '#ececec',
       size: 50,
       weight: 'bold',
     });
@@ -159,8 +161,9 @@ function writeText(canvas, defInfo, resourceInfo) {
       if (_.isString(foundSvgInfo.placeId)) {
         textSize = 25;
         leading = '0.7em';
-        textX = x1 + 130;
-        textColor = 'white';
+        textX = x1 + 35;
+        anchor = 'start';
+        textColor = '#ececec';
       }
     } else if (resourceInfo.type === 'line') {
       if (x1 === x2) {
@@ -560,6 +563,12 @@ function foundDataUnit(id) {
   return foundUnit.data_unit;
 }
 
+function setTimeData(id, time) {
+  const foundCanvas = _.find(svgNodeTextList, { id });
+  if (_.isUndefined(foundCanvas)) return false;
+
+  foundCanvas.text.node.innerHTML = `<tspan class="data" style="fill: #dfdfdf;  font-size: 20pt;  stroke-width: 0.2" dx="1.1%" dy="0.9%">${time} </tspan>`;
+}
 /**
  * @typedef {Object} svgNodeStorageInfo
  * @property {string} id
