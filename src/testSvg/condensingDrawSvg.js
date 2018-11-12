@@ -71,18 +71,16 @@ function drawExistCanvasValue(nodeId, svgValue) {
   if (_.isUndefined(foundCanvas)) return false;
 
   foundCanvas.text.node.innerHTML = `<tspan class="data" style="font-size: 20pt; stroke: #00c51a; stroke-width: 0.2" dx="1.1%" dy="0.9%">${svgValue}</tspan>`;
-  const getSvgElement = $(`#${nodeId}`);
-  const x1 = getSvgElement[0].x.animVal.value + getSvgElement[0].width.baseVal.value;
-  const textX1 = foundCanvas.textX + foundCanvas.text.node.textLength.baseVal.value;
-  console.log(foundCanvas);
-  let x;
-  if (textX1 > x1) {
-    x = foundCanvas.text.node.attributes.x.value - (textX1 - x1);
-    console.log(x);
-  } else {
-    return false;
-  }
-  foundCanvas.text.node.innerHTML = `<tspan class="data" style="font-size: 20pt; stroke: #00c51a; stroke-width: 0.2" x="${x}" dx="1.1%" dy="0.9%">${svgValue}</tspan>`;
+  // const getSvgElement = $(`#${nodeId}`);
+  // const x1 = getSvgElement[0].x.animVal.value + getSvgElement[0].width.baseVal.value;
+  // const textX1 = foundCanvas.textX + foundCanvas.text.node.textLength.baseVal.value;
+  // let x;
+  // if (textX1 > x1) {
+  //   x = foundCanvas.text.node.attributes.x.value - (textX1 - x1);
+  // } else {
+  //   return false;
+  // }
+  // foundCanvas.text.node.innerHTML = `<tspan class="data" style="font-size: 20pt; stroke: #00c51a; stroke-width: 0.2" x="${x}" dx="1.1%" dy="0.9%">${svgValue}</tspan>`;
 
   // 받아온 id 값으로  color 값 찾기
   realMap.drawInfo.positionInfo.svgNodeList.forEach(svgNodeInfo => {
@@ -133,6 +131,7 @@ function writeText(canvas, defInfo, resourceInfo) {
   let [textX, textY, textSize, textColor, leading] = [0, 0, 10, '#fdfe02', '1em'];
   const { width, height, radius } = resourceInfo.elementDrawInfo;
   const [x1, y1, x2, y2] = defInfo.point;
+  let anchor = 'middle';
 
   // svgPositionList를 검색하여 장치인지 센서인지 정의
   let foundSvgInfo = _.find(realMap.drawInfo.positionInfo.svgNodeList, svgNodeInfo =>
@@ -153,6 +152,8 @@ function writeText(canvas, defInfo, resourceInfo) {
       // 노드중 sensor style 지정
       if (foundSvgInfo.is_sensor === 1) {
         textColor = 'black';
+        anchor = 'end';
+        textX = x1 + width - 25;
       }
       // 장소 text style 지정
       if (_.isString(foundSvgInfo.placeId)) {
@@ -182,7 +183,7 @@ function writeText(canvas, defInfo, resourceInfo) {
       .font({
         fill: textColor,
         size: textSize,
-        anchor: 'middle',
+        anchor,
         leading,
         weight: 'bold',
       })
