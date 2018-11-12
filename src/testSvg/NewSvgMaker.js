@@ -1,6 +1,6 @@
 const { BU } = require('base-util-jh');
 const _ = require('lodash');
-const map = require('./testMap');
+const map = require('../maps/condensingMap');
 
 require('../../../default-intelligence');
 
@@ -9,18 +9,19 @@ class NewSvgMaker {
     this.makeObjInfo();
     this.makeSvgNodeList();
     this.makeSensorList();
+    this.startMake();
   }
 
   startMake() {
     BU.writeFile(
-      './src/testSvg/outputMap.js',
+      './src/maps/condensingOutputMap.js',
       `var map = ${JSON.stringify(map)}`,
       'w',
       (err, res) => {
         if (err) {
           return BU.CLI('Map 자동 생성에 실패하였습니다.');
         }
-        BU.CLI('맵 자동생성을 하였습니다.', 'outputMap.js');
+        BU.CLI('맵 자동생성을 하였습니다.', 'condensingOutputMap.js');
       },
     );
   }
@@ -48,6 +49,7 @@ class NewSvgMaker {
 
     if (_.isObject(foundSVGResourceConnectionInfo)) {
       const resourceId = foundSVGResourceConnectionInfo.resourceIdList[0];
+      // BU.CLI(resourceId);
       /** @type {mSvgModelResource} */
       const resourceInfo = _.find(map.drawInfo.frame.svgModelResourceList, {
         id: resourceId,
@@ -90,10 +92,10 @@ class NewSvgMaker {
 
             // 그룹 존재
             /** @type {storageInfo[]} */
-            let foundIt = _.find(storageList, { nodeClassId: resourceId });
+            let foundIt = _.find(storageList, { nodeDefId: resourceId });
             if (_.isEmpty(foundIt)) {
               foundIt = {
-                nodeClassId: resourceId,
+                nodeDefId: resourceId,
                 defList: [],
               };
               storageList.push(foundIt);
@@ -108,7 +110,6 @@ class NewSvgMaker {
         });
       });
     });
-
     this.storageList = storageList;
   }
 
@@ -145,7 +146,7 @@ class NewSvgMaker {
    * 최종으로 저장될 svgNodeList 생성
    */
   makeSvgNodeList() {
-    const storageList = this.storageList;
+    const { storageList } = this;
     /** @type {mSvgNodeInfo[]} */
     storageList.forEach(storageInfo => {
       _.forEach(storageInfo.defList, (defInfo, index) => {
@@ -166,16 +167,17 @@ class NewSvgMaker {
         // 그룹 존재
         /** @type {mSvgNodeInfo} */
         let foundIt = _.find(map.drawInfo.positionInfo.svgNodeList, {
-          nodeClassId: storageInfo.nodeClassId,
+          nodeDefId: storageInfo.nodeDefId,
         });
         if (_.isEmpty(foundIt)) {
           foundIt = {
-            nodeClassId: storageInfo.nodeClassId,
+            nodeDefId: storageInfo.nodeDefId,
             is_sensor: isSensor,
             defList: [],
           };
           if (foundIt.is_sensor != 1) {
             map.drawInfo.positionInfo.svgNodeList.push(foundIt);
+            // BU.CLI(map.drawInfo.positionInfo.svgNodeList);
           }
         }
 
@@ -343,7 +345,7 @@ class NewSvgMaker {
             // //////// END ///////////
             let moveScale = [[]];
             if (sensorStorage.length === 1) {
-              moveScale = [0, -1];
+              moveScale = [0, 0];
             } else if (sensorStorage.length > 2 < 5) {
               moveScale = [[-0.8, -0.8], [0.8, -0.8], [-0.8, 0.8], [0.8, 0.8]];
               moveScale = moveScale[index];
@@ -390,28 +392,29 @@ class NewSvgMaker {
 
             targetAxis = [x, y];
             // className을 찾기.
-            map.setInfo.nodeStructureList.forEach(nodeStructureInfo => {
-              const foundSensorInfo = _.find(nodeStructureInfo.defList, {
+            map.setInfo.nodeStructureList.forEach(nodeClassInfo => {
+              const foundNodeDefInfo = _.find(nodeClassInfo.defList, {
                 target_prefix: sensorPrefix,
               });
-              if (_.isUndefined(foundSensorInfo)) return false;
+              if (_.isUndefined(foundNodeDefInfo)) return false;
 
-              const sensorClassName = foundSensorInfo.target_id;
+              const nodeDefId = foundNodeDefInfo.target_id;
               const newDefInfo = {
                 id: sensorId,
                 name: this.findNodeName(sensorId),
                 placeId,
-                resourceId: sensorClassName,
+                resourceId: resourceInfo.id,
                 point: targetAxis,
               };
               // 그룹 존재
               let foundSensor = _.find(map.drawInfo.positionInfo.svgNodeList, {
-                nodeClassId: sensorClassName,
+                nodeDefId,
+                resourceInfo,
               });
               if (_.isEmpty(foundSensor)) {
                 foundSensor = {
-                  nodeClassId: sensorClassName,
-                  is_sensor: nodeStructureInfo.is_sensor,
+                  nodeDefId,
+                  is_sensor: nodeClassInfo.is_sensor,
                   defList: [],
                 };
                 map.drawInfo.positionInfo.svgNodeList.push(foundSensor);
@@ -432,7 +435,7 @@ module.exports = NewSvgMaker;
 
 /**
  * @typedef {Object} storageInfo
- * @property {string} nodeClassId
+ * @property {string} nodeDefId
  * @property {detailNodeInfo[]} defList
  */
 

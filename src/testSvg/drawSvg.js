@@ -3,14 +3,17 @@ const svgNodeTextList = [];
 
 /**
  * @param {string} documentId
+ * @param {string=} img
  */
-function svgCanvas(documentId) {
+function svgCanvas(documentId, image) {
   /** @type {mDeviceMap} */
   const realMap = map;
 
   // canvas 생성
   const { width: canvasWidth, height: canvasHeight } = realMap.drawInfo.frame.mapSize;
   const canvas = SVG(documentId).size(canvasWidth, canvasHeight);
+  const img = canvas.image(image, canvasWidth, canvasHeight);
+  img.move(0, 0);
   canvas.attr({ id: 'canvasId' });
 
   // Place 그리기
@@ -67,8 +70,8 @@ function drawExistCanvasValue(nodeId, svgValue) {
   const foundCanvas = _.find(svgNodeTextList, { id: nodeId });
   if (_.isUndefined(foundCanvas)) return false;
   const nodeX = foundCanvas.text.node.attributes.x.value;
-  foundCanvas.text.node.innerHTML = `<tspan dy="0.5%">${foundCanvas.name}</tspan>`;
-  foundCanvas.text.node.innerHTML += `<tspan class="data" style="fill: #00c51a; font-size: 8pt; stroke: #00c51a; stroke-width: 0.2" dy="1.2em" x=${nodeX}>${svgValue}</tspan>`;
+  // foundCanvas.text.node.innerHTML = `<tspan dy="0.5%">${foundCanvas.name}</tspan>`; // FIXME: 수정 필요
+  foundCanvas.text.node.innerHTML = `<text class="data" style="font-size: 20pt; stroke: #00c51a; stroke-width: 0.2" dy="0.9%" x=${nodeX}>${svgValue}</text>`;
 
   // 받아온 id 값으로  color 값 찾기
   realMap.drawInfo.positionInfo.svgNodeList.forEach(svgNodeInfo => {
@@ -141,7 +144,7 @@ function writeText(canvas, defInfo, resourceInfo) {
         textColor = 'black';
       }
       // 장소 text style 지정
-      if (_.isString(foundSvgInfo.placeClassId)) {
+      if (_.isString(foundSvgInfo.placeId)) {
         textSize = 17;
         leading = '0.8em';
       }
@@ -168,7 +171,7 @@ function writeText(canvas, defInfo, resourceInfo) {
       .font({
         fill: textColor,
         size: textSize,
-        anchor: 'middle',
+        anchor: 'start',
         leading,
         weight: 'bold',
       })
@@ -205,18 +208,18 @@ function excludeText(id) {
     /** @type {defInfo} */
     const foundIt = _.find(svgPlaceInfo.defList, { id });
     if (_.isObject(foundIt)) {
-      findExclusion = _.indexOf(realMap.realtionInfo.nameExclusionList, svgPlaceInfo.placeClassId);
+      findExclusion = _.indexOf(realMap.realtionInfo.nameExclusionList, svgPlaceInfo.placeId);
     }
   });
-
   realMap.drawInfo.positionInfo.svgNodeList.forEach(svgNodeInfo => {
     /** @type {defInfo} */
     const foundIt = _.find(svgNodeInfo.defList, { id });
+    console.log(svgNodeInfo.nodeDefId);
     if (_.isObject(foundIt)) {
-      findExclusion = _.indexOf(realMap.realtionInfo.nameExclusionList, svgNodeInfo.nodeClassId);
+      findExclusion = _.indexOf(realMap.realtionInfo.nameExclusionList, svgNodeInfo.nodeDefId);
     }
   });
-  // -1 : 제외목록에서 찾았을 때 없음을 나타낸다.
+  // -1 : 제외목록에서 찾았을 때, 없음을 나타낸다.
   if (findExclusion === -1) {
     return true;
   }
@@ -364,7 +367,7 @@ function svgDrawing(canvas, type, point, elementDrawInfo, id) {
 function svgDrawingRect(canvas, point, elementDrawInfo, id) {
   const [x, y] = point;
 
-  let { width, height, color } = elementDrawInfo;
+  let { width, height, color, opacity } = elementDrawInfo;
   // color가 배열이 아니면 배열로 변환
   color = Array.isArray(color) ? color : [color];
 
@@ -375,6 +378,7 @@ function svgDrawingRect(canvas, point, elementDrawInfo, id) {
     .stroke({ width: 0.5 })
     .attr({
       id,
+      opacity,
     });
   svgDrawingShadow(model, id);
 }
