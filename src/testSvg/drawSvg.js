@@ -5,7 +5,7 @@ const svgNodeTextList = [];
  * @param {string} documentId
  * @param {string=} img
  */
-function svgCanvas(documentId, image) {
+function drawSvgCanvas(documentId, image) {
   /** @type {mDeviceMap} */
   const realMap = map;
 
@@ -25,14 +25,14 @@ function svgCanvas(documentId, image) {
       });
       if (_.isUndefined(resourceInfo)) return false;
 
-      svgDrawing(
+      DrawSvg(
         canvas,
         resourceInfo.type,
         defInfo.point,
         resourceInfo.elementDrawInfo,
         defInfo.id,
       );
-      writeText(canvas, defInfo, resourceInfo);
+      writeSvgText(canvas, defInfo, resourceInfo);
     });
   });
 
@@ -45,14 +45,14 @@ function svgCanvas(documentId, image) {
       });
       if (_.isUndefined(resourceInfo)) return false;
 
-      svgDrawing(
+      DrawSvg(
         canvas,
         resourceInfo.type,
         defInfo.point,
         resourceInfo.elementDrawInfo,
         defInfo.id,
       );
-      writeText(canvas, defInfo, resourceInfo);
+      writeSvgText(canvas, defInfo, resourceInfo);
     });
   });
 }
@@ -61,7 +61,7 @@ function svgCanvas(documentId, image) {
  * @param {string} nodeId
  * @param {*} svgValue
  */
-function drawExistCanvasValue(nodeId, svgValue) {
+function showDataValue(nodeId, svgValue) {
   if (_.isUndefined(svgValue)) svgValue = 'no-data';
   /** @type {mDeviceMap} */
   const realMap = map;
@@ -115,7 +115,7 @@ function drawExistCanvasValue(nodeId, svgValue) {
  * @param {defInfo} defInfo 위치 정보 id, resourceId, point[]
  * @param {mSvgModelResource} resourceInfo 그려질 정보 id, type, elemetDrawInfo[width,height,radius,...]
  */
-function writeText(canvas, defInfo, resourceInfo) {
+function writeSvgText(canvas, defInfo, resourceInfo) {
   /** @type {mDeviceMap} */
   const realMap = map;
 
@@ -134,7 +134,7 @@ function writeText(canvas, defInfo, resourceInfo) {
   }
 
   // 제외목록 서칭
-  const writeTextBoolean = excludeText(defInfo.id);
+  const writeTextBoolean = checkIsExclusionText(defInfo.id);
   if (writeTextBoolean === true) {
     if (resourceInfo.type === 'rect' || resourceInfo.type === 'pattern') {
       textX = x1 + width / 2;
@@ -198,7 +198,7 @@ function writeText(canvas, defInfo, resourceInfo) {
  * text를 제외할 요소 찾기 true: text표시 , false : text제외
  * @param {string} id
  */
-function excludeText(id) {
+function checkIsExclusionText(id) {
   /** @type {mDeviceMap} */
   const realMap = map;
 
@@ -229,7 +229,7 @@ function excludeText(id) {
 /**
  * view에서 데이터를 입력하기위한 이벤트 함수
  */
-function dataInstallEvent(socket) {
+function existDataDialogEvent(socket) {
   /** @type {mDeviceMap} */
   const realMap = map;
 
@@ -335,22 +335,22 @@ function dataInstallEvent(socket) {
  * @param {mElementDrawInfo} elementDrawInfo {width, height, radius, color}
  * @param {string} id 그려진 obj의 이
  */
-function svgDrawing(canvas, type, point, elementDrawInfo, id) {
+function DrawSvg(canvas, type, point, elementDrawInfo, id) {
   switch (type.toString()) {
     case 'rect':
-      svgDrawingRect(canvas, point, elementDrawInfo, id);
+      drawSvgRect(canvas, point, elementDrawInfo, id);
       break;
     case 'line':
-      svgDrawingLine(canvas, point, elementDrawInfo, id);
+      drawSvgLine(canvas, point, elementDrawInfo, id);
       break;
     case 'circle':
-      svgDrawingCircle(canvas, point, elementDrawInfo, id);
+      drawSvgCircle(canvas, point, elementDrawInfo, id);
       break;
     case 'polygon':
-      svgDrawingPolygon(canvas, point, elementDrawInfo, id);
+      drawingSvgPolygon(canvas, point, elementDrawInfo, id);
       break;
     case 'pattern':
-      svgDrawingPattern(canvas, point, elementDrawInfo, id);
+      drawSvgPattern(canvas, point, elementDrawInfo, id);
       break;
     default:
       break;
@@ -364,7 +364,7 @@ function svgDrawing(canvas, type, point, elementDrawInfo, id) {
  * @param {mElementDrawInfo} elementDrawInfo {width, height, radius, color}
  * @param {string} id 그려진 obj의 이
  */
-function svgDrawingRect(canvas, point, elementDrawInfo, id) {
+function drawSvgRect(canvas, point, elementDrawInfo, id) {
   const [x, y] = point;
 
   let { width, height, color, opacity } = elementDrawInfo;
@@ -380,7 +380,7 @@ function svgDrawingRect(canvas, point, elementDrawInfo, id) {
       id,
       opacity,
     });
-  svgDrawingShadow(model, id);
+  drawSvgShadow(model, id);
 }
 
 /**
@@ -390,7 +390,7 @@ function svgDrawingRect(canvas, point, elementDrawInfo, id) {
  * @param {mElementDrawInfo} elementDrawInfo {width, height, radius, color}
  * @param {string} id 그려진 obj의 이
  */
-function svgDrawingLine(canvas, point, elementDrawInfo, id) {
+function drawSvgLine(canvas, point, elementDrawInfo, id) {
   const [x1, y1, x2, y2] = point;
   let { width, color } = elementDrawInfo;
   // color가 배열이 아니면 배열로 변환
@@ -411,7 +411,7 @@ function svgDrawingLine(canvas, point, elementDrawInfo, id) {
  * @param {mElementDrawInfo} elementDrawInfo {width, height, radius, color}
  * @param {string} id 그려진 obj의 이
  */
-function svgDrawingCircle(canvas, point, elementDrawInfo, id) {
+function drawSvgCircle(canvas, point, elementDrawInfo, id) {
   const [x, y] = point;
   let { radius, color } = elementDrawInfo;
   // color가 배열이 아니면 배열로 변환
@@ -425,7 +425,7 @@ function svgDrawingCircle(canvas, point, elementDrawInfo, id) {
     .attr({
       id,
     });
-  svgDrawingShadow(model, id);
+  drawSvgShadow(model, id);
 }
 
 /**
@@ -435,7 +435,7 @@ function svgDrawingCircle(canvas, point, elementDrawInfo, id) {
  * @param {mElementDrawInfo} elementDrawInfo {width, height, radius, color}
  * @param {string} id 그려진 obj의 이
  */
-function svgDrawingPolygon(canvas, point, elementDrawInfo, id) {
+function drawingSvgPolygon(canvas, point, elementDrawInfo, id) {
   const [x, y] = point;
   let { width, height, color } = elementDrawInfo;
   // color가 배열이 아니면 배열로 변환
@@ -451,7 +451,7 @@ function svgDrawingPolygon(canvas, point, elementDrawInfo, id) {
     .attr({
       id,
     });
-  svgDrawingShadow(model, id);
+  drawSvgShadow(model, id);
 }
 
 /**
@@ -461,7 +461,7 @@ function svgDrawingPolygon(canvas, point, elementDrawInfo, id) {
  * @param {mElementDrawInfo} elementDrawInfo {width, height, radius, color}
  * @param {string} id 그려진 obj의 이
  */
-function svgDrawingPattern(canvas, point, elementDrawInfo, id) {
+function drawSvgPattern(canvas, point, elementDrawInfo, id) {
   const [x, y] = point;
   let { width, height, color } = elementDrawInfo;
   // color가 배열이 아니면 배열로 변환
@@ -470,7 +470,7 @@ function svgDrawingPattern(canvas, point, elementDrawInfo, id) {
   // 그림자를 적용하기위한 가려진 사각형 그리기.
   const model = canvas.rect(width, height);
   model.move(x, y).stroke({ color: 'black' });
-  svgDrawingShadow(model, id);
+  drawSvgShadow(model, id);
 
   // pattern 안의 작은 사각형의 크기
   const patternSize = 21;
@@ -495,8 +495,8 @@ function svgDrawingPattern(canvas, point, elementDrawInfo, id) {
  *
  * @param {*} model 그려질 장소.
  */
-function svgDrawingShadow(model, id) {
-  const isSensor = foundIsSensor(id);
+function drawSvgShadow(model, id) {
+  const isSensor = getIsSensorByNdId(id);
   if (_.isUndefined(isSensor)) {
     model.filter(add => {
       const blur = add
@@ -521,7 +521,7 @@ function svgDrawingShadow(model, id) {
  *
  * @param {string} id
  */
-function foundIsSensor(id) {
+function getIsSensorByNdId(id) {
   /** @type {mDeviceMap} */
   const realMap = map;
 
