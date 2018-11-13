@@ -17,7 +17,6 @@ const map = {
           elementDrawInfo: {
             width: 350,
             height: 50,
-            opacity: 1,
             color: '#667e99',
           },
         },
@@ -26,9 +25,10 @@ const map = {
           type: 'rect',
           elementDrawInfo: {
             width: 100,
+            radius: 5,
             height: 40,
             opacity: 0,
-            color: 'white',
+            color: '#dfdfdf',
           },
         },
         {
@@ -288,7 +288,7 @@ const map = {
       },
     ],
   },
-  realtionInfo: {
+  relationInfo: {
     placeRelationList: [
       {
         target_id: 'dataPlace',
@@ -412,16 +412,16 @@ const map = {
         resourceIdList: ['timeArea'],
       },
     ],
-    // nameExclusionList: [
-    //   'dataPlace',
-    //   'condensingGateTemperature',
-    //   'condensingOutletTemperature',
-    //   'heatMediumSupplyTemperature',
-    //   'solarAccProduction',
-    //   'turbinAccProductionPower',
-    //   'steamTurbinePower',
-    // ],
-    nameExclusionList: [],
+    nameExclusionList: [
+      'CGT_001',
+      'COT_001',
+      'HMST_001',
+      'STP_001',
+      'SAP_001',
+      'TAPP_001',
+      'CT_001',
+      'UT_001',
+    ],
   },
   controlInfo: {},
 };

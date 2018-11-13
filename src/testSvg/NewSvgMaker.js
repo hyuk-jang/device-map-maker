@@ -14,7 +14,7 @@ class NewSvgMaker {
 
   startMake() {
     BU.writeFile(
-      './src/maps/condensingSolr/condensingOutputMap.js',
+      './src/maps/condensingSolar/condensingOutputMap.js',
       `var map = ${JSON.stringify(map)}`,
       'w',
       (err, res) => {
@@ -43,7 +43,7 @@ class NewSvgMaker {
    */
   getResourceInfo(targetId) {
     /** @type {mSvgResourceConnectionInfo} */
-    const foundSVGResourceConnectionInfo = _.find(map.realtionInfo.svgResourceConnectionList, {
+    const foundSVGResourceConnectionInfo = _.find(map.relationInfo.svgResourceConnectionList, {
       targetIdList: [targetId],
     });
 
@@ -66,7 +66,7 @@ class NewSvgMaker {
     /** @type {storageInfo[]} */
     const storageList = [];
 
-    map.realtionInfo.placeRelationList.forEach(placeRelationInfo => {
+    map.relationInfo.placeRelationList.forEach(placeRelationInfo => {
       placeRelationInfo.defList.forEach(defInfo => {
         defInfo.placeList.forEach(placeInfo => {
           let placeId = defInfo.target_prefix;
@@ -314,7 +314,7 @@ class NewSvgMaker {
    * 센서 자동 배치 함수
    */
   makeSensorList() {
-    map.realtionInfo.placeRelationList.forEach(placeRelationInfo => {
+    map.relationInfo.placeRelationList.forEach(placeRelationInfo => {
       placeRelationInfo.defList.forEach(defInfo => {
         defInfo.placeList.forEach(placeInfo => {
           const sensorStorage = [];
