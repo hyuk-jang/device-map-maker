@@ -7,7 +7,7 @@
   <script src='//code.jquery.com/jquery-latest.min.js'></script>
   <script src='./js/jquery.panzoom.js'></script>
   <script src='./testSvg/condensingDrawSvg.js'></script>
-  <script src='./maps/condensingOutputMap.js'></script>
+  <script src='./maps/condensingSolar/condensingOutputMap.js'></script>
   <script src='./js/lodash.min.js'></script>
   <script src='./js/svg.js'></script>
   <script src='./js/svg.filter.js'></script>
@@ -36,7 +36,7 @@
   </div>
 
   <script>
-    svgCanvas('canvas', './img/bg.jpg');
+    drawSvgCanvas('canvas', './img/bg.jpg', '집광형 태양열 발전 시스템 모니터링');
 
 
     // size 재설정
@@ -52,7 +52,7 @@
       // $zoomOut: $('#zoom-out'),
       $reset: $('#reset'),
       cursor: "context-menu",
-      startTransform: 'matrix(0.6, 0, 0, 0.6, 0, -600)',
+      startTransform: 'matrix(0.6, 0, 0, 0.6, -256, -600)',
     })
 
     $('#zoom-in').click(function (e) {
@@ -73,13 +73,18 @@
 
 
 
-    // dataInstallEvent();
-    // drawExistCanvasValue('CGT_001', 100000)
-    // drawExistCanvasValue('COT_001', 100)
-    // drawExistCanvasValue('HMST_001', 100)
-    // drawExistCanvasValue('STP_001', 50)
-    // drawExistCanvasValue('SAP_001', '282,51200')
-    // drawExistCanvasValue('TAPP_001', '1,325')
+    // showDataValue('CGT_001', 100000)
+    // showDataValue('COT_001', 1000)
+    // showDataValue('HMST_001', 100)
+    // showDataValue('STP_001', 50)
+    // showDataValue('SAP_001', '282,51200', '11:11:00', '11:11:00')
+    // showDataValue('TAPP_001', '1,325')
+    // setTimeData('UT_001', '11:11:00')
+    // setTimeData('CT_001', '11:11:00')
+  </script>
+
+  <script>
+
   </script>
 </body>
 
