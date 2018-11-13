@@ -70,13 +70,18 @@ function svgCanvas(documentId, image, title) {
 
 /**
  * @param {string} nodeId
- * @param {*} svgValue
+ * @param {number|string} svgValue 데이터 값
+ * @param {string=} updateTime 갱신 시간
+ * @param {string=} currentTime 현재시간
  */
-function drawExistCanvasValue(nodeId, svgValue) {
+function drawExistCanvasValue(nodeId, svgValue, currentTime, updateTime) {
   if (_.isUndefined(svgValue)) svgValue = 'no-data';
   /** @type {mDeviceMap} */
   const realMap = map;
   let foundColor;
+
+  currentTime ? setTimeData('CT_001', updateTime) : '';
+  updateTime ? setTimeData('UT_001', updateTime) : '';
 
   const foundCanvas = _.find(svgNodeTextList, { id: nodeId });
   if (_.isUndefined(foundCanvas)) return false;
@@ -563,6 +568,11 @@ function foundDataUnit(id) {
   return foundUnit.data_unit;
 }
 
+/**
+ * 시간 입력
+ * @param {string} id 장소 id
+ * @param {string} time 시간
+ */
 function setTimeData(id, time) {
   const foundCanvas = _.find(svgNodeTextList, { id });
   if (_.isUndefined(foundCanvas)) return false;
