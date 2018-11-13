@@ -13,19 +13,14 @@ function svgCanvas(documentId, image, title) {
   // canvas 생성
   const { width: canvasWidth, height: canvasHeight } = realMap.drawInfo.frame.mapSize;
   const canvas = SVG(documentId).size(canvasWidth, canvasHeight);
-  const img = canvas.image(image, canvasWidth, canvasHeight);
-  //
-
-  canvas
-    .text(title)
-    .move(50, 450)
-    .font({
-      fill: '#ececec',
-      size: 50,
-      weight: 'bold',
-    });
-  img.move(0, 0);
   canvas.attr({ id: 'canvasId' });
+
+  // 배경 이미지 지정
+  const img = canvas.image(image, canvasWidth, canvasHeight);
+  img.move(0, 0);
+
+  // 제목 style 적용
+  setTitle(canvas, title, [50, 450], '#ececec', 50);
 
   // Place 그리기
   realMap.drawInfo.positionInfo.svgPlaceList.forEach(svgPlaceInfo => {
@@ -80,6 +75,7 @@ function drawExistCanvasValue(nodeId, svgValue, currentTime, updateTime) {
   const realMap = map;
   let foundColor;
 
+  // 현재시간, 갱신시간
   currentTime ? setTimeData('CT_001', updateTime) : '';
   updateTime ? setTimeData('UT_001', updateTime) : '';
 
@@ -87,7 +83,7 @@ function drawExistCanvasValue(nodeId, svgValue, currentTime, updateTime) {
   if (_.isUndefined(foundCanvas)) return false;
 
   const dataUnit = foundDataUnit(nodeId);
-  foundCanvas.text.node.innerHTML = `<tspan class="data" style="font-size: 20pt;  stroke-width: 0.2" dx="1.1%" dy="0.9%">${svgValue} </tspan><tspan style="font-size: 20pt; stroke-width: 0.2">${dataUnit}</tspan>`;
+  foundCanvas.text.node.innerHTML = `<tspan class="data" style="font-size: 20pt;  stroke-width: 0.2" dx="1.1%" dy="0.9%">${svgValue}</tspan><tspan style="font-size: 20pt; stroke-width: 0.2">${dataUnit}</tspan>`;
 
   // 받아온 id 값으로  color 값 찾기
   realMap.drawInfo.positionInfo.svgNodeList.forEach(svgNodeInfo => {
@@ -153,6 +149,7 @@ function writeText(canvas, defInfo, resourceInfo) {
   // 제외목록 서칭
   const writeTextBoolean = excludeText(defInfo.id);
   if (writeTextBoolean === true) {
+    // 사각형, 패턴 형식
     if (resourceInfo.type === 'rect' || resourceInfo.type === 'pattern') {
       textX = x1 + width / 2;
       textY = y1 + height / 2;
@@ -170,6 +167,7 @@ function writeText(canvas, defInfo, resourceInfo) {
         anchor = 'start';
         textColor = '#ececec';
       }
+      // 줄 형식
     } else if (resourceInfo.type === 'line') {
       if (x1 === x2) {
         textX = x1;
@@ -178,15 +176,17 @@ function writeText(canvas, defInfo, resourceInfo) {
         textX = x1 + (x2 - x1) / 2;
         textY = y1;
       }
+      // 원
     } else if (resourceInfo.type === 'circle') {
       textX = x1 + radius / 2;
       textY = y1 + radius / 2;
+      // 마름모
     } else if (resourceInfo.type === 'polygon') {
       textX = x1 + width;
       textY = y1 + height;
     }
 
-    // 한글 or 영문 선택
+    // defInfo.name: 한글, defInfo.id: 영문
     const text = canvas.text(defInfo.name);
     text
       .move(textX, textY)
@@ -197,14 +197,13 @@ function writeText(canvas, defInfo, resourceInfo) {
         leading,
         weight: 'bold',
       })
-      // text 커서 무시
+      // text 커서 모양 설정
       .attr({
         'pointer-events': 'none',
       });
 
-    // 그려진 node id, text 정보 수집
+    // 그려진 node에 해당하는 id, text 정보 수집
     const svgId = defInfo.id;
-
     const svgNode = {
       id: svgId,
       name: defInfo.name,
@@ -219,7 +218,7 @@ function writeText(canvas, defInfo, resourceInfo) {
 }
 
 /**
- * text를 제외할 요소 찾기 true: text표시 , false : text제외
+ * text를 제외할 요소 찾기. 반환값이  true: text표시 , false : text제외
  * @param {string} id
  */
 function excludeText(id) {
@@ -251,6 +250,7 @@ function excludeText(id) {
 
 /**
  * view에서 데이터를 입력하기위한 이벤트 함수
+ * @param {*} socket
  */
 function dataInstallEvent(socket) {
   /** @type {mDeviceMap} */
@@ -390,8 +390,10 @@ function svgDrawing(canvas, type, point, elementDrawInfo, id) {
 function svgDrawingRect(canvas, point, elementDrawInfo, id) {
   const [x, y] = point;
 
-  let { width, height, color, radius, opacity } = elementDrawInfo;
-  // if (_.isUndefined(radius)) return 1;
+  const { width, height, radius, opacity } = elementDrawInfo;
+  let { color } = elementDrawInfo;
+
+  if (_.isUndefined(radius)) return 1;
 
   // color가 배열이 아니면 배열로 변환
   color = Array.isArray(color) ? color : [color];
@@ -402,6 +404,7 @@ function svgDrawingRect(canvas, point, elementDrawInfo, id) {
     .radius(radius)
     .attr({
       id,
+      radius,
       opacity,
     });
   svgDrawingShadow(model, id);
@@ -516,8 +519,9 @@ function svgDrawingPattern(canvas, point, elementDrawInfo, id) {
 }
 
 /**
- *
+ * 그림자
  * @param {*} model 그려질 장소.
+ * @param {string} id 그려질 장소.
  */
 function svgDrawingShadow(model, id) {
   const isSensor = foundIsSensor(id);
@@ -542,7 +546,7 @@ function svgDrawingShadow(model, id) {
 }
 
 /**
- *
+ * id에 대한 is_sensor 값을 찾아줌
  * @param {string} id
  */
 function foundIsSensor(id) {
@@ -557,6 +561,10 @@ function foundIsSensor(id) {
   return foundIsSensor.is_sensor;
 }
 
+/**
+ * 데이터 단위 찾기
+ * @param {string} id
+ */
 function foundDataUnit(id) {
   /** @type {mDeviceMap} */
   const realMap = map;
@@ -579,6 +587,27 @@ function setTimeData(id, time) {
 
   foundCanvas.text.node.innerHTML = `<tspan class="data" style="fill: #dfdfdf;  font-size: 20pt;  stroke-width: 0.2" dx="1.1%" dy="0.9%">${time} </tspan>`;
 }
+
+/**
+ * 제목 그리기
+ * @param {*} canvas
+ * @param {string} titile
+ * @param {number[]} point
+ * @param {string=} fill
+ * @param {number=} size
+ */
+function setTitle(canvas, title, point, fill, size) {
+  const [x, y] = point;
+  canvas
+    .text(title)
+    .move(x, y)
+    .font({
+      fill,
+      size,
+      weight: 'bold',
+    });
+}
+
 /**
  * @typedef {Object} svgNodeStorageInfo
  * @property {string} id

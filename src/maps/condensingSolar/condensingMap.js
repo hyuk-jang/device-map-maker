@@ -1,4 +1,4 @@
-require('../../../default-intelligence');
+require('../../../../default-intelligence');
 
 /**
  * @type {mDeviceMap}
@@ -17,7 +17,6 @@ const map = {
           elementDrawInfo: {
             width: 350,
             height: 50,
-            radius: 0,
             opacity: 1,
             color: '#667e99',
           },
@@ -28,7 +27,6 @@ const map = {
           elementDrawInfo: {
             width: 100,
             height: 40,
-            radius: 5,
             opacity: 0,
             color: 'white',
           },
@@ -39,7 +37,6 @@ const map = {
           elementDrawInfo: {
             width: 480,
             height: 60,
-            radius: 0,
             color: '#d9534f',
           },
         },
@@ -49,7 +46,6 @@ const map = {
           elementDrawInfo: {
             width: 370,
             height: 60,
-            radius: 0,
             color: '#5cb85c',
           },
         },

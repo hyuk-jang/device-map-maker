@@ -1,6 +1,6 @@
 const { BU } = require('base-util-jh');
 const _ = require('lodash');
-const map = require('../maps/condensingMap');
+const map = require('../maps/condensingSolar/condensingMap');
 
 require('../../../default-intelligence');
 
@@ -14,7 +14,7 @@ class NewSvgMaker {
 
   startMake() {
     BU.writeFile(
-      './src/maps/condensingOutputMap.js',
+      './src/maps/condensingSolr/condensingOutputMap.js',
       `var map = ${JSON.stringify(map)}`,
       'w',
       (err, res) => {
@@ -334,19 +334,9 @@ class NewSvgMaker {
           _.forEach(sensorStorage, (sensorId, index) => {
             const sensorPrefix = this.getReplace(sensorId, /[_\d]/g);
             const placePoint = this.discoverObjectPoint(placeId);
-            // FIXME: 테스트 소스
-            // const sensorCode = this.getReplace(sensorId, /[_\D]/g);
-            // // BU.CLI(sensorCode);
-            // const foundTest = _.find(map.setInfo.nodeStructureList, {
-            //   defList: [{ target_prefix: sensorPrefix }],
-            // });
-            // const
-            // BU.CLI(foundTest);
-            // //////// END ///////////
             const { axisScale } = this.getAxisMoveScale(sensorId);
             let moveScale = [[]];
             if (sensorStorage.length === 1) {
-              console.log(sensorId);
               moveScale = axisScale;
             } else if (sensorStorage.length > 2 < 5) {
               moveScale = [[-0.8, -0.8], [0.8, -0.8], [-0.8, 0.8], [0.8, 0.8]];
