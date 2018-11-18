@@ -172,7 +172,6 @@ function writeSvgText(canvas, defInfo, resourceInfo) {
 
   // 제외목록 체크
   const isCheckedExclusionText = isExclusionText(defInfo.id);
-  console.log(defInfo.id);
   isCheckedExclusionText ? (naming = '') : '';
   const text = canvas.text(naming);
   text
@@ -208,29 +207,21 @@ function writeSvgText(canvas, defInfo, resourceInfo) {
 function isExclusionText(defId) {
   /** @type {mDeviceMap} */
   const realMap = map;
-
+  let foundItList;
   let isChecked;
 
-  const foundIsSensor = _.find(realMap.drawInfo.positionInfo.svgNodeList, svgNodeInfo =>
-    _.map(svgNodeInfo.defList, 'id').includes(defId),
+  foundItList = _.find(realMap.drawInfo.positionInfo.svgPlaceList, svgPlaceInfo =>
+    _.map(svgPlaceInfo.defList, 'id').includes(defId),
   );
+  if (_.isUndefined(foundItList)) {
+    foundItList = _.find(realMap.drawInfo.positionInfo.svgNodeList, svgNodeInfo =>
+      _.map(svgNodeInfo.defList, 'id').includes(defId),
+    );
+    isChecked = _.includes(realMap.relationInfo.nameExclusionList, foundItList.nodeDefId);
+  } else {
+    isChecked = _.includes(realMap.relationInfo.nameExclusionList, foundItList.placeId);
+  }
 
-  console.log(foundIsSensor);
-
-  realMap.drawInfo.positionInfo.svgPlaceList.forEach(svgPlaceInfo => {
-    /** @type {defInfo} */
-    const foundIt = _.find(svgPlaceInfo.defList, { id: defId });
-    if (_.isObject(foundIt)) {
-      isChecked = _.includes(realMap.relationInfo.nameExclusionList, defId);
-    }
-  });
-  realMap.drawInfo.positionInfo.svgNodeList.forEach(svgNodeInfo => {
-    /** @type {defInfo} */
-    const foundIt = _.find(svgNodeInfo.defList, { id: defId });
-    if (_.isObject(foundIt)) {
-      isChecked = _.includes(realMap.relationInfo.nameExclusionList, defId);
-    }
-  });
   return isChecked;
 }
 

@@ -338,7 +338,7 @@ class NewSvgMaker {
             if (sensorStorage.length === 1) {
               moveScale;
             } else if (sensorStorage.length > 2 < 5) {
-              moveScale = [[-0.8, -0.8], [0.8, -0.8], [-0.8, 0.8], [0.8, 0.8]];
+              moveScale = [[-1, -1], [1, -1], [-1, 1], [1, 1]];
               moveScale = moveScale[index];
             } else if (sensorStorage.length > 4 < 10) {
               moveScale = [
