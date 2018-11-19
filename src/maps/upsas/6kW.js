@@ -107,7 +107,7 @@ const map = {
           elementDrawInfo: {
             width: 40,
             height: 40,
-            color: ['#d5e5e2', '#11d8ae', '#dc1d1f'],
+            color: ['#f2e1f2', '#e085e1', '#dc1d1f'],
           },
         },
         {
