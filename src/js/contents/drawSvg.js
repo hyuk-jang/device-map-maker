@@ -6,7 +6,7 @@ const svgNodeTextList = [];
  * @param {string=} bgImgUrl // 배경 이미지 url
  * @param {string=} title // 제목
  */
-function drawSvgCanvas(documentId, bgImgUrl, title) {
+function drawSvgBackground(documentId, bgImgUrl, title) {
   /** @type {mDeviceMap} */
   const realMap = map;
 
@@ -31,7 +31,13 @@ function drawSvgCanvas(documentId, bgImgUrl, title) {
       });
       if (_.isUndefined(resourceInfo)) return false;
 
-      drawSvg(canvas, resourceInfo.type, defInfo.point, resourceInfo.elementDrawInfo, defInfo.id);
+      drawSvgElement(
+        canvas,
+        resourceInfo.type,
+        defInfo.point,
+        resourceInfo.elementDrawInfo,
+        defInfo.id,
+      );
       writeSvgText(canvas, defInfo, resourceInfo);
     });
   });
@@ -45,7 +51,13 @@ function drawSvgCanvas(documentId, bgImgUrl, title) {
       });
       if (_.isUndefined(resourceInfo)) return false;
 
-      drawSvg(canvas, resourceInfo.type, defInfo.point, resourceInfo.elementDrawInfo, defInfo.id);
+      drawSvgElement(
+        canvas,
+        resourceInfo.type,
+        defInfo.point,
+        resourceInfo.elementDrawInfo,
+        defInfo.id,
+      );
       writeSvgText(canvas, defInfo, resourceInfo);
     });
   });
@@ -61,14 +73,15 @@ function showDataValue(nDefId, data = '') {
   /** @type {mDeviceMap} */
   const realMap = map;
   let nodeBgColor;
-  let dataUnit = getDataUnitByNdId(nDefId);
+  let dataUnit = getDataUnit(nDefId);
   if (data === '') dataUnit = '';
 
   const foundCanvas = _.find(svgNodeTextList, { id: nDefId });
   if (_.isUndefined(foundCanvas)) return false;
 
   // foundCanvas.text.node.innerHTML = `<tspan style="font-size: 20pt;  stroke-width: 0.2" dx="1.1%" dy="10">${data}${dataUnit}</tspan>`;
-  foundCanvas.text.node.innerHTML = `<tspan>${nDefId}</tspan>`;
+  foundCanvas.text.node.innerHTML = `<tspan>${nDefId}</tspan>`; // FIXME:
+  foundCanvas.text.node.innerHTML += `<tspan>${data}</tspan>`; // FIXME:
 
   // 받아온 id 값으로  color 값 찾기
   realMap.drawInfo.positionInfo.svgNodeList.forEach(svgNodeInfo => {
@@ -171,7 +184,7 @@ function writeSvgText(canvas, defInfo, resourceInfo) {
   }
 
   // 제외목록 체크
-  const isCheckedExclusionText = isExclusionText(defInfo.id);
+  const isCheckedExclusionText = isExcludableText(defInfo.id);
   isCheckedExclusionText ? (naming = '') : '';
   const text = canvas.text(naming);
   text
@@ -204,127 +217,125 @@ function writeSvgText(canvas, defInfo, resourceInfo) {
  * text를 제외할 요소 찾기. 반환값이  true: 제외
  * @param {string} defId
  */
-function isExclusionText(defId) {
+function isExcludableText(defId) {
   /** @type {mDeviceMap} */
   const realMap = map;
-  let foundItList;
-  let isChecked;
+  let hasFindedId; // FIXME:
 
-  foundItList = _.find(realMap.drawInfo.positionInfo.svgPlaceList, svgPlaceInfo =>
+  const foundPlaceInfo = _.find(realMap.drawInfo.positionInfo.svgPlaceList, svgPlaceInfo =>
     _.map(svgPlaceInfo.defList, 'id').includes(defId),
   );
-  if (_.isUndefined(foundItList)) {
-    foundItList = _.find(realMap.drawInfo.positionInfo.svgNodeList, svgNodeInfo =>
+  if (_.isUndefined(foundPlaceInfo)) {
+    const foundNodeInfo = _.find(realMap.drawInfo.positionInfo.svgNodeList, svgNodeInfo =>
       _.map(svgNodeInfo.defList, 'id').includes(defId),
     );
-    isChecked = _.includes(realMap.relationInfo.nameExclusionList, foundItList.nodeDefId);
+    hasFindedId = _.includes(realMap.relationInfo.nameExclusionList, foundNodeInfo.nodeDefId);
   } else {
-    isChecked = _.includes(realMap.relationInfo.nameExclusionList, foundItList.placeId);
+    hasFindedId = _.includes(realMap.relationInfo.nameExclusionList, foundPlaceInfo.placeId);
   }
 
-  return isChecked;
+  return hasFindedId;
 }
 
 /**
- * view에서 데이터를 입력하기위한 이벤트 함수
+ *
  * @param {socekt} socket
  */
-function InsertDialogValue(socket) {
+function bindingClickEventNode(socket) {
   /** @type {mDeviceMap} */
   const realMap = map;
 
   realMap.drawInfo.positionInfo.svgNodeList.forEach(svgNodeInfo => {
-    svgNodeInfo.defList.forEach(defInfo => {
-      const getSvgElement = $(`#${defInfo.id}`);
+    svgNodeInfo.defList.forEach(noceDefInfo => {
+      const getSvgElement = $(`#${noceDefInfo.id}`);
       getSvgElement.on('click touchstart', e => {
-        let controlValue;
-
-        // 장치 or 센서 구분  1: 센서, 0: 장치, -1: 미분류
         const foundSvgNodeInfo = _.find(realMap.drawInfo.positionInfo.svgNodeList, info =>
-          _.map(info.defList, 'id').includes(defInfo.id),
+          _.map(info.defList, 'id').includes(noceDefInfo.id),
         );
         if (_.isUndefined(foundSvgNodeInfo)) return false;
 
-        // ' $.confirm ' : jquery dailog
+        // 장치 or 센서 구분  1: 센서, 0: 장치, -1: 미분류
         if (foundSvgNodeInfo.is_sensor === 1) {
-          $.confirm({
-            title: '',
-            content:
-              '' +
-              '<form action="" class="formName">' +
-              '<div class="form-group">' +
-              `'${defInfo.name}' 의 값을 입력하세요.` +
-              '<input type="text" placeholder="here" class="name form-control" required />' +
-              '</div>' +
-              '</form>',
-            buttons: {
-              formSubmit: {
-                text: 'OK',
-                btnClass: 'btn-blue',
-                action() {
-                  controlValue = this.$content.find('.name').val();
-                  if (_.isUndefined(controlValue)) return false;
+          BootstrapDialog.show({
+            title: `${noceDefInfo.name}`,
+            message: `'${
+              noceDefInfo.name
+            }' 의 값을 입력하세요.: <input type="text" class="form-control">`,
+            buttons: [
+              {
+                label: 'OK',
+                action(dialogItself) {
+                  const getDialogValue = dialogItself
+                    .getModalBody()
+                    .find('input')
+                    .val();
+                  if (_.isUndefined(getDialogValue)) return false;
+
+                  controlNodeState(socket, 3, noceDefInfo.id);
+                  dialogItself.close();
                 },
               },
-              cancel() {
-                // close
+              {
+                label: 'CANCEL',
+                cssClass: 'btn-primary',
+                action(dialogItself) {
+                  dialogItself.close();
+                },
               },
-            },
+            ],
           });
         } else {
-          $.confirm({
-            title: '',
-            content: `'${defInfo.name}' 의 상태를 변경합니다.`,
-            buttons: {
-              confirm: {
-                text: 'OPEN',
-                action() {
-                  controlValue = 'open';
+          BootstrapDialog.show({
+            title: `${noceDefInfo.name}`,
+            message: `'${noceDefInfo.name}' 의 상태를 변경합니다.`,
+            buttons: [
+              {
+                label: 'OPEN',
+                action(dialogItself) {
+                  controlNodeState(socket, 1, noceDefInfo.id);
+                  dialogItself.close();
                 },
               },
-              somethingElse: {
-                text: 'CLOSE',
-                action() {
-                  controlValue = 'close';
+              {
+                label: 'CLOSE',
+                action(dialogItself) {
+                  controlNodeState(socket, 0, noceDefInfo.id);
+                  dialogItself.close();
                 },
               },
-              cancel: {
-                text: 'CANCEL',
-                btnClass: 'btn-blue',
+              {
+                label: 'CANCEL',
+                cssClass: 'btn-primary',
+                action(dialogItself) {
+                  dialogItself.close();
+                },
               },
-            },
+            ],
           });
-        }
-        const falseValueList = ['CLOSE', 'CLOSING', 'OFF', 0, '0'];
-        const trueValueList = ['OPEN', 'OPENING', 'ON', 1, '1'];
-
-        if (controlValue != null) {
-          const falseValueCheck = _.includes(falseValueList, controlValue.toUpperCase());
-          const trueValueCheck = _.includes(trueValueList, controlValue.toUpperCase());
-
-          if (falseValueCheck === true && trueValueCheck === false) {
-            controlValue = 0;
-          } else if (falseValueCheck === false && trueValueCheck === true) {
-            controlValue = 1;
-          } else {
-            controlValue = 3;
-          }
-
-          const requestMsg = {
-            commandId: 'SINGLE',
-            contents: {
-              requestCommandType: 'CONTROL',
-              nodeId: defInfo.id,
-              controlValue,
-              rank: 2,
-            },
-          };
-          console.log(requestMsg);
-          socket.emit('executeCommand', requestMsg);
         }
       });
     });
   });
+}
+
+/**
+ *
+ * @param {socket} socket
+ * @param {string} controlType 0: 장치 (Close, Off), 1: 장치 (Open, On), 3: 장치 값 설정
+ * @param {string} nodeId
+ */
+// requestNodeStateControl
+function controlNodeState(socket, controlType, nodeId) {
+  const requestMsg = {
+    commandId: 'SINGLE',
+    contents: {
+      requestCommandType: 'CONTROL',
+      nodeId,
+      controlType,
+      rank: 2,
+    },
+  };
+  socket.emit('executeCommand', requestMsg);
 }
 
 /**
@@ -335,7 +346,7 @@ function InsertDialogValue(socket) {
  * @param {mElementDrawInfo} elementDrawInfo {width, height, radius, color}
  * @param {string} defId 그려지는 svg 도형에 주어줄 장소 또는 노드의 defInfo.id 값
  */
-function drawSvg(canvas, svgDrawType, point, elementDrawInfo, defId) {
+function drawSvgElement(canvas, svgDrawType, point, elementDrawInfo, defId) {
   switch (svgDrawType.toString()) {
     case 'rect':
       drawSvgRect(canvas, point, elementDrawInfo, defId);
@@ -347,7 +358,7 @@ function drawSvg(canvas, svgDrawType, point, elementDrawInfo, defId) {
       drawSvgCircle(canvas, point, elementDrawInfo, defId);
       break;
     case 'polygon':
-      drawingSvgPolygon(canvas, point, elementDrawInfo, defId);
+      drawSvgPolygon(canvas, point, elementDrawInfo, defId);
       break;
     case 'pattern':
       drawSvgPattern(canvas, point, elementDrawInfo, defId);
@@ -440,7 +451,7 @@ function drawSvgCircle(canvas, point, elementDrawInfo, id) {
  * @param {mElementDrawInfo} elementDrawInfo {width, height, radius, color}
  * @param {string} id 그려지는 svg 도형에 주어줄 id 값
  */
-function drawingSvgPolygon(canvas, point, elementDrawInfo, id) {
+function drawSvgPolygon(canvas, point, elementDrawInfo, id) {
   const [x, y] = point;
   let { width, height, color } = elementDrawInfo;
   // color가 배열이 아니면 배열로 변환
@@ -503,8 +514,15 @@ function drawSvgPattern(canvas, point, elementDrawInfo, id) {
  * @param {string} defId 장소와 노드를 구분하기 위한 장소 또는 노드의 defId 값
  */
 function drawSvgShadow(model, defId) {
-  const isSensor = getIsSensorByNdId(defId);
-  if (_.isUndefined(isSensor)) {
+  if (isSensor(defId)) {
+    model.filter(add => {
+      const blur = add
+        .offset(0, 5)
+        .in(add.sourceAlpha)
+        .gaussianBlur(3);
+      add.blend(add.source, blur);
+    });
+  } else {
     model.filter(add => {
       const blur = add
         .offset(7, 7)
@@ -513,38 +531,30 @@ function drawSvgShadow(model, defId) {
 
       add.blend(add.source, blur);
     });
-  } else {
-    model.filter(add => {
-      const blur = add
-        .offset(0, 5)
-        .in(add.sourceAlpha)
-        .gaussianBlur(3);
-      add.blend(add.source, blur);
-    });
   }
 }
 
 /**
- * id에 대한 is_sensor 값을 찾아줌
+ * true: 센서, false: 장소
  * @param {string} nDefId
  */
-function getIsSensorByNdId(nDefId) {
+function isSensor(nDefId) {
   /** @type {mDeviceMap} */
   const realMap = map;
 
-  const foundIsSensor = _.find(realMap.drawInfo.positionInfo.svgNodeList, svgNodeInfo =>
+  const foundNodeDefInfo = _.find(realMap.drawInfo.positionInfo.svgNodeList, svgNodeInfo =>
     _.map(svgNodeInfo.defList, 'id').includes(nDefId),
   );
-  if (_.isUndefined(foundIsSensor)) return undefined;
+  if (_.isUndefined(foundNodeDefInfo)) return false;
 
-  return foundIsSensor.is_sensor;
+  return true;
 }
 
 /**
  * 데이터 단위 찾기
  * @param {string} nDefId 단위를 가져올  nodeDefInfoId
  */
-function getDataUnitByNdId(nDefId) {
+function getDataUnit(nDefId) {
   /** @type {mDeviceMap} */
   const realMap = map;
 
