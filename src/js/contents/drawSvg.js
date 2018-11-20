@@ -1,23 +1,23 @@
 /** @type {{nodeId: string, nodeName: '', text: textElement}[]} */
-const writtenTextList = [];
+const writtenSvgTextList = [];
 
 /**
  * @param {string} documentId
  * @param {string=} bgImgUrl // 배경 이미지 url
  * @param {string=} title // 제목
  */
-function drawSvgBackground(documentId, bgImgUrl, title) {
+function drawSvgBackground(documentId, bgImgUrl) {
   /** @type {mDeviceMap} */
   const realMap = map;
 
-  // canvas 생성
-  const { width: canvasWidth, height: canvasHeight } = realMap.drawInfo.frame.mapSize;
-  const canvas = SVG(documentId).size(canvasWidth, canvasHeight);
-  canvas.attr({ id: 'canvasId' });
+  // svgCanvas 생성
+  const { width: svgCanvasWidth, height: svgCanvasHeight } = realMap.drawInfo.frame.mapSize;
+  const svgCanvas = SVG(documentId).size(svgCanvasWidth, svgCanvasHeight);
+  svgCanvas.attr({ id: 'svgCanvas' });
 
   // 배경 이미지 지정
-  const img = canvas.image(bgImgUrl, canvasWidth, canvasHeight);
-  img.move(0, 0);
+  const backgroundImg = svgCanvas.image(bgImgUrl, svgCanvasWidth, svgCanvasHeight);
+  backgroundImg.move(0, 0);
 
   // Place 그리기
   realMap.drawInfo.positionInfo.svgPlaceList.forEach(svgPlaceInfo => {
@@ -29,13 +29,13 @@ function drawSvgBackground(documentId, bgImgUrl, title) {
       if (_.isUndefined(resourceInfo)) return false;
 
       drawSvgElement(
-        canvas,
+        svgCanvas,
         resourceInfo.type,
         defInfo.point,
         resourceInfo.elementDrawInfo,
         defInfo.id,
       );
-      writeSvgText(canvas, defInfo, resourceInfo);
+      writeSvgText(svgCanvas, defInfo, resourceInfo);
     });
   });
 
@@ -49,13 +49,13 @@ function drawSvgBackground(documentId, bgImgUrl, title) {
       if (_.isUndefined(resourceInfo)) return false;
 
       drawSvgElement(
-        canvas,
+        svgCanvas,
         resourceInfo.type,
         defInfo.point,
         resourceInfo.elementDrawInfo,
         defInfo.id,
       );
-      writeSvgText(canvas, defInfo, resourceInfo);
+      writeSvgText(svgCanvas, defInfo, resourceInfo);
     });
   });
 }
@@ -63,33 +63,38 @@ function drawSvgBackground(documentId, bgImgUrl, title) {
 /**
  * @param {string} nDefId
  * @param {number|string} data 데이터 값
- * @param {string=} updateTime 갱신 시간
- * @param {string=} currentTime 현재시간
  */
 function showNodeData(nDefId, data = '') {
-  /** @type {mDeviceMap} */
-  const realMap = map;
   let dataUnit = getDataUnit(nDefId);
+  // FIXME:
+  // const dx;
+  // const dy;
+  // const style;
 
   _.isNull(dataUnit) ? (dataUnit = '') : '';
   if (data === '') dataUnit = '';
 
-  const foundTextInfo = _.find(writtenTextList, { id: nDefId });
-  if (_.isUndefined(foundTextInfo)) return false;
+  const foundSvgTextInfo = _.find(writtenSvgTextList, { id: nDefId });
+  if (_.isUndefined(foundSvgTextInfo)) return false;
 
-  // foundCanvas.text.node.innerHTML = `<tspan style="font-size: 20pt;  stroke-width: 0.2" dx="1.1%" dy="10">${data}${dataUnit}</tspan>`;
-  foundTextInfo.text.node.innerHTML = `<tspan dx="5">${nDefId}</tspan>`; // FIXME:
-  foundTextInfo.text.node.innerHTML += `<tspan style="font-size: 15pt; fill: #05f605; stroke-width: 0.2" dy="20" dx="-40" >${data}</tspan> <tspan>${dataUnit}</tspan>`; // FIXME:
+  // FIXME:
+  // foundsvgCanvas.text.node.innerHTML = `<tspan style="font-size: 20pt;  stroke-width: 0.2" dx="1.1%" dy="10">${data}${dataUnit}</tspan>`;
+  foundSvgTextInfo.text.node.innerHTML = `<tspan x=${foundSvgTextInfo.textX}>${nDefId}</tspan></br>`; // FIXME:
+  foundSvgTextInfo.text.node.innerHTML += `<tspan x=${foundSvgTextInfo.textX} style="font-size: 15pt; fill: #05f605; stroke-width: 0.2" dy="15">${data}</tspan> <tspan>${dataUnit}</tspan>`; // FIXME:
 
-  changeNodeBgColor(nDefId, data);
+  changeNodeColor(nDefId, data);
 }
 
-function changeNodeBgColor(nDefId, data) {
+/**
+ *
+ * @param {string} nDefId
+ * @param {number|string} data
+ */
+function changeNodeColor(nDefId, data) {
   /** @type {mDeviceMap} */
   const realMap = map;
   let getNodeBgColor;
 
-  // 받아온 id 값으로  color 값 찾기
   realMap.drawInfo.positionInfo.svgNodeList.forEach(svgNodeInfo => {
     const foundNodeDefInfo = _.find(svgNodeInfo.defList, { id: nDefId });
     if (_.isUndefined(foundNodeDefInfo)) return false;
@@ -100,38 +105,39 @@ function changeNodeBgColor(nDefId, data) {
     getNodeBgColor = foundSvgModelResourceInfo.elementDrawInfo.color;
   });
 
-  // 받아온 id 값이 sensor인지 체크  0: 장치, 1: 센서, -1: 미분류
   const foundNodeInfo = _.find(realMap.drawInfo.positionInfo.svgNodeList, svgNodeInfo =>
     _.map(svgNodeInfo.defList, 'id').includes(nDefId),
   );
   if (_.isUndefined(foundNodeInfo)) return false;
 
-  // 받아온 data 값을 체크
+  // 0: 장치, 1: 센서, -1: 미분류
   if (foundNodeInfo.is_sensor === 0) {
-    const falseValArr = ['CLOSE', 'CLOSING', 'OFF', 0, '0'];
-    const trueValArr = ['OPEN', 'OPENING', 'ON', 1, '1'];
+    const falseValList = ['CLOSE', 'CLOSING', 'OFF', 0, '0'];
+    const trueValList = ['OPEN', 'OPENING', 'ON', 1, '1'];
 
-    const hasFalseValue = _.includes(falseValArr, data.toUpperCase());
-    const hasTrueValue = _.includes(trueValArr, data.toUpperCase());
+    const isFalseValue = _.includes(falseValList, data.toUpperCase());
+    const isTrueValue = _.includes(trueValList, data.toUpperCase());
 
-    const getSvgElement = SVG.get(nDefId);
-    if (hasFalseValue === true && hasTrueValue === false) {
-      getSvgElement.attr({ fill: getNodeBgColor[0] });
-    } else if (hasFalseValue === false && hasTrueValue === true) {
-      getSvgElement.attr({ fill: getNodeBgColor[1] });
+    const drawedSvgElement = $(`#${nDefId}`);
+    // console.log(getSvgElement);
+    if (isFalseValue === true && isTrueValue === false) {
+      drawedSvgElement.attr({ fill: getNodeBgColor[0] });
+    } else if (isFalseValue === false && isTrueValue === true) {
+      drawedSvgElement.attr({ fill: getNodeBgColor[1] });
     } else {
-      getSvgElement.attr({ fill: getNodeBgColor[2] });
+      drawedSvgElement.attr({ fill: getNodeBgColor[2] });
     }
   }
 }
 
 /**
  * 텍스트 그리기
- * @param {SVG} canvas
+ * @param {SVG} svgCanvas
  * @param {defInfo} defInfo 장치, 노드의  id, resourceId, point[] 정보
  * @param {mSvgModelResource} resourceInfo 장치, 노드의 resource id, type, elemetDrawInfo[width,height,radius,...] 정보
+ * FIXME: 변수명 수정 확인
  */
-function writeSvgText(canvas, defInfo, resourceInfo) {
+function writeSvgText(svgCanvas, defInfo, resourceInfo) {
   /** @type {mDeviceMap} */
   const realMap = map;
 
@@ -190,9 +196,9 @@ function writeSvgText(canvas, defInfo, resourceInfo) {
   }
 
   // 제외목록 체크
-  const isCheckedExclusionText = isExcludableText(defInfo.id);
-  isCheckedExclusionText ? (naming = '') : '';
-  const text = canvas.text(naming);
+  isExcludableText(defInfo.id) ? (naming = '') : ''; //FIXME:
+
+  const text = svgCanvas.text(naming);
   text
     .move(textX, textY)
     .font({
@@ -202,21 +208,21 @@ function writeSvgText(canvas, defInfo, resourceInfo) {
       leading,
       weight: 'bold',
     })
+
     // text 커서 모양 설정
     .attr({
       'pointer-events': 'none',
     });
 
-  // 그려진 node에 해당하는 id, text 정보 수집
-  const svgId = defInfo.id;
+  // FIXME:
   const svgNode = {
-    id: svgId,
+    id: defInfo.id,
     name: defInfo.name,
     textX,
     textY,
     text,
   };
-  writtenTextList.push(svgNode);
+  writtenSvgTextList.push(svgNode);
 }
 
 /**
@@ -226,7 +232,7 @@ function writeSvgText(canvas, defInfo, resourceInfo) {
 function isExcludableText(defId) {
   /** @type {mDeviceMap} */
   const realMap = map;
-  let hasFindedId; // FIXME:
+  let isExclusionText; // FIXME:
 
   const foundPlaceInfo = _.find(realMap.drawInfo.positionInfo.svgPlaceList, svgPlaceInfo =>
     _.map(svgPlaceInfo.defList, 'id').includes(defId),
@@ -235,12 +241,18 @@ function isExcludableText(defId) {
     const foundNodeInfo = _.find(realMap.drawInfo.positionInfo.svgNodeList, svgNodeInfo =>
       _.map(svgNodeInfo.defList, 'id').includes(defId),
     );
-    hasFindedId = _.includes(realMap.relationInfo.nameExclusionList, foundNodeInfo.nodeDefId);
+    isExclusionText = _.includes(
+      realMap.relationInfo.exclusionTextDefIdList,
+      foundNodeInfo.nodeDefId,
+    );
   } else {
-    hasFindedId = _.includes(realMap.relationInfo.nameExclusionList, foundPlaceInfo.placeId);
+    isExclusionText = _.includes(
+      realMap.relationInfo.exclusionTextDefIdList,
+      foundPlaceInfo.placeId,
+    );
   }
 
-  return hasFindedId;
+  return isExclusionText;
 }
 
 /**
@@ -252,20 +264,21 @@ function bindingClickEventNode(socket) {
   const realMap = map;
 
   realMap.drawInfo.positionInfo.svgNodeList.forEach(svgNodeInfo => {
-    svgNodeInfo.defList.forEach(noceDefInfo => {
-      const getSvgElement = $(`#${noceDefInfo.id}`);
-      getSvgElement.on('click touchstart', e => {
+    svgNodeInfo.defList.forEach(nodeDefInfo => {
+      const drawedSvgElement = $(`#${nodeDefInfo.id}`);
+      // console.log(drawedSvgElement)
+      drawedSvgElement.on('click touchstart', e => {
         const foundSvgNodeInfo = _.find(realMap.drawInfo.positionInfo.svgNodeList, info =>
-          _.map(info.defList, 'id').includes(noceDefInfo.id),
+          _.map(info.defList, 'id').includes(nodeDefInfo.id),
         );
         if (_.isUndefined(foundSvgNodeInfo)) return false;
 
         // 장치 or 센서 구분  1: 센서, 0: 장치, -1: 미분류
         if (foundSvgNodeInfo.is_sensor === 1) {
           BootstrapDialog.show({
-            title: `${noceDefInfo.name}`,
+            title: `${nodeDefInfo.name}`,
             message: `'${
-              noceDefInfo.name
+              nodeDefInfo.name
             }' 의 값을 입력하세요.: <input type="text" class="form-control">`,
             buttons: [
               {
@@ -277,7 +290,7 @@ function bindingClickEventNode(socket) {
                     .val();
                   if (_.isUndefined(getDialogValue)) return false;
 
-                  controlNodeState(socket, 3, noceDefInfo.id);
+                  executeCommand(socket, 3, nodeDefInfo.id);
                   dialogItself.close();
                 },
               },
@@ -292,20 +305,20 @@ function bindingClickEventNode(socket) {
           });
         } else {
           BootstrapDialog.show({
-            title: `${noceDefInfo.name}`,
-            message: `'${noceDefInfo.name}' 의 상태를 변경합니다.`,
+            title: `${nodeDefInfo.name}`,
+            message: `'${nodeDefInfo.name}' 의 상태를 변경합니다.`,
             buttons: [
               {
                 label: 'OPEN',
                 action(dialogItself) {
-                  controlNodeState(socket, 1, noceDefInfo.id);
+                  executeCommand(socket, 1, nodeDefInfo.id);
                   dialogItself.close();
                 },
               },
               {
                 label: 'CLOSE',
                 action(dialogItself) {
-                  controlNodeState(socket, 0, noceDefInfo.id);
+                  executeCommand(socket, 0, nodeDefInfo.id);
                   dialogItself.close();
                 },
               },
@@ -330,8 +343,7 @@ function bindingClickEventNode(socket) {
  * @param {string} controlType 0: 장치 (Close, Off), 1: 장치 (Open, On), 3: 장치 값 설정
  * @param {string} nodeId
  */
-// requestNodeStateControl
-function controlNodeState(socket, controlType, nodeId) {
+function executeCommand(socket, controlType, nodeId) {
   const requestMsg = {
     commandId: 'SINGLE',
     contents: {
@@ -346,28 +358,28 @@ function controlNodeState(socket, controlType, nodeId) {
 
 /**
  *
- * @param {SVG} canvas
+ * @param {SVG} svgCanvas
  * @param {string} svgDrawType rect, polygon, circle, line ...
  * @param {Object} point point[]
  * @param {mElementDrawInfo} elementDrawInfo {width, height, radius, color}
  * @param {string} defId 그려지는 svg 도형에 주어줄 장소 또는 노드의 defInfo.id 값
  */
-function drawSvgElement(canvas, svgDrawType, point, elementDrawInfo, defId) {
+function drawSvgElement(svgCanvas, svgDrawType, point, elementDrawInfo, defId) {
   switch (svgDrawType.toString()) {
     case 'rect':
-      drawSvgRect(canvas, point, elementDrawInfo, defId);
+      drawSvgRect(svgCanvas, point, elementDrawInfo, defId);
       break;
     case 'line':
-      drawSvgLine(canvas, point, elementDrawInfo, defId);
+      drawSvgLine(svgCanvas, point, elementDrawInfo, defId);
       break;
     case 'circle':
-      drawSvgCircle(canvas, point, elementDrawInfo, defId);
+      drawSvgCircle(svgCanvas, point, elementDrawInfo, defId);
       break;
     case 'polygon':
-      drawSvgPolygon(canvas, point, elementDrawInfo, defId);
+      drawSvgPolygon(svgCanvas, point, elementDrawInfo, defId);
       break;
     case 'pattern':
-      drawSvgPattern(canvas, point, elementDrawInfo, defId);
+      drawSvgPattern(svgCanvas, point, elementDrawInfo, defId);
       break;
     default:
       break;
@@ -376,12 +388,12 @@ function drawSvgElement(canvas, svgDrawType, point, elementDrawInfo, defId) {
 
 /**
  *
- * @param {SVG} canvas
+ * @param {SVG} svgCanvas
  * @param {number[]} point point[]
  * @param {mElementDrawInfo} elementDrawInfo {width, height, radius, color, opactiy}
  * @param {string} id 그려지는 svg 도형에 주어줄 id 값
  */
-function drawSvgRect(canvas, point, elementDrawInfo, id) {
+function drawSvgRect(svgCanvas, point, elementDrawInfo, id) {
   const [x, y] = point;
 
   const { width, height } = elementDrawInfo;
@@ -392,7 +404,7 @@ function drawSvgRect(canvas, point, elementDrawInfo, id) {
 
   // color가 배열이 아니면 배열로 변환
   color = Array.isArray(color) ? color : [color];
-  const model = canvas
+  const model = svgCanvas
     .rect(width, height)
     .fill(color[0])
     .move(x, y)
@@ -407,18 +419,18 @@ function drawSvgRect(canvas, point, elementDrawInfo, id) {
 
 /**
  *
- * @param {SVG} canvas
+ * @param {SVG} svgCanvas
  * @param {number[]} point point[]
  * @param {mElementDrawInfo} elementDrawInfo {width, height, radius, color}
  * @param {string} id 그려지는 svg 도형에 주어줄 id 값
  */
-function drawSvgLine(canvas, point, elementDrawInfo, id) {
+function drawSvgLine(svgCanvas, point, elementDrawInfo, id) {
   const [x1, y1, x2, y2] = point;
   let { width, color } = elementDrawInfo;
   // color가 배열이 아니면 배열로 변환
   color = Array.isArray(color) ? color : [color];
 
-  canvas
+  svgCanvas
     .line(x1, y1, x2, y2)
     .stroke({ color: color[0], width })
     .attr({
@@ -428,18 +440,18 @@ function drawSvgLine(canvas, point, elementDrawInfo, id) {
 
 /**
  *
- * @param {SVG} canvas
+ * @param {SVG} svgCanvas
  * @param {number[]} point point[]
  * @param {mElementDrawInfo} elementDrawInfo {width, height, radius, color}
  * @param {string} id 그려지는 svg 도형에 주어줄 id 값
  */
-function drawSvgCircle(canvas, point, elementDrawInfo, id) {
+function drawSvgCircle(svgCanvas, point, elementDrawInfo, id) {
   const [x, y] = point;
   let { radius, color } = elementDrawInfo;
   // color가 배열이 아니면 배열로 변환
   color = Array.isArray(color) ? color : [color];
 
-  const model = canvas
+  const model = svgCanvas
     .circle(radius)
     .fill(color[0])
     .move(x, y)
@@ -452,18 +464,18 @@ function drawSvgCircle(canvas, point, elementDrawInfo, id) {
 
 /**
  *
- * @param {SVG} canvas
+ * @param {SVG} svgCanvas
  * @param {number[]} point point[]
  * @param {mElementDrawInfo} elementDrawInfo {width, height, radius, color}
  * @param {string} id 그려지는 svg 도형에 주어줄 id 값
  */
-function drawSvgPolygon(canvas, point, elementDrawInfo, id) {
+function drawSvgPolygon(svgCanvas, point, elementDrawInfo, id) {
   const [x, y] = point;
   let { width, height, color } = elementDrawInfo;
   // color가 배열이 아니면 배열로 변환
   color = Array.isArray(color) ? color : [color];
 
-  const model = canvas.polyline(
+  const model = svgCanvas.polyline(
     `${width},${0} ${width * 2},${height} ${width},${height * 2} ${0},${height}`,
   );
   model
@@ -478,26 +490,27 @@ function drawSvgPolygon(canvas, point, elementDrawInfo, id) {
 
 /**
  *
- * @param {SVG} canvas
+ * @param {SVG} svgCanvas
  * @param {number[]} point point[]
  * @param {mElementDrawInfo} elementDrawInfo {width, height, radius, color}
  * @param {string} id 그려지는 svg 도형에 주어줄 id값
  */
-function drawSvgPattern(canvas, point, elementDrawInfo, id) {
+function drawSvgPattern(svgCanvas, point, elementDrawInfo, id) {
   const [x, y] = point;
-  let { width, height, color } = elementDrawInfo;
+  const { width, height } = elementDrawInfo;
+  let { color } = elementDrawInfo;
   // color가 배열이 아니면 배열로 변환
   color = Array.isArray(color) ? color : [color];
 
-  // 그림자를 적용하기위한 가려진 사각형 그리기.
-  const model = canvas.rect(width, height);
+  // 그림자를 적용하기위해 pattern 뒤에 사각형 그리기.
+  const model = svgCanvas.rect(width, height);
   model.move(x, y).stroke({ color: 'black' });
 
   drawSvgShadow(model, id);
 
   // pattern 안의 작은 사각형의 크기
   const patternSize = 21;
-  const pattern = canvas.pattern(patternSize, patternSize, add => {
+  const pattern = svgCanvas.pattern(patternSize, patternSize, add => {
     add.rect(patternSize, patternSize).fill('white');
     add
       .rect(patternSize, patternSize)
@@ -505,7 +518,7 @@ function drawSvgPattern(canvas, point, elementDrawInfo, id) {
       .fill(color[0])
       .radius(3.5);
   });
-  canvas
+  svgCanvas
     .rect(width, height)
     .move(x, y)
     .fill(pattern)
@@ -573,15 +586,15 @@ function getDataUnit(nDefId) {
 
 // /**
 //  * 제목 그리기
-//  * @param {SVG} canvas
+//  * @param {SVG} svgCanvas
 //  * @param {string} title
 //  * @param {number[]} point
 //  * @param {string=} fill
 //  * @param {number=} size
 //  */
-// function setTitle(canvas, title = '', point, fill, size) {
+// function setTitle(svgCanvas, title = '', point, fill, size) {
 //   const [x, y] = point;
-//   canvas
+//   svgCanvas
 //     .text(title)
 //     .move(x, y)
 //     .font({
@@ -590,19 +603,3 @@ function getDataUnit(nDefId) {
 //       weight: 'bold',
 //     });
 // }
-
-/**
- * @typedef {Object} svgNodeStorageInfo
- * @property {string} id
- * @property {string} resourceId
- * @property {number[]} point
- * @property {number} data
- */
-
-/**
- * @typedef {Object} detailNodeObjInfo
- * @property {string} id
- * @property {string} resourceId
- * @property {number[]} point
- * @property {number} data
- */

@@ -1834,7 +1834,7 @@ const map = {
         resourceIdList: ['salinity'],
       },
     ],
-    nameExclusionList: ['pipeLine', 'waterWay'],
+    exclusionTextDefIdList: ['pipeLine', 'waterWay'],
   },
   controlInfo: {
     tempControlList: [
