@@ -2,7 +2,7 @@ const { BU } = require('base-util-jh');
 const _ = require('lodash');
 const map = require('../../maps/upsas/6kW');
 
-require('../../../../default-intelligence');
+require('default-intelligence');
 
 class NewSvgMaker {
   constructor() {

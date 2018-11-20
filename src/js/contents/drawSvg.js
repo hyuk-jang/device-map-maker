@@ -65,11 +65,8 @@ function drawSvgBackground(documentId, bgImgUrl) {
  * @param {number|string} data 데이터 값
  */
 function showNodeData(nDefId, data = '') {
+  const { dx, dy, style } = configTest('node'); // FIXME:
   let dataUnit = getDataUnit(nDefId);
-  // FIXME:
-  // const dx;
-  // const dy;
-  // const style;
 
   _.isNull(dataUnit) ? (dataUnit = '') : '';
   if (data === '') dataUnit = '';
@@ -79,8 +76,12 @@ function showNodeData(nDefId, data = '') {
 
   // FIXME:
   // foundsvgCanvas.text.node.innerHTML = `<tspan style="font-size: 20pt;  stroke-width: 0.2" dx="1.1%" dy="10">${data}${dataUnit}</tspan>`;
-  foundSvgTextInfo.text.node.innerHTML = `<tspan x=${foundSvgTextInfo.textX}>${nDefId}</tspan></br>`; // FIXME:
-  foundSvgTextInfo.text.node.innerHTML += `<tspan x=${foundSvgTextInfo.textX} style="font-size: 15pt; fill: #05f605; stroke-width: 0.2" dy="15">${data}</tspan> <tspan>${dataUnit}</tspan>`; // FIXME:
+  foundSvgTextInfo.text.node.innerHTML = `<tspan id="node" x=${foundSvgTextInfo.textX}>${
+    foundSvgTextInfo.name
+  }</tspan>`; // FIXME:
+  foundSvgTextInfo.text.node.innerHTML += `<tspan id="data" x=${
+    foundSvgTextInfo.textX
+  } style="font-size: 15pt; fill: #05f605; stroke-width: 0.2" dy="15">${data}</tspan> <tspan id="dataUnit">${dataUnit}</tspan>`; // FIXME:
 
   changeNodeColor(nDefId, data);
 }
@@ -196,7 +197,7 @@ function writeSvgText(svgCanvas, defInfo, resourceInfo) {
   }
 
   // 제외목록 체크
-  isExcludableText(defInfo.id) ? (naming = '') : ''; //FIXME:
+  isExcludableText(defInfo.id) ? (naming = '') : ''; // FIXME:
 
   const text = svgCanvas.text(naming);
   text
@@ -584,22 +585,54 @@ function getDataUnit(nDefId) {
   return foundUnit.data_unit;
 }
 
-// /**
-//  * 제목 그리기
-//  * @param {SVG} svgCanvas
-//  * @param {string} title
-//  * @param {number[]} point
-//  * @param {string=} fill
-//  * @param {number=} size
-//  */
-// function setTitle(svgCanvas, title = '', point, fill, size) {
-//   const [x, y] = point;
-//   svgCanvas
-//     .text(title)
-//     .move(x, y)
-//     .font({
-//       fill,
-//       size,
-//       weight: 'bold',
-//     });
-// }
+// TODO:
+function configTest(tspanTagId) {
+  /** @type {cUpsasConfig} */
+  const upsasConfig = config;
+  let foundTspanTagInfo;
+  if (tspanTagId === 'data') {
+    foundTspanTagInfo = _.find(upsasConfig.nodeTspanTagInfo, { tspanTagId: 'data' });
+  } else if (tspanTagId === 'node') {
+    foundTspanTagInfo = _.find(upsasConfig.nodeTspanTagInfo, { tspanTagId: 'node' });
+  } else {
+    foundTspanTagInfo = _.find(upsasConfig.nodeTspanTagInfo, { tspanTagId: 'dataUnit' });
+  }
+
+  if (_.isUndefined(foundTspanTagInfo)) return false;
+
+  return foundTspanTagInfo.tspanTagElement;
+}
+
+// FIXME:
+/**
+ * @typedef {Object} cUpsasConfig
+ * @property {cNodeTspanTagInfo[]} nodeTspanTagInfo  노드 데이터의 텍스트 정보 // FIXME: 임시 명칭
+ * @property {cSvgTextStyleInfo[]} svgTextStyleInfo // 모든 svg 텍스트의 속성 정보  // FIXME: 임시 명칭
+ */
+
+/**
+ * @typedef {Object} cNodeTspanTagInfo
+ * @property {string} tspanTagId  노드 이름 or 데이터 FIXME: 임시 명칭
+ * @property {cTspanTagElement} tspanTagElement  tspan 태그 속성  // FIXME:
+ */
+
+/**
+ * @typedef {Object} cTspanTagElement // FIXME: 임시 명칭
+ * @property {number} dx dx
+ * @property {number} dy dy
+ * @property {string} style style
+ */
+
+/**
+ * @typedef {Object} cSvgTextStyleInfo
+ * @property {string} target 장소 or 센서 or 장치 // FIXME: 임시 명칭
+ * @property {cStyleInfo} styleInfo style 속성 // FIXME: 임시 명칭
+ */
+
+/**
+ * @typedef {Object} cStyleInfo
+ * @property {number} textSize 텍스트 크기 // FIXME: 임시 명칭
+ * @property {string} textColor 텍스트 색깔 // FIXME: 임시 명칭
+ * @property {string} leading 텍스트 line height (단위 em) // FIXME: 임시 명칭
+ * @property {string} anchor 좌우 정렬 start, middle, end // FIXME: 임시 명칭
+ */
