@@ -600,39 +600,51 @@ function getDataUnit(nDefId) {
   return foundUnit.data_unit;
 }
 
-/**
- * TODO: config.js에서 Tspan에 적용할 요소들을 가져옴
- * @param {Object} config
- * @param {Object} config.nodeTspanTagInfo
- * @param {Object} config.nodeTspanTagInfo.allNodeTspanElm
- * @param {number} config.nodeTspanTagInfo.allNodeTspanElm.dx
- * @param {number} config.nodeTspanTagInfo.allNodeTspanElm.dy
- * @param {string} config.nodeTspanTagInfo.allNodeTspanElm.style
- */
-function getAllNodeTspanElm(config) {
-  // const { dx, dy, style } = config.nodeTspanTagInfo.allNodeTspanElm;
+ /**
+  * TODO: config.js에서 Tspan에 적용할 요소들을 가져옴
+  * @param {Object} config
+  * @param {Object} config.nodeTspanTagInfo
+  * @param {Object} config.nodeTspanTagInfo.allNodeTspanElm
+  * @param {number} config.nodeTspanTagInfo.allNodeTspanElm.dx
+  * @param {number} config.nodeTspanTagInfo.allNodeTspanElm.dy
+  * @param {string} config.nodeTspanTagInfo.allNodeTspanElm.style
+  */
+function getNodeTspanElm(config, nodeDefId){
 
-  return config.nodeTspanTagInfo.allNodeTspanElm;
 }
 
-/**
- * TODO: config.js에서 Tspan에 단일 노드로 적용할 요소들을 가져옴
- * @param {Object} config
- * @param {Object} config.nodeTspanTagInfo
- * @param {Object[]} config.nodeTspanTagInfo.singleNodeTspanElmList
- * @param {string=} config.nodeTspanTagInfo.singleNodeTspanElmList.nodeId
- * @param {number} config.nodeTspanTagInfo.singleNodeTspanElmList.targetDx
- * @param {number} config.nodeTspanTagInfo.singleNodeTspanElmList.targetDy
- * @param {string} config.nodeTspanTagInfo.singleNodeTspanElmList.targetStyle
- * @param {string} nodeDefId
- */
-function getSingleNodeTspanElm(config, nodeDefId) {
-  const foundSingleNodeTspanInfo = _.find(config.nodeTspanTagInfo.singleNodeTspanElmList, {
-    nodeId: nodeDefId,
-  });
-  if (_.isUndefined(foundSingleNodeTspanInfo)) return false;
-  const { targetDx, targetDy, targetStyle } = foundSingleNodeTspanInfo;
-  const test = { targetDx, targetDy, targetStyle };
+// /**
+//  * TODO: config.js에서 Tspan에 적용할 요소들을 가져옴
+//  * @param {Object} config
+//  * @param {Object} config.nodeTspanTagInfo
+//  * @param {Object} config.nodeTspanTagInfo.allNodeTspanElm
+//  * @param {number} config.nodeTspanTagInfo.allNodeTspanElm.dx
+//  * @param {number} config.nodeTspanTagInfo.allNodeTspanElm.dy
+//  * @param {string} config.nodeTspanTagInfo.allNodeTspanElm.style
+//  */
+// function getAllNodeTspanElm(config) {
 
-  return test;
-}
+//   return config.nodeTspanTagInfo.allNodeTspanElm;
+// }
+
+// /**
+//  * TODO: config.js에서 Tspan에 단일 노드로 적용할 요소들을 가져옴
+//  * @param {Object} config
+//  * @param {Object} config.nodeTspanTagInfo
+//  * @param {Object[]} config.nodeTspanTagInfo.singleNodeTspanElmList
+//  * @param {string=} config.nodeTspanTagInfo.singleNodeTspanElmList.nodeId
+//  * @param {number} config.nodeTspanTagInfo.singleNodeTspanElmList.targetDx
+//  * @param {number} config.nodeTspanTagInfo.singleNodeTspanElmList.targetDy
+//  * @param {string} config.nodeTspanTagInfo.singleNodeTspanElmList.targetStyle
+//  * @param {string} nodeDefId
+//  */
+// function getSingleNodeTspanElm(config, nodeDefId) {
+//   const foundSingleNodeTspanInfo = _.find(config.nodeTspanTagInfo.singleNodeTspanElmList, {
+//     nodeId: nodeDefId,
+//   });
+//   if (_.isUndefined(foundSingleNodeTspanInfo)) return false;
+//   const { targetDx, targetDy, targetStyle } = foundSingleNodeTspanInfo;
+//   const test = { targetDx, targetDy, targetStyle };
+
+//   return test;
+// }
