@@ -79,7 +79,10 @@ const map = {
       },
     ],
     dpcConstructorList: [
-      { dpcId: 'DPC_001', protocol_info: { mainCategory: 'Sensor', subCategory: 'Ean' } },
+      {
+        dpcId: 'DPC_001',
+        protocol_info: { mainCategory: 'Sensor', subCategory: 'Ean', option: { amount: 0.2 } },
+      },
     ],
     dataLoggerStructureList: [
       {
@@ -222,7 +225,7 @@ const map = {
         description: '출력',
         defList: [
           {
-            target_id: 'pvWatt',
+            target_id: 'pvW',
             target_name: 'PV 출력',
             target_prefix: 'W_PV',
             description: '200W 급',
