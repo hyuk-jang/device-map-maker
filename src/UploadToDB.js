@@ -184,6 +184,7 @@ class UploadToDB {
             null,
           ),
           serial_number: dataLoggerDeviceInfo.serial_number || null,
+          target_name: dataLoggerDeviceInfo.target_name || null,
           target_code: dataLoggerDeviceInfo.target_code || null,
           connect_info: _.isObject(connectInfo) ? JSON.stringify(connectInfo) : null,
           protocol_info: _.isObject(protocolInfo) ? JSON.stringify(protocolInfo) : null,
