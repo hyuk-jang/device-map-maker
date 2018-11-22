@@ -1,56 +1,52 @@
 /**
- * @type {cUpsasConfig}
+ * @type {upsasConfig}
  */
 const config = {
   nodeTspanTagInfo: {
-    allNodeTspanElm: {
+    allNodeTspanEle: {
       dx: 0,
       dy: 15,
       style: 'font-size: 15pt; fill: #05f605; stroke-width: 0.2',
     },
-    singleNodeTspanElmList: [
+    singleNodeTspanEleList: [
       {
         nodeId: 'GV_001',
         targetDx: 0,
         targetDy: 15,
-        targetStyle: 'font-size: 15pt; fill: #05f605; stroke-width: 0.2',
+        targetStyle: 'font-size: 15pt; fill: black; stroke-width: 0.2',
       },
     ],
   },
   svgTextStyleInfo: [
     {
-      isSensor: 0,
+      targetId: 'WL_001',
       styleInfo: {
         anchor: '',
         leading: '',
         textColor: '',
         textSize: 0,
+        moveScale: [1, 1],
       },
     },
   ],
 };
 
-// /** @type {test} */
-// const testInfo = {
-
-// }
-
-// /**
-//  *
-//  * @param {Object} info
-//  * @param {number} info.a
-//  * @param {Object} info.b
-//  * @param {Object} info.b.c
-//  */
-// function tt(info) {
-
-// }
-
-// /**
-//  * @typedef {Object} cUpsasConfig
-//  * @property {cNodeTspanTagInfo} nodeTspanTagInfo  노드 데이터의 텍스트 정보 // FIXME: 임시 명칭
-//  * @property {cSvgTextStyleInfo[]} svgTextStyleInfo  노드 데이터의 텍스트 정보 // FIXME: 임시 명칭
-//  */
+/**
+ * @typedef {Object} upsasConfig
+ * @property {Object} nodeTspanTagInfo
+ * @property {Object} nodeTspanTagInfo.allNodeTspanEle
+ * @property {number} nodeTspanTagInfo.allNodeTspanEle.dx
+ * @property {number} nodeTspanTagInfo.allNodeTspanEle.dy
+ * @property {string} nodeTspanTagInfo.allNodeTspanEle.style
+ *
+ * @property {Object[]} nodeTspanTagInfo.singleNodeTspanEleList
+ * @property {string=} nodeTspanTagInfo.singleNodeTspanEleList.nodeId
+ * @property {number} nodeTspanTagInfo.singleNodeTspanEleList.targetDx
+ * @property {number} nodeTspanTagInfo.singleNodeTspanEleList.targetDy
+ * @property {string} nodeTspanTagInfo.singleNodeTspanEleList.targetStyle
+ *
+ *
+ */
 
 // // FIXME:
 // /**
