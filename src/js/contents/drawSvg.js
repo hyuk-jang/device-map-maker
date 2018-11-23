@@ -69,13 +69,20 @@ function showNodeData(nodeDefId, data = '') {
   changeNodeColor(nodeDefId, data);
   let dataUnit = getDataUnit(nodeDefId);
   if (data === '' || _.isNull(dataUnit)) dataUnit = '';
+  let [dx, dy, style] = [0, 15, 'font-size: 15pt; fill: #05f605; stroke-width: 0.2'];
+  const changedAllNodeTspanEle = getChangedNodeTspanEle(config);
+  const changedSingleNodeTspanEle = getChangedNodeTspanEle(config, nodeDefId);
 
   const foundSvgTextInfo = _.find(writtenSvgTextList, { id: nodeDefId });
   if (_.isUndefined(foundSvgTextInfo)) return false;
 
   // <tspan> 태그 속성 전체 적용
-  // const { dx, dy, style } = getAllNodeTspanElm(config);
-  const { dx, dy, style } = getChangedNodeTspanEle(config);
+  if (changedAllNodeTspanEle) {
+    const changedNodeTspanEle = getChangedNodeTspanEle(config);
+    dx = changedNodeTspanEle.allDx;
+    dy = changedNodeTspanEle.allDy;
+    style = changedNodeTspanEle.allStyle;
+  }
 
   foundSvgTextInfo.text.node.innerHTML = `<tspan x=${foundSvgTextInfo.textX}>${
     foundSvgTextInfo.name
@@ -85,10 +92,9 @@ function showNodeData(nodeDefId, data = '') {
   } style="${style}" dx="${dx}" dy="${dy}">${data}</tspan>`; // data 표시
   foundSvgTextInfo.text.node.innerHTML += `<tspan>${dataUnit}</tspan>`; // data 단위 표시
 
-  // <tspan> 태그 속성 단일 적용 FIXME:
-  // const {} = getSingleNodeTspanElm(config, nodeDefId);
-  const { targetDx, targetDy, targetStyle } = getChangedNodeTspanEle(config, nodeDefId);
-  if (_.isString(targetStyle)) {
+  // <tspan> 태그 속성 단일 적용
+  if (changedSingleNodeTspanEle) {
+    const { targetDx, targetDy, targetStyle } = getChangedNodeTspanEle(config, nodeDefId);
     const nodeDataTspanTag = _.head($('#nodeData'));
     nodeDataTspanTag.attributes.dx.value = targetDx;
     nodeDataTspanTag.attributes.dy.value = targetDy;
@@ -149,44 +155,45 @@ function changeNodeColor(nDefId, data) {
  * FIXME: 변수명 수정 확인
  */
 function writeSvgText(svgCanvas, defInfo, resourceInfo) {
-  /** @type {mDeviceMap} */
-  const realMap = map;
-
-  let moveScale = [0, 0];
-  let [textX, textY, textSize, textColor, leading] = [0, 0, 10, '#fdfe02', '1em'];
   const { width, height, radius } = resourceInfo.elementDrawInfo;
   const [x1, y1, x2, y2] = defInfo.point;
-  let anchor = 'middle';
+  const moveScale = [0, 0];
+  const changedAllTextStyle = getChangedTextStyle(config);
+  const changedSingleTextStyle = getChangedTextStyle(config, defInfo.id);
   let naming = defInfo.name; // defInfo.name: 한글, defInfo.id: 영문
+  let [textX, textY, textColor, textSize, leading, anchor] = [0, 0, '', 0, '', ''];
 
   // svgPositionList를 검색하여 장치인지 센서인지 정의
-  let foundSvgInfo = _.find(realMap.drawInfo.positionInfo.svgNodeList, svgNodeInfo =>
+  let foundSvgInfo = _.find(map.drawInfo.positionInfo.svgNodeList, svgNodeInfo =>
     _.map(svgNodeInfo.defList, 'id').includes(defInfo.id),
   );
   if (_.isUndefined(foundSvgInfo)) {
-    foundSvgInfo = _.find(realMap.drawInfo.positionInfo.svgPlaceList, svgNodeInfo =>
+    foundSvgInfo = _.find(map.drawInfo.positionInfo.svgPlaceList, svgNodeInfo =>
       _.map(svgNodeInfo.defList, 'id').includes(defInfo.id),
     );
     if (_.isUndefined(foundSvgInfo)) return false;
   }
 
-  // TODO: 
-  if(getSvgTextStyle(config, defInfo.id));
-
-  // 노드중 sensor style 지정
   if (foundSvgInfo.is_sensor === 1) {
     textColor = 'black';
     anchor = 'middle';
     textSize = 11;
-    // textX = x1 + width - 25;
-  }
-  // 장소 text style 지정
-  if (_.isString(foundSvgInfo.placeId)) {
-    textSize = 25;
-    leading = '0.7em';
-    // textX = x1 + 35;
+    leading = '1.1em';
+  } else if (foundSvgInfo.is_sensor === 0) {
+    textColor = 'black';
     anchor = 'middle';
-    textColor = '#ececec';
+    textSize = 11;
+    leading = '1.1em';
+  } else if (foundSvgInfo.is_sensor === -1) {
+    textColor = 'black';
+    anchor = 'middle';
+    textSize = 11;
+    leading = '1.1em';
+  } else {
+    textColor = 'black';
+    anchor = 'middle';
+    textSize = 25;
+    leading = '0.8em';
   }
 
   // 사각형, 패턴 형식
@@ -213,6 +220,12 @@ function writeSvgText(svgCanvas, defInfo, resourceInfo) {
   } else if (resourceInfo.type === 'polygon') {
     textX = x1 + width;
     textY = y1 + height;
+  }
+
+  // TODO: 현재 장업중....
+  if (changedAllTextStyle) {
+    const changedTextStyle = getChangedTextStyle(config);
+    textSize += changedTextStyle.textSize;
   }
 
   // 제외목록 체크
@@ -604,27 +617,12 @@ function getDataUnit(nDefId) {
   return foundUnit.data_unit;
 }
 
-/**
- * TODO: config.js에서 Tspan에 적용할 요소들을 가져옴
- * @param {Object} config
- * @param {Object} config.nodeTspanTagInfo
- * @param {Object} config.nodeTspanTagInfo.allNodeTspanEle
- * @param {number} config.nodeTspanTagInfo.allNodeTspanEle.dx
- * @param {number} config.nodeTspanTagInfo.allNodeTspanEle.dy
- * @param {string} config.nodeTspanTagInfo.allNodeTspanEle.style
- *
- * @param {Object[]} config.nodeTspanTagInfo.singleNodeTspanEleList
- * @param {string=} config.nodeTspanTagInfo.singleNodeTspanEleList.nodeId
- * @param {number} config.nodeTspanTagInfo.singleNodeTspanEleList.targetDx
- * @param {number} config.nodeTspanTagInfo.singleNodeTspanEleList.targetDy
- * @param {string} config.nodeTspanTagInfo.singleNodeTspanEleList.targetStyle
- */
 function getChangedNodeTspanEle(config, nodeDefId) {
   let nodeTspanEle;
   if (_.isUndefined(nodeDefId)) {
-    nodeTspanEle = config.nodeTspanTagInfo.allNodeTspanEle;
+    nodeTspanEle = config.allNodeTspanEleInfo;
   } else {
-    const foundSingleNodeTspanInfo = _.find(config.nodeTspanTagInfo.singleNodeTspanEleList, {
+    const foundSingleNodeTspanInfo = _.find(config.singleNodeTspanEleList, {
       nodeId: nodeDefId,
     });
     if (_.isUndefined(foundSingleNodeTspanInfo)) return false;
@@ -634,58 +632,14 @@ function getChangedNodeTspanEle(config, nodeDefId) {
   return nodeTspanEle;
 }
 
-/**
- * TODO:
- * @param {Object} config
- * @param {Object[]} config.svgTextStyleInfo
- * @param {string} config.svgTextStyleInfo.targetId
- * @param {Object} config.svgTextStyleInfo.styleInfo
- * @param {string} config.svgTextStyleInfo.styleInfo.anchor
- * @param {string} config.svgTextStyleInfo.styleInfo.leading
- * @param {string} config.svgTextStyleInfo.styleInfo.textColor
- * @param {number} config.svgTextStyleInfo.styleInfo.textSize
- * @param {number[]} config.svgTextStyleInfo.styleInfo.moveScale
- * @param {string} targetId
- */
-function getSvgTextStyle(config, targetId) {
-  const foundTargetTextStyleInfo = _.find(config.svgTextStyleInfo, { targetId });
-  if (_.isUndefined(foundTargetTextStyleInfo)) return false;
+function getChangedTextStyle(config, targetId) {
+  let foundTextStyleInfo;
+  if (_.isUndefined(targetId)) {
+    foundTextStyleInfo = config.allTextStyleInfo;
+  } else {
+    foundTextStyleInfo = _.find(config.singleTextStyleList, { targetId });
+    if (_.isUndefined(foundTextStyleInfo)) return false;
+  }
 
-  return foundTargetTextStyleInfo.styleInfo;
+  return foundTextStyleInfo;
 }
-
-// /**
-//  * TODO: config.js에서 Tspan에 적용할 요소들을 가져옴
-//  * @param {Object} config
-//  * @param {Object} config.nodeTspanTagInfo
-//  * @param {Object} config.nodeTspanTagInfo.allNodeTspanElm
-//  * @param {number} config.nodeTspanTagInfo.allNodeTspanElm.dx
-//  * @param {number} config.nodeTspanTagInfo.allNodeTspanElm.dy
-//  * @param {string} config.nodeTspanTagInfo.allNodeTspanElm.style
-//  */
-// function getAllNodeTspanElm(config) {
-
-//   return config.nodeTspanTagInfo.allNodeTspanElm;
-// }
-
-// /**
-//  * TODO: config.js에서 Tspan에 단일 노드로 적용할 요소들을 가져옴
-//  * @param {Object} config
-//  * @param {Object} config.nodeTspanTagInfo
-//  * @param {Object[]} config.nodeTspanTagInfo.singleNodeTspanElmList
-//  * @param {string=} config.nodeTspanTagInfo.singleNodeTspanElmList.nodeId
-//  * @param {number} config.nodeTspanTagInfo.singleNodeTspanElmList.targetDx
-//  * @param {number} config.nodeTspanTagInfo.singleNodeTspanElmList.targetDy
-//  * @param {string} config.nodeTspanTagInfo.singleNodeTspanElmList.targetStyle
-//  * @param {string} nodeDefId
-//  */
-// function getSingleNodeTspanElm(config, nodeDefId) {
-//   const foundSingleNodeTspanInfo = _.find(config.nodeTspanTagInfo.singleNodeTspanElmList, {
-//     nodeId: nodeDefId,
-//   });
-//   if (_.isUndefined(foundSingleNodeTspanInfo)) return false;
-//   const { targetDx, targetDy, targetStyle } = foundSingleNodeTspanInfo;
-//   const test = { targetDx, targetDy, targetStyle };
-
-//   return test;
-// }
