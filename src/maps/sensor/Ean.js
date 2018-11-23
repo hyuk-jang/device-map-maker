@@ -15,7 +15,7 @@ const map = {
     },
   },
   setInfo: {
-    mainInfo: { main_seq: 1, uuid: 'ean' },
+    mainInfo: { main_seq: 1, uuid: 'aaaaa' },
     dccConstructorList: [
       {
         dccId: 'DCC_001',
@@ -81,30 +81,14 @@ const map = {
     dpcConstructorList: [
       {
         dpcId: 'DPC_001',
-        protocol_info: { mainCategory: 'Sensor', subCategory: 'Ean', option: { amount: 0.2 } },
+        protocol_info: { mainCategory: 'Sensor', subCategory: 'EanEnv' },
+      },
+      {
+        dpcId: 'DPC_002',
+        protocol_info: { mainCategory: 'Sensor', subCategory: 'EanPV', option: { amount: 0.2 } },
       },
     ],
     dataLoggerStructureList: [
-      {
-        target_prefix: 'D_PV',
-        target_name: 'PV',
-        dataLoggerDeviceList: [
-          {
-            target_code: '001',
-            target_name: '일반 모듈 발전량 계측용',
-            dccId: 'DCC_003',
-            dpcId: 'DPC_001',
-            nodeList: ['V_PV_001', 'A_PV_001', 'W_PV_001'],
-          },
-          {
-            target_code: '002',
-            target_name: '냉각형 모듈 발전량 계측용',
-            dccId: 'DCC_004',
-            dpcId: 'DPC_001',
-            nodeList: ['V_PV_002', 'A_PV_002', 'W_PV_002'],
-          },
-        ],
-      },
       {
         target_prefix: 'D_E',
         target_name: 'Environment (외기 환경)',
@@ -125,6 +109,60 @@ const map = {
           },
         ],
       },
+      {
+        target_prefix: 'D_N_PV',
+        target_name: '일반 PV',
+        dataLoggerDeviceList: [
+          {
+            target_code: '001',
+            target_name: '일반형 모듈 발전량 계측용',
+            dccId: 'DCC_003',
+            dpcId: 'DPC_002',
+            nodeList: ['V_PV_001'],
+          },
+          {
+            target_code: '002',
+            target_name: '일반형 모듈 발전량 계측용',
+            dccId: 'DCC_003',
+            dpcId: 'DPC_002',
+            nodeList: ['A_PV_001'],
+          },
+          {
+            target_code: '003',
+            target_name: '일반형 모듈 발전량 계측용',
+            dccId: 'DCC_003',
+            dpcId: 'DPC_002',
+            nodeList: ['W_PV_001', 'DP_KWH_001', 'CP_KWH_001'],
+          },
+        ],
+      },
+      {
+        target_prefix: 'D_C_PV',
+        target_name: '냉각형 PV',
+        dataLoggerDeviceList: [
+          {
+            target_code: '001',
+            target_name: '냉각형 모듈 발전량 계측용',
+            dccId: 'DCC_004',
+            dpcId: 'DPC_002',
+            nodeList: ['V_PV_002'],
+          },
+          {
+            target_code: '002',
+            target_name: '냉각형 모듈 발전량 계측용',
+            dccId: 'DCC_004',
+            dpcId: 'DPC_002',
+            nodeList: ['A_PV_002'],
+          },
+          {
+            target_code: '003',
+            target_name: '냉각형 모듈 발전량 계측용',
+            dccId: 'DCC_004',
+            dpcId: 'DPC_002',
+            nodeList: ['W_PV_002', 'DP_KWH_002', 'CP_KWH_002'],
+          },
+        ],
+      },
     ],
     nodeStructureList: [
       {
@@ -138,6 +176,7 @@ const map = {
             target_id: 'pvRearTemperature',
             target_prefix: 'T_PR',
             target_name: '모듈 후면 온도',
+            is_avg_center: 1,
             nodeList: [
               {
                 target_code: '001',
@@ -151,6 +190,7 @@ const map = {
             target_id: 'waterTemperature',
             target_prefix: 'T_W',
             target_name: '수중 온도',
+            is_avg_center: 1,
             nodeList: [
               {
                 target_code: '001',
@@ -164,6 +204,7 @@ const map = {
             target_id: 'outsideAirTemperature',
             target_prefix: 'T_OA',
             target_name: '외기 온도',
+            is_avg_center: 1,
             nodeList: [
               {
                 target_code: '001',
@@ -183,6 +224,7 @@ const map = {
             target_id: 'pvVol',
             target_name: 'PV 전압',
             target_prefix: 'V_PV',
+            is_avg_center: 1,
             description: '200W 급',
             nodeList: [
               {
@@ -206,6 +248,7 @@ const map = {
             target_id: 'pvAmp',
             target_name: 'PV 전류',
             target_prefix: 'A_PV',
+            is_avg_center: 1,
             description: '200W 급',
             nodeList: [
               {
@@ -221,6 +264,7 @@ const map = {
       {
         target_id: 'watt',
         target_name: '출력',
+        is_sensor: 1,
         data_unit: 'W',
         description: '출력',
         defList: [
@@ -228,6 +272,7 @@ const map = {
             target_id: 'pvW',
             target_name: 'PV 출력',
             target_prefix: 'W_PV',
+            is_avg_center: 1,
             description: '200W 급',
             nodeList: [
               {
@@ -247,6 +292,44 @@ const map = {
         description: '출력',
         defList: [],
       },
+      {
+        target_id: 'kWh',
+        target_name: '발전량',
+        data_unit: 'kWh',
+        description: '출력',
+        defList: [
+          {
+            target_id: 'dailyPower',
+            target_name: '1일 발전량',
+            target_prefix: 'DP_KWH',
+            is_avg_center: 1,
+            description: '200W 급',
+            nodeList: [
+              {
+                target_code: '001',
+              },
+              {
+                target_code: '002',
+              },
+            ],
+          },
+          {
+            target_id: 'cumulativePower',
+            target_name: '누적 발전량',
+            target_prefix: 'CP_KWH',
+            is_avg_center: 1,
+            description: '200W 급',
+            nodeList: [
+              {
+                target_code: '001',
+              },
+              {
+                target_code: '002',
+              },
+            ],
+          },
+        ],
+      },
     ],
   },
   realtionInfo: {
@@ -263,7 +346,16 @@ const map = {
             placeList: [
               {
                 target_code: '',
-                nodeList: ['V_PV_001', 'A_PV_001', 'W_PV_001', 'T_PR_001', 'T_W_001', 'T_OA_001'],
+                nodeList: [
+                  'V_PV_001',
+                  'A_PV_001',
+                  'W_PV_001',
+                  'T_PR_001',
+                  'T_W_001',
+                  'T_OA_001',
+                  'DP_KWH_001',
+                  'CP_KWH_001',
+                ],
               },
             ],
           },
@@ -274,7 +366,16 @@ const map = {
             placeList: [
               {
                 target_code: '',
-                nodeList: ['V_PV_002', 'A_PV_002', 'W_PV_002', 'T_PR_002', 'T_W_002', 'T_OA_001'],
+                nodeList: [
+                  'V_PV_002',
+                  'A_PV_002',
+                  'W_PV_002',
+                  'T_PR_002',
+                  'T_W_002',
+                  'T_OA_001',
+                  'DP_KWH_002',
+                  'CP_KWH_002',
+                ],
               },
             ],
           },
