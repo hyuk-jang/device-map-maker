@@ -79,17 +79,18 @@ function showNodeData(nodeDefId, data = '') {
   // <tspan> 태그 속성 전체 적용
   if (changedAllNodeTspanEle) {
     const changedNodeTspanEle = getChangedNodeTspanEle(config);
+    console.log(changedNodeTspanEle);
     dx = changedNodeTspanEle.allDx;
     dy = changedNodeTspanEle.allDy;
     style = changedNodeTspanEle.allStyle;
   }
 
-  foundSvgTextInfo.text.node.innerHTML = `<tspan x=${foundSvgTextInfo.textX}>${
+  foundSvgTextInfo.text.node.innerHTML = `<tspan x="${foundSvgTextInfo.textX}"> ${
     foundSvgTextInfo.name
   }</tspan>`; // node 이름 표시
-  foundSvgTextInfo.text.node.innerHTML += `<tspan id="nodeData" x=${
+  foundSvgTextInfo.text.node.innerHTML += `<tspan id="nodeData" x="${
     foundSvgTextInfo.textX
-  } style="${style}" dx="${dx}" dy="${dy}">${data}</tspan>`; // data 표시
+  }" style="${style}" dx="${dx}" dy="${dy}">${data}</tspan>`; // data 표시
   foundSvgTextInfo.text.node.innerHTML += `<tspan>${dataUnit}</tspan>`; // data 단위 표시
 
   // <tspan> 태그 속성 단일 적용
@@ -226,6 +227,22 @@ function writeSvgText(svgCanvas, defInfo, resourceInfo) {
   if (changedAllTextStyle) {
     const changedTextStyle = getChangedTextStyle(config);
     textSize += changedTextStyle.textSize;
+    textColor = changedTextStyle.textColor;
+    textX += changedTextStyle.moveScale[0];
+    textY += changedTextStyle.moveScale[1];
+    leading = changedTextStyle.leading;
+    anchor = changedTextStyle.anchor;
+  }
+
+  if (changedSingleTextStyle) {
+    const changedTextStyle = getChangedTextStyle(config, defInfo.id);
+    console.log(changedTextStyle);
+    textSize += changedTextStyle.styleInfo.textSize;
+    textColor = changedTextStyle.styleInfo.textColor;
+    textX += changedTextStyle.styleInfo.moveScale[0];
+    textY += changedTextStyle.styleInfo.moveScale[1];
+    leading = changedTextStyle.styleInfo.leading;
+    anchor = changedTextStyle.styleInfo.anchor;
   }
 
   // 제외목록 체크

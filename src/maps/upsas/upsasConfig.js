@@ -2,38 +2,191 @@
  * @type {upsasConfig}
  */
 const config = {
-  // allNodeTspanEleInfo: {
-  //   dx: 0,
-  //   dy: 15,
-  //   style: 'font-size: 15pt; fill: #05f605; stroke-width: 0.2',
-  // },
-  // singleNodeTspanEleList: [
-  //   {
-  //     nodeId: 'GV_001',
-  //     targetDx: 0,
-  //     targetDy: 15,
-  //     targetStyle: 'font-size: 15pt; fill: red; stroke-width: 0.2',
-  //   },
-  // ],
-  // allTextStyleInfo: {
-  //   textColor: '',
-  //   textSize: 0,
-  //   anchor: '',
-  //   leading: '',
-  //   moveScale: [],
-  // },
-  // singleTextStyleList: [
-  //   {
-  //     targetId: 'WL_001',
-  //     styleInfo: {
-  //       textColor: 'red',
-  //       textSize: 0,
-  //       anchor: '',
-  //       leading: '',
-  //       moveScale: [],
-  //     },
-  //   },
-  // ],
+  allNodeTspanEleInfo: {
+    allDx: 0,
+    allDy: 15,
+    allStyle: 'font-size: 15pt; fill: #05f605; stroke-width: 0.2',
+  },
+  singleNodeTspanEleList: [{}],
+  allTextStyleInfo: {
+    textColor: '#403838',
+    textSize: 0,
+    anchor: 'middle',
+    leading: '1.1em',
+    moveScale: [0, 0],
+  },
+  singleTextStyleList: [
+    {
+      targetId: 'SEB_1_A',
+      styleInfo: {
+        textColor: 'white',
+        textSize: 0,
+        anchor: 'middle',
+        leading: '1em',
+        moveScale: [0, 0],
+      },
+    },
+    {
+      targetId: 'SEB_1_B',
+      styleInfo: {
+        textColor: 'white',
+        textSize: 0,
+        anchor: 'middle',
+        leading: '1em',
+        moveScale: [0, 0],
+      },
+    },
+    {
+      targetId: 'SEB_1_C',
+      styleInfo: {
+        textColor: 'white',
+        textSize: 0,
+        anchor: 'middle',
+        leading: '1em',
+        moveScale: [0, 0],
+      },
+    },
+    {
+      targetId: 'SEB_1_D',
+      styleInfo: {
+        textColor: 'white',
+        textSize: 0,
+        anchor: 'middle',
+        leading: '1em',
+        moveScale: [0, 0],
+      },
+    },
+    {
+      targetId: 'SEB_1_E',
+      styleInfo: {
+        textColor: 'white',
+        textSize: 0,
+        anchor: 'middle',
+        leading: '1em',
+        moveScale: [0, 0],
+      },
+    },
+    {
+      targetId: 'SEB_일반',
+      styleInfo: {
+        textColor: 'white',
+        textSize: 0,
+        anchor: 'middle',
+        leading: '1em',
+        moveScale: [0, 0],
+      },
+    },
+    {
+      targetId: 'SEB_2',
+      styleInfo: {
+        textColor: 'white',
+        textSize: 0,
+        anchor: 'middle',
+        leading: '1em',
+        moveScale: [0, 0],
+      },
+    },
+    {
+      targetId: 'SEB_3',
+      styleInfo: {
+        textColor: 'white',
+        textSize: 0,
+        anchor: 'middle',
+        leading: '1em',
+        moveScale: [0, 0],
+      },
+    },
+    {
+      targetId: 'SEB_4',
+      styleInfo: {
+        textColor: 'white',
+        textSize: 0,
+        anchor: 'middle',
+        leading: '1em',
+        moveScale: [0, 0],
+      },
+    },
+    {
+      targetId: 'SCB',
+      styleInfo: {
+        textColor: 'white',
+        textSize: 0,
+        anchor: 'middle',
+        leading: '1em',
+        moveScale: [0, 0],
+      },
+    },
+    {
+      targetId: 'EA_일반',
+      styleInfo: {
+        textColor: 'white',
+        textSize: 0,
+        anchor: 'middle',
+        leading: '1em',
+        moveScale: [0, 0],
+      },
+    },
+    {
+      targetId: 'EA_G2G',
+      styleInfo: {
+        textColor: 'white',
+        textSize: 0,
+        anchor: 'middle',
+        leading: '1em',
+        moveScale: [0, 0],
+      },
+    },
+    {
+      targetId: 'BW_1',
+      styleInfo: {
+        textColor: 'white',
+        textSize: 0,
+        anchor: 'middle',
+        leading: '1em',
+        moveScale: [0, 0],
+      },
+    },
+    {
+      targetId: 'BW_2',
+      styleInfo: {
+        textColor: 'white',
+        textSize: 0,
+        anchor: 'middle',
+        leading: '1em',
+        moveScale: [0, 0],
+      },
+    },
+    {
+      targetId: 'BW_3',
+      styleInfo: {
+        textColor: 'white',
+        textSize: 0,
+        anchor: 'middle',
+        leading: '1em',
+        moveScale: [0, 0],
+      },
+    },
+    {
+      targetId: 'RV',
+      styleInfo: {
+        textColor: 'white',
+        textSize: 0,
+        anchor: 'middle',
+        leading: '1em',
+        moveScale: [0, 0],
+      },
+    },
+    {
+      targetId: 'SEA',
+      styleInfo: {
+        textColor: 'white',
+        textSize: 0,
+        anchor: 'middle',
+        leading: '1em',
+        moveScale: [0, 0],
+      },
+    },
+  ],
 };
 
 /**
