@@ -21,14 +21,14 @@ const map = {
         dccId: 'DCC_001',
         dccName: '일반 모듈환경 계측용',
         connect_info: {
-          type: 'socket',
+          type: 'serial',
           subType: 'parser',
           addConfigInfo: {
             parser: 'readLineParser',
             option: '\\r',
           },
           baudRate: 9600,
-          port: 9000,
+          port: 'COM5',
           host: 'localhost',
         },
       },
@@ -36,14 +36,14 @@ const map = {
         dccId: 'DCC_002',
         dccName: '냉각형 모듈환경 계측용',
         connect_info: {
-          type: 'socket',
+          type: 'serial',
           subType: 'parser',
           addConfigInfo: {
             parser: 'readLineParser',
             option: '\\r',
           },
           baudRate: 9600,
-          port: 9000,
+          port: 'COM6',
           host: 'localhost',
         },
       },
@@ -51,14 +51,14 @@ const map = {
         dccId: 'DCC_003',
         dccName: '일반 모듈 발전량 계측용',
         connect_info: {
-          type: 'socket',
+          type: 'serial',
           subType: 'parser',
           addConfigInfo: {
             parser: 'readLineParser',
             option: '\\n',
           },
           baudRate: 9600,
-          port: 9001,
+          port: 'COM3',
           host: 'localhost',
         },
       },
@@ -66,14 +66,14 @@ const map = {
         dccId: 'DCC_004',
         dccName: '냉각형 모듈 발전량 계측용',
         connect_info: {
-          type: 'socket',
+          type: 'serial',
           subType: 'parser',
           addConfigInfo: {
             parser: 'readLineParser',
             option: '\\n',
           },
           baudRate: 9600,
-          port: 9001,
+          port: 'COM4',
           host: 'localhost',
         },
       },
@@ -81,10 +81,14 @@ const map = {
     dpcConstructorList: [
       {
         dpcId: 'DPC_001',
-        protocol_info: { mainCategory: 'Sensor', subCategory: 'EanEnv' },
+        protocol_info: { mainCategory: 'Sensor', subCategory: 'EanEnv', option: { isNormal: 1 } },
       },
       {
         dpcId: 'DPC_002',
+        protocol_info: { mainCategory: 'Sensor', subCategory: 'EanEnv', option: { isNormal: 0 } },
+      },
+      {
+        dpcId: 'DPC_003',
         protocol_info: { mainCategory: 'Sensor', subCategory: 'EanPV', option: { amount: 0.2 } },
       },
     ],
@@ -98,14 +102,14 @@ const map = {
             target_name: '일반 모듈환경 계측용',
             dccId: 'DCC_001',
             dpcId: 'DPC_001',
-            nodeList: ['T_PR_001', 'T_W_001', 'T_OA_001'],
+            nodeList: ['T_PR_001', 'T_OA_001'],
           },
           {
             target_code: '냉각형',
             target_name: '냉각형 모듈환경 계측용',
             dccId: 'DCC_002',
-            dpcId: 'DPC_001',
-            nodeList: ['T_PR_002', 'T_W_002'],
+            dpcId: 'DPC_002',
+            nodeList: ['T_PR_002', 'T_W_001', 'T_W_002'],
           },
         ],
       },
@@ -117,14 +121,14 @@ const map = {
             target_code: '일반형',
             target_name: '일반형 모듈 발전량 계측용',
             dccId: 'DCC_003',
-            dpcId: 'DPC_002',
+            dpcId: 'DPC_003',
             nodeList: ['V_PV_001', 'A_PV_001', 'W_PV_001', 'CP_KWH_001'],
           },
           {
             target_code: '냉각형',
             target_name: '냉각형 모듈 발전량 계측용',
             dccId: 'DCC_004',
-            dpcId: 'DPC_002',
+            dpcId: 'DPC_003',
             nodeList: ['V_PV_002', 'A_PV_002', 'W_PV_002', 'CP_KWH_002'],
           },
         ],
@@ -160,9 +164,11 @@ const map = {
             nodeList: [
               {
                 target_code: '001',
+                data_logger_index: 1,
               },
               {
                 target_code: '002',
+                data_logger_index: 0,
               },
             ],
           },
@@ -262,6 +268,7 @@ const map = {
         target_id: 'kWh',
         target_name: '발전량',
         data_unit: 'kWh',
+        is_sensor: 1,
         description: '출력',
         defList: [
           {
