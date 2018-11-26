@@ -79,6 +79,7 @@ function showNodeData(nodeDefId, data = '') {
   // <tspan> 태그 속성 전체 적용
   if (changedAllNodeTspanEle) {
     const changedNodeTspanEle = getChangedNodeTspanEle(config);
+    console.log(changedNodeTspanEle);
     dx = changedNodeTspanEle.allDx;
     dy = changedNodeTspanEle.allDy;
     style = changedNodeTspanEle.allStyle;
@@ -197,11 +198,7 @@ function writeSvgText(svgCanvas, defInfo, resourceInfo) {
   }
 
   // 사각형, 패턴 형식
-  if (
-    resourceInfo.type === 'rect' ||
-    resourceInfo.type === 'pattern' ||
-    resourceInfo.type === 'image'
-  ) {
+  if (resourceInfo.type === 'rect' || resourceInfo.type === 'pattern') {
     textX = x1 + width / 2;
     textY = y1 + height / 2;
 
@@ -239,6 +236,7 @@ function writeSvgText(svgCanvas, defInfo, resourceInfo) {
 
   if (changedSingleTextStyle) {
     const changedTextStyle = getChangedTextStyle(config, defInfo.id);
+    console.log(changedTextStyle);
     textSize += changedTextStyle.styleInfo.textSize;
     textColor = changedTextStyle.styleInfo.textColor;
     textX += changedTextStyle.styleInfo.moveScale[0];
@@ -421,9 +419,6 @@ function drawSvgElement(svgCanvas, svgDrawType, point, elementDrawInfo, defId) {
     case 'rect':
       drawSvgRect(svgCanvas, point, elementDrawInfo, defId);
       break;
-    case 'image':
-      drawSvgImage(svgCanvas, point, elementDrawInfo, defId);
-      break;
     case 'line':
       drawSvgLine(svgCanvas, point, elementDrawInfo, defId);
       break;
@@ -502,11 +497,10 @@ function drawSvgLine(svgCanvas, point, elementDrawInfo, id) {
  */
 function drawSvgCircle(svgCanvas, point, elementDrawInfo, id) {
   const [x, y] = point;
-  let { color } = elementDrawInfo;
-  const { radius } = elementDrawInfo;
-
+  let { radius, color } = elementDrawInfo;
   // color가 배열이 아니면 배열로 변환
   color = Array.isArray(color) ? color : [color];
+
   const model = svgCanvas
     .circle(radius)
     .fill(color[0])
@@ -583,27 +577,6 @@ function drawSvgPattern(svgCanvas, point, elementDrawInfo, id) {
     });
 }
 
-function drawSvgImage(svgCanvas, point, elementDrawInfo, id) {
-  const [x, y] = point;
-  const { width, height } = elementDrawInfo;
-  const { imgUrl } = elementDrawInfo;
-  let { radius, opacity } = elementDrawInfo;
-
-  _.isUndefined(radius) ? (radius = 1) : '';
-  _.isUndefined(opacity) ? (opacity = 1) : '';
-
-  const model = svgCanvas
-    .image(imgUrl)
-    .move(x, y)
-    .size(width, height)
-    .attr({
-      id,
-      radius,
-      opacity,
-    });
-  drawSvgShadow(model, id);
-}
-
 /**
  * 그림자
  * @param {SVG} model 그려질 장소.
@@ -661,11 +634,6 @@ function getDataUnit(nDefId) {
   return foundUnit.data_unit;
 }
 
-/**
- *  config의 변경된 노드 <tspan> 속성을 가져온다
- * @param {config} config
- * @param {string} nodeDefId
- */
 function getChangedNodeTspanEle(config, nodeDefId) {
   let nodeTspanEle;
   if (_.isUndefined(nodeDefId)) {
@@ -681,11 +649,6 @@ function getChangedNodeTspanEle(config, nodeDefId) {
   return nodeTspanEle;
 }
 
-/**
- * config의 변경된 text style 속성을 가져온다.
- * @param {config} config
- * @param {string} targetId
- */
 function getChangedTextStyle(config, targetId) {
   let foundTextStyleInfo;
   if (_.isUndefined(targetId)) {

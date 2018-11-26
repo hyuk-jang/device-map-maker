@@ -5,7 +5,7 @@ const config = {
   allNodeTspanEleInfo: {
     allDx: 0,
     allDy: 15,
-    allStyle: 'font-size: 15pt; fill: #00ff51; stroke-width: 0.2',
+    allStyle: 'font-size: 15pt; fill: #05f605; stroke-width: 0.2',
   },
   singleNodeTspanEleList: [{}],
   allTextStyleInfo: {
@@ -178,86 +178,6 @@ const config = {
     },
     {
       targetId: 'SEA',
-      styleInfo: {
-        textColor: 'white',
-        textSize: 0,
-        anchor: 'middle',
-        leading: '1em',
-        moveScale: [0, 0],
-      },
-    },
-    {
-      targetId: 'O_001',
-      styleInfo: {
-        textColor: 'white',
-        textSize: 0,
-        anchor: 'middle',
-        leading: '1em',
-        moveScale: [0, 0],
-      },
-    },
-    {
-      targetId: 'O_002',
-      styleInfo: {
-        textColor: 'white',
-        textSize: 0,
-        anchor: 'middle',
-        leading: '1em',
-        moveScale: [0, 0],
-      },
-    },
-    {
-      targetId: 'O_003',
-      styleInfo: {
-        textColor: 'white',
-        textSize: 0,
-        anchor: 'middle',
-        leading: '1em',
-        moveScale: [0, 0],
-      },
-    },
-    {
-      targetId: 'O_004',
-      styleInfo: {
-        textColor: 'white',
-        textSize: 0,
-        anchor: 'middle',
-        leading: '1em',
-        moveScale: [0, 0],
-      },
-    },
-    {
-      targetId: 'O_005',
-      styleInfo: {
-        textColor: 'white',
-        textSize: 0,
-        anchor: 'middle',
-        leading: '1em',
-        moveScale: [0, 0],
-      },
-    },
-    {
-      targetId: 'O_006',
-      styleInfo: {
-        textColor: 'white',
-        textSize: 0,
-        anchor: 'middle',
-        leading: '1em',
-        moveScale: [0, 0],
-      },
-    },
-    {
-      targetId: 'O_007',
-      styleInfo: {
-        textColor: 'white',
-        textSize: 0,
-        anchor: 'middle',
-        leading: '1em',
-        moveScale: [0, 0],
-      },
-    },
-    {
-      targetId: 'O_008',
       styleInfo: {
         textColor: 'white',
         textSize: 0,
