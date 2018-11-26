@@ -13,20 +13,24 @@ const map = {
       svgModelResourceList: [
         {
           id: 'salternModuleBlock_A',
-          type: 'pattern',
+          type: 'image',
+          // type: 'pattern',
           elementDrawInfo: {
             width: 480,
             height: 300,
-            color: '#3e4379',
+            imgUrl: '/src/img/solarPanel_A.jpg',
+            // color: '#383667',
           },
         },
         {
           id: 'salternModuleBlock_B',
-          type: 'pattern',
+          type: 'image',
+          // type: 'pattern',
           elementDrawInfo: {
             width: 480,
             height: 600,
-            color: '#3e4379',
+            imgUrl: '/src/img/solarPanel_B.jpg',
+            // color: '#383667',
           },
         },
         {
@@ -80,7 +84,7 @@ const map = {
           elementDrawInfo: {
             width: 77,
             height: 77,
-            color: ['#d7dcee', '#2858f9', '#dc1d1f'],
+            color: ['#d7dcee', '#276cff', '#dc1d1f'],
           },
         },
         {
@@ -89,7 +93,7 @@ const map = {
           elementDrawInfo: {
             width: 77,
             height: 77,
-            color: ['#d7dcee', '#2858f9', '#dc1d1f'],
+            color: ['#d7dcee', '#276cff', '#dc1d1f'],
           },
         },
         {
@@ -107,7 +111,7 @@ const map = {
           elementDrawInfo: {
             width: 40,
             height: 40,
-            color: ['#f2e1f2', '#e085e1', '#dc1d1f'],
+            color: ['#f2e1f2', '#f590f6', '#dc1d1f'],
           },
         },
         {

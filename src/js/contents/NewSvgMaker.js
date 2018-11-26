@@ -253,7 +253,7 @@ class NewSvgMaker {
       const { width, height } = svgModelResourceInfo.elementDrawInfo;
       const [x, y, x1, y1] = targetInfo.point;
 
-      if (targetType === 'rect' || targetType === 'pattern') {
+      if (targetType === 'rect' || targetType === 'pattern' || targetType === 'image') {
         targetPoint = [x, y, x + width, y + height];
         // line position:(x1,y1,x2,y2)
       } else if (targetType === 'line') {
