@@ -2,31 +2,41 @@
 <html>
 
 <head>
-  <meta charset="EUC-KR">
+  <meta charset="EUC-KR" />
   <title></title>
-  <script src='//code.jquery.com/jquery-latest.min.js'></script>
-  <script src='./js/jquery.panzoom.js'></script>
-  <script src='./testSvg/condensingDrawSvg.js'></script>
-  <script src='./maps/condensingSolar/condensingOutputMap.js'></script>
-  <script src='./js/lodash.min.js'></script>
-  <script src='./js/svg.js'></script>
-  <script src='./js/svg.filter.js'></script>
-  <script src='./js/jquery-confirm.min.js'></script>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-  <link rel="stylesheet" href="./css/jquery-confirm.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" />
+
+  <script src="./js/jquery-3.1.1.min.js"></script>
+  <script src="./js/jquery.panzoom.js"></script>
+
+  <link rel="stylesheet" href="./css/bootstrap-dialog.css" />
+  <script src="./js/bootstrap.min.js"></script>
+  <script src="./js/bootstrap-dialog.js"></script>
+
+  <script src="./js/svg.js"></script>
+  <script src="./js/svg.filter.js"></script>
+
+  <script src="./js/lodash.min.js"></script>
+
+  <script src="./maps/upsas/upsasConfig.js"></script>
+  <script src="./maps/upsas/outputMap.js"></script>
+  <script src="./js/contents/drawSvg.js"></script>
 </head>
 
 <body>
-  <!--메인-->
+  <!-- 메인 -->
   <div class="jumbotron text-center jumbotron_line">
     <div class="row row_st_line min_h_780">
       <div id="zoom" style="display: flex; justify-content: center;">
-        <button id="zoom-in" class="btn btn-default btn-sm" style="margin-right: 5px"><span class="glyphicon glyphicon-zoom-in"></span>
-          Zoom-in</button>
-        <button id="zoom-out" class="btn btn-default btn-sm" style="margin-right: 5px"><span class="glyphicon glyphicon-zoom-out"></span>
-          Zoom-out</button>
-        <button id="reset" class="btn btn-default btn-sm" style="margin-right: 5px"><span class="glyphicon glyphicon-refresh"></span>
-          Reset</button>
+        <button id="zoom-in" class="btn btn-default btn-sm" style="margin-right: 5px">
+          <span class="glyphicon glyphicon-zoom-in"></span> Zoom-in
+        </button>
+        <button id="zoom-out" class="btn btn-default btn-sm" style="margin-right: 5px">
+          <span class="glyphicon glyphicon-zoom-out"></span> Zoom-out
+        </button>
+        <button id="reset" class="btn btn-default btn-sm" style="margin-right: 5px">
+          <span class="glyphicon glyphicon-refresh"></span> Reset
+        </button>
       </div>
       <!-- canvas -->
       <div>
@@ -36,55 +46,50 @@
   </div>
 
   <script>
-    drawSvgCanvas('canvas', './img/bg.jpg', '집광형 태양열 발전 시스템 모니터링');
-
+    drawSvgBackground('canvas');
 
     // size 재설정
-    var svgMap = SVG.get('canvasId')
-    var canvas = document.getElementById('canvas')
-    canvas.style.width = svgMap.node.width.baseVal.value + 'px'
-    canvas.style.height = svgMap.node.height.baseVal.value + 'px'
-
+    var svgMap = SVG.get('svgCanvas');
+    var canvas = document.getElementById('canvas');
+    canvas.style.width = svgMap.node.width.baseVal.value + 'px';
+    canvas.style.height = svgMap.node.height.baseVal.value + 'px';
 
     // panzoom 기능
     var $panzoom = $('#canvas').panzoom({
       // $zoomIn: $('#zoom-in'),
       // $zoomOut: $('#zoom-out'),
       $reset: $('#reset'),
-      cursor: "context-menu",
-      startTransform: 'matrix(0.6, 0, 0, 0.6, -256, -600)',
-    })
+      cursor: 'context-menu',
+      startTransform: 'matrix(0.5, 0, 0, 0.5, -500, -700)', // FIXME:
+    });
 
     $('#zoom-in').click(function (e) {
-      e.clientX = 300
-      e.clientY = 200
+      e.clientX = 300;
+      e.clientY = 200;
       $panzoom.panzoom('zoom', {
         // focal: e
-      })
-    })
+      });
+    });
 
     $('#zoom-out').click(function (e) {
-      e.clientX = 300
-      e.clientY = 200
+      e.clientX = 300;
+      e.clientY = 200;
       $panzoom.panzoom('zoom', 'zoomOut', {
-        focal: e
-      })
-    })
+        focal: e,
+      });
+    });
 
-
-
-    showDataValue('CGT_001', 1000)
-    showDataValue('COT_001', 1000)
-    showDataValue('HMST_001', 100)
-    showDataValue('STP_001', 50)
-    showDataValue('SAP_001', '282,51200', '11:11:00', '11:11:00')
-    showDataValue('TAPP_001', '1,325')
-    // setTimeData('UT_001', '11:11:00')
-    // setTimeData('CT_001', '11:11:00')
+    bindingClickEventNode();
+    showNodeData('GV_001', 'open');
+    showNodeData('V_001', 'open');
+    showNodeData('P_001', 'open');
+    showNodeData('S_001', '100');
   </script>
 
   <script>
-
+    // TODO: mapFormat 점검
+    // TODO: sensor 위치 지정 효율적으로 생각
+    // TODO: config 작업
   </script>
 </body>
 

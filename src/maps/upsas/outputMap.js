@@ -1,8 +1,3 @@
-require('../../../../default-intelligence');
-
-/**
- * @type {mDeviceMap}
- */
 const map = {
   drawInfo: {
     frame: {
@@ -2128,5 +2123,3 @@ const map = {
     ],
   },
 };
-
-module.exports = map;

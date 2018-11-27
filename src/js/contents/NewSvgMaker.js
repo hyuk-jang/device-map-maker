@@ -1,8 +1,8 @@
 const { BU } = require('base-util-jh');
 const _ = require('lodash');
-const map = require('../maps/condensingSolar/condensingMap');
+const map = require('../../maps/upsas/6kW');
 
-require('../../../default-intelligence');
+require('default-intelligence');
 
 class NewSvgMaker {
   constructor() {
@@ -14,14 +14,14 @@ class NewSvgMaker {
 
   startMake() {
     BU.writeFile(
-      './src/maps/condensingSolar/condensingOutputMap.js',
+      './src/maps/upsas/outputMap.js',
       `var map = ${JSON.stringify(map)}`,
       'w',
       (err, res) => {
         if (err) {
           return BU.CLI('Map 자동 생성에 실패하였습니다.');
         }
-        BU.CLI('맵 자동생성을 하였습니다.', 'condensingOutputMap.js');
+        BU.CLI('맵 자동생성을 하였습니다.', 'outputMap.js');
       },
     );
   }
@@ -65,7 +65,6 @@ class NewSvgMaker {
   makeObjInfo() {
     /** @type {storageInfo[]} */
     const storageList = [];
-
     map.relationInfo.placeRelationList.forEach(placeRelationInfo => {
       placeRelationInfo.defList.forEach(defInfo => {
         defInfo.placeList.forEach(placeInfo => {
@@ -254,7 +253,7 @@ class NewSvgMaker {
       const { width, height } = svgModelResourceInfo.elementDrawInfo;
       const [x, y, x1, y1] = targetInfo.point;
 
-      if (targetType === 'rect' || targetType === 'pattern') {
+      if (targetType === 'rect' || targetType === 'pattern' || targetType === 'image') {
         targetPoint = [x, y, x + width, y + height];
         // line position:(x1,y1,x2,y2)
       } else if (targetType === 'line') {
@@ -335,11 +334,11 @@ class NewSvgMaker {
             const sensorPrefix = this.getReplace(sensorId, /[_\d]/g);
             const placePoint = this.discoverObjectPoint(placeId);
             const { axisScale } = this.getAxisMoveScale(sensorId);
-            let moveScale = [[]];
+            let { moveScale } = this.getAxisMoveScale(sensorId);
             if (sensorStorage.length === 1) {
-              moveScale = axisScale;
+              moveScale;
             } else if (sensorStorage.length > 2 < 5) {
-              moveScale = [[-0.8, -0.8], [0.8, -0.8], [-0.8, 0.8], [0.8, 0.8]];
+              moveScale = [[-1, -1], [1, -1], [-1, 1], [1, 1]];
               moveScale = moveScale[index];
             } else if (sensorStorage.length > 4 < 10) {
               moveScale = [
