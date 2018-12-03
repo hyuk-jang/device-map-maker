@@ -10,13 +10,13 @@ const map = {
       svgModelResourceList: [
         {
           id: 'salternModuleBlock_A',
-          type: 'pattern',
-          elementDrawInfo: { width: 480, height: 300, color: '#383667' },
+          type: 'rect',
+          elementDrawInfo: { width: 480, height: 300, color: '#383667', opacity: 0 },
         },
         {
           id: 'salternModuleBlock_B',
-          type: 'pattern',
-          elementDrawInfo: { width: 480, height: 600, color: '#383667' },
+          type: 'rect',
+          elementDrawInfo: { width: 480, height: 600, color: '#383667', opacity: 0 },
         },
         {
           id: 'salternNomalBlock_A',
@@ -26,17 +26,17 @@ const map = {
         {
           id: 'salternNomalBlock_B',
           type: 'rect',
-          elementDrawInfo: { width: 510, height: 330, color: '#86623b' },
+          elementDrawInfo: { width: 510, height: 330, color: '#86623b', opacity: 0 },
         },
         {
           id: 'earth',
-          type: 'pattern',
-          elementDrawInfo: { width: 500, height: 160, color: '#4c7093' },
+          type: 'rect',
+          elementDrawInfo: { width: 500, height: 160, color: '#4c7093', opacity: 0 },
         },
         {
           id: 'salternCrystalBlock',
           type: 'rect',
-          elementDrawInfo: { width: 510, height: 330, color: '#4f351a' },
+          elementDrawInfo: { width: 510, height: 330, color: '#4f351a', opacity: 0 },
         },
         {
           id: 'brineWarehouse',

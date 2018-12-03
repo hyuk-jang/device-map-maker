@@ -16,8 +16,8 @@ function drawSvgBackground(documentId, bgImgUrl) {
   svgCanvas.attr({ id: 'svgCanvas' });
 
   // 배경 이미지 지정
-  const backgroundImg = svgCanvas.image(bgImgUrl, svgCanvasWidth, svgCanvasHeight);
-  backgroundImg.move(0, 0);
+  const backgroundImg = svgCanvas.image(bgImgUrl);
+  backgroundImg.move(10, 0);
 
   // Place 그리기
   realMap.drawInfo.positionInfo.svgPlaceList.forEach(svgPlaceInfo => {
@@ -553,9 +553,12 @@ function drawSvgPolygon(svgCanvas, point, elementDrawInfo, id) {
 function drawSvgPattern(svgCanvas, point, elementDrawInfo, id) {
   const [x, y] = point;
   const { width, height } = elementDrawInfo;
-  let { color } = elementDrawInfo;
+  let { color, radius, opacity } = elementDrawInfo;
   // color가 배열이 아니면 배열로 변환
   color = Array.isArray(color) ? color : [color];
+
+  _.isUndefined(radius) ? (radius = 1) : '';
+  _.isUndefined(opacity) ? (opacity = 1) : '';
 
   // 그림자를 적용하기위해 pattern 뒤에 사각형 그리기.
   const model = svgCanvas.rect(width, height);
@@ -571,7 +574,10 @@ function drawSvgPattern(svgCanvas, point, elementDrawInfo, id) {
       .rect(patternSize, patternSize)
       .move(0.4, 0.4)
       .fill(color[0])
-      .radius(3.5);
+      .radius(3.5)
+      .attr({
+        opacity,
+      });
   });
   svgCanvas
     .rect(width, height)
@@ -579,6 +585,7 @@ function drawSvgPattern(svgCanvas, point, elementDrawInfo, id) {
     .fill(pattern)
     .attr({
       id,
+      opacity,
     });
 }
 
