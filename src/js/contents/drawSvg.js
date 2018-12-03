@@ -327,34 +327,33 @@ function bindingClickEventNode(socket) {
 
         // 장치 or 센서 구분  1: 센서, 0: 장치, -1: 미분류
         if (foundSvgNodeInfo.is_sensor === 1) {
-          BootstrapDialog.show({
-            title: `${nodeDefInfo.name}`,
-            message: `'${
-              nodeDefInfo.name
-            }' 의 값을 입력하세요.: <input type="text" class="form-control">`,
-            buttons: [
-              {
-                label: 'OK',
-                action(dialogItself) {
-                  const getDialogValue = dialogItself
-                    .getModalBody()
-                    .find('input')
-                    .val();
-                  if (_.isUndefined(getDialogValue)) return false;
-
-                  executeCommand(socket, 3, nodeDefInfo.id);
-                  dialogItself.close();
-                },
-              },
-              {
-                label: 'CANCEL',
-                cssClass: 'btn-primary',
-                action(dialogItself) {
-                  dialogItself.close();
-                },
-              },
-            ],
-          });
+          // BootstrapDialog.show({
+          //   title: `${nodeDefInfo.name}`,
+          //   message: `'${
+          //     nodeDefInfo.name
+          //   }' 의 값을 입력하세요.: <input type="text" class="form-control">`,
+          //   buttons: [
+          //     {
+          //       label: 'OK',
+          //       action(dialogItself) {
+          //         const getDialogValue = dialogItself
+          //           .getModalBody()
+          //           .find('input')
+          //           .val();
+          //         if (_.isUndefined(getDialogValue)) return false;
+          //         executeCommand(socket, 3, nodeDefInfo.id);
+          //         dialogItself.close();
+          //       },
+          //     },
+          //     {
+          //       label: 'CANCEL',
+          //       cssClass: 'btn-primary',
+          //       action(dialogItself) {
+          //         dialogItself.close();
+          //       },
+          //     },
+          //   ],
+          // });
         } else {
           BootstrapDialog.show({
             title: `${nodeDefInfo.name}`,

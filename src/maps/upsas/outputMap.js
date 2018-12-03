@@ -1,7 +1,7 @@
 const map = {
   drawInfo: {
     frame: {
-      mapSize: { width: 3000, height: 3000 },
+      mapSize: { width: 5000, height: 5000 },
       svgModelResourceList: [
         {
           id: 'salternModuleBlock_A',
@@ -1597,9 +1597,7 @@ const map = {
               {
                 target_code: '',
                 depth: -1,
-                place_info: {
-                  placeSize: { width: 500, height: 100, depth: 100 },
-                },
+                place_info: { placeSize: { width: 500, height: 100, depth: 100 } },
                 nodeList: ['P_002', 'P_006', 'O_007'],
               },
             ],

@@ -55,13 +55,13 @@
     canvas.style.height = svgMap.node.height.baseVal.value + 'px';
 
     // panzoom 기능
-    var $panzoom = $('#canvas').panzoom({
-      // $zoomIn: $('#zoom-in'),
-      // $zoomOut: $('#zoom-out'),
-      $reset: $('#reset'),
-      cursor: 'context-menu',
-      startTransform: 'matrix(0.5, 0, 0, 0.5, -500, -700)', // FIXME:
-    });
+    // var $panzoom = $('#canvas').panzoom({
+    //   // $zoomIn: $('#zoom-in'),
+    //   // $zoomOut: $('#zoom-out'),
+    //   $reset: $('#reset'),
+    //   cursor: 'context-menu',
+    //   // // startTransform: 'matrix(0.5, 0, 0, 0.5, -500, -700)', // FIXME:
+    // });
 
     $('#zoom-in').click(function (e) {
       e.clientX = 300;

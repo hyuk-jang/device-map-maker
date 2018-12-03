@@ -1,5 +1,5 @@
 const UploadToDB = require('./UploadToDB');
-const SvgMaker = require('./js/contents/newSvgMaker');
+const SvgMaker = require('./js/contents/NewSvgMaker');
 
 class Control {
   /** 환경 변수를 읽어 들여 상황에 맞는 메소드 실행 */

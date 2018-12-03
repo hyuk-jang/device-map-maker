@@ -169,6 +169,7 @@ class NewSvgMaker {
           nodeDefId: storageInfo.nodeDefId,
         });
         if (_.isEmpty(foundIt)) {
+          BU.CLI(foundIt);
           foundIt = {
             nodeDefId: storageInfo.nodeDefId,
             is_sensor: isSensor,
