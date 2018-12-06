@@ -6,17 +6,17 @@ require('../../../../default-intelligence');
 const map = {
   drawInfo: {
     frame: {
-      mapSize: { width: 3000, height: 3000 },
+      mapSize: { width: 3000, height: 2000 },
       svgModelResourceList: [
         {
           id: 'salternModuleBlock_A',
-          type: 'rect',
-          elementDrawInfo: { width: 480, height: 300, color: '#383667', opacity: 0 },
+          type: 'pattern',
+          elementDrawInfo: { width: 480, height: 300, color: '#383667' },
         },
         {
           id: 'salternModuleBlock_B',
-          type: 'rect',
-          elementDrawInfo: { width: 480, height: 600, color: '#383667', opacity: 0 },
+          type: 'pattern',
+          elementDrawInfo: { width: 480, height: 600, color: '#383667' },
         },
         {
           id: 'salternNomalBlock_A',
@@ -26,17 +26,17 @@ const map = {
         {
           id: 'salternNomalBlock_B',
           type: 'rect',
-          elementDrawInfo: { width: 510, height: 330, color: '#86623b', opacity: 0 },
+          elementDrawInfo: { width: 510, height: 330, color: '#86623b' },
         },
         {
           id: 'earth',
-          type: 'rect',
-          elementDrawInfo: { width: 500, height: 160, color: '#4c7093', opacity: 0 },
+          type: 'pattern',
+          elementDrawInfo: { width: 500, height: 160, color: '#4c7093' },
         },
         {
           id: 'salternCrystalBlock',
           type: 'rect',
-          elementDrawInfo: { width: 510, height: 330, color: '#4f351a', opacity: 0 },
+          elementDrawInfo: { width: 510, height: 330, color: '#4f351a' },
         },
         {
           id: 'brineWarehouse',
