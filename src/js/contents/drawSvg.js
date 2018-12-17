@@ -87,7 +87,7 @@ function showNodeData(nodeDefId, data = '') {
   foundSvgTextInfo.text.node.innerHTML = `<tspan x="${foundSvgTextInfo.textX}"> ${
     foundSvgTextInfo.name
   }</tspan>`; // node 이름 표시
-  foundSvgTextInfo.text.node.innerHTML += `<tspan id="nodeData" x="${
+  foundSvgTextInfo.text.node.innerHTML += `<tspan id="nodeData" class ="${nodeDefId}" value="${data}" x="${
     foundSvgTextInfo.textX
   }" style="${style}" dx="${dx}" dy="${dy}">${data}</tspan>`; // data 표시
   foundSvgTextInfo.text.node.innerHTML += `<tspan>${dataUnit}</tspan>`; // data 단위 표시
@@ -122,24 +122,19 @@ function changeNodeColor(nDefId, data) {
     getNodeBgColor = foundSvgModelResourceInfo.elementDrawInfo.color;
   });
 
-  const foundNodeInfo = _.find(realMap.drawInfo.positionInfo.svgNodeList, svgNodeInfo =>
-    _.map(svgNodeInfo.defList, 'id').includes(nDefId),
+  const foundNodeInfo = _.find(realMap.drawInfo.positionInfo.svgNodeList, svgNo =>
+    _.map(svgNo.defList, 'id').includes(nDefId),
   );
   if (_.isUndefined(foundNodeInfo)) return false;
 
   // 0: 장치, 1: 센서, -1: 미분류
   if (foundNodeInfo.is_sensor === 0) {
-    const falseValList = ['CLOSE', 'CLOSING', 'OFF', 0, '0'];
-    const trueValList = ['OPEN', 'OPENING', 'ON', 1, '1'];
-
-    const isFalseValue = _.includes(falseValList, data.toUpperCase());
-    const isTrueValue = _.includes(trueValList, data.toUpperCase());
-
+    const checkDataStatus = checkDataType(data);
     const drawedSvgElement = $(`#${nDefId}`);
-    // console.log(getSvgElement);
-    if (isFalseValue === true && isTrueValue === false) {
+
+    if (checkDataStatus === 'falseData') {
       drawedSvgElement.attr({ fill: getNodeBgColor[0] });
-    } else if (isFalseValue === false && isTrueValue === true) {
+    } else if (checkDataStatus === 'trueData') {
       drawedSvgElement.attr({ fill: getNodeBgColor[1] });
     } else {
       drawedSvgElement.attr({ fill: getNodeBgColor[2] });
@@ -152,7 +147,6 @@ function changeNodeColor(nDefId, data) {
  * @param {SVG} svgCanvas
  * @param {defInfo} defInfo 장치, 노드의  id, resourceId, point[] 정보
  * @param {mSvgModelResource} resourceInfo 장치, 노드의 resource id, type, elemetDrawInfo[width,height,radius,...] 정보
- * FIXME: 변수명 수정 확인
  */
 function writeSvgText(svgCanvas, defInfo, resourceInfo) {
   const { width, height, radius } = resourceInfo.elementDrawInfo;
@@ -226,7 +220,7 @@ function writeSvgText(svgCanvas, defInfo, resourceInfo) {
     textY = y1 + height;
   }
 
-  // TODO: 현재 장업중....
+  // FIXME: 비구조화 작업 필요
   if (changedAllTextStyle) {
     const changedTextStyle = getChangedTextStyle(config);
     textSize += changedTextStyle.textSize;
@@ -248,7 +242,7 @@ function writeSvgText(svgCanvas, defInfo, resourceInfo) {
   }
 
   // 제외목록 체크
-  isExcludableText(defInfo.id) ? (naming = '') : ''; // FIXME:
+  isExcludableText(defInfo.id) ? (naming = '') : '';
 
   const text = svgCanvas.text(naming);
   text
@@ -266,15 +260,14 @@ function writeSvgText(svgCanvas, defInfo, resourceInfo) {
       'pointer-events': 'none',
     });
 
-  // FIXME:
-  const svgNode = {
+  const drawedNodeInfo = {
     id: defInfo.id,
     name: defInfo.name,
     textX,
     textY,
     text,
   };
-  writtenSvgTextList.push(svgNode);
+  writtenSvgTextList.push(drawedNodeInfo);
 }
 
 /**
@@ -284,7 +277,7 @@ function writeSvgText(svgCanvas, defInfo, resourceInfo) {
 function isExcludableText(defId) {
   /** @type {mDeviceMap} */
   const realMap = map;
-  let isExclusionText; // FIXME:
+  let isExclusionText;
 
   const foundPlaceInfo = _.find(realMap.drawInfo.positionInfo.svgPlaceList, svgPlaceInfo =>
     _.map(svgPlaceInfo.defList, 'id').includes(defId),
@@ -308,7 +301,7 @@ function isExcludableText(defId) {
 }
 
 /**
- *
+ *  그려진 노드에 제어기능을 바인딩.
  * @param {socekt} socket
  */
 function bindingClickEventNode(socket) {
@@ -317,49 +310,28 @@ function bindingClickEventNode(socket) {
 
   realMap.drawInfo.positionInfo.svgNodeList.forEach(svgNodeInfo => {
     svgNodeInfo.defList.forEach(nodeDefInfo => {
-      const drawedSvgElement = $(`#${nodeDefInfo.id}`);
+      const $drawedSvgElement = $(`#${nodeDefInfo.id}`);
       // console.log(drawedSvgElement)
-      drawedSvgElement.on('click touchstart', e => {
+      $drawedSvgElement.on('click touchstart', e => {
         const foundSvgNodeInfo = _.find(realMap.drawInfo.positionInfo.svgNodeList, info =>
           _.map(info.defList, 'id').includes(nodeDefInfo.id),
         );
         if (_.isUndefined(foundSvgNodeInfo)) return false;
 
         // 장치 or 센서 구분  1: 센서, 0: 장치, -1: 미분류
-        if (foundSvgNodeInfo.is_sensor === 1) {
-          // TODO: 다른 dialog 적용
-          $.dialog({
-            title: 'Text content!',
-            content: 'Simple modal!',
-          });
-        } else {
-          BootstrapDialog.show({
-            title: `${nodeDefInfo.name}`,
-            message: `'${nodeDefInfo.name}' 의 상태를 변경합니다.`,
-            buttons: [
-              {
-                label: 'OPEN',
-                action(dialogItself) {
-                  executeCommand(socket, 1, nodeDefInfo.id);
-                  dialogItself.close();
-                },
-              },
-              {
-                label: 'CLOSE',
-                action(dialogItself) {
-                  executeCommand(socket, 0, nodeDefInfo.id);
-                  dialogItself.close();
-                },
-              },
-              {
-                label: 'CANCEL',
-                cssClass: 'btn-primary',
-                action(dialogItself) {
-                  dialogItself.close();
-                },
-              },
-            ],
-          });
+        if (foundSvgNodeInfo.is_sensor === 0) {
+          const $nodeTspanEleInfo = $(`tspan.${nodeDefInfo.id}`);
+          const currentNodeStatus = _.head($nodeTspanEleInfo).innerHTML;
+          const checkedDataStatus = checkDataType(currentNodeStatus);
+          if (checkedDataStatus === 'trueData') {
+            const confirmBool = confirm(`'${nodeDefInfo.name}' 을(를) 닫으시겠습니까?`);
+            confirmBool ? executeCommand(socket, 2, nodeDefInfo.id) : null;
+          } else if (checkedDataStatus === 'falseData') {
+            const confirmBool = confirm(`'${nodeDefInfo.name}' 을(를) 여시겠습니까?`);
+            confirmBool ? executeCommand(socket, 1, nodeDefInfo.id) : null;
+          } else {
+            alert('장치 상태 이상');
+          }
         }
       });
     });
@@ -569,8 +541,7 @@ function drawSvgPattern(svgCanvas, point, elementDrawInfo, id) {
 
 function drawSvgImage(svgCanvas, point, elementDrawInfo, id) {
   const [x, y] = point;
-  const { width, height } = elementDrawInfo;
-  const { imgUrl } = elementDrawInfo;
+  const { width, height, imgUrl } = elementDrawInfo;
   let { radius, opacity } = elementDrawInfo;
 
   _.isUndefined(radius) ? (radius = 1) : '';
@@ -680,4 +651,25 @@ function getChangedTextStyle(config, targetId) {
   }
 
   return foundTextStyleInfo;
+}
+
+/**
+ * 데이터가 true값인지 false값인지 구분한다.
+ * @param {string} data
+ */
+function checkDataType(data) {
+  const falseValList = ['CLOSE', 'CLOSING', 'OFF', 0, '0'];
+  const trueValList = ['OPEN', 'OPENING', 'ON', 1, '1'];
+  const isFalseValue = _.includes(falseValList, data.toUpperCase());
+  const isTrueValue = _.includes(trueValList, data.toUpperCase());
+  let result;
+
+  if (isTrueValue && isFalseValue === false) {
+    result = 'trueData';
+  } else if (isTrueValue === false && isFalseValue) {
+    result = 'falseData';
+  } else {
+    result = 'error';
+  }
+  return result;
 }

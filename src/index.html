@@ -29,7 +29,7 @@
 <body>
   <!-- 메인 -->
   <div class="jumbotron text-center jumbotron_line">
-    <div class="row row_st_line min_h_780">
+    <div class="">
       <div id="zoom" style="display: flex; justify-content: center;">
         <button id="zoom-in" class="btn btn-default btn-sm" style="margin-right: 5px">
           <span class="glyphicon glyphicon-zoom-in"></span> Zoom-in
@@ -49,7 +49,7 @@
   </div>
 
   <script>
-    drawSvgBackground('canvas', './img/6kw.png');
+    drawSvgBackground('canvas');
 
     // size 재설정
     var svgMap = SVG.get('svgCanvas');
@@ -69,6 +69,7 @@
           disableZoom: true,
           startTransform: matrix,
         })
+        $('#zoom-out', '#zoom-in', '#reset').hide()
       } else {
         // pc
         // panzoom
@@ -105,12 +106,11 @@
           });
         });
       }
-
     }
 
     bindingClickEventNode();
-    showNodeData('GV_001', 'open');
-    showNodeData('V_001', 'open');
+    showNodeData('GV_001', 'close');
+    showNodeData('V_001', 'err');
     showNodeData('P_001', 'open');
     showNodeData('S_001', '100');
   </script>

@@ -10,38 +10,53 @@ const map = {
       svgModelResourceList: [
         {
           id: 'salternModuleBlock_A',
-          type: 'pattern',
-          elementDrawInfo: { width: 480, height: 300, color: '#383667' },
+          type: 'image',
+          elementDrawInfo: {
+            width: 480,
+            height: 300,
+            color: '#383667',
+            imgUrl: '/src/img/salternModuleBlock_A.jpg',
+          },
         },
         {
           id: 'salternModuleBlock_B',
-          type: 'pattern',
+          type: 'rect',
           elementDrawInfo: { width: 480, height: 600, color: '#383667' },
         },
         {
           id: 'salternNomalBlock_A',
-          type: 'rect',
-          elementDrawInfo: { width: 480, height: 220, color: '#86623b' },
+          type: 'image',
+          elementDrawInfo: {
+            width: 480,
+            height: 220,
+            color: '#86623b',
+            imgUrl: '/src/img/salternNomalBlock_A.jpg',
+          },
         },
         {
           id: 'salternNomalBlock_B',
-          type: 'rect',
-          elementDrawInfo: { width: 510, height: 330, color: '#86623b' },
+          type: 'image',
+          elementDrawInfo: {
+            width: 510,
+            height: 330,
+            color: '#86623b',
+            imgUrl: '/src/img/salternNomalBlock_B.jpg',
+          },
         },
         {
           id: 'earth',
-          type: 'pattern',
+          type: 'rect',
           elementDrawInfo: { width: 500, height: 160, color: '#4c7093' },
         },
         {
           id: 'salternCrystalBlock',
-          type: 'rect',
-          elementDrawInfo: { width: 510, height: 330, color: '#4f351a' },
+          type: 'image',
+          elementDrawInfo: { width: 510, height: 330, color: '#4f351a', imgUrl: '/src/img/salternNomalBlock_B.jpg'},
         },
         {
           id: 'brineWarehouse',
-          type: 'rect',
-          elementDrawInfo: { width: 240, height: 220, color: '#5b666c' },
+          type: 'image',
+          elementDrawInfo: { width: 240, height: 220, color: '#5b666c', imgUrl: '/src/img/brineWarehouse.jpg'},
         },
         {
           id: 'waterDoor',
@@ -68,8 +83,8 @@ const map = {
         { id: 'waterWay', type: 'line', elementDrawInfo: { width: 77, color: '#82acc1' } },
         {
           id: 'reservoir',
-          type: 'rect',
-          elementDrawInfo: { width: 760, height: 150, color: '#3d4448' },
+          type: 'image',
+          elementDrawInfo: { width: 760, height: 150, color: '#3d4448', imgUrl: '/src/img/reservoir.jpg' },
         },
         {
           id: 'pump',
