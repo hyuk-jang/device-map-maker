@@ -140,7 +140,7 @@ function changeNodeColor(nDefId, data) {
     const drawedSvgElement = $(`#${nDefId}`);
 
     if (checkDataStatus === 'falseData') {
-      drawedSvgElement.attr({ fill: getNodeBgColor[0] });
+      drawedSvgElement.attr({ fill: getNodeBgColor[0], opacity: 0.8 });
     } else if (checkDataStatus === 'trueData') {
       drawedSvgElement.attr({ fill: getNodeBgColor[1] });
     } else {
