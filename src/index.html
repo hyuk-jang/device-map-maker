@@ -4,12 +4,15 @@
 <head>
   <meta charset="EUC-KR" />
   <title></title>
+  <link rel="stylesheet" href="./css/bootstrap-dialog.css" />
+  <link rel="stylesheet" href="./css/jquery-confirm.min.css" />
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" />
 
   <script src="./js/jquery-3.1.1.min.js"></script>
   <script src="./js/jquery.panzoom.js"></script>
+  <script src="./js/jquery.mousewheel.js"></script>
+  <script src="./js/jquery-confirm.js"></script>
 
-  <link rel="stylesheet" href="./css/bootstrap-dialog.css" />
   <script src="./js/bootstrap.min.js"></script>
   <script src="./js/bootstrap-dialog.js"></script>
 
@@ -26,7 +29,7 @@
 <body>
   <!-- 메인 -->
   <div class="jumbotron text-center jumbotron_line">
-    <div class="row row_st_line min_h_780">
+    <div class="">
       <div id="zoom" style="display: flex; justify-content: center;">
         <button id="zoom-in" class="btn btn-default btn-sm" style="margin-right: 5px">
           <span class="glyphicon glyphicon-zoom-in"></span> Zoom-in
@@ -39,49 +42,77 @@
         </button>
       </div>
       <!-- canvas -->
-      <div>
+      <div style="height:800px">
         <div id="canvas" style=" display: flex; justify-content: center; margin: 5px;"></div>
       </div>
     </div>
   </div>
 
+
   <script>
-    drawSvgBackground('canvas');
+    drawSvgBasePlace('canvas');
 
     // size 재설정
     var svgMap = SVG.get('svgCanvas');
     var canvas = document.getElementById('canvas');
     canvas.style.width = svgMap.node.width.baseVal.value + 'px';
     canvas.style.height = svgMap.node.height.baseVal.value + 'px';
+    var $canvas = $('#canvas')
+    var matrix = 'matrix(0.4, 0, 0, 0.4, -850, -600)'
 
-    // panzoom 기능
-    var $panzoom = $('#canvas').panzoom({
-      // $zoomIn: $('#zoom-in'),
-      // $zoomOut: $('#zoom-out'),
-      $reset: $('#reset'),
-      cursor: 'context-menu',
-      startTransform: 'matrix(0.5, 0, 0, 0.5, -500, -700)', // FIXME:
-    });
+    var filter = "win16|win32|win64|mac";
+    if (navigator.platform) {
+      if (0 > filter.indexOf(navigator.platform.toLowerCase())) {
+        // mobile
+        // panzoom
+        $canvas.panzoom({
+          disablePan: true,
+          disableZoom: true,
+          startTransform: matrix,
+        })
+        $('#zoom-out', '#zoom-in', '#reset').hide()
+      } else {
+        // pc
+        // panzoom
+        $canvas.panzoom({
+          $reset: $('#reset'),
+          cursor: "context-menu",
+          startTransform: matrix,
+        })
 
-    $('#zoom-in').click(function (e) {
-      e.clientX = 300;
-      e.clientY = 200;
-      $panzoom.panzoom('zoom', {
-        // focal: e
-      });
-    });
+        // mouseWheel
+        $canvas.panzoom().on('mousewheel.focal', function (e) {
+          e.preventDefault();
+          var delta = e.delta || e.originalEvent.wheelDelta;
+          var zoomOut = delta ? delta < 0 : e.originalEvent.deltaY > 0;
+          $canvas.panzoom('zoom', zoomOut, {
+            animate: false,
+            focal: e
+          });
+        })
 
-    $('#zoom-out').click(function (e) {
-      e.clientX = 300;
-      e.clientY = 200;
-      $panzoom.panzoom('zoom', 'zoomOut', {
-        focal: e,
-      });
-    });
+        // zoom 기능 기준점 재정의
+        $('#zoom-in').click(function (e) {
+          e.clientX = 300;
+          e.clientY = 200;
+          $canvas.panzoom('zoom', {
+            // focal: e
+          });
+        });
+        $('#zoom-out').click(function (e) {
+          e.clientX = 300;
+          e.clientY = 200;
+          $canvas.panzoom('zoom', 'zoomOut', {
+            focal: e,
+          });
+        });
+      }
+    }
 
     bindingClickEventNode();
-    showNodeData('GV_001', 'open');
-    showNodeData('V_001', 'open');
+    showNodeData('GV_001', 'close');
+    showNodeData('GV_002', 'open');
+    showNodeData('V_001', 'err');
     showNodeData('P_001', 'open');
     showNodeData('S_001', '100');
   </script>

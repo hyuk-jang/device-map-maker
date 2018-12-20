@@ -5,7 +5,7 @@ const config = {
   allNodeTspanEleInfo: {
     allDx: 0,
     allDy: 15,
-    allStyle: 'font-size: 15pt; fill: #05f605; stroke-width: 0.2',
+    allStyle: 'font-size: 15pt; fill: #7675ff; stroke-width: 0.2',
   },
   singleNodeTspanEleList: [{}],
   allTextStyleInfo: {
