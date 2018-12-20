@@ -3,21 +3,26 @@ const writtenSvgTextList = [];
 
 /**
  * @param {string} documentId
- * @param {string=} bgImgUrl // 배경 이미지 url
  * @param {string=} title // 제목
+ * @param {Boolean=} isShow // true: 화면 표시 (기본값), false: 숨김
  */
-function drawSvgBackground(documentId, bgImgUrl) {
+function drawSvgBasePlace(documentId, isShow = true) {
   /** @type {mDeviceMap} */
   const realMap = map;
 
   // svgCanvas 생성
-  const { width: svgCanvasWidth, height: svgCanvasHeight } = realMap.drawInfo.frame.mapSize;
+  const { width: svgCanvasWidth, height: svgCanvasHeight } = realMap.drawInfo.frame.mapInfo;
+  const {
+    backgroundData,
+    backgroundPosition = [0, 0],
+  } = realMap.drawInfo.frame.mapInfo.backgroundInfo;
   const svgCanvas = SVG(documentId).size(svgCanvasWidth, svgCanvasHeight);
+
   svgCanvas.attr({ id: 'svgCanvas' });
 
   // 배경 이미지 지정
-  const backgroundImg = svgCanvas.image(bgImgUrl);
-  backgroundImg.move(10, 0);
+  const backgroundImg = svgCanvas.image(backgroundData);
+  backgroundImg.move(backgroundPosition[0], backgroundPosition[1]);
 
   // Place 그리기
   realMap.drawInfo.positionInfo.svgPlaceList.forEach(svgPlaceInfo => {
@@ -34,6 +39,7 @@ function drawSvgBackground(documentId, bgImgUrl) {
         defInfo.point,
         resourceInfo.elementDrawInfo,
         defInfo.id,
+        isShow,
       );
       writeSvgText(svgCanvas, defInfo, resourceInfo);
     });
@@ -54,6 +60,7 @@ function drawSvgBackground(documentId, bgImgUrl) {
         defInfo.point,
         resourceInfo.elementDrawInfo,
         defInfo.id,
+        isShow,
       );
       writeSvgText(svgCanvas, defInfo, resourceInfo);
     });
@@ -151,7 +158,6 @@ function changeNodeColor(nDefId, data) {
 function writeSvgText(svgCanvas, defInfo, resourceInfo) {
   const { width, height, radius } = resourceInfo.elementDrawInfo;
   const [x1, y1, x2, y2] = defInfo.point;
-  const moveScale = [0, 0];
   const changedAllTextStyle = getChangedTextStyle(config);
   const changedSingleTextStyle = getChangedTextStyle(config, defInfo.id);
   let naming = defInfo.name; // defInfo.name: 한글, defInfo.id: 영문
@@ -243,7 +249,6 @@ function writeSvgText(svgCanvas, defInfo, resourceInfo) {
 
   // 제외목록 체크
   isExcludableText(defInfo.id) ? (naming = '') : '';
-
   const text = svgCanvas.text(naming);
   text
     .move(textX, textY)
@@ -254,10 +259,8 @@ function writeSvgText(svgCanvas, defInfo, resourceInfo) {
       leading,
       weight: 'bold',
     })
-
-    // text 커서 모양 설정
     .attr({
-      'pointer-events': 'none',
+      'pointer-events': 'none', // text 커서 모양 설정
     });
 
   const drawedNodeInfo = {
@@ -364,26 +367,27 @@ function executeCommand(socket, controlType, nodeId) {
  * @param {Object} point point[]
  * @param {mElementDrawInfo} elementDrawInfo {width, height, radius, color}
  * @param {string} defId 그려지는 svg 도형에 주어줄 장소 또는 노드의 defInfo.id 값
+ * @param {Boolean} isShow true: 화면 표시 (기본값), false: 숨김
  */
-function drawSvgElement(svgCanvas, svgDrawType, point, elementDrawInfo, defId) {
+function drawSvgElement(svgCanvas, svgDrawType, point, elementDrawInfo, defId, isShow = true) {
   switch (svgDrawType.toString()) {
     case 'rect':
-      drawSvgRect(svgCanvas, point, elementDrawInfo, defId);
+      drawSvgRect(svgCanvas, point, elementDrawInfo, defId, isShow);
       break;
     case 'image':
-      drawSvgImage(svgCanvas, point, elementDrawInfo, defId);
+      drawSvgImage(svgCanvas, point, elementDrawInfo, defId, isShow);
       break;
     case 'line':
-      drawSvgLine(svgCanvas, point, elementDrawInfo, defId);
+      drawSvgLine(svgCanvas, point, elementDrawInfo, defId, isShow);
       break;
     case 'circle':
-      drawSvgCircle(svgCanvas, point, elementDrawInfo, defId);
+      drawSvgCircle(svgCanvas, point, elementDrawInfo, defId, isShow);
       break;
     case 'polygon':
-      drawSvgPolygon(svgCanvas, point, elementDrawInfo, defId);
+      drawSvgPolygon(svgCanvas, point, elementDrawInfo, defId, isShow);
       break;
     case 'pattern':
-      drawSvgPattern(svgCanvas, point, elementDrawInfo, defId);
+      drawSvgPattern(svgCanvas, point, elementDrawInfo, defId, isShow);
       break;
     default:
       break;
@@ -396,15 +400,14 @@ function drawSvgElement(svgCanvas, svgDrawType, point, elementDrawInfo, defId) {
  * @param {number[]} point point[]
  * @param {mElementDrawInfo} elementDrawInfo {width, height, radius, color, opactiy}
  * @param {string} id 그려지는 svg 도형에 주어줄 id 값
+ * @param {Boolean=} isShow  true: 화면 표시 (기본값), false: 숨김
  */
-function drawSvgRect(svgCanvas, point, elementDrawInfo, id) {
+function drawSvgRect(svgCanvas, point, elementDrawInfo, id, isShow = true) {
   const [x, y] = point;
+  const { width, height, radius = 1 } = elementDrawInfo;
+  let { color, opacity = 1 } = elementDrawInfo;
 
-  const { width, height } = elementDrawInfo;
-  let { color, radius, opacity } = elementDrawInfo;
-
-  _.isUndefined(radius) ? (radius = 1) : '';
-  _.isUndefined(opacity) ? (opacity = 1) : '';
+  isShow ? opacity : (opacity = 0);
 
   // color가 배열이 아니면 배열로 변환
   color = Array.isArray(color) ? color : [color];
@@ -427,16 +430,21 @@ function drawSvgRect(svgCanvas, point, elementDrawInfo, id) {
  * @param {number[]} point point[]
  * @param {mElementDrawInfo} elementDrawInfo {width, height, radius, color}
  * @param {string} id 그려지는 svg 도형에 주어줄 id 값
+ * @param {Boolean=} isShow true: 화면 표시 (기본값), false: 숨김
  */
-function drawSvgLine(svgCanvas, point, elementDrawInfo, id) {
+function drawSvgLine(svgCanvas, point, elementDrawInfo, id, isShow = true) {
   const [x1, y1, x2, y2] = point;
-  let { width, color } = elementDrawInfo;
+  const { width } = elementDrawInfo;
+  let { color, opacity = 1 } = elementDrawInfo;
+
+  isShow ? opacity : (opacity = 0);
+
   // color가 배열이 아니면 배열로 변환
   color = Array.isArray(color) ? color : [color];
 
   svgCanvas
     .line(x1, y1, x2, y2)
-    .stroke({ color: color[0], width })
+    .stroke({ color: color[0], width, opacity })
     .attr({
       id,
     });
@@ -448,11 +456,14 @@ function drawSvgLine(svgCanvas, point, elementDrawInfo, id) {
  * @param {number[]} point point[]
  * @param {mElementDrawInfo} elementDrawInfo {width, height, radius, color}
  * @param {string} id 그려지는 svg 도형에 주어줄 id 값
+ * @param {Boolean=} isShow true: 화면 표시 (기본값), false: 숨김
  */
-function drawSvgCircle(svgCanvas, point, elementDrawInfo, id) {
+function drawSvgCircle(svgCanvas, point, elementDrawInfo, id, isShow = true) {
   const [x, y] = point;
-  let { color } = elementDrawInfo;
+  let { color, opacity = 1 } = elementDrawInfo;
   const { radius } = elementDrawInfo;
+
+  isShow ? opacity : (opacity = 0);
 
   // color가 배열이 아니면 배열로 변환
   color = Array.isArray(color) ? color : [color];
@@ -463,6 +474,7 @@ function drawSvgCircle(svgCanvas, point, elementDrawInfo, id) {
     .stroke({ width: 0.5 })
     .attr({
       id,
+      opacity,
     });
   drawSvgShadow(model, id);
 }
@@ -473,10 +485,15 @@ function drawSvgCircle(svgCanvas, point, elementDrawInfo, id) {
  * @param {number[]} point point[]
  * @param {mElementDrawInfo} elementDrawInfo {width, height, radius, color}
  * @param {string} id 그려지는 svg 도형에 주어줄 id 값
+ * @param {Boolean=} isShow true: 화면 표시 (기본값), false: 숨김
  */
-function drawSvgPolygon(svgCanvas, point, elementDrawInfo, id) {
+function drawSvgPolygon(svgCanvas, point, elementDrawInfo, id, isShow = true) {
   const [x, y] = point;
-  let { width, height, color } = elementDrawInfo;
+  const { width, height } = elementDrawInfo;
+  let { color, opacity = 1 } = elementDrawInfo;
+
+  isShow ? opacity : (opacity = 0);
+
   // color가 배열이 아니면 배열로 변환
   color = Array.isArray(color) ? color : [color];
 
@@ -489,6 +506,7 @@ function drawSvgPolygon(svgCanvas, point, elementDrawInfo, id) {
     .stroke({ width: 0.5 })
     .attr({
       id,
+      opacity,
     });
   drawSvgShadow(model, id);
 }
@@ -499,16 +517,17 @@ function drawSvgPolygon(svgCanvas, point, elementDrawInfo, id) {
  * @param {number[]} point point[]
  * @param {mElementDrawInfo} elementDrawInfo {width, height, radius, color}
  * @param {string} id 그려지는 svg 도형에 주어줄 id값
+ * @param {Boolean=} isShow true: 화면 표시 (기본값), false: 숨김
  */
-function drawSvgPattern(svgCanvas, point, elementDrawInfo, id) {
+function drawSvgPattern(svgCanvas, point, elementDrawInfo, id, isShow = true) {
   const [x, y] = point;
-  const { width, height } = elementDrawInfo;
-  let { color, radius, opacity } = elementDrawInfo;
+  const { width, height, radius = 1 } = elementDrawInfo;
+  let { color, opacity = 1 } = elementDrawInfo;
+
+  isShow ? opacity : (opacity = 0);
+
   // color가 배열이 아니면 배열로 변환
   color = Array.isArray(color) ? color : [color];
-
-  _.isUndefined(radius) ? (radius = 1) : '';
-  _.isUndefined(opacity) ? (opacity = 1) : '';
 
   // 그림자를 적용하기위해 pattern 뒤에 사각형 그리기.
   const model = svgCanvas.rect(width, height);
@@ -524,7 +543,7 @@ function drawSvgPattern(svgCanvas, point, elementDrawInfo, id) {
       .rect(patternSize, patternSize)
       .move(0.4, 0.4)
       .fill(color[0])
-      .radius(3.5)
+      .radius(radius)
       .attr({
         opacity,
       });
@@ -539,13 +558,20 @@ function drawSvgPattern(svgCanvas, point, elementDrawInfo, id) {
     });
 }
 
-function drawSvgImage(svgCanvas, point, elementDrawInfo, id) {
+/**
+ *
+ * @param {SVG} svgCanvas
+ * @param {number[]} point point[]
+ * @param {mElementDrawInfo} elementDrawInfo {width, height, radius, color}
+ * @param {string} id 그려지는 svg 도형에 주어줄 id값
+ * @param {Boolean=} isShow true: 화면 표시 (기본값), false: 숨김
+ */
+function drawSvgImage(svgCanvas, point, elementDrawInfo, id, isShow = true) {
   const [x, y] = point;
-  const { width, height, imgUrl } = elementDrawInfo;
-  let { radius, opacity } = elementDrawInfo;
+  const { width, height, imgUrl, radius = 1 } = elementDrawInfo;
+  let { opacity = 1 } = elementDrawInfo;
 
-  _.isUndefined(radius) ? (radius = 1) : '';
-  _.isUndefined(opacity) ? (opacity = 1) : '';
+  isShow ? opacity : (opacity = 0);
 
   const model = svgCanvas
     .image(imgUrl)
