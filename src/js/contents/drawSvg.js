@@ -328,10 +328,10 @@ function bindingClickEventNode(socket) {
           const checkedDataStatus = checkDataType(currentNodeStatus);
           if (checkedDataStatus === 'trueData') {
             const confirmBool = confirm(`'${nodeDefInfo.name}' 을(를) 닫으시겠습니까?`);
-            confirmBool ? executeCommand(socket, 2, nodeDefInfo.id) : null;
+            confirmBool ? executeCommand(socket, '0', nodeDefInfo.id) : null;
           } else if (checkedDataStatus === 'falseData') {
             const confirmBool = confirm(`'${nodeDefInfo.name}' 을(를) 여시겠습니까?`);
-            confirmBool ? executeCommand(socket, 1, nodeDefInfo.id) : null;
+            confirmBool ? executeCommand(socket, '1', nodeDefInfo.id) : null;
           } else {
             alert('장치 상태 이상');
           }
@@ -353,10 +353,11 @@ function executeCommand(socket, controlType, nodeId) {
     contents: {
       requestCommandType: 'CONTROL',
       nodeId,
-      controlType,
+      controlValue: controlType,
       rank: 2,
     },
   };
+  console.log(requestMsg);
   socket.emit('executeCommand', requestMsg);
 }
 
