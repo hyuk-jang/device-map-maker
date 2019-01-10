@@ -992,7 +992,7 @@ const map = {
                 target_code: '1_E',
                 depth: 5,
                 place_info: { maxBrineLevel: 20, minBrineLevel: 1, setBrineLevel: 4 },
-                nodeList: ['GV_005', 'O_008', 'MRT_007', 'WL_005', 'BT_005'],
+                nodeList: ['GV_005', 'O_008', 'WL_005', 'MRT_007', 'BT_005'],
               },
               {
                 target_code: '일반',
