@@ -10,7 +10,14 @@ const BiModule = require('./BiModule');
 
 const LOGGER_DEF_KEY = ['target_name', 'target_prefix'];
 const LOGGER_KEY = ['serial_number', 'target_code', 'connect_info', 'protocol_info'];
-const NODE_CLASS_KEY = ['target_id', 'target_name', 'is_sensor', 'data_unit', 'description'];
+const NODE_CLASS_KEY = [
+  'target_id',
+  'target_name',
+  'is_sensor',
+  'data_type',
+  'data_unit',
+  'description',
+];
 const NODE_DEF_KEY = ['target_id', 'target_prefix', 'target_name', 'is_avg_center', 'description'];
 const NODE_KEY = ['target_code', 'target_name', 'data_logger_index', 'serial_number'];
 const PLACE_CLASS_KEY = ['target_id', 'target_name', 'description'];
@@ -297,6 +304,8 @@ class UploadToDB {
     this.setInfo.nodeStructureList.forEach(nodeClassInfo => {
       const pickInfo = {};
       _.forEach(NODE_CLASS_KEY, key => {
+        // data_type이 지정되지 않았다면 is_sensor 값을 지정
+        key === 'data_type' && _.set(pickInfo, key, _.get(nodeClassInfo, 'is_sensor', null));
         if (!_.has(pickInfo, key)) {
           _.set(pickInfo, key, _.get(nodeClassInfo, key, null));
         }

@@ -11,7 +11,7 @@ class Control {
     }
 
     // map 정보를 읽어 들여 DB에 Setting (setInfo.)
-    // mSetInfo, mRealtionInfo 연관이 깊음
+    // mSetInfo, mrelationInfo 연관이 깊음
     if (process.env.HAS_UPLOAD === 'true') {
       this.uploadToDB = new UploadToDB();
       this.uploadToDB.startUpload();

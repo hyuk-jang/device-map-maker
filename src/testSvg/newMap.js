@@ -689,7 +689,7 @@ const map = {
       },
     ],
   },
-  realtionInfo: {
+  relationInfo: {
     placeRelationList: [
       {
         target_id: 'salternBlock',

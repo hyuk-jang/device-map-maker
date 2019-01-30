@@ -73,16 +73,6 @@ const map = {
           hasPassive: true,
         },
       },
-      {
-        dccId: 'DCC_002',
-        connect_info: {
-          type: 'modbus',
-          subType: 'rtu',
-          baudRate: 9600,
-          port: 'COM3',
-          hasPassive: true,
-        },
-      },
     ],
     dpcConstructorList: [
       {
@@ -578,7 +568,7 @@ const map = {
       },
     ],
   },
-  realtionInfo: {
+  relationInfo: {
     placeRelationList: [
       {
         target_id: 'inverter',

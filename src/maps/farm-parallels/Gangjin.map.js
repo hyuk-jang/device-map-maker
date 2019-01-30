@@ -411,7 +411,7 @@ const map = {
       },
     ],
   },
-  realtionInfo: {
+  relationInfo: {
     placeRelationList: [
       {
         target_id: 'inverter',
