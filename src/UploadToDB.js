@@ -1,8 +1,8 @@
 require('dotenv').config();
 const _ = require('lodash');
-require('../../default-intelligence');
 const { BU } = require('base-util-jh');
 const { TempStorage } = require('base-model-jh');
+const { DEVICE, SENSOR, NONE } = require('../../default-intelligence').dcmConfigModel.nodeDataType;
 
 const map = require('./map');
 
@@ -14,7 +14,7 @@ const NODE_CLASS_KEY = [
   'target_id',
   'target_name',
   'is_sensor',
-  'data_type',
+  'save_db_type',
   'data_unit',
   'description',
 ];
@@ -304,8 +304,21 @@ class UploadToDB {
     this.setInfo.nodeStructureList.forEach(nodeClassInfo => {
       const pickInfo = {};
       _.forEach(NODE_CLASS_KEY, key => {
-        // data_type이 지정되지 않았다면 is_sensor 값을 지정
-        key === 'data_type' && _.set(pickInfo, key, _.get(nodeClassInfo, 'is_sensor', null));
+        // save_db_type 지정되지 않았다면 is_sensor 값을 토대로 산정
+        if (key === 'save_db_type' && !_.has(nodeClassInfo, 'save_db_type')) {
+          switch (_.get(nodeClassInfo, 'is_sensor', 1)) {
+            case 0:
+              _.set(nodeClassInfo, key, DEVICE);
+              break;
+            case 1:
+              _.set(nodeClassInfo, key, SENSOR);
+              break;
+            default:
+              _.set(nodeClassInfo, key, NONE);
+              break;
+          }
+        }
+
         if (!_.has(pickInfo, key)) {
           _.set(pickInfo, key, _.get(nodeClassInfo, key, null));
         }
