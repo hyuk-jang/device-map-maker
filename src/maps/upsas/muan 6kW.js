@@ -1541,12 +1541,6 @@ const map = {
             target_prefix: 'IVT_G_TR_V',
             repeatId: 'RE_NODE_IVT',
           },
-          {
-            target_id: 'gridVol',
-            target_name: '인버터 계통 전압',
-            target_prefix: 'IVT_G_L_V',
-            repeatId: 'RE_NODE_IVT',
-          },
         ],
       },
       {

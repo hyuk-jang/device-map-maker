@@ -82,6 +82,7 @@ class UploadToDB {
     console.time('setPlaceRelation');
     await this.setPlaceRelation();
     console.timeEnd('setPlaceRelation');
+    process.exit();
   }
 
   /** repeatEleList 를 기반으로 List 재구성 */
@@ -126,11 +127,10 @@ class UploadToDB {
     });
 
     // 장소 재구성
-
     this.relationInfo.placeRelationList.forEach(placeClassInfo => {
       placeClassInfo.defList.forEach(placeDefInfo => {
         placeDefInfo.placeList.forEach(placeInfo => {
-          const { repeatId = '', target_code: uniqNumber = '' } = placeInfo;
+          const { repeatId = '', target_code: uniqNumber = '', nodeList = [] } = placeInfo;
           // repeatId가 있을 경우
           if (repeatId.length) {
             const prefixNodeList = _.find(repeatNodeList, {
@@ -138,7 +138,11 @@ class UploadToDB {
               repeatCategory: 'prefix',
             }).nodeList;
 
-            placeInfo.nodeList = prefixNodeList.map(prefix => `${prefix}_${uniqNumber}`);
+            // 반복해서 추가할 node 구성
+            const addNodeList = prefixNodeList.map(prefix => `${prefix}_${uniqNumber}`);
+
+            // 설정한 nodeList 에 동적으로 생성된 nodeList를 붙임
+            placeInfo.nodeList = _.concat(nodeList, addNodeList);
 
             delete placeInfo.repeatId;
           }

@@ -75,35 +75,38 @@ class NewSvgMaker {
           }
 
           _.forEach(placeInfo.nodeList, nodeId => {
-            const { axisScale, moveScale } = this.getAxisMoveScale(nodeId);
+            const { axisScale, moveScale = [0, 0] } = this.getAxisMoveScale(nodeId);
             const resourceInfo = this.getResourceInfo(nodeId);
             const resourceId = _.result(resourceInfo, 'id');
 
-            /** @type {detailNodeInfo} */
-            const detailNode = {
-              nodeId,
-              placeId,
-              resourceId,
-              point: [],
-              axisScale,
-              moveScale,
-            };
-
-            // 그룹 존재
-            /** @type {storageInfo[]} */
-            let foundIt = _.find(storageList, { nodeDefId: resourceId });
-            if (_.isEmpty(foundIt)) {
-              foundIt = {
-                nodeDefId: resourceId,
-                defList: [],
+            if (_.isArray(axisScale)) {
+              /** @type {detailNodeInfo} */
+              const detailNode = {
+                nodeId,
+                placeId,
+                resourceId,
+                point: [],
+                axisScale,
+                moveScale,
               };
-              storageList.push(foundIt);
+
+              // 그룹 존재
+              /** @type {storageInfo[]} */
+              let foundIt = _.find(storageList, { nodeDefId: resourceId });
+              if (_.isEmpty(foundIt)) {
+                foundIt = {
+                  nodeDefId: resourceId,
+                  defList: [],
+                };
+                storageList.push(foundIt);
+              }
+              /** @type {defInfo} */
+              const foundNodeIt = _.find(foundIt.defList, { nodeId });
+              if (_.isEmpty(foundNodeIt)) {
+                foundIt.defList.push(detailNode);
+              }
             }
-            /** @type {defInfo} */
-            const foundNodeIt = _.find(foundIt.defList, { nodeId });
-            if (_.isEmpty(foundNodeIt)) {
-              foundIt.defList.push(detailNode);
-            }
+
             // BU.CLIS(storageList);
           });
         });
