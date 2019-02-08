@@ -255,7 +255,10 @@ class UploadToDB {
 
         // Device ID(S/N)를 설정하기 위하여 별도로 작업
         const { protocol_info: protocolInfo } = _.find(dpcConstructorList, { dpcId });
-        protocolInfo.deviceId = SN;
+        // 국번이 숫자라면 Unicode 형태라고 판단. 아닐경우에는 기본 변환
+        protocolInfo.deviceId = _.isNumber(SN)
+          ? Buffer.from([SN]).toJSON()
+          : Buffer.from(SN).toJSON();
 
         const { connect_info: connectInfo } = _.find(dccConstructorList, {
           dccId,

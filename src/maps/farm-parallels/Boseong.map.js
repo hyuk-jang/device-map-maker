@@ -174,7 +174,7 @@ const map = {
         dataLoggerDeviceList: [
           {
             target_name: '보성 A (5.5kW 급)',
-            serial_number: '\\u0001',
+            serial_number: '\u0001',
             target_code: '006',
             dccId: 'DCC_001',
             dpcId: 'DPC_IVT_002',
@@ -182,7 +182,7 @@ const map = {
           },
           {
             target_name: '보성 B (5.5kW 급)',
-            serial_number: '\\u0002',
+            serial_number: '\u0002',
             target_code: '007',
             dccId: 'DCC_001',
             dpcId: 'DPC_IVT_002',
