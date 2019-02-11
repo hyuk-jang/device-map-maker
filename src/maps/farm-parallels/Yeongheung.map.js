@@ -98,8 +98,22 @@ const map = {
           wrapperCategory: 'default',
         },
       },
-      { dpcId: 'DPC_IVT_001', protocol_info: { mainCategory: 'Inverter', subCategory: 'das_1.3' } },
-      { dpcId: 'DPC_IVT_002', protocol_info: { mainCategory: 'Inverter', subCategory: 's5500k' } },
+      {
+        dpcId: 'DPC_IVT_001',
+        protocol_info: {
+          mainCategory: 'Inverter',
+          subCategory: 'das_1.3',
+          wrapperCategory: 'default',
+        },
+      },
+      {
+        dpcId: 'DPC_IVT_002',
+        protocol_info: {
+          mainCategory: 'Inverter',
+          subCategory: 's5500k',
+          wrapperCategory: 'default',
+        },
+      },
     ],
     repeatNodeList: [
       {
