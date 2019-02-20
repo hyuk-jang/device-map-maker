@@ -416,9 +416,9 @@ class UploadToDB {
     this.setInfo.nodeStructureList.forEach(nodeClassInfo => {
       // 노드 개요 목록 순회
       nodeClassInfo.defList.forEach(nodeDefInfo => {
-        const { target_id: ndId, target_prefix: ndPrefix } = nodeDefInfo;
+        const { target_id: ndId, target_prefix: ndPrefix, nodeList = [] } = nodeDefInfo;
         // 노드 목록 순회
-        nodeDefInfo.nodeList.forEach(nodeInfo => {
+        nodeList.forEach(nodeInfo => {
           const { target_code: nCode = null, data_logger_index: nDLIndex = 0 } = nodeInfo;
           // 노드 ID 정의
           const nodeId = `${ndPrefix}${nCode ? `_${nCode}` : ''}`;
