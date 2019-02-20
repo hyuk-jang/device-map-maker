@@ -924,7 +924,7 @@ const map = {
           port: 'COM11',
           addConfigInfo: {
             parser: 'delimiterParser',
-            option: '\\u0004',
+            option: Buffer.from([0x04]),
           },
         },
       },
@@ -938,7 +938,7 @@ const map = {
           port: 'COM12',
           addConfigInfo: {
             parser: 'delimiterParser',
-            option: '\u0004',
+            option: Buffer.from([0x04]),
           },
         },
       },
@@ -952,7 +952,7 @@ const map = {
           port: 'COM13',
           addConfigInfo: {
             parser: 'delimiterParser',
-            option: '\u0004',
+            option: Buffer.from([0x04]),
           },
         },
       },
@@ -966,7 +966,7 @@ const map = {
           port: 'COM14',
           addConfigInfo: {
             parser: 'delimiterParser',
-            option: '\u0004',
+            option: Buffer.from([0x04]),
           },
         },
       },
@@ -980,7 +980,7 @@ const map = {
           port: 'COM15',
           addConfigInfo: {
             parser: 'delimiterParser',
-            option: '\u0004',
+            option: Buffer.from([0x04]),
           },
         },
       },
@@ -994,7 +994,7 @@ const map = {
           port: 'COM16',
           addConfigInfo: {
             parser: 'delimiterParser',
-            option: '\u0004',
+            option: Buffer.from([0x04]),
           },
         },
       },
@@ -1008,7 +1008,7 @@ const map = {
           port: 'COM22',
           addConfigInfo: {
             parser: 'delimiterParser',
-            option: '\u0004',
+            option: Buffer.from([0x04]),
           },
         },
       },
@@ -1944,7 +1944,7 @@ const map = {
         is_sensor: 1,
         defList: [
           {
-            target_id: 'connectorGroundRelay',
+            target_id: 'isConnectorGroundRelay',
             target_prefix: 'CGR',
             target_name: '접속반 지락 계전기',
             nodeList: [
