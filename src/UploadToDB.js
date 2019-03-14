@@ -54,7 +54,6 @@ class UploadToDB {
   async startUpload() {
     this.init();
 
-    return false;
     await this.getMainSeq();
     console.time('setDataLoggerDef');
     await this.setDataLoggerDef();
@@ -87,15 +86,17 @@ class UploadToDB {
   }
 
   /** repeatEleList 를 기반으로 List 재구성 */
-  init() {
+  async init() {
     this.setRepeatNode();
 
-    this.writeMapFile();
+    await this.writeMapFile();
   }
 
   /** Map File 생성 */
-  writeMapFile() {
-    BU.writeFile('./newMap.js', JSON.stringify(this.map));
+  async writeMapFile() {
+    BU.CLI('writeMapFile');
+    await BU.writeFile('./outputMap.txt', this.map);
+    process.exit();
   }
 
   setRepeatNode() {
@@ -188,7 +189,9 @@ class UploadToDB {
     /** @type {MAIN} */
     const mainRow = await this.biModule.getTableRow(
       'MAIN',
-      { uuid: this.map.setInfo.mainInfo.uuid },
+      {
+        uuid: this.map.setInfo.mainInfo.uuid,
+      },
       false,
     );
     if (_.isEmpty(mainRow)) {
@@ -262,7 +265,9 @@ class UploadToDB {
         }
 
         // Device ID(S/N)를 설정하기 위하여 별도로 작업
-        const { protocol_info: protocolInfo } = _.find(dpcConstructorList, { dpcId });
+        const { protocol_info: protocolInfo } = _.find(dpcConstructorList, {
+          dpcId,
+        });
         // 국번이 숫자라면 Unicode 형태라고 판단. 아닐경우에는 기본 변환
         protocolInfo.deviceId = _.isNumber(SN)
           ? Buffer.from([SN]).toJSON()
@@ -283,7 +288,9 @@ class UploadToDB {
         const dataLoggerInfo = {
           main_seq: this.main_seq,
           data_logger_def_seq: _.get(
-            _.find(prevDLDList, { target_prefix: prefix }),
+            _.find(prevDLDList, {
+              target_prefix: prefix,
+            }),
             'data_logger_def_seq',
             null,
           ),
@@ -295,10 +302,18 @@ class UploadToDB {
         };
 
         // DV_NODE 경우 uniqueKey가 Seq이기 때문에 update일 경우에 해당 seq를 삽입한 확장
-        const dataLoggerSeq = _.get(_.find(prevDLList, { dataLoggerId }), 'data_logger_seq', null);
+        const dataLoggerSeq = _.get(
+          _.find(prevDLList, {
+            dataLoggerId,
+          }),
+          'data_logger_seq',
+          null,
+        );
         // BU.CLI(dataLoggerSeq)
         if (_.isNumber(dataLoggerSeq)) {
-          _.assign(dataLoggerInfo, { data_logger_seq: dataLoggerSeq });
+          _.assign(dataLoggerInfo, {
+            data_logger_seq: dataLoggerSeq,
+          });
         }
         tempStorage.addStorage(dataLoggerInfo, 'data_logger_seq', 'data_logger_seq');
       });
@@ -388,7 +403,9 @@ class UploadToDB {
         //  Node Def가 NodeClass Seq를 가지고 있다면 삽입
         _.assign(pickInfo, {
           node_class_seq: _.get(
-            _.find(prevNCList, { target_id: nodeClassInfo.target_id }),
+            _.find(prevNCList, {
+              target_id: nodeClassInfo.target_id,
+            }),
             'node_class_seq',
             null,
           ),
@@ -457,13 +474,34 @@ class UploadToDB {
             const dvNodeInfo = {
               target_code: nCode,
               data_logger_index: nDLIndex,
-              node_def_seq: _.get(_.find(prevNDList, { target_id: ndId }), 'node_def_seq', null),
+              node_def_seq: _.get(
+                _.find(prevNDList, {
+                  target_id: ndId,
+                }),
+                'node_def_seq',
+                null,
+              ),
               // dataLoggerId를 가진 DataLoggerList 목록에서 data_logger_seq 값을 정의
-              data_logger_seq: _.get(_.find(prevDLList, { dataLoggerId }), 'data_logger_seq', null),
+              data_logger_seq: _.get(
+                _.find(prevDLList, {
+                  dataLoggerId,
+                }),
+                'data_logger_seq',
+                null,
+              ),
             };
             // DV_NODE 경우 uniqueKey가 Seq이기 때문에 update일 경우에 해당 seq를 삽입한 확장
-            const nodeSeq = _.get(_.find(prevNList, { nodeId }), 'node_seq', null);
-            _.isNumber(nodeSeq) && _.assign(dvNodeInfo, { node_seq: nodeSeq });
+            const nodeSeq = _.get(
+              _.find(prevNList, {
+                nodeId,
+              }),
+              'node_seq',
+              null,
+            );
+            _.isNumber(nodeSeq) &&
+              _.assign(dvNodeInfo, {
+                node_seq: nodeSeq,
+              });
 
             tempStorage.addStorage(dvNodeInfo, 'node_seq', 'node_seq');
           });
@@ -533,7 +571,13 @@ class UploadToDB {
         });
 
         _.assign(pickInfo, {
-          place_class_seq: _.get(_.find(prevPCList, { target_id: pcId }), 'place_class_seq', null),
+          place_class_seq: _.get(
+            _.find(prevPCList, {
+              target_id: pcId,
+            }),
+            'place_class_seq',
+            null,
+          ),
         });
 
         tempStorage.addStorage(pickInfo, 'target_id', 'place_def_seq');
@@ -584,7 +628,13 @@ class UploadToDB {
           // pickInfo에 place_class_seq key 추가
           _.assign(pickInfo, {
             main_seq: this.main_seq,
-            place_def_seq: _.get(_.find(prevPDList, { target_id: pdId }), 'place_def_seq', null),
+            place_def_seq: _.get(
+              _.find(prevPDList, {
+                target_id: pdId,
+              }),
+              'place_def_seq',
+              null,
+            ),
           });
 
           pickInfo.place_info = _.isObject(pickInfo.place_info)
@@ -592,8 +642,17 @@ class UploadToDB {
             : null;
 
           // DV_PLACE 경우 uniqueKey가 Seq이기 때문에 update일 경우에 해당 seq를 삽입한 확장
-          const placeSeq = _.get(_.find(prevPList, { placeId }), 'place_seq', null);
-          _.isNumber(placeSeq) && _.assign(pickInfo, { place_seq: placeSeq });
+          const placeSeq = _.get(
+            _.find(prevPList, {
+              placeId,
+            }),
+            'place_seq',
+            null,
+          );
+          _.isNumber(placeSeq) &&
+            _.assign(pickInfo, {
+              place_seq: placeSeq,
+            });
 
           tempStorage.addStorage(pickInfo, 'place_seq', 'place_seq');
         });
@@ -633,10 +692,14 @@ class UploadToDB {
           // Place ID 정의
           const placeId = `${pdPrefix}${pCode ? `_${pCode}` : ''}`;
           // prevPList 에서 placeId가 동일한 Row 추출
-          const placeModelInfo = _.find(prevPList, { placeId });
+          const placeModelInfo = _.find(prevPList, {
+            placeId,
+          });
 
           pNodeList.forEach(nodeId => {
-            const nodeInfo = _.find(prevNList, { nodeId });
+            const nodeInfo = _.find(prevNList, {
+              nodeId,
+            });
 
             /** @type {DV_PLACE_RELATION} */
             const placeRelationInfo = {
