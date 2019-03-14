@@ -54,6 +54,7 @@ class UploadToDB {
   async startUpload() {
     this.init();
 
+    return false;
     await this.getMainSeq();
     console.time('setDataLoggerDef');
     await this.setDataLoggerDef();
@@ -88,6 +89,13 @@ class UploadToDB {
   /** repeatEleList 를 기반으로 List 재구성 */
   init() {
     this.setRepeatNode();
+
+    this.writeMapFile();
+  }
+
+  /** Map File 생성 */
+  writeMapFile() {
+    BU.writeFile('./newMap.js', JSON.stringify(this.map));
   }
 
   setRepeatNode() {
@@ -265,6 +273,11 @@ class UploadToDB {
         });
         // SN 을 connect_info 에 추가하고자 할 경우
         isAddSerialNumberToDCC && _.set(connectInfo, 'id', SN);
+
+        // unicode 설정
+        if (_.get(connectInfo, 'addConfigInfo.option')) {
+          _.set(connectInfo, 'addConfigInfo.option', Buffer.from(SN).toJSON());
+        }
 
         /** @type {DV_DATA_LOGGER} */
         const dataLoggerInfo = {
