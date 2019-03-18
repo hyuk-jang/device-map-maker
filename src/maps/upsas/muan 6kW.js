@@ -2432,251 +2432,6 @@ const map = {
         { currNode: 'V_004', parentNodes: ['V_006', 'V_007'], childNodes: ['O_004'] },
       ],
     },
-    brineFeedRankRelationList: [
-      {
-        placeId: 'SEB_1_A',
-        feedCmdList: [
-          {
-            srcPlaceId: 'BW_1',
-            cmdId: '해주 1 → 증발지 1A',
-            trueList: ['V_007', 'V_001', 'P_003'],
-            falseList: ['V_002', 'V_003', 'V_004', 'GV_001'],
-          },
-          {
-            srcPlaceId: 'RV',
-            cmdId: '저수조 → 증발지 1A',
-            trueList: ['V_006', 'V_001', 'P_002'],
-            falseList: ['V_002', 'V_003', 'V_004', 'GV_001'],
-          },
-        ],
-      },
-      {
-        placeId: 'SEB_1_B',
-        feedCmdList: [
-          {
-            srcPlaceId: 'BW_1',
-            cmdId: '해주 1 → 증발지 1B',
-            trueList: ['V_007', 'V_002', 'P_003'],
-            falseList: ['V_001', 'V_003', 'V_004', 'GV_002'],
-          },
-          {
-            srcPlaceId: 'RV',
-            cmdId: '저수조 → 증발지 1B',
-            trueList: ['V_006', 'V_002', 'P_002'],
-            falseList: ['V_001', 'V_003', 'V_004', 'GV_002'],
-          },
-        ],
-      },
-      {
-        placeId: 'SEB_1_C',
-        feedCmdList: [
-          {
-            srcPlaceId: 'BW_1',
-            cmdId: '해주 1 → 증발지 1B',
-            trueList: ['V_007', 'V_003', 'P_003'],
-            falseList: ['V_001', 'V_002', 'V_004', 'GV_003'],
-          },
-          {
-            srcPlaceId: 'RV',
-            cmdId: '저수조 → 증발지 1B',
-            trueList: ['V_006', 'V_003', 'P_002'],
-            falseList: ['V_001', 'V_002', 'V_004', 'GV_003'],
-          },
-        ],
-      },
-      {
-        placeId: 'SEB_1_D',
-        feedCmdList: [
-          {
-            srcPlaceId: 'BW_1',
-            cmdId: '해주 1 → 증발지 1B',
-            trueList: ['V_007', 'V_004', 'P_003'],
-            falseList: ['V_001', 'V_002', 'V_003', 'GV_004'],
-          },
-          {
-            srcPlaceId: 'RV',
-            cmdId: '저수조 → 증발지 1B',
-            trueList: ['V_006', 'V_004', 'P_002'],
-            falseList: ['V_001', 'V_002', 'V_003', 'GV_004'],
-          },
-        ],
-      },
-      {
-        placeId: 'SEB_1_E',
-        feedCmdList: [
-          {
-            srcPlaceId: 'RV',
-            cmdId: '저수조 → 증발지 1_E',
-            trueList: ['P_006'],
-            falseList: ['GV_005'],
-          },
-        ],
-      },
-      {
-        placeId: 'SEB_2',
-        feedCmdList: [
-          {
-            srcPlaceId: 'BW_2',
-            cmdId: '해주 2 → 증발지 2',
-            trueList: ['P_004'],
-            falseList: ['WD_006'],
-          },
-        ],
-      },
-      {
-        placeId: 'SEB_3',
-        feedCmdList: [
-          {
-            srcPlaceId: 'SEB_2',
-            cmdId: '증발지 2 → 증발지 3',
-            trueList: ['WD_006'],
-            falseList: ['WD_007'],
-          },
-        ],
-      },
-      {
-        placeId: 'SEB_4',
-        feedCmdList: [
-          {
-            srcPlaceId: 'SEB_3',
-            cmdId: '증발지 4 → 증발지 4',
-            trueList: ['WD_007'],
-            falseList: ['WD_008'],
-          },
-        ],
-      },
-      {
-        placeId: 'SCB',
-        feedCmdList: [
-          {
-            srcPlaceId: 'BW_003',
-            cmdId: '해주 3 → 결정지',
-            trueList: ['P_005'],
-            falseList: ['WD_009'],
-          },
-        ],
-      },
-    ],
-    brineDrainRankRelationList: [
-      {
-        placeId: 'SEB_1_A',
-        drainCmdList: [
-          {
-            destPlaceId: 'BW_2',
-            cmdId: '증발지 1A → 해주 2',
-            trueList: ['GV_001', 'WD_013', 'WD_011', 'WD_016'],
-            falseList: ['WD_010', 'WD_012', 'WD_014', 'WD_015'],
-          },
-          {
-            destPlaceId: 'BW_1',
-            cmdId: '증발지 1A → 해주 1',
-            trueList: ['GV_001', 'WD_013', 'WD_010'],
-            falseList: ['WD_016'],
-          },
-        ],
-      },
-      {
-        placeId: 'SEB_1_B',
-        drainCmdList: [
-          {
-            destPlaceId: 'BW_2',
-            cmdId: '증발지 1A → 해주 1',
-            trueList: ['GV_002', 'WD_013', 'WD_011', 'WD_016'],
-            falseList: ['WD_010', 'WD_012', 'WD_014', 'WD_015'],
-          },
-          {
-            destPlaceId: 'BW_1',
-            cmdId: '증발지 1A → 해주 1',
-            trueList: ['GV_002', 'WD_013', 'WD_010'],
-            falseList: ['WD_016'],
-          },
-        ],
-      },
-      {
-        placeId: 'SEB_1_C',
-        drainCmdList: [
-          {
-            destPlaceId: 'BW_2',
-            cmdId: '증발지 1A → 해주 1',
-            trueList: ['GV_003', 'WD_013', 'WD_011', 'WD_016'],
-            falseList: ['WD_010', 'WD_012', 'WD_014', 'WD_015'],
-          },
-          {
-            destPlaceId: 'BW_1',
-            cmdId: '증발지 1A → 해주 1',
-            trueList: ['GV_003', 'WD_013', 'WD_010'],
-            falseList: ['WD_016'],
-          },
-        ],
-      },
-      {
-        placeId: 'SEB_1_D',
-        drainCmdList: [
-          {
-            destPlaceId: 'BW_2',
-            cmdId: '증발지 1A → 해주 1',
-            trueList: ['GV_004', 'WD_013', 'WD_011', 'WD_016'],
-            falseList: ['WD_010', 'WD_012', 'WD_014', 'WD_015'],
-          },
-          {
-            destPlaceId: 'BW_1',
-            cmdId: '증발지 1A → 해주 1',
-            trueList: ['GV_004', 'WD_013', 'WD_010'],
-            falseList: ['WD_016'],
-          },
-        ],
-      },
-      {
-        placeId: 'SEB_2',
-        drainCmdList: [
-          {
-            destPlaceId: 'SEB_3',
-            cmdId: '증발지 2 → 증발지 3',
-            trueList: ['WD_006'],
-            falseList: ['WD_007'],
-          },
-        ],
-      },
-      {
-        placeId: 'SEB_3',
-        drainCmdList: [
-          {
-            destPlaceId: 'SEB_4',
-            cmdId: '증발지 3 → 증발지 4',
-            trueList: ['WD_007'],
-            falseList: ['WD_008'],
-          },
-        ],
-      },
-      {
-        placeId: 'SEB_4',
-        drainCmdList: [
-          {
-            destPlaceId: 'BW_3',
-            cmdId: '증발지 4 → 해주3',
-            trueList: ['WD_008', 'WD_014', 'WD_012'],
-            falseList: ['WD_009', 'WD_011', 'WD_015'],
-          },
-          {
-            destPlaceId: 'BW_2',
-            cmdId: '증발지 4 → 해주2',
-            trueList: ['WD_008', 'WD_014', 'WD_011'],
-            falseList: ['WD_009', 'WD_012', 'WD_015'],
-          },
-        ],
-      },
-      {
-        placeId: 'SCB',
-        drainCmdList: [
-          {
-            destPlaceId: 'BW_3',
-            cmdId: '결정지 → 해주 3',
-            trueList: ['WD_009', 'WD_014', 'WD_012'],
-            falseList: ['WD_008', 'WD_011', 'WD_015'],
-          },
-        ],
-      },
-    ],
     svgResourceConnectionList: [
       {
         targetIdList: ['SEB_1_A', 'SEB_1_B', 'SEB_1_C', 'SEB_1_D'],
@@ -2769,6 +2524,258 @@ const map = {
     exclusionTextDefIdList: ['pipeLine', 'waterWay'],
   },
   controlInfo: {
+    simpleModeList: [
+      {
+        srcPlaceId: 'SEB_1_A',
+        destList: [
+          {
+            destPlaceId: 'BW_1',
+            trueNodeList: ['GV_001', 'WD_013', 'WD_010'],
+            falseNodeList: ['WD_016'],
+          },
+          {
+            destPlaceId: 'BW_2',
+            trueNodeList: ['GV_001', 'WD_013', 'WD_011', 'WD_016'],
+            falseNodeList: ['WD_010', 'WD_012', 'WD_014', 'WD_015'],
+          },
+          {
+            destPlaceId: 'SEA',
+            trueNodeList: ['GV_001', 'WD_013', 'WD_016', 'WD_015'],
+            falseNodeList: ['WD_010', 'WD_011', 'WD_014', 'WD_012'],
+          },
+        ],
+      },
+      {
+        srcPlaceId: 'SEB_1_B',
+        destList: [
+          {
+            destPlaceId: 'BW_1',
+            trueNodeList: ['GV_002', 'WD_013', 'WD_010'],
+            falseNodeList: ['WD_016'],
+          },
+          {
+            destPlaceId: 'BW_2',
+            trueNodeList: ['GV_002', 'WD_013', 'WD_011', 'WD_016'],
+            falseNodeList: ['WD_010', 'WD_012', 'WD_014', 'WD_015'],
+          },
+          {
+            destPlaceId: 'SEA',
+            trueNodeList: ['GV_002', 'WD_013', 'WD_016', 'WD_015'],
+            falseNodeList: ['WD_010', 'WD_011', 'WD_014', 'WD_012'],
+          },
+        ],
+      },
+      {
+        srcPlaceId: 'SEB_1_C',
+        destList: [
+          {
+            destPlaceId: 'BW_1',
+            trueNodeList: ['GV_003', 'WD_013', 'WD_010'],
+            falseNodeList: ['WD_016'],
+          },
+          {
+            destPlaceId: 'BW_2',
+            trueNodeList: ['GV_003', 'WD_013', 'WD_011', 'WD_016'],
+            falseNodeList: ['WD_010', 'WD_012', 'WD_014', 'WD_015'],
+          },
+          {
+            destPlaceId: 'SEA',
+            trueNodeList: ['GV_003', 'WD_013', 'WD_016', 'WD_015'],
+            falseNodeList: ['WD_010', 'WD_011', 'WD_014', 'WD_012'],
+          },
+        ],
+      },
+      {
+        srcPlaceId: 'SEB_1_D',
+        destList: [
+          {
+            destPlaceId: 'BW_1',
+            trueNodeList: ['GV_004', 'WD_013', 'WD_010'],
+            falseNodeList: ['WD_016'],
+          },
+          {
+            destPlaceId: 'BW_2',
+            trueNodeList: ['GV_004', 'WD_013', 'WD_011', 'WD_016'],
+            falseNodeList: ['WD_010', 'WD_012', 'WD_014', 'WD_015'],
+          },
+          {
+            destPlaceId: 'SEA',
+            trueNodeList: ['GV_004', 'WD_013', 'WD_016', 'WD_015'],
+            falseNodeList: ['WD_010', 'WD_011', 'WD_014', 'WD_012'],
+          },
+        ],
+      },
+      {
+        srcPlaceId: 'SEB_2',
+        destList: [
+          {
+            destPlaceId: 'SEB_3',
+            trueNodeList: ['WD_006'],
+            falseNodeList: ['WD_007'],
+          },
+        ],
+      },
+      {
+        srcPlaceId: 'SEB_3',
+        destList: [
+          {
+            destPlaceId: 'SEB_4',
+            trueNodeList: ['WD_007'],
+            falseNodeList: ['WD_008'],
+          },
+        ],
+      },
+      {
+        srcPlaceId: 'SEB_4',
+        destList: [
+          {
+            destPlaceId: 'BW_2',
+            trueNodeList: ['WD_008', 'WD_014', 'WD_011'],
+            falseNodeList: ['WD_009', 'WD_012', 'WD_015'],
+          },
+          {
+            destPlaceId: 'BW_3',
+            trueNodeList: ['WD_008', 'WD_014', 'WD_012'],
+            falseNodeList: ['WD_009', 'WD_011', 'WD_015'],
+          },
+          {
+            destPlaceId: 'SEA',
+            trueNodeList: ['WD_008', 'WD_014', 'WD_015'],
+            falseNodeList: ['WD_009', 'WD_011', 'WD_012'],
+          },
+        ],
+      },
+      {
+        srcPlaceId: 'SCB',
+        destList: [
+          {
+            destPlaceId: 'BW_3',
+            trueNodeList: ['WD_009', 'WD_014', 'WD_012'],
+            falseNodeList: ['WD_008', 'WD_011', 'WD_015'],
+          },
+          {
+            destPlaceId: 'SEA',
+            trueNodeList: ['WD_009', 'WD_014', 'WD_015'],
+            falseNodeList: ['WD_008', 'WD_011', 'WD_012'],
+          },
+        ],
+      },
+      {
+        srcPlaceId: 'SEA',
+        destList: [
+          {
+            destPlaceId: 'RV',
+            trueNodeList: ['P_001'],
+            falseNodeList: [],
+          },
+        ],
+      },
+      {
+        srcPlaceId: 'RV',
+        destList: [
+          {
+            destPlaceId: 'SEB_1_A',
+            trueList: ['V_006', 'V_001', 'P_002'],
+            falseList: ['V_002', 'V_003', 'V_004', 'GV_001'],
+          },
+          {
+            destPlaceId: 'SEB_1_B',
+            trueList: ['V_006', 'V_002', 'P_002'],
+            falseList: ['V_001', 'V_003', 'V_004', 'GV_002'],
+          },
+          {
+            destPlaceId: 'SEB_1_C',
+            trueList: ['V_006', 'V_003', 'P_002'],
+            falseList: ['V_001', 'V_002', 'V_004', 'GV_003'],
+          },
+          {
+            destPlaceId: 'SEB_1_D',
+            trueList: ['V_006', 'V_004', 'P_002'],
+            falseList: ['V_001', 'V_002', 'V_003', 'GV_004'],
+          },
+        ],
+      },
+      {
+        srcPlaceId: 'BW_1',
+        destList: [
+          {
+            destPlaceId: 'SEB_1_A',
+            trueNodeList: ['V_007', 'V_001', 'P_003'],
+            falseNodeList: ['V_002', 'V_003', 'V_004', 'GV_001'],
+          },
+          {
+            destPlaceId: 'SEB_1_B',
+            trueNodeList: ['V_007', 'V_002', 'P_003'],
+            falseNodeList: ['V_001', 'V_003', 'V_004', 'GV_002'],
+          },
+          {
+            destPlaceId: 'SEB_1_C',
+            trueNodeList: ['V_007', 'V_003', 'P_003'],
+            falseNodeList: ['V_001', 'V_002', 'V_004', 'GV_003'],
+          },
+          {
+            destPlaceId: 'SEB_1_D',
+            trueNodeList: ['V_007', 'V_004', 'P_003'],
+            falseNodeList: ['V_001', 'V_002', 'V_003', 'GV_004'],
+          },
+        ],
+      },
+      {
+        srcPlaceId: 'BW_2',
+        destList: [
+          {
+            destPlaceId: 'SEB_2',
+            trueNodeList: ['P_004'],
+            falseNodeList: ['WD_008'],
+          },
+        ],
+      },
+      {
+        srcPlaceId: 'BW_3',
+        destList: [
+          {
+            destPlaceId: 'SEB_2',
+            trueNodeList: ['P_005'],
+            falseNodeList: ['WD_009'],
+          },
+        ],
+      },
+    ],
+    settingModeList: [
+      {
+        cmdId: 'closeAllDevice',
+        trueNodeList: [],
+        falseNodeList: [
+          'GV_001',
+          'GV_002',
+          'GV_003',
+          'GV_004',
+          'P_001',
+          'P_002',
+          'P_003',
+          'P_004',
+          'P_005',
+          'V_001',
+          'V_002',
+          'V_003',
+          'V_004',
+          'V_006',
+          'V_007',
+          'WD_005',
+          'WD_006',
+          'WD_007',
+          'WD_008',
+          'WD_009',
+          'WD_010',
+          'WD_011',
+          'WD_012',
+          'WD_013',
+          'WD_014',
+          'WD_015',
+          'WD_016',
+        ],
+      },
+    ],
     tempControlList: [
       { cmdName: '바다 → 저수지', trueList: ['P_001'], falseList: [] },
       { cmdName: '저수조 → 증발지 1_E', trueList: ['P_006'], falseList: ['GV_005'] },
