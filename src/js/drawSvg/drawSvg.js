@@ -42,6 +42,17 @@ function drawSvgBasePlace(documentId, isShow = true) {
         isShow,
       );
       writeSvgText(svgCanvas, defInfo, resourceInfo);
+
+      $('#placeNodeChangeNameToogleBtn').change(() => {
+        $(`#text_${defInfo.id}`).remove();
+
+        writeSvgText(
+          svgCanvas,
+          defInfo,
+          resourceInfo,
+          $('#placeNodeChangeNameToogleBtn').prop('checked'),
+        );
+      });
     });
   });
 
@@ -70,11 +81,12 @@ function drawSvgBasePlace(documentId, isShow = true) {
 /**
  * @param {string} nodeDefId
  * @param {number|string} data 데이터 값
- *
+ * 노드 또는 센서에 데이터 표시
  */
-function showNodeData(nodeDefId, data = '') {
+function showNodeData(nodeDefId, data = '', isChangePlaceNodeName = false) {
   changeNodeColor(nodeDefId, data);
   let dataUnit = getDataUnit(nodeDefId);
+  let nodeName;
   if (data === '' || _.isNull(dataUnit)) dataUnit = '';
   let [dx, dy, style] = [0, 15, 'font-size: 15pt; fill: #05f605; stroke-width: 0.2'];
   const changedAllNodeTspanEle = getChangedNodeTspanEle(config);
@@ -91,9 +103,11 @@ function showNodeData(nodeDefId, data = '') {
     style = changedNodeTspanEle.allStyle;
   }
 
-  foundSvgTextInfo.text.node.innerHTML = `<tspan x="${foundSvgTextInfo.textX}"> ${
-    foundSvgTextInfo.name
-  }</tspan>`; // node 이름 표시
+  isChangePlaceNodeName ? (nodeName = foundSvgTextInfo.id) : (nodeName = foundSvgTextInfo.name);
+
+  foundSvgTextInfo.text.node.innerHTML = `<tspan id='nodeName' x="${
+    foundSvgTextInfo.textX
+  }"> ${nodeName}</tspan>`; // node 이름 표시
   foundSvgTextInfo.text.node.innerHTML += `<tspan id="nodeData" class ="${nodeDefId}" value="${data}" x="${
     foundSvgTextInfo.textX
   }" style="${style}" dx="${dx}" dy="${dy}">${data}</tspan>`; // data 표시
@@ -155,12 +169,13 @@ function changeNodeColor(nDefId, data) {
  * @param {defInfo} defInfo 장치, 노드의  id, resourceId, point[] 정보
  * @param {mSvgModelResource} resourceInfo 장치, 노드의 resource id, type, elemetDrawInfo[width,height,radius,...] 정보
  */
-function writeSvgText(svgCanvas, defInfo, resourceInfo) {
+function writeSvgText(svgCanvas, defInfo, resourceInfo, isChangePlaceNodeName = false) {
   const { width, height, radius } = resourceInfo.elementDrawInfo;
   const [x1, y1, x2, y2] = defInfo.point;
   const changedAllTextStyle = getChangedTextStyle(config);
   const changedSingleTextStyle = getChangedTextStyle(config, defInfo.id);
-  let naming = defInfo.name; // defInfo.name: 한글, defInfo.id: 영문
+  let naming; // defInfo.name: 한글, defInfo.id: 영문
+  isChangePlaceNodeName ? (naming = defInfo.id) : (naming = defInfo.name);
   let [textX, textY, textColor, textSize, leading, anchor] = [0, 0, '', 0, '', ''];
 
   // svgPositionList를 검색하여 장치인지 센서인지 정의
@@ -260,7 +275,8 @@ function writeSvgText(svgCanvas, defInfo, resourceInfo) {
       weight: 'bold',
     })
     .attr({
-      'pointer-events': 'none', // text 커서 모양 설정
+      // 'pointer-events': 'none', // text 커서 모양 설정
+      id: `text_${defInfo.id}`,
     });
 
   const drawedNodeInfo = {
@@ -290,18 +306,48 @@ function isExcludableText(defId) {
       _.map(svgNodeInfo.defList, 'id').includes(defId),
     );
     isExclusionText = _.includes(
-      realMap.relationInfo.exclusionTextDefIdList,
+      realMap.relationInfo.hiddenTextSvgModelResourceIdList,
       foundNodeInfo.nodeDefId,
     );
   } else {
     isExclusionText = _.includes(
-      realMap.relationInfo.exclusionTextDefIdList,
+      realMap.relationInfo.hiddenTextSvgModelResourceIdList,
       foundPlaceInfo.placeId,
     );
   }
 
   return isExclusionText;
 }
+
+/**
+ *
+ */
+// function bindingMouseoverEvent() {
+//   /** @type {mDeviceMap} */
+//   const realMap = map;
+
+//   // 모든 장소에 마우스 오버 이벤트 적용
+//   realMap.drawInfo.positionInfo.svgPlaceList.forEach(svgPlaceInfo => {
+//     svgPlaceInfo.defList.forEach(svgPlaceDefInfo => {
+//       // Tippy.js 라이브러리 이벤트
+//       tippy(`#${svgPlaceDefInfo.id}`, {
+//         arrow: true, // 꼬리 표시 여부
+//         content: svgPlaceDefInfo.id, // 꼬리말
+//       });
+//     });
+//   });
+
+//   // 모든 노드에 마우스 오버 이벤트 적용
+//   realMap.drawInfo.positionInfo.svgNodeList.forEach(svgNodeInfo => {
+//     svgNodeInfo.defList.forEach(svgNodeDefInfo => {
+//       // Tippy.js 라이브러리 이벤트
+//       tippy(`#${svgNodeDefInfo.id}`, {
+//         arrow: true, // 꼬리 표시 여부
+//         content: svgNodeDefInfo.id, // 꼬리말
+//       });
+//     });
+//   });
+// }
 
 /**
  *  그려진 노드에 제어기능을 바인딩.
@@ -328,13 +374,17 @@ function bindingClickEventNode(socket) {
           const checkedDataStatus = checkDataType(currentNodeStatus);
           if (checkedDataStatus === 'trueData') {
             const confirmBool = confirm(`'${nodeDefInfo.name}' 을(를) 닫으시겠습니까?`);
-            confirmBool ? executeCommand(socket, 2, nodeDefInfo.id) : null;
+            confirmBool ? executeCommand(socket, '0', nodeDefInfo.id) : null;
           } else if (checkedDataStatus === 'falseData') {
             const confirmBool = confirm(`'${nodeDefInfo.name}' 을(를) 여시겠습니까?`);
-            confirmBool ? executeCommand(socket, 1, nodeDefInfo.id) : null;
+            confirmBool ? executeCommand(socket, '1', nodeDefInfo.id) : null;
           } else {
             alert('장치 상태 이상');
           }
+        } else if (foundSvgNodeInfo.is_sensor === 1) {
+          // input에 입력된 센서의 값
+          const inputtedSensorValue = prompt(`'${nodeDefInfo.name}'`);
+          // TODO: 명령 전달 소스
         }
       });
     });
@@ -353,10 +403,11 @@ function executeCommand(socket, controlType, nodeId) {
     contents: {
       requestCommandType: 'CONTROL',
       nodeId,
-      controlType,
+      controlValue: controlType,
       rank: 2,
     },
   };
+  console.log(requestMsg);
   socket.emit('executeCommand', requestMsg);
 }
 

@@ -1,5 +1,5 @@
 const UploadToDB = require('./UploadToDB');
-const SvgMaker = require('./js/contents/NewSvgMaker');
+const SvgMaker = require('./SvgMaker');
 
 class Control {
   /** 환경 변수를 읽어 들여 상황에 맞는 메소드 실행 */
@@ -7,7 +7,7 @@ class Control {
     // map 정보를 읽어 들여 SVG로 표현할 map File 생성.
     // mDrawInfo 연관이 깊음.
     if (process.env.HAS_SVG === 'true') {
-      this.svgMaker = new SvgMaker();
+      this.SvgMaker = new SvgMaker();
     }
 
     // map 정보를 읽어 들여 DB에 Setting (setInfo.)
