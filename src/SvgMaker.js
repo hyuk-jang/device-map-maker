@@ -48,9 +48,11 @@ class SvgMaker {
   async writeMapFile() {
     try {
       map.drawInfo.frame.mapInfo.backgroundInfo.backgroundData = mapBase64;
+      const finalStrMap = `var map = ${JSON.stringify(map)}`;
+      await BU.writeFile('./out/defaultMap.js', finalStrMap, 'w');
       await BU.writeFile(
-        `./out/${process.env.WRITE_MAP_FILE_NAME}.js`,
-        `var map = ${JSON.stringify(map)}`,
+        `./out/${process.env.SOURCE_PATH}/output_${process.env.SOURCE_FILE}.js`,
+        finalStrMap,
         'w',
       );
       return BU.CLI('Map 자동 생성 성공');

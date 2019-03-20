@@ -4,7 +4,8 @@ const { BU } = require('base-util-jh');
 const { TempStorage } = require('base-model-jh');
 const { DEVICE, SENSOR, NONE } = require('../../default-intelligence').dcmConfigModel.nodeDataType;
 
-const map = require('./map');
+/** @type {mDeviceMap} */
+const map = require(`../src/maps/${process.env.SOURCE_PATH}/${process.env.SOURCE_FILE}`);
 
 const BiModule = require('./BiModule');
 
@@ -89,7 +90,7 @@ class UploadToDB {
   async init() {
     this.setRepeatNode();
 
-    await this.writeMapFile();
+    // await this.writeMapFile();
   }
 
   /** Map File 생성 */
