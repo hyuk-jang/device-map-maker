@@ -2360,7 +2360,7 @@ const map = {
               },
               {
                 target_code: '002',
-                nodeList: ['GV_004', 'WD_010', 'WD_013', 'WD_016'],
+                nodeList: ['WD_005', 'WD_010', 'WD_013', 'WD_016'],
                 depth: 0.3,
               },
               { target_code: '003', depth: 0.3, nodeList: ['WD_008', 'WD_009', 'WD_014'] },
