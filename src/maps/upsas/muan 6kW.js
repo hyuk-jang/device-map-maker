@@ -1737,7 +1737,7 @@ const map = {
               { target_code: '002', axisScale: [0, 0], moveScale: [0, 0] },
               { target_code: '003', axisScale: [0, 0], moveScale: [0, 0] },
               { target_code: '004', axisScale: [0, 0], moveScale: [0, 0] },
-              { target_code: '005', axisScale: [0, 0], moveScale: [0, -1] },
+              { target_code: '005', data_logger_index: 1, axisScale: [0, 0], moveScale: [0, -1] },
               { target_code: '006', axisScale: [0, 0], moveScale: [0, -1] },
               { target_code: '007', axisScale: [0, 0], moveScale: [0, 0] },
             ],
