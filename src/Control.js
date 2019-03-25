@@ -14,7 +14,7 @@ class Control {
     // mSetInfo, mrelationInfo 연관이 깊음
     if (process.env.IS_UPLOAD === '1') {
       this.uploadToDB = new UploadToDB();
-      // this.uploadToDB.startUpload();
+      this.uploadToDB.startUpload();
     }
   }
 }
