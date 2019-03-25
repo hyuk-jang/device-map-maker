@@ -38,7 +38,7 @@ const map = {
       {
         dpcId: 'DPC_001',
         protocol_info: {
-          mainCategory: 'FarmParallel',
+          mainCategory: 'S2W',
           subCategory: 'dmTech',
           wrapperCategory: 'default',
         },
