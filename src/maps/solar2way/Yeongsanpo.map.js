@@ -102,6 +102,7 @@ const map = {
           'IVT_G_R_A',
           'IVT_G_L_F',
           'IVT_PW_G_KW',
+          'IVT_PW_PF',
           'IVT_PW_C_KWH',
           'IVT_TRB',
         ],
@@ -186,7 +187,7 @@ const map = {
         dataLoggerDeviceList: [
           {
             target_name: '영산포 양면형 고정식 (2.5kW 급)',
-            serial_number: Buffer.from([0x01]),
+            serial_number: Buffer.from([0x2f]),
             target_code: '001',
             dccId: 'DCC_001',
             dpcId: 'DPC_IVT_003',
@@ -194,7 +195,7 @@ const map = {
           },
           {
             target_name: '영산포 양면형 가변식 (2.5kW 급)',
-            serial_number: Buffer.from([0x02]),
+            serial_number: Buffer.from([0x56]),
             target_code: '002',
             dccId: 'DCC_001',
             dpcId: 'DPC_IVT_003',
@@ -202,7 +203,7 @@ const map = {
           },
           {
             target_name: '영산포 경량형 고정식 (2.5kW 급)',
-            serial_number: Buffer.from([0x03]),
+            serial_number: Buffer.from([0x2e]),
             target_code: '003',
             dccId: 'DCC_001',
             dpcId: 'DPC_IVT_003',
@@ -210,7 +211,7 @@ const map = {
           },
           {
             target_name: '영산포 경량형 가변형 (2.5kW 급)',
-            serial_number: Buffer.from([0x04]),
+            serial_number: Buffer.from([0x55]),
             target_code: '004',
             dccId: 'DCC_001',
             dpcId: 'DPC_IVT_003',
@@ -650,7 +651,14 @@ const map = {
         is_sensor: 1,
         save_db_type: BLOCK,
         data_unit: '%',
-        defList: [],
+        defList: [
+          {
+            target_id: 'powerPf',
+            target_name: '역률',
+            target_prefix: 'IVT_PW_PF',
+            repeatId: 'RE_NODE_IVT',
+          },
+        ],
       },
       {
         target_id: 'frequency',
