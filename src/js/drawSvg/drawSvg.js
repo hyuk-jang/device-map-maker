@@ -2,11 +2,11 @@
 const writtenSvgTextList = [];
 
 /**
- * @param {string} documentId
+ * @param {string} documentId // 그려질 div의 id
  * @param {string=} title // 제목
  * @param {Boolean=} isShow // true: 화면 표시 (기본값), false: 숨김
  */
-function drawSvgBasePlace(documentId, isShow = true) {
+function drawSvgBasePlace(documentId, isText, isShow = true) {
   /** @type {mDeviceMap} */
   const realMap = map;
 
@@ -18,104 +18,104 @@ function drawSvgBasePlace(documentId, isShow = true) {
   } = realMap.drawInfo.frame.mapInfo.backgroundInfo;
   const svgCanvas = SVG(documentId).size(svgCanvasWidth, svgCanvasHeight);
 
+  // 팬줌 초기 맵 사이즈를 지정하기 위한 그려지는 공간의 id 지정
   svgCanvas.attr({ id: 'svgCanvas' });
 
-  // 배경 이미지 지정
+  // map에 배경의 데이터가 있을경우 배경 이미지 지정
   const backgroundImg = svgCanvas.image(backgroundData);
   backgroundImg.move(backgroundPosition[0], backgroundPosition[1]);
 
-  // Place 그리기
+  // 장소 그리기
   realMap.drawInfo.positionInfo.svgPlaceList.forEach(svgPlaceInfo => {
-    svgPlaceInfo.defList.forEach(defInfo => {
+    svgPlaceInfo.defList.forEach(placeDefInfo => {
       /** @type {mSvgModelResource} */
-      const resourceInfo = _.find(realMap.drawInfo.frame.svgModelResourceList, {
-        id: defInfo.resourceId,
+      const placeSvgResourceInfo = _.find(realMap.drawInfo.frame.svgModelResourceList, {
+        id: placeDefInfo.resourceId,
       });
-      if (_.isUndefined(resourceInfo)) return false;
+      if (_.isUndefined(placeSvgResourceInfo)) return false;
 
+      // 장소에 맞는 도형을 찾아 그린다.
       drawSvgElement(
         svgCanvas,
-        resourceInfo.type,
-        defInfo.point,
-        resourceInfo.elementDrawInfo,
-        defInfo.id,
+        placeSvgResourceInfo.type,
+        placeDefInfo.point,
+        placeSvgResourceInfo.elementDrawInfo,
+        placeDefInfo.id,
         isShow,
       );
-      writeSvgText(svgCanvas, defInfo, resourceInfo);
-
-      $('#placeNodeChangeNameToogleBtn').change(() => {
-        $(`#text_${defInfo.id}`).remove();
-
-        writeSvgText(
-          svgCanvas,
-          defInfo,
-          resourceInfo,
-          $('#placeNodeChangeNameToogleBtn').prop('checked'),
-        );
-      });
+      // 그려진 장소 위에 해당 장소의 이름 그리기
+      writeSvgText(svgCanvas, placeDefInfo, placeSvgResourceInfo, isText);
     });
   });
 
-  // node 그리기
+  // 장비, 센서 그리기
   realMap.drawInfo.positionInfo.svgNodeList.forEach(svgNodeInfo => {
-    svgNodeInfo.defList.forEach(defInfo => {
+    svgNodeInfo.defList.forEach(nodeDefInfo => {
       /** @type {mSvgModelResource} */
-      const resourceInfo = _.find(realMap.drawInfo.frame.svgModelResourceList, {
-        id: defInfo.resourceId,
+      const nodeSvgResourceInfo = _.find(realMap.drawInfo.frame.svgModelResourceList, {
+        id: nodeDefInfo.resourceId,
       });
-      if (_.isUndefined(resourceInfo)) return false;
+      if (_.isUndefined(nodeSvgResourceInfo)) return false;
 
+      // 장비, 센서에 맞는 도형을 찾아 그린다.
       drawSvgElement(
         svgCanvas,
-        resourceInfo.type,
-        defInfo.point,
-        resourceInfo.elementDrawInfo,
-        defInfo.id,
+        nodeSvgResourceInfo.type,
+        nodeDefInfo.point,
+        nodeSvgResourceInfo.elementDrawInfo,
+        nodeDefInfo.id,
         isShow,
       );
-      writeSvgText(svgCanvas, defInfo, resourceInfo);
+      // 그려진 장비, 센서 위에 해당 장소의 이름 그리기
+      writeSvgText(svgCanvas, nodeDefInfo, nodeSvgResourceInfo, isText);
     });
   });
 }
 
 /**
+ * 노드 또는 센서에 데이터 표시
  * @param {string} nodeDefId
  * @param {number|string} data 데이터 값
- * 노드 또는 센서에 데이터 표시
  */
 function showNodeData(nodeDefId, data = '', isChangePlaceNodeName = false) {
-  changeNodeColor(nodeDefId, data);
-  let dataUnit = getDataUnit(nodeDefId);
-  let nodeName;
-  if (data === '' || _.isNull(dataUnit)) dataUnit = '';
-  let [dx, dy, style] = [0, 15, 'font-size: 15pt; fill: #05f605; stroke-width: 0.2'];
-  const changedAllNodeTspanEle = getChangedNodeTspanEle(config);
-  const changedSingleNodeTspanEle = getChangedNodeTspanEle(config, nodeDefId);
+  // 데이터 값에 따른 상태 색 변경
+  changeNodeStatusColor(nodeDefId, data);
 
+  let dataUnit = getDataUnit(nodeDefId); // 데이터 단위
+  if (data === '' || _.isNull(dataUnit)) dataUnit = ''; // 장치일 경우 단위가 없음
+  let [dx, dy, style, nodeName] = [0, 15, 'font-size: 15pt; fill: #05f605; stroke-width: 0.2', '']; // <Tspan> 속성
+  const changedAllNodeTspanEle = applyConfigTspanEle(config); // config에서 <tspan> 속성을 모두를 바꿀 정보를 가져옴
+  const changedSingleNodeTspanEle = applyConfigTspanEle(config, nodeDefId); // config에서 <tsapn> 속성을 단일로 바꿀 정보 가져옴
+
+  // svg로 그려진 Text의 정보를 찾는다. (위치값을 알기위한 용도)
   const foundSvgTextInfo = _.find(writtenSvgTextList, { id: nodeDefId });
   if (_.isUndefined(foundSvgTextInfo)) return false;
+  // svg로 그려진 Text의 자식 Tspan 을 찾는다.
+  const foundNodeTextChild = $(`#text_${nodeDefId}`);
 
-  // <tspan> 태그 속성 전체 적용
+  // config의 allNodeTspanEleInfo 를 가져와 적용
   if (changedAllNodeTspanEle) {
-    const changedNodeTspanEle = getChangedNodeTspanEle(config);
-    dx = changedNodeTspanEle.allDx;
-    dy = changedNodeTspanEle.allDy;
-    style = changedNodeTspanEle.allStyle;
+    const { allDx, allDy, allStyle } = changedAllNodeTspanEle;
+    [dx, dy, style] = [allDx, allDy, allStyle];
   }
 
+  // 장소, 장비, 센서 이름 재정의
   isChangePlaceNodeName ? (nodeName = foundSvgTextInfo.id) : (nodeName = foundSvgTextInfo.name);
 
-  foundSvgTextInfo.text.node.innerHTML = `<tspan id='nodeName' x="${
+  // 데이터, 속성, 스타일 등을 적용해 tspan 다시 그리기
+  foundNodeTextChild.get(0).innerHTML = `<tspan id='nodeName' x="${
     foundSvgTextInfo.textX
-  }"> ${nodeName}</tspan>`; // node 이름 표시
-  foundSvgTextInfo.text.node.innerHTML += `<tspan id="nodeData" class ="${nodeDefId}" value="${data}" x="${
+  }"> ${nodeName}</tspan>`;
+  foundNodeTextChild.get(
+    0,
+  ).innerHTML += `<tspan id="nodeData" class ="${nodeDefId}" value="${data}" x="${
     foundSvgTextInfo.textX
   }" style="${style}" dx="${dx}" dy="${dy}">${data}</tspan>`; // data 표시
-  foundSvgTextInfo.text.node.innerHTML += `<tspan>${dataUnit}</tspan>`; // data 단위 표시
+  foundNodeTextChild.get(0).innerHTML += `<tspan>${dataUnit}</tspan>`; // data 단위 표시
 
-  // <tspan> 태그 속성 단일 적용
+  // configdml 새로 운 <tspan> 태그 속성 단일 적용
   if (changedSingleNodeTspanEle) {
-    const { targetDx, targetDy, targetStyle } = getChangedNodeTspanEle(config, nodeDefId);
+    const { targetDx, targetDy, targetStyle } = applyConfigTspanEle(config, nodeDefId);
     const nodeDataTspanTag = _.head($('#nodeData'));
     nodeDataTspanTag.attributes.dx.value = targetDx;
     nodeDataTspanTag.attributes.dy.value = targetDy;
@@ -124,11 +124,11 @@ function showNodeData(nodeDefId, data = '', isChangePlaceNodeName = false) {
 }
 
 /**
- *
+ * 장치 상태에 따른 svg 장치색 변경
  * @param {string} nDefId
  * @param {number|string} data
  */
-function changeNodeColor(nDefId, data) {
+function changeNodeStatusColor(nDefId, data) {
   /** @type {mDeviceMap} */
   const realMap = map;
   let getNodeBgColor;
@@ -137,12 +137,14 @@ function changeNodeColor(nDefId, data) {
     const foundNodeDefInfo = _.find(svgNodeInfo.defList, { id: nDefId });
     if (_.isUndefined(foundNodeDefInfo)) return false;
 
+    // 장소, 장비, 센서의 기본 색상을 찾기위한 그리기 정보 찾기
     const foundSvgModelResourceInfo = _.find(realMap.drawInfo.frame.svgModelResourceList, {
       id: foundNodeDefInfo.resourceId,
     });
     getNodeBgColor = foundSvgModelResourceInfo.elementDrawInfo.color;
   });
 
+  // nDefId 가 장소, 장비, 센서 인지 구분하기 위한 노드 정보 찾기
   const foundNodeInfo = _.find(realMap.drawInfo.positionInfo.svgNodeList, svgNo =>
     _.map(svgNo.defList, 'id').includes(nDefId),
   );
@@ -150,9 +152,10 @@ function changeNodeColor(nDefId, data) {
 
   // 0: 장치, 1: 센서, -1: 미분류
   if (foundNodeInfo.is_sensor === 0) {
-    const checkDataStatus = checkDataType(data);
+    const checkDataStatus = checkDataType(data); // 데이터의 상태
     const drawedSvgElement = $(`#${nDefId}`);
 
+    // 데이터 상태에 따른 색상 변경
     if (checkDataStatus === 'falseData') {
       drawedSvgElement.attr({ fill: getNodeBgColor[0], opacity: 0.8 });
     } else if (checkDataStatus === 'trueData') {
@@ -164,21 +167,23 @@ function changeNodeColor(nDefId, data) {
 }
 
 /**
- * 텍스트 그리기
+ * svg텍스트 그리기
  * @param {SVG} svgCanvas
  * @param {defInfo} defInfo 장치, 노드의  id, resourceId, point[] 정보
  * @param {mSvgModelResource} resourceInfo 장치, 노드의 resource id, type, elemetDrawInfo[width,height,radius,...] 정보
  */
-function writeSvgText(svgCanvas, defInfo, resourceInfo, isChangePlaceNodeName = false) {
-  const { width, height, radius } = resourceInfo.elementDrawInfo;
-  const [x1, y1, x2, y2] = defInfo.point;
-  const changedAllTextStyle = getChangedTextStyle(config);
-  const changedSingleTextStyle = getChangedTextStyle(config, defInfo.id);
+function writeSvgText(svgCanvas, defInfo, resourceInfo, isChangedPlaceNodeName = false) {
+  const { width, height, radius } = resourceInfo.elementDrawInfo; // 텍스트가 그려질 공간 크기 또는 투명도
+  const [x1, y1, x2, y2] = defInfo.point; // 텍스트 위치
+  const changedAllTextStyle = applyConfigTextStyle(config); // config 정보
+  const changedSingleTextStyle = applyConfigTextStyle(config, defInfo.id); // config 정보
   let naming; // defInfo.name: 한글, defInfo.id: 영문
-  isChangePlaceNodeName ? (naming = defInfo.id) : (naming = defInfo.name);
-  let [textX, textY, textColor, textSize, leading, anchor] = [0, 0, '', 0, '', ''];
+  let [textX, textY, textColor, textSize, leading, anchor] = [0, 0, '', 0, '', '']; // 텍스트 스타일, 위치 초기값
 
-  // svgPositionList를 검색하여 장치인지 센서인지 정의
+  // 토글의 true, false 값에 대한 한/영문 이름 정의
+  isChangedPlaceNodeName ? (naming = defInfo.id) : (naming = defInfo.name);
+
+  // svgPositionList를 검색하여 장치인지 센서인지 구분
   let foundSvgInfo = _.find(map.drawInfo.positionInfo.svgNodeList, svgNodeInfo =>
     _.map(svgNodeInfo.defList, 'id').includes(defInfo.id),
   );
@@ -189,6 +194,7 @@ function writeSvgText(svgCanvas, defInfo, resourceInfo, isChangePlaceNodeName = 
     if (_.isUndefined(foundSvgInfo)) return false;
   }
 
+  // 텍스트 색, 크기, 미세한 위치값 조정  , 0: 장치, 1: 센서, -1: 미분류
   if (foundSvgInfo.is_sensor === 1) {
     textColor = 'black';
     anchor = 'middle';
@@ -211,7 +217,7 @@ function writeSvgText(svgCanvas, defInfo, resourceInfo, isChangePlaceNodeName = 
     leading = '0.8em';
   }
 
-  // 사각형, 패턴 형식
+  // 사각형, 패턴 형식일 때 위치값 조정
   if (
     resourceInfo.type === 'rect' ||
     resourceInfo.type === 'pattern' ||
@@ -220,7 +226,7 @@ function writeSvgText(svgCanvas, defInfo, resourceInfo, isChangePlaceNodeName = 
     textX = x1 + width / 2;
     textY = y1 + height / 2;
 
-    // 줄 형식
+    // 줄 형식 형식일 때 위치값 조정
   } else if (resourceInfo.type === 'line') {
     if (x1 === x2) {
       textX = x1;
@@ -230,42 +236,47 @@ function writeSvgText(svgCanvas, defInfo, resourceInfo, isChangePlaceNodeName = 
       textY = y1;
     }
 
-    // 원
+    // 원 형식일 때 위치값 조정
   } else if (resourceInfo.type === 'circle') {
     textX = x1 + radius / 2;
     textY = y1 + radius / 2;
 
-    // 마름모
+    // 마름모 형식일 때 위치값 조정
   } else if (resourceInfo.type === 'polygon') {
     textX = x1 + width;
     textY = y1 + height;
   }
 
-  // FIXME: 비구조화 작업 필요
+  // config를 이용하여 전체 텍스트의 속성 스타일 재정의
   if (changedAllTextStyle) {
-    const changedTextStyle = getChangedTextStyle(config);
-    textSize += changedTextStyle.textSize;
-    textColor = changedTextStyle.textColor;
-    textX += changedTextStyle.moveScale[0];
-    textY += changedTextStyle.moveScale[1];
-    leading = changedTextStyle.leading;
-    anchor = changedTextStyle.anchor;
+    [textSize, anchor, leading, textColor] = [
+      changedAllTextStyle.textSize,
+      changedAllTextStyle.anchor,
+      changedAllTextStyle.leading,
+      changedAllTextStyle.textColor,
+    ];
+    // 기존 위치에서 이동
+    textX += changedAllTextStyle.moveScale[0];
+    textY += changedAllTextStyle.moveScale[1];
   }
 
+  // config를 이용하여 단일 텍스트의 속성 스타일 재정의
   if (changedSingleTextStyle) {
-    const changedTextStyle = getChangedTextStyle(config, defInfo.id);
-    textSize += changedTextStyle.styleInfo.textSize;
-    textColor = changedTextStyle.styleInfo.textColor;
-    textX += changedTextStyle.styleInfo.moveScale[0];
-    textY += changedTextStyle.styleInfo.moveScale[1];
-    leading = changedTextStyle.styleInfo.leading;
-    anchor = changedTextStyle.styleInfo.anchor;
+    [textSize, textColor, leading, anchor] = [
+      changedSingleTextStyle.styleInfo.textSize,
+      changedSingleTextStyle.styleInfo.textColor,
+      changedSingleTextStyle.styleInfo.leading,
+      changedSingleTextStyle.styleInfo.anchor,
+    ];
+    // 기존 위치에서 이동
+    textX += changedSingleTextStyle.styleInfo.moveScale[0];
+    textY += changedSingleTextStyle.styleInfo.moveScale[1];
   }
 
-  // 제외목록 체크
-  isExcludableText(defInfo.id) ? (naming = '') : '';
-  const text = svgCanvas.text(naming);
-  text
+  // 제외 할 텍스트 찾기
+  checkHidableText(defInfo.id) ? (naming = '') : '';
+  const svgText = svgCanvas.text(naming);
+  svgText
     .move(textX, textY)
     .font({
       fill: textColor,
@@ -275,82 +286,56 @@ function writeSvgText(svgCanvas, defInfo, resourceInfo, isChangePlaceNodeName = 
       weight: 'bold',
     })
     .attr({
-      // 'pointer-events': 'none', // text 커서 모양 설정
+      'pointer-events': 'none', // text 커서 모양 설정
       id: `text_${defInfo.id}`,
     });
 
+  // 그려진 svg 텍스트의 정보 수집
   const drawedNodeInfo = {
     id: defInfo.id,
     name: defInfo.name,
     textX,
     textY,
-    text,
+    text: svgText,
   };
   writtenSvgTextList.push(drawedNodeInfo);
 }
 
 /**
- * text를 제외할 요소 찾기. 반환값이  true: 제외
+ * 그려진 map에서 제외할  텍스트 찾기. 반환값이  true이면 제외
  * @param {string} defId
  */
-function isExcludableText(defId) {
+function checkHidableText(defId) {
   /** @type {mDeviceMap} */
   const realMap = map;
-  let isExclusionText;
+  let isHidableText; //
 
+  // defId 값이 장소인지 노드인지 구분
+  // 장소
   const foundPlaceInfo = _.find(realMap.drawInfo.positionInfo.svgPlaceList, svgPlaceInfo =>
     _.map(svgPlaceInfo.defList, 'id').includes(defId),
   );
+  // 노드
   if (_.isUndefined(foundPlaceInfo)) {
     const foundNodeInfo = _.find(realMap.drawInfo.positionInfo.svgNodeList, svgNodeInfo =>
       _.map(svgNodeInfo.defList, 'id').includes(defId),
     );
-    isExclusionText = _.includes(
+    isHidableText = _.includes(
       realMap.relationInfo.hiddenTextSvgModelResourceIdList,
       foundNodeInfo.nodeDefId,
     );
   } else {
-    isExclusionText = _.includes(
+    isHidableText = _.includes(
       realMap.relationInfo.hiddenTextSvgModelResourceIdList,
       foundPlaceInfo.placeId,
     );
   }
 
-  return isExclusionText;
+  return isHidableText;
 }
 
 /**
- *
- */
-// function bindingMouseoverEvent() {
-//   /** @type {mDeviceMap} */
-//   const realMap = map;
-
-//   // 모든 장소에 마우스 오버 이벤트 적용
-//   realMap.drawInfo.positionInfo.svgPlaceList.forEach(svgPlaceInfo => {
-//     svgPlaceInfo.defList.forEach(svgPlaceDefInfo => {
-//       // Tippy.js 라이브러리 이벤트
-//       tippy(`#${svgPlaceDefInfo.id}`, {
-//         arrow: true, // 꼬리 표시 여부
-//         content: svgPlaceDefInfo.id, // 꼬리말
-//       });
-//     });
-//   });
-
-//   // 모든 노드에 마우스 오버 이벤트 적용
-//   realMap.drawInfo.positionInfo.svgNodeList.forEach(svgNodeInfo => {
-//     svgNodeInfo.defList.forEach(svgNodeDefInfo => {
-//       // Tippy.js 라이브러리 이벤트
-//       tippy(`#${svgNodeDefInfo.id}`, {
-//         arrow: true, // 꼬리 표시 여부
-//         content: svgNodeDefInfo.id, // 꼬리말
-//       });
-//     });
-//   });
-// }
-
-/**
- *  그려진 노드에 제어기능을 바인딩.
+ *  그려진 svg map 에서 장치,센서 클릭하여 제어할 수 있는 기능을 바인딩.
  * @param {socekt} socket
  */
 function bindingClickEventNode(socket) {
@@ -360,39 +345,49 @@ function bindingClickEventNode(socket) {
   realMap.drawInfo.positionInfo.svgNodeList.forEach(svgNodeInfo => {
     svgNodeInfo.defList.forEach(nodeDefInfo => {
       const $drawedSvgElement = $(`#${nodeDefInfo.id}`);
-      // console.log(drawedSvgElement)
-      $drawedSvgElement.on('click touchstart', e => {
+      $drawedSvgElement.on('click touchstart', () => {
+        // 센서인지 장치인지 체크
         const foundSvgNodeInfo = _.find(realMap.drawInfo.positionInfo.svgNodeList, info =>
           _.map(info.defList, 'id').includes(nodeDefInfo.id),
         );
         if (_.isUndefined(foundSvgNodeInfo)) return false;
 
         // 장치 or 센서 구분  1: 센서, 0: 장치, -1: 미분류
+        // 장치
         if (foundSvgNodeInfo.is_sensor === 0) {
-          const $nodeTspanEleInfo = $(`tspan.${nodeDefInfo.id}`);
-          const currentNodeStatus = _.head($nodeTspanEleInfo).innerHTML;
-          const checkedDataStatus = checkDataType(currentNodeStatus);
+          const $nodeTspanEleInfo = $(`tspan.${nodeDefInfo.id}`); // svg 그려진 노드
+          const currentNodeStatus = _.head($nodeTspanEleInfo).innerHTML; // 현재 들어오는 노드의 최근 데이터
+          const checkedDataStatus = checkDataType(currentNodeStatus); // 데이터의 타입이 true데이터인지 false 데이터인지 체크
+
+          // true 데이터
           if (checkedDataStatus === 'trueData') {
             const confirmBool = confirm(`'${nodeDefInfo.name}' 을(를) 닫으시겠습니까?`);
             confirmBool ? executeCommand(socket, '0', nodeDefInfo.id) : null;
-          } else if (checkedDataStatus === 'falseData') {
+          }
+          // false 데이터
+          else if (checkedDataStatus === 'falseData') {
             const confirmBool = confirm(`'${nodeDefInfo.name}' 을(를) 여시겠습니까?`);
             confirmBool ? executeCommand(socket, '1', nodeDefInfo.id) : null;
-          } else {
+          }
+          // 그 외 (error)
+          else {
             alert('장치 상태 이상');
           }
-        } else if (foundSvgNodeInfo.is_sensor === 1) {
-          // input에 입력된 센서의 값
-          const inputtedSensorValue = prompt(`'${nodeDefInfo.name}'`);
-          // TODO: 명령 전달 소스
         }
+
+        // 센서
+        // else if (foundSvgNodeInfo.is_sensor === 1) {
+        //   // 센서 input에 입력된 센서의 값 FIXME:
+        //   const inputtedSensorValue = prompt(`'${nodeDefInfo.name}'`);
+        //   inputtedSensorValue ? executeCommand(socket, '3', nodeDefInfo.id) : null;
+        // }
       });
     });
   });
 }
 
 /**
- *
+ * socket 명령 구조
  * @param {socket} socket
  * @param {string} controlType 0: 장치 (Close, Off), 1: 장치 (Open, On), 3: 장치 값 설정
  * @param {string} nodeId
@@ -412,7 +407,7 @@ function executeCommand(socket, controlType, nodeId) {
 }
 
 /**
- *
+ * svg.js 의 도형별 그리기 이벤트를 모음
  * @param {SVG} svgCanvas
  * @param {string} svgDrawType rect, polygon, circle, line ...
  * @param {Object} point point[]
@@ -446,7 +441,7 @@ function drawSvgElement(svgCanvas, svgDrawType, point, elementDrawInfo, defId, i
 }
 
 /**
- *
+ * 사각형
  * @param {SVG} svgCanvas
  * @param {number[]} point point[]
  * @param {mElementDrawInfo} elementDrawInfo {width, height, radius, color, opactiy}
@@ -476,7 +471,7 @@ function drawSvgRect(svgCanvas, point, elementDrawInfo, id, isShow = true) {
 }
 
 /**
- *
+ * 줄
  * @param {SVG} svgCanvas
  * @param {number[]} point point[]
  * @param {mElementDrawInfo} elementDrawInfo {width, height, radius, color}
@@ -502,7 +497,7 @@ function drawSvgLine(svgCanvas, point, elementDrawInfo, id, isShow = true) {
 }
 
 /**
- *
+ * 원
  * @param {SVG} svgCanvas
  * @param {number[]} point point[]
  * @param {mElementDrawInfo} elementDrawInfo {width, height, radius, color}
@@ -531,7 +526,7 @@ function drawSvgCircle(svgCanvas, point, elementDrawInfo, id, isShow = true) {
 }
 
 /**
- *
+ * 다각형
  * @param {SVG} svgCanvas
  * @param {number[]} point point[]
  * @param {mElementDrawInfo} elementDrawInfo {width, height, radius, color}
@@ -563,7 +558,7 @@ function drawSvgPolygon(svgCanvas, point, elementDrawInfo, id, isShow = true) {
 }
 
 /**
- *
+ * 패턴 방식 (바둑판 등)
  * @param {SVG} svgCanvas
  * @param {number[]} point point[]
  * @param {mElementDrawInfo} elementDrawInfo {width, height, radius, color}
@@ -610,7 +605,7 @@ function drawSvgPattern(svgCanvas, point, elementDrawInfo, id, isShow = true) {
 }
 
 /**
- *
+ * 이미지
  * @param {SVG} svgCanvas
  * @param {number[]} point point[]
  * @param {mElementDrawInfo} elementDrawInfo {width, height, radius, color}
@@ -698,7 +693,7 @@ function getDataUnit(nDefId) {
  * @param {config} config
  * @param {string} nodeDefId
  */
-function getChangedNodeTspanEle(config, nodeDefId) {
+function applyConfigTspanEle(config, nodeDefId) {
   let nodeTspanEle;
   if (_.isUndefined(nodeDefId)) {
     nodeTspanEle = config.allNodeTspanEleInfo;
@@ -718,7 +713,7 @@ function getChangedNodeTspanEle(config, nodeDefId) {
  * @param {config} config
  * @param {string} targetId
  */
-function getChangedTextStyle(config, targetId) {
+function applyConfigTextStyle(config, targetId) {
   let foundTextStyleInfo;
   if (_.isUndefined(targetId)) {
     foundTextStyleInfo = config.allTextStyleInfo;
