@@ -41,6 +41,7 @@ const map = {
           mainCategory: 'S2W',
           subCategory: 'dmTech',
           wrapperCategory: 'default',
+          cmdExecTimeoutMs: 1000 * 2,
         },
       },
       {
@@ -49,6 +50,7 @@ const map = {
           mainCategory: 'Inverter',
           subCategory: 'das_1.3',
           wrapperCategory: 'default',
+          cmdExecTimeoutMs: 1000 * 10,
         },
       },
       {
@@ -57,6 +59,7 @@ const map = {
           mainCategory: 'Inverter',
           subCategory: 's5500k',
           wrapperCategory: 'default',
+          cmdExecTimeoutMs: 1000 * 10,
         },
       },
       {
@@ -65,6 +68,7 @@ const map = {
           mainCategory: 'Inverter',
           subCategory: 'ESP3K5',
           wrapperCategory: 'default',
+          cmdExecTimeoutMs: 1000 * 10,
         },
       },
     ],
@@ -714,7 +718,7 @@ const map = {
               {
                 target_code: '002',
                 target_name: '영산포 양면형 가변식 (2.5kW 급)',
-                chart_color: '#c92a2a',
+                chart_color: '#fcc2d7',
                 chart_sort_rank: 2,
                 repeatId: 'RE_PREFIX_IVT',
                 nodeList: ['S_H_005'],
@@ -722,7 +726,7 @@ const map = {
               {
                 target_code: '003',
                 target_name: '영산포 경량형 고정식 (2.5kW 급)',
-                chart_color: '#a61e4d',
+                chart_color: '#d0bfff',
                 chart_sort_rank: 3,
                 repeatId: 'RE_PREFIX_IVT',
                 nodeList: ['S_H_005'],
@@ -730,7 +734,7 @@ const map = {
               {
                 target_code: '004',
                 target_name: '영산포 경량형 가변형 (2.5kW 급)',
-                chart_color: '#862e9c',
+                chart_color: '#99e9f2',
                 chart_sort_rank: 4,
                 repeatId: 'RE_PREFIX_IVT',
                 nodeList: ['S_H_005'],
@@ -769,7 +773,7 @@ const map = {
               {
                 target_code: '002',
                 target_name: '가변식',
-                chart_color: '#c92a2a',
+                chart_color: '#fcc2d7',
                 chart_sort_rank: 2,
                 nodeList: ['LX_002', 'S_PU_002', 'WV_S_002', 'T_S_002', 'RH_S_002'],
               },
@@ -783,14 +787,14 @@ const map = {
               {
                 target_code: '003',
                 target_name: '고정식',
-                chart_color: '#a61e4d',
+                chart_color: '#d0bfff',
                 chart_sort_rank: 3,
                 nodeList: ['LX_003', 'S_PU_003', 'WV_S_003', 'T_S_003', 'RH_S_003'],
               },
               {
                 target_code: '004',
                 target_name: '가변식',
-                chart_color: '#862e9c',
+                chart_color: '#99e9f2',
                 chart_sort_rank: 4,
                 nodeList: ['LX_004', 'S_PU_004', 'WV_S_004', 'T_S_004', 'RH_S_004'],
               },
@@ -810,7 +814,7 @@ const map = {
             placeList: [
               {
                 target_code: '005',
-                chart_color: '#5f3dc4',
+                chart_color: '#fd7e14',
                 chart_sort_rank: 5,
                 nodeList: [
                   'LX_005',

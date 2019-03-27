@@ -86,6 +86,7 @@ const map = {
           mainCategory: 'FarmParallel',
           subCategory: 'dmTech',
           wrapperCategory: 'default',
+          cmdExecTimeoutMs: 1000 * 2,
         },
       },
       {
@@ -94,6 +95,7 @@ const map = {
           mainCategory: 'Inverter',
           subCategory: 'das_1.3',
           wrapperCategory: 'default',
+          cmdExecTimeoutMs: 1000 * 6,
         },
       },
       {
@@ -102,6 +104,7 @@ const map = {
           mainCategory: 'Inverter',
           subCategory: 's5500k',
           wrapperCategory: 'default',
+          cmdExecTimeoutMs: 1000 * 10,
         },
       },
     ],
@@ -670,7 +673,7 @@ const map = {
               {
                 target_code: '009',
                 target_name: '오창 B (33kW 급)',
-                chart_color: '#d9480f',
+                chart_color: '#364fc7',
                 chart_sort_rank: 9,
                 repeatId: 'RE_PREFIX_IVT',
                 nodeList: ['S_I_012'],
@@ -720,7 +723,7 @@ const map = {
             placeList: [
               {
                 target_code: '013',
-                chart_color: '#d9480f',
+                chart_color: '#364fc7',
                 chart_sort_rank: 13,
                 nodeList: [
                   'LX_013',
