@@ -78,20 +78,20 @@ const map = {
         repeatCategory: 'node',
         nodeList: [
           {
-            target_code: '001',
-            target_name: '영산포 양면형 고정식 (2.5kW 급)',
+            target_code: 'A',
+            target_name: '일반 4x9',
           },
           {
-            target_code: '002',
-            target_name: '영산포 양면형 가변식 (2.5kW 급)',
+            target_code: 'B',
+            target_name: '일반 3x12',
           },
           {
-            target_code: '003',
-            target_name: '영산포 경량형 고정식 (2.5kW 급)',
+            target_code: 'C',
+            target_name: '양면 30도',
           },
           {
-            target_code: '004',
-            target_name: '영산포 경량형 가변형 (2.5kW 급)',
+            target_code: 'D',
+            target_name: '양면 90도',
           },
         ],
       },
@@ -107,6 +107,7 @@ const map = {
           'IVT_G_L_F',
           'IVT_PW_G_KW',
           'IVT_PW_PF',
+          'IVT_PW_D_KWH',
           'IVT_PW_C_KWH',
           'IVT_TRB',
         ],
@@ -120,7 +121,7 @@ const map = {
           {
             serial_number: 1,
             target_code: '001',
-            target_name: '영산포 A',
+            target_name: '양면 90도',
             dccId: 'DCC_001',
             dpcId: 'DPC_001',
             nodeList: [
@@ -138,7 +139,7 @@ const map = {
           {
             serial_number: 2,
             target_code: '002',
-            target_name: '영산포 B',
+            target_name: '양면 30도',
             dccId: 'DCC_001',
             dpcId: 'DPC_001',
             nodeList: ['LX_002', 'S_PU_002', 'WV_S_002', 'T_S_002', 'RH_S_002'],
@@ -146,7 +147,7 @@ const map = {
           {
             serial_number: 3,
             target_code: '003',
-            target_name: '영산포 C',
+            target_name: '일반 4x9',
             dccId: 'DCC_001',
             dpcId: 'DPC_001',
             nodeList: ['LX_003', 'S_PU_003', 'WV_S_003', 'T_S_003', 'RH_S_003'],
@@ -154,7 +155,7 @@ const map = {
           {
             serial_number: 4,
             target_code: '004',
-            target_name: '영산포 D',
+            target_name: '일반 3x12',
             dccId: 'DCC_001',
             dpcId: 'DPC_001',
             nodeList: ['LX_004', 'S_PU_004', 'WV_S_004', 'T_S_004', 'RH_S_004'],
@@ -168,7 +169,7 @@ const map = {
           {
             serial_number: 5,
             target_code: '105',
-            target_name: '영산포 외기 환경',
+            target_name: '외기 환경',
             dccId: 'DCC_001',
             dpcId: 'DPC_001',
             nodeList: [
@@ -190,33 +191,33 @@ const map = {
         target_name: '인버터 DL',
         dataLoggerDeviceList: [
           {
-            target_name: '영산포 양면형 고정식 (2.5kW 급)',
-            serial_number: Buffer.from([0x2f]),
-            target_code: '001',
+            target_name: '일반 4x9',
+            serial_number: Buffer.from([85]),
+            target_code: 'A',
             dccId: 'DCC_001',
             dpcId: 'DPC_IVT_003',
             repeatId: 'RE_PREFIX_IVT',
           },
           {
-            target_name: '영산포 양면형 가변식 (2.5kW 급)',
-            serial_number: Buffer.from([0x56]),
-            target_code: '002',
+            target_name: '일반 3x12',
+            serial_number: Buffer.from([46]),
+            target_code: 'B',
             dccId: 'DCC_001',
             dpcId: 'DPC_IVT_003',
             repeatId: 'RE_PREFIX_IVT',
           },
           {
-            target_name: '영산포 경량형 고정식 (2.5kW 급)',
-            serial_number: Buffer.from([0x2e]),
-            target_code: '003',
+            target_name: '양면 30도',
+            serial_number: Buffer.from([86]),
+            target_code: 'C',
             dccId: 'DCC_001',
             dpcId: 'DPC_IVT_003',
             repeatId: 'RE_PREFIX_IVT',
           },
           {
-            target_name: '영산포 경량형 가변형 (2.5kW 급)',
-            serial_number: Buffer.from([0x55]),
-            target_code: '004',
+            target_name: '양면 90도',
+            serial_number: Buffer.from([47]),
+            target_code: 'D',
             dccId: 'DCC_001',
             dpcId: 'DPC_IVT_003',
             repeatId: 'RE_PREFIX_IVT',
@@ -629,6 +630,7 @@ const map = {
             target_id: 'powerDailyKwh',
             target_name: '인버터 하루 발전량',
             target_prefix: 'IVT_PW_D_KWH',
+            description: 'Daily Power Generation',
             repeatId: 'RE_NODE_IVT',
           },
           {
@@ -708,34 +710,34 @@ const map = {
             target_prefix: 'P_IVT',
             placeList: [
               {
-                target_code: '001',
-                target_name: '영산포 양면형 고정식 (2.5kW 급)',
+                target_code: 'A',
+                target_name: '일반 4x9',
                 chart_color: '#212529',
-                chart_sort_rank: 1,
-                repeatId: 'RE_PREFIX_IVT',
-                nodeList: ['S_H_005'],
-              },
-              {
-                target_code: '002',
-                target_name: '영산포 양면형 가변식 (2.5kW 급)',
-                chart_color: '#fcc2d7',
-                chart_sort_rank: 2,
-                repeatId: 'RE_PREFIX_IVT',
-                nodeList: ['S_H_005'],
-              },
-              {
-                target_code: '003',
-                target_name: '영산포 경량형 고정식 (2.5kW 급)',
-                chart_color: '#d0bfff',
                 chart_sort_rank: 3,
                 repeatId: 'RE_PREFIX_IVT',
                 nodeList: ['S_H_005'],
               },
               {
-                target_code: '004',
-                target_name: '영산포 경량형 가변형 (2.5kW 급)',
-                chart_color: '#99e9f2',
+                target_code: 'B',
+                target_name: '일반 3x12',
+                chart_color: '#fcc2d7',
                 chart_sort_rank: 4,
+                repeatId: 'RE_PREFIX_IVT',
+                nodeList: ['S_H_005'],
+              },
+              {
+                target_code: 'C',
+                target_name: '양면 30도',
+                chart_color: '#d0bfff',
+                chart_sort_rank: 2,
+                repeatId: 'RE_PREFIX_IVT',
+                nodeList: ['S_H_005'],
+              },
+              {
+                target_code: 'D',
+                target_name: '양면 90도',
+                chart_color: '#99e9f2',
+                chart_sort_rank: 1,
                 repeatId: 'RE_PREFIX_IVT',
                 nodeList: ['S_H_005'],
               },
@@ -751,11 +753,11 @@ const map = {
           {
             target_id: 'bothSidePV',
             target_prefix: 'PV_BS',
-            target_name: '양면형 태양광',
+            target_name: '양면',
             placeList: [
               {
                 target_code: '001',
-                target_name: '고정식',
+                target_name: '90도',
                 chart_color: '#212529',
                 chart_sort_rank: 1,
                 nodeList: [
@@ -772,7 +774,7 @@ const map = {
               },
               {
                 target_code: '002',
-                target_name: '가변식',
+                target_name: '30도',
                 chart_color: '#fcc2d7',
                 chart_sort_rank: 2,
                 nodeList: ['LX_002', 'S_PU_002', 'WV_S_002', 'T_S_002', 'RH_S_002'],
@@ -782,18 +784,18 @@ const map = {
           {
             target_id: 'lightWeightPV',
             target_prefix: 'PV_LW',
-            target_name: '경량형 태양광',
+            target_name: '일반',
             placeList: [
               {
                 target_code: '003',
-                target_name: '고정식',
+                target_name: '4x9',
                 chart_color: '#d0bfff',
                 chart_sort_rank: 3,
                 nodeList: ['LX_003', 'S_PU_003', 'WV_S_003', 'T_S_003', 'RH_S_003'],
               },
               {
                 target_code: '004',
-                target_name: '가변식',
+                target_name: '3x12',
                 chart_color: '#99e9f2',
                 chart_sort_rank: 4,
                 nodeList: ['LX_004', 'S_PU_004', 'WV_S_004', 'T_S_004', 'RH_S_004'],
