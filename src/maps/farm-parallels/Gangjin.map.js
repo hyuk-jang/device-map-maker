@@ -426,7 +426,7 @@ const map = {
       },
       {
         target_id: 'waterValue',
-        target_name: '수분 값',
+        target_name: 'EC 값',
         is_sensor: 1,
         data_unit: '%',
         description: '',
@@ -434,7 +434,7 @@ const map = {
           {
             target_id: 'soilWaterValue',
             target_prefix: 'WV_S',
-            target_name: '토양 수분 값',
+            target_name: '토양 EC 값',
             nodeList: [
               {
                 target_code: '008',

@@ -162,30 +162,30 @@ const map = {
               point: [2030, 600],
             },
             {
-              id: 'SEB_일반',
+              id: 'NEB_일반',
               name: '증발지_일반',
               resourceId: 'salternNomalBlock_A',
               point: [580, 242],
             },
             {
-              id: 'SEB_2',
+              id: 'NEB_2',
               name: '증발지_2',
               resourceId: 'salternNomalBlock_B',
               point: [1144, 467],
             },
             {
-              id: 'SEB_3',
+              id: 'NEB_3',
               name: '증발지_3',
               resourceId: 'salternNomalBlock_B',
               point: [1144, 847],
             },
             {
-              id: 'SEB_4',
+              id: 'NEB_4',
               name: '증발지_4',
               resourceId: 'salternNomalBlock_B',
               point: [1144, 1227],
             },
-            { id: 'SCB', name: '결정지', resourceId: 'salternCrystalBlock', point: [1144, 1607] },
+            { id: 'NCB', name: '결정지', resourceId: 'salternCrystalBlock', point: [1144, 1607] },
           ],
         },
         {
@@ -482,14 +482,14 @@ const map = {
             {
               id: 'O_005',
               name: '배출구_005',
-              placeId: 'SEB_2',
+              placeId: 'NEB_2',
               resourceId: 'outlet',
               point: [1558, 467],
             },
             {
               id: 'O_006',
               name: '배출구_006',
-              placeId: 'SCB',
+              placeId: 'NCB',
               resourceId: 'outlet',
               point: [1624, 1607],
             },
@@ -509,35 +509,35 @@ const map = {
             {
               id: 'WD_005',
               name: '수문_005',
-              placeId: 'SEB_일반',
+              placeId: 'NEB_일반',
               resourceId: 'waterDoor',
               point: [983, 385],
             },
             {
               id: 'WD_006',
               name: '수문_006',
-              placeId: 'SEB_2',
+              placeId: 'NEB_2',
               resourceId: 'waterDoor',
               point: [1144, 781.6],
             },
             {
               id: 'WD_007',
               name: '수문_007',
-              placeId: 'SEB_3',
+              placeId: 'NEB_3',
               resourceId: 'waterDoor',
               point: [1144, 1161.6],
             },
             {
               id: 'WD_008',
               name: '수문_008',
-              placeId: 'SEB_4',
+              placeId: 'NEB_4',
               resourceId: 'waterDoor',
               point: [1577, 1480],
             },
             {
               id: 'WD_009',
               name: '수문_009',
-              placeId: 'SCB',
+              placeId: 'NCB',
               resourceId: 'waterDoor',
               point: [1577, 1860],
             },
@@ -2090,27 +2090,32 @@ const map = {
         description: null,
         defList: [
           {
-            target_id: 'salternEvaporationBlock',
+            target_id: 'solarEvaporationBlock',
             target_prefix: 'SEB',
-            target_name: '증발지',
+            target_name: '수중 태양광 발전 증발지',
             placeList: [
               {
                 target_code: '1_A',
                 nodeList: ['GV_001', 'WL_001', 'V_001', 'MRT_001', 'O_001', 'BT_001'],
                 depth: 5,
                 place_info: {
-                  maxWL: 10,
-                  autoCycleWaterInfo: {
-                    setCycleWL: 3,
-                    belowCycleWL: 2,
-                    minCycleWL: 1,
-                  },
-                  autoDrainageSalinityInfo: {
-                    aboveSalinity: 5,
-                    desList: ['BW_2', 'BW_1'],
-                  },
-                  drainagePlaceRankList: ['BW_1', 'BW_2'],
-                  waterSupplyPlaceRankList: ['BW_1', 'RV_1'],
+                  criticalControlList: [
+                    {
+                      ndId: 'waterLevel',
+                      maxValue: 10,
+                      upperLimitValue: 4,
+                      setValue: 3,
+                      lowerLimitValue: 2,
+                      minValue: 1,
+                      callPlaceRankList: ['BW_1', 'RV_1'],
+                      putPlaceRankList: ['BW_1', 'BW_2'],
+                    },
+                    {
+                      ndId: 'salinity',
+                      upperLimitValue: 5,
+                      putPlaceRankList: ['BW_2', 'BW_1'],
+                    },
+                  ],
                   placeSize: { width: 300, height: 320, depth: 20 },
                 },
               },
@@ -2119,18 +2124,23 @@ const map = {
                 nodeList: ['GV_002', 'WL_002', 'V_002', 'MRT_002', 'O_002', 'BT_002'],
                 depth: 5,
                 place_info: {
-                  maxWL: 10,
-                  autoCycleWaterInfo: {
-                    setCycleWL: 3,
-                    belowCycleWL: 2,
-                    minCycleWL: 1,
-                  },
-                  autoDrainageSalinityInfo: {
-                    aboveSalinity: 5,
-                    desList: ['BW_2', 'BW_1'],
-                  },
-                  drainagePlaceRankList: ['BW_1', 'BW_2'],
-                  waterSupplyPlaceRankList: ['BW_1', 'RV_1'],
+                  criticalControlList: [
+                    {
+                      ndId: 'waterLevel',
+                      maxValue: 10,
+                      upperLimitValue: 4,
+                      setValue: 3,
+                      lowerLimitValue: 2,
+                      minValue: 1,
+                      callPlaceRankList: ['BW_1', 'RV_1'],
+                      putPlaceRankList: ['BW_1', 'BW_2'],
+                    },
+                    {
+                      ndId: 'salinity',
+                      upperLimitValue: 5,
+                      putPlaceRankList: ['BW_2', 'BW_1'],
+                    },
+                  ],
                   placeSize: { width: 300, height: 320, depth: 20 },
                 },
               },
@@ -2139,18 +2149,23 @@ const map = {
                 nodeList: ['GV_003', 'WL_003', 'V_003', 'MRT_003', 'O_003', 'BT_003'],
                 depth: 5,
                 place_info: {
-                  maxWL: 10,
-                  autoCycleWaterInfo: {
-                    setCycleWL: 3,
-                    belowCycleWL: 2,
-                    minCycleWL: 1,
-                  },
-                  autoDrainageSalinityInfo: {
-                    aboveSalinity: 5,
-                    desList: ['BW_2', 'BW_1'],
-                  },
-                  drainagePlaceRankList: ['BW_1', 'BW_2'],
-                  waterSupplyPlaceRankList: ['BW_1', 'RV_1'],
+                  criticalControlList: [
+                    {
+                      ndId: 'waterLevel',
+                      maxValue: 10,
+                      upperLimitValue: 4,
+                      setValue: 3,
+                      lowerLimitValue: 2,
+                      minValue: 1,
+                      callPlaceRankList: ['BW_1', 'RV_1'],
+                      putPlaceRankList: ['BW_1', 'BW_2'],
+                    },
+                    {
+                      ndId: 'salinity',
+                      upperLimitValue: 5,
+                      putPlaceRankList: ['BW_2', 'BW_1'],
+                    },
+                  ],
                   placeSize: { width: 300, height: 320, depth: 20 },
                 },
               },
@@ -2159,18 +2174,23 @@ const map = {
                 nodeList: ['GV_004', 'WL_004', 'V_004', 'MRT_004', 'O_004', 'BT_004'],
                 depth: 5,
                 place_info: {
-                  maxWL: 10,
-                  autoCycleWaterInfo: {
-                    setCycleWL: 3,
-                    belowCycleWL: 2,
-                    minCycleWL: 1,
-                  },
-                  autoDrainageSalinityInfo: {
-                    aboveSalinity: 5,
-                    desList: ['BW_2', 'BW_1'],
-                  },
-                  drainagePlaceRankList: ['BW_1', 'BW_2'],
-                  waterSupplyPlaceRankList: ['BW_1', 'RV_1'],
+                  criticalControlList: [
+                    {
+                      ndId: 'waterLevel',
+                      maxValue: 10,
+                      upperLimitValue: 4,
+                      setValue: 3,
+                      lowerLimitValue: 2,
+                      minValue: 1,
+                      callPlaceRankList: ['BW_1', 'RV_1'],
+                      putPlaceRankList: ['BW_1', 'BW_2'],
+                    },
+                    {
+                      ndId: 'salinity',
+                      upperLimitValue: 5,
+                      putPlaceRankList: ['BW_2', 'BW_1'],
+                    },
+                  ],
                   placeSize: { width: 300, height: 320, depth: 20 },
                 },
               },
@@ -2179,16 +2199,28 @@ const map = {
                 nodeList: ['GV_005', 'O_008', 'WL_005', 'MRT_007', 'BT_005'],
                 depth: 5,
                 place_info: {
-                  maxWL: 10,
-                  autoCycleWaterInfo: {
-                    setCycleWL: 3,
-                    belowCycleWL: 2,
-                  },
-                  drainagePlaceRankList: ['SEA'],
-                  waterSupplyPlaceRankList: ['RV_1'],
+                  criticalControlList: [
+                    {
+                      ndId: 'waterLevel',
+                      maxValue: 10,
+                      upperLimitValue: 4,
+                      setValue: 3,
+                      lowerLimitValue: 2,
+                      minValue: 1,
+                      callPlaceRankList: ['RV_1'],
+                      putPlaceRankList: ['SEA'],
+                    },
+                  ],
                   placeSize: { width: 300, height: 320, depth: 20 },
                 },
               },
+            ],
+          },
+          {
+            target_id: 'normalEvaporationBlock',
+            target_prefix: 'NEB',
+            target_name: '일반 증발지',
+            placeList: [
               {
                 target_code: '일반',
                 nodeList: ['WD_005'],
@@ -2199,10 +2231,18 @@ const map = {
                 nodeList: ['WD_006', 'O_005'],
                 depth: 4,
                 place_info: {
-                  maxWL: 10,
-                  minWL: 1,
-                  drainagePlaceRankList: ['SEA_3'],
-                  waterSupplyPlaceRankList: ['BW_2'],
+                  criticalControlList: [
+                    {
+                      ndId: 'waterLevel',
+                      maxValue: 10,
+                      upperLimitValue: 9,
+                      setValue: 7,
+                      lowerLimitValue: 5,
+                      minValue: 1,
+                      callPlaceRankList: ['BW_2'],
+                      putPlaceRankList: ['NEB_3'],
+                    },
+                  ],
                   placeSize: { width: 300, height: 320, depth: 20 },
                 },
               },
@@ -2211,10 +2251,18 @@ const map = {
                 nodeList: ['WD_006', 'WD_007'],
                 depth: 3,
                 place_info: {
-                  maxWL: 10,
-                  minWL: 1,
-                  drainagePlaceRankList: ['SEA_4'],
-                  waterSupplyPlaceRankList: ['SEA_2'],
+                  criticalControlList: [
+                    {
+                      ndId: 'waterLevel',
+                      maxValue: 10,
+                      upperLimitValue: 9,
+                      setValue: 7,
+                      lowerLimitValue: 5,
+                      minValue: 1,
+                      callPlaceRankList: ['NEB_2'],
+                      putPlaceRankList: ['NEB_4'],
+                    },
+                  ],
                   placeSize: { width: 300, height: 320, depth: 20 },
                 },
               },
@@ -2223,38 +2271,55 @@ const map = {
                 nodeList: ['WD_007', 'WD_008'],
                 depth: 2,
                 place_info: {
-                  maxWL: 10,
-                  autoCycleWaterInfo: {
-                    belowCycleWL: 2,
-                    minCycleWL: 1,
-                  },
-                  autoDrainageSalinityInfo: {
-                    aboveSalinity: 15,
-                    desList: ['BW_3', 'BW_2'],
-                  },
-                  drainagePlaceRankList: ['BW_2'],
-                  waterSupplyPlaceRankList: ['SEA_3'],
+                  criticalControlList: [
+                    {
+                      ndId: 'waterLevel',
+                      maxValue: 10,
+                      upperLimitValue: 9,
+                      setValue: 7,
+                      lowerLimitValue: 5,
+                      minValue: 1,
+                      callPlaceRankList: ['NEB_3'],
+                      putPlaceRankList: ['BW_2'],
+                    },
+                    {
+                      ndId: 'salinity',
+                      upperLimitValue: 15,
+                      putPlaceRankList: ['BW_3', 'BW_2'],
+                    },
+                  ],
                   placeSize: { width: 300, height: 320, depth: 20 },
                 },
               },
             ],
           },
           {
-            target_id: 'salternCrystalizingBlock',
-            target_prefix: 'SCB',
-            target_name: '결정지',
+            target_id: 'normalCrystalizingBlock',
+            target_prefix: 'NCB',
+            target_name: '일반 결정지',
             placeList: [
               {
                 target_code: '',
                 nodeList: ['WD_009', 'O_006'],
                 depth: 1,
                 place_info: {
-                  maxWL: 10,
-                  autoCycleWaterInfo: {
-                    setCycleWL: 5,
-                  },
-                  drainagePlaceRankList: ['BW_3'],
-                  waterSupplyPlaceRankList: ['SEA_3'],
+                  criticalControlList: [
+                    {
+                      ndId: 'waterLevel',
+                      maxValue: 10,
+                      upperLimitValue: 9,
+                      setValue: 5,
+                      lowerLimitValue: 5,
+                      minValue: 1,
+                      callPlaceRankList: ['BW_3'],
+                      putPlaceRankList: ['BW_3', 'BW_2'],
+                    },
+                    {
+                      ndId: 'salinity',
+                      upperLimitValue: 25,
+                      callPlaceRankList: ['BW_4'],
+                    },
+                  ],
                   placeSize: { width: 300, height: 320, depth: 20 },
                 },
               },
@@ -2277,8 +2342,15 @@ const map = {
                 nodeList: ['WD_010', 'S_001', 'P_003'],
                 depth: -1,
                 place_info: {
-                  maxWL: 100,
-                  minWL: 20,
+                  criticalControlList: [
+                    {
+                      ndId: 'waterLevel',
+                      maxValue: 100,
+                      lowerLimitValue: 30,
+                      minValue: 10,
+                      callPlaceRankList: ['SEB_1_A', 'SEB_1_B', 'SEB_1_C', 'SEB_1_D'],
+                    },
+                  ],
                   placeSize: { width: 300, height: 320, depth: 20 },
                 },
               },
@@ -2287,8 +2359,15 @@ const map = {
                 nodeList: ['WD_011', 'S_002', 'P_004'],
                 depth: -1,
                 place_info: {
-                  maxWL: 100,
-                  minWL: 20,
+                  criticalControlList: [
+                    {
+                      ndId: 'waterLevel',
+                      maxValue: 100,
+                      lowerLimitValue: 30,
+                      minValue: 10,
+                      callPlaceRankList: ['SEB_1_A', 'SEB_1_B', 'SEB_1_C', 'SEB_1_D', 'NEB_4'],
+                    },
+                  ],
                   placeSize: { width: 300, height: 320, depth: 20 },
                 },
               },
@@ -2297,8 +2376,15 @@ const map = {
                 nodeList: ['WD_012', 'S_003', 'P_005'],
                 depth: -1,
                 place_info: {
-                  maxWL: 100,
-                  minWL: 20,
+                  criticalControlList: [
+                    {
+                      ndId: 'waterLevel',
+                      maxValue: 100,
+                      lowerLimitValue: 30,
+                      minValue: 10,
+                      callPlaceRankList: ['NEB_4'],
+                    },
+                  ],
                   placeSize: { width: 300, height: 320, depth: 20 },
                 },
               },
@@ -2321,8 +2407,15 @@ const map = {
                 nodeList: ['P_002', 'P_006', 'O_007'],
                 depth: -1,
                 place_info: {
-                  maxWL: 1000,
-                  minWL: 20,
+                  criticalControlList: [
+                    {
+                      ndId: 'waterLevel',
+                      maxValue: 100,
+                      lowerLimitValue: 30,
+                      minValue: 10,
+                      callPlaceRankList: ['SEA'],
+                    },
+                  ],
                   placeSize: { width: 300, height: 320, depth: 20 },
                 },
               },
@@ -2339,7 +2432,16 @@ const map = {
             target_id: 'sea',
             target_prefix: 'SEA',
             target_name: '바다',
-            placeList: [{ target_code: '', depth: -1, nodeList: ['P_001'] }],
+            placeList: [
+              {
+                target_code: '',
+                depth: -1,
+                nodeList: ['P_001'],
+                place_info: {
+                  placeSize: { width: 1300, height: 1320, depth: 120 },
+                },
+              },
+            ],
           },
         ],
       },
@@ -2437,10 +2539,10 @@ const map = {
         targetIdList: ['SEB_1_A', 'SEB_1_B', 'SEB_1_C', 'SEB_1_D'],
         resourceIdList: ['salternModuleBlock_A'],
       },
-      { targetIdList: ['SEB_일반'], resourceIdList: ['salternNomalBlock_A'] },
-      { targetIdList: ['SEB_2', 'SEB_3', 'SEB_4'], resourceIdList: ['salternNomalBlock_B'] },
+      { targetIdList: ['NEB_일반'], resourceIdList: ['salternNomalBlock_A'] },
+      { targetIdList: ['NEB_2', 'NEB_3', 'NEB_4'], resourceIdList: ['salternNomalBlock_B'] },
       { targetIdList: ['SEB_1_E'], resourceIdList: ['salternModuleBlock_B'] },
-      { targetIdList: ['SCB'], resourceIdList: ['salternCrystalBlock'] },
+      { targetIdList: ['NCB'], resourceIdList: ['salternCrystalBlock'] },
       { targetIdList: ['EA_일반', 'EA_G2G'], resourceIdList: ['earth'] },
       { targetIdList: ['BW_1', 'BW_2', 'BW_3'], resourceIdList: ['brineWarehouse'] },
       { targetIdList: ['RV'], resourceIdList: ['reservoir'] },
@@ -2606,27 +2708,27 @@ const map = {
         ],
       },
       {
-        srcPlaceId: 'SEB_2',
+        srcPlaceId: 'NEB_2',
         destList: [
           {
-            destPlaceId: 'SEB_3',
+            destPlaceId: 'NEB_3',
             trueNodeList: ['WD_006'],
             falseNodeList: ['WD_007'],
           },
         ],
       },
       {
-        srcPlaceId: 'SEB_3',
+        srcPlaceId: 'NEB_3',
         destList: [
           {
-            destPlaceId: 'SEB_4',
+            destPlaceId: 'NEB_4',
             trueNodeList: ['WD_007'],
             falseNodeList: ['WD_008'],
           },
         ],
       },
       {
-        srcPlaceId: 'SEB_4',
+        srcPlaceId: 'NEB_4',
         destList: [
           {
             destPlaceId: 'BW_2',
@@ -2646,7 +2748,7 @@ const map = {
         ],
       },
       {
-        srcPlaceId: 'SCB',
+        srcPlaceId: 'NCB',
         destList: [
           {
             destPlaceId: 'BW_3',
@@ -2724,7 +2826,7 @@ const map = {
         srcPlaceId: 'BW_2',
         destList: [
           {
-            destPlaceId: 'SEB_2',
+            destPlaceId: 'NEB_2',
             trueNodeList: ['P_004'],
             falseNodeList: ['WD_008'],
           },
@@ -2734,7 +2836,7 @@ const map = {
         srcPlaceId: 'BW_3',
         destList: [
           {
-            destPlaceId: 'SEB_2',
+            destPlaceId: 'NEB_2',
             trueNodeList: ['P_005'],
             falseNodeList: ['WD_009'],
           },
