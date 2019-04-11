@@ -1,6 +1,7 @@
 const { BU } = require('base-util-jh');
 const _ = require('lodash');
-const map = require('./maps/upsas/muan 6kW');
+
+const map = require(`./maps/${process.env.SOURCE_PATH}/${process.env.SOURCE_FILE}`);
 const mapBase64 = require('./maps/upsas/mapBase64');
 
 require('dotenv').config();
@@ -8,7 +9,7 @@ require('default-intelligence');
 
 class SvgMaker {
   constructor() {
-    // map 정보를 비구조화 할당 처리하여 내부 클래스에서 사용하는 메소드 체인을 줄임
+    // map 정보를 비구조화 할당 처리하여 내부 메소드에서 사용하는 체인을 줄임
     const {
       drawInfo: {
         frame: { svgModelResourceList },
