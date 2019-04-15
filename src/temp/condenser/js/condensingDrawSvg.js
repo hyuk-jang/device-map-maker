@@ -317,7 +317,7 @@ function InsertDialogValue(socket) {
           const requestMsg = {
             commandId: 'SINGLE',
             contents: {
-              requestCommandType: 'CONTROL',
+              wrapCmdType: 'CONTROL',
               nodeId: defInfo.id,
               controlValue,
               rank: 2,
