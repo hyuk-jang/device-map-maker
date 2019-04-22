@@ -125,15 +125,15 @@ const map = {
         nodeList: [
           {
             target_code: '011',
-            target_name: '영흥 A (33kW 급)',
+            target_name: '영흥 일반 (33kW 급)',
           },
           {
             target_code: '012',
-            target_name: '영흥 B (33kW 급)',
+            target_name: '영흥 양면 (33kW 급)',
           },
           {
             target_code: '013',
-            target_name: '영흥 C (33kW 급)',
+            target_name: '영흥 투광 (33kW 급)',
           },
         ],
       },
@@ -698,7 +698,7 @@ const map = {
             placeList: [
               {
                 target_code: '011',
-                target_name: '영흥 A (33kW 급)',
+                target_name: '영흥 일반 (33kW 급)',
                 chart_color: '#f06595',
                 chart_sort_rank: 11,
                 repeatId: 'RE_PREFIX_IVT',
@@ -706,7 +706,7 @@ const map = {
               },
               {
                 target_code: '012',
-                target_name: '영흥 B (33kW 급)',
+                target_name: '영흥 양면 (33kW 급)',
                 chart_color: '#087f5b',
                 chart_sort_rank: 12,
                 repeatId: 'RE_PREFIX_IVT',
@@ -714,7 +714,7 @@ const map = {
               },
               {
                 target_code: '013',
-                target_name: '영흥 C (33kW 급)',
+                target_name: '영흥 투광 (33kW 급)',
                 chart_color: '#3bc9db',
                 chart_sort_rank: 13,
                 repeatId: 'RE_PREFIX_IVT',

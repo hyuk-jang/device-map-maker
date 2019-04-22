@@ -929,7 +929,13 @@ const map = {
       {
         dccId: 'DCC_SSCS_001',
         dccName: '수중 태양광 장치 로거',
-        connect_info: { type: 'zigbee', subType: 'xbee', baudRate: 9600, port: 'COM2' },
+        connect_info: {
+          type: 'zigbee',
+          subType: 'xbee',
+          baudRate: 9600,
+          port: 'COM2',
+          retryChance: 5,
+        },
       },
       {
         dccId: 'DCC_CNT_001',
@@ -1096,7 +1102,7 @@ const map = {
           {
             serial_number: '0013A20040F7ACC8',
             target_code: '005',
-            isAddSerialNumberToDCC: true,
+            isAddSerialNumberToDCC: false,
             dccId: 'DCC_SSCS_001',
             dpcId: 'DPC_001',
             nodeList: ['WD_005'],
@@ -1104,7 +1110,7 @@ const map = {
           {
             serial_number: '0013A20040F7B486',
             target_code: '006',
-            isAddSerialNumberToDCC: true,
+            isAddSerialNumberToDCC: false,
             dccId: 'DCC_SSCS_001',
             dpcId: 'DPC_001',
             nodeList: ['WD_006'],
@@ -1112,7 +1118,7 @@ const map = {
           {
             serial_number: '0013A20040F7B47C',
             target_code: '007',
-            isAddSerialNumberToDCC: true,
+            isAddSerialNumberToDCC: false,
             dccId: 'DCC_SSCS_001',
             dpcId: 'DPC_001',
             nodeList: ['WD_007'],
@@ -1120,7 +1126,7 @@ const map = {
           {
             serial_number: '0013A20040F7AB9C',
             target_code: '008',
-            isAddSerialNumberToDCC: true,
+            isAddSerialNumberToDCC: false,
             dccId: 'DCC_SSCS_001',
             dpcId: 'DPC_001',
             nodeList: ['WD_008'],
@@ -1128,7 +1134,7 @@ const map = {
           {
             serial_number: '0013A20040F7B430',
             target_code: '009',
-            isAddSerialNumberToDCC: true,
+            isAddSerialNumberToDCC: false,
             dccId: 'DCC_SSCS_001',
             dpcId: 'DPC_001',
             nodeList: ['WD_009'],
@@ -1136,7 +1142,7 @@ const map = {
           {
             serial_number: '0013A20040F7AB7D',
             target_code: '010',
-            isAddSerialNumberToDCC: true,
+            isAddSerialNumberToDCC: false,
             dccId: 'DCC_SSCS_001',
             dpcId: 'DPC_001',
             nodeList: ['WD_010', 'S_001'],
@@ -1144,7 +1150,7 @@ const map = {
           {
             serial_number: '0013A20040F7B4A9',
             target_code: '011',
-            isAddSerialNumberToDCC: true,
+            isAddSerialNumberToDCC: false,
             dccId: 'DCC_SSCS_001',
             dpcId: 'DPC_001',
             nodeList: ['WD_011', 'S_002'],
@@ -1152,7 +1158,7 @@ const map = {
           {
             serial_number: '0013A20040F7B460',
             target_code: '012',
-            isAddSerialNumberToDCC: true,
+            isAddSerialNumberToDCC: false,
             dccId: 'DCC_SSCS_001',
             dpcId: 'DPC_001',
             nodeList: ['WD_012', 'S_003'],
@@ -1160,7 +1166,7 @@ const map = {
           {
             serial_number: '0013A20040F7B49B',
             target_code: '013',
-            isAddSerialNumberToDCC: true,
+            isAddSerialNumberToDCC: false,
             dccId: 'DCC_SSCS_001',
             dpcId: 'DPC_001',
             nodeList: ['WD_013'],
@@ -1168,7 +1174,7 @@ const map = {
           {
             serial_number: '0013A20040F7B453',
             target_code: '014',
-            isAddSerialNumberToDCC: true,
+            isAddSerialNumberToDCC: false,
             dccId: 'DCC_SSCS_001',
             dpcId: 'DPC_001',
             nodeList: ['WD_014'],
@@ -1176,7 +1182,7 @@ const map = {
           {
             serial_number: '0013A20040F7B474',
             target_code: '015',
-            isAddSerialNumberToDCC: true,
+            isAddSerialNumberToDCC: false,
             dccId: 'DCC_SSCS_001',
             dpcId: 'DPC_001',
             nodeList: ['WD_015'],
@@ -1184,7 +1190,7 @@ const map = {
           {
             serial_number: '0013A20040F7AB98',
             target_code: '016',
-            isAddSerialNumberToDCC: true,
+            isAddSerialNumberToDCC: false,
             dccId: 'DCC_SSCS_001',
             dpcId: 'DPC_001',
             nodeList: ['WD_016'],
@@ -1198,7 +1204,7 @@ const map = {
           {
             serial_number: '0013A20040F7B47F',
             target_code: '001',
-            isAddSerialNumberToDCC: true,
+            isAddSerialNumberToDCC: false,
             dccId: 'DCC_SSCS_001',
             dpcId: 'DPC_001',
             nodeList: ['V_001', 'MRT_001', 'BT_001'],
@@ -1206,7 +1212,7 @@ const map = {
           {
             serial_number: '0013A20040F7B4A4',
             target_code: '002',
-            isAddSerialNumberToDCC: true,
+            isAddSerialNumberToDCC: false,
             dccId: 'DCC_SSCS_001',
             dpcId: 'DPC_001',
             nodeList: ['V_002', 'MRT_002', 'BT_002'],
@@ -1214,7 +1220,7 @@ const map = {
           {
             serial_number: '0013A20040F7B455',
             target_code: '003',
-            isAddSerialNumberToDCC: true,
+            isAddSerialNumberToDCC: false,
             dccId: 'DCC_SSCS_001',
             dpcId: 'DPC_001',
             nodeList: ['V_003', 'MRT_003', 'BT_003'],
@@ -1222,7 +1228,7 @@ const map = {
           {
             serial_number: '0013A20040F7B43C',
             target_code: '004',
-            isAddSerialNumberToDCC: true,
+            isAddSerialNumberToDCC: false,
             dccId: 'DCC_SSCS_001',
             dpcId: 'DPC_001',
             nodeList: ['V_004', 'MRT_004', 'BT_004'],
@@ -1230,7 +1236,7 @@ const map = {
           {
             serial_number: '0013A20040F7B469',
             target_code: '006',
-            isAddSerialNumberToDCC: true,
+            isAddSerialNumberToDCC: false,
             dccId: 'DCC_SSCS_001',
             dpcId: 'DPC_001',
             nodeList: ['V_006'],
@@ -1238,7 +1244,7 @@ const map = {
           {
             serial_number: '0013A20040F7B4A7',
             target_code: '007',
-            isAddSerialNumberToDCC: true,
+            isAddSerialNumberToDCC: false,
             dccId: 'DCC_SSCS_001',
             dpcId: 'DPC_001',
             nodeList: ['V_007'],
@@ -1252,7 +1258,7 @@ const map = {
           {
             serial_number: '0013A20040F7AB81',
             target_code: '001',
-            isAddSerialNumberToDCC: true,
+            isAddSerialNumberToDCC: false,
             dccId: 'DCC_SSCS_001',
             dpcId: 'DPC_001',
             nodeList: ['GV_001', 'WL_001'],
@@ -1260,7 +1266,7 @@ const map = {
           {
             serial_number: '0013A20040F7AB76',
             target_code: '002',
-            isAddSerialNumberToDCC: true,
+            isAddSerialNumberToDCC: false,
             dccId: 'DCC_SSCS_001',
             dpcId: 'DPC_001',
             nodeList: ['GV_002', 'WL_002'],
@@ -1268,7 +1274,7 @@ const map = {
           {
             serial_number: '0013A20040F7AB69',
             target_code: '003',
-            isAddSerialNumberToDCC: true,
+            isAddSerialNumberToDCC: false,
             dccId: 'DCC_SSCS_001',
             dpcId: 'DPC_001',
             nodeList: ['GV_003', 'WL_003'],
@@ -1276,7 +1282,7 @@ const map = {
           {
             serial_number: '0013A20040F7AB96',
             target_code: '004',
-            isAddSerialNumberToDCC: true,
+            isAddSerialNumberToDCC: false,
             dccId: 'DCC_SSCS_001',
             dpcId: 'DPC_001',
             nodeList: ['GV_004', 'WL_004'],
@@ -1284,7 +1290,7 @@ const map = {
           {
             serial_number: '0013A20040F7B4AB',
             target_code: '005',
-            isAddSerialNumberToDCC: true,
+            isAddSerialNumberToDCC: false,
             dccId: 'DCC_SSCS_001',
             dpcId: 'DPC_001',
             nodeList: ['GV_005', 'WL_005', 'BT_005', 'MRT_007'],
@@ -1298,7 +1304,7 @@ const map = {
           {
             serial_number: '0013A20040F7AB86',
             target_code: '001',
-            isAddSerialNumberToDCC: true,
+            isAddSerialNumberToDCC: false,
             dccId: 'DCC_SSCS_001',
             dpcId: 'DPC_001',
             nodeList: ['MRT_005', 'MRT_006'],
@@ -1312,7 +1318,7 @@ const map = {
           {
             serial_number: '0013A20040F7B451',
             target_code: '001',
-            isAddSerialNumberToDCC: true,
+            isAddSerialNumberToDCC: false,
             dccId: 'DCC_SSCS_001',
             dpcId: 'DPC_001',
             nodeList: ['P_001'],
@@ -1320,7 +1326,7 @@ const map = {
           {
             serial_number: '0013A20040F7B446',
             target_code: '002',
-            isAddSerialNumberToDCC: true,
+            isAddSerialNumberToDCC: false,
             dccId: 'DCC_SSCS_001',
             dpcId: 'DPC_001',
             nodeList: ['P_002'],
@@ -1328,7 +1334,7 @@ const map = {
           {
             serial_number: '0013A20040F7B44A',
             target_code: '003',
-            isAddSerialNumberToDCC: true,
+            isAddSerialNumberToDCC: false,
             dccId: 'DCC_SSCS_001',
             dpcId: 'DPC_001',
             nodeList: ['P_003'],
@@ -1336,7 +1342,7 @@ const map = {
           {
             serial_number: '0013A20040F7A4E0',
             target_code: '004',
-            isAddSerialNumberToDCC: true,
+            isAddSerialNumberToDCC: false,
             dccId: 'DCC_SSCS_001',
             dpcId: 'DPC_001',
             nodeList: ['P_004'],
@@ -1344,7 +1350,7 @@ const map = {
           {
             serial_number: '0013A20040F7A4D8',
             target_code: '005',
-            isAddSerialNumberToDCC: true,
+            isAddSerialNumberToDCC: false,
             dccId: 'DCC_SSCS_001',
             dpcId: 'DPC_001',
             nodeList: ['P_005'],
@@ -1352,7 +1358,7 @@ const map = {
           {
             serial_number: '0013A20040F7AB1C',
             target_code: '006',
-            isAddSerialNumberToDCC: true,
+            isAddSerialNumberToDCC: false,
             dccId: 'DCC_SSCS_001',
             dpcId: 'DPC_001',
             nodeList: ['P_006'],
@@ -1366,7 +1372,7 @@ const map = {
           {
             serial_number: '0013A20040F7B47E',
             target_code: '001',
-            isAddSerialNumberToDCC: true,
+            isAddSerialNumberToDCC: false,
             dccId: 'DCC_SSCS_001',
             dpcId: 'DPC_001',
             nodeList: ['CGR_001', 'CGR_002'],
