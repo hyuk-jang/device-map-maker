@@ -1420,7 +1420,7 @@ const map = {
       {
         target_id: 'vol',
         target_name: '전압',
-        is_sensor: 0,
+        is_sensor: 1,
         save_db_type: BLOCK,
         data_unit: 'V',
         description: null,
