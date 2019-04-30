@@ -350,7 +350,7 @@ const map = {
               },
             ],
           },
-          // TODO:
+          // TODO: dataLoggerIndex 수정
           {
             target_id: 'pvUnderlyingSolar',
             target_name: '모듈 하부 일사량',
@@ -358,9 +358,11 @@ const map = {
             nodeList: [
               {
                 target_code: '041',
+                target_name: 'A',
               },
               {
                 target_code: '042',
+                target_name: 'B',
               },
             ],
           },

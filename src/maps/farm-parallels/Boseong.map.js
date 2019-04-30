@@ -159,15 +159,15 @@ const map = {
           },
           // TODO:
           {
-            serial_number: 50,
-            target_code: '050',
+            serial_number: 51,
+            target_code: '051',
             dccId: 'DCC_001',
             dpcId: 'DPC_001',
             nodeList: [], // FIXME:
           },
           {
-            serial_number: 51,
-            target_code: '051',
+            serial_number: 52,
+            target_code: '052',
             dccId: 'DCC_001',
             dpcId: 'DPC_001',
             nodeList: [], // FIXME:

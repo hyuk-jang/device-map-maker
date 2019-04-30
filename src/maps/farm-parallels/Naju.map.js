@@ -156,7 +156,7 @@ const map = {
           {
             serial_number: 1,
             target_code: '001',
-            target_name: '나주 고정식 A',
+            target_name: '나주 고정식 A-1',
             dccId: 'DCC_001',
             dpcId: 'DPC_001',
             nodeList: [
@@ -167,14 +167,13 @@ const map = {
               'T_PR_001',
               'T_S_001',
               'RH_S_001',
-              'S_PU_031',
             ],
           },
           // FIXME:
           {
             serial_number: 31,
             target_code: '031',
-            target_name: 'null',
+            target_name: '나주 고정식 A-2',
             dccId: 'DCC_001',
             dpcId: 'DPC_001',
             nodeList: [],
@@ -182,7 +181,7 @@ const map = {
           {
             serial_number: 2,
             target_code: '002',
-            target_name: '나주 고정식 B',
+            target_name: '나주 고정식 B-1',
             dccId: 'DCC_001',
             dpcId: 'DPC_001',
             nodeList: ['LX_002', 'S_PU_002', 'CO2_002', 'WV_S_002', 'T_S_002', 'RH_S_002'],
@@ -191,7 +190,7 @@ const map = {
           {
             serial_number: 32,
             target_code: '032',
-            target_name: 'null',
+            target_name: '나주 고정식 B-2',
             dccId: 'DCC_001',
             dpcId: 'DPC_001',
             nodeList: [],
@@ -199,7 +198,7 @@ const map = {
           {
             serial_number: 3,
             target_code: '003',
-            target_name: '나주 고정식 C',
+            target_name: '나주 고정식 C-1',
             dccId: 'DCC_001',
             dpcId: 'DPC_001',
             nodeList: ['LX_003', 'CO2_003', 'WV_S_003', 'T_S_003', 'RH_S_003'],
@@ -208,7 +207,7 @@ const map = {
           {
             serial_number: 33,
             target_code: '033',
-            target_name: 'null',
+            target_name: '나주 고정식 C-2',
             dccId: 'DCC_001',
             dpcId: 'DPC_001',
             nodeList: [],
@@ -216,7 +215,7 @@ const map = {
           {
             serial_number: 4,
             target_code: '004',
-            target_name: '나주 가변식 A',
+            target_name: '나주 가변식 A-1',
             dccId: 'DCC_001',
             dpcId: 'DPC_001',
             nodeList: [
@@ -233,7 +232,7 @@ const map = {
           {
             serial_number: 34,
             target_code: '034',
-            target_name: 'null',
+            target_name: '나주 가변식 A-2',
             dccId: 'DCC_001',
             dpcId: 'DPC_001',
             nodeList: [],
@@ -241,33 +240,32 @@ const map = {
           {
             serial_number: 5,
             target_code: '005',
-            target_name: '나주 가변식 B',
+            target_name: '나주 가변식 B-1',
             dccId: 'DCC_001',
             dpcId: 'DPC_001',
             nodeList: ['LX_005', 'S_PU_005', 'CO2_005', 'WV_S_005', 'T_S_005', 'RH_S_005'],
           },
           {
-            serial_number: 6,
-            target_code: '006',
-            target_name: '나주 가변식 C',
-            dccId: 'DCC_001',
-            dpcId: 'DPC_001',
-            nodeList: ['LX_006', 'CO2_006', 'WV_S_006', 'T_S_006', 'RH_S_006'],
-          },
-          // TODO:
-
-          {
             serial_number: 35,
             target_code: '035',
-            target_name: 'null', // FIXME:
+            target_name: '나주 가변식 B-2',
             dccId: 'DCC_001',
             dpcId: 'DPC_001',
             nodeList: [], // FIXME:
           },
           {
+            serial_number: 6,
+            target_code: '006',
+            target_name: '나주 가변식 C-1',
+            dccId: 'DCC_001',
+            dpcId: 'DPC_001',
+            nodeList: ['LX_006', 'CO2_006', 'WV_S_006', 'T_S_006', 'RH_S_006'],
+          },
+          // TODO:
+          {
             serial_number: 36,
             target_code: '036',
-            target_name: 'null', // FIXME:
+            target_name: '나주 가변식 C-1',
             dccId: 'DCC_001',
             dpcId: 'DPC_001',
             nodeList: [], // FIXME:
@@ -517,58 +515,76 @@ const map = {
             nodeList: [
               {
                 target_code: '002',
+                target_name: 'B-1',
               },
               {
                 target_code: '005',
+                target_name: 'B-1',
               },
-              // TODO:
+              // TODO: dataLoggerIndex 수정
               {
                 target_code: '031',
+                target_name: 'A-1',
               },
               {
                 target_code: '032',
+                target_name: 'A-2',
               },
               {
                 target_code: '033',
+                target_name: 'A-3',
               },
               {
                 target_code: '034',
+                target_name: 'B-2',
               },
               {
                 target_code: '035',
+                target_name: 'B-3',
               },
               {
                 target_code: '036',
+                target_name: 'C-1',
               },
               {
                 target_code: '037',
+                target_name: 'C-2',
               },
               {
                 target_code: '038',
+                target_name: 'C-3',
               },
               {
                 target_code: '039',
+                target_name: 'A-1',
               },
               {
                 target_code: '040',
+                target_name: 'A-2',
               },
               {
                 target_code: '041',
+                target_name: 'A-3',
               },
               {
                 target_code: '042',
+                target_name: 'B-2',
               },
               {
                 target_code: '043',
+                target_name: 'B-3',
               },
               {
                 target_code: '044',
+                target_name: 'C-1',
               },
               {
                 target_code: '045',
+                target_name: 'C-2',
               },
               {
                 target_code: '046',
+                target_name: 'C-3',
               },
             ],
           },

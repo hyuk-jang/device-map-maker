@@ -450,7 +450,11 @@ class UploadToDB {
         const { target_id: ndId, target_prefix: ndPrefix, nodeList = [] } = nodeDefInfo;
         // 노드 목록 순회
         nodeList.forEach(nodeInfo => {
-          const { target_code: nCode = null, data_logger_index: nDLIndex = 0 } = nodeInfo;
+          const {
+            target_code: nCode = null,
+            target_name: nName = null,
+            data_logger_index: nDLIndex = 0,
+          } = nodeInfo;
           // 노드 ID 정의
           const nodeId = `${ndPrefix}${nCode ? `_${nCode}` : ''}`;
 
@@ -474,6 +478,7 @@ class UploadToDB {
              */
             const dvNodeInfo = {
               target_code: nCode,
+              target_name: nName,
               data_logger_index: nDLIndex,
               node_def_seq: _.get(
                 _.find(prevNDList, {
