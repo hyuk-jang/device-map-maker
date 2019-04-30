@@ -156,6 +156,14 @@ const map = {
             dpcId: 'DPC_001',
             nodeList: ['LX_008', 'S_I_008', 'CO2_008', 'WV_S_008', 'T_S_008', 'RH_S_008'],
           },
+          // TODO:
+          {
+            serial_number: 41,
+            target_code: '041',
+            dccId: 'DCC_001',
+            dpcId: 'DPC_001',
+            nodeList: [], // FIXME:
+          },
         ],
       },
       {
@@ -286,6 +294,10 @@ const map = {
               {
                 target_code: '009',
               },
+              // TODO:
+              {
+                target_code: '041',
+              },
             ],
           },
         ],
@@ -302,6 +314,10 @@ const map = {
             nodeList: [
               {
                 target_code: '009',
+              },
+              // TODO:
+              {
+                target_code: '041',
               },
             ],
           },
@@ -331,6 +347,20 @@ const map = {
             nodeList: [
               {
                 target_code: '008',
+              },
+            ],
+          },
+          // TODO:
+          {
+            target_id: 'pvUnderlyingSolar',
+            target_name: '모듈 하부 일사량',
+            target_prefix: 'S_PU',
+            nodeList: [
+              {
+                target_code: '041',
+              },
+              {
+                target_code: '042',
               },
             ],
           },
@@ -684,7 +714,17 @@ const map = {
                 target_name: '하부',
                 chart_color: '#0b7285',
                 chart_sort_rank: 8,
-                nodeList: ['LX_008', 'S_I_008', 'CO2_008', 'WV_S_008', 'T_S_008', 'RH_S_008'],
+                nodeList: [
+                  'LX_008',
+                  'S_I_008',
+                  'CO2_008',
+                  'WV_S_008',
+                  'T_S_008',
+                  'RH_S_008',
+                  // FIXME:
+                  'S_PU_041',
+                  'S_PU_042',
+                ],
               },
             ],
           },

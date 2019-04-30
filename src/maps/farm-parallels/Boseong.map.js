@@ -157,6 +157,21 @@ const map = {
             dpcId: 'DPC_001',
             nodeList: ['LX_010', 'S_I_010', 'CO2_010', 'WV_S_010', 'T_S_010', 'RH_S_010'],
           },
+          // TODO:
+          {
+            serial_number: 50,
+            target_code: '050',
+            dccId: 'DCC_001',
+            dpcId: 'DPC_001',
+            nodeList: [], // FIXME:
+          },
+          {
+            serial_number: 51,
+            target_code: '051',
+            dccId: 'DCC_001',
+            dpcId: 'DPC_001',
+            nodeList: [], // FIXME:
+          },
         ],
       },
       {
@@ -287,6 +302,10 @@ const map = {
               {
                 target_code: '011',
               },
+              // TODO:
+              {
+                target_code: '051',
+              },
             ],
           },
         ],
@@ -303,6 +322,10 @@ const map = {
             nodeList: [
               {
                 target_code: '011',
+              },
+              // TODO:
+              {
+                target_code: '051',
               },
             ],
           },
@@ -332,6 +355,23 @@ const map = {
             nodeList: [
               {
                 target_code: '010',
+              },
+            ],
+          },
+          // TODO:
+          {
+            target_id: 'pvUnderlyingSolar',
+            target_name: '모듈 하부 일사량',
+            target_prefix: 'S_PU',
+            nodeList: [
+              {
+                target_code: '051',
+              },
+              {
+                target_code: '052',
+              },
+              {
+                target_code: '053',
               },
             ],
           },
@@ -685,7 +725,18 @@ const map = {
                 target_name: '하부',
                 chart_color: '#2b8a3e',
                 chart_sort_rank: 10,
-                nodeList: ['LX_010', 'S_I_010', 'CO2_010', 'WV_S_010', 'T_S_010', 'RH_S_010'],
+                nodeList: [
+                  'LX_010',
+                  'S_I_010',
+                  'CO2_010',
+                  'WV_S_010',
+                  'T_S_010',
+                  'RH_S_010',
+                  // FIXME:
+                  'S_PU_051',
+                  'S_PU_052',
+                  'S_PU_053',
+                ],
               },
             ],
           },

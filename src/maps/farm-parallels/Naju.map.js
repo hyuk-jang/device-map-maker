@@ -167,7 +167,17 @@ const map = {
               'T_PR_001',
               'T_S_001',
               'RH_S_001',
+              'S_PU_031',
             ],
+          },
+          // FIXME:
+          {
+            serial_number: 31,
+            target_code: '031',
+            target_name: 'null',
+            dccId: 'DCC_001',
+            dpcId: 'DPC_001',
+            nodeList: [],
           },
           {
             serial_number: 2,
@@ -177,6 +187,15 @@ const map = {
             dpcId: 'DPC_001',
             nodeList: ['LX_002', 'S_PU_002', 'CO2_002', 'WV_S_002', 'T_S_002', 'RH_S_002'],
           },
+          // FIXME:
+          {
+            serial_number: 32,
+            target_code: '032',
+            target_name: 'null',
+            dccId: 'DCC_001',
+            dpcId: 'DPC_001',
+            nodeList: [],
+          },
           {
             serial_number: 3,
             target_code: '003',
@@ -184,6 +203,15 @@ const map = {
             dccId: 'DCC_001',
             dpcId: 'DPC_001',
             nodeList: ['LX_003', 'CO2_003', 'WV_S_003', 'T_S_003', 'RH_S_003'],
+          },
+          // FIXME:
+          {
+            serial_number: 33,
+            target_code: '033',
+            target_name: 'null',
+            dccId: 'DCC_001',
+            dpcId: 'DPC_001',
+            nodeList: [],
           },
           {
             serial_number: 4,
@@ -201,6 +229,15 @@ const map = {
               'RH_S_004',
             ],
           },
+          // FIXME:
+          {
+            serial_number: 34,
+            target_code: '034',
+            target_name: 'null',
+            dccId: 'DCC_001',
+            dpcId: 'DPC_001',
+            nodeList: [],
+          },
           {
             serial_number: 5,
             target_code: '005',
@@ -216,6 +253,24 @@ const map = {
             dccId: 'DCC_001',
             dpcId: 'DPC_001',
             nodeList: ['LX_006', 'CO2_006', 'WV_S_006', 'T_S_006', 'RH_S_006'],
+          },
+          // TODO:
+
+          {
+            serial_number: 35,
+            target_code: '035',
+            target_name: 'null', // FIXME:
+            dccId: 'DCC_001',
+            dpcId: 'DPC_001',
+            nodeList: [], // FIXME:
+          },
+          {
+            serial_number: 36,
+            target_code: '036',
+            target_name: 'null', // FIXME:
+            dccId: 'DCC_001',
+            dpcId: 'DPC_001',
+            nodeList: [], // FIXME:
           },
         ],
       },
@@ -465,6 +520,55 @@ const map = {
               },
               {
                 target_code: '005',
+              },
+              // TODO:
+              {
+                target_code: '031',
+              },
+              {
+                target_code: '032',
+              },
+              {
+                target_code: '033',
+              },
+              {
+                target_code: '034',
+              },
+              {
+                target_code: '035',
+              },
+              {
+                target_code: '036',
+              },
+              {
+                target_code: '037',
+              },
+              {
+                target_code: '038',
+              },
+              {
+                target_code: '039',
+              },
+              {
+                target_code: '040',
+              },
+              {
+                target_code: '041',
+              },
+              {
+                target_code: '042',
+              },
+              {
+                target_code: '043',
+              },
+              {
+                target_code: '044',
+              },
+              {
+                target_code: '045',
+              },
+              {
+                target_code: '046',
               },
             ],
           },
@@ -884,6 +988,10 @@ const map = {
                   'T_PR_001',
                   'T_S_001',
                   'RH_S_001',
+                  // FIXME:
+                  'S_PU_031',
+                  'S_PU_032',
+                  'S_PU_033',
                 ],
               },
               {
@@ -891,14 +999,34 @@ const map = {
                 target_name: 'B',
                 chart_color: '#fcc2d7',
                 chart_sort_rank: 2,
-                nodeList: ['LX_002', 'S_PU_002', 'CO2_002', 'WV_S_002', 'T_S_002', 'RH_S_002'],
+                nodeList: [
+                  'LX_002',
+                  'S_PU_002',
+                  'CO2_002',
+                  'WV_S_002',
+                  'T_S_002',
+                  'RH_S_002',
+                  // FIXME:
+                  'S_PU_034',
+                  'S_PU_035',
+                ],
               },
               {
                 target_code: '003',
                 target_name: 'C',
                 chart_color: '#d0bfff',
                 chart_sort_rank: 3,
-                nodeList: ['LX_003', 'CO2_003', 'WV_S_003', 'T_S_003', 'RH_S_003'],
+                nodeList: [
+                  'LX_003',
+                  'CO2_003',
+                  'WV_S_003',
+                  'T_S_003',
+                  'RH_S_003',
+                  // FIXME:
+                  'S_PU_036',
+                  'S_PU_037',
+                  'S_PU_038',
+                ],
               },
             ],
           },
@@ -920,6 +1048,10 @@ const map = {
                   'T_PR_004',
                   'T_S_004',
                   'RH_S_004',
+                  // FIXME:
+                  'S_PU_039',
+                  'S_PU_040',
+                  'S_PU_041',
                 ],
               },
               {
@@ -927,14 +1059,34 @@ const map = {
                 target_name: 'B',
                 chart_color: '#212529',
                 chart_sort_rank: 5,
-                nodeList: ['LX_005', 'S_PU_005', 'CO2_005', 'WV_S_005', 'T_S_005', 'RH_S_005'],
+                nodeList: [
+                  'LX_005',
+                  'S_PU_005',
+                  'CO2_005',
+                  'WV_S_005',
+                  'T_S_005',
+                  'RH_S_005',
+                  // FIXME:
+                  'S_PU_042',
+                  'S_PU_043',
+                ],
               },
               {
                 target_code: '006',
                 target_name: 'C',
                 chart_color: '#a9e34b',
                 chart_sort_rank: 6,
-                nodeList: ['LX_006', 'CO2_006', 'WV_S_006', 'T_S_006', 'RH_S_006'],
+                nodeList: [
+                  'LX_006',
+                  'CO2_006',
+                  'WV_S_006',
+                  'T_S_006',
+                  'RH_S_006',
+                  // FIXME:
+                  'S_PU_044',
+                  'S_PU_045',
+                  'S_PU_046',
+                ],
               },
             ],
           },
