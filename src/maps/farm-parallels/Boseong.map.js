@@ -115,11 +115,11 @@ const map = {
         nodeList: [
           {
             target_code: '006',
-            target_name: '보성 A (5.5kW 급)',
+            target_name: 'A',
           },
           {
             target_code: '007',
-            target_name: '보성 A (5.5kW 급)',
+            target_name: 'B',
           },
         ],
       },
@@ -159,15 +159,15 @@ const map = {
           },
           // TODO:
           {
-            serial_number: 51,
-            target_code: '051',
+            serial_number: 61,
+            target_code: '061',
             dccId: 'DCC_001',
             dpcId: 'DPC_001',
             nodeList: [], // FIXME:
           },
           {
-            serial_number: 52,
-            target_code: '052',
+            serial_number: 62,
+            target_code: '062',
             dccId: 'DCC_001',
             dpcId: 'DPC_001',
             nodeList: [], // FIXME:
@@ -304,7 +304,7 @@ const map = {
               },
               // TODO:
               {
-                target_code: '051',
+                target_code: '061',
               },
             ],
           },
@@ -325,7 +325,7 @@ const map = {
               },
               // TODO:
               {
-                target_code: '051',
+                target_code: '061',
               },
             ],
           },
@@ -365,10 +365,10 @@ const map = {
             target_prefix: 'S_PU',
             nodeList: [
               {
-                target_code: '051',
+                target_code: '061',
               },
               {
-                target_code: '052',
+                target_code: '062',
               },
               {
                 target_code: '053',
@@ -733,8 +733,8 @@ const map = {
                   'T_S_010',
                   'RH_S_010',
                   // FIXME:
-                  'S_PU_051',
-                  'S_PU_052',
+                  'S_PU_061',
+                  'S_PU_062',
                   'S_PU_053',
                 ],
               },

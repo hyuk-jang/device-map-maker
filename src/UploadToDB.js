@@ -470,6 +470,8 @@ class UploadToDB {
               _.includes(dlNodeList, nodeId) && usedDataLoggerIdList.push(dataLoggerId);
             });
           });
+
+          // BU.CLI(nodeInfo);
           // 사용되어지고 있는 데이터 로거 ID 목록 순회
           usedDataLoggerIdList.forEach(dataLoggerId => {
             /**

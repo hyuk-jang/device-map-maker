@@ -115,11 +115,11 @@ const map = {
         nodeList: [
           {
             target_code: '004',
-            target_name: '강진 A (5.5kW 급)',
+            target_name: 'A',
           },
           {
             target_code: '005',
-            target_name: '강진 A (5.5kW 급)',
+            target_name: 'B',
           },
         ],
       },
@@ -158,11 +158,11 @@ const map = {
           },
           // TODO:
           {
-            serial_number: 41,
-            target_code: '041',
+            serial_number: 51,
+            target_code: '051',
             dccId: 'DCC_001',
             dpcId: 'DPC_001',
-            nodeList: [], // FIXME:
+            nodeList: ['W_S_051', 'W_D_051', 'S_PU_051', 'S_PU_052'],
           },
         ],
       },
@@ -198,7 +198,7 @@ const map = {
         dataLoggerDeviceList: [
           {
             target_name: '강진 A (5.5kW 급)',
-            serial_number: '\u0001',
+            serial_number: Buffer.from([64]),
             target_code: '004',
             dccId: 'DCC_001',
             dpcId: 'DPC_IVT_002',
@@ -206,7 +206,7 @@ const map = {
           },
           {
             target_name: '강진 B (5.5kW 급)',
-            serial_number: '\u0002',
+            serial_number: Buffer.from([65]),
             target_code: '005',
             dccId: 'DCC_001',
             dpcId: 'DPC_IVT_002',
@@ -296,7 +296,7 @@ const map = {
               },
               // TODO:
               {
-                target_code: '041',
+                target_code: '051',
               },
             ],
           },
@@ -317,7 +317,7 @@ const map = {
               },
               // TODO:
               {
-                target_code: '041',
+                target_code: '051',
               },
             ],
           },
@@ -357,12 +357,13 @@ const map = {
             target_prefix: 'S_PU',
             nodeList: [
               {
-                target_code: '041',
+                target_code: '051',
                 target_name: 'A',
               },
               {
-                target_code: '042',
+                target_code: '052',
                 target_name: 'B',
+                data_logger_index: 1,
               },
             ],
           },
@@ -724,8 +725,8 @@ const map = {
                   'T_S_008',
                   'RH_S_008',
                   // FIXME:
-                  'S_PU_041',
-                  'S_PU_042',
+                  'S_PU_051',
+                  'S_PU_052',
                 ],
               },
             ],
