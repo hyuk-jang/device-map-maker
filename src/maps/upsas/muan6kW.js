@@ -2334,7 +2334,7 @@ const map = {
     hiddenTextSvgModelResourceIdList: ['pipeLine', 'waterWay'],
   },
   controlInfo: {
-    simpleModeList: [
+    flowCmdList: [
       {
         srcPlaceId: 'SEB_1_A',
         destList: [
@@ -2485,23 +2485,23 @@ const map = {
         destList: [
           {
             destPlaceId: 'SEB_1_A',
-            trueList: ['V_006', 'V_001', 'P_002'],
-            falseList: ['V_002', 'V_003', 'V_004', 'GV_001'],
+            trueNodeList: ['V_006', 'V_001', 'P_002'],
+            falseNodeList: ['V_002', 'V_003', 'V_004', 'GV_001'],
           },
           {
             destPlaceId: 'SEB_1_B',
-            trueList: ['V_006', 'V_002', 'P_002'],
-            falseList: ['V_001', 'V_003', 'V_004', 'GV_002'],
+            trueNodeList: ['V_006', 'V_002', 'P_002'],
+            falseNodeList: ['V_001', 'V_003', 'V_004', 'GV_002'],
           },
           {
             destPlaceId: 'SEB_1_C',
-            trueList: ['V_006', 'V_003', 'P_002'],
-            falseList: ['V_001', 'V_002', 'V_004', 'GV_003'],
+            trueNodeList: ['V_006', 'V_003', 'P_002'],
+            falseNodeList: ['V_001', 'V_002', 'V_004', 'GV_003'],
           },
           {
             destPlaceId: 'SEB_1_D',
-            trueList: ['V_006', 'V_004', 'P_002'],
-            falseList: ['V_001', 'V_002', 'V_003', 'GV_004'],
+            trueNodeList: ['V_006', 'V_004', 'P_002'],
+            falseNodeList: ['V_001', 'V_002', 'V_003', 'GV_004'],
           },
         ],
       },
@@ -2551,7 +2551,7 @@ const map = {
         ],
       },
     ],
-    settingModeList: [
+    setCmdList: [
       {
         cmdId: 'closeAllDevice',
         trueNodeList: [],
