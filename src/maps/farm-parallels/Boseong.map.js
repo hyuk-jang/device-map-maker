@@ -163,14 +163,14 @@ const map = {
             target_code: '061',
             dccId: 'DCC_001',
             dpcId: 'DPC_001',
-            nodeList: [], // FIXME:
+            nodeList: ['W_S_061', 'W_D_061', 'T_OA_061', 'RH_OA_061', 'S_PU_061'],
           },
           {
             serial_number: 62,
             target_code: '062',
             dccId: 'DCC_001',
             dpcId: 'DPC_001',
-            nodeList: [], // FIXME:
+            nodeList: ['S_PU_062', 'S_PU_063'],
           },
         ],
       },
@@ -252,6 +252,9 @@ const map = {
               {
                 target_code: '011',
               },
+              {
+                target_code: '061',
+              },
             ],
           },
         ],
@@ -283,6 +286,9 @@ const map = {
             nodeList: [
               {
                 target_code: '011',
+              },
+              {
+                target_code: '061',
               },
             ],
           },
@@ -366,12 +372,16 @@ const map = {
             nodeList: [
               {
                 target_code: '061',
+                target_name: 'A',
               },
               {
                 target_code: '062',
+                target_name: 'B',
               },
               {
-                target_code: '053',
+                target_code: '063',
+                target_name: 'C',
+                data_logger_index: 1,
               },
             ],
           },
@@ -732,10 +742,14 @@ const map = {
                   'WV_S_010',
                   'T_S_010',
                   'RH_S_010',
+                  'W_S_061',
+                  'W_D_061',
+                  'T_OA_061',
+                  'RH_OA_061',
                   // FIXME:
                   'S_PU_061',
                   'S_PU_062',
-                  'S_PU_053',
+                  'S_PU_063',
                 ],
               },
             ],

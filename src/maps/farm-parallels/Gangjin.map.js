@@ -156,7 +156,6 @@ const map = {
             dpcId: 'DPC_001',
             nodeList: ['LX_008', 'S_I_008', 'CO2_008', 'WV_S_008', 'T_S_008', 'RH_S_008'],
           },
-          // TODO:
           {
             serial_number: 51,
             target_code: '051',
@@ -294,7 +293,6 @@ const map = {
               {
                 target_code: '009',
               },
-              // TODO:
               {
                 target_code: '051',
               },
@@ -315,7 +313,6 @@ const map = {
               {
                 target_code: '009',
               },
-              // TODO:
               {
                 target_code: '051',
               },
@@ -350,7 +347,6 @@ const map = {
               },
             ],
           },
-          // TODO: dataLoggerIndex 수정
           {
             target_id: 'pvUnderlyingSolar',
             target_name: '모듈 하부 일사량',
@@ -359,11 +355,11 @@ const map = {
               {
                 target_code: '051',
                 target_name: 'A',
+                data_logger_index: 1,
               },
               {
                 target_code: '052',
                 target_name: 'B',
-                data_logger_index: 1,
               },
             ],
           },
@@ -724,7 +720,8 @@ const map = {
                   'WV_S_008',
                   'T_S_008',
                   'RH_S_008',
-                  // FIXME:
+                  'W_D_051',
+                  'W_S_051',
                   'S_PU_051',
                   'S_PU_052',
                 ],

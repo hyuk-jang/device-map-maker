@@ -2486,22 +2486,34 @@ const map = {
           {
             destPlaceId: 'SEB_1_A',
             trueNodeList: ['V_006', 'V_001', 'P_002'],
-            falseNodeList: ['V_002', 'V_003', 'V_004', 'GV_001'],
+            falseNodeList: [
+              // 'V_002', 'V_003', 'V_004',
+              'GV_001',
+            ],
           },
           {
             destPlaceId: 'SEB_1_B',
             trueNodeList: ['V_006', 'V_002', 'P_002'],
-            falseNodeList: ['V_001', 'V_003', 'V_004', 'GV_002'],
+            falseNodeList: [
+              // 'V_001', 'V_003', 'V_004',
+              'GV_002',
+            ],
           },
           {
             destPlaceId: 'SEB_1_C',
             trueNodeList: ['V_006', 'V_003', 'P_002'],
-            falseNodeList: ['V_001', 'V_002', 'V_004', 'GV_003'],
+            falseNodeList: [
+              // 'V_001', 'V_002', 'V_004',
+              'GV_003',
+            ],
           },
           {
             destPlaceId: 'SEB_1_D',
             trueNodeList: ['V_006', 'V_004', 'P_002'],
-            falseNodeList: ['V_001', 'V_002', 'V_003', 'GV_004'],
+            falseNodeList: [
+              // 'V_001', 'V_002', 'V_003',
+              'GV_004',
+            ],
           },
         ],
       },
@@ -2511,22 +2523,34 @@ const map = {
           {
             destPlaceId: 'SEB_1_A',
             trueNodeList: ['V_007', 'V_001', 'P_003'],
-            falseNodeList: ['V_002', 'V_003', 'V_004', 'GV_001'],
+            falseNodeList: [
+              // 'V_002', 'V_003', 'V_004',
+              'GV_001',
+            ],
           },
           {
             destPlaceId: 'SEB_1_B',
             trueNodeList: ['V_007', 'V_002', 'P_003'],
-            falseNodeList: ['V_001', 'V_003', 'V_004', 'GV_002'],
+            falseNodeList: [
+              // 'V_001', 'V_003', 'V_004',
+              'GV_002',
+            ],
           },
           {
             destPlaceId: 'SEB_1_C',
             trueNodeList: ['V_007', 'V_003', 'P_003'],
-            falseNodeList: ['V_001', 'V_002', 'V_004', 'GV_003'],
+            falseNodeList: [
+              // 'V_001', 'V_002', 'V_004',
+              'GV_003',
+            ],
           },
           {
             destPlaceId: 'SEB_1_D',
             trueNodeList: ['V_007', 'V_004', 'P_003'],
-            falseNodeList: ['V_001', 'V_002', 'V_003', 'GV_004'],
+            falseNodeList: [
+              // 'V_001', 'V_002', 'V_003',
+              'GV_004',
+            ],
           },
         ],
       },
@@ -2560,11 +2584,13 @@ const map = {
           'GV_002',
           'GV_003',
           'GV_004',
+          'GV_005',
           'P_001',
           'P_002',
           'P_003',
           'P_004',
           'P_005',
+          'P_006',
           'V_001',
           'V_002',
           'V_003',
