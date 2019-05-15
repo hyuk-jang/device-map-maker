@@ -56,8 +56,8 @@
             <option value="develop">개발 모드</option>
           </select>
         </div>
-        <!-- canvas -->
-        <div style="height:800px">
+        <!-- FIXME:canvas -->
+        <div style="height:5000px">
           <div id="canvas" style=" display: flex; justify-content: center; margin: 5px;"></div>
         </div>
       </div>
@@ -69,8 +69,8 @@
       setPanzoom();
 
       //FIXME: 테스트 용 선언
-      showNodeData('P_002', 'open');
-      showNodeData('WL_004', '100');
+      //   showNodeData('P_002', 'open');
+      //   showNodeData('WL_004', '100');
 
       //모드 선택 설렉트 박스 and 한/영 토글 버튼
       $('select, #placeNodeChangeNameToogleBtn').change(() => {
@@ -90,7 +90,9 @@
         const svgMap = SVG.get('svgCanvas');
         const canvas = document.getElementById('canvas');
         const $canvas = $('#canvas');
-        const matrix = 'matrix(0.4, 0, 0, 0.4, -850, -600)';
+        //FIXME:
+        const { width, height } = map.drawInfo.frame.mapInfo;
+        const matrix = `matrix(0.4, 0, 0, 0.4, ${width - width * 1.27}, ${height - height * 1.3})`;
         const filter = 'win16|win32|win64|mac';
 
         // 맵 size 재설정
