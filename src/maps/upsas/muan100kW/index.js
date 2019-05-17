@@ -32,7 +32,7 @@ const map = {
         {
           id: 'normalEvaporationBlock_A',
           type: 'rect',
-          elementDrawInfo: { width: 1860, height: 800, color: '#bd8f3a', opacity: 1 },
+          elementDrawInfo: { width: 1930, height: 850, color: '#bd8f3a', opacity: 1 },
           textStyleInfo: {
             color: '',
           },
@@ -40,7 +40,7 @@ const map = {
         {
           id: 'normalEvaporationBlock_B',
           type: 'rect',
-          elementDrawInfo: { width: 1860, height: 600, color: '#bd8f3a', opacity: 1 },
+          elementDrawInfo: { width: 1930, height: 600, color: '#bd8f3a', opacity: 1 },
           textStyleInfo: {
             color: '',
           },
@@ -72,7 +72,7 @@ const map = {
         {
           id: 'jago',
           type: 'rect',
-          elementDrawInfo: { width: 200, height: 120, color: 'skyblue', opacity: 1 },
+          elementDrawInfo: { width: 200, height: 300, color: 'skyblue', opacity: 1 },
           textStyleInfo: {
             color: '',
           },
@@ -80,7 +80,7 @@ const map = {
         {
           id: 'brineWarehouse_A',
           type: 'rect',
-          elementDrawInfo: { width: 680, height: 180, color: '#90b4dd', opacity: 1 },
+          elementDrawInfo: { width: 700, height: 200, color: '#90b4dd', opacity: 1 },
           textStyleInfo: {
             color: '',
           },
@@ -88,7 +88,7 @@ const map = {
         {
           id: 'brineWarehouse_B',
           type: 'rect',
-          elementDrawInfo: { width: 470, height: 180, color: '#90b4dd', opacity: 1 },
+          elementDrawInfo: { width: 490, height: 200, color: '#90b4dd', opacity: 1 },
           textStyleInfo: {
             color: '',
           },
@@ -96,7 +96,7 @@ const map = {
         {
           id: 'brineWarehouse_C',
           type: 'rect',
-          elementDrawInfo: { width: 250, height: 180, color: '#90b4dd', opacity: 1 },
+          elementDrawInfo: { width: 300, height: 200, color: '#90b4dd', opacity: 1 },
           textStyleInfo: {
             color: '',
           },
@@ -104,7 +104,7 @@ const map = {
         {
           id: 'brineWarehouse_D',
           type: 'rect',
-          elementDrawInfo: { width: 270, height: 180, color: '#90b4dd', opacity: 1 },
+          elementDrawInfo: { width: 270, height: 200, color: '#90b4dd', opacity: 1 },
           textStyleInfo: {
             color: '',
           },
@@ -133,53 +133,46 @@ const map = {
             color: '',
           },
         },
-        // FIXME: 물을 빼는 파이프 인데 수로로 일단 적어둔다.
+        // 주황
         {
-          id: 'outWaterWay',
+          id: 'pipeLine_A',
           type: 'line',
-          elementDrawInfo: { width: 0, color: '', opacity: 1 },
+          elementDrawInfo: { width: 10, color: '#ff9a00', opacity: 1 },
           textStyleInfo: {
             color: '',
           },
         },
-        // FIXME: 사람이 다니는길인데 수로로 하고 이미지만 다르게 한다.
+        // 파랑
         {
-          id: 'load',
+          id: 'pipeLine_B',
           type: 'line',
-          elementDrawInfo: { width: 60, color: '#96764f', opacity: 1 },
+          elementDrawInfo: { width: 10, color: 'blue', opacity: 1 },
           textStyleInfo: {
             color: '',
           },
         },
+        // 진보라
         {
-          id: 'pipe_A',
+          id: 'pipeLine_C',
           type: 'line',
-          elementDrawInfo: { width: 0, color: '', opacity: 1 },
+          elementDrawInfo: { width: 10, color: '#7513a1', opacity: 1 },
           textStyleInfo: {
             color: '',
           },
         },
+        // 빨강
         {
-          id: 'pipe_B',
+          id: 'pipeLine_D',
           type: 'line',
-          elementDrawInfo: { width: 0, color: '', opacity: 1 },
+          elementDrawInfo: { width: 10, color: 'red', opacity: 1 },
           textStyleInfo: {
             color: '',
           },
         },
-        {
-          id: 'pipe_C',
-          type: 'line',
-          elementDrawInfo: { width: 0, color: '', opacity: 1 },
-          textStyleInfo: {
-            color: '',
-          },
-        },
-        // FIXME:node
         {
           id: 'waterDoor',
           type: 'rect',
-          elementDrawInfo: { width: 50, height: 50, color: '#b45b95', opacity: 1 },
+          elementDrawInfo: { width: 80, height: 80, color: '#b45b95', opacity: 1 },
           textStyleInfo: {
             color: '',
           },
@@ -202,17 +195,17 @@ const map = {
           },
         },
         {
-          id: 'underPump',
+          id: 'overPump',
           type: 'circle',
-          elementDrawInfo: { width: 50, height: 50, radius: 50, color: 'red', opacity: 1 },
+          elementDrawInfo: { width: 80, height: 80, radius: 80, color: '#22fb00', opacity: 1 },
           textStyleInfo: {
             color: '',
           },
         },
         {
-          id: 'overPump',
+          id: 'underPump',
           type: 'circle',
-          elementDrawInfo: { radius: 0, color: '', opacity: 1 },
+          elementDrawInfo: { width: 60, height: 60, radius: 60, color: '#8b24b0', opacity: 1 },
           textStyleInfo: {
             color: '',
           },
@@ -220,7 +213,7 @@ const map = {
         {
           id: 'output',
           type: 'circle',
-          elementDrawInfo: { radius: 0, color: '', opacity: 1 },
+          elementDrawInfo: { width: 25, height: 25, radius: 25, color: 'black', opacity: 1 },
           textStyleInfo: {
             color: '',
           },
@@ -237,7 +230,6 @@ const map = {
       ],
     },
     positionInfo: {
-      // TODO:
       svgPlaceList: [
         {
           placeId: 'salternBlock',
@@ -246,79 +238,79 @@ const map = {
               id: 'SEB_1',
               name: '증발지_1',
               resourceId: 'solarEvaporationBlock',
-              point: [250, 2510],
+              point: [200, 2560],
             },
             {
               id: 'SEB_2',
               name: '증발지_2',
               resourceId: 'solarEvaporationBlock',
-              point: [510, 2510],
+              point: [460, 2560],
             },
             {
               id: 'SEB_3',
               name: '증발지_3',
               resourceId: 'solarEvaporationBlock',
-              point: [780, 2510],
+              point: [730, 2560],
             },
             {
               id: 'SEB_4',
               name: '증발지_4',
               resourceId: 'solarEvaporationBlock',
-              point: [1050, 2510],
+              point: [1000, 2560],
             },
             {
               id: 'SEB_5',
               name: '증발지_5',
               resourceId: 'solarEvaporationBlock',
-              point: [1320, 2510],
+              point: [1270, 2560],
             },
             {
               id: 'SEB_6',
               name: '증발지_6',
               resourceId: 'solarEvaporationBlock',
-              point: [1590, 2510],
+              point: [1540, 2560],
             },
             {
               id: 'SEB_7',
               name: '증발지_7',
               resourceId: 'solarEvaporationBlock',
-              point: [1860, 2510],
+              point: [1810, 2560],
             },
             {
               id: 'SEB_8',
               name: '증발지_8',
               resourceId: 'solarEvaporationBlock',
-              point: [2130, 2510],
+              point: [2080, 2560],
             },
             {
               id: 'NEB_1',
-              name: '증발지_일반1',
+              name: '일반 증발지_1',
               resourceId: 'normalEvaporationBlock_A',
-              point: [130, 610],
+              point: [80, 560],
             },
             {
               id: 'NEB_2',
-              name: '증발지_일반2',
+              name: '일반 증발지_2',
               resourceId: 'normalEvaporationBlock_B',
-              point: [130, 1480],
+              point: [80, 1430],
             },
             {
               id: 'NCB',
               name: '결정지',
               resourceId: 'normalCrystalizingBlock',
-              point: [130, 3400],
+              point: [80, 3345],
             },
           ],
         },
         {
           placeId: 'brineWarehouse',
           defList: [
-            { id: 'BW_1', name: '해주_1', resourceId: 'brineWarehouse_A', point: [200, 2210] },
-            { id: 'BW_2', name: '해주_2', resourceId: 'brineWarehouse_B', point: [930, 2210] },
-            { id: 'BW_3', name: '해주_3', resourceId: 'brineWarehouse_C', point: [1450, 2210] },
-            { id: 'BW_4', name: '해주_4', resourceId: 'brineWarehouse_C', point: [1740, 2210] },
-            { id: 'BW_5', name: '해주_5', resourceId: 'brineWarehouse_D', point: [750, 3450] },
-            { id: 'BW_6', name: '해주_6', resourceId: 'brineWarehouse_D', point: [1050, 3450] },
+            { id: 'BW_1', name: '해주_1', resourceId: 'brineWarehouse_A', point: [130, 2170] },
+            { id: 'BW_2', name: '해주_2', resourceId: 'brineWarehouse_B', point: [860, 2170] },
+            { id: 'BW_3', name: '해주_3', resourceId: 'brineWarehouse_C', point: [1380, 2170] },
+            { id: 'BW_4', name: '해주_4', resourceId: 'brineWarehouse_C', point: [1710, 2170] },
+            { id: 'BW_5', name: '해주_5', resourceId: 'brineWarehouse_D', point: [700, 3400] },
+            { id: 'BW_6', name: '해주_6', resourceId: 'brineWarehouse_D', point: [1000, 3400] },
           ],
         },
         {
@@ -332,10 +324,9 @@ const map = {
           placeId: 'sea',
           defList: [
             { id: 'SEA', name: '바다', resourceId: 'sea', point: [10, 0] },
-            { id: 'JG', name: '자고', resourceId: 'sideReservoir', point: [2620, 350] },
+            { id: 'JG', name: '자고', resourceId: 'jago', point: [2620, 170] },
           ],
         },
-        // FIXME:
         {
           placeId: 'waterWay',
           defList: [
@@ -349,79 +340,379 @@ const map = {
               id: 'WW_002',
               name: '수로_002',
               resourceId: 'waterWay',
-              point: [40, 530, 50, 4000],
+              point: [40, 530, 40, 4260],
             },
             {
               id: 'WW_003',
               name: '수로_003',
               resourceId: 'waterWay',
-              point: [2820, 530, 2810, 4000],
+              point: [2820, 530, 2820, 4260],
             },
             {
               id: 'WW_004',
               name: '수로_004',
               resourceId: 'waterWay',
-              point: [70, 2470, 2400, 2470],
+              point: [70, 2520, 2370, 2520],
             },
             {
               id: 'WW_005',
               name: '수로_005',
               resourceId: 'waterWay',
-              point: [2400, 2440, 2400, 3300],
+              point: [2340, 2490, 2340, 3280],
             },
             {
               id: 'WW_006',
               name: '수로_006',
               resourceId: 'waterWay',
-              point: [70, 3260, 2840, 3260],
+              point: [70, 3305, 2840, 3305],
             },
             {
               id: 'WW_007',
               name: '수로_007',
               resourceId: 'waterWay',
-              point: [20, 4000, 2840, 4000],
+              point: [20, 4230, 2840, 4230],
             },
             {
               id: 'WW_008',
               name: '수로_008',
-              resourceId: 'load',
-              point: [70, 580, 2790, 580],
+              resourceId: 'peWaterWay',
+              point: [70, 2100, 230, 2100],
             },
             {
               id: 'WW_009',
               name: '수로_009',
-              resourceId: 'load',
-              point: [90, 1450, 2790, 1450],
+              resourceId: 'peWaterWay',
+              point: [310, 2000, 310, 2100],
             },
             {
               id: 'WW_010',
               name: '수로_010',
-              resourceId: 'load',
-              point: [90, 2120, 2790, 2120],
+              resourceId: 'peWaterWay',
+              point: [310, 2100, 310, 2170],
             },
             {
               id: 'WW_011',
               name: '수로_011',
-              resourceId: 'load',
-              point: [100, 560, 100, 2150],
+              resourceId: 'peWaterWay',
+              point: [310, 2100, 1300, 2100],
             },
             {
               id: 'WW_012',
               name: '수로_012',
-              resourceId: 'load',
-              point: [2030, 560, 2030, 2395],
+              resourceId: 'peWaterWay',
+              point: [1320, 2000, 1320, 2100],
             },
             {
               id: 'WW_013',
               name: '수로_013',
-              resourceId: 'load',
-              point: [75, 3320, 2785, 3320],
+              resourceId: 'peWaterWay',
+              point: [1320, 2100, 1320, 2170],
             },
             {
               id: 'WW_014',
               name: '수로_014',
               resourceId: 'peWaterWay',
-              point: [75, 2150, 310, 2150],
+              point: [585, 3520, 650, 3520],
+            },
+            {
+              id: 'WW_015',
+              name: '수로_015',
+              resourceId: 'peWaterWay',
+              point: [650, 3520, 730, 3520],
+            },
+            {
+              id: 'WW_016',
+              name: '수로_016',
+              resourceId: 'peWaterWay',
+              point: [640, 3545, 640, 3770],
+            },
+            {
+              id: 'WW_017',
+              name: '수로_017',
+              resourceId: 'peWaterWay',
+              point: [670, 3635, 1100, 3635],
+            },
+            {
+              id: 'WW_018',
+              name: '수로_018',
+              resourceId: 'peWaterWay',
+              point: [585, 3720, 650, 3720],
+            },
+            {
+              id: 'WW_019',
+              name: '수로_019',
+              resourceId: 'peWaterWay',
+              point: [640, 3750, 640, 4200],
+            },
+          ],
+        },
+        {
+          placeId: 'pipeLine',
+          defList: [
+            // 주황
+            {
+              id: 'PL_001',
+              name: '파이프_001',
+              resourceId: 'pipeLine_A',
+              point: [1895, 450, 1895, 560],
+            },
+            {
+              id: 'PL_002',
+              name: '파이프_002',
+              resourceId: 'pipeLine_A',
+              point: [2780, 180, 2780, 100],
+            },
+            {
+              id: 'PL_003',
+              name: '파이프_003',
+              resourceId: 'pipeLine_A',
+              point: [3490, 430, 2610, 430],
+            },
+            {
+              id: 'PL_004',
+              name: '파이프_004',
+              resourceId: 'pipeLine_A',
+              point: [480, 2170, 480, 2030],
+            },
+            {
+              id: 'PL_005',
+              name: '파이프_005',
+              resourceId: 'pipeLine_A',
+              point: [950, 2370, 950, 2400],
+            },
+            {
+              id: 'PL_006',
+              name: '파이프_006',
+              resourceId: 'pipeLine_A',
+              point: [955, 2395, 360, 2395],
+            },
+            {
+              id: 'PL_007',
+              name: '파이프_007',
+              resourceId: 'pipeLine_A',
+              point: [365, 2390, 365, 2560],
+            },
+            {
+              id: 'PL_008',
+              name: '파이프_008',
+              resourceId: 'pipeLine_A',
+              point: [1030, 2370, 1030, 2420],
+            },
+            {
+              id: 'PL_009',
+              name: '파이프_009',
+              resourceId: 'pipeLine_A',
+              point: [1025, 2415, 620, 2415],
+            },
+            {
+              id: 'PL_010',
+              name: '파이프_010',
+              resourceId: 'pipeLine_A',
+              point: [625, 2410, 625, 2560],
+            },
+            {
+              id: 'PL_011',
+              name: '파이프_011',
+              resourceId: 'pipeLine_A',
+              point: [1105, 2370, 1105, 2440],
+            },
+            {
+              id: 'PL_012',
+              name: '파이프_012',
+              resourceId: 'pipeLine_A',
+              point: [1110, 2435, 875, 2435],
+            },
+            {
+              id: 'PL_013',
+              name: '파이프_013',
+              resourceId: 'pipeLine_A',
+              point: [880, 2435, 880, 2560],
+            },
+            {
+              id: 'PL_014',
+              name: '파이프_014',
+              resourceId: 'pipeLine_A',
+              point: [1185, 2370, 1185, 2390],
+            },
+            {
+              id: 'PL_015',
+              name: '파이프_015',
+              resourceId: 'pipeLine_A',
+              point: [1190, 2390, 1150, 2390],
+            },
+            {
+              id: 'PL_016',
+              name: '파이프_016',
+              resourceId: 'pipeLine_A',
+              point: [1155, 2390, 1155, 2560],
+            },
+            {
+              id: 'PL_017',
+              name: '파이프_017',
+              resourceId: 'pipeLine_A',
+              point: [1265, 2370, 1265, 2395],
+            },
+            {
+              id: 'PL_018',
+              name: '파이프_018',
+              resourceId: 'pipeLine_A',
+              point: [1265, 2390, 1300, 2390],
+            },
+            {
+              id: 'PL_019',
+              name: '파이프_019',
+              resourceId: 'pipeLine_A',
+              point: [1295, 2390, 1295, 2560],
+            },
+            {
+              id: 'PL_020',
+              name: '파이프_020',
+              resourceId: 'pipeLine_A',
+              point: [1410, 2370, 1410, 2470],
+            },
+            {
+              id: 'PL_021',
+              name: '파이프_021',
+              resourceId: 'pipeLine_A',
+              point: [1405, 2470, 1570, 2470],
+            },
+            {
+              id: 'PL_022',
+              name: '파이프_022',
+              resourceId: 'pipeLine_A',
+              point: [1565, 2470, 1565, 2560],
+            },
+            {
+              id: 'PL_023',
+              name: '파이프_023',
+              resourceId: 'pipeLine_A',
+              point: [1490, 2370, 1490, 2450],
+            },
+            {
+              id: 'PL_024',
+              name: '파이프_024',
+              resourceId: 'pipeLine_A',
+              point: [1485, 2450, 1835, 2450],
+            },
+            {
+              id: 'PL_025',
+              name: '파이프_025',
+              resourceId: 'pipeLine_A',
+              point: [1830, 2450, 1830, 2560],
+            },
+            {
+              id: 'PL_026',
+              name: '파이프_026',
+              resourceId: 'pipeLine_A',
+              point: [1570, 2370, 1570, 2430],
+            },
+            {
+              id: 'PL_027',
+              name: '파이프_027',
+              resourceId: 'pipeLine_A',
+              point: [1565, 2430, 2120, 2430],
+            },
+            {
+              id: 'PL_028',
+              name: '파이프_028',
+              resourceId: 'pipeLine_A',
+              point: [2115, 2430, 2115, 2560],
+            },
+            {
+              id: 'PL_029',
+              name: '파이프_029',
+              resourceId: 'pipeLine_C',
+              point: [1760, 2370, 1760, 3370],
+            },
+            {
+              id: 'PL_030',
+              name: '파이프_030',
+              resourceId: 'pipeLine_C',
+              point: [1765, 3370, 950, 3370],
+            },
+            {
+              id: 'PL_031',
+              name: '파이프_031',
+              resourceId: 'pipeLine_C',
+              point: [955, 3370, 955, 3400],
+            },
+            {
+              id: 'PL_032',
+              name: '파이프_032',
+              resourceId: 'pipeLine_C',
+              point: [700, 3430, 580, 3430],
+            },
+            {
+              id: 'PL_033',
+              name: '파이프_033',
+              resourceId: 'pipeLine_B',
+              point: [1825, 2370, 1825, 2400],
+            },
+            {
+              id: 'PL_034',
+              name: '파이프_034',
+              resourceId: 'pipeLine_B',
+              point: [1830, 2395, 1710, 2395],
+            },
+            {
+              id: 'PL_035',
+              name: '파이프_035',
+              resourceId: 'pipeLine_B',
+              point: [1715, 2390, 1715, 2560],
+            },
+            {
+              id: 'PL_036',
+              name: '파이프_036',
+              resourceId: 'pipeLine_B',
+              point: [1890, 2370, 1890, 2410],
+            },
+            {
+              id: 'PL_037',
+              name: '파이프_037',
+              resourceId: 'pipeLine_B',
+              point: [1885, 2410, 1980, 2410],
+            },
+            {
+              id: 'PL_038',
+              name: '파이프_038',
+              resourceId: 'pipeLine_B',
+              point: [1985, 2405, 1985, 2560],
+            },
+            {
+              id: 'PL_039',
+              name: '파이프_039',
+              resourceId: 'pipeLine_B',
+              point: [1955, 2370, 1955, 2390],
+            },
+            {
+              id: 'PL_040',
+              name: '파이프_040',
+              resourceId: 'pipeLine_B',
+              point: [1950, 2390, 2260, 2390],
+            },
+            {
+              id: 'PL_041',
+              name: '파이프_041',
+              resourceId: 'pipeLine_B',
+              point: [2255, 2390, 2255, 2560],
+            },
+            {
+              id: 'PL_045',
+              name: '파이프_045',
+              resourceId: 'pipeLine_D',
+              point: [300, 2490, 2180, 2490],
+            },
+            {
+              id: 'PL_046',
+              name: '파이프_046',
+              resourceId: 'pipeLine_D',
+              point: [305, 2490, 305, 2560],
+            },
+            {
+              id: 'PL_048',
+              name: '파이프_048',
+              resourceId: 'pipeLine_D',
+              point: [305, 2490, 305, 2560],
             },
           ],
         },
@@ -435,6 +726,7 @@ const map = {
     dpcConstructorList: [{}],
     repeatNodeList: [{}],
     dataLoggerStructureList: [{}],
+    // TODO: is_sensor 정리해야함
     nodeStructureList: [
       {
         target_id: 'temp',
@@ -541,17 +833,17 @@ const map = {
             target_name: '수문',
             description: null,
             nodeList: [
-              { target_code: '001', axisScale: [0, 0], moveScale: [0, 0] },
-              { target_code: '002', axisScale: [0, 0], moveScale: [0, 0] },
-              { target_code: '003', axisScale: [0, 0], moveScale: [0, 0] },
-              { target_code: '004', axisScale: [0, 0], moveScale: [0, 0] },
-              { target_code: '005', axisScale: [0, 0], moveScale: [0, 0] },
-              { target_code: '006', axisScale: [0, 0], moveScale: [0, 0] },
-              { target_code: '007', axisScale: [0, 0], moveScale: [0, 0] },
-              { target_code: '008', axisScale: [0, 0], moveScale: [0, 0] },
-              { target_code: '009', axisScale: [0, 0], moveScale: [0, 0] },
-              { target_code: '010', axisScale: [0, 0], moveScale: [0, 0] },
-              { target_code: '011', axisScale: [0, 0], moveScale: [0, 0] },
+              { target_code: '001', axisScale: [0, 1], moveScale: [2.4, 0.5] },
+              { target_code: '002', axisScale: [0.5, 1], moveScale: [3.4, 0.5] },
+              { target_code: '003', axisScale: [0, 1], moveScale: [2.4, 0] },
+              { target_code: '004', axisScale: [0.5, 1], moveScale: [3.4, 0] },
+              { target_code: '005', axisScale: [1, 0], moveScale: [0.65, -0.1] },
+              { target_code: '006', axisScale: [0, 0], moveScale: [1.7, 0] },
+              { target_code: '007', axisScale: [1, 0], moveScale: [0, 0] },
+              { target_code: '008', axisScale: [1, 0], moveScale: [0, 1.7] },
+              { target_code: '009', axisScale: [0, 0], moveScale: [0, 1] },
+              { target_code: '010', axisScale: [1, 1], moveScale: [0, 0] },
+              { target_code: '011', axisScale: [0, 1], moveScale: [0, 0] },
             ],
           },
         ],
@@ -605,21 +897,22 @@ const map = {
             target_name: '펌프',
             description: null,
             nodeList: [
-              { target_code: '001', axisScale: [0, 0], moveScale: [3, 0] },
-              { target_code: '002', axisScale: [0, 0], moveScale: [0, 0] },
-              { target_code: '003', axisScale: [0, 0], moveScale: [1, 0] },
-              { target_code: '004', axisScale: [0, 0], moveScale: [2, 0] },
-              { target_code: '005', axisScale: [0, 0], moveScale: [3, 0] },
-              { target_code: '007', axisScale: [0, 0], moveScale: [4, 0] },
-              { target_code: '008', axisScale: [0, 0], moveScale: [0, 0] },
-              { target_code: '009', axisScale: [0, 0], moveScale: [0, 0] },
-              { target_code: '010', axisScale: [0, 0], moveScale: [0, 0] },
-              { target_code: '011', axisScale: [0, 0], moveScale: [0, 0] },
-              { target_code: '012', axisScale: [0, 0], moveScale: [0, 0] },
-              { target_code: '013', axisScale: [0, 0], moveScale: [0, 0] },
-              { target_code: '014', axisScale: [0, 0], moveScale: [0, 0] },
-              { target_code: '015', axisScale: [0, 0], moveScale: [0, 0] },
-              { target_code: '016', axisScale: [0, 0], moveScale: [0, 0] },
+              { target_code: '001', axisScale: [0.7, 1], moveScale: [1, 0] },
+              { target_code: '002', axisScale: [1, 0], moveScale: [0, 0] },
+              { target_code: '003', axisScale: [0, 1], moveScale: [0, 0] },
+              { target_code: '004', axisScale: [0.5, 0], moveScale: [0, 0] },
+              { target_code: '005', axisScale: [0, 1], moveScale: [1, 0] },
+              { target_code: '006', axisScale: [0, 1], moveScale: [2.3, 0] },
+              { target_code: '007', axisScale: [0, 1], moveScale: [3.6, 0] },
+              { target_code: '008', axisScale: [0, 1], moveScale: [4.9, 0] },
+              { target_code: '009', axisScale: [0, 1], moveScale: [6.2, 0] },
+              { target_code: '010', axisScale: [0, 1], moveScale: [0, 0] },
+              { target_code: '011', axisScale: [0, 1], moveScale: [1.3, 0] },
+              { target_code: '012', axisScale: [0, 1], moveScale: [2.6, 0] },
+              { target_code: '013', axisScale: [0, 1], moveScale: [0.3, 0] },
+              { target_code: '014', axisScale: [0, 1], moveScale: [1.4, 0] },
+              { target_code: '015', axisScale: [0, 1], moveScale: [2.5, 0] },
+              { target_code: '016', axisScale: [0, 1], moveScale: [3.6, 0] },
               { target_code: '017', axisScale: [0, 0], moveScale: [0, 0] },
             ],
           },
@@ -639,12 +932,12 @@ const map = {
             target_name: '배출구',
             description: null,
             nodeList: [
-              { target_code: '001', axisScale: [0, 0], moveScale: [0, 0] },
-              { target_code: '002', axisScale: [0, 0], moveScale: [0, 0] },
-              { target_code: '003', axisScale: [0, 0], moveScale: [0, 0] },
-              { target_code: '004', axisScale: [0, 0], moveScale: [0, 0] },
-              { target_code: '005', axisScale: [0, 0], moveScale: [0, 0] },
-              { target_code: '006', axisScale: [0, 0], moveScale: [0, 0] },
+              { target_code: '001', axisScale: [1, 1], moveScale: [0, -1.1] },
+              { target_code: '002', axisScale: [1, 0], moveScale: [-4.1, 0] },
+              { target_code: '003', axisScale: [0.2, 1], moveScale: [0.2, 0] },
+              { target_code: '004', axisScale: [0, 1], moveScale: [1, 0] },
+              { target_code: '005', axisScale: [1, 1], moveScale: [-1, 0] },
+              { target_code: '006', axisScale: [1, 1], moveScale: [-3, 0] },
               { target_code: '007', axisScale: [0, 0], moveScale: [0, 0] },
               { target_code: '008', axisScale: [0, 0], moveScale: [0, 0] },
               { target_code: '009', axisScale: [0, 0], moveScale: [0, 0] },
@@ -653,21 +946,19 @@ const map = {
               { target_code: '012', axisScale: [0, 0], moveScale: [0, 0] },
               { target_code: '013', axisScale: [0, 0], moveScale: [0, 0] },
               { target_code: '014', axisScale: [0, 0], moveScale: [0, 0] },
-              { target_code: '015', axisScale: [0, 0], moveScale: [0, 0] },
-              { target_code: '016', axisScale: [0, 0], moveScale: [0, 0] },
-              { target_code: '017', axisScale: [0, 0], moveScale: [0, 0] },
-              { target_code: '018', axisScale: [0, 0], moveScale: [0, 0] },
-              { target_code: '019', axisScale: [0, 0], moveScale: [0, 0] },
-              { target_code: '020', axisScale: [0, 0], moveScale: [0, 0] },
-              { target_code: '021', axisScale: [0, 0], moveScale: [0, 0] },
-              { target_code: '022', axisScale: [0, 0], moveScale: [0, 0] },
-              { target_code: '023', axisScale: [0, 0], moveScale: [0, 0] },
-              { target_code: '024', axisScale: [0, 0], moveScale: [0, 0] },
-              { target_code: '025', axisScale: [0, 0], moveScale: [0, 0] },
-              { target_code: '026', axisScale: [0, 0], moveScale: [0, 0] },
-              { target_code: '027', axisScale: [0, 0], moveScale: [0, 0] },
-              { target_code: '028', axisScale: [0, 0], moveScale: [0, 0] },
-              { target_code: '029', axisScale: [0, 0], moveScale: [0, 0] },
+              { target_code: '015', axisScale: [1, 0], moveScale: [-0.9, 0] },
+              { target_code: '016', axisScale: [1, 0], moveScale: [-0.9, 0] },
+              { target_code: '017', axisScale: [1, 0], moveScale: [-1.5, 0] },
+              { target_code: '018', axisScale: [1, 0], moveScale: [-1.3, 0] },
+              { target_code: '019', axisScale: [0, 0], moveScale: [0.5, 0] },
+              { target_code: '020', axisScale: [0, 0], moveScale: [0.5, 0] },
+              { target_code: '021', axisScale: [1, 0], moveScale: [-0.5, 0] },
+              { target_code: '022', axisScale: [0, 0], moveScale: [0.3, 0] },
+              { target_code: '023', axisScale: [1, 0], moveScale: [-0.5, 0] },
+              { target_code: '024', axisScale: [0, 0], moveScale: [1, 0] },
+              { target_code: '025', axisScale: [1, 0], moveScale: [-0.5, 0] },
+              { target_code: '026', axisScale: [1, 0], moveScale: [0, 3] },
+              { target_code: '027', axisScale: [1, 0], moveScale: [-0.1, 0] },
             ],
           },
         ],
@@ -688,57 +979,49 @@ const map = {
             placeList: [
               {
                 target_code: '1',
-                // TODO:
-                nodeList: [],
+                nodeList: ['O_015'],
                 depth: 0,
                 place_info: {},
               },
               {
                 target_code: '2',
-                // TODO:
-                nodeList: [],
+                nodeList: ['O_016'],
                 depth: 0,
                 place_info: {},
               },
               {
                 target_code: '3',
-                // TODO:
-                nodeList: [],
+                nodeList: ['O_017'],
                 depth: 0,
                 place_info: {},
               },
               {
                 target_code: '4',
-                // TODO:
-                nodeList: [],
+                nodeList: ['O_018'],
                 depth: 0,
                 place_info: {},
               },
               {
                 target_code: '5',
-                // TODO:
-                nodeList: [],
+                nodeList: ['O_019'],
                 depth: 0,
                 place_info: {},
               },
               {
                 target_code: '6',
-                // TODO:
-                nodeList: [],
+                nodeList: ['O_020', 'O_021'],
                 depth: 0,
                 place_info: {},
               },
               {
                 target_code: '7',
-                // TODO:
-                nodeList: [],
+                nodeList: ['O_022', 'O_023'],
                 depth: 0,
                 place_info: {},
               },
               {
                 target_code: '8',
-                // TODO:
-                nodeList: [],
+                nodeList: ['O_024', 'O_025'],
                 depth: 0,
                 place_info: {},
               },
@@ -750,15 +1033,13 @@ const map = {
             target_name: '일반 증발지',
             placeList: [
               {
-                target_code: '일반1',
-                // TODO:
-                nodeList: [],
+                target_code: '1',
+                nodeList: ['WD_001', 'WD_002', 'O_002'],
                 depth: 0,
               },
               {
-                target_code: '일반2',
-                // TODO:
-                nodeList: [],
+                target_code: '2',
+                nodeList: ['WD_001', 'WD_002', 'WD_003', 'WD_004', 'O_003'],
                 depth: 0,
               },
             ],
@@ -770,8 +1051,7 @@ const map = {
             placeList: [
               {
                 target_code: '',
-                // TODO:
-                nodeList: [],
+                nodeList: ['WD_008', 'WD_010', 'O_026'],
                 depth: 0,
                 place_info: {},
               },
@@ -791,42 +1071,36 @@ const map = {
             placeList: [
               {
                 target_code: '1',
-                // TODO:
-                nodeList: [],
+                nodeList: ['WD_006', 'P_004'],
                 depth: 0,
                 place_info: {},
               },
               {
                 target_code: '2',
-                // TODO:
-                nodeList: [],
+                nodeList: ['P_005', 'P_006', 'P_007', 'P_008', 'P_009', 'WD_007', 'O_004'],
                 depth: 0,
                 place_info: {},
               },
               {
                 target_code: '3',
-                // TODO:
-                nodeList: [],
+                nodeList: ['P_010', 'P_011', 'P_012', 'O_005'],
                 depth: 0,
                 place_info: {},
               },
               {
                 target_code: '4',
-                // TODO:
-                nodeList: ['P_002', 'P_002', 'P_003', 'P_004', 'P_005'],
+                nodeList: ['P_013', 'P_014', 'P_015', 'P_016', 'O_006'],
                 depth: 0,
                 place_info: {},
               },
               {
                 target_code: '5',
-                // TODO:
-                nodeList: [],
+                nodeList: ['WD_009', 'P_017', 'O_027'],
                 depth: 0,
                 place_info: {},
               },
               {
                 target_code: '6',
-                // TODO:
                 nodeList: [],
                 depth: 0,
                 place_info: {},
@@ -847,15 +1121,13 @@ const map = {
             placeList: [
               {
                 target_code: '1',
-                // TODO:
-                nodeList: [],
+                nodeList: ['P_001', 'O_001'],
                 depth: 0,
                 place_info: {},
               },
               {
                 target_code: '2',
-                // TODO:
-                nodeList: [],
+                nodeList: ['P_003'],
                 depth: 0,
                 place_info: {},
               },
@@ -876,8 +1148,27 @@ const map = {
               {
                 target_code: '',
                 depth: 0,
-                // TODO:
                 nodeList: [],
+                place_info: {},
+              },
+            ],
+          },
+        ],
+      },
+      {
+        target_id: 'jago',
+        target_name: '자고',
+        description: null,
+        defList: [
+          {
+            target_id: 'jago',
+            target_prefix: 'JG',
+            target_name: '자고',
+            placeList: [
+              {
+                target_code: '',
+                depth: 0,
+                nodeList: ['P_002'],
                 place_info: {},
               },
             ],
@@ -893,269 +1184,100 @@ const map = {
             target_id: 'waterWay',
             target_prefix: 'WW',
             target_name: '수로',
-            // FIXME: 좀많은가? 수정가능성 있음
             placeList: [
               {
                 target_code: '001',
-                // TODO:
-                nodeList: ['WD_001', 'V_001', 'P_001'],
+                nodeList: [],
                 depth: 0,
               },
               {
                 target_code: '002',
-                // TODO:
                 nodeList: [],
                 depth: 0,
               },
               {
                 target_code: '003',
-                // TODO:
                 nodeList: [],
                 depth: 0,
               },
+              // TODO:
               {
                 target_code: '004',
-                // TODO:
                 nodeList: [],
                 depth: 0,
               },
               {
                 target_code: '005',
-                // TODO:
                 nodeList: [],
                 depth: 0,
               },
               {
                 target_code: '006',
-                // TODO:
                 nodeList: [],
                 depth: 0,
               },
               {
                 target_code: '007',
-                // TODO:
                 nodeList: [],
                 depth: 0,
               },
               {
                 target_code: '008',
-                // TODO:
-                nodeList: [],
+                nodeList: ['WD_005'],
                 depth: 0,
               },
               {
                 target_code: '009',
-                // TODO:
-                nodeList: [],
+                nodeList: ['WD_003'],
                 depth: 0,
               },
               {
                 target_code: '010',
-                // TODO:
-                nodeList: [],
+                nodeList: ['WD_006'],
                 depth: 0,
               },
               {
                 target_code: '011',
-                // TODO:
-                nodeList: [],
+                nodeList: ['WD_005'],
                 depth: 0,
               },
               {
                 target_code: '012',
-                // TODO:
-                nodeList: [],
+                nodeList: ['WD_004'],
                 depth: 0,
               },
               {
                 target_code: '013',
-                // TODO:
-                nodeList: [],
+                nodeList: ['WD_007'],
                 depth: 0,
               },
               {
                 target_code: '014',
-                // TODO:
-                nodeList: [],
+                nodeList: ['WD_008'],
                 depth: 0,
               },
               {
                 target_code: '015',
-                // TODO:
-                nodeList: [],
+                nodeList: ['WD_009'],
                 depth: 0,
               },
               {
                 target_code: '016',
-                // TODO:
-                nodeList: [],
+                nodeList: ['WD_011'],
                 depth: 0,
               },
               {
                 target_code: '017',
-                // TODO:
-                nodeList: [],
+                nodeList: ['WD_010'],
                 depth: 0,
               },
               {
                 target_code: '018',
-                // TODO:
-                nodeList: [],
+                nodeList: ['WD_011'],
                 depth: 0,
               },
               {
                 target_code: '019',
-                // TODO:
-                nodeList: [],
-                depth: 0,
-              },
-              {
-                target_code: '020',
-                // TODO:
-                nodeList: [],
-                depth: 0,
-              },
-              {
-                target_code: '021',
-                // TODO:
-                nodeList: [],
-                depth: 0,
-              },
-              {
-                target_code: '022',
-                // TODO:
-                nodeList: [],
-                depth: 0,
-              },
-              {
-                target_code: '023',
-                // TODO:
-                nodeList: [],
-                depth: 0,
-              },
-              {
-                target_code: '024',
-                // TODO:
-                nodeList: [],
-                depth: 0,
-              },
-              {
-                target_code: '025',
-                // TODO:
-                nodeList: [],
-                depth: 0,
-              },
-              {
-                target_code: '026',
-                // TODO:
-                nodeList: [],
-                depth: 0,
-              },
-              {
-                target_code: '027',
-                // TODO:
-                nodeList: [],
-                depth: 0,
-              },
-              {
-                target_code: '028',
-                // TODO:
-                nodeList: [],
-                depth: 0,
-              },
-              {
-                target_code: '029',
-                // TODO:
-                nodeList: [],
-                depth: 0,
-              },
-              {
-                target_code: '030',
-                // TODO:
-                nodeList: [],
-                depth: 0,
-              },
-              {
-                target_code: '031',
-                // TODO:
-                nodeList: [],
-                depth: 0,
-              },
-              {
-                target_code: '032',
-                // TODO:
-                nodeList: [],
-                depth: 0,
-              },
-              {
-                target_code: '033',
-                // TODO:
-                nodeList: [],
-                depth: 0,
-              },
-              {
-                target_code: '034',
-                // TODO:
-                nodeList: [],
-                depth: 0,
-              },
-              {
-                target_code: '035',
-                // TODO:
-                nodeList: [],
-                depth: 0,
-              },
-              {
-                target_code: '036',
-                // TODO:
-                nodeList: [],
-                depth: 0,
-              },
-              {
-                target_code: '037',
-                // TODO:
-                nodeList: [],
-                depth: 0,
-              },
-              {
-                target_code: '038',
-                // TODO:
-                nodeList: [],
-                depth: 0,
-              },
-              {
-                target_code: '039',
-                // TODO:
-                nodeList: [],
-                depth: 0,
-              },
-              {
-                target_code: '040',
-                // TODO:
-                nodeList: [],
-                depth: 0,
-              },
-              {
-                target_code: '041',
-                // TODO:
-                nodeList: [],
-                depth: 0,
-              },
-              {
-                target_code: '042',
-                // TODO:
-                nodeList: [],
-                depth: 0,
-              },
-              {
-                target_code: '043',
-                // TODO:
-                nodeList: [],
-                depth: 0,
-              },
-              {
-                target_code: '044',
-                // TODO:
                 nodeList: [],
                 depth: 0,
               },
@@ -1174,9 +1296,10 @@ const map = {
             target_prefix: 'PL',
             target_name: '파이프',
             placeList: [
-              { target_code: '001', nodeList: [] },
-              { target_code: '002', nodeList: [] },
-              { target_code: '003', nodeList: [] },
+              // TODO:
+              { target_code: '001', nodeList: ['P_001', 'O_002'] },
+              { target_code: '002', nodeList: ['P_002'] },
+              { target_code: '003', nodeList: ['P_003', 'O_001'] },
               { target_code: '004', nodeList: [] },
               { target_code: '005', nodeList: [] },
               { target_code: '006', nodeList: [] },
@@ -1249,6 +1372,10 @@ const map = {
         resourceIdList: ['reservoir_A'],
       },
       {
+        targetIdList: ['JG'],
+        resourceIdList: ['jago'],
+      },
+      {
         targetIdList: ['RV_2'],
         resourceIdList: ['reservoir_B'],
       },
@@ -1273,54 +1400,22 @@ const map = {
         targetIdList: ['WW_001', 'WW_002', 'WW_003', 'WW_004', 'WW_005', 'WW_006', 'WW_007'],
         resourceIdList: ['waterWay'],
       },
-      // load갈색 수로
-      {
-        targetIdList: ['WW_008', 'WW_009', 'WW_010', 'WW_011', 'WW_012', 'WW_013'],
-        resourceIdList: ['load'],
-      },
       // pe 수로
       {
         targetIdList: [
+          'WW_008',
+          'WW_009',
+          'WW_010',
+          'WW_011',
+          'WW_012',
+          'WW_013',
           'WW_014',
           'WW_015',
           'WW_016',
           'WW_017',
           'WW_018',
-          'WW_019',
-          'WW_020',
-          'WW_021',
-          'WW_022',
-          'WW_023',
-          'WW_024',
-          'WW_025',
         ],
         resourceIdList: ['peWaterWay'],
-      },
-      // out 수로
-      {
-        targetIdList: [
-          'WW_026',
-          'WW_027',
-          'WW_028',
-          'WW_029',
-          'WW_030',
-          'WW_031',
-          'WW_032',
-          'WW_033',
-          'WW_034',
-          'WW_035',
-          'WW_036',
-          'WW_037',
-          'WW_038',
-          'WW_039',
-          'WW_040',
-          'WW_041',
-          'WW_042',
-          'WW_043',
-          'WW_044',
-          'WW_045',
-        ],
-        resourceIdList: ['outWaterWay'],
       },
       // 파이프 주황
       {
@@ -1354,7 +1449,7 @@ const map = {
           'PL_027',
           'PL_028',
         ],
-        resourceIdList: ['pipe_A'],
+        resourceIdList: ['pipeLine_A'],
       },
       // 파이프 파랑
       {
@@ -1369,12 +1464,39 @@ const map = {
           'PL_036',
           'PL_037',
         ],
-        resourceIdList: ['pipe_B'],
+        resourceIdList: ['pipeLine_B'],
       },
       // 파이프 갈색
       {
         targetIdList: ['PL_038', 'PL_039', 'PL_040', 'PL_041'],
-        resourceIdList: ['pipe_C'],
+        resourceIdList: ['pipeLine_C'],
+      },
+      // 빨강 갈색
+      // FIXME: 수로로 할 것인가 파이프로 할것인가..
+      {
+        targetIdList: [
+          'PL_042',
+          'PL_043',
+          'PL_044',
+          'PL_045',
+          'PL_046',
+          'PL_047',
+          'PL_048',
+          'PL_049',
+          'PL_050',
+          'PL_051',
+          'PL_052',
+          'PL_053',
+          'PL_054',
+          'PL_055',
+          'PL_056',
+          'PL_057',
+          'PL_058',
+          'PL_059',
+          'PL_060',
+          'PL_061',
+        ],
+        resourceIdList: ['pipeLine_D'],
       },
       {
         targetIdList: [
@@ -1403,10 +1525,6 @@ const map = {
       // 수중 펌프
       {
         targetIdList: [
-          'P_001',
-          'P_002',
-          'P_003',
-          'P_004',
           'P_005',
           'P_006',
           'P_007',
@@ -1416,12 +1534,16 @@ const map = {
           'P_011',
           'P_012',
           'P_013',
+          'P_014',
+          'P_015',
+          'P_016',
+          'P_017',
         ],
         resourceIdList: ['underPump'],
       },
       // 양수 펌프
       {
-        targetIdList: ['P_014', 'P_015', 'P_016', 'P_017'],
+        targetIdList: ['P_001', 'P_002', 'P_003', 'P_004'],
         resourceIdList: ['overPump'],
       },
       {
@@ -1476,7 +1598,7 @@ const map = {
       },
       // TODO: 센서 이미지 관계 나중에 잡아줘야함
     ],
-    // FIXME: 마지막 작업
+    // FIXME:
     hiddenTextSvgModelResourceIdList: [],
   },
   controlInfo: {
