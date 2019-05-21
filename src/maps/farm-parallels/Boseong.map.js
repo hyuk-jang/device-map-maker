@@ -155,7 +155,7 @@ const map = {
             target_code: '010',
             dccId: 'DCC_001',
             dpcId: 'DPC_001',
-            nodeList: ['LX_010', 'S_I_010', 'CO2_010', 'WV_S_010', 'T_S_010', 'RH_S_010'],
+            nodeList: ['LX_010', 'S_PU_010', 'CO2_010', 'WV_S_010', 'T_S_010', 'RH_S_010'],
           },
           // TODO:
           {
@@ -358,30 +358,30 @@ const map = {
             target_id: 'inclinedSolar',
             target_name: '경사 일사량',
             target_prefix: 'S_I',
-            nodeList: [
-              {
-                target_code: '010',
-              },
-            ],
+            nodeList: [],
           },
-          // TODO:
           {
             target_id: 'pvUnderlyingSolar',
             target_name: '모듈 하부 일사량',
             target_prefix: 'S_PU',
             nodeList: [
               {
+                target_code: '010',
+              },
+              {
                 target_code: '061',
                 target_name: 'A',
+                data_logger_index: 1,
               },
               {
                 target_code: '062',
                 target_name: 'B',
+                data_logger_index: 1,
               },
               {
                 target_code: '063',
                 target_name: 'C',
-                data_logger_index: 1,
+                data_logger_index: 2,
               },
             ],
           },
@@ -706,7 +706,7 @@ const map = {
                 chart_color: '#2b8a3e',
                 chart_sort_rank: 6,
                 repeatId: 'RE_PREFIX_IVT',
-                nodeList: ['S_I_010'],
+                nodeList: [],
               },
               {
                 target_code: '007',
@@ -714,7 +714,7 @@ const map = {
                 chart_color: '#ff6b6b',
                 chart_sort_rank: 7,
                 repeatId: 'RE_PREFIX_IVT',
-                nodeList: ['S_I_010'],
+                nodeList: [],
               },
             ],
           },
@@ -737,7 +737,7 @@ const map = {
                 chart_sort_rank: 10,
                 nodeList: [
                   'LX_010',
-                  'S_I_010',
+                  'S_PU_010',
                   'CO2_010',
                   'WV_S_010',
                   'T_S_010',

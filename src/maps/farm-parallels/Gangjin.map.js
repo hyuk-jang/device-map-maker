@@ -154,7 +154,7 @@ const map = {
             target_code: '008',
             dccId: 'DCC_001',
             dpcId: 'DPC_001',
-            nodeList: ['LX_008', 'S_I_008', 'CO2_008', 'WV_S_008', 'T_S_008', 'RH_S_008'],
+            nodeList: ['LX_008', 'S_PU_008', 'CO2_008', 'WV_S_008', 'T_S_008', 'RH_S_008'],
           },
           {
             serial_number: 51,
@@ -341,11 +341,7 @@ const map = {
             target_id: 'inclinedSolar',
             target_name: '경사 일사량',
             target_prefix: 'S_I',
-            nodeList: [
-              {
-                target_code: '008',
-              },
-            ],
+            nodeList: [],
           },
           {
             target_id: 'pvUnderlyingSolar',
@@ -353,13 +349,17 @@ const map = {
             target_prefix: 'S_PU',
             nodeList: [
               {
+                target_code: '008',
+              },
+              {
                 target_code: '051',
                 target_name: 'A',
-                data_logger_index: 1,
+                data_logger_index: 2,
               },
               {
                 target_code: '052',
                 target_name: 'B',
+                data_logger_index: 1,
               },
             ],
           },
@@ -684,7 +684,7 @@ const map = {
                 chart_color: '#0b7285',
                 chart_sort_rank: 4,
                 repeatId: 'RE_PREFIX_IVT',
-                nodeList: ['S_I_008'],
+                nodeList: [],
               },
               {
                 target_code: '005',
@@ -692,7 +692,7 @@ const map = {
                 chart_color: '#7048e8',
                 chart_sort_rank: 5,
                 repeatId: 'RE_PREFIX_IVT',
-                nodeList: ['S_I_008'],
+                nodeList: [],
               },
             ],
           },
@@ -715,7 +715,7 @@ const map = {
                 chart_sort_rank: 8,
                 nodeList: [
                   'LX_008',
-                  'S_I_008',
+                  'S_PU_008',
                   'CO2_008',
                   'WV_S_008',
                   'T_S_008',
