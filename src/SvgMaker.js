@@ -1,8 +1,9 @@
-const { BU } = require('base-util-jh');
 const _ = require('lodash');
+const { BU } = require('base-util-jh');
 
-const map = require(`./maps/${process.env.SOURCE_PATH}/${process.env.SOURCE_FILE}`);
-const mapBase64 = require('./maps/upsas/mapBase64');
+const map = require(`./maps/${process.env.SOURCE_PATH}`);
+const mapBase64 = require(`./maps/${process.env.SOURCE_PATH}/mapBase64`);
+// const mapBase64 = require('./maps/upsas/mapBase64');
 
 require('dotenv').config();
 require('default-intelligence');
@@ -51,11 +52,12 @@ class SvgMaker {
       map.drawInfo.frame.mapInfo.backgroundInfo.backgroundData = mapBase64;
       const finalStrMap = `var map = ${JSON.stringify(map)}`;
       await BU.writeFile('./out/defaultMap.js', finalStrMap, 'w');
-      await BU.writeFile(
-        `./out/${process.env.SOURCE_PATH}/output_${process.env.SOURCE_FILE}.js`,
-        finalStrMap,
-        'w',
-      );
+      // FIXME:
+      //   await BU.writeFile(
+      //     `./out/${process.env.SOURCE_PATH}/output_${process.env.SOURCE_FILE}.js`,
+      //     finalStrMap,
+      //     'w',
+      //   );
       return BU.CLI('Map 자동 생성 성공');
     } catch (error) {
       BU.CLI('Map 생성 실패', error);
@@ -378,9 +380,11 @@ class SvgMaker {
     this.mPlaceRelationList.forEach(placeClassInfo => {
       placeClassInfo.defList.forEach(placeDefInfo => {
         const { target_prefix: pdPrefix, placeList = [] } = placeDefInfo;
+
         placeList.forEach(placeInfo => {
           const { target_code: pCode = null, nodeList: pNodeList = [] } = placeInfo;
           const sensorStorage = [];
+
           pNodeList.forEach(nodeId => {
             const foundSensorValue = this.findIsSensorValue(nodeId);
             if (foundSensorValue === 1) {
@@ -390,42 +394,51 @@ class SvgMaker {
 
           const placeId = `${pdPrefix}${pCode ? `_${pCode}` : ''}`;
 
+          // FIXME: 개선해야 하는 소스
           _.forEach(sensorStorage, (sensorId, index) => {
             const sensorPrefix = this.getReplace(sensorId, /[_\d]/g);
             const placePoint = this.discoverObjectPoint(placeId);
             const { axisScale } = this.getAxisMoveScale(sensorId);
             let { moveScale } = this.getAxisMoveScale(sensorId);
+
             if (sensorStorage.length === 1) {
-              moveScale;
+              moveScale = [0 + moveScale[0], -1 + moveScale[1]];
             } else if (sensorStorage.length > 2 < 5) {
-              moveScale = [[-1, -1], [1, -1], [-1, 1], [1, 1]];
+              moveScale = [
+                [-1 + moveScale[0], -1 + moveScale[1]],
+                [1 + moveScale[0], -1 + moveScale[1]],
+                [-1 + moveScale[0], 1 + moveScale[1]],
+                [1 + moveScale[0], 1 + moveScale[1]],
+              ];
               moveScale = moveScale[index];
             } else if (sensorStorage.length > 4 < 10) {
               moveScale = [
-                [-1.2, -1.2],
-                [0, -1.2],
-                [1.2, -1.2],
-                [-1.2, 0],
-                [0, 1.2],
-                [-1.2, 1.2],
-                [0, 1.2],
-                [1.2, 1.2],
+                [-1.2 + moveScale[0], -1.2 + moveScale[1]],
+                [0 + moveScale[0], -1.2 + moveScale[1]],
+                [1.2 + moveScale[0], -1.2 + moveScale[1]],
+                [-1.2 + moveScale[0], 0 + moveScale[1]],
+                [0 + moveScale[0], 1.2 + moveScale[1]],
+                [-1.2 + moveScale[0], 1.2 + moveScale[1]],
+                [0 + moveScale[0], 1.2 + moveScale[1]],
+                [1.2 + moveScale[0], 1.2 + moveScale[1]],
               ];
+              moveScale = moveScale[index];
             } else if (sensorStorage.length > 9 < 17) {
               moveScale = [
-                [-1.5, -1],
-                [-0.7, -1],
-                [0.7, -1],
-                [1.5, -1],
-                [-1.5, -0.5],
-                [1.5, -0.5],
-                [-1.5, 0.5],
-                [1.5, 0.5],
-                [-1.5, 1],
-                [-0.7, 1],
-                [0.7, 1],
-                [1.5, 1],
+                [-1.5 + moveScale[0], -1 + moveScale[1]],
+                [-0.7 + moveScale[0], -1 + moveScale[1]],
+                [0.7 + moveScale[0], -1 + moveScale[1]],
+                [1.5 + moveScale[0], -1 + moveScale[1]],
+                [-1.5 + moveScale[0], -0.5 + moveScale[1]],
+                [1.5 + moveScale[0], -0.5 + moveScale[1]],
+                [-1.5 + moveScale[0], 0.5 + moveScale[1]],
+                [1.5 + moveScale[0], 0.5 + moveScale[1]],
+                [-1.5 + moveScale[0], 1 + moveScale[1]],
+                [-0.7 + moveScale[0], 1 + moveScale[1]],
+                [0.7 + moveScale[0], 1 + moveScale[1]],
+                [1.5 + moveScale[0], 1 + moveScale[1]],
               ];
+              moveScale = moveScale[index];
             }
 
             const resourceInfo = this.getResourceInfo(sensorId);
@@ -434,7 +447,6 @@ class SvgMaker {
             let x;
             let y;
             let targetAxis = [];
-            const len = 10; // FI1XME:
 
             x = x1 + (x2 - x1) / 2 - width / 2 + moveScale[0] * width;
             y = y1 + (y2 - y1) / 2 - height / 2 + moveScale[1] * height;
