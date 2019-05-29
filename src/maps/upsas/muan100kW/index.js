@@ -52,17 +52,9 @@ const map = {
           },
         },
         {
-          id: 'reservoir_A',
+          id: 'reservoir',
           type: 'rect',
           elementDrawInfo: { width: 2600, height: 300, color: 'blue', opacity: 1 },
-          textStyleInfo: {
-            color: '',
-          },
-        },
-        {
-          id: 'reservoir_B',
-          type: 'rect',
-          elementDrawInfo: { width: 500, height: 300, color: 'blue', opacity: 1 },
           textStyleInfo: {
             color: '',
           },
@@ -148,18 +140,9 @@ const map = {
             color: '',
           },
         },
-        // 파랑
-        {
-          id: 'pipeLine_B',
-          type: 'line',
-          elementDrawInfo: { width: 10, color: 'blue', opacity: 1 },
-          textStyleInfo: {
-            color: '',
-          },
-        },
         // 진보라
         {
-          id: 'pipeLine_C',
+          id: 'pipeLine_B',
           type: 'line',
           elementDrawInfo: { width: 10, color: '#7513a1', opacity: 1 },
           textStyleInfo: {
@@ -315,10 +298,7 @@ const map = {
         },
         {
           placeId: 'reservoir',
-          defList: [
-            { id: 'RV_1', name: '저수조_1', resourceId: 'reservoir_A', point: [10, 170] },
-            { id: 'RV_2', name: '저수조_2', resourceId: 'reservoir_B', point: [3490, 170] },
-          ],
+          defList: [{ id: 'RV', name: '저수지', resourceId: 'reservoir', point: [10, 170] }],
         },
         {
           placeId: 'sea',
@@ -412,155 +392,137 @@ const map = {
               id: 'WW_014',
               name: '수로_014',
               resourceId: 'peWaterWay',
-              point: [585, 3720, 650, 3720],
+              point: [585, 3770, 650, 3770],
             },
             {
               id: 'WW_015',
               name: '수로_015',
               resourceId: 'peWaterWay',
-              point: [650, 3720, 730, 3720],
+              point: [650, 3770, 730, 3770],
             },
             {
               id: 'WW_016',
               name: '수로_016',
               resourceId: 'peWaterWay',
-              point: [640, 3745, 640, 3970],
+              point: [640, 3750, 640, 3535],
             },
             {
               id: 'WW_017',
               name: '수로_017',
-              resourceId: 'peWaterWay',
-              point: [670, 3835, 1100, 3835],
+              resourceId: 'waterWay_B',
+              point: [930, 2560, 930, 2370],
             },
             {
               id: 'WW_018',
               name: '수로_018',
-              resourceId: 'peWaterWay',
-              point: [585, 3920, 650, 3920],
+              resourceId: 'waterWay_B',
+              point: [1650, 2560, 1650, 2370],
             },
             {
               id: 'WW_019',
               name: '수로_019',
-              resourceId: 'peWaterWay',
-              point: [640, 3950, 640, 4300],
+              resourceId: 'waterWay_B',
+              point: [1900, 2560, 1900, 2370],
             },
             {
               id: 'WW_020',
               name: '수로_020',
               resourceId: 'waterWay_B',
-              point: [930, 2560, 930, 2370],
+              point: [300, 2560, 2180, 2560],
             },
             {
               id: 'WW_021',
               name: '수로_021',
               resourceId: 'waterWay_B',
-              point: [1650, 2560, 1650, 2370],
+              point: [305, 2530, 305, 2750],
             },
             {
               id: 'WW_022',
               name: '수로_022',
               resourceId: 'waterWay_B',
-              point: [1900, 2560, 1900, 2370],
+              point: [305, 2690, 450, 2690],
             },
             {
               id: 'WW_023',
               name: '수로_023',
               resourceId: 'waterWay_B',
-              point: [300, 2560, 2180, 2560],
+              point: [555, 2530, 555, 2750],
             },
             {
               id: 'WW_024',
               name: '수로_024',
               resourceId: 'waterWay_B',
-              point: [305, 2530, 305, 2750],
+              point: [555, 2690, 720, 2690],
             },
             {
               id: 'WW_025',
               name: '수로_025',
               resourceId: 'waterWay_B',
-              point: [305, 2690, 450, 2690],
+              point: [805, 2530, 805, 2750],
             },
             {
               id: 'WW_026',
               name: '수로_026',
               resourceId: 'waterWay_B',
-              point: [555, 2530, 555, 2750],
+              point: [805, 2690, 970, 2690],
             },
             {
               id: 'WW_027',
               name: '수로_027',
               resourceId: 'waterWay_B',
-              point: [555, 2690, 720, 2690],
+              point: [1085, 2530, 1085, 2750],
             },
             {
               id: 'WW_028',
               name: '수로_028',
               resourceId: 'waterWay_B',
-              point: [805, 2530, 805, 2750],
+              point: [1085, 2690, 1250, 2690],
             },
             {
               id: 'WW_029',
               name: '수로_029',
               resourceId: 'waterWay_B',
-              point: [805, 2690, 970, 2690],
+              point: [1365, 2530, 1365, 2750],
             },
             {
               id: 'WW_030',
               name: '수로_030',
               resourceId: 'waterWay_B',
-              point: [1085, 2530, 1085, 2750],
+              point: [1365, 2690, 1500, 2690],
             },
             {
               id: 'WW_031',
               name: '수로_031',
               resourceId: 'waterWay_B',
-              point: [1085, 2690, 1250, 2690],
+              point: [1620, 2530, 1620, 2750],
             },
             {
               id: 'WW_032',
               name: '수로_032',
               resourceId: 'waterWay_B',
-              point: [1365, 2530, 1365, 2750],
+              point: [1635, 2690, 1710, 2690],
             },
             {
               id: 'WW_033',
               name: '수로_033',
               resourceId: 'waterWay_B',
-              point: [1365, 2690, 1500, 2690],
+              point: [1895, 2530, 1895, 2750],
             },
             {
               id: 'WW_034',
               name: '수로_034',
               resourceId: 'waterWay_B',
-              point: [1620, 2530, 1620, 2750],
+              point: [1895, 2690, 2070, 2690],
             },
             {
               id: 'WW_035',
               name: '수로_035',
               resourceId: 'waterWay_B',
-              point: [1635, 2690, 1710, 2690],
+              point: [2180, 2530, 2180, 2750],
             },
             {
               id: 'WW_036',
               name: '수로_036',
-              resourceId: 'waterWay_B',
-              point: [1895, 2530, 1895, 2750],
-            },
-            {
-              id: 'WW_037',
-              name: '수로_037',
-              resourceId: 'waterWay_B',
-              point: [1895, 2690, 2070, 2690],
-            },
-            {
-              id: 'WW_038',
-              name: '수로_038',
-              resourceId: 'waterWay_B',
-              point: [2180, 2530, 2180, 2750],
-            },
-            {
-              id: 'WW_039',
-              name: '수로_039',
               resourceId: 'waterWay_B',
               point: [2180, 2690, 2350, 2690],
             },
@@ -573,7 +535,7 @@ const map = {
               id: 'PL_001',
               name: '파이프_001',
               resourceId: 'pipeLine_A',
-              point: [1895, 450, 1895, 560],
+              point: [130, 50, 130, 170],
             },
             {
               id: 'PL_002',
@@ -585,7 +547,7 @@ const map = {
               id: 'PL_003',
               name: '파이프_003',
               resourceId: 'pipeLine_A',
-              point: [3490, 430, 2610, 430],
+              point: [130, 450, 130, 570],
             },
             {
               id: 'PL_004',
@@ -740,80 +702,26 @@ const map = {
             {
               id: 'PL_029',
               name: '파이프_029',
-              resourceId: 'pipeLine_C',
+              resourceId: 'pipeLine_B',
               point: [1760, 2370, 1760, 3570],
             },
             {
               id: 'PL_030',
               name: '파이프_030',
-              resourceId: 'pipeLine_C',
+              resourceId: 'pipeLine_B',
               point: [1765, 3570, 950, 3570],
             },
             {
               id: 'PL_031',
               name: '파이프_031',
-              resourceId: 'pipeLine_C',
+              resourceId: 'pipeLine_B',
               point: [955, 3570, 955, 3600],
             },
             {
               id: 'PL_032',
               name: '파이프_032',
-              resourceId: 'pipeLine_C',
+              resourceId: 'pipeLine_B',
               point: [700, 3630, 580, 3630],
-            },
-            {
-              id: 'PL_033',
-              name: '파이프_033',
-              resourceId: 'pipeLine_B',
-              point: [1825, 2370, 1825, 2400],
-            },
-            {
-              id: 'PL_034',
-              name: '파이프_034',
-              resourceId: 'pipeLine_B',
-              point: [1830, 2395, 1710, 2395],
-            },
-            {
-              id: 'PL_035',
-              name: '파이프_035',
-              resourceId: 'pipeLine_B',
-              point: [1715, 2390, 1715, 2750],
-            },
-            {
-              id: 'PL_036',
-              name: '파이프_036',
-              resourceId: 'pipeLine_B',
-              point: [1890, 2370, 1890, 2410],
-            },
-            {
-              id: 'PL_037',
-              name: '파이프_037',
-              resourceId: 'pipeLine_B',
-              point: [1885, 2410, 1980, 2410],
-            },
-            {
-              id: 'PL_038',
-              name: '파이프_038',
-              resourceId: 'pipeLine_B',
-              point: [1985, 2405, 1985, 2750],
-            },
-            {
-              id: 'PL_039',
-              name: '파이프_039',
-              resourceId: 'pipeLine_B',
-              point: [1955, 2370, 1955, 2390],
-            },
-            {
-              id: 'PL_040',
-              name: '파이프_040',
-              resourceId: 'pipeLine_B',
-              point: [1950, 2390, 2260, 2390],
-            },
-            {
-              id: 'PL_041',
-              name: '파이프_041',
-              resourceId: 'pipeLine_B',
-              point: [2255, 2390, 2255, 2750],
             },
           ],
         },
@@ -1043,14 +951,6 @@ const map = {
             dpcId: 'DPC_001',
             nodeList: ['WD_010'],
           },
-          {
-            serial_number: '0013A20040F70011',
-            target_code: '011',
-            isAddSerialNumberToDCC: false,
-            dccId: 'DCC_SSCS_001',
-            dpcId: 'DPC_001',
-            nodeList: ['WD_011'],
-          },
         ],
       },
       {
@@ -1103,7 +1003,7 @@ const map = {
             isAddSerialNumberToDCC: false,
             dccId: 'DCC_SSCS_001',
             dpcId: 'DPC_001',
-            nodeList: ['GV_106'],
+            nodeList: ['GV_106', 'S_002', 'WL_008', 'MRT_001', 'BT_001'],
           },
           {
             serial_number: '0013A20040F70107',
@@ -1119,7 +1019,7 @@ const map = {
             isAddSerialNumberToDCC: false,
             dccId: 'DCC_SSCS_001',
             dpcId: 'DPC_001',
-            nodeList: ['GV_108'],
+            nodeList: ['GV_108', 'S_003', 'WL_009', 'MRT_002'],
           },
           {
             serial_number: '0013A20040F70109',
@@ -1135,15 +1035,7 @@ const map = {
             isAddSerialNumberToDCC: false,
             dccId: 'DCC_SSCS_001',
             dpcId: 'DPC_001',
-            nodeList: ['GV_110'],
-          },
-          {
-            serial_number: '0013A20040F70110',
-            target_code: '110',
-            isAddSerialNumberToDCC: false,
-            dccId: 'DCC_SSCS_001',
-            dpcId: 'DPC_001',
-            nodeList: ['GV_110'],
+            nodeList: ['GV_110', 'S_004', 'WL_010', 'MRT_003'],
           },
           {
             serial_number: '0013A20040F70111',
@@ -1159,7 +1051,7 @@ const map = {
             isAddSerialNumberToDCC: false,
             dccId: 'DCC_SSCS_001',
             dpcId: 'DPC_001',
-            nodeList: ['GV_112', 'S_002', 'WL_009', 'MRT_001', 'BT_001'],
+            nodeList: ['GV_112', 'S_005', 'WL_011', 'MRT_004'],
           },
           {
             serial_number: '0013A20040F70113',
@@ -1167,7 +1059,7 @@ const map = {
             isAddSerialNumberToDCC: false,
             dccId: 'DCC_SSCS_001',
             dpcId: 'DPC_001',
-            nodeList: ['GV_113', 'S_003', 'WL_010', 'MRT_002'],
+            nodeList: ['GV_113'],
           },
           {
             serial_number: '0013A20040F70114',
@@ -1175,7 +1067,7 @@ const map = {
             isAddSerialNumberToDCC: false,
             dccId: 'DCC_SSCS_001',
             dpcId: 'DPC_001',
-            nodeList: ['GV_114', 'S_004', 'WL_011', 'MRT_003'],
+            nodeList: ['GV_114', 'S_006', 'WL_012', 'MRT_005'],
           },
           {
             serial_number: '0013A20040F70115',
@@ -1183,7 +1075,7 @@ const map = {
             isAddSerialNumberToDCC: false,
             dccId: 'DCC_SSCS_001',
             dpcId: 'DPC_001',
-            nodeList: ['GV_115', 'S_005', 'WL_012', 'MRT_004'],
+            nodeList: ['GV_115'],
           },
           {
             serial_number: '0013A20040F70116',
@@ -1191,7 +1083,7 @@ const map = {
             isAddSerialNumberToDCC: false,
             dccId: 'DCC_SSCS_001',
             dpcId: 'DPC_001',
-            nodeList: ['GV_116', 'S_006', 'WL_013', 'MRT_005'],
+            nodeList: ['GV_116', 'S_007', 'WL_013', 'MRT_006'],
           },
           {
             serial_number: '0013A20040F70117',
@@ -1199,7 +1091,7 @@ const map = {
             isAddSerialNumberToDCC: false,
             dccId: 'DCC_SSCS_001',
             dpcId: 'DPC_001',
-            nodeList: ['GV_117', 'S_007', 'WL_014', 'MRT_006'],
+            nodeList: ['GV_117'],
           },
           {
             serial_number: '0013A20040F70118',
@@ -1207,7 +1099,7 @@ const map = {
             isAddSerialNumberToDCC: false,
             dccId: 'DCC_SSCS_001',
             dpcId: 'DPC_001',
-            nodeList: ['GV_118', 'S_008', 'WL_015', 'MRT_007'],
+            nodeList: ['GV_118', 'S_008', 'WL_014', 'MRT_007'],
           },
           {
             serial_number: '0013A20040F70119',
@@ -1215,7 +1107,15 @@ const map = {
             isAddSerialNumberToDCC: false,
             dccId: 'DCC_SSCS_001',
             dpcId: 'DPC_001',
-            nodeList: ['GV_119', 'S_009', 'WL_016', 'MRT_008'],
+            nodeList: ['GV_119'],
+          },
+          {
+            serial_number: '0013A20040F70120',
+            target_code: '120',
+            isAddSerialNumberToDCC: false,
+            dccId: 'DCC_SSCS_001',
+            dpcId: 'DPC_001',
+            nodeList: ['GV_120', 'S_009', 'WL_015', 'MRT_008'],
           },
         ],
       },
@@ -1334,30 +1234,6 @@ const map = {
             dccId: 'DCC_SSCS_001',
             dpcId: 'DPC_001',
             nodeList: ['P_014'],
-          },
-          {
-            serial_number: '0013A20040F70015',
-            target_code: '015',
-            isAddSerialNumberToDCC: false,
-            dccId: 'DCC_SSCS_001',
-            dpcId: 'DPC_001',
-            nodeList: ['P_015'],
-          },
-          {
-            serial_number: '0013A20040F70016',
-            target_code: '016',
-            isAddSerialNumberToDCC: false,
-            dccId: 'DCC_SSCS_001',
-            dpcId: 'DPC_001',
-            nodeList: ['P_016'],
-          },
-          {
-            serial_number: '0013A20040F70017',
-            target_code: '017',
-            isAddSerialNumberToDCC: false,
-            dccId: 'DCC_SSCS_001',
-            dpcId: 'DPC_001',
-            nodeList: ['P_017'],
           },
         ],
       },
@@ -1484,14 +1360,6 @@ const map = {
             dccId: 'DCC_SSCS_001',
             dpcId: 'DPC_001',
             nodeList: ['WL_017'],
-          },
-          {
-            serial_number: '0013A20040F70018',
-            target_code: '018',
-            isAddSerialNumberToDCC: false,
-            dccId: 'DCC_SSCS_001',
-            dpcId: 'DPC_001',
-            nodeList: ['WL_018'],
           },
         ],
       },
@@ -1883,11 +1751,11 @@ const map = {
               { target_code: '001', axisScale: [0, 0], moveScale: [0, 0] },
               { target_code: '002', axisScale: [0, 0], moveScale: [0, 0] },
               { target_code: '003', axisScale: [0, 0], moveScale: [0, 0] },
-              { target_code: '004', axisScale: [0, 0], moveScale: [0, 0] },
-              { target_code: '005', axisScale: [0, 0], moveScale: [0, 2] },
+              { target_code: '004', axisScale: [0, 0], moveScale: [0, 2] },
+              { target_code: '005', axisScale: [0, 0], moveScale: [0, 0] },
               { target_code: '006', axisScale: [0, 0], moveScale: [0, 0] },
               { target_code: '007', axisScale: [0, 0], moveScale: [0, 0] },
-              { target_code: '008', axisScale: [0, 0], moveScale: [0, 0] },
+              { target_code: '008', axisScale: [0, 0], moveScale: [-1, -1.5] },
               { target_code: '009', axisScale: [0, 0], moveScale: [-1, -1.5] },
               { target_code: '010', axisScale: [0, 0], moveScale: [-1, -1.5] },
               { target_code: '011', axisScale: [0, 0], moveScale: [-1, -1.5] },
@@ -1895,9 +1763,8 @@ const map = {
               { target_code: '013', axisScale: [0, 0], moveScale: [-1, -1.5] },
               { target_code: '014', axisScale: [0, 0], moveScale: [-1, -1.5] },
               { target_code: '015', axisScale: [0, 0], moveScale: [-1, -1.5] },
-              { target_code: '016', axisScale: [0, 0], moveScale: [-1, -1.5] },
+              { target_code: '016', axisScale: [0, 0], moveScale: [0, 0] },
               { target_code: '017', axisScale: [0, 0], moveScale: [0, 0] },
-              { target_code: '018', axisScale: [0, 0], moveScale: [0, 0] },
             ],
           },
         ],
@@ -1922,10 +1789,9 @@ const map = {
               { target_code: '005', axisScale: [1, 0], moveScale: [0.65, -0.1] },
               { target_code: '006', axisScale: [0, 0], moveScale: [1.7, 0] },
               { target_code: '007', axisScale: [1, 0], moveScale: [0, 0] },
-              { target_code: '008', axisScale: [1, 0], moveScale: [0, 1.7] },
-              { target_code: '009', axisScale: [0, 0], moveScale: [0, 1] },
-              { target_code: '010', axisScale: [1, 1], moveScale: [0, 0] },
-              { target_code: '011', axisScale: [0, 1], moveScale: [0, 0] },
+              { target_code: '008', axisScale: [1, 0], moveScale: [0, 2.3] },
+              { target_code: '009', axisScale: [0, 1], moveScale: [0, 0.1] },
+              { target_code: '010', axisScale: [0, 0], moveScale: [-0.1, -0.4] },
             ],
           },
         ],
@@ -1946,22 +1812,23 @@ const map = {
               { target_code: '101', axisScale: [0, 1], moveScale: [0.7, 2.6] },
               { target_code: '102', axisScale: [1, 1], moveScale: [0, 2.6] },
               { target_code: '103', axisScale: [1, 1], moveScale: [-1.3, 2.6] },
-              { target_code: '104', axisScale: [0, 0], moveScale: [-0.4, 0.8] },
-              { target_code: '105', axisScale: [0, 0], moveScale: [3.7, 0.8] },
-              { target_code: '106', axisScale: [0, 0], moveScale: [7.9, 0.8] },
-              { target_code: '107', axisScale: [0, 0], moveScale: [12.58, 0.8] },
-              { target_code: '108', axisScale: [1, 0], moveScale: [-13.1, 0.8] },
-              { target_code: '109', axisScale: [1, 0], moveScale: [-8.85, 0.8] },
-              { target_code: '110', axisScale: [1, 0], moveScale: [-4.25, 0.8] },
-              { target_code: '111', axisScale: [1, 0], moveScale: [0.5, 0.8] },
+              { target_code: '104', axisScale: [0.5, 0], moveScale: [4, 0] },
+              { target_code: '105', axisScale: [0, 0], moveScale: [0, 1.9] },
+              { target_code: '106', axisScale: [1, 0], moveScale: [0, 0] },
+              { target_code: '107', axisScale: [0, 0], moveScale: [0, 1.9] },
+              { target_code: '108', axisScale: [1, 0], moveScale: [0, 0] },
+              { target_code: '109', axisScale: [0, 0], moveScale: [0, 1.9] },
+              { target_code: '110', axisScale: [1, 0], moveScale: [0, 0] },
+              { target_code: '111', axisScale: [0, 0], moveScale: [0, 1.9] },
               { target_code: '112', axisScale: [1, 0], moveScale: [0, 0] },
-              { target_code: '113', axisScale: [1, 0], moveScale: [0, 0] },
+              { target_code: '113', axisScale: [0, 0], moveScale: [0, 1.9] },
               { target_code: '114', axisScale: [1, 0], moveScale: [0, 0] },
-              { target_code: '115', axisScale: [1, 0], moveScale: [0, 0] },
+              { target_code: '115', axisScale: [0, 0], moveScale: [0, 1.9] },
               { target_code: '116', axisScale: [1, 0], moveScale: [0, 0] },
-              { target_code: '117', axisScale: [1, 0], moveScale: [0, 0] },
+              { target_code: '117', axisScale: [0, 0], moveScale: [0, 1.9] },
               { target_code: '118', axisScale: [1, 0], moveScale: [0, 0] },
-              { target_code: '119', axisScale: [1, 0], moveScale: [0, 0] },
+              { target_code: '119', axisScale: [0, 0], moveScale: [0, 1.9] },
+              { target_code: '120', axisScale: [1, 0], moveScale: [0, 0] },
             ],
           },
         ],
@@ -1979,9 +1846,9 @@ const map = {
             target_name: '펌프',
             description: null,
             nodeList: [
-              { target_code: '001', axisScale: [0.7, 1], moveScale: [1, 0] },
+              { target_code: '001', axisScale: [0, 1], moveScale: [1, 0] },
               { target_code: '002', axisScale: [1, 0], moveScale: [0, 0] },
-              { target_code: '003', axisScale: [0, 1], moveScale: [0, 0] },
+              { target_code: '003', axisScale: [0, 1], moveScale: [1, 0] },
               { target_code: '004', axisScale: [0.5, 0], moveScale: [0, 0] },
               { target_code: '005', axisScale: [0, 1], moveScale: [2, 0] },
               { target_code: '006', axisScale: [0, 1], moveScale: [3.3, 0] },
@@ -1992,10 +1859,7 @@ const map = {
               { target_code: '011', axisScale: [0, 1], moveScale: [1.3, 0] },
               { target_code: '012', axisScale: [0, 1], moveScale: [2.6, 0] },
               { target_code: '013', axisScale: [0, 1], moveScale: [0.3, 0] },
-              { target_code: '014', axisScale: [0, 1], moveScale: [1.4, 0] },
-              { target_code: '015', axisScale: [0, 1], moveScale: [2.5, 0] },
-              { target_code: '016', axisScale: [0, 1], moveScale: [3.6, 0] },
-              { target_code: '017', axisScale: [0, 0], moveScale: [0, 0] },
+              { target_code: '014', axisScale: [0, 0], moveScale: [0, 0] },
             ],
           },
         ],
@@ -2014,8 +1878,8 @@ const map = {
             target_name: '배출구',
             description: null,
             nodeList: [
-              { target_code: '001', axisScale: [1, 1], moveScale: [0, -1.5] },
-              { target_code: '002', axisScale: [1, 0], moveScale: [-5.2, 0] },
+              { target_code: '001', axisScale: [0, 0], moveScale: [5.5, 0] },
+              { target_code: '002', axisScale: [0, 0], moveScale: [2, 0] },
               { target_code: '003', axisScale: [0.2, 1], moveScale: [0.4, 0] },
               { target_code: '004', axisScale: [1, 0], moveScale: [-1.2, 0] },
               { target_code: '005', axisScale: [1, 0], moveScale: [-1.2, 0] },
@@ -2023,13 +1887,10 @@ const map = {
               { target_code: '007', axisScale: [1, 0], moveScale: [-1.7, 0] },
               { target_code: '008', axisScale: [0, 0], moveScale: [0.7, 0] },
               { target_code: '009', axisScale: [0, 0], moveScale: [0.8, 0] },
-              { target_code: '010', axisScale: [1, 0], moveScale: [-0.7, 0] },
-              { target_code: '011', axisScale: [0, 0], moveScale: [0.5, 0] },
-              { target_code: '012', axisScale: [1, 0], moveScale: [-0.7, 0] },
-              { target_code: '013', axisScale: [0, 0], moveScale: [1.2, 0] },
-              { target_code: '014', axisScale: [1, 0], moveScale: [-0.7, 0] },
-              { target_code: '015', axisScale: [1, 0], moveScale: [0, 3.8] },
-              { target_code: '016', axisScale: [1, 0], moveScale: [-0.1, 0] },
+              { target_code: '010', axisScale: [0, 0], moveScale: [0.5, 0] },
+              { target_code: '011', axisScale: [0, 0], moveScale: [1.3, 0] },
+              { target_code: '012', axisScale: [1, 0], moveScale: [0, 3.8] },
+              { target_code: '013', axisScale: [1, 0], moveScale: [-0.2, 0] },
             ],
           },
         ],
@@ -2073,7 +1934,7 @@ const map = {
             placeList: [
               {
                 target_code: '1',
-                nodeList: ['S_002', 'WL_009', 'MRT_001', 'BT_001', 'O_004'],
+                nodeList: ['S_002', 'WL_008', 'MRT_001', 'BT_001', 'O_004'],
                 depth: 5,
                 place_info: {
                   criticalControlList: [
@@ -2103,7 +1964,7 @@ const map = {
               },
               {
                 target_code: '2',
-                nodeList: ['S_003', 'WL_010', 'MRT_002', 'O_005'],
+                nodeList: ['S_003', 'WL_009', 'MRT_002', 'O_005'],
                 depth: 5,
                 place_info: {
                   criticalControlList: [
@@ -2133,7 +1994,7 @@ const map = {
               },
               {
                 target_code: '3',
-                nodeList: ['S_004', 'WL_011', 'MRT_003', 'O_006'],
+                nodeList: ['S_004', 'WL_010', 'MRT_003', 'O_006'],
                 depth: 5,
                 place_info: {
                   criticalControlList: [
@@ -2163,7 +2024,7 @@ const map = {
               },
               {
                 target_code: '4',
-                nodeList: ['S_005', 'WL_012', 'MRT_004', 'O_007'],
+                nodeList: ['S_005', 'WL_011', 'MRT_004', 'O_007'],
                 depth: 5,
                 place_info: {
                   criticalControlList: [
@@ -2193,7 +2054,7 @@ const map = {
               },
               {
                 target_code: '5',
-                nodeList: ['S_006', 'WL_013', 'MRT_005', 'O_008'],
+                nodeList: ['S_006', 'WL_012', 'MRT_005', 'O_008'],
                 depth: 5,
                 place_info: {
                   criticalControlList: [
@@ -2223,7 +2084,7 @@ const map = {
               },
               {
                 target_code: '6',
-                nodeList: ['S_007', 'WL_014', 'MRT_006', 'O_009', 'O_010'],
+                nodeList: ['S_007', 'WL_013', 'MRT_006', 'O_009'],
                 depth: 5,
                 place_info: {
                   criticalControlList: [
@@ -2234,7 +2095,7 @@ const map = {
                       setValue: 5,
                       lowerLimitValue: 3,
                       minValue: 1,
-                      callPlaceRankList: ['BW_3', 'BW_4'],
+                      callPlaceRankList: ['BW_3'],
                       putPlaceRankList: ['BW_3', 'SEA'],
                     },
                     {
@@ -2253,7 +2114,7 @@ const map = {
               },
               {
                 target_code: '7',
-                nodeList: ['S_008', 'WL_015', 'MRT_007', 'O_011', 'O_012'],
+                nodeList: ['S_008', 'WL_014', 'MRT_007', 'O_010'],
                 depth: 5,
                 place_info: {
                   criticalControlList: [
@@ -2264,7 +2125,7 @@ const map = {
                       setValue: 5,
                       lowerLimitValue: 3,
                       minValue: 1,
-                      callPlaceRankList: ['BW_3', 'BW_4'],
+                      callPlaceRankList: ['BW_3'],
                       putPlaceRankList: ['BW_3', 'SEA'],
                     },
                     {
@@ -2283,7 +2144,7 @@ const map = {
               },
               {
                 target_code: '8',
-                nodeList: ['S_009', 'WL_016', 'MRT_008', 'O_013', 'O_014'],
+                nodeList: ['S_009', 'WL_015', 'MRT_008', 'O_011'],
                 depth: 5,
                 place_info: {
                   criticalControlList: [
@@ -2294,7 +2155,7 @@ const map = {
                       setValue: 5,
                       lowerLimitValue: 3,
                       minValue: 1,
-                      callPlaceRankList: ['BW_3', 'BW_4'],
+                      callPlaceRankList: ['BW_3'],
                       putPlaceRankList: ['BW_3', 'SEA'],
                     },
                     {
@@ -2320,7 +2181,7 @@ const map = {
             placeList: [
               {
                 target_code: '1',
-                nodeList: ['WD_001', 'WD_002', 'WL_003', 'O_002'],
+                nodeList: ['WD_001', 'WD_002', 'WL_002', 'O_002'],
                 depth: 5,
                 place_info: {
                   criticalControlList: [
@@ -2331,7 +2192,7 @@ const map = {
                       setValue: 5,
                       lowerLimitValue: 3,
                       minValue: 1,
-                      callPlaceRankList: ['RV_1'],
+                      callPlaceRankList: ['RV'],
                       putPlaceRankList: ['NEB_2'],
                     },
                   ],
@@ -2340,7 +2201,7 @@ const map = {
               },
               {
                 target_code: '2',
-                nodeList: ['WD_001', 'WD_002', 'WD_003', 'WD_004', 'S_001', 'WL_004', 'O_003'],
+                nodeList: ['WD_001', 'WD_002', 'WD_003', 'WD_004', 'S_001', 'WL_003', 'O_003'],
                 depth: 4,
                 place_info: {
                   criticalControlList: [
@@ -2372,7 +2233,7 @@ const map = {
             placeList: [
               {
                 target_code: '',
-                nodeList: ['WD_008', 'WD_010', 'WL_017', 'O_015'],
+                nodeList: ['WD_008', 'WL_016', 'O_012'],
                 depth: 0,
                 place_info: {
                   criticalControlList: [
@@ -2407,7 +2268,7 @@ const map = {
             placeList: [
               {
                 target_code: '1',
-                nodeList: ['WD_006', 'P_004', 'WL_005'],
+                nodeList: ['WD_006', 'P_004', 'WL_004'],
                 depth: -1,
 
                 place_info: {
@@ -2433,7 +2294,7 @@ const map = {
                   'P_009',
                   'WD_007',
                   'GV_101',
-                  'WL_006',
+                  'WL_005',
                 ],
                 depth: -1,
                 place_info: {
@@ -2451,7 +2312,7 @@ const map = {
               },
               {
                 target_code: '3',
-                nodeList: ['P_010', 'P_011', 'P_012', 'GV_102', 'WL_007'],
+                nodeList: ['P_010', 'P_011', 'P_012', 'GV_102', 'WL_006'],
                 depth: -1,
                 place_info: {
                   criticalControlList: [
@@ -2477,7 +2338,7 @@ const map = {
               },
               {
                 target_code: '4',
-                nodeList: ['P_013', 'P_014', 'P_015', 'P_016', 'GV_103', 'WL_008'],
+                nodeList: ['P_013', 'GV_103', 'WL_007'],
                 depth: -1,
                 place_info: {
                   criticalControlList: [
@@ -2494,7 +2355,7 @@ const map = {
               },
               {
                 target_code: '5',
-                nodeList: ['WD_009', 'P_017', 'WL_018', 'O_016'],
+                nodeList: ['WD_009', 'P_014', 'WL_017', 'O_013'],
                 depth: -1,
                 place_info: {
                   criticalControlList: [
@@ -2532,34 +2393,17 @@ const map = {
       },
       {
         target_id: 'reservoir',
-        target_name: '저수조',
+        target_name: '저수지',
         description: null,
         defList: [
           {
             target_id: 'reservoir',
             target_prefix: 'RV',
-            target_name: '저수조',
+            target_name: '저수지',
             placeList: [
               {
-                target_code: '1',
-                nodeList: ['P_001', 'WL_001', 'O_001'],
-                depth: -1,
-                place_info: {
-                  criticalControlList: [
-                    {
-                      ndId: 'waterLevel',
-                      maxValue: 100,
-                      lowerLimitValue: 30,
-                      minValue: 10,
-                      callPlaceRankList: ['RV_2'],
-                    },
-                  ],
-                  placeSize: { width: 4800, height: 570, depth: 200 },
-                },
-              },
-              {
-                target_code: '2',
-                nodeList: ['P_003', 'WL_002'],
+                target_code: '',
+                nodeList: ['P_003', 'WL_001', 'O_001'],
                 depth: -1,
                 place_info: {
                   criticalControlList: [
@@ -2571,8 +2415,7 @@ const map = {
                       callPlaceRankList: ['SEA'],
                     },
                   ],
-                  // FIXME:
-                  placeSize: { width: 800, height: 570, depth: 200 },
+                  placeSize: { width: 4800, height: 570, depth: 200 },
                 },
               },
             ],
@@ -2592,7 +2435,7 @@ const map = {
               {
                 target_code: '',
                 depth: -1,
-                nodeList: [],
+                nodeList: ['P_001'],
                 place_info: {},
               },
             ],
@@ -2644,7 +2487,6 @@ const map = {
                 nodeList: [],
                 depth: 0.3,
               },
-              // TODO: 벨브 12~19 , 배출구 28~35 관계
               {
                 target_code: '004',
                 nodeList: [],
@@ -2707,132 +2549,108 @@ const map = {
               },
               {
                 target_code: '016',
-                nodeList: ['WD_011'],
+                nodeList: ['WD_010'],
                 depth: 0.7,
               },
               {
                 target_code: '017',
-                nodeList: ['WD_010'],
-                depth: 0.8,
+                nodeList: ['GV_101'],
+                depth: 0.5,
               },
               {
                 target_code: '018',
-                nodeList: ['WD_011'],
-                depth: 0.8,
+                nodeList: ['GV_102'],
+                depth: 0.5,
               },
               {
                 target_code: '019',
-                nodeList: [],
-                depth: 0.6,
+                nodeList: ['GV_103'],
+                depth: 0.5,
               },
               {
                 target_code: '020',
-                nodeList: ['GV_101'],
-                depth: 0.7,
+                nodeList: ['GV_104'],
+                depth: 0.6,
               },
               {
                 target_code: '021',
-                nodeList: ['GV_102'],
-                depth: 0.7,
+                nodeList: ['GV_105'],
+                depth: 0.8,
               },
               {
                 target_code: '022',
-                nodeList: ['GV_103'],
+                nodeList: ['GV_106'],
                 depth: 0.7,
               },
               {
                 target_code: '023',
-                nodeList: [
-                  'GV_104',
-                  'GV_105',
-                  'GV_106',
-                  'GV_107',
-                  'GV_108',
-                  'GV_109',
-                  'GV_110',
-                  'GV_111',
-                ],
+                nodeList: ['GV_107'],
                 depth: 0.8,
               },
               {
                 target_code: '024',
-                nodeList: ['GV_104'],
-                depth: 0.9,
+                nodeList: ['GV_108'],
+                depth: 0.7,
               },
               {
                 target_code: '025',
-                nodeList: ['GV_112'],
-                depth: 0.9,
+                nodeList: ['GV_109'],
+                depth: 0.8,
               },
               {
                 target_code: '026',
-                nodeList: ['GV_105'],
-                depth: 0.9,
+                nodeList: ['GV_110'],
+                depth: 0.7,
               },
               {
                 target_code: '027',
-                nodeList: ['GV_113'],
-                depth: 0.9,
+                nodeList: ['GV_111'],
+                depth: 0.8,
               },
               {
                 target_code: '028',
-                nodeList: ['GV_106'],
-                depth: 0.9,
+                nodeList: ['GV_112'],
+                depth: 0.7,
               },
               {
                 target_code: '029',
-                nodeList: ['GV_114'],
-                depth: 0.9,
+                nodeList: ['GV_113'],
+                depth: 0.8,
               },
               {
                 target_code: '030',
-                nodeList: ['GV_107'],
-                depth: 0.9,
+                nodeList: ['GV_114'],
+                depth: 0.7,
               },
               {
                 target_code: '031',
                 nodeList: ['GV_115'],
-                depth: 0.9,
+                depth: 0.8,
               },
               {
                 target_code: '032',
-                nodeList: ['GV_108'],
-                depth: 0.9,
+                nodeList: ['GV_116'],
+                depth: 0.7,
               },
               {
                 target_code: '033',
-                nodeList: ['GV_116'],
-                depth: 0.9,
+                nodeList: ['GV_117'],
+                depth: 0.8,
               },
               {
                 target_code: '034',
-                nodeList: ['GV_109'],
-                depth: 0.9,
+                nodeList: ['GV_118'],
+                depth: 0.7,
               },
               {
                 target_code: '035',
-                nodeList: ['GV_117'],
-                depth: 0.9,
+                nodeList: ['GV_119'],
+                depth: 0.8,
               },
               {
                 target_code: '036',
-                nodeList: ['GV_110'],
-                depth: 0.9,
-              },
-              {
-                target_code: '037',
-                nodeList: ['GV_118'],
-                depth: 0.9,
-              },
-              {
-                target_code: '038',
-                nodeList: ['GV_111'],
-                depth: 0.9,
-              },
-              {
-                target_code: '039',
-                nodeList: ['GV_119'],
-                depth: 0.9,
+                nodeList: ['GV_120'],
+                depth: 0.7,
               },
             ],
           },
@@ -2848,47 +2666,38 @@ const map = {
             target_prefix: 'PL',
             target_name: '파이프',
             placeList: [
-              { target_code: '001', nodeList: ['P_001', 'O_002'] },
+              { target_code: '001', nodeList: ['P_001', 'O_001'] },
               { target_code: '002', nodeList: ['P_002'] },
-              { target_code: '003', nodeList: ['P_003', 'O_001'] },
-              { target_code: '004', nodeList: [] },
-              { target_code: '005', nodeList: [] },
+              { target_code: '003', nodeList: ['P_003', 'O_002'] },
+              { target_code: '004', nodeList: ['P_004', 'O_003'] },
+              { target_code: '005', nodeList: ['P_005'] },
               { target_code: '006', nodeList: [] },
-              { target_code: '007', nodeList: [] },
-              { target_code: '008', nodeList: [] },
+              { target_code: '007', nodeList: ['O_004'] },
+              { target_code: '008', nodeList: ['P_006'] },
               { target_code: '009', nodeList: [] },
-              { target_code: '010', nodeList: [] },
-              { target_code: '011', nodeList: [] },
+              { target_code: '010', nodeList: ['O_005'] },
+              { target_code: '011', nodeList: ['P_007'] },
               { target_code: '012', nodeList: [] },
-              { target_code: '013', nodeList: [] },
-              { target_code: '014', nodeList: [] },
+              { target_code: '013', nodeList: ['O_006'] },
+              { target_code: '014', nodeList: ['P_008'] },
               { target_code: '015', nodeList: [] },
-              { target_code: '016', nodeList: [] },
-              { target_code: '017', nodeList: [] },
+              { target_code: '016', nodeList: ['O_007'] },
+              { target_code: '017', nodeList: ['P_009'] },
               { target_code: '018', nodeList: [] },
-              { target_code: '019', nodeList: [] },
-              { target_code: '020', nodeList: [] },
+              { target_code: '019', nodeList: ['O_008'] },
+              { target_code: '020', nodeList: ['P_010'] },
               { target_code: '021', nodeList: [] },
-              { target_code: '022', nodeList: [] },
-              { target_code: '023', nodeList: [] },
+              { target_code: '022', nodeList: ['O_009'] },
+              { target_code: '023', nodeList: ['P_011'] },
               { target_code: '024', nodeList: [] },
-              { target_code: '025', nodeList: [] },
-              { target_code: '026', nodeList: [] },
+              { target_code: '025', nodeList: ['O_010'] },
+              { target_code: '026', nodeList: ['P_012'] },
               { target_code: '027', nodeList: [] },
-              { target_code: '028', nodeList: [] },
-              { target_code: '029', nodeList: [] },
+              { target_code: '028', nodeList: ['O_011'] },
+              { target_code: '029', nodeList: ['P_013'] },
               { target_code: '030', nodeList: [] },
-              { target_code: '031', nodeList: [] },
-              { target_code: '032', nodeList: [] },
-              { target_code: '033', nodeList: [] },
-              { target_code: '034', nodeList: [] },
-              { target_code: '035', nodeList: [] },
-              { target_code: '036', nodeList: [] },
-              { target_code: '037', nodeList: [] },
-              { target_code: '038', nodeList: [] },
-              { target_code: '039', nodeList: [] },
-              { target_code: '040', nodeList: [] },
-              { target_code: '041', nodeList: [] },
+              { target_code: '031', nodeList: ['O_013'] },
+              { target_code: '032', nodeList: ['P_014', 'O_012'] },
             ],
           },
         ],
@@ -2896,9 +2705,9 @@ const map = {
     ],
     smartSalternInfo: {
       pipeConnectionRelationList: [
-        { currNode: 'P_001', parentNodes: [], childNodes: ['O_002'] },
+        { currNode: 'P_001', parentNodes: [], childNodes: ['O_001'] },
         { currNode: 'P_002', parentNodes: [], childNodes: [] },
-        { currNode: 'P_003', parentNodes: [], childNodes: ['O_001'] },
+        { currNode: 'P_003', parentNodes: [], childNodes: ['O_002'] },
         { currNode: 'P_004', parentNodes: [], childNodes: ['O_003'] },
         { currNode: 'P_005', parentNodes: [], childNodes: ['O_004'] },
         { currNode: 'P_006', parentNodes: [], childNodes: ['O_005'] },
@@ -2906,13 +2715,10 @@ const map = {
         { currNode: 'P_008', parentNodes: [], childNodes: ['O_007'] },
         { currNode: 'P_009', parentNodes: [], childNodes: ['O_008'] },
         { currNode: 'P_010', parentNodes: [], childNodes: ['O_009'] },
-        { currNode: 'P_011', parentNodes: [], childNodes: ['O_011'] },
-        { currNode: 'P_012', parentNodes: [], childNodes: ['O_013'] },
-        { currNode: 'P_013', parentNodes: [], childNodes: ['O_016'] },
-        { currNode: 'P_014', parentNodes: [], childNodes: ['O_010'] },
-        { currNode: 'P_015', parentNodes: [], childNodes: ['O_012'] },
-        { currNode: 'P_016', parentNodes: [], childNodes: ['O_014'] },
-        { currNode: 'P_017', parentNodes: [], childNodes: ['O_015'] },
+        { currNode: 'P_011', parentNodes: [], childNodes: ['O_010'] },
+        { currNode: 'P_012', parentNodes: [], childNodes: ['O_011'] },
+        { currNode: 'P_013', parentNodes: [], childNodes: ['O_013'] },
+        { currNode: 'P_014', parentNodes: [], childNodes: ['O_012'] },
       ],
     },
     svgResourceConnectionList: [
@@ -2933,16 +2739,12 @@ const map = {
         resourceIdList: ['normalCrystalizingBlock'],
       },
       {
-        targetIdList: ['RV_1'],
-        resourceIdList: ['reservoir_A'],
+        targetIdList: ['RV'],
+        resourceIdList: ['reservoir'],
       },
       {
         targetIdList: ['JG'],
         resourceIdList: ['jago'],
-      },
-      {
-        targetIdList: ['RV_2'],
-        resourceIdList: ['reservoir_B'],
       },
       {
         targetIdList: ['BW_1'],
@@ -2983,7 +2785,7 @@ const map = {
         ],
         resourceIdList: ['peWaterWay'],
       },
-      // pe 수로
+      // 해주 모듈 사이 수로
       {
         targetIdList: [
           'WW_020',
@@ -3003,9 +2805,6 @@ const map = {
           'WW_034',
           'WW_035',
           'WW_036',
-          'WW_037',
-          'WW_038',
-          'WW_039',
         ],
         resourceIdList: ['waterWay_B'],
       },
@@ -3043,7 +2842,7 @@ const map = {
         ],
         resourceIdList: ['pipeLine_A'],
       },
-      // 파이프 파랑
+      //  파이프  보라
       {
         targetIdList: [
           'PL_029',
@@ -3058,10 +2857,26 @@ const map = {
         ],
         resourceIdList: ['pipeLine_B'],
       },
-      // 파이프 갈색
+      // 수중 펌프
       {
-        targetIdList: ['PL_038', 'PL_039', 'PL_040', 'PL_041'],
-        resourceIdList: ['pipeLine_C'],
+        targetIdList: [
+          'P_005',
+          'P_006',
+          'P_007',
+          'P_008',
+          'P_009',
+          'P_010',
+          'P_011',
+          'P_012',
+          'P_013',
+          'P_014',
+        ],
+        resourceIdList: ['underPump'],
+      },
+      // 양수 펌프
+      {
+        targetIdList: ['P_001', 'P_002', 'P_003', 'P_004'],
+        resourceIdList: ['overPump'],
       },
       {
         targetIdList: [
@@ -3084,32 +2899,9 @@ const map = {
           'GV_117',
           'GV_118',
           'GV_119',
+          'GV_120',
         ],
         resourceIdList: ['gateValve'],
-      },
-      // 수중 펌프
-      {
-        targetIdList: [
-          'P_005',
-          'P_006',
-          'P_007',
-          'P_008',
-          'P_009',
-          'P_010',
-          'P_011',
-          'P_012',
-          'P_013',
-          'P_014',
-          'P_015',
-          'P_016',
-          'P_017',
-        ],
-        resourceIdList: ['underPump'],
-      },
-      // 양수 펌프
-      {
-        targetIdList: ['P_001', 'P_002', 'P_003', 'P_004'],
-        resourceIdList: ['overPump'],
       },
       {
         targetIdList: [
@@ -3123,7 +2915,6 @@ const map = {
           'WD_008',
           'WD_009',
           'WD_010',
-          'WD_011',
         ],
         resourceIdList: ['waterDoor'],
       },
@@ -3142,9 +2933,6 @@ const map = {
           'O_011',
           'O_012',
           'O_013',
-          'O_014',
-          'O_015',
-          'O_016',
         ],
         resourceIdList: ['output'],
       },
@@ -3194,8 +2982,6 @@ const map = {
           'WL_015',
           'WL_016',
           'WL_017',
-          'WL_018',
-          'WL_019',
         ],
         resourceIdList: ['waterLevel'],
       },
@@ -3204,250 +2990,18 @@ const map = {
         resourceIdList: ['brineTemperature'],
       },
     ],
-    hiddenTextSvgModelResourceIdList: [],
+    hiddenTextSvgModelResourceIdList: ['pipeLine'],
   },
   controlInfo: {
     flowCmdList: [
-      // 모듈 -> 해주2
+      // 저수지 -> 증발지1,2
       {
-        srcPlaceId: 'SEB_1',
+        srcPlaceId: 'RV',
         destList: [
           {
-            destPlaceId: 'BW_2',
-            trueNodeList: ['WD_104', 'WD_101'],
-            falseNodeList: ['WD_112', 'WD_102', 'WD_103'],
-          },
-        ],
-      },
-      {
-        srcPlaceId: 'SEB_2',
-        destList: [
-          {
-            destPlaceId: 'BW_2',
-            trueNodeList: ['WD_105', 'WD_101'],
-            falseNodeList: ['WD_113', 'WD_102', 'WD_103'],
-          },
-        ],
-      },
-      {
-        srcPlaceId: 'SEB_3',
-        destList: [
-          {
-            destPlaceId: 'BW_2',
-            trueNodeList: ['WD_106', 'WD_101'],
-            falseNodeList: ['WD_114', 'WD_102', 'WD_103'],
-          },
-        ],
-      },
-      {
-        srcPlaceId: 'SEB_4',
-        destList: [
-          {
-            destPlaceId: 'BW_2',
-            trueNodeList: ['WD_107', 'WD_101'],
-            falseNodeList: ['WD_115', 'WD_102', 'WD_103'],
-          },
-        ],
-      },
-      {
-        srcPlaceId: 'SEB_5',
-        destList: [
-          {
-            destPlaceId: 'BW_2',
-            trueNodeList: ['WD_108', 'WD_101'],
-            falseNodeList: ['WD_116', 'WD_102', 'WD_103'],
-          },
-        ],
-      },
-      {
-        srcPlaceId: 'SEB_6',
-        destList: [
-          {
-            destPlaceId: 'BW_2',
-            trueNodeList: ['WD_109', 'WD_101'],
-            falseNodeList: ['WD_117', 'WD_102', 'WD_103'],
-          },
-        ],
-      },
-      {
-        srcPlaceId: 'SEB_7',
-        destList: [
-          {
-            destPlaceId: 'BW_2',
-            trueNodeList: ['WD_110', 'WD_101'],
-            falseNodeList: ['WD_118', 'WD_102', 'WD_103'],
-          },
-        ],
-      },
-      {
-        srcPlaceId: 'SEB_8',
-        destList: [
-          {
-            destPlaceId: 'BW_2',
-            trueNodeList: ['WD_111', 'WD_101'],
-            falseNodeList: ['WD_119', 'WD_102', 'WD_103'],
-          },
-        ],
-      },
-      // 모듈 ->해주3
-      {
-        srcPlaceId: 'SEB_1',
-        destList: [
-          {
-            destPlaceId: 'BW_2',
-            trueNodeList: ['WD_104', '102'],
-            falseNodeList: ['WD_112', 'WD_101', 'WD_103'],
-          },
-        ],
-      },
-      {
-        srcPlaceId: 'SEB_2',
-        destList: [
-          {
-            destPlaceId: 'BW_2',
-            trueNodeList: ['WD_105', '102'],
-            falseNodeList: ['WD_113', 'WD_101', 'WD_103'],
-          },
-        ],
-      },
-      {
-        srcPlaceId: 'SEB_3',
-        destList: [
-          {
-            destPlaceId: 'BW_2',
-            trueNodeList: ['WD_106', '102'],
-            falseNodeList: ['WD_114', 'WD_101', 'WD_103'],
-          },
-        ],
-      },
-      {
-        srcPlaceId: 'SEB_4',
-        destList: [
-          {
-            destPlaceId: 'BW_2',
-            trueNodeList: ['WD_107', '102'],
-            falseNodeList: ['WD_115', 'WD_101', 'WD_103'],
-          },
-        ],
-      },
-      {
-        srcPlaceId: 'SEB_5',
-        destList: [
-          {
-            destPlaceId: 'BW_2',
-            trueNodeList: ['WD_108', '102'],
-            falseNodeList: ['WD_116', 'WD_101', 'WD_103'],
-          },
-        ],
-      },
-      {
-        srcPlaceId: 'SEB_6',
-        destList: [
-          {
-            destPlaceId: 'BW_2',
-            trueNodeList: ['WD_109', '102'],
-            falseNodeList: ['WD_117', 'WD_101', 'WD_103'],
-          },
-        ],
-      },
-      {
-        srcPlaceId: 'SEB_7',
-        destList: [
-          {
-            destPlaceId: 'BW_2',
-            trueNodeList: ['WD_110', '102'],
-            falseNodeList: ['WD_118', 'WD_101', 'WD_103'],
-          },
-        ],
-      },
-      {
-        srcPlaceId: 'SEB_8',
-        destList: [
-          {
-            destPlaceId: 'BW_2',
-            trueNodeList: ['WD_111', '102'],
-            falseNodeList: ['WD_119', 'WD_101', 'WD_103'],
-          },
-        ],
-      },
-      // 모듈 -> 해주4
-      {
-        srcPlaceId: 'SEB_1',
-        destList: [
-          {
-            destPlaceId: 'BW_2',
-            trueNodeList: ['WD_104', '103'],
-            falseNodeList: ['WD_112', 'WD_101', 'WD_102'],
-          },
-        ],
-      },
-      {
-        srcPlaceId: 'SEB_2',
-        destList: [
-          {
-            destPlaceId: 'BW_2',
-            trueNodeList: ['WD_105', '103'],
-            falseNodeList: ['WD_113', 'WD_101', 'WD_102'],
-          },
-        ],
-      },
-      {
-        srcPlaceId: 'SEB_3',
-        destList: [
-          {
-            destPlaceId: 'BW_2',
-            trueNodeList: ['WD_106', '103'],
-            falseNodeList: ['WD_114', 'WD_101', 'WD_102'],
-          },
-        ],
-      },
-      {
-        srcPlaceId: 'SEB_4',
-        destList: [
-          {
-            destPlaceId: 'BW_2',
-            trueNodeList: ['WD_107', '103'],
-            falseNodeList: ['WD_115', 'WD_101', 'WD_102'],
-          },
-        ],
-      },
-      {
-        srcPlaceId: 'SEB_5',
-        destList: [
-          {
-            destPlaceId: 'BW_2',
-            trueNodeList: ['WD_108', '103'],
-            falseNodeList: ['WD_116', 'WD_101', 'WD_102'],
-          },
-        ],
-      },
-      {
-        srcPlaceId: 'SEB_6',
-        destList: [
-          {
-            destPlaceId: 'BW_2',
-            trueNodeList: ['WD_109', '103'],
-            falseNodeList: ['WD_117', 'WD_101', 'WD_102'],
-          },
-        ],
-      },
-      {
-        srcPlaceId: 'SEB_7',
-        destList: [
-          {
-            destPlaceId: 'BW_2',
-            trueNodeList: ['WD_110', '103'],
-            falseNodeList: ['WD_118', 'WD_101', 'WD_102'],
-          },
-        ],
-      },
-      {
-        srcPlaceId: 'SEB_8',
-        destList: [
-          {
-            destPlaceId: 'BW_2',
-            trueNodeList: ['WD_111', '103'],
-            falseNodeList: ['WD_119', 'WD_101', 'WD_102'],
+            destPlaceId: 'NEB_1',
+            trueNodeList: ['P_001'],
+            falseNodeList: ['WD_001', 'WD_002'],
           },
         ],
       },
@@ -3457,7 +3011,7 @@ const map = {
         destList: [
           {
             destPlaceId: 'NEB_2',
-            trueNodeList: ['WD_001', 'WD_02'],
+            trueNodeList: ['WD_001', 'WD_002'],
             falseNodeList: ['WD_003', 'WD_004'],
           },
         ],
@@ -3478,6 +3032,128 @@ const map = {
           },
         ],
       },
+      // 모듈1,2,3,4,5, -> 해주2,3
+      {
+        srcPlaceId: 'SEB_1',
+        destList: [
+          {
+            destPlaceId: 'BW_2',
+            trueNodeList: ['WD_101', 'WD_105'],
+            falseNodeList: ['WD_106', 'WD_104'],
+          },
+          {
+            destPlaceId: 'BW_3',
+            trueNodeList: ['WD_102', 'WD_104', 'WD_105'],
+            falseNodeList: ['WD_106', 'WD_101', 'WD_103'],
+          },
+        ],
+      },
+      {
+        srcPlaceId: 'SEB_2',
+        destList: [
+          {
+            destPlaceId: 'BW_2',
+            trueNodeList: ['WD_101', 'WD_107'],
+            falseNodeList: ['WD_108', 'WD_104'],
+          },
+          {
+            destPlaceId: 'BW_3',
+            trueNodeList: ['WD_102', 'WD_104', 'WD_107'],
+            falseNodeList: ['WD_108', 'WD_101', 'WD_103'],
+          },
+        ],
+      },
+      {
+        srcPlaceId: 'SEB_3',
+        destList: [
+          {
+            destPlaceId: 'BW_2',
+            trueNodeList: ['WD_101', 'WD_109'],
+            falseNodeList: ['WD_110', 'WD_104'],
+          },
+          {
+            destPlaceId: 'BW_3',
+            trueNodeList: ['WD_102', 'WD_104', 'WD_109'],
+            falseNodeList: ['WD_110', 'WD_101', 'WD_103'],
+          },
+        ],
+      },
+      {
+        srcPlaceId: 'SEB_4',
+        destList: [
+          {
+            destPlaceId: 'BW_2',
+            trueNodeList: ['WD_101', 'WD_111'],
+            falseNodeList: ['WD_112', 'WD_104'],
+          },
+          {
+            destPlaceId: 'BW_3',
+            trueNodeList: ['WD_102', 'WD_104', 'WD_111'],
+            falseNodeList: ['WD_112', 'WD_101', 'WD_103'],
+          },
+        ],
+      },
+      {
+        srcPlaceId: 'SEB_5',
+        destList: [
+          {
+            destPlaceId: 'BW_2',
+            trueNodeList: ['WD_101', 'WD_113'],
+            falseNodeList: ['WD_114', 'WD_104'],
+          },
+          {
+            destPlaceId: 'BW_3',
+            trueNodeList: ['WD_102', 'WD_104', 'WD_113'],
+            falseNodeList: ['WD_114', 'WD_101', 'WD_103'],
+          },
+        ],
+      },
+      // 모듈6,7,8 -> 해주3,4
+      {
+        srcPlaceId: 'SEB_6',
+        destList: [
+          {
+            destPlaceId: 'BW_3',
+            trueNodeList: ['WD_102', 'WD_115'],
+            falseNodeList: ['WD_116', 'WD_104', 'WD_103'],
+          },
+          {
+            destPlaceId: 'BW_4',
+            trueNodeList: ['WD_103', 'WD_115'],
+            falseNodeList: ['WD_116', 'WD_104', 'WD_102'],
+          },
+        ],
+      },
+      {
+        srcPlaceId: 'SEB_7',
+        destList: [
+          {
+            destPlaceId: 'BW_3',
+            trueNodeList: ['WD_102', 'WD_117'],
+            falseNodeList: ['WD_118', 'WD_104', 'WD_103'],
+          },
+          {
+            destPlaceId: 'BW_4',
+            trueNodeList: ['WD_103', 'WD_117'],
+            falseNodeList: ['WD_118', 'WD_104', 'WD_102'],
+          },
+        ],
+      },
+      {
+        srcPlaceId: 'SEB_8',
+        destList: [
+          {
+            destPlaceId: 'BW_3',
+            trueNodeList: ['WD_102', 'WD_119'],
+            falseNodeList: ['WD_120', 'WD_104', 'WD_103'],
+          },
+          {
+            destPlaceId: 'BW_4',
+            trueNodeList: ['WD_103', 'WD_119'],
+            falseNodeList: ['WD_120', 'WD_104', 'WD_102'],
+          },
+        ],
+      },
       // 결정지 -> 해주 5
       {
         srcPlaceId: 'NCB',
@@ -3489,28 +3165,8 @@ const map = {
           },
         ],
       },
-      // 저수조 -> 증발지1,2
-      {
-        srcPlaceId: 'RV_1',
-        destList: [
-          {
-            destPlaceId: 'NEB_1',
-            trueNodeList: ['P_001'],
-            falseNodeList: ['WD_001', 'WD_002'],
-          },
-        ],
-      },
-      {
-        srcPlaceId: 'RV_2',
-        destList: [
-          {
-            destPlaceId: 'RV_1',
-            trueNodeList: ['P_003'],
-            falseNodeList: [],
-          },
-        ],
-      },
-      // 해주 -> 증발지 2
+
+      // 해주1 -> 증발지 2
       {
         srcPlaceId: 'BW_1',
         destList: [
@@ -3521,14 +3177,14 @@ const map = {
           },
         ],
       },
-      // 해주 -> 모듈
+      // 해주2 -> 모듈1,2,3,4,5
       {
         srcPlaceId: 'BW_2',
         destList: [
           {
             destPlaceId: 'SEB_1',
             trueNodeList: ['P_005'],
-            falseNodeList: ['GV_101', 'GV_104', 'GV_112'],
+            falseNodeList: ['GV_101', 'GV_105', 'GV_106'],
           },
         ],
       },
@@ -3538,7 +3194,7 @@ const map = {
           {
             destPlaceId: 'SEB_2',
             trueNodeList: ['P_006'],
-            falseNodeList: ['GV_101', 'GV_105', 'GV_113'],
+            falseNodeList: ['GV_101', 'GV_107', 'GV_108'],
           },
         ],
       },
@@ -3548,7 +3204,7 @@ const map = {
           {
             destPlaceId: 'SEB_3',
             trueNodeList: ['P_007'],
-            falseNodeList: ['GV_101', 'GV_106', 'GV_114'],
+            falseNodeList: ['GV_101', 'GV_109', 'GV_110'],
           },
         ],
       },
@@ -3558,7 +3214,7 @@ const map = {
           {
             destPlaceId: 'SEB_4',
             trueNodeList: ['P_008'],
-            falseNodeList: ['GV_101', 'GV_107', 'GV_115'],
+            falseNodeList: ['GV_101', 'GV_111', 'GV_112'],
           },
         ],
       },
@@ -3568,17 +3224,18 @@ const map = {
           {
             destPlaceId: 'SEB_5',
             trueNodeList: ['P_009'],
-            falseNodeList: ['GV_101', 'GV_108', 'GV_116'],
+            falseNodeList: ['GV_101', 'GV_113', 'GV_114'],
           },
         ],
       },
+      // 해주3 -> 모듈6,7,8
       {
         srcPlaceId: 'BW_3',
         destList: [
           {
             destPlaceId: 'SEB_6',
             trueNodeList: ['P_010'],
-            falseNodeList: ['GV_102', 'GV_109', 'GV_117'],
+            falseNodeList: ['GV_102', 'GV_115', 'GV_116'],
           },
         ],
       },
@@ -3588,7 +3245,7 @@ const map = {
           {
             destPlaceId: 'SEB_7',
             trueNodeList: ['P_011'],
-            falseNodeList: ['GV_102', 'GV_110', 'GV_118'],
+            falseNodeList: ['GV_102', 'GV_117', 'GV_118'],
           },
         ],
       },
@@ -3598,61 +3255,33 @@ const map = {
           {
             destPlaceId: 'SEB_8',
             trueNodeList: ['P_012'],
-            falseNodeList: ['GV_102', 'GV_111', 'GV_119'],
+            falseNodeList: ['GV_102', 'GV_119', 'GV_120'],
           },
         ],
       },
+      // 해주4 -> 해주5
       {
         srcPlaceId: 'BW_4',
         destList: [
           {
             destPlaceId: 'BW_5',
             trueNodeList: ['P_013'],
-            falseNodeList: [],
+            falseNodeList: ['WD_009'],
           },
         ],
       },
-      {
-        srcPlaceId: 'BW_4',
-        destList: [
-          {
-            destPlaceId: 'SEB_6',
-            trueNodeList: ['P_014'],
-            falseNodeList: ['GV_103', 'GV_109', 'GV_117'],
-          },
-        ],
-      },
-      {
-        srcPlaceId: 'BW_4',
-        destList: [
-          {
-            destPlaceId: 'SEB_7',
-            trueNodeList: ['P_015'],
-            falseNodeList: ['GV_103', 'GV_110', 'GV_118'],
-          },
-        ],
-      },
-      {
-        srcPlaceId: 'BW_4',
-        destList: [
-          {
-            destPlaceId: 'SEB_8',
-            trueNodeList: ['P_016'],
-            falseNodeList: ['GV_103', 'GV_111', 'GV_119'],
-          },
-        ],
-      },
+      // 해주5 -> 결정지
       {
         srcPlaceId: 'BW_5',
         destList: [
           {
             destPlaceId: 'NCB',
-            trueNodeList: ['P_017'],
-            falseNodeList: ['WD_008', 'WD_010'],
+            trueNodeList: ['P_014'],
+            falseNodeList: ['WD_008'],
           },
         ],
       },
-      // 바다에 버리기
+      // 자고 -> 바다
       {
         srcPlaceId: 'JG',
         destList: [
@@ -3663,24 +3292,25 @@ const map = {
           },
         ],
       },
+      // 증발지2 -> 바다
       {
         srcPlaceId: 'NEB_2',
         destList: [
           {
             destPlaceId: 'SEA',
             trueNodeList: ['WD_003', 'WD_004', 'WD_05'],
-            // 펌프를 꺼야하는가?
             falseNodeList: ['WD_006', 'WD_007'],
           },
         ],
       },
+      // 모듈 1,2,3,4,5,6,7,8 -> 바다
       {
         srcPlaceId: 'SEB_1',
         destList: [
           {
             destPlaceId: 'SEA',
-            trueNodeList: ['GV_112'],
-            falseNodeList: ['GV_104'],
+            trueNodeList: ['GV_106'],
+            falseNodeList: ['GV_105'],
           },
         ],
       },
@@ -3689,8 +3319,8 @@ const map = {
         destList: [
           {
             destPlaceId: 'SEA',
-            trueNodeList: ['GV_113'],
-            falseNodeList: ['GV_105'],
+            trueNodeList: ['GV_108'],
+            falseNodeList: ['GV_107'],
           },
         ],
       },
@@ -3699,67 +3329,68 @@ const map = {
         destList: [
           {
             destPlaceId: 'SEA',
-            trueNodeList: ['GV_114'],
-            falseNodeList: ['GV_106'],
-          },
-        ],
-      },
-      {
-        srcPlaceId: 'SEB_2',
-        destList: [
-          {
-            destPlaceId: 'SEA',
-            trueNodeList: ['GV_115'],
-            falseNodeList: ['GV_107'],
-          },
-        ],
-      },
-      {
-        srcPlaceId: 'SEB_2',
-        destList: [
-          {
-            destPlaceId: 'SEA',
-            trueNodeList: ['GV_116'],
-            falseNodeList: ['GV_108'],
-          },
-        ],
-      },
-      {
-        srcPlaceId: 'SEB_2',
-        destList: [
-          {
-            destPlaceId: 'SEA',
-            trueNodeList: ['GV_117'],
+            trueNodeList: ['GV_110'],
             falseNodeList: ['GV_109'],
           },
         ],
       },
       {
-        srcPlaceId: 'SEB_2',
+        srcPlaceId: 'SEB_4',
         destList: [
           {
             destPlaceId: 'SEA',
-            trueNodeList: ['GV_118'],
-            falseNodeList: ['GV_110'],
-          },
-        ],
-      },
-      {
-        srcPlaceId: 'SEB_2',
-        destList: [
-          {
-            destPlaceId: 'SEA',
-            trueNodeList: ['GV_119'],
+            trueNodeList: ['GV_112'],
             falseNodeList: ['GV_111'],
           },
         ],
       },
       {
+        srcPlaceId: 'SEB_5',
+        destList: [
+          {
+            destPlaceId: 'SEA',
+            trueNodeList: ['GV_114'],
+            falseNodeList: ['GV_113'],
+          },
+        ],
+      },
+      {
+        srcPlaceId: 'SEB_6',
+        destList: [
+          {
+            destPlaceId: 'SEA',
+            trueNodeList: ['GV_116'],
+            falseNodeList: ['GV_115'],
+          },
+        ],
+      },
+      {
+        srcPlaceId: 'SEB_7',
+        destList: [
+          {
+            destPlaceId: 'SEA',
+            trueNodeList: ['GV_118'],
+            falseNodeList: ['GV_117'],
+          },
+        ],
+      },
+      {
+        srcPlaceId: 'SEB_8',
+        destList: [
+          {
+            destPlaceId: 'SEA',
+            trueNodeList: ['GV_120'],
+            falseNodeList: ['GV_119'],
+          },
+        ],
+      },
+      // 결정지 -> 바다
+      {
         srcPlaceId: 'NCB',
         destList: [
           {
             destPlaceId: 'SEA',
-            trueNodeList: ['WD_008', 'WD_011'],
+            trueNodeList: ['WD_010', 'WD_008'],
             falseNodeList: ['WD_009'],
           },
         ],
@@ -3789,6 +3420,7 @@ const map = {
           'GV_117',
           'GV_118',
           'GV_119',
+          'GV_120',
           'WD_001',
           'WD_002',
           'WD_003',
@@ -3799,7 +3431,6 @@ const map = {
           'WD_008',
           'WD_009',
           'WD_010',
-          'WD_011',
           'P_001',
           'P_002',
           'P_003',
@@ -3814,9 +3445,6 @@ const map = {
           'P_012',
           'P_013',
           'P_014',
-          'P_015',
-          'P_016',
-          'P_017',
         ],
       },
     ],
