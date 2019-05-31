@@ -152,7 +152,12 @@ const map = {
         {
           id: 'waterDoor',
           type: 'rect',
-          elementDrawInfo: { width: 80, height: 80, color: '#b45b95', opacity: 1 },
+          elementDrawInfo: {
+            width: 80,
+            height: 80,
+            color: ['#a3a3a3', '#b45b95', '#dc1d1f'],
+            opacity: 1,
+          },
           textStyleInfo: {
             color: '',
           },
@@ -160,7 +165,12 @@ const map = {
         {
           id: 'gateValve',
           type: 'rect',
-          elementDrawInfo: { width: 60, height: 60, color: 'yellow', opacity: 1 },
+          elementDrawInfo: {
+            width: 60,
+            height: 60,
+            color: ['#a3a3a3', 'yellow', '#dc1d1f'],
+            opacity: 1,
+          },
           textStyleInfo: {
             color: '',
           },
@@ -168,7 +178,13 @@ const map = {
         {
           id: 'overPump',
           type: 'circle',
-          elementDrawInfo: { width: 80, height: 80, radius: 80, color: '#22fb00', opacity: 1 },
+          elementDrawInfo: {
+            width: 80,
+            height: 80,
+            radius: 80,
+            color: ['#a3a3a3', '#22fb00', '#dc1d1f'],
+            opacity: 1,
+          },
           textStyleInfo: {
             color: '',
           },
@@ -176,7 +192,13 @@ const map = {
         {
           id: 'underPump',
           type: 'circle',
-          elementDrawInfo: { width: 60, height: 60, radius: 60, color: '#8b24b0', opacity: 1 },
+          elementDrawInfo: {
+            width: 60,
+            height: 60,
+            radius: 60,
+            color: ['#a3a3a3', '#8b24b0', '#dc1d1f'],
+            opacity: 1,
+          },
           textStyleInfo: {
             color: '',
           },
