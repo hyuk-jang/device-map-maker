@@ -1787,7 +1787,7 @@ const map = {
                 nodeList: ['GV_001', 'WL_001', 'V_001', 'MRT_001', 'O_001', 'BT_001'],
                 depth: 5,
                 place_info: {
-                  criticalControlList: [
+                  thresholdConfigList: [
                     {
                       ndId: 'waterLevel',
                       maxValue: 10,
@@ -1817,7 +1817,7 @@ const map = {
                 nodeList: ['GV_002', 'WL_002', 'V_002', 'MRT_002', 'O_002', 'BT_002'],
                 depth: 5,
                 place_info: {
-                  criticalControlList: [
+                  thresholdConfigList: [
                     {
                       ndId: 'waterLevel',
                       maxValue: 10,
@@ -1847,7 +1847,7 @@ const map = {
                 nodeList: ['GV_003', 'WL_003', 'V_003', 'MRT_003', 'O_003', 'BT_003'],
                 depth: 5,
                 place_info: {
-                  criticalControlList: [
+                  thresholdConfigList: [
                     {
                       ndId: 'waterLevel',
                       maxValue: 10,
@@ -1877,7 +1877,7 @@ const map = {
                 nodeList: ['GV_004', 'WL_004', 'V_004', 'MRT_004', 'O_004', 'BT_004'],
                 depth: 5,
                 place_info: {
-                  criticalControlList: [
+                  thresholdConfigList: [
                     {
                       ndId: 'waterLevel',
                       maxValue: 10,
@@ -1907,7 +1907,7 @@ const map = {
                 nodeList: ['GV_005', 'O_008', 'WL_005', 'MRT_007', 'BT_005'],
                 depth: 5,
                 place_info: {
-                  criticalControlList: [
+                  thresholdConfigList: [
                     {
                       ndId: 'waterLevel',
                       maxValue: 10,
@@ -1939,7 +1939,7 @@ const map = {
                 nodeList: ['WD_006', 'O_005'],
                 depth: 4,
                 place_info: {
-                  criticalControlList: [
+                  thresholdConfigList: [
                     {
                       ndId: 'waterLevel',
                       maxValue: 10,
@@ -1959,7 +1959,7 @@ const map = {
                 nodeList: ['WD_006', 'WD_007'],
                 depth: 3,
                 place_info: {
-                  criticalControlList: [
+                  thresholdConfigList: [
                     {
                       ndId: 'waterLevel',
                       maxValue: 10,
@@ -1979,7 +1979,7 @@ const map = {
                 nodeList: ['WD_007', 'WD_008'],
                 depth: 2,
                 place_info: {
-                  criticalControlList: [
+                  thresholdConfigList: [
                     {
                       ndId: 'waterLevel',
                       maxValue: 10,
@@ -2011,7 +2011,7 @@ const map = {
                 nodeList: ['WD_009', 'O_006'],
                 depth: 1,
                 place_info: {
-                  criticalControlList: [
+                  thresholdConfigList: [
                     {
                       ndId: 'waterLevel',
                       maxValue: 10,
@@ -2050,7 +2050,7 @@ const map = {
                 nodeList: ['WD_010', 'S_001', 'P_003'],
                 depth: -1,
                 place_info: {
-                  criticalControlList: [
+                  thresholdConfigList: [
                     {
                       ndId: 'waterLevel',
                       maxValue: 100,
@@ -2067,7 +2067,7 @@ const map = {
                 nodeList: ['WD_011', 'S_002', 'P_004'],
                 depth: -1,
                 place_info: {
-                  criticalControlList: [
+                  thresholdConfigList: [
                     {
                       ndId: 'waterLevel',
                       maxValue: 100,
@@ -2084,7 +2084,7 @@ const map = {
                 nodeList: ['WD_012', 'S_003', 'P_005'],
                 depth: -1,
                 place_info: {
-                  criticalControlList: [
+                  thresholdConfigList: [
                     {
                       ndId: 'waterLevel',
                       maxValue: 100,
@@ -2115,7 +2115,7 @@ const map = {
                 nodeList: ['P_002', 'P_006', 'O_007'],
                 depth: -1,
                 place_info: {
-                  criticalControlList: [
+                  thresholdConfigList: [
                     {
                       ndId: 'waterLevel',
                       maxValue: 100,
