@@ -2,7 +2,7 @@ const {
   BLOCK,
   TROUBLE,
   NONE,
-} = require('../../../../default-intelligence').dcmConfigModel.nodeDataType;
+} = require('../../../../../default-intelligence').dcmConfigModel.nodeDataType;
 
 /**
  * @type {mDeviceMap}

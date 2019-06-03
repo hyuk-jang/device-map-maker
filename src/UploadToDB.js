@@ -109,10 +109,15 @@ class UploadToDB {
         const { repeatId = '' } = nodeDefInfo;
         // repeatId가 있을 경우
         if (repeatId.length) {
-          nodeDefInfo.nodeList = _.find(repeatNodeList, {
+          const repeatNodeInfo = _.find(repeatNodeList, {
             repeatId,
             repeatCategory: 'node',
-          }).nodeList;
+          });
+
+          if (_.get(repeatNodeInfo, 'nodeList')) {
+            nodeDefInfo.nodeList = repeatNodeInfo.nodeList;
+          }
+
           delete nodeDefInfo.repeatId;
         }
       });
