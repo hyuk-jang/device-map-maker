@@ -881,6 +881,7 @@ const map = {
     ],
     dpcConstructorList: [
       { dpcId: 'DPC_001', protocol_info: { mainCategory: 'UPSAS', subCategory: 'xbee' } },
+      { dpcId: 'DPC_002', protocol_info: { mainCategory: 'UPSAS', subCategory: 'muan100kW' } },
       {
         dpcId: 'DPC_IVT_001',
         protocol_info: { mainCategory: 'Inverter', subCategory: 'hexPowerTriple' },
@@ -899,7 +900,7 @@ const map = {
             target_code: '001',
             isAddSerialNumberToDCC: false,
             dccId: 'DCC_SSCS_001',
-            dpcId: 'DPC_001',
+            dpcId: 'DPC_002',
             nodeList: ['WD_001'],
           },
           {
@@ -907,7 +908,7 @@ const map = {
             target_code: '002',
             isAddSerialNumberToDCC: false,
             dccId: 'DCC_SSCS_001',
-            dpcId: 'DPC_001',
+            dpcId: 'DPC_002',
             nodeList: ['WD_002'],
           },
           {
@@ -915,7 +916,7 @@ const map = {
             target_code: '003',
             isAddSerialNumberToDCC: false,
             dccId: 'DCC_SSCS_001',
-            dpcId: 'DPC_001',
+            dpcId: 'DPC_002',
             nodeList: ['WD_003'],
           },
           {
@@ -923,7 +924,7 @@ const map = {
             target_code: '004',
             isAddSerialNumberToDCC: false,
             dccId: 'DCC_SSCS_001',
-            dpcId: 'DPC_001',
+            dpcId: 'DPC_002',
             nodeList: ['WD_004'],
           },
           {
@@ -931,7 +932,7 @@ const map = {
             target_code: '005',
             isAddSerialNumberToDCC: false,
             dccId: 'DCC_SSCS_001',
-            dpcId: 'DPC_001',
+            dpcId: 'DPC_002',
             nodeList: ['WD_005'],
           },
           {
@@ -939,7 +940,7 @@ const map = {
             target_code: '006',
             isAddSerialNumberToDCC: false,
             dccId: 'DCC_SSCS_001',
-            dpcId: 'DPC_001',
+            dpcId: 'DPC_002',
             nodeList: ['WD_006'],
           },
           {
@@ -947,7 +948,7 @@ const map = {
             target_code: '007',
             isAddSerialNumberToDCC: false,
             dccId: 'DCC_SSCS_001',
-            dpcId: 'DPC_001',
+            dpcId: 'DPC_002',
             nodeList: ['WD_007'],
           },
           {
@@ -955,7 +956,7 @@ const map = {
             target_code: '008',
             isAddSerialNumberToDCC: false,
             dccId: 'DCC_SSCS_001',
-            dpcId: 'DPC_001',
+            dpcId: 'DPC_002',
             nodeList: ['WD_008'],
           },
           {
@@ -963,7 +964,7 @@ const map = {
             target_code: '009',
             isAddSerialNumberToDCC: false,
             dccId: 'DCC_SSCS_001',
-            dpcId: 'DPC_001',
+            dpcId: 'DPC_002',
             nodeList: ['WD_009'],
           },
           {
@@ -971,7 +972,7 @@ const map = {
             target_code: '010',
             isAddSerialNumberToDCC: false,
             dccId: 'DCC_SSCS_001',
-            dpcId: 'DPC_001',
+            dpcId: 'DPC_002',
             nodeList: ['WD_010'],
           },
         ],
@@ -986,7 +987,7 @@ const map = {
             target_code: '101',
             isAddSerialNumberToDCC: false,
             dccId: 'DCC_SSCS_001',
-            dpcId: 'DPC_001',
+            dpcId: 'DPC_002',
             nodeList: ['GV_101'],
           },
           {
@@ -994,7 +995,7 @@ const map = {
             target_code: '102',
             isAddSerialNumberToDCC: false,
             dccId: 'DCC_SSCS_001',
-            dpcId: 'DPC_001',
+            dpcId: 'DPC_002',
             nodeList: ['GV_102'],
           },
           {
@@ -1002,7 +1003,7 @@ const map = {
             target_code: '103',
             isAddSerialNumberToDCC: false,
             dccId: 'DCC_SSCS_001',
-            dpcId: 'DPC_001',
+            dpcId: 'DPC_002',
             nodeList: ['GV_103'],
           },
           {
@@ -1010,7 +1011,7 @@ const map = {
             target_code: '104',
             isAddSerialNumberToDCC: false,
             dccId: 'DCC_SSCS_001',
-            dpcId: 'DPC_001',
+            dpcId: 'DPC_002',
             nodeList: ['GV_104'],
           },
           {
@@ -1018,7 +1019,7 @@ const map = {
             target_code: '105',
             isAddSerialNumberToDCC: false,
             dccId: 'DCC_SSCS_001',
-            dpcId: 'DPC_001',
+            dpcId: 'DPC_002',
             nodeList: ['GV_105'],
           },
           {
@@ -1026,7 +1027,7 @@ const map = {
             target_code: '106',
             isAddSerialNumberToDCC: false,
             dccId: 'DCC_SSCS_001',
-            dpcId: 'DPC_001',
+            dpcId: 'DPC_002',
             nodeList: ['GV_106', 'S_002', 'WL_008', 'MRT_001', 'BT_001'],
           },
           {
@@ -1034,7 +1035,7 @@ const map = {
             target_code: '107',
             isAddSerialNumberToDCC: false,
             dccId: 'DCC_SSCS_001',
-            dpcId: 'DPC_001',
+            dpcId: 'DPC_002',
             nodeList: ['GV_107'],
           },
           {
@@ -1042,7 +1043,7 @@ const map = {
             target_code: '108',
             isAddSerialNumberToDCC: false,
             dccId: 'DCC_SSCS_001',
-            dpcId: 'DPC_001',
+            dpcId: 'DPC_002',
             nodeList: ['GV_108', 'S_003', 'WL_009', 'MRT_002'],
           },
           {
@@ -1050,7 +1051,7 @@ const map = {
             target_code: '109',
             isAddSerialNumberToDCC: false,
             dccId: 'DCC_SSCS_001',
-            dpcId: 'DPC_001',
+            dpcId: 'DPC_002',
             nodeList: ['GV_109'],
           },
           {
@@ -1058,7 +1059,7 @@ const map = {
             target_code: '110',
             isAddSerialNumberToDCC: false,
             dccId: 'DCC_SSCS_001',
-            dpcId: 'DPC_001',
+            dpcId: 'DPC_002',
             nodeList: ['GV_110', 'S_004', 'WL_010', 'MRT_003'],
           },
           {
@@ -1066,7 +1067,7 @@ const map = {
             target_code: '111',
             isAddSerialNumberToDCC: false,
             dccId: 'DCC_SSCS_001',
-            dpcId: 'DPC_001',
+            dpcId: 'DPC_002',
             nodeList: ['GV_111'],
           },
           {
@@ -1074,7 +1075,7 @@ const map = {
             target_code: '112',
             isAddSerialNumberToDCC: false,
             dccId: 'DCC_SSCS_001',
-            dpcId: 'DPC_001',
+            dpcId: 'DPC_002',
             nodeList: ['GV_112', 'S_005', 'WL_011', 'MRT_004'],
           },
           {
@@ -1082,7 +1083,7 @@ const map = {
             target_code: '113',
             isAddSerialNumberToDCC: false,
             dccId: 'DCC_SSCS_001',
-            dpcId: 'DPC_001',
+            dpcId: 'DPC_002',
             nodeList: ['GV_113'],
           },
           {
@@ -1090,7 +1091,7 @@ const map = {
             target_code: '114',
             isAddSerialNumberToDCC: false,
             dccId: 'DCC_SSCS_001',
-            dpcId: 'DPC_001',
+            dpcId: 'DPC_002',
             nodeList: ['GV_114', 'S_006', 'WL_012', 'MRT_005'],
           },
           {
@@ -1098,7 +1099,7 @@ const map = {
             target_code: '115',
             isAddSerialNumberToDCC: false,
             dccId: 'DCC_SSCS_001',
-            dpcId: 'DPC_001',
+            dpcId: 'DPC_002',
             nodeList: ['GV_115'],
           },
           {
@@ -1106,7 +1107,7 @@ const map = {
             target_code: '116',
             isAddSerialNumberToDCC: false,
             dccId: 'DCC_SSCS_001',
-            dpcId: 'DPC_001',
+            dpcId: 'DPC_002',
             nodeList: ['GV_116', 'S_007', 'WL_013', 'MRT_006'],
           },
           {
@@ -1114,7 +1115,7 @@ const map = {
             target_code: '117',
             isAddSerialNumberToDCC: false,
             dccId: 'DCC_SSCS_001',
-            dpcId: 'DPC_001',
+            dpcId: 'DPC_002',
             nodeList: ['GV_117'],
           },
           {
@@ -1122,7 +1123,7 @@ const map = {
             target_code: '118',
             isAddSerialNumberToDCC: false,
             dccId: 'DCC_SSCS_001',
-            dpcId: 'DPC_001',
+            dpcId: 'DPC_002',
             nodeList: ['GV_118', 'S_008', 'WL_014', 'MRT_007'],
           },
           {
@@ -1130,7 +1131,7 @@ const map = {
             target_code: '119',
             isAddSerialNumberToDCC: false,
             dccId: 'DCC_SSCS_001',
-            dpcId: 'DPC_001',
+            dpcId: 'DPC_002',
             nodeList: ['GV_119'],
           },
           {
@@ -1138,7 +1139,7 @@ const map = {
             target_code: '120',
             isAddSerialNumberToDCC: false,
             dccId: 'DCC_SSCS_001',
-            dpcId: 'DPC_001',
+            dpcId: 'DPC_002',
             nodeList: ['GV_120', 'S_009', 'WL_015', 'MRT_008'],
           },
         ],
@@ -1153,7 +1154,7 @@ const map = {
             target_code: '001',
             isAddSerialNumberToDCC: false,
             dccId: 'DCC_SSCS_001',
-            dpcId: 'DPC_001',
+            dpcId: 'DPC_002',
             nodeList: ['P_001'],
           },
           {
@@ -1161,7 +1162,7 @@ const map = {
             target_code: '002',
             isAddSerialNumberToDCC: false,
             dccId: 'DCC_SSCS_001',
-            dpcId: 'DPC_001',
+            dpcId: 'DPC_002',
             nodeList: ['P_002'],
           },
           {
@@ -1169,7 +1170,7 @@ const map = {
             target_code: '003',
             isAddSerialNumberToDCC: false,
             dccId: 'DCC_SSCS_001',
-            dpcId: 'DPC_001',
+            dpcId: 'DPC_002',
             nodeList: ['P_003'],
           },
           {
@@ -1177,7 +1178,7 @@ const map = {
             target_code: '004',
             isAddSerialNumberToDCC: false,
             dccId: 'DCC_SSCS_001',
-            dpcId: 'DPC_001',
+            dpcId: 'DPC_002',
             nodeList: ['P_004'],
           },
           {
@@ -1185,7 +1186,7 @@ const map = {
             target_code: '005',
             isAddSerialNumberToDCC: false,
             dccId: 'DCC_SSCS_001',
-            dpcId: 'DPC_001',
+            dpcId: 'DPC_002',
             nodeList: ['P_005'],
           },
           {
@@ -1193,7 +1194,7 @@ const map = {
             target_code: '006',
             isAddSerialNumberToDCC: false,
             dccId: 'DCC_SSCS_001',
-            dpcId: 'DPC_001',
+            dpcId: 'DPC_002',
             nodeList: ['P_006'],
           },
           {
@@ -1201,7 +1202,7 @@ const map = {
             target_code: '007',
             isAddSerialNumberToDCC: false,
             dccId: 'DCC_SSCS_001',
-            dpcId: 'DPC_001',
+            dpcId: 'DPC_002',
             nodeList: ['P_007'],
           },
           {
@@ -1209,7 +1210,7 @@ const map = {
             target_code: '008',
             isAddSerialNumberToDCC: false,
             dccId: 'DCC_SSCS_001',
-            dpcId: 'DPC_001',
+            dpcId: 'DPC_002',
             nodeList: ['P_008'],
           },
           {
@@ -1217,7 +1218,7 @@ const map = {
             target_code: '009',
             isAddSerialNumberToDCC: false,
             dccId: 'DCC_SSCS_001',
-            dpcId: 'DPC_001',
+            dpcId: 'DPC_002',
             nodeList: ['P_009'],
           },
           {
@@ -1225,7 +1226,7 @@ const map = {
             target_code: '010',
             isAddSerialNumberToDCC: false,
             dccId: 'DCC_SSCS_001',
-            dpcId: 'DPC_001',
+            dpcId: 'DPC_002',
             nodeList: ['P_010'],
           },
           {
@@ -1233,7 +1234,7 @@ const map = {
             target_code: '011',
             isAddSerialNumberToDCC: false,
             dccId: 'DCC_SSCS_001',
-            dpcId: 'DPC_001',
+            dpcId: 'DPC_002',
             nodeList: ['P_011'],
           },
           {
@@ -1241,7 +1242,7 @@ const map = {
             target_code: '012',
             isAddSerialNumberToDCC: false,
             dccId: 'DCC_SSCS_001',
-            dpcId: 'DPC_001',
+            dpcId: 'DPC_002',
             nodeList: ['P_012'],
           },
           {
@@ -1249,7 +1250,7 @@ const map = {
             target_code: '013',
             isAddSerialNumberToDCC: false,
             dccId: 'DCC_SSCS_001',
-            dpcId: 'DPC_001',
+            dpcId: 'DPC_002',
             nodeList: ['P_013'],
           },
           {
@@ -1257,7 +1258,7 @@ const map = {
             target_code: '014',
             isAddSerialNumberToDCC: false,
             dccId: 'DCC_SSCS_001',
-            dpcId: 'DPC_001',
+            dpcId: 'DPC_002',
             nodeList: ['P_014'],
           },
         ],
@@ -1272,7 +1273,7 @@ const map = {
             target_code: '001',
             isAddSerialNumberToDCC: false,
             dccId: 'DCC_SSCS_001',
-            dpcId: 'DPC_001',
+            dpcId: 'DPC_002',
             nodeList: ['WL_001'],
           },
           {
@@ -1280,7 +1281,7 @@ const map = {
             target_code: '002',
             isAddSerialNumberToDCC: false,
             dccId: 'DCC_SSCS_001',
-            dpcId: 'DPC_001',
+            dpcId: 'DPC_002',
             nodeList: ['WL_002'],
           },
           {
@@ -1288,7 +1289,7 @@ const map = {
             target_code: '003',
             isAddSerialNumberToDCC: false,
             dccId: 'DCC_SSCS_001',
-            dpcId: 'DPC_001',
+            dpcId: 'DPC_002',
             nodeList: ['S_001', 'WL_003'],
           },
           {
@@ -1296,7 +1297,7 @@ const map = {
             target_code: '004',
             isAddSerialNumberToDCC: false,
             dccId: 'DCC_SSCS_001',
-            dpcId: 'DPC_001',
+            dpcId: 'DPC_002',
             nodeList: ['WL_004'],
           },
           {
@@ -1304,7 +1305,7 @@ const map = {
             target_code: '005',
             isAddSerialNumberToDCC: false,
             dccId: 'DCC_SSCS_001',
-            dpcId: 'DPC_001',
+            dpcId: 'DPC_002',
             nodeList: ['WL_005'],
           },
           {
@@ -1312,7 +1313,7 @@ const map = {
             target_code: '006',
             isAddSerialNumberToDCC: false,
             dccId: 'DCC_SSCS_001',
-            dpcId: 'DPC_001',
+            dpcId: 'DPC_002',
             nodeList: ['WL_006'],
           },
           {
@@ -1320,7 +1321,7 @@ const map = {
             target_code: '007',
             isAddSerialNumberToDCC: false,
             dccId: 'DCC_SSCS_001',
-            dpcId: 'DPC_001',
+            dpcId: 'DPC_002',
             nodeList: ['WL_007'],
           },
           {
@@ -1328,7 +1329,7 @@ const map = {
             target_code: '008',
             isAddSerialNumberToDCC: false,
             dccId: 'DCC_SSCS_001',
-            dpcId: 'DPC_001',
+            dpcId: 'DPC_002',
             nodeList: ['WL_016'],
           },
           {
@@ -1336,7 +1337,7 @@ const map = {
             target_code: '009',
             isAddSerialNumberToDCC: false,
             dccId: 'DCC_SSCS_001',
-            dpcId: 'DPC_001',
+            dpcId: 'DPC_002',
             nodeList: ['WL_017'],
           },
         ],
