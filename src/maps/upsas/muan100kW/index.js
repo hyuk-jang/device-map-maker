@@ -1449,7 +1449,6 @@ const map = {
         target_name: '염도',
         is_sensor: 1,
         data_unit: '%',
-        description: null,
         defList: [
           {
             target_id: 'salinity',
@@ -1475,13 +1474,11 @@ const map = {
         target_name: '수위',
         is_sensor: 1,
         data_unit: 'cm',
-        description: null,
         defList: [
           {
             target_id: 'waterLevel',
             target_prefix: 'WL',
             target_name: '수위',
-            description: null,
             nodeList: [
               { target_code: '001', axisScale: [0, 0], moveScale: [0, 0] },
               { target_code: '002', axisScale: [0, 0], moveScale: [0, 0] },
@@ -1508,14 +1505,11 @@ const map = {
         target_id: 'waterDoor',
         target_name: '수문',
         is_sensor: 0,
-        data_unit: null,
-        description: null,
         defList: [
           {
             target_id: 'waterDoor',
             target_prefix: 'WD',
             target_name: '수문',
-            description: null,
             nodeList: [
               { target_code: '001', axisScale: [0, 1], moveScale: [2.4, 0.5] },
               { target_code: '002', axisScale: [0.5, 1], moveScale: [3.4, 0.5] },
@@ -1532,17 +1526,15 @@ const map = {
         ],
       },
       {
-        target_id: 'gateValve',
-        target_name: '수문',
+        target_id: 'valve',
+        target_name: '밸브',
         is_sensor: 0,
-        data_unit: null,
-        description: null,
         defList: [
           {
             target_id: 'gateValve',
             target_prefix: 'GV',
-            target_name: '수문',
-            description: null,
+            target_name: '수문 용 밸브',
+            description: '파이프 관에 연결된 밸브, 직경 100A PVC 용 밸브',
             nodeList: [
               { target_code: '101', axisScale: [0, 1], moveScale: [0.7, 2.6] },
               { target_code: '102', axisScale: [1, 1], moveScale: [0, 2.6] },
@@ -1572,14 +1564,11 @@ const map = {
         target_id: 'pump',
         target_name: '펌프',
         is_sensor: 0,
-        data_unit: null,
-        description: null,
         defList: [
           {
             target_id: 'pump',
             target_prefix: 'P',
             target_name: '펌프',
-            description: null,
             nodeList: [
               { target_code: '001', axisScale: [0, 1], moveScale: [1, 0] },
               { target_code: '002', axisScale: [1, 0], moveScale: [0, 0] },
@@ -1604,14 +1593,12 @@ const map = {
         target_name: '배출구',
         is_sensor: -1,
         save_db_type: NONE,
-        data_unit: null,
-        description: null,
+        description: '펌프의 배수구를 표현하기 위한 SVG 용 Element',
         defList: [
           {
             target_id: 'outlet',
             target_prefix: 'O',
             target_name: '배출구',
-            description: null,
             nodeList: [
               { target_code: '001', axisScale: [0, 0], moveScale: [5.5, 0] },
               { target_code: '002', axisScale: [0, 0], moveScale: [2, 0] },
