@@ -1674,6 +1674,7 @@ const map = {
                       ndId: 'salinity',
                       upperLimitValue: 10.5,
                       putPlaceRankList: ['BW_3', 'BW_2'],
+                      groupSrcList: ['SEB_1', 'SEB_2', 'SEB_3', 'SEB_4', 'SEB_5'],
                     },
                     {
                       ndId: 'moduleRearTemperature',
@@ -1704,6 +1705,7 @@ const map = {
                       ndId: 'salinity',
                       upperLimitValue: 10.5,
                       putPlaceRankList: ['BW_3', 'BW_2'],
+                      groupSrcList: ['SEB_1', 'SEB_2', 'SEB_3', 'SEB_4', 'SEB_5'],
                     },
                     {
                       ndId: 'moduleRearTemperature',
@@ -1734,6 +1736,7 @@ const map = {
                       ndId: 'salinity',
                       upperLimitValue: 10.5,
                       putPlaceRankList: ['BW_3', 'BW_2'],
+                      groupSrcList: ['SEB_1', 'SEB_2', 'SEB_3', 'SEB_4', 'SEB_5'],
                     },
                     {
                       ndId: 'moduleRearTemperature',
@@ -1764,6 +1767,7 @@ const map = {
                       ndId: 'salinity',
                       upperLimitValue: 10.5,
                       putPlaceRankList: ['BW_3', 'BW_2'],
+                      groupSrcList: ['SEB_1', 'SEB_2', 'SEB_3', 'SEB_4', 'SEB_5'],
                     },
                     {
                       ndId: 'moduleRearTemperature',
@@ -1794,6 +1798,7 @@ const map = {
                       ndId: 'salinity',
                       upperLimitValue: 10.5,
                       putPlaceRankList: ['BW_3', 'BW_2'],
+                      groupSrcList: ['SEB_1', 'SEB_2', 'SEB_3', 'SEB_4', 'SEB_5'],
                     },
                     {
                       ndId: 'moduleRearTemperature',
@@ -1824,6 +1829,7 @@ const map = {
                       ndId: 'salinity',
                       upperLimitValue: 18,
                       putPlaceRankList: ['BW_4', 'BW_3', 'BW_2'],
+                      groupSrcList: ['SEB_6', 'SEB_7', 'SEB_8'],
                     },
                     {
                       ndId: 'moduleRearTemperature',
@@ -1854,6 +1860,7 @@ const map = {
                       ndId: 'salinity',
                       upperLimitValue: 18,
                       putPlaceRankList: ['BW_4', 'BW_3', 'BW_2'],
+                      groupSrcList: ['SEB_6', 'SEB_7', 'SEB_8'],
                     },
                     {
                       ndId: 'moduleRearTemperature',
@@ -1884,6 +1891,7 @@ const map = {
                       ndId: 'salinity',
                       upperLimitValue: 18,
                       putPlaceRankList: ['BW_4', 'BW_3', 'BW_2'],
+                      groupSrcList: ['SEB_6', 'SEB_7', 'SEB_8'],
                     },
                     {
                       ndId: 'moduleRearTemperature',
@@ -1966,8 +1974,8 @@ const map = {
                       setValue: 5,
                       lowerLimitValue: 3,
                       minValue: 1,
-                      callPlaceRankList: ['BW_5'],
-                      putPlaceRankList: ['BW_5', 'SEA'],
+                      // callPlaceRankList: ['BW_5'],
+                      // putPlaceRankList: ['BW_5', 'SEA'],
                     },
                   ],
                   placeSize: { width: 800, height: 1000, depth: 20 },
