@@ -1449,7 +1449,6 @@ const map = {
         target_name: '염도',
         is_sensor: 1,
         data_unit: '%',
-        description: null,
         defList: [
           {
             target_id: 'salinity',
@@ -1475,13 +1474,11 @@ const map = {
         target_name: '수위',
         is_sensor: 1,
         data_unit: 'cm',
-        description: null,
         defList: [
           {
             target_id: 'waterLevel',
             target_prefix: 'WL',
             target_name: '수위',
-            description: null,
             nodeList: [
               { target_code: '001', axisScale: [0, 0], moveScale: [0, 0] },
               { target_code: '002', axisScale: [0, 0], moveScale: [0, 0] },
@@ -1508,14 +1505,11 @@ const map = {
         target_id: 'waterDoor',
         target_name: '수문',
         is_sensor: 0,
-        data_unit: null,
-        description: null,
         defList: [
           {
             target_id: 'waterDoor',
             target_prefix: 'WD',
             target_name: '수문',
-            description: null,
             nodeList: [
               { target_code: '001', axisScale: [0, 1], moveScale: [2.4, 0.5] },
               { target_code: '002', axisScale: [0.5, 1], moveScale: [3.4, 0.5] },
@@ -1532,17 +1526,15 @@ const map = {
         ],
       },
       {
-        target_id: 'gateValve',
-        target_name: '수문',
+        target_id: 'valve',
+        target_name: '밸브',
         is_sensor: 0,
-        data_unit: null,
-        description: null,
         defList: [
           {
             target_id: 'gateValve',
             target_prefix: 'GV',
-            target_name: '수문',
-            description: null,
+            target_name: '수문 용 밸브',
+            description: '파이프 관에 연결된 밸브, 직경 100A PVC 용 밸브',
             nodeList: [
               { target_code: '101', axisScale: [0, 1], moveScale: [0.7, 2.6] },
               { target_code: '102', axisScale: [1, 1], moveScale: [0, 2.6] },
@@ -1572,14 +1564,11 @@ const map = {
         target_id: 'pump',
         target_name: '펌프',
         is_sensor: 0,
-        data_unit: null,
-        description: null,
         defList: [
           {
             target_id: 'pump',
             target_prefix: 'P',
             target_name: '펌프',
-            description: null,
             nodeList: [
               { target_code: '001', axisScale: [0, 1], moveScale: [1, 0] },
               { target_code: '002', axisScale: [1, 0], moveScale: [0, 0] },
@@ -1604,14 +1593,12 @@ const map = {
         target_name: '배출구',
         is_sensor: -1,
         save_db_type: NONE,
-        data_unit: null,
-        description: null,
+        description: '펌프의 배수구를 표현하기 위한 SVG 용 Element',
         defList: [
           {
             target_id: 'outlet',
             target_prefix: 'O',
             target_name: '배출구',
-            description: null,
             nodeList: [
               { target_code: '001', axisScale: [0, 0], moveScale: [5.5, 0] },
               { target_code: '002', axisScale: [0, 0], moveScale: [2, 0] },
@@ -1678,7 +1665,7 @@ const map = {
                       maxValue: 10,
                       upperLimitValue: 7,
                       setValue: 5,
-                      lowerLimitValue: 3,
+                      lowerLimitValue: 2.9,
                       minValue: 1,
                       callPlaceRankList: ['BW_2'],
                       putPlaceRankList: ['BW_2', 'SEA'],
@@ -1686,12 +1673,13 @@ const map = {
                     {
                       ndId: 'salinity',
                       upperLimitValue: 10.5,
-                      putPlaceRankList: ['BW_3', 'SEA'],
+                      putPlaceRankList: ['BW_3', 'BW_2'],
+                      groupSrcList: ['SEB_1', 'SEB_2', 'SEB_3', 'SEB_4', 'SEB_5'],
                     },
                     {
                       ndId: 'moduleRearTemperature',
                       upperLimitValue: 40,
-                      putPlaceRankList: ['BW_2', 'SEA'],
+                      putPlaceRankList: ['BW_2'],
                     },
                   ],
                   placeSize: { width: 356, height: 2800, depth: 15 },
@@ -1708,7 +1696,7 @@ const map = {
                       maxValue: 10,
                       upperLimitValue: 7,
                       setValue: 5,
-                      lowerLimitValue: 3,
+                      lowerLimitValue: 2.9,
                       minValue: 1,
                       callPlaceRankList: ['BW_2'],
                       putPlaceRankList: ['BW_2', 'SEA'],
@@ -1716,12 +1704,13 @@ const map = {
                     {
                       ndId: 'salinity',
                       upperLimitValue: 10.5,
-                      putPlaceRankList: ['BW_3', 'SEA'],
+                      putPlaceRankList: ['BW_3', 'BW_2'],
+                      groupSrcList: ['SEB_1', 'SEB_2', 'SEB_3', 'SEB_4', 'SEB_5'],
                     },
                     {
                       ndId: 'moduleRearTemperature',
                       upperLimitValue: 40,
-                      putPlaceRankList: ['BW_2', 'SEA'],
+                      putPlaceRankList: ['BW_2'],
                     },
                   ],
                   placeSize: { width: 356, height: 2800, depth: 15 },
@@ -1738,7 +1727,7 @@ const map = {
                       maxValue: 10,
                       upperLimitValue: 7,
                       setValue: 5,
-                      lowerLimitValue: 3,
+                      lowerLimitValue: 2.9,
                       minValue: 1,
                       callPlaceRankList: ['BW_2'],
                       putPlaceRankList: ['BW_2', 'SEA'],
@@ -1746,12 +1735,13 @@ const map = {
                     {
                       ndId: 'salinity',
                       upperLimitValue: 10.5,
-                      putPlaceRankList: ['BW_3', 'SEA'],
+                      putPlaceRankList: ['BW_3', 'BW_2'],
+                      groupSrcList: ['SEB_1', 'SEB_2', 'SEB_3', 'SEB_4', 'SEB_5'],
                     },
                     {
                       ndId: 'moduleRearTemperature',
                       upperLimitValue: 40,
-                      putPlaceRankList: ['BW_2', 'SEA'],
+                      putPlaceRankList: ['BW_2'],
                     },
                   ],
                   placeSize: { width: 356, height: 2800, depth: 15 },
@@ -1768,7 +1758,7 @@ const map = {
                       maxValue: 10,
                       upperLimitValue: 7,
                       setValue: 5,
-                      lowerLimitValue: 3,
+                      lowerLimitValue: 2.9,
                       minValue: 1,
                       callPlaceRankList: ['BW_2'],
                       putPlaceRankList: ['BW_2', 'SEA'],
@@ -1776,12 +1766,13 @@ const map = {
                     {
                       ndId: 'salinity',
                       upperLimitValue: 10.5,
-                      putPlaceRankList: ['BW_3', 'SEA'],
+                      putPlaceRankList: ['BW_3', 'BW_2'],
+                      groupSrcList: ['SEB_1', 'SEB_2', 'SEB_3', 'SEB_4', 'SEB_5'],
                     },
                     {
                       ndId: 'moduleRearTemperature',
                       upperLimitValue: 40,
-                      putPlaceRankList: ['BW_2', 'SEA'],
+                      putPlaceRankList: ['BW_2'],
                     },
                   ],
                   placeSize: { width: 356, height: 2800, depth: 15 },
@@ -1798,7 +1789,7 @@ const map = {
                       maxValue: 10,
                       upperLimitValue: 7,
                       setValue: 5,
-                      lowerLimitValue: 3,
+                      lowerLimitValue: 2.9,
                       minValue: 1,
                       callPlaceRankList: ['BW_2'],
                       putPlaceRankList: ['BW_2', 'SEA'],
@@ -1806,12 +1797,13 @@ const map = {
                     {
                       ndId: 'salinity',
                       upperLimitValue: 10.5,
-                      putPlaceRankList: ['BW_3', 'SEA'],
+                      putPlaceRankList: ['BW_3', 'BW_2'],
+                      groupSrcList: ['SEB_1', 'SEB_2', 'SEB_3', 'SEB_4', 'SEB_5'],
                     },
                     {
                       ndId: 'moduleRearTemperature',
                       upperLimitValue: 40,
-                      putPlaceRankList: ['BW_2', 'SEA'],
+                      putPlaceRankList: ['BW_2'],
                     },
                   ],
                   placeSize: { width: 356, height: 2800, depth: 15 },
@@ -1828,20 +1820,21 @@ const map = {
                       maxValue: 10,
                       upperLimitValue: 7,
                       setValue: 5,
-                      lowerLimitValue: 3,
+                      lowerLimitValue: 2.9,
                       minValue: 1,
                       callPlaceRankList: ['BW_3'],
-                      putPlaceRankList: ['BW_3', 'SEA'],
+                      putPlaceRankList: ['BW_3', 'BW_2', 'SEA'],
                     },
                     {
                       ndId: 'salinity',
                       upperLimitValue: 18,
-                      putPlaceRankList: ['BW_4', 'SEA'],
+                      putPlaceRankList: ['BW_4', 'BW_3', 'BW_2'],
+                      groupSrcList: ['SEB_6', 'SEB_7', 'SEB_8'],
                     },
                     {
                       ndId: 'moduleRearTemperature',
                       upperLimitValue: 40,
-                      putPlaceRankList: ['BW_3', 'SEA'],
+                      putPlaceRankList: ['BW_3'],
                     },
                   ],
                   placeSize: { width: 356, height: 2800, depth: 15 },
@@ -1858,20 +1851,21 @@ const map = {
                       maxValue: 10,
                       upperLimitValue: 7,
                       setValue: 5,
-                      lowerLimitValue: 3,
+                      lowerLimitValue: 2.9,
                       minValue: 1,
                       callPlaceRankList: ['BW_3'],
-                      putPlaceRankList: ['BW_3', 'SEA'],
+                      putPlaceRankList: ['BW_3', 'BW_2', 'SEA'],
                     },
                     {
                       ndId: 'salinity',
                       upperLimitValue: 18,
-                      putPlaceRankList: ['BW_4', 'SEA'],
+                      putPlaceRankList: ['BW_4', 'BW_3', 'BW_2'],
+                      groupSrcList: ['SEB_6', 'SEB_7', 'SEB_8'],
                     },
                     {
                       ndId: 'moduleRearTemperature',
                       upperLimitValue: 40,
-                      putPlaceRankList: ['BW_3', 'SEA'],
+                      putPlaceRankList: ['BW_3'],
                     },
                   ],
                   placeSize: { width: 356, height: 2800, depth: 15 },
@@ -1888,20 +1882,21 @@ const map = {
                       maxValue: 10,
                       upperLimitValue: 7,
                       setValue: 5,
-                      lowerLimitValue: 3,
+                      lowerLimitValue: 2.9,
                       minValue: 1,
                       callPlaceRankList: ['BW_3'],
-                      putPlaceRankList: ['BW_3', 'SEA'],
+                      putPlaceRankList: ['BW_3', 'BW_2', 'SEA'],
                     },
                     {
                       ndId: 'salinity',
                       upperLimitValue: 18,
-                      putPlaceRankList: ['BW_4', 'SEA'],
+                      putPlaceRankList: ['BW_4', 'BW_3', 'BW_2'],
+                      groupSrcList: ['SEB_6', 'SEB_7', 'SEB_8'],
                     },
                     {
                       ndId: 'moduleRearTemperature',
                       upperLimitValue: 40,
-                      putPlaceRankList: ['BW_3', 'SEA'],
+                      putPlaceRankList: ['BW_3'],
                     },
                   ],
                   placeSize: { width: 356, height: 2800, depth: 15 },
@@ -1922,16 +1917,16 @@ const map = {
                   thresholdConfigList: [
                     {
                       ndId: 'waterLevel',
-                      maxValue: 10,
-                      upperLimitValue: 7,
-                      setValue: 5,
-                      lowerLimitValue: 3,
-                      minValue: 1,
+                      maxValue: 20,
+                      upperLimitValue: 12,
+                      setValue: 10,
+                      lowerLimitValue: 6,
+                      minValue: 2,
                       callPlaceRankList: ['RV'],
                       putPlaceRankList: ['NEB_2'],
                     },
                   ],
-                  placeSize: { width: 3300, height: 1000, depth: 20 },
+                  placeSize: { width: 3300, height: 2000, depth: 20 },
                 },
               },
               {
@@ -1942,18 +1937,18 @@ const map = {
                   thresholdConfigList: [
                     {
                       ndId: 'waterLevel',
-                      maxValue: 10,
-                      upperLimitValue: 7,
-                      setValue: 5,
-                      lowerLimitValue: 3,
-                      minValue: 1,
-                      callPlaceRankList: ['BW_1'],
+                      maxValue: 20,
+                      upperLimitValue: 15,
+                      setValue: 12,
+                      lowerLimitValue: 8,
+                      minValue: 2,
+                      callPlaceRankList: ['BW_1', 'NEB_1'],
                       putPlaceRankList: ['BW_1', 'SEA'],
                     },
                     {
                       ndId: 'salinity',
                       upperLimitValue: 6,
-                      putPlaceRankList: ['BW_2', 'SEA'],
+                      putPlaceRankList: ['BW_2', 'BW_1'],
                     },
                   ],
                   placeSize: { width: 3300, height: 1000, depth: 20 },
@@ -1979,8 +1974,8 @@ const map = {
                       setValue: 5,
                       lowerLimitValue: 3,
                       minValue: 1,
-                      callPlaceRankList: ['BW_5'],
-                      putPlaceRankList: ['BW_5', 'SEA'],
+                      // callPlaceRankList: ['BW_5'],
+                      // putPlaceRankList: ['BW_5', 'SEA'],
                     },
                   ],
                   placeSize: { width: 800, height: 1000, depth: 20 },
@@ -2004,15 +1999,13 @@ const map = {
                 target_code: '1',
                 nodeList: ['WD_006', 'P_004', 'WL_004'],
                 depth: -1,
-
                 place_info: {
                   thresholdConfigList: [
                     {
                       ndId: 'waterLevel',
-                      maxValue: 100,
-                      lowerLimitValue: 30,
+                      maxValue: 150,
+                      lowerLimitValue: 20,
                       minValue: 10,
-                      callPlaceRankList: ['NEB_2'],
                     },
                   ],
                   placeSize: { width: 1200, height: 300, depth: 150 },
@@ -2035,10 +2028,9 @@ const map = {
                   thresholdConfigList: [
                     {
                       ndId: 'waterLevel',
-                      maxValue: 100,
-                      lowerLimitValue: 30,
+                      maxValue: 150,
+                      lowerLimitValue: 20,
                       minValue: 10,
-                      callPlaceRankList: ['SEB_1', 'SEB_2', 'SEB_3', 'SEB_4', 'SEB_5'],
                     },
                   ],
                   placeSize: { width: 900, height: 300, depth: 150 },
@@ -2052,19 +2044,9 @@ const map = {
                   thresholdConfigList: [
                     {
                       ndId: 'waterLevel',
-                      maxValue: 100,
-                      lowerLimitValue: 30,
+                      maxValue: 150,
+                      lowerLimitValue: 20,
                       minValue: 10,
-                      callPlaceRankList: [
-                        'SEB_1',
-                        'SEB_2',
-                        'SEB_3',
-                        'SEB_4',
-                        'SEB_5',
-                        'SEB_6',
-                        'SEB_7',
-                        'SEB_8',
-                      ],
                     },
                   ],
                   placeSize: { width: 400, height: 300, depth: 150 },
@@ -2078,10 +2060,9 @@ const map = {
                   thresholdConfigList: [
                     {
                       ndId: 'waterLevel',
-                      maxValue: 100,
-                      lowerLimitValue: 30,
+                      maxValue: 150,
+                      lowerLimitValue: 20,
                       minValue: 10,
-                      callPlaceRankList: ['SEB_6', 'SEB_7', 'SEB_8'],
                     },
                   ],
                   placeSize: { width: 400, height: 300, depth: 150 },
@@ -2095,10 +2076,9 @@ const map = {
                   thresholdConfigList: [
                     {
                       ndId: 'waterLevel',
-                      maxValue: 100,
-                      lowerLimitValue: 30,
+                      maxValue: 150,
+                      lowerLimitValue: 20,
                       minValue: 10,
-                      callPlaceRankList: ['BW_4'],
                     },
                   ],
                   placeSize: { width: 500, height: 300, depth: 150 },
@@ -2112,8 +2092,8 @@ const map = {
                   thresholdConfigList: [
                     {
                       ndId: 'waterLevel',
-                      maxValue: 100,
-                      lowerLimitValue: 30,
+                      maxValue: 150,
+                      lowerLimitValue: 20,
                       minValue: 10,
                       callPlaceRankList: [],
                     },
@@ -2143,7 +2123,8 @@ const map = {
                   thresholdConfigList: [
                     {
                       ndId: 'waterLevel',
-                      maxValue: 100,
+                      maxValue: 200,
+                      upperLimitValue: 180,
                       lowerLimitValue: 30,
                       minValue: 10,
                       callPlaceRankList: ['SEA'],
@@ -2729,7 +2710,7 @@ const map = {
   },
   controlInfo: {
     flowCmdList: [
-      // 바다 -> 저수지
+      // 바다 > 저수지
       {
         srcPlaceId: 'SEA',
         destList: [
@@ -2740,8 +2721,7 @@ const map = {
           },
         ],
       },
-
-      // 저수지 -> 증발지1
+      // 저수지 > 증발지 1
       {
         srcPlaceId: 'RV',
         destList: [
@@ -2752,7 +2732,7 @@ const map = {
           },
         ],
       },
-      // 증발지1 -> 증발지2
+      // 증발지 1 > 증발지 2
       {
         srcPlaceId: 'NEB_1',
         destList: [
@@ -2763,7 +2743,7 @@ const map = {
           },
         ],
       },
-      // 증발지2 -> 해주1,2
+      // 증발지 2 > 해주 1, 2, 바다
       {
         srcPlaceId: 'NEB_2',
         destList: [
@@ -2777,131 +2757,182 @@ const map = {
             trueNodeList: ['WD_003', 'WD_004', 'WD_007'],
             falseNodeList: ['WD_005', 'WD_006'],
           },
+          {
+            destPlaceId: 'SEA',
+            trueNodeList: ['WD_003', 'WD_004', 'WD_005'],
+            falseNodeList: ['WD_006', 'WD_007'],
+          },
         ],
       },
-      // 모듈1,2,3,4,5, -> 해주2,3
+      // 수중 태양광 증발지 1 > 해주 2, 3, 바다
       {
         srcPlaceId: 'SEB_1',
         destList: [
           {
             destPlaceId: 'BW_2',
-            trueNodeList: ['WD_101', 'WD_105'],
-            falseNodeList: ['WD_106', 'WD_104'],
+            trueNodeList: ['GV_101', 'GV_105'],
+            falseNodeList: ['GV_106', 'GV_104'],
           },
           {
             destPlaceId: 'BW_3',
-            trueNodeList: ['WD_102', 'WD_104', 'WD_105'],
-            falseNodeList: ['WD_106', 'WD_101', 'WD_103'],
+            trueNodeList: ['GV_102', 'GV_104', 'GV_105'],
+            falseNodeList: ['GV_106', 'GV_101', 'GV_103'],
+          },
+          {
+            destPlaceId: 'SEA',
+            trueNodeList: ['GV_106'],
+            falseNodeList: ['GV_105'],
           },
         ],
       },
+      // 수중 태양광 증발지 2 > 해주 2, 3, 바다
       {
         srcPlaceId: 'SEB_2',
         destList: [
           {
             destPlaceId: 'BW_2',
-            trueNodeList: ['WD_101', 'WD_107'],
-            falseNodeList: ['WD_108', 'WD_104'],
+            trueNodeList: ['GV_101', 'GV_107'],
+            falseNodeList: ['GV_108', 'GV_104'],
           },
           {
             destPlaceId: 'BW_3',
-            trueNodeList: ['WD_102', 'WD_104', 'WD_107'],
-            falseNodeList: ['WD_108', 'WD_101', 'WD_103'],
+            trueNodeList: ['GV_102', 'GV_104', 'GV_107'],
+            falseNodeList: ['GV_108', 'GV_101', 'GV_103'],
+          },
+          {
+            destPlaceId: 'SEA',
+            trueNodeList: ['GV_108'],
+            falseNodeList: ['GV_107'],
           },
         ],
       },
+      // 수중 태양광 증발지 3 > 해주 2, 3, 바다
       {
         srcPlaceId: 'SEB_3',
         destList: [
           {
             destPlaceId: 'BW_2',
-            trueNodeList: ['WD_101', 'WD_109'],
-            falseNodeList: ['WD_110', 'WD_104'],
+            trueNodeList: ['GV_101', 'GV_109'],
+            falseNodeList: ['GV_110', 'GV_104'],
           },
           {
             destPlaceId: 'BW_3',
-            trueNodeList: ['WD_102', 'WD_104', 'WD_109'],
-            falseNodeList: ['WD_110', 'WD_101', 'WD_103'],
+            trueNodeList: ['GV_102', 'GV_104', 'GV_109'],
+            falseNodeList: ['GV_110', 'GV_101', 'GV_103'],
+          },
+          {
+            destPlaceId: 'SEA',
+            trueNodeList: ['GV_110'],
+            falseNodeList: ['GV_109'],
           },
         ],
       },
+      // 수중 태양광 증발지 4 > 해주 2, 3, 바다
       {
         srcPlaceId: 'SEB_4',
         destList: [
           {
             destPlaceId: 'BW_2',
-            trueNodeList: ['WD_101', 'WD_111'],
-            falseNodeList: ['WD_112', 'WD_104'],
+            trueNodeList: ['GV_101', 'GV_111'],
+            falseNodeList: ['GV_112', 'GV_104'],
           },
           {
             destPlaceId: 'BW_3',
-            trueNodeList: ['WD_102', 'WD_104', 'WD_111'],
-            falseNodeList: ['WD_112', 'WD_101', 'WD_103'],
+            trueNodeList: ['GV_102', 'GV_104', 'GV_111'],
+            falseNodeList: ['GV_112', 'GV_101', 'GV_103'],
+          },
+          {
+            destPlaceId: 'SEA',
+            trueNodeList: ['GV_112'],
+            falseNodeList: ['GV_111'],
           },
         ],
       },
+      // 수중 태양광 증발지 5 > 해주 2, 3, 바다
       {
         srcPlaceId: 'SEB_5',
         destList: [
           {
             destPlaceId: 'BW_2',
-            trueNodeList: ['WD_101', 'WD_113'],
-            falseNodeList: ['WD_114', 'WD_104'],
+            trueNodeList: ['GV_101', 'GV_113'],
+            falseNodeList: ['GV_114', 'GV_104'],
           },
           {
             destPlaceId: 'BW_3',
-            trueNodeList: ['WD_102', 'WD_104', 'WD_113'],
-            falseNodeList: ['WD_114', 'WD_101', 'WD_103'],
+            trueNodeList: ['GV_102', 'GV_104', 'GV_113'],
+            falseNodeList: ['GV_114', 'GV_101', 'GV_103'],
+          },
+          {
+            destPlaceId: 'SEA',
+            trueNodeList: ['GV_114'],
+            falseNodeList: ['GV_113'],
           },
         ],
       },
-      // 모듈6,7,8 -> 해주3,4
+      // 수중 태양광 증발지 6 > 해주 3, 4, 바다
       {
         srcPlaceId: 'SEB_6',
         destList: [
           {
             destPlaceId: 'BW_3',
-            trueNodeList: ['WD_102', 'WD_115'],
-            falseNodeList: ['WD_116', 'WD_104', 'WD_103'],
+            trueNodeList: ['GV_102', 'GV_115'],
+            falseNodeList: ['GV_116', 'GV_104', 'GV_103'],
           },
           {
             destPlaceId: 'BW_4',
-            trueNodeList: ['WD_103', 'WD_115'],
-            falseNodeList: ['WD_116', 'WD_104', 'WD_102'],
+            trueNodeList: ['GV_103', 'GV_115'],
+            falseNodeList: ['GV_116', 'GV_104', 'GV_102'],
+          },
+          {
+            destPlaceId: 'SEA',
+            trueNodeList: ['GV_116'],
+            falseNodeList: ['GV_115'],
           },
         ],
       },
+      // 수중 태양광 증발지 7 > 해주 3, 4, 바다
       {
         srcPlaceId: 'SEB_7',
         destList: [
           {
             destPlaceId: 'BW_3',
-            trueNodeList: ['WD_102', 'WD_117'],
-            falseNodeList: ['WD_118', 'WD_104', 'WD_103'],
+            trueNodeList: ['GV_102', 'GV_117'],
+            falseNodeList: ['GV_118', 'GV_104', 'GV_103'],
           },
           {
             destPlaceId: 'BW_4',
-            trueNodeList: ['WD_103', 'WD_117'],
-            falseNodeList: ['WD_118', 'WD_104', 'WD_102'],
+            trueNodeList: ['GV_103', 'GV_117'],
+            falseNodeList: ['GV_118', 'GV_104', 'GV_102'],
+          },
+          {
+            destPlaceId: 'SEA',
+            trueNodeList: ['GV_118'],
+            falseNodeList: ['GV_117'],
           },
         ],
       },
+      // 수중 태양광 증발지 8 > 해주 3, 4, 바다
       {
         srcPlaceId: 'SEB_8',
         destList: [
           {
             destPlaceId: 'BW_3',
-            trueNodeList: ['WD_102', 'WD_119'],
-            falseNodeList: ['WD_120', 'WD_104', 'WD_103'],
+            trueNodeList: ['GV_102', 'GV_119'],
+            falseNodeList: ['GV_120', 'GV_104', 'GV_103'],
           },
           {
             destPlaceId: 'BW_4',
-            trueNodeList: ['WD_103', 'WD_119'],
-            falseNodeList: ['WD_120', 'WD_104', 'WD_102'],
+            trueNodeList: ['GV_103', 'GV_119'],
+            falseNodeList: ['GV_120', 'GV_104', 'GV_102'],
+          },
+          {
+            destPlaceId: 'SEA',
+            trueNodeList: ['GV_120'],
+            falseNodeList: ['GV_119'],
           },
         ],
       },
-      // 결정지 -> 해주 5
+      // 결정지 > 해주 5, 바다
       {
         srcPlaceId: 'NCB',
         destList: [
@@ -2910,103 +2941,77 @@ const map = {
             trueNodeList: ['WD_008', 'WD_009'],
             falseNodeList: ['WD_010'],
           },
+          {
+            destPlaceId: 'SEA',
+            trueNodeList: ['WD_008', 'WD_010'],
+            falseNodeList: ['WD_009'],
+          },
         ],
       },
-
-      // 해주1 -> 증발지 2
+      // 해주 1 > 증발지 2
       {
         srcPlaceId: 'BW_1',
         destList: [
           {
             destPlaceId: 'NEB_2',
             trueNodeList: ['P_004'],
-            falseNodeList: ['WD_003', 'WD_004', 'WD_006'],
+            falseNodeList: ['WD_003', 'WD_004'],
           },
         ],
       },
-      // 해주2 -> 모듈1,2,3,4,5
+      // 해주 2 > 수중 태양광 증발지 1, 2, 3, 4, 5
       {
         srcPlaceId: 'BW_2',
         destList: [
           {
             destPlaceId: 'SEB_1',
             trueNodeList: ['P_005'],
-            falseNodeList: ['GV_101', 'GV_105', 'GV_106'],
+            falseNodeList: ['GV_105', 'GV_106'],
           },
-        ],
-      },
-      {
-        srcPlaceId: 'BW_2',
-        destList: [
           {
             destPlaceId: 'SEB_2',
             trueNodeList: ['P_006'],
-            falseNodeList: ['GV_101', 'GV_107', 'GV_108'],
+            falseNodeList: ['GV_107', 'GV_108'],
           },
-        ],
-      },
-      {
-        srcPlaceId: 'BW_2',
-        destList: [
           {
             destPlaceId: 'SEB_3',
             trueNodeList: ['P_007'],
-            falseNodeList: ['GV_101', 'GV_109', 'GV_110'],
+            falseNodeList: ['GV_109', 'GV_110'],
           },
-        ],
-      },
-      {
-        srcPlaceId: 'BW_2',
-        destList: [
           {
             destPlaceId: 'SEB_4',
             trueNodeList: ['P_008'],
-            falseNodeList: ['GV_101', 'GV_111', 'GV_112'],
+            falseNodeList: ['GV_111', 'GV_112'],
           },
-        ],
-      },
-      {
-        srcPlaceId: 'BW_2',
-        destList: [
           {
             destPlaceId: 'SEB_5',
             trueNodeList: ['P_009'],
-            falseNodeList: ['GV_101', 'GV_113', 'GV_114'],
+            falseNodeList: ['GV_113', 'GV_114'],
           },
         ],
       },
-      // 해주3 -> 모듈6,7,8
+      // 해주 3 > 수중 태양광 증발지 6, 7, 8
       {
         srcPlaceId: 'BW_3',
         destList: [
           {
             destPlaceId: 'SEB_6',
             trueNodeList: ['P_010'],
-            falseNodeList: ['GV_102', 'GV_115', 'GV_116'],
+            falseNodeList: ['GV_115', 'GV_116'],
           },
-        ],
-      },
-      {
-        srcPlaceId: 'BW_3',
-        destList: [
           {
             destPlaceId: 'SEB_7',
             trueNodeList: ['P_011'],
-            falseNodeList: ['GV_102', 'GV_117', 'GV_118'],
+            falseNodeList: ['GV_117', 'GV_118'],
           },
-        ],
-      },
-      {
-        srcPlaceId: 'BW_3',
-        destList: [
           {
             destPlaceId: 'SEB_8',
             trueNodeList: ['P_012'],
-            falseNodeList: ['GV_102', 'GV_119', 'GV_120'],
+            falseNodeList: ['GV_119', 'GV_120'],
           },
         ],
       },
-      // 해주4 -> 해주5
+      // 해주 4 > 해주 5
       {
         srcPlaceId: 'BW_4',
         destList: [
@@ -3017,7 +3022,7 @@ const map = {
           },
         ],
       },
-      // 해주5 -> 결정지
+      // 해주 5 > 결정지
       {
         srcPlaceId: 'BW_5',
         destList: [
@@ -3028,7 +3033,7 @@ const map = {
           },
         ],
       },
-      // 자고 -> 바다
+      // 자고 > 바다
       {
         srcPlaceId: 'JG',
         destList: [
@@ -3036,109 +3041,6 @@ const map = {
             destPlaceId: 'SEA',
             trueNodeList: ['P_002'],
             falseNodeList: [],
-          },
-        ],
-      },
-      // 증발지2 -> 바다
-      {
-        srcPlaceId: 'NEB_2',
-        destList: [
-          {
-            destPlaceId: 'SEA',
-            trueNodeList: ['WD_003', 'WD_004', 'WD_005'],
-            falseNodeList: ['WD_006', 'WD_007'],
-          },
-        ],
-      },
-      // 모듈 1,2,3,4,5,6,7,8 -> 바다
-      {
-        srcPlaceId: 'SEB_1',
-        destList: [
-          {
-            destPlaceId: 'SEA',
-            trueNodeList: ['GV_106'],
-            falseNodeList: ['GV_105'],
-          },
-        ],
-      },
-      {
-        srcPlaceId: 'SEB_2',
-        destList: [
-          {
-            destPlaceId: 'SEA',
-            trueNodeList: ['GV_108'],
-            falseNodeList: ['GV_107'],
-          },
-        ],
-      },
-      {
-        srcPlaceId: 'SEB_3',
-        destList: [
-          {
-            destPlaceId: 'SEA',
-            trueNodeList: ['GV_110'],
-            falseNodeList: ['GV_109'],
-          },
-        ],
-      },
-      {
-        srcPlaceId: 'SEB_4',
-        destList: [
-          {
-            destPlaceId: 'SEA',
-            trueNodeList: ['GV_112'],
-            falseNodeList: ['GV_111'],
-          },
-        ],
-      },
-      {
-        srcPlaceId: 'SEB_5',
-        destList: [
-          {
-            destPlaceId: 'SEA',
-            trueNodeList: ['GV_114'],
-            falseNodeList: ['GV_113'],
-          },
-        ],
-      },
-      {
-        srcPlaceId: 'SEB_6',
-        destList: [
-          {
-            destPlaceId: 'SEA',
-            trueNodeList: ['GV_116'],
-            falseNodeList: ['GV_115'],
-          },
-        ],
-      },
-      {
-        srcPlaceId: 'SEB_7',
-        destList: [
-          {
-            destPlaceId: 'SEA',
-            trueNodeList: ['GV_118'],
-            falseNodeList: ['GV_117'],
-          },
-        ],
-      },
-      {
-        srcPlaceId: 'SEB_8',
-        destList: [
-          {
-            destPlaceId: 'SEA',
-            trueNodeList: ['GV_120'],
-            falseNodeList: ['GV_119'],
-          },
-        ],
-      },
-      // 결정지 -> 바다
-      {
-        srcPlaceId: 'NCB',
-        destList: [
-          {
-            destPlaceId: 'SEA',
-            trueNodeList: ['WD_010', 'WD_008'],
-            falseNodeList: ['WD_009'],
           },
         ],
       },

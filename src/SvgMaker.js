@@ -1,8 +1,8 @@
 const _ = require('lodash');
 const { BU } = require('base-util-jh');
 
-const map = require(`./maps/${process.env.SOURCE_PATH}`);
-const mapBase64 = require(`./maps/${process.env.SOURCE_PATH}/mapBase64`);
+const map = require(`./maps/${process.env.SOURCE_PATH}/${process.env.SOURCE_FILE}`);
+const mapBase64 = require(`./maps/${process.env.SOURCE_PATH}/${process.env.SOURCE_FILE}/mapBase64`);
 // const mapBase64 = require('./maps/upsas/mapBase64');
 
 require('dotenv').config();
@@ -53,11 +53,11 @@ class SvgMaker {
       const finalStrMap = `var map = ${JSON.stringify(map)}`;
       await BU.writeFile('./out/defaultMap.js', finalStrMap, 'w');
       // FIXME:
-      //   await BU.writeFile(
-      //     `./out/${process.env.SOURCE_PATH}/output_${process.env.SOURCE_FILE}.js`,
-      //     finalStrMap,
-      //     'w',
-      //   );
+      await BU.writeFile(
+        `./out/${process.env.SOURCE_PATH}/output_${process.env.SOURCE_FILE}.js`,
+        finalStrMap,
+        'w',
+      );
       return BU.CLI('Map 자동 생성 성공');
     } catch (error) {
       BU.CLI('Map 생성 실패', error);
