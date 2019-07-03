@@ -241,7 +241,7 @@ function InsertDialogValue(socket) {
     svgNodeInfo.defList.forEach(defInfo => {
       const getSvgElement = $(`#${defInfo.id}`);
       getSvgElement.on('click touchstart', e => {
-        let controlValue;
+        let singleControlType;
 
         // 장치 or 센서 구분  1: 센서, 0: 장치, -1: 미분류
         const foundSvgNodeInfo = _.find(realMap.drawInfo.positionInfo.svgNodeList, info =>
@@ -266,8 +266,8 @@ function InsertDialogValue(socket) {
                 text: 'OK',
                 btnClass: 'btn-blue',
                 action() {
-                  controlValue = this.$content.find('.name').val();
-                  if (_.isUndefined(controlValue)) return false;
+                  singleControlType = this.$content.find('.name').val();
+                  if (_.isUndefined(singleControlType)) return false;
                 },
               },
               cancel() {
@@ -283,13 +283,13 @@ function InsertDialogValue(socket) {
               confirm: {
                 text: 'OPEN',
                 action() {
-                  controlValue = 'open';
+                  singleControlType = 'open';
                 },
               },
               somethingElse: {
                 text: 'CLOSE',
                 action() {
-                  controlValue = 'close';
+                  singleControlType = 'close';
                 },
               },
               cancel: {
@@ -302,24 +302,24 @@ function InsertDialogValue(socket) {
         const falseValueList = ['CLOSE', 'CLOSING', 'OFF', 0, '0'];
         const trueValueList = ['OPEN', 'OPENING', 'ON', 1, '1'];
 
-        if (controlValue != null) {
-          const falseValueCheck = _.includes(falseValueList, controlValue.toUpperCase());
-          const trueValueCheck = _.includes(trueValueList, controlValue.toUpperCase());
+        if (singleControlType != null) {
+          const falseValueCheck = _.includes(falseValueList, singleControlType.toUpperCase());
+          const trueValueCheck = _.includes(trueValueList, singleControlType.toUpperCase());
 
           if (falseValueCheck === true && trueValueCheck === false) {
-            controlValue = 0;
+            singleControlType = 0;
           } else if (falseValueCheck === false && trueValueCheck === true) {
-            controlValue = 1;
+            singleControlType = 1;
           } else {
-            controlValue = 3;
+            singleControlType = 3;
           }
 
           const requestMsg = {
             commandId: 'SINGLE',
             contents: {
-              requestCommandType: 'CONTROL',
+              wrapCmdType: 'CONTROL',
               nodeId: defInfo.id,
-              controlValue,
+              singleControlType,
               rank: 2,
             },
           };

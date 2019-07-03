@@ -60,86 +60,152 @@
         <div style="height:1800px">
           <div id="canvas" style=" display: flex; justify-content: center; margin: 5px;"></div>
         </div>
+        <select class="selectpicker">
+          <option value="view" selected>뷰 모드</option>
+          <option value="control">제어 모드</option>
+          <option value="develop">개발 모드</option>
+        </select>
+      </div>
+      <!-- canvas -->
+      <div style="height:800px">
+        <div id="canvas" style=" display: flex; justify-content: center; margin: 5px;"></div>
       </div>
     </div>
+    <<<<<<< HEAD
 
     <script>
-      // 멥 그리기
-      drawSvgBasePlace('canvas');
-      setPanzoom();
+            // 멥 그리기
+            drawSvgBasePlace('canvas');
+            setPanzoom();
 
-      //FIXME: 테스트 용 선언
-      //   showNodeData('P_002', 'open');
-      //   showNodeData('WL_004', '100');
+            //FIXME: 테스트 용 선언
+            //   showNodeData('P_002', 'open');
+            //   showNodeData('WL_004', '100');
 
-      //모드 선택 설렉트 박스 and 한/영 토글 버튼
-      $('select, #placeNodeChangeNameToogleBtn').change(() => {
-        const selectedModeVal = $('select').selectpicker('val');
-        const isChecked = $('#placeNodeChangeNameToogleBtn').prop('checked'); // 체크 상태 false: off, true: on
+            //모드 선택 설렉트 박스 and 한/영 토글 버튼
+            $('select, #placeNodeChangeNameToogleBtn').change(() => {
+              const selectedModeVal = $('select').selectpicker('val');
+              const isChecked = $('#placeNodeChangeNameToogleBtn').prop('checked'); // 체크 상태 false: off, true: on
 
-        $(`#canvas`).empty(); // svg가 그려진 공간 초기화
-        drawSvgBasePlace('canvas', isChecked); // 초기화 후 다시 그리기 (체크 상태 포함)
+              $(`#canvas`).empty(); // svg가 그려진 공간 초기화
+              drawSvgBasePlace('canvas', isChecked); // 초기화 후 다시 그리기 (체크 상태 포함)
 
-        bindingClickEventNode('', selectedModeVal); // 장치, 센서 클릭 이벤트 다시 바인딩
-        // showNodeData('P_002', 'open', isChecked); // 새롭게 그려진 svg map 다시 데이터 뿌리기 (체크 상태 포함)
-        // showNodeData('WL_004', '100', isChecked);
-      });
-
-      // panzoom 옵션 세팅
-      function setPanzoom() {
-        const svgMap = SVG.get('svgCanvas');
-        const canvas = document.getElementById('canvas');
-        const $canvas = $('#canvas');
-        //FIXME:
-        const { width, height } = map.drawInfo.frame.mapInfo;
-        const matrix = `matrix(0.4, 0, 0, 0.4, ${width - width * 1.27}, ${height - height * 1.3})`;
-        const filter = 'win16|win32|win64|mac';
-
-        // 맵 size 재설정
-        canvas.style.width = svgMap.node.width.baseVal.value + 'px';
-        canvas.style.height = svgMap.node.height.baseVal.value + 'px';
-
-        //모바일, pc 접속 분별하여 zoom in/out 활셩 여부 설정
-        if (navigator.platform) {
-          if (0 > filter.indexOf(navigator.platform.toLowerCase())) {
-            // mobile
-            // panzoom
-            $canvas.panzoom({
-              disablePan: true,
-              disableZoom: true,
-              startTransform: matrix,
-            });
-            $('#zoom-out', '#zoom-in', '#reset').hide();
-          } else {
-            // pc
-            // panzoom
-            $canvas.panzoom({
-              $reset: $('#reset'),
-              cursor: 'context-menu',
-              startTransform: matrix,
+              bindingClickEventNode('', selectedModeVal); // 장치, 센서 클릭 이벤트 다시 바인딩
+              // showNodeData('P_002', 'open', isChecked); // 새롭게 그려진 svg map 다시 데이터 뿌리기 (체크 상태 포함)
+              // showNodeData('WL_004', '100', isChecked);
             });
 
-            // mouseWheel
-            $canvas.panzoom().on('mousewheel.focal', function(e) {
-              e.preventDefault();
-              const delta = e.delta || e.originalEvent.wheelDelta;
-              const zoomOut = delta ? delta < 0 : e.originalEvent.deltaY > 0;
-              $canvas.panzoom('zoom', zoomOut, {
-                animate: false,
-                focal: e,
-              });
-            });
+            // panzoom 옵션 세팅
+            function setPanzoom() {
+              const svgMap = SVG.get('svgCanvas');
+              const canvas = document.getElementById('canvas');
+              const $canvas = $('#canvas');
+              //FIXME:
+              const { width, height } = map.drawInfo.frame.mapInfo;
+              const matrix = `matrix(0.4, 0, 0, 0.4, ${width - width * 1.27}, ${height - height * 1.3})`;
+              const filter = 'win16|win32|win64|mac';
 
-            // zoom 기능 기준점 재정의
-            $('#zoom-in').click(function(e) {
-              $canvas.panzoom('zoom', {});
-            });
-            $('#zoom-out').click(function(e) {
-              $canvas.panzoom('zoom', 'zoomOut', {});
-            });
+              // 맵 size 재설정
+              canvas.style.width = svgMap.node.width.baseVal.value + 'px';
+              canvas.style.height = svgMap.node.height.baseVal.value + 'px';
+
+              //모바일, pc 접속 분별하여 zoom in/out 활셩 여부 설정
+              if (navigator.platform) {
+                if (0 > filter.indexOf(navigator.platform.toLowerCase())) {
+                  // mobile
+                  // panzoom
+                  $canvas.panzoom({
+                    disablePan: true,
+                    disableZoom: true,
+                    startTransform: matrix,
+                  });
+                  $('#zoom-out', '#zoom-in', '#reset').hide();
+                } else {
+                  // pc
+                  // panzoom
+                  $canvas.panzoom({
+                    $reset: $('#reset'),
+                    cursor: 'context-menu',
+                    startTransform: matrix,
+      =======
+        </div>
+
+        <script>
+          // 멥 그리기
+          drawSvgBasePlace('canvas');
+          setPanzoom();
+
+          //FIXME: 테스트 용 선언
+          showNodeData('P_002', 'open');
+          showNodeData('WL_004', '100');
+
+          //모드 선택 설렉트 박스 and 한/영 토글 버튼
+          $('select, #placeNodeChangeNameToogleBtn').change(() => {
+            const selectedModeVal = $('select').selectpicker('val');
+            const isChecked = $('#placeNodeChangeNameToogleBtn').prop('checked'); // 체크 상태 false: off, true: on
+
+            $(`#canvas`).empty(); // svg가 그려진 공간 초기화
+            drawSvgBasePlace('canvas', isChecked); // 초기화 후 다시 그리기 (체크 상태 포함)
+
+            bindingClickEventNode('', selectedModeVal); // 장치, 센서 클릭 이벤트 다시 바인딩
+            showNodeData('P_002', 'open', isChecked); // 새롭게 그려진 svg map 다시 데이터 뿌리기 (체크 상태 포함)
+            showNodeData('WL_004', '100', isChecked);
+          });
+
+          // panzoom 옵션 세팅
+          function setPanzoom() {
+            const svgMap = SVG.get('svgCanvas');
+            const canvas = document.getElementById('canvas');
+            const $canvas = $('#canvas');
+            const matrix = 'matrix(0.4, 0, 0, 0.4, -850, -600)';
+            const filter = 'win16|win32|win64|mac';
+
+            // 맵 size 재설정
+            canvas.style.width = svgMap.node.width.baseVal.value + 'px';
+            canvas.style.height = svgMap.node.height.baseVal.value + 'px';
+
+            //모바일, pc 접속 분별하여 zoom in/out 활셩 여부 설정
+            if (navigator.platform) {
+              if (0 > filter.indexOf(navigator.platform.toLowerCase())) {
+                // mobile
+                // panzoom
+                $canvas.panzoom({
+                  disablePan: true,
+                  disableZoom: true,
+                  startTransform: matrix,
+                });
+                $('#zoom-out', '#zoom-in', '#reset').hide();
+              } else {
+                // pc
+                // panzoom
+                $canvas.panzoom({
+                  $reset: $('#reset'),
+                  cursor: 'context-menu',
+                  startTransform: matrix,
+                });
+
+                // mouseWheel
+                $canvas.panzoom().on('mousewheel.focal', function (e) {
+                  e.preventDefault();
+                  const delta = e.delta || e.originalEvent.wheelDelta;
+                  const zoomOut = delta ? delta < 0 : e.originalEvent.deltaY > 0;
+                  $canvas.panzoom('zoom', zoomOut, {
+                    animate: false,
+                    focal: e,
+      >>>>>>> feature/구조_수정
+                  });
+                });
+
+                // zoom 기능 기준점 재정의
+                $('#zoom-in').click(function (e) {
+                  $canvas.panzoom('zoom', {});
+                });
+                $('#zoom-out').click(function (e) {
+                  $canvas.panzoom('zoom', 'zoomOut', {});
+                });
+              }
+            }
           }
-        }
-      }
     </script>
     <script>
       //FIXME: 임시 선언
