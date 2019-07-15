@@ -14,7 +14,7 @@ class SvgMaker {
     const {
       drawInfo: {
         frame: { svgModelResourceList },
-        positionInfo,
+        positionInfo = {},
       },
       setInfo: { nodeStructureList },
       relationInfo: { placeRelationList, svgResourceConnectionList },
