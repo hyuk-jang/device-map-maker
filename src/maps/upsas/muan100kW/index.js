@@ -1669,23 +1669,44 @@ const map = {
                   thresholdConfigList: [
                     {
                       ndId: 'waterLevel',
-                      maxValue: 10,
-                      upperLimitValue: 7,
-                      setValue: 5,
-                      lowerLimitValue: 2.9,
-                      minValue: 1,
+                      maxValue: {
+                        value: 10,
+                      },
+                      upperLimitValue: {
+                        value: 7,
+                        isCall: false,
+                      },
+                      setValue: {
+                        value: 5,
+                      },
+                      lowerLimitValue: {
+                        value: 2.9,
+                        isCall: true,
+                      },
+                      minValue: {
+                        value: 1,
+                        isCall: true,
+                      },
                       callPlaceRankList: ['BW_2'],
                       putPlaceRankList: ['BW_2', 'SEA'],
                     },
                     {
                       ndId: 'salinity',
-                      upperLimitValue: 10.5,
+                      upperLimitValue: {
+                        value: 10.5,
+                        isCall: false,
+                        isGroup: true,
+                      },
                       putPlaceRankList: ['BW_3', 'BW_2'],
-                      groupSrcList: ['SEB_1', 'SEB_2', 'SEB_3', 'SEB_4', 'SEB_5'],
+                      groupPlaceList: ['SEB_1', 'SEB_2', 'SEB_3', 'SEB_4', 'SEB_5'],
                     },
                     {
                       ndId: 'moduleRearTemperature',
-                      upperLimitValue: 40,
+                      upperLimitValue: {
+                        value: 40,
+                        isCall: true,
+                      },
+                      callPlaceRankList: ['BW_2'],
                       putPlaceRankList: ['BW_2'],
                     },
                   ],
@@ -1700,23 +1721,44 @@ const map = {
                   thresholdConfigList: [
                     {
                       ndId: 'waterLevel',
-                      maxValue: 10,
-                      upperLimitValue: 7,
-                      setValue: 5,
-                      lowerLimitValue: 2.9,
-                      minValue: 1,
+                      maxValue: {
+                        value: 10,
+                      },
+                      upperLimitValue: {
+                        value: 7,
+                        isCall: false,
+                      },
+                      setValue: {
+                        value: 5,
+                      },
+                      lowerLimitValue: {
+                        value: 2.9,
+                        isCall: true,
+                      },
+                      minValue: {
+                        value: 1,
+                        isCall: true,
+                      },
                       callPlaceRankList: ['BW_2'],
                       putPlaceRankList: ['BW_2', 'SEA'],
                     },
                     {
                       ndId: 'salinity',
-                      upperLimitValue: 10.5,
+                      upperLimitValue: {
+                        value: 10.5,
+                        isCall: false,
+                        isGroup: true,
+                      },
                       putPlaceRankList: ['BW_3', 'BW_2'],
-                      groupSrcList: ['SEB_1', 'SEB_2', 'SEB_3', 'SEB_4', 'SEB_5'],
+                      groupPlaceList: ['SEB_1', 'SEB_2', 'SEB_3', 'SEB_4', 'SEB_5'],
                     },
                     {
                       ndId: 'moduleRearTemperature',
-                      upperLimitValue: 40,
+                      upperLimitValue: {
+                        value: 40,
+                        isCall: true,
+                      },
+                      callPlaceRankList: ['BW_2'],
                       putPlaceRankList: ['BW_2'],
                     },
                   ],
@@ -1731,23 +1773,44 @@ const map = {
                   thresholdConfigList: [
                     {
                       ndId: 'waterLevel',
-                      maxValue: 10,
-                      upperLimitValue: 7,
-                      setValue: 5,
-                      lowerLimitValue: 2.9,
-                      minValue: 1,
+                      maxValue: {
+                        value: 10,
+                      },
+                      upperLimitValue: {
+                        value: 7,
+                        isCall: false,
+                      },
+                      setValue: {
+                        value: 5,
+                      },
+                      lowerLimitValue: {
+                        value: 2.9,
+                        isCall: true,
+                      },
+                      minValue: {
+                        value: 1,
+                        isCall: true,
+                      },
                       callPlaceRankList: ['BW_2'],
                       putPlaceRankList: ['BW_2', 'SEA'],
                     },
                     {
                       ndId: 'salinity',
-                      upperLimitValue: 10.5,
+                      upperLimitValue: {
+                        value: 10.5,
+                        isCall: false,
+                        isGroup: true,
+                      },
                       putPlaceRankList: ['BW_3', 'BW_2'],
-                      groupSrcList: ['SEB_1', 'SEB_2', 'SEB_3', 'SEB_4', 'SEB_5'],
+                      groupPlaceList: ['SEB_1', 'SEB_2', 'SEB_3', 'SEB_4', 'SEB_5'],
                     },
                     {
                       ndId: 'moduleRearTemperature',
-                      upperLimitValue: 40,
+                      upperLimitValue: {
+                        value: 40,
+                        isCall: true,
+                      },
+                      callPlaceRankList: ['BW_2'],
                       putPlaceRankList: ['BW_2'],
                     },
                   ],
@@ -1762,23 +1825,44 @@ const map = {
                   thresholdConfigList: [
                     {
                       ndId: 'waterLevel',
-                      maxValue: 10,
-                      upperLimitValue: 7,
-                      setValue: 5,
-                      lowerLimitValue: 2.9,
-                      minValue: 1,
+                      maxValue: {
+                        value: 10,
+                      },
+                      upperLimitValue: {
+                        value: 7,
+                        isCall: false,
+                      },
+                      setValue: {
+                        value: 5,
+                      },
+                      lowerLimitValue: {
+                        value: 2.9,
+                        isCall: true,
+                      },
+                      minValue: {
+                        value: 1,
+                        isCall: true,
+                      },
                       callPlaceRankList: ['BW_2'],
                       putPlaceRankList: ['BW_2', 'SEA'],
                     },
                     {
                       ndId: 'salinity',
-                      upperLimitValue: 10.5,
+                      upperLimitValue: {
+                        value: 10.5,
+                        isCall: false,
+                        isGroup: true,
+                      },
                       putPlaceRankList: ['BW_3', 'BW_2'],
-                      groupSrcList: ['SEB_1', 'SEB_2', 'SEB_3', 'SEB_4', 'SEB_5'],
+                      groupPlaceList: ['SEB_1', 'SEB_2', 'SEB_3', 'SEB_4', 'SEB_5'],
                     },
                     {
                       ndId: 'moduleRearTemperature',
-                      upperLimitValue: 40,
+                      upperLimitValue: {
+                        value: 40,
+                        isCall: true,
+                      },
+                      callPlaceRankList: ['BW_2'],
                       putPlaceRankList: ['BW_2'],
                     },
                   ],
@@ -1793,23 +1877,44 @@ const map = {
                   thresholdConfigList: [
                     {
                       ndId: 'waterLevel',
-                      maxValue: 10,
-                      upperLimitValue: 7,
-                      setValue: 5,
-                      lowerLimitValue: 2.9,
-                      minValue: 1,
+                      maxValue: {
+                        value: 10,
+                      },
+                      upperLimitValue: {
+                        value: 7,
+                        isCall: false,
+                      },
+                      setValue: {
+                        value: 5,
+                      },
+                      lowerLimitValue: {
+                        value: 2.9,
+                        isCall: true,
+                      },
+                      minValue: {
+                        value: 1,
+                        isCall: true,
+                      },
                       callPlaceRankList: ['BW_2'],
                       putPlaceRankList: ['BW_2', 'SEA'],
                     },
                     {
                       ndId: 'salinity',
-                      upperLimitValue: 10.5,
+                      upperLimitValue: {
+                        value: 10.5,
+                        isCall: false,
+                        isGroup: true,
+                      },
                       putPlaceRankList: ['BW_3', 'BW_2'],
-                      groupSrcList: ['SEB_1', 'SEB_2', 'SEB_3', 'SEB_4', 'SEB_5'],
+                      groupPlaceList: ['SEB_1', 'SEB_2', 'SEB_3', 'SEB_4', 'SEB_5'],
                     },
                     {
                       ndId: 'moduleRearTemperature',
-                      upperLimitValue: 40,
+                      upperLimitValue: {
+                        value: 40,
+                        isCall: true,
+                      },
+                      callPlaceRankList: ['BW_2'],
                       putPlaceRankList: ['BW_2'],
                     },
                   ],
@@ -1824,23 +1929,44 @@ const map = {
                   thresholdConfigList: [
                     {
                       ndId: 'waterLevel',
-                      maxValue: 10,
-                      upperLimitValue: 7,
-                      setValue: 5,
-                      lowerLimitValue: 2.9,
-                      minValue: 1,
+                      maxValue: {
+                        value: 10,
+                      },
+                      upperLimitValue: {
+                        value: 7,
+                        isCall: false,
+                      },
+                      setValue: {
+                        value: 5,
+                      },
+                      lowerLimitValue: {
+                        value: 2.9,
+                        isCall: true,
+                      },
+                      minValue: {
+                        value: 1,
+                        isCall: true,
+                      },
                       callPlaceRankList: ['BW_3'],
-                      putPlaceRankList: ['BW_3', 'BW_2', 'SEA'],
+                      putPlaceRankList: ['BW_3', 'SEA'],
                     },
                     {
                       ndId: 'salinity',
-                      upperLimitValue: 18,
-                      putPlaceRankList: ['BW_4', 'BW_3', 'BW_2'],
-                      groupSrcList: ['SEB_6', 'SEB_7', 'SEB_8'],
+                      upperLimitValue: {
+                        value: 18,
+                        isCall: false,
+                        isGroup: true,
+                      },
+                      putPlaceRankList: ['BW_4', 'BW_3'],
+                      groupPlaceList: ['SEB_6', 'SEB_7', 'SEB_8'],
                     },
                     {
                       ndId: 'moduleRearTemperature',
-                      upperLimitValue: 40,
+                      upperLimitValue: {
+                        value: 40,
+                        isCall: true,
+                      },
+                      callPlaceRankList: ['BW_3'],
                       putPlaceRankList: ['BW_3'],
                     },
                   ],
@@ -1855,23 +1981,44 @@ const map = {
                   thresholdConfigList: [
                     {
                       ndId: 'waterLevel',
-                      maxValue: 10,
-                      upperLimitValue: 7,
-                      setValue: 5,
-                      lowerLimitValue: 2.9,
-                      minValue: 1,
+                      maxValue: {
+                        value: 10,
+                      },
+                      upperLimitValue: {
+                        value: 7,
+                        isCall: false,
+                      },
+                      setValue: {
+                        value: 5,
+                      },
+                      lowerLimitValue: {
+                        value: 2.9,
+                        isCall: true,
+                      },
+                      minValue: {
+                        value: 1,
+                        isCall: true,
+                      },
                       callPlaceRankList: ['BW_3'],
-                      putPlaceRankList: ['BW_3', 'BW_2', 'SEA'],
+                      putPlaceRankList: ['BW_3', 'SEA'],
                     },
                     {
                       ndId: 'salinity',
-                      upperLimitValue: 18,
-                      putPlaceRankList: ['BW_4', 'BW_3', 'BW_2'],
-                      groupSrcList: ['SEB_6', 'SEB_7', 'SEB_8'],
+                      upperLimitValue: {
+                        value: 18,
+                        isCall: false,
+                        isGroup: true,
+                      },
+                      putPlaceRankList: ['BW_4', 'BW_3'],
+                      groupPlaceList: ['SEB_6', 'SEB_7', 'SEB_8'],
                     },
                     {
                       ndId: 'moduleRearTemperature',
-                      upperLimitValue: 40,
+                      upperLimitValue: {
+                        value: 40,
+                        isCall: true,
+                      },
+                      callPlaceRankList: ['BW_3'],
                       putPlaceRankList: ['BW_3'],
                     },
                   ],
@@ -1886,23 +2033,44 @@ const map = {
                   thresholdConfigList: [
                     {
                       ndId: 'waterLevel',
-                      maxValue: 10,
-                      upperLimitValue: 7,
-                      setValue: 5,
-                      lowerLimitValue: 2.9,
-                      minValue: 1,
+                      maxValue: {
+                        value: 10,
+                      },
+                      upperLimitValue: {
+                        value: 7,
+                        isCall: false,
+                      },
+                      setValue: {
+                        value: 5,
+                      },
+                      lowerLimitValue: {
+                        value: 2.9,
+                        isCall: true,
+                      },
+                      minValue: {
+                        value: 1,
+                        isCall: true,
+                      },
                       callPlaceRankList: ['BW_3'],
-                      putPlaceRankList: ['BW_3', 'BW_2', 'SEA'],
+                      putPlaceRankList: ['BW_3', 'SEA'],
                     },
                     {
                       ndId: 'salinity',
-                      upperLimitValue: 18,
-                      putPlaceRankList: ['BW_4', 'BW_3', 'BW_2'],
-                      groupSrcList: ['SEB_6', 'SEB_7', 'SEB_8'],
+                      upperLimitValue: {
+                        value: 18,
+                        isCall: false,
+                        isGroup: true,
+                      },
+                      putPlaceRankList: ['BW_4', 'BW_3'],
+                      groupPlaceList: ['SEB_6', 'SEB_7', 'SEB_8'],
                     },
                     {
                       ndId: 'moduleRearTemperature',
-                      upperLimitValue: 40,
+                      upperLimitValue: {
+                        value: 40,
+                        isCall: true,
+                      },
+                      callPlaceRankList: ['BW_3'],
                       putPlaceRankList: ['BW_3'],
                     },
                   ],
@@ -1924,12 +2092,21 @@ const map = {
                   thresholdConfigList: [
                     {
                       ndId: 'waterLevel',
-                      maxValue: 20,
-                      upperLimitValue: 12,
-                      setValue: 10,
-                      lowerLimitValue: 6,
-                      minValue: 2,
-                      callPlaceRankList: ['RV_1'],
+                      maxValue: {
+                        value: 20,
+                      },
+                      setValue: {
+                        value: 10,
+                      },
+                      lowerLimitValue: {
+                        value: 3,
+                        isCall: true,
+                      },
+                      minValue: {
+                        value: 2,
+                        isCall: true,
+                      },
+                      callPlaceRankList: ['RV'],
                       putPlaceRankList: ['NEB_2'],
                     },
                   ],
@@ -1944,17 +2121,29 @@ const map = {
                   thresholdConfigList: [
                     {
                       ndId: 'waterLevel',
-                      maxValue: 20,
-                      upperLimitValue: 15,
-                      setValue: 12,
-                      lowerLimitValue: 8,
-                      minValue: 2,
+                      maxValue: {
+                        value: 20,
+                      },
+                      setValue: {
+                        value: 12,
+                      },
+                      lowerLimitValue: {
+                        value: 3,
+                        isCall: true,
+                      },
+                      minValue: {
+                        value: 2,
+                        isCall: true,
+                      },
                       callPlaceRankList: ['BW_1', 'NEB_1'],
                       putPlaceRankList: ['BW_1', 'SEA'],
                     },
                     {
                       ndId: 'salinity',
-                      upperLimitValue: 6,
+                      upperLimitValue: {
+                        value: 6,
+                        isCall: false,
+                      },
                       putPlaceRankList: ['BW_2', 'BW_1'],
                     },
                   ],
@@ -1976,13 +2165,17 @@ const map = {
                   thresholdConfigList: [
                     {
                       ndId: 'waterLevel',
-                      maxValue: 10,
-                      upperLimitValue: 7,
-                      setValue: 5,
-                      lowerLimitValue: 3,
-                      minValue: 1,
-                      // callPlaceRankList: ['BW_5'],
-                      // putPlaceRankList: ['BW_5', 'SEA'],
+                      maxValue: {
+                        value: 10,
+                      },
+                      setValue: {
+                        value: 5,
+                      },
+                      minValue: {
+                        value: 1,
+                      },
+                      callPlaceRankList: ['BW_5'],
+                      putPlaceRankList: ['BW_5', 'SEA'],
                     },
                   ],
                   placeSize: { width: 800, height: 1000, depth: 20 },
@@ -2010,9 +2203,14 @@ const map = {
                   thresholdConfigList: [
                     {
                       ndId: 'waterLevel',
-                      maxValue: 150,
-                      lowerLimitValue: 20,
-                      minValue: 10,
+                      maxValue: {
+                        value: 150,
+                      },
+                      minValue: {
+                        value: 10,
+                      },
+                      callPlaceRankList: ['NEB_2'],
+                      putPlaceRankList: ['NEB_2'],
                     },
                   ],
                   placeSize: { width: 1200, height: 300, depth: 150 },
@@ -2026,9 +2224,14 @@ const map = {
                   thresholdConfigList: [
                     {
                       ndId: 'waterLevel',
-                      maxValue: 150,
-                      lowerLimitValue: 20,
-                      minValue: 10,
+                      maxValue: {
+                        value: 150,
+                      },
+                      minValue: {
+                        value: 10,
+                      },
+                      callPlaceRankList: ['NEB_2'],
+                      putPlaceRankList: ['SEB_1', 'SEB_2', 'SEB_3', 'SEB_4', 'SEB_5'],
                     },
                   ],
                   placeSize: { width: 900, height: 300, depth: 150 },
@@ -2042,9 +2245,14 @@ const map = {
                   thresholdConfigList: [
                     {
                       ndId: 'waterLevel',
-                      maxValue: 150,
-                      lowerLimitValue: 20,
-                      minValue: 10,
+                      maxValue: {
+                        value: 150,
+                      },
+                      minValue: {
+                        value: 10,
+                      },
+                      callPlaceRankList: [['SEB_1', 'SEB_2', 'SEB_3', 'SEB_4', 'SEB_5']],
+                      putPlaceRankList: ['SEB_6', 'SEB_7', 'SEB_8'],
                     },
                   ],
                   placeSize: { width: 400, height: 300, depth: 150 },
@@ -2058,9 +2266,14 @@ const map = {
                   thresholdConfigList: [
                     {
                       ndId: 'waterLevel',
-                      maxValue: 150,
-                      lowerLimitValue: 20,
-                      minValue: 10,
+                      maxValue: {
+                        value: 150,
+                      },
+                      minValue: {
+                        value: 10,
+                      },
+                      callPlaceRankList: [['SEB_6', 'SEB_7', 'SEB_8']],
+                      putPlaceRankList: ['BW_5'],
                     },
                   ],
                   placeSize: { width: 400, height: 300, depth: 150 },
@@ -2074,9 +2287,14 @@ const map = {
                   thresholdConfigList: [
                     {
                       ndId: 'waterLevel',
-                      maxValue: 150,
-                      lowerLimitValue: 20,
-                      minValue: 10,
+                      maxValue: {
+                        value: 150,
+                      },
+                      minValue: {
+                        value: 10,
+                      },
+                      callPlaceRankList: ['BW_5'],
+                      putPlaceRankList: ['NCB_1'],
                     },
                   ],
                   placeSize: { width: 500, height: 300, depth: 150 },
@@ -2090,10 +2308,14 @@ const map = {
                   thresholdConfigList: [
                     {
                       ndId: 'waterLevel',
-                      maxValue: 150,
-                      lowerLimitValue: 20,
-                      minValue: 10,
+                      maxValue: {
+                        value: 150,
+                      },
+                      minValue: {
+                        value: 10,
+                      },
                       callPlaceRankList: [],
+                      putPlaceRankList: [],
                     },
                   ],
                   placeSize: { width: 500, height: 300, depth: 150 },
@@ -2139,11 +2361,14 @@ const map = {
                   thresholdConfigList: [
                     {
                       ndId: 'waterLevel',
-                      maxValue: 200,
-                      upperLimitValue: 180,
-                      lowerLimitValue: 30,
-                      minValue: 10,
+                      maxValue: {
+                        value: 200,
+                      },
+                      minValue: {
+                        value: 10,
+                      },
                       callPlaceRankList: ['SEA'],
+                      putPlaceRankList: ['NEB_1'],
                     },
                   ],
                   placeSize: { width: 4800, height: 570, depth: 200 },
