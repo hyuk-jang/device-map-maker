@@ -11,7 +11,7 @@ const map = {
         height: 5000,
         backgroundInfo: {
           backgroundData: '',
-          backgroundPosition: [0, 0],
+          backgroundPosition: [10, 170],
         },
       },
       svgModelResourceList: [
@@ -1671,6 +1671,7 @@ const map = {
                       ndId: 'waterLevel',
                       maxValue: {
                         value: 10,
+                        isCall: false,
                       },
                       upperLimitValue: {
                         value: 7,
@@ -1723,6 +1724,7 @@ const map = {
                       ndId: 'waterLevel',
                       maxValue: {
                         value: 10,
+                        isCall: false,
                       },
                       upperLimitValue: {
                         value: 7,
@@ -1775,6 +1777,7 @@ const map = {
                       ndId: 'waterLevel',
                       maxValue: {
                         value: 10,
+                        isCall: false,
                       },
                       upperLimitValue: {
                         value: 7,
@@ -1827,6 +1830,7 @@ const map = {
                       ndId: 'waterLevel',
                       maxValue: {
                         value: 10,
+                        isCall: false,
                       },
                       upperLimitValue: {
                         value: 7,
@@ -1879,6 +1883,7 @@ const map = {
                       ndId: 'waterLevel',
                       maxValue: {
                         value: 10,
+                        isCall: false,
                       },
                       upperLimitValue: {
                         value: 7,
@@ -1931,6 +1936,7 @@ const map = {
                       ndId: 'waterLevel',
                       maxValue: {
                         value: 10,
+                        isCall: false,
                       },
                       upperLimitValue: {
                         value: 7,
@@ -1983,6 +1989,7 @@ const map = {
                       ndId: 'waterLevel',
                       maxValue: {
                         value: 10,
+                        isCall: false,
                       },
                       upperLimitValue: {
                         value: 7,
@@ -2035,6 +2042,7 @@ const map = {
                       ndId: 'waterLevel',
                       maxValue: {
                         value: 10,
+                        isCall: false,
                       },
                       upperLimitValue: {
                         value: 7,
@@ -2106,7 +2114,7 @@ const map = {
                         value: 2,
                         isCall: true,
                       },
-                      callPlaceRankList: ['RV'],
+                      callPlaceRankList: ['RV_1'],
                       putPlaceRankList: ['NEB_2'],
                     },
                   ],
@@ -2343,11 +2351,12 @@ const map = {
                   thresholdConfigList: [
                     {
                       ndId: 'waterLevel',
-                      maxValue: 200,
-                      upperLimitValue: 180,
-                      lowerLimitValue: 30,
-                      minValue: 10,
+                      maxValue: {
+                        value: 200,
+                      },
+                      minValue: { value: 10 },
                       callPlaceRankList: ['RV_2'],
+                      putPlaceRankList: ['NEB_1'],
                     },
                   ],
                   placeSize: { width: 4800, height: 570, depth: 200 },
@@ -2367,8 +2376,8 @@ const map = {
                       minValue: {
                         value: 10,
                       },
-                      callPlaceRankList: ['SEA'],
-                      putPlaceRankList: ['NEB_1'],
+                      callPlaceRankList: [],
+                      putPlaceRankList: ['RV_1'],
                     },
                   ],
                   placeSize: { width: 4800, height: 570, depth: 200 },
@@ -2869,7 +2878,6 @@ const map = {
           'WD_006',
           'WD_007',
           'WD_008',
-          'WD_009',
         ],
         resourceIdList: ['waterDoor'],
       },
@@ -2952,17 +2960,6 @@ const map = {
   controlInfo: {
     flowCmdList: [
       // 바다 > 저수지
-      // 저수지2 > 저수지1
-      {
-        srcPlaceId: 'RV_2',
-        destList: [
-          {
-            destPlaceId: 'RV_1',
-            trueNodeList: ['P_002'],
-            falseNodeList: ['P_001'],
-          },
-        ],
-      },
       // 저수지1 > 증발지 1
       {
         srcPlaceId: 'RV_1',
@@ -2974,6 +2971,18 @@ const map = {
           },
         ],
       },
+      // 저수지2 > 저수지1
+      {
+        srcPlaceId: 'RV_2',
+        destList: [
+          {
+            destPlaceId: 'RV_1',
+            trueNodeList: ['P_002'],
+            falseNodeList: [],
+          },
+        ],
+      },
+
       // 증발지 1 > 증발지 2, 바다
       {
         srcPlaceId: 'NEB_1',
@@ -2981,7 +2990,7 @@ const map = {
           {
             destPlaceId: 'NEB_2',
             trueNodeList: ['WD_002', 'WD_003'],
-            falseNodeList: ['WD_004', 'WD_005', 'WD_006'],
+            falseNodeList: ['WD_001', 'WD_004', 'WD_005', 'WD_006'],
           },
           {
             destPlaceId: 'SEA',
@@ -2997,12 +3006,12 @@ const map = {
           {
             destPlaceId: 'BW_1',
             trueNodeList: ['WD_005'],
-            falseNodeList: ['WD_006'],
+            falseNodeList: ['WD_004', 'WD_006'],
           },
           {
             destPlaceId: 'BW_2',
             trueNodeList: ['WD_006'],
-            falseNodeList: ['WD_005'],
+            falseNodeList: ['WD_004', 'WD_005'],
           },
           {
             destPlaceId: 'SEA',
@@ -3202,7 +3211,7 @@ const map = {
           {
             destPlaceId: 'NEB_2',
             trueNodeList: ['P_003'],
-            falseNodeList: ['WD_005', 'WD_006'],
+            falseNodeList: ['WD_004', 'WD_005', 'WD_006'],
           },
         ],
       },
@@ -3276,7 +3285,7 @@ const map = {
           {
             destPlaceId: 'NCB',
             trueNodeList: ['P_013'],
-            falseNodeList: ['WD_009'],
+            falseNodeList: ['WD_007', 'WD_008'],
           },
         ],
       },
