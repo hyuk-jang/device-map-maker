@@ -238,6 +238,8 @@ function writeSvgText(svgCanvas, defInfo, resourceInfo, isChangedPlaceNodeName =
   });
   if (foundSvgModelResourceInfo.textStyleInfo) {
     textColor = foundSvgModelResourceInfo.textStyleInfo.color;
+    textSize = foundSvgModelResourceInfo.textStyleInfo.fontSize;
+    leading = foundSvgModelResourceInfo.textStyleInfo.leading;
   }
 
   // 제외 할 텍스트 찾기

@@ -91,8 +91,10 @@
         const canvas = document.getElementById('canvas');
         const $canvas = $('#canvas');
         //FIXME:
+        const { innerWidth, innerHeight } = window;
         const { width, height } = map.drawInfo.frame.mapInfo;
-        const matrix = `matrix(0.4, 0, 0, 0.4, ${width - width * 1.27}, ${height - height * 1.3})`;
+        // const matrix = `matrix(1, 0, 0, 1, ${width - width * 1.27}, ${height - height * 1.3})`;
+        const matrix = `matrix(1, 0, 0, 1, 0, 0)`;
         const filter = 'win16|win32|win64|mac';
 
         // 맵 size 재설정
