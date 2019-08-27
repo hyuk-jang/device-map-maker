@@ -26,7 +26,7 @@ const map = {
         {
           id: 'solarEvaporationBlock',
           type: 'rect',
-          elementDrawInfo: { width: 80, height: 280, color: '#abe3e1', opacity: 0 },
+          elementDrawInfo: { width: 80, height: 280, color: '#abe3e1', opacity: 1 },
           textStyleInfo: {
             color: '',
             fontSize: 10,
@@ -35,7 +35,7 @@ const map = {
         {
           id: 'normalEvaporationBlock_A',
           type: 'rect',
-          elementDrawInfo: { width: 770, height: 330, color: '#bd8f3a', opacity: 0 },
+          elementDrawInfo: { width: 700, height: 230, color: '#bd8f3a', opacity: 1 },
           textStyleInfo: {
             color: '',
             fontSize: 10,
@@ -44,7 +44,7 @@ const map = {
         {
           id: 'normalEvaporationBlock_B',
           type: 'rect',
-          elementDrawInfo: { width: 770, height: 240, color: '#bd8f3a', opacity: 0 },
+          elementDrawInfo: { width: 700, height: 170, color: '#bd8f3a', opacity: 1 },
           textStyleInfo: {
             color: '',
             fontSize: 10,
@@ -53,7 +53,7 @@ const map = {
         {
           id: 'normalCrystalizingBlock',
           type: 'rect',
-          elementDrawInfo: { width: 200, height: 160, color: '#988224', opacity: 0 },
+          elementDrawInfo: { width: 200, height: 160, color: '#988224', opacity: 1 },
           textStyleInfo: {
             color: '',
             fontSize: 10,
@@ -62,7 +62,7 @@ const map = {
         {
           id: 'reservoir_A',
           type: 'rect',
-          elementDrawInfo: { width: 1040, height: 120, color: 'blue', opacity: 0 },
+          elementDrawInfo: { width: 800, height: 120, color: 'blue', opacity: 1 },
           textStyleInfo: {
             color: '',
             fontSize: 10,
@@ -71,7 +71,7 @@ const map = {
         {
           id: 'reservoir_B',
           type: 'rect',
-          elementDrawInfo: { width: 200, height: 120, color: 'blue', opacity: 1 },
+          elementDrawInfo: { width: 180, height: 120, color: 'blue', opacity: 1 },
           textStyleInfo: {
             color: '',
             fontSize: 10,
@@ -80,7 +80,7 @@ const map = {
         {
           id: 'drainage',
           type: 'rect',
-          elementDrawInfo: { width: 80, height: 120, color: 'skyblue', opacity: 0 },
+          elementDrawInfo: { width: 80, height: 120, color: 'skyblue', opacity: 1 },
           textStyleInfo: {
             color: '',
             fontSize: 10,
@@ -89,7 +89,7 @@ const map = {
         {
           id: 'brineWarehouse_A',
           type: 'rect',
-          elementDrawInfo: { width: 280, height: 80, color: '#90b4dd', opacity: 0 },
+          elementDrawInfo: { width: 250, height: 80, color: '#90b4dd', opacity: 1 },
           textStyleInfo: {
             color: '',
             fontSize: 10,
@@ -98,7 +98,7 @@ const map = {
         {
           id: 'brineWarehouse_B',
           type: 'rect',
-          elementDrawInfo: { width: 200, height: 80, color: '#90b4dd', opacity: 0 },
+          elementDrawInfo: { width: 200, height: 80, color: '#90b4dd', opacity: 1 },
           textStyleInfo: {
             color: '',
             fontSize: 10,
@@ -107,7 +107,7 @@ const map = {
         {
           id: 'brineWarehouse_C',
           type: 'rect',
-          elementDrawInfo: { width: 120, height: 80, color: '#90b4dd', opacity: 0 },
+          elementDrawInfo: { width: 120, height: 80, color: '#90b4dd', opacity: 1 },
           textStyleInfo: {
             color: '',
             fontSize: 10,
@@ -116,7 +116,7 @@ const map = {
         {
           id: 'brineWarehouse_D',
           type: 'rect',
-          elementDrawInfo: { width: 110, height: 80, color: '#90b4dd', opacity: 0 },
+          elementDrawInfo: { width: 110, height: 80, color: '#90b4dd', opacity: 1 },
           textStyleInfo: {
             color: '',
             fontSize: 10,
@@ -125,7 +125,7 @@ const map = {
         {
           id: 'sea',
           type: 'rect',
-          elementDrawInfo: { width: 1600, height: 40, color: 'skyblue', opacity: 1 },
+          elementDrawInfo: { width: 1210, height: 40, color: 'skyblue', opacity: 1 },
           textStyleInfo: {
             color: '',
             fontSize: 10,
@@ -162,7 +162,7 @@ const map = {
         {
           id: 'pipeLine_A',
           type: 'line',
-          elementDrawInfo: { width: 10, color: '#ff9a00', opacity: 0 },
+          elementDrawInfo: { width: 10, color: '#ff9a00', opacity: 1 },
           textStyleInfo: {
             color: '',
             fontSize: 10,
@@ -172,7 +172,7 @@ const map = {
         {
           id: 'pipeLine_B',
           type: 'line',
-          elementDrawInfo: { width: 10, color: '#7513a1', opacity: 0 },
+          elementDrawInfo: { width: 10, color: '#7513a1', opacity: 1 },
           textStyleInfo: {
             color: '',
             fontSize: 10,
@@ -296,49 +296,49 @@ const map = {
               id: 'SEB_1',
               name: '증발지_1',
               resourceId: 'solarEvaporationBlock',
-              point: [250, 1110],
+              point: [200, 920],
             },
             {
               id: 'SEB_2',
               name: '증발지_2',
               resourceId: 'solarEvaporationBlock',
-              point: [355, 1110],
+              point: [305, 920],
             },
             {
               id: 'SEB_3',
               name: '증발지_3',
               resourceId: 'solarEvaporationBlock',
-              point: [460, 1110],
+              point: [410, 920],
             },
             {
               id: 'SEB_4',
               name: '증발지_4',
               resourceId: 'solarEvaporationBlock',
-              point: [570, 1110],
+              point: [520, 920],
             },
             {
               id: 'SEB_5',
               name: '증발지_5',
               resourceId: 'solarEvaporationBlock',
-              point: [680, 1110],
+              point: [630, 920],
             },
             {
               id: 'SEB_6',
               name: '증발지_6',
               resourceId: 'solarEvaporationBlock',
-              point: [790, 1110],
+              point: [740, 920],
             },
             {
               id: 'SEB_7',
               name: '증발지_7',
               resourceId: 'solarEvaporationBlock',
-              point: [890, 1110],
+              point: [850, 920],
             },
             {
               id: 'SEB_8',
               name: '증발지_8',
               resourceId: 'solarEvaporationBlock',
-              point: [1000, 1110],
+              point: [960, 920],
             },
             {
               id: 'NEB_1',
@@ -350,39 +350,39 @@ const map = {
               id: 'NEB_2',
               name: '일반 증발지_2',
               resourceId: 'normalEvaporationBlock_B',
-              point: [200, 580],
+              point: [200, 480],
             },
             {
               id: 'NCB',
               name: '결정지',
               resourceId: 'normalCrystalizingBlock',
-              point: [200, 1430],
+              point: [200, 1250],
             },
           ],
         },
         {
           placeId: 'brineWarehouse',
           defList: [
-            { id: 'BW_1', name: '해주_1', resourceId: 'brineWarehouse_A', point: [220, 880] },
-            { id: 'BW_2', name: '해주_2', resourceId: 'brineWarehouse_B', point: [510, 880] },
-            { id: 'BW_3', name: '해주_3', resourceId: 'brineWarehouse_C', point: [720, 880] },
-            { id: 'BW_4', name: '해주_4', resourceId: 'brineWarehouse_C', point: [850, 880] },
-            { id: 'BW_5', name: '해주_5', resourceId: 'brineWarehouse_D', point: [445, 1450] },
-            { id: 'BW_6', name: '해주_6', resourceId: 'brineWarehouse_D', point: [570, 1450] },
+            { id: 'BW_1', name: '해주_1', resourceId: 'brineWarehouse_A', point: [200, 710] },
+            { id: 'BW_2', name: '해주_2', resourceId: 'brineWarehouse_B', point: [460, 710] },
+            { id: 'BW_3', name: '해주_3', resourceId: 'brineWarehouse_C', point: [670, 710] },
+            { id: 'BW_4', name: '해주_4', resourceId: 'brineWarehouse_C', point: [800, 710] },
+            { id: 'BW_5', name: '해주_5', resourceId: 'brineWarehouse_D', point: [445, 1270] },
+            { id: 'BW_6', name: '해주_6', resourceId: 'brineWarehouse_D', point: [570, 1270] },
           ],
         },
         {
           placeId: 'reservoir',
           defList: [
             { id: 'RV_1', name: '저수지_1', resourceId: 'reservoir_A', point: [170, 80] },
-            { id: 'RV_2', name: '저수지_2', resourceId: 'reservoir_B', point: [1570, 80] },
+            { id: 'RV_2', name: '저수지_2', resourceId: 'reservoir_B', point: [1200, 80] },
           ],
         },
         {
           placeId: 'sea',
           defList: [
             { id: 'SEA', name: '바다', resourceId: 'sea', point: [170, 10] },
-            { id: 'D', name: '배수지', resourceId: 'drainage', point: [1220, 80] },
+            { id: 'D', name: '배수지', resourceId: 'drainage', point: [980, 80] },
           ],
         },
         {
@@ -392,43 +392,43 @@ const map = {
               id: 'WW_001',
               name: '수로_001',
               resourceId: 'waterWay',
-              point: [170, 220, 1305, 220],
+              point: [170, 220, 1163, 220],
             },
             {
               id: 'WW_002',
               name: '수로_002',
               resourceId: 'waterWay',
-              point: [182, 220, 182, 1750],
+              point: [182, 220, 182, 1450],
             },
             {
               id: 'WW_003',
               name: '수로_003',
               resourceId: 'waterWay',
-              point: [1293, 220, 1293, 1750],
+              point: [1150, 220, 1150, 1450],
             },
             {
               id: 'WW_004',
               name: '수로_004',
               resourceId: 'waterWay',
-              point: [170, 1085, 1125, 1085],
+              point: [170, 900, 1090, 900],
             },
             {
               id: 'WW_005',
               name: '수로_005',
               resourceId: 'waterWay',
-              point: [1113, 1085, 1113, 1410],
+              point: [1075, 900, 1075, 1230],
             },
             {
               id: 'WW_006',
               name: '수로_006',
               resourceId: 'waterWay',
-              point: [170, 1410, 1305, 1410],
+              point: [170, 1230, 1163, 1230],
             },
             {
               id: 'WW_007',
               name: '수로_007',
               resourceId: 'waterWay',
-              point: [170, 1738, 1305, 1738],
+              point: [170, 1450, 1163, 1450],
             },
             // {
             //   id: 'WW_008',
@@ -440,169 +440,169 @@ const map = {
               id: 'WW_009',
               name: '수로_009',
               resourceId: 'peWaterWay',
-              point: [485, 820, 485, 850],
+              point: [435, 650, 435, 680],
             },
             {
               id: 'WW_010',
               name: '수로_010',
               resourceId: 'peWaterWay',
-              point: [485, 850, 485, 890],
+              point: [435, 680, 435, 720],
             },
             {
               id: 'WW_011',
               name: '수로_011',
               resourceId: 'peWaterWay',
-              point: [485, 850, 530, 850],
+              point: [435, 680, 475, 680],
             },
             {
               id: 'WW_012',
               name: '수로_012',
               resourceId: 'peWaterWay',
-              point: [530, 820, 530, 850],
+              point: [475, 650, 475, 680],
             },
             {
               id: 'WW_013',
               name: '수로_013',
               resourceId: 'peWaterWay',
-              point: [530, 850, 530, 890],
+              point: [475, 680, 475, 720],
             },
             {
               id: 'WW_014',
               name: '수로_014',
               resourceId: 'peWaterWay',
-              point: [400, 1480, 425, 1480],
+              point: [400, 1300, 425, 1300],
             },
             {
               id: 'WW_015',
               name: '수로_015',
               resourceId: 'peWaterWay',
-              point: [425, 1480, 450, 1480],
+              point: [425, 1300, 450, 1300],
             },
             {
               id: 'WW_016',
               name: '수로_016',
               resourceId: 'peWaterWay',
-              point: [425, 1480, 425, 1420],
+              point: [425, 1300, 425, 1240],
             },
             {
               id: 'WW_017',
               name: '수로_017',
               resourceId: 'waterWay_B',
-              point: [540, 960, 540, 1030],
+              point: [475, 790, 475, 850],
             },
             {
               id: 'WW_018',
               name: '수로_018',
               resourceId: 'waterWay_B',
-              point: [830, 960, 830, 1030],
+              point: [775, 790, 775, 850],
             },
             {
               id: 'WW_019',
               name: '수로_019',
               resourceId: 'waterWay_B',
-              point: [930, 960, 930, 1030],
+              point: [870, 790, 870, 850],
             },
             {
               id: 'WW_020',
               name: '수로_020',
               resourceId: 'waterWay_B',
-              point: [280, 1035, 1050, 1035],
+              point: [230, 850, 1000, 850],
             },
             {
               id: 'WW_021',
               name: '수로_021',
               resourceId: 'waterWay_B',
-              point: [292, 1050, 292, 1110],
+              point: [242, 865, 242, 920],
             },
             {
               id: 'WW_022',
               name: '수로_022',
               resourceId: 'waterWay_B',
-              point: [300, 1085, 350, 1085],
+              point: [250, 900, 300, 900],
             },
             {
               id: 'WW_023',
               name: '수로_023',
               resourceId: 'waterWay_B',
-              point: [390, 1050, 390, 1110],
+              point: [340, 865, 340, 920],
             },
             {
               id: 'WW_024',
               name: '수로_024',
               resourceId: 'waterWay_B',
-              point: [400, 1085, 460, 1085],
+              point: [350, 900, 410, 900],
             },
             {
               id: 'WW_025',
               name: '수로_025',
               resourceId: 'waterWay_B',
-              point: [488, 1050, 488, 1110],
+              point: [438, 865, 438, 920],
             },
             {
               id: 'WW_026',
               name: '수로_026',
               resourceId: 'waterWay_B',
-              point: [500, 1085, 560, 1085],
+              point: [450, 900, 510, 900],
             },
             {
               id: 'WW_027',
               name: '수로_027',
               resourceId: 'waterWay_B',
-              point: [605, 1050, 605, 1110],
+              point: [555, 865, 555, 920],
             },
             {
               id: 'WW_028',
               name: '수로_028',
               resourceId: 'waterWay_B',
-              point: [610, 1085, 670, 1085],
+              point: [560, 900, 620, 900],
             },
             {
               id: 'WW_029',
               name: '수로_029',
               resourceId: 'waterWay_B',
-              point: [715, 1050, 715, 1110],
+              point: [665, 865, 665, 920],
             },
             {
               id: 'WW_030',
               name: '수로_030',
               resourceId: 'waterWay_B',
-              point: [720, 1085, 770, 1085],
+              point: [670, 900, 720, 900],
             },
             {
               id: 'WW_031',
               name: '수로_031',
               resourceId: 'waterWay_B',
-              point: [815, 1050, 815, 1110],
+              point: [780, 865, 780, 920],
             },
             {
               id: 'WW_032',
               name: '수로_032',
               resourceId: 'waterWay_B',
-              point: [830, 1085, 860, 1085],
+              point: [795, 900, 825, 900],
             },
             {
               id: 'WW_033',
               name: '수로_033',
               resourceId: 'waterWay_B',
-              point: [925, 1050, 925, 1110],
+              point: [890, 865, 890, 920],
             },
             {
               id: 'WW_034',
               name: '수로_034',
               resourceId: 'waterWay_B',
-              point: [935, 1085, 990, 1085],
+              point: [895, 900, 950, 900],
             },
             {
               id: 'WW_035',
               name: '수로_035',
               resourceId: 'waterWay_B',
-              point: [1040, 1050, 1040, 1110],
+              point: [1000, 865, 1000, 920],
             },
             {
               id: 'WW_036',
               name: '수로_036',
               resourceId: 'waterWay_B',
-              point: [1050, 1085, 1100, 1085],
+              point: [1010, 900, 1060, 900],
             },
           ],
         },
@@ -625,13 +625,13 @@ const map = {
               id: 'PL_003',
               name: '파이프_003',
               resourceId: 'pipeLine_A',
-              point: [940, 240, 940, 200],
+              point: [0, 0, 0, 0],
             },
             {
               id: 'PL_004',
               name: '파이프_004',
               resourceId: 'pipeLine_A',
-              point: [360, 880, 360, 810],
+              point: [0, 0, 0, 0],
             },
             {
               id: 'PL_005',
@@ -1632,8 +1632,8 @@ const map = {
             target_name: '수문',
             nodeList: [
               { target_code: '001', axisScale: [0, 1], moveScale: [0, 0] },
-              { target_code: '002', axisScale: [0, 1], moveScale: [2.4, 0.7] },
-              { target_code: '003', axisScale: [0.5, 1], moveScale: [3.4, 0.7] },
+              { target_code: '002', axisScale: [0, 1], moveScale: [6.4, 0.7] },
+              { target_code: '003', axisScale: [0.5, 1], moveScale: [5.4, 0.7] },
               { target_code: '004', axisScale: [0, 1], moveScale: [0, 0] },
               { target_code: '005', axisScale: [1, 0], moveScale: [0, 0] },
               { target_code: '006', axisScale: [0, 0], moveScale: [0, 0] },
@@ -1688,9 +1688,9 @@ const map = {
             target_prefix: 'P',
             target_name: '펌프',
             nodeList: [
-              { target_code: '001', axisScale: [1, 1], moveScale: [-7.2, 0] },
+              { target_code: '001', axisScale: [1, 1], moveScale: [-2.3, 0] },
               { target_code: '002', axisScale: [0, 1], moveScale: [0, 0] },
-              { target_code: '003', axisScale: [0.5, 0], moveScale: [0, 0] },
+              { target_code: '003', axisScale: [0.5, 0], moveScale: [1.5, 0] },
               { target_code: '004', axisScale: [0, 1], moveScale: [1.7, 0] },
               { target_code: '005', axisScale: [0, 1], moveScale: [2.9, 0] },
               { target_code: '006', axisScale: [0, 1], moveScale: [4.1, 0] },
@@ -1719,7 +1719,7 @@ const map = {
             nodeList: [
               { target_code: '001', axisScale: [1, 1], moveScale: [-2, 0] },
               { target_code: '002', axisScale: [1, 0], moveScale: [-2.4, 0] },
-              { target_code: '003', axisScale: [0.2, 1], moveScale: [0.4, 0] },
+              { target_code: '003', axisScale: [0.2, 1], moveScale: [3.5, 0] },
               { target_code: '004', axisScale: [1, 0], moveScale: [-1.2, 0] },
               { target_code: '005', axisScale: [1, 0], moveScale: [-1.2, 0] },
               { target_code: '006', axisScale: [1, 0], moveScale: [-1.8, 0] },
@@ -3856,356 +3856,356 @@ const map = {
         ],
       },
     ],
-    scenarioCmdList: [
-      {
-        scenarioId: 'rainMode',
-        scenarioList: [
-          // 모든 장치 닫기
-          {
-            wrapCmdFormat: reqWCF.SET,
-            wrapCmdType: reqWCT.CONTROL,
-            setCmdId: 'closeAllDevice',
-          },
-          // 염수 대피
-          [
-            // 결정지 염수 이동
-            [
-              {
-                wrapCmdFormat: reqWCF.FLOW,
-                wrapCmdType: reqWCT.CONTROL,
-                wrapCmdGoalInfo: {
-                  goalDataList: [
-                    {
-                      nodeId: 'WL_017',
-                      goalValue: 1,
-                      goalRange: goalDR.LOWER,
-                    },
-                  ],
-                },
-                flowSrcPlaceId: 'NCB',
-                flowDestPlaceId: 'BW_5',
-              },
-              {
-                wrapCmdFormat: reqWCF.FLOW,
-                wrapCmdType: reqWCT.CONTROL,
-                flowSrcPlaceId: 'NCB',
-                flowDestPlaceId: 'SEA',
-              },
-            ],
-            // 수중 태양광 증발지 그룹 2 염수 이동
-            [
-              {
-                wrapCmdFormat: reqWCF.FLOW,
-                wrapCmdType: reqWCT.CONTROL,
-                wrapCmdGoalInfo: {
-                  goalDataList: [
-                    {
-                      nodeId: 'WL_014',
-                      goalValue: 2,
-                      goalRange: goalDR.LOWER,
-                    },
-                    {
-                      nodeId: 'WL_015',
-                      goalValue: 2,
-                      goalRange: goalDR.LOWER,
-                    },
-                    {
-                      nodeId: 'WL_016',
-                      goalValue: 2,
-                      goalRange: goalDR.LOWER,
-                    },
-                  ],
-                },
-                flowSrcPlaceId: 'SEB_TWO',
-                flowDestPlaceId: 'BW_3',
-              },
-              {
-                wrapCmdFormat: reqWCF.FLOW,
-                wrapCmdType: reqWCT.CONTROL,
-                flowSrcPlaceId: 'SEB_TWO',
-                flowDestPlaceId: 'SEA',
-              },
-            ],
-            // 수중 태양광 증발지 그룹 1 염수 이동
-            [
-              {
-                wrapCmdFormat: reqWCF.FLOW,
-                wrapCmdType: reqWCT.CONTROL,
-                wrapCmdGoalInfo: {
-                  goalDataList: [
-                    {
-                      nodeId: 'WL_009',
-                      goalValue: 2,
-                      goalRange: goalDR.LOWER,
-                    },
-                    {
-                      nodeId: 'WL_010',
-                      goalValue: 2,
-                      goalRange: goalDR.LOWER,
-                    },
-                    {
-                      nodeId: 'WL_011',
-                      goalValue: 2,
-                      goalRange: goalDR.LOWER,
-                    },
-                    {
-                      nodeId: 'WL_012',
-                      goalValue: 2,
-                      goalRange: goalDR.LOWER,
-                    },
-                    {
-                      nodeId: 'WL_013',
-                      goalValue: 2,
-                      goalRange: goalDR.LOWER,
-                    },
-                  ],
-                },
-                flowSrcPlaceId: 'SEB_ONE',
-                flowDestPlaceId: 'BW_2',
-              },
-              {
-                wrapCmdFormat: reqWCF.FLOW,
-                wrapCmdType: reqWCT.CONTROL,
-                flowSrcPlaceId: 'SEB_ONE',
-                flowDestPlaceId: 'SEA',
-              },
-            ],
-            // 일반 증발지 2 염수 이동
-            [
-              {
-                wrapCmdFormat: reqWCF.FLOW,
-                wrapCmdType: reqWCT.CONTROL,
-                wrapCmdGoalInfo: {
-                  goalDataList: [
-                    {
-                      nodeId: 'WL_004',
-                      goalValue: 2,
-                      goalRange: goalDR.LOWER,
-                    },
-                  ],
-                },
-                flowSrcPlaceId: 'NEB_2',
-                flowDestPlaceId: 'BW_1',
-              },
-              {
-                wrapCmdFormat: reqWCF.FLOW,
-                wrapCmdType: reqWCT.CONTROL,
-                flowSrcPlaceId: 'NEB_2',
-                flowDestPlaceId: 'SEA',
-              },
-            ],
-            // 일반 증발지 1 염수 이동
-            {
-              wrapCmdFormat: reqWCF.FLOW,
-              wrapCmdType: reqWCT.CONTROL,
-              flowSrcPlaceId: 'NEB_1',
-              flowDestPlaceId: 'SEA',
-            },
-          ],
-          // 바다로 ~
-          {
-            wrapCmdFormat: reqWCF.SET,
-            wrapCmdType: reqWCT.CONTROL,
-            setCmdId: 'rainMode',
-          },
-        ],
-      },
-      {
-        scenarioId: 'normalFlowScenario',
-        scenarioList: [
-          // 모든 장치 닫기
-          {
-            wrapCmdFormat: reqWCF.SET,
-            wrapCmdType: reqWCT.CONTROL,
-            setCmdId: 'closeAllDevice',
-          },
-          // 저수지 2 > 저수지 1 염수 이동
-          [
-            [
-              {
-                wrapCmdFormat: reqWCF.FLOW,
-                wrapCmdType: reqWCT.CONTROL,
-                wrapCmdGoalInfo: {
-                  limitTimeSec: 9,
-                },
-                flowSrcPlaceId: 'RV_2',
-                flowDestPlaceId: 'RV_1',
-              },
-              {
-                wrapCmdFormat: reqWCF.FLOW,
-                wrapCmdType: reqWCT.CANCEL,
-                flowSrcPlaceId: 'RV_2',
-                flowDestPlaceId: 'RV_1',
-              },
-            ],
-          ],
-          // 저수지 1 > 일반 증발지 1, 2 염수 이동 및 염도 이동
-          [
-            [
-              // 저수지 1 > 일반 증발지 1, 2 염수 이동
-              {
-                wrapCmdFormat: reqWCF.SINGLE,
-                wrapCmdType: reqWCT.CONTROL,
-                wrapCmdGoalInfo: {
-                  limitTimeSec: 9,
-                },
-                singleNodeId: ['P_001', 'WD_002', 'WD_003'],
-                singleControlType: reqDCT.TRUE,
-              },
-              // 염도가 적정 수준에 오르기를 기다림
-              {
-                wrapCmdFormat: reqWCF.SINGLE,
-                wrapCmdType: reqWCT.CONTROL,
-                wrapCmdGoalInfo: {
-                  limitTimeSec: 9,
-                },
-                singleNodeId: ['P_001', 'WD_002', 'WD_003'],
-                singleControlType: reqDCT.FALSE,
-              },
-              // 염도에 의한 염수 이동
-              {
-                wrapCmdFormat: reqWCF.FLOW,
-                wrapCmdType: reqWCT.CONTROL,
-                wrapCmdGoalInfo: {
-                  limitTimeSec: 9,
-                },
-                flowSrcPlaceId: 'NEB_2',
-                flowDestPlaceId: 'BW_2',
-              },
-              {
-                wrapCmdFormat: reqWCF.FLOW,
-                wrapCmdType: reqWCT.CANCEL,
-                wrapCmdGoalInfo: {
-                  limitTimeSec: 9,
-                },
-                flowSrcPlaceId: 'NEB_2',
-                flowDestPlaceId: 'BW_2',
-              },
-            ],
-          ],
-          // 염도에 의한 수중 태양광 증발지 염수 이동 1단계
-          [
-            [
-              // 해주 2 > 수중 태양광 증발지 그룹 1 염수 이동
-              {
-                wrapCmdFormat: reqWCF.FLOW,
-                wrapCmdType: reqWCT.CONTROL,
-                wrapCmdGoalInfo: {
-                  limitTimeSec: 9,
-                },
-                flowSrcPlaceId: 'BW_2',
-                flowDestPlaceId: 'SEB_ONE',
-              },
-              // 수중 태양광 증발지 그룹 1의 염도 달성 대기
-              {
-                wrapCmdFormat: reqWCF.FLOW,
-                wrapCmdType: reqWCT.CANCEL,
-                wrapCmdGoalInfo: {
-                  limitTimeSec: 9,
-                },
-                flowSrcPlaceId: 'BW_2',
-                flowDestPlaceId: 'SEB_ONE',
-              },
-              // 염도 달성: 수중 태양광 증발지 그룹 1 > 해주 3
-              {
-                wrapCmdFormat: reqWCF.FLOW,
-                wrapCmdType: reqWCT.CONTROL,
-                wrapCmdGoalInfo: {
-                  limitTimeSec: 9,
-                },
-                flowSrcPlaceId: 'SEB_ONE',
-                flowDestPlaceId: 'BW_3',
-              },
-              // 염수 이동 완료
-              {
-                wrapCmdFormat: reqWCF.FLOW,
-                wrapCmdType: reqWCT.CANCEL,
-                flowSrcPlaceId: 'SEB_ONE',
-                flowDestPlaceId: 'BW_3',
-              },
-            ],
-          ],
-          // 염도에 의한 수중 태양광 증발지 염수 이동 2단계
-          [
-            [
-              // 해주 3 > 수중 태양광 증발지 그룹 2
-              {
-                wrapCmdFormat: reqWCF.FLOW,
-                wrapCmdType: reqWCT.CONTROL,
-                wrapCmdGoalInfo: {
-                  limitTimeSec: 9,
-                },
-                flowSrcPlaceId: 'BW_3',
-                flowDestPlaceId: 'SEB_TWO',
-              },
-              // 염도 달성 대기
-              {
-                wrapCmdFormat: reqWCF.FLOW,
-                wrapCmdType: reqWCT.CANCEL,
-                wrapCmdGoalInfo: {
-                  limitTimeSec: 9,
-                },
-                flowSrcPlaceId: 'BW_3',
-                flowDestPlaceId: 'SEB_TWO',
-              },
-              // 염도 달성: 수중태양광 증발지 그룹 2 > 해주 4
-              {
-                wrapCmdFormat: reqWCF.FLOW,
-                wrapCmdType: reqWCT.CONTROL,
-                wrapCmdGoalInfo: {
-                  limitTimeSec: 9,
-                },
-                flowSrcPlaceId: 'SEB_TWO',
-                flowDestPlaceId: 'BW_4',
-              },
-              {
-                wrapCmdFormat: reqWCF.FLOW,
-                wrapCmdType: reqWCT.CANCEL,
-                flowSrcPlaceId: 'SEB_TWO',
-                flowDestPlaceId: 'BW_4',
-              },
-              // 해주 4 > 결정지 해주로 이동
-              {
-                wrapCmdFormat: reqWCF.FLOW,
-                wrapCmdType: reqWCT.CONTROL,
-                wrapCmdGoalInfo: {
-                  limitTimeSec: 9,
-                },
-                flowSrcPlaceId: 'BW_4',
-                flowDestPlaceId: 'BW_5',
-              },
-              {
-                wrapCmdFormat: reqWCF.FLOW,
-                wrapCmdType: reqWCT.CANCEL,
-                flowSrcPlaceId: 'BW_4',
-                flowDestPlaceId: 'BW_5',
-              },
-            ],
-          ],
-          // 결정지 소금 생산
-          [
-            [
-              // 해주 5 > 결정지 염수 이동
-              {
-                wrapCmdFormat: reqWCF.FLOW,
-                wrapCmdType: reqWCT.CONTROL,
-                wrapCmdGoalInfo: {
-                  limitTimeSec: 9,
-                },
-                flowSrcPlaceId: 'BW_5',
-                flowDestPlaceId: 'NCB',
-              },
-              {
-                wrapCmdFormat: reqWCF.FLOW,
-                wrapCmdType: reqWCT.CANCEL,
-                flowSrcPlaceId: 'BW_5',
-                flowDestPlaceId: 'NCB',
-              },
-            ],
-          ],
-        ],
-      },
-    ],
+    // scenarioCmdList: [
+    //   {
+    //     scenarioId: 'rainMode',
+    //     scenarioList: [
+    //       // 모든 장치 닫기
+    //       {
+    //         wrapCmdFormat: reqWCF.SET,
+    //         wrapCmdType: reqWCT.CONTROL,
+    //         setCmdId: 'closeAllDevice',
+    //       },
+    //       // 염수 대피
+    //       [
+    //         // 결정지 염수 이동
+    //         [
+    //           {
+    //             wrapCmdFormat: reqWCF.FLOW,
+    //             wrapCmdType: reqWCT.CONTROL,
+    //             wrapCmdGoalInfo: {
+    //               goalDataList: [
+    //                 {
+    //                   nodeId: 'WL_017',
+    //                   goalValue: 1,
+    //                   goalRange: goalDR.LOWER,
+    //                 },
+    //               ],
+    //             },
+    //             flowSrcPlaceId: 'NCB',
+    //             flowDestPlaceId: 'BW_5',
+    //           },
+    //           {
+    //             wrapCmdFormat: reqWCF.FLOW,
+    //             wrapCmdType: reqWCT.CONTROL,
+    //             flowSrcPlaceId: 'NCB',
+    //             flowDestPlaceId: 'SEA',
+    //           },
+    //         ],
+    //         // 수중 태양광 증발지 그룹 2 염수 이동
+    //         [
+    //           {
+    //             wrapCmdFormat: reqWCF.FLOW,
+    //             wrapCmdType: reqWCT.CONTROL,
+    //             wrapCmdGoalInfo: {
+    //               goalDataList: [
+    //                 {
+    //                   nodeId: 'WL_014',
+    //                   goalValue: 2,
+    //                   goalRange: goalDR.LOWER,
+    //                 },
+    //                 {
+    //                   nodeId: 'WL_015',
+    //                   goalValue: 2,
+    //                   goalRange: goalDR.LOWER,
+    //                 },
+    //                 {
+    //                   nodeId: 'WL_016',
+    //                   goalValue: 2,
+    //                   goalRange: goalDR.LOWER,
+    //                 },
+    //               ],
+    //             },
+    //             flowSrcPlaceId: 'SEB_TWO',
+    //             flowDestPlaceId: 'BW_3',
+    //           },
+    //           {
+    //             wrapCmdFormat: reqWCF.FLOW,
+    //             wrapCmdType: reqWCT.CONTROL,
+    //             flowSrcPlaceId: 'SEB_TWO',
+    //             flowDestPlaceId: 'SEA',
+    //           },
+    //         ],
+    //         // 수중 태양광 증발지 그룹 1 염수 이동
+    //         [
+    //           {
+    //             wrapCmdFormat: reqWCF.FLOW,
+    //             wrapCmdType: reqWCT.CONTROL,
+    //             wrapCmdGoalInfo: {
+    //               goalDataList: [
+    //                 {
+    //                   nodeId: 'WL_009',
+    //                   goalValue: 2,
+    //                   goalRange: goalDR.LOWER,
+    //                 },
+    //                 {
+    //                   nodeId: 'WL_010',
+    //                   goalValue: 2,
+    //                   goalRange: goalDR.LOWER,
+    //                 },
+    //                 {
+    //                   nodeId: 'WL_011',
+    //                   goalValue: 2,
+    //                   goalRange: goalDR.LOWER,
+    //                 },
+    //                 {
+    //                   nodeId: 'WL_012',
+    //                   goalValue: 2,
+    //                   goalRange: goalDR.LOWER,
+    //                 },
+    //                 {
+    //                   nodeId: 'WL_013',
+    //                   goalValue: 2,
+    //                   goalRange: goalDR.LOWER,
+    //                 },
+    //               ],
+    //             },
+    //             flowSrcPlaceId: 'SEB_ONE',
+    //             flowDestPlaceId: 'BW_2',
+    //           },
+    //           {
+    //             wrapCmdFormat: reqWCF.FLOW,
+    //             wrapCmdType: reqWCT.CONTROL,
+    //             flowSrcPlaceId: 'SEB_ONE',
+    //             flowDestPlaceId: 'SEA',
+    //           },
+    //         ],
+    //         // 일반 증발지 2 염수 이동
+    //         [
+    //           {
+    //             wrapCmdFormat: reqWCF.FLOW,
+    //             wrapCmdType: reqWCT.CONTROL,
+    //             wrapCmdGoalInfo: {
+    //               goalDataList: [
+    //                 {
+    //                   nodeId: 'WL_004',
+    //                   goalValue: 2,
+    //                   goalRange: goalDR.LOWER,
+    //                 },
+    //               ],
+    //             },
+    //             flowSrcPlaceId: 'NEB_2',
+    //             flowDestPlaceId: 'BW_1',
+    //           },
+    //           {
+    //             wrapCmdFormat: reqWCF.FLOW,
+    //             wrapCmdType: reqWCT.CONTROL,
+    //             flowSrcPlaceId: 'NEB_2',
+    //             flowDestPlaceId: 'SEA',
+    //           },
+    //         ],
+    //         // 일반 증발지 1 염수 이동
+    //         {
+    //           wrapCmdFormat: reqWCF.FLOW,
+    //           wrapCmdType: reqWCT.CONTROL,
+    //           flowSrcPlaceId: 'NEB_1',
+    //           flowDestPlaceId: 'SEA',
+    //         },
+    //       ],
+    //       // 바다로 ~
+    //       {
+    //         wrapCmdFormat: reqWCF.SET,
+    //         wrapCmdType: reqWCT.CONTROL,
+    //         setCmdId: 'rainMode',
+    //       },
+    //     ],
+    //   },
+    //   {
+    //     scenarioId: 'normalFlowScenario',
+    //     scenarioList: [
+    //       // 모든 장치 닫기
+    //       {
+    //         wrapCmdFormat: reqWCF.SET,
+    //         wrapCmdType: reqWCT.CONTROL,
+    //         setCmdId: 'closeAllDevice',
+    //       },
+    //       // 저수지 2 > 저수지 1 염수 이동
+    //       [
+    //         [
+    //           {
+    //             wrapCmdFormat: reqWCF.FLOW,
+    //             wrapCmdType: reqWCT.CONTROL,
+    //             wrapCmdGoalInfo: {
+    //               limitTimeSec: 9,
+    //             },
+    //             flowSrcPlaceId: 'RV_2',
+    //             flowDestPlaceId: 'RV_1',
+    //           },
+    //           {
+    //             wrapCmdFormat: reqWCF.FLOW,
+    //             wrapCmdType: reqWCT.CANCEL,
+    //             flowSrcPlaceId: 'RV_2',
+    //             flowDestPlaceId: 'RV_1',
+    //           },
+    //         ],
+    //       ],
+    //       // 저수지 1 > 일반 증발지 1, 2 염수 이동 및 염도 이동
+    //       [
+    //         [
+    //           // 저수지 1 > 일반 증발지 1, 2 염수 이동
+    //           {
+    //             wrapCmdFormat: reqWCF.SINGLE,
+    //             wrapCmdType: reqWCT.CONTROL,
+    //             wrapCmdGoalInfo: {
+    //               limitTimeSec: 9,
+    //             },
+    //             singleNodeId: ['P_001', 'WD_002', 'WD_003'],
+    //             singleControlType: reqDCT.TRUE,
+    //           },
+    //           // 염도가 적정 수준에 오르기를 기다림
+    //           {
+    //             wrapCmdFormat: reqWCF.SINGLE,
+    //             wrapCmdType: reqWCT.CONTROL,
+    //             wrapCmdGoalInfo: {
+    //               limitTimeSec: 9,
+    //             },
+    //             singleNodeId: ['P_001', 'WD_002', 'WD_003'],
+    //             singleControlType: reqDCT.FALSE,
+    //           },
+    //           // 염도에 의한 염수 이동
+    //           {
+    //             wrapCmdFormat: reqWCF.FLOW,
+    //             wrapCmdType: reqWCT.CONTROL,
+    //             wrapCmdGoalInfo: {
+    //               limitTimeSec: 9,
+    //             },
+    //             flowSrcPlaceId: 'NEB_2',
+    //             flowDestPlaceId: 'BW_2',
+    //           },
+    //           {
+    //             wrapCmdFormat: reqWCF.FLOW,
+    //             wrapCmdType: reqWCT.CANCEL,
+    //             wrapCmdGoalInfo: {
+    //               limitTimeSec: 9,
+    //             },
+    //             flowSrcPlaceId: 'NEB_2',
+    //             flowDestPlaceId: 'BW_2',
+    //           },
+    //         ],
+    //       ],
+    //       // 염도에 의한 수중 태양광 증발지 염수 이동 1단계
+    //       [
+    //         [
+    //           // 해주 2 > 수중 태양광 증발지 그룹 1 염수 이동
+    //           {
+    //             wrapCmdFormat: reqWCF.FLOW,
+    //             wrapCmdType: reqWCT.CONTROL,
+    //             wrapCmdGoalInfo: {
+    //               limitTimeSec: 9,
+    //             },
+    //             flowSrcPlaceId: 'BW_2',
+    //             flowDestPlaceId: 'SEB_ONE',
+    //           },
+    //           // 수중 태양광 증발지 그룹 1의 염도 달성 대기
+    //           {
+    //             wrapCmdFormat: reqWCF.FLOW,
+    //             wrapCmdType: reqWCT.CANCEL,
+    //             wrapCmdGoalInfo: {
+    //               limitTimeSec: 9,
+    //             },
+    //             flowSrcPlaceId: 'BW_2',
+    //             flowDestPlaceId: 'SEB_ONE',
+    //           },
+    //           // 염도 달성: 수중 태양광 증발지 그룹 1 > 해주 3
+    //           {
+    //             wrapCmdFormat: reqWCF.FLOW,
+    //             wrapCmdType: reqWCT.CONTROL,
+    //             wrapCmdGoalInfo: {
+    //               limitTimeSec: 9,
+    //             },
+    //             flowSrcPlaceId: 'SEB_ONE',
+    //             flowDestPlaceId: 'BW_3',
+    //           },
+    //           // 염수 이동 완료
+    //           {
+    //             wrapCmdFormat: reqWCF.FLOW,
+    //             wrapCmdType: reqWCT.CANCEL,
+    //             flowSrcPlaceId: 'SEB_ONE',
+    //             flowDestPlaceId: 'BW_3',
+    //           },
+    //         ],
+    //       ],
+    //       // 염도에 의한 수중 태양광 증발지 염수 이동 2단계
+    //       [
+    //         [
+    //           // 해주 3 > 수중 태양광 증발지 그룹 2
+    //           {
+    //             wrapCmdFormat: reqWCF.FLOW,
+    //             wrapCmdType: reqWCT.CONTROL,
+    //             wrapCmdGoalInfo: {
+    //               limitTimeSec: 9,
+    //             },
+    //             flowSrcPlaceId: 'BW_3',
+    //             flowDestPlaceId: 'SEB_TWO',
+    //           },
+    //           // 염도 달성 대기
+    //           {
+    //             wrapCmdFormat: reqWCF.FLOW,
+    //             wrapCmdType: reqWCT.CANCEL,
+    //             wrapCmdGoalInfo: {
+    //               limitTimeSec: 9,
+    //             },
+    //             flowSrcPlaceId: 'BW_3',
+    //             flowDestPlaceId: 'SEB_TWO',
+    //           },
+    //           // 염도 달성: 수중태양광 증발지 그룹 2 > 해주 4
+    //           {
+    //             wrapCmdFormat: reqWCF.FLOW,
+    //             wrapCmdType: reqWCT.CONTROL,
+    //             wrapCmdGoalInfo: {
+    //               limitTimeSec: 9,
+    //             },
+    //             flowSrcPlaceId: 'SEB_TWO',
+    //             flowDestPlaceId: 'BW_4',
+    //           },
+    //           {
+    //             wrapCmdFormat: reqWCF.FLOW,
+    //             wrapCmdType: reqWCT.CANCEL,
+    //             flowSrcPlaceId: 'SEB_TWO',
+    //             flowDestPlaceId: 'BW_4',
+    //           },
+    //           // 해주 4 > 결정지 해주로 이동
+    //           {
+    //             wrapCmdFormat: reqWCF.FLOW,
+    //             wrapCmdType: reqWCT.CONTROL,
+    //             wrapCmdGoalInfo: {
+    //               limitTimeSec: 9,
+    //             },
+    //             flowSrcPlaceId: 'BW_4',
+    //             flowDestPlaceId: 'BW_5',
+    //           },
+    //           {
+    //             wrapCmdFormat: reqWCF.FLOW,
+    //             wrapCmdType: reqWCT.CANCEL,
+    //             flowSrcPlaceId: 'BW_4',
+    //             flowDestPlaceId: 'BW_5',
+    //           },
+    //         ],
+    //       ],
+    //       // 결정지 소금 생산
+    //       [
+    //         [
+    //           // 해주 5 > 결정지 염수 이동
+    //           {
+    //             wrapCmdFormat: reqWCF.FLOW,
+    //             wrapCmdType: reqWCT.CONTROL,
+    //             wrapCmdGoalInfo: {
+    //               limitTimeSec: 9,
+    //             },
+    //             flowSrcPlaceId: 'BW_5',
+    //             flowDestPlaceId: 'NCB',
+    //           },
+    //           {
+    //             wrapCmdFormat: reqWCF.FLOW,
+    //             wrapCmdType: reqWCT.CANCEL,
+    //             flowSrcPlaceId: 'BW_5',
+    //             flowDestPlaceId: 'NCB',
+    //           },
+    //         ],
+    //       ],
+    //     ],
+    //   },
+    // ],
     tempControlList: [{ cmdName: '', trueList: [], falseList: [] }],
   },
 };
