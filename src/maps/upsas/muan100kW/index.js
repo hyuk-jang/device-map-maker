@@ -847,22 +847,22 @@ const map = {
       {
         dccId: 'DCC_CNT_001',
         dccName: '접속반 로거 A',
-        connect_info: { type: 'modbus', subType: 'rtu', baudRate: 9600, port: 'COM5' },
+        connect_info: { type: 'modbus', subType: 'rtu', baudRate: 9600, port: 'COM4' },
       },
       {
         dccId: 'DCC_CNT_002',
         dccName: '접속반 로거 B',
-        connect_info: { type: 'modbus', subType: 'rtu', baudRate: 9600, port: 'COM6' },
+        connect_info: { type: 'modbus', subType: 'rtu', baudRate: 9600, port: 'COM4' },
       },
       {
         dccId: 'DCC_CNT_003',
         dccName: '접속반 로거 C',
-        connect_info: { type: 'modbus', subType: 'rtu', baudRate: 9600, port: 'COM7' },
+        connect_info: { type: 'modbus', subType: 'rtu', baudRate: 9600, port: 'COM4' },
       },
       {
         dccId: 'DCC_CNT_004',
         dccName: '접속반 로거 D',
-        connect_info: { type: 'modbus', subType: 'rtu', baudRate: 9600, port: 'COM8' },
+        connect_info: { type: 'modbus', subType: 'rtu', baudRate: 9600, port: 'COM4' },
       },
       {
         dccId: 'DCC_IVT_001',
@@ -871,7 +871,7 @@ const map = {
           type: 'serial',
           subType: 'parser',
           baudRate: 9600,
-          port: 'COM11',
+          port: 'COM3',
           addConfigInfo: {
             parser: 'delimiterParser',
             option: Buffer.from([0x04]),
@@ -885,7 +885,7 @@ const map = {
           type: 'serial',
           subType: 'parser',
           baudRate: 9600,
-          port: 'COM12',
+          port: 'COM3',
           addConfigInfo: {
             parser: 'delimiterParser',
             option: Buffer.from([0x04]),
@@ -899,7 +899,7 @@ const map = {
           type: 'serial',
           subType: 'parser',
           baudRate: 9600,
-          port: 'COM13',
+          port: 'COM3',
           addConfigInfo: {
             parser: 'delimiterParser',
             option: Buffer.from([0x04]),
@@ -913,7 +913,7 @@ const map = {
           type: 'serial',
           subType: 'parser',
           baudRate: 9600,
-          port: 'COM14',
+          port: 'COM3',
           addConfigInfo: {
             parser: 'delimiterParser',
             option: Buffer.from([0x04]),
@@ -1463,7 +1463,7 @@ const map = {
         dataLoggerDeviceList: [
           {
             target_name: 'A (25kW 급)',
-            serial_number: '001',
+            serial_number: '01',
             target_code: '001',
             dccId: 'DCC_IVT_001',
             dpcId: 'DPC_IVT_001',
@@ -1471,7 +1471,7 @@ const map = {
           },
           {
             target_name: 'B (25kW 급)',
-            serial_number: '002',
+            serial_number: '02',
             target_code: '002',
             dccId: 'DCC_IVT_002',
             dpcId: 'DPC_IVT_001',
@@ -1479,7 +1479,7 @@ const map = {
           },
           {
             target_name: 'C (25kW 급)',
-            serial_number: '003',
+            serial_number: '03',
             target_code: '003',
             dccId: 'DCC_IVT_003',
             dpcId: 'DPC_IVT_001',
@@ -1487,7 +1487,7 @@ const map = {
           },
           {
             target_name: 'D (25kW 급)',
-            serial_number: '004',
+            serial_number: '04',
             target_code: '004',
             dccId: 'DCC_IVT_004',
             dpcId: 'DPC_IVT_001',

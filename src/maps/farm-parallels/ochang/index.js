@@ -2,7 +2,7 @@ const {
   BLOCK,
   TROUBLE,
   NONE,
-} = require('../../../../default-intelligence').dcmConfigModel.nodeDataType;
+} = require('../../../../../default-intelligence').dcmConfigModel.nodeDataType;
 
 /**
  * @type {mDeviceMap}
@@ -65,7 +65,7 @@ const map = {
   },
   setInfo: {
     mainInfo: {
-      uuid: '003',
+      uuid: '004',
     },
     dccConstructorList: [
       {
@@ -114,12 +114,16 @@ const map = {
         repeatCategory: 'node',
         nodeList: [
           {
-            target_code: '006',
-            target_name: 'A',
+            target_code: '008',
+            target_name: '오창 A (33kW 급)',
           },
           {
-            target_code: '007',
-            target_name: 'B',
+            target_code: '009',
+            target_name: '오창 B (33kW 급)',
+          },
+          {
+            target_code: '010',
+            target_name: '오창 C (33kW 급)',
           },
         ],
       },
@@ -151,26 +155,11 @@ const map = {
         target_name: 'Crops Environment (작물 생육 환경)',
         dataLoggerDeviceList: [
           {
-            serial_number: 10,
-            target_code: '010',
+            serial_number: 12,
+            target_code: '012',
             dccId: 'DCC_001',
             dpcId: 'DPC_001',
-            nodeList: ['LX_010', 'S_PU_010', 'CO2_010', 'WV_S_010', 'T_S_010', 'RH_S_010'],
-          },
-          // TODO:
-          {
-            serial_number: 61,
-            target_code: '061',
-            dccId: 'DCC_001',
-            dpcId: 'DPC_001',
-            nodeList: ['W_S_061', 'W_D_061', 'T_OA_061', 'RH_OA_061', 'S_PU_061'],
-          },
-          {
-            serial_number: 62,
-            target_code: '062',
-            dccId: 'DCC_001',
-            dpcId: 'DPC_001',
-            nodeList: ['S_PU_062', 'S_PU_063'],
+            nodeList: ['LX_012', 'S_I_012', 'CO2_012', 'WV_S_012', 'T_S_012', 'RH_S_012'],
           },
         ],
       },
@@ -179,23 +168,23 @@ const map = {
         target_name: 'Outside Environment (외기 환경)',
         dataLoggerDeviceList: [
           {
-            serial_number: 11,
-            target_code: '011',
+            serial_number: 13,
+            target_code: '013',
             dccId: 'DCC_001',
             dpcId: 'DPC_001',
             nodeList: [
-              'LX_011',
-              'S_H_011',
-              'CO2_011',
-              'WV_S_011',
-              'T_S_011',
-              'RH_S_011',
-              'T_OA_011',
-              'RH_OA_011',
-              'W_D_011',
-              'W_S_011',
-              'RF1_011',
-              'IR_011',
+              'LX_013',
+              'S_H_013',
+              'CO2_013',
+              'WV_S_013',
+              'T_S_013',
+              'RH_S_013',
+              'T_OA_013',
+              'RH_OA_013',
+              'W_D_013',
+              'W_S_013',
+              'RF1_013',
+              'IR_013',
             ],
           },
         ],
@@ -205,19 +194,27 @@ const map = {
         target_name: '인버터 DL',
         dataLoggerDeviceList: [
           {
-            target_name: '보성 A (5.5kW 급)',
-            serial_number: Buffer.from([66]),
-            target_code: '006',
+            target_name: '오창 A (33kW 급)',
+            serial_number: '001',
+            target_code: '008',
             dccId: 'DCC_001',
-            dpcId: 'DPC_IVT_002',
+            dpcId: 'DPC_IVT_001',
             repeatId: 'RE_PREFIX_IVT',
           },
           {
-            target_name: '보성 B (5.5kW 급)',
-            serial_number: Buffer.from([67]),
-            target_code: '007',
+            target_name: '오창 B (33kW 급)',
+            serial_number: '002',
+            target_code: '009',
             dccId: 'DCC_001',
-            dpcId: 'DPC_IVT_002',
+            dpcId: 'DPC_IVT_001',
+            repeatId: 'RE_PREFIX_IVT',
+          },
+          {
+            target_name: '오창 C (33kW 급)',
+            serial_number: '003',
+            target_code: '010',
+            dccId: 'DCC_001',
+            dpcId: 'DPC_IVT_001',
             repeatId: 'RE_PREFIX_IVT',
           },
         ],
@@ -237,10 +234,10 @@ const map = {
             target_name: '토양 온도',
             nodeList: [
               {
-                target_code: '010',
+                target_code: '012',
               },
               {
-                target_code: '011',
+                target_code: '013',
               },
             ],
           },
@@ -250,10 +247,7 @@ const map = {
             target_name: '외기 온도',
             nodeList: [
               {
-                target_code: '011',
-              },
-              {
-                target_code: '061',
+                target_code: '013',
               },
             ],
           },
@@ -272,10 +266,10 @@ const map = {
             target_name: '토양 습도',
             nodeList: [
               {
-                target_code: '010',
+                target_code: '012',
               },
               {
-                target_code: '011',
+                target_code: '013',
               },
             ],
           },
@@ -285,10 +279,7 @@ const map = {
             target_name: '외기 습도',
             nodeList: [
               {
-                target_code: '011',
-              },
-              {
-                target_code: '061',
+                target_code: '013',
               },
             ],
           },
@@ -306,11 +297,7 @@ const map = {
             target_prefix: 'W_S',
             nodeList: [
               {
-                target_code: '011',
-              },
-              // TODO:
-              {
-                target_code: '061',
+                target_code: '013',
               },
             ],
           },
@@ -327,11 +314,7 @@ const map = {
             target_prefix: 'W_D',
             nodeList: [
               {
-                target_code: '011',
-              },
-              // TODO:
-              {
-                target_code: '061',
+                target_code: '013',
               },
             ],
           },
@@ -350,7 +333,7 @@ const map = {
             target_prefix: 'S_H',
             nodeList: [
               {
-                target_code: '011',
+                target_code: '013',
               },
             ],
           },
@@ -358,30 +341,9 @@ const map = {
             target_id: 'inclinedSolar',
             target_name: '경사 일사량',
             target_prefix: 'S_I',
-            nodeList: [],
-          },
-          {
-            target_id: 'pvUnderlyingSolar',
-            target_name: '모듈 하부 일사량',
-            target_prefix: 'S_PU',
             nodeList: [
               {
-                target_code: '010',
-              },
-              {
-                target_code: '061',
-                target_name: 'A',
-                data_logger_index: 1,
-              },
-              {
-                target_code: '062',
-                target_name: 'B',
-                data_logger_index: 1,
-              },
-              {
-                target_code: '063',
-                target_name: 'C',
-                data_logger_index: 2,
+                target_code: '012',
               },
             ],
           },
@@ -400,7 +362,7 @@ const map = {
             target_name: '시간당 강우량',
             nodeList: [
               {
-                target_code: '011',
+                target_code: '013',
               },
             ],
           },
@@ -419,7 +381,7 @@ const map = {
             target_name: '강우 감지 여부',
             nodeList: [
               {
-                target_code: '011',
+                target_code: '013',
               },
             ],
           },
@@ -437,10 +399,10 @@ const map = {
             target_prefix: 'CO2',
             nodeList: [
               {
-                target_code: '010',
+                target_code: '012',
               },
               {
-                target_code: '011',
+                target_code: '013',
               },
             ],
           },
@@ -466,10 +428,10 @@ const map = {
             target_prefix: 'LX',
             nodeList: [
               {
-                target_code: '010',
+                target_code: '012',
               },
               {
-                target_code: '011',
+                target_code: '013',
               },
             ],
           },
@@ -488,10 +450,10 @@ const map = {
             target_name: '토양 EC 값',
             nodeList: [
               {
-                target_code: '010',
+                target_code: '012',
               },
               {
-                target_code: '011',
+                target_code: '013',
               },
             ],
           },
@@ -701,20 +663,28 @@ const map = {
             target_prefix: 'P_IVT',
             placeList: [
               {
-                target_code: '006',
-                target_name: '보성 A (5.5kW 급)',
-                chart_color: '#2b8a3e',
-                chart_sort_rank: 6,
+                target_code: '008',
+                target_name: '오창 A (33kW 급)',
+                chart_color: '#e67700',
+                chart_sort_rank: 8,
                 repeatId: 'RE_PREFIX_IVT',
-                nodeList: [],
+                nodeList: ['S_I_012'],
               },
               {
-                target_code: '007',
-                target_name: '보성 B (5.5kW 급)',
-                chart_color: '#ff6b6b',
-                chart_sort_rank: 7,
+                target_code: '009',
+                target_name: '오창 B (33kW 급)',
+                chart_color: '#364fc7',
+                chart_sort_rank: 9,
                 repeatId: 'RE_PREFIX_IVT',
-                nodeList: [],
+                nodeList: ['S_I_012'],
+              },
+              {
+                target_code: '010',
+                target_name: '오창 C (33kW 급)',
+                chart_color: '#c92a2a',
+                chart_sort_rank: 10,
+                repeatId: 'RE_PREFIX_IVT',
+                nodeList: ['S_I_012'],
               },
             ],
           },
@@ -731,26 +701,11 @@ const map = {
             target_name: '태양광',
             placeList: [
               {
-                target_code: '010',
+                target_code: '012',
                 target_name: '하부',
-                chart_color: '#2b8a3e',
-                chart_sort_rank: 10,
-                nodeList: [
-                  'LX_010',
-                  'S_PU_010',
-                  'CO2_010',
-                  'WV_S_010',
-                  'T_S_010',
-                  'RH_S_010',
-                  'W_S_061',
-                  'W_D_061',
-                  'T_OA_061',
-                  'RH_OA_061',
-                  // FIXME:
-                  'S_PU_061',
-                  'S_PU_062',
-                  'S_PU_063',
-                ],
+                chart_color: '#e67700',
+                chart_sort_rank: 12,
+                nodeList: ['LX_012', 'S_I_012', 'CO2_012', 'WV_S_012', 'T_S_012', 'RH_S_012'],
               },
             ],
           },
@@ -767,22 +722,22 @@ const map = {
             target_prefix: 'OS',
             placeList: [
               {
-                target_code: '011',
-                chart_color: '#ff6b6b',
-                chart_sort_rank: 11,
+                target_code: '013',
+                chart_color: '#364fc7',
+                chart_sort_rank: 13,
                 nodeList: [
-                  'LX_011',
-                  'S_H_011',
-                  'CO2_011',
-                  'WV_S_011',
-                  'T_S_011',
-                  'RH_S_011',
-                  'T_OA_011',
-                  'RH_OA_011',
-                  'W_D_011',
-                  'W_S_011',
-                  'RF1_011',
-                  'IR_011',
+                  'LX_013',
+                  'S_H_013',
+                  'CO2_013',
+                  'WV_S_013',
+                  'T_S_013',
+                  'RH_S_013',
+                  'T_OA_013',
+                  'RH_OA_013',
+                  'W_D_013',
+                  'W_S_013',
+                  'RF1_013',
+                  'IR_013',
                 ],
               },
             ],

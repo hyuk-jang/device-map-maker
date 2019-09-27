@@ -1003,9 +1003,9 @@ const map = {
         description: '농업 병행 태양광 부지로 작물 생육 환경 센서가 존재',
         defList: [
           {
-            target_id: 'fixingPV',
-            target_prefix: 'PV_F',
-            target_name: '고정식 태양광',
+            target_id: 'variablePV',
+            target_prefix: 'PV_V',
+            target_name: '가변식 태양광',
             placeList: [
               {
                 target_code: '001',
@@ -1063,9 +1063,9 @@ const map = {
             ],
           },
           {
-            target_id: 'variablePV',
-            target_prefix: 'PV_V',
-            target_name: '가변식 태양광',
+            target_id: 'fixingPV',
+            target_prefix: 'PV_F',
+            target_name: '고정식 태양광',
             placeList: [
               {
                 target_code: '004',
