@@ -19,14 +19,14 @@ const map = {
         height: 2000,
         backgroundInfo: {
           backgroundData: '',
-          backgroundPosition: [0, 0],
+          backgroundPosition: [160, 0],
         },
       },
       svgModelResourceList: [
         {
           id: 'solarEvaporationBlock',
           type: 'rect',
-          elementDrawInfo: { width: 80, height: 280, color: '#abe3e1', opacity: 1 },
+          elementDrawInfo: { width: 80, height: 280, color: '#abe3e1', opacity: 0 },
           textStyleInfo: {
             color: '',
             fontSize: 10,
@@ -35,7 +35,7 @@ const map = {
         {
           id: 'normalEvaporationBlock_A',
           type: 'rect',
-          elementDrawInfo: { width: 700, height: 130, color: '#bd8f3a', opacity: 1 },
+          elementDrawInfo: { width: 700, height: 130, color: '#bd8f3a', opacity: 0 },
           textStyleInfo: {
             color: '',
             fontSize: 10,
@@ -44,7 +44,7 @@ const map = {
         {
           id: 'normalEvaporationBlock_B',
           type: 'rect',
-          elementDrawInfo: { width: 700, height: 100, color: '#bd8f3a', opacity: 1 },
+          elementDrawInfo: { width: 700, height: 100, color: '#bd8f3a', opacity: 0 },
           textStyleInfo: {
             color: '',
             fontSize: 10,
@@ -53,7 +53,7 @@ const map = {
         {
           id: 'normalCrystalizingBlock',
           type: 'rect',
-          elementDrawInfo: { width: 200, height: 160, color: '#988224', opacity: 1 },
+          elementDrawInfo: { width: 200, height: 160, color: '#988224', opacity: 0 },
           textStyleInfo: {
             color: '',
             fontSize: 10,
@@ -62,7 +62,7 @@ const map = {
         {
           id: 'reservoir_A',
           type: 'rect',
-          elementDrawInfo: { width: 800, height: 90, color: 'blue', opacity: 1 },
+          elementDrawInfo: { width: 800, height: 90, color: 'blue', opacity: 0 },
           textStyleInfo: {
             color: '',
             fontSize: 10,
@@ -71,7 +71,7 @@ const map = {
         {
           id: 'reservoir_B',
           type: 'rect',
-          elementDrawInfo: { width: 180, height: 90, color: 'blue', opacity: 1 },
+          elementDrawInfo: { width: 180, height: 90, color: 'blue', opacity: 0 },
           textStyleInfo: {
             color: '',
             fontSize: 10,
@@ -80,7 +80,7 @@ const map = {
         {
           id: 'drainage',
           type: 'rect',
-          elementDrawInfo: { width: 80, height: 90, color: 'skyblue', opacity: 1 },
+          elementDrawInfo: { width: 80, height: 90, color: 'skyblue', opacity: 0 },
           textStyleInfo: {
             color: '',
             fontSize: 10,
@@ -89,7 +89,7 @@ const map = {
         {
           id: 'brineWarehouse_A',
           type: 'rect',
-          elementDrawInfo: { width: 250, height: 80, color: '#90b4dd', opacity: 1 },
+          elementDrawInfo: { width: 250, height: 80, color: '#90b4dd', opacity: 0 },
           textStyleInfo: {
             color: '',
             fontSize: 10,
@@ -98,7 +98,7 @@ const map = {
         {
           id: 'brineWarehouse_B',
           type: 'rect',
-          elementDrawInfo: { width: 200, height: 80, color: '#90b4dd', opacity: 1 },
+          elementDrawInfo: { width: 200, height: 80, color: '#90b4dd', opacity: 0 },
           textStyleInfo: {
             color: '',
             fontSize: 10,
@@ -107,7 +107,7 @@ const map = {
         {
           id: 'brineWarehouse_C',
           type: 'rect',
-          elementDrawInfo: { width: 120, height: 80, color: '#90b4dd', opacity: 1 },
+          elementDrawInfo: { width: 120, height: 80, color: '#90b4dd', opacity: 0 },
           textStyleInfo: {
             color: '',
             fontSize: 10,
@@ -116,7 +116,7 @@ const map = {
         {
           id: 'brineWarehouse_D',
           type: 'rect',
-          elementDrawInfo: { width: 110, height: 80, color: '#90b4dd', opacity: 1 },
+          elementDrawInfo: { width: 110, height: 80, color: '#90b4dd', opacity: 0 },
           textStyleInfo: {
             color: '',
             fontSize: 10,
@@ -125,7 +125,7 @@ const map = {
         {
           id: 'sea',
           type: 'rect',
-          elementDrawInfo: { width: 1210, height: 20, color: 'skyblue', opacity: 1 },
+          elementDrawInfo: { width: 1210, height: 20, color: 'skyblue', opacity: 0 },
           textStyleInfo: {
             color: '',
             fontSize: 10,
@@ -134,7 +134,7 @@ const map = {
         {
           id: 'waterWay',
           type: 'line',
-          elementDrawInfo: { width: 25, color: '#b2b2b2', opacity: 1 },
+          elementDrawInfo: { width: 25, color: '#b2b2b2', opacity: 0 },
           textStyleInfo: {
             color: '',
             fontSize: 10,
@@ -143,7 +143,7 @@ const map = {
         {
           id: 'waterWay_B',
           type: 'line',
-          elementDrawInfo: { width: 25, color: '#4c7a89', opacity: 1 },
+          elementDrawInfo: { width: 25, color: '#4c7a89', opacity: 0 },
           textStyleInfo: {
             color: '',
             fontSize: 10,
@@ -152,7 +152,7 @@ const map = {
         {
           id: 'peWaterWay',
           type: 'line',
-          elementDrawInfo: { width: 25, color: '#108760', opacity: 1 },
+          elementDrawInfo: { width: 25, color: '#108760', opacity: 0 },
           textStyleInfo: {
             color: '',
             fontSize: 10,
@@ -162,7 +162,7 @@ const map = {
         {
           id: 'pipeLine_A',
           type: 'line',
-          elementDrawInfo: { width: 10, color: '#ff9a00', opacity: 1 },
+          elementDrawInfo: { width: 10, color: '#ff9a00', opacity: 0 },
           textStyleInfo: {
             color: '',
             fontSize: 10,
@@ -172,7 +172,7 @@ const map = {
         {
           id: 'pipeLine_B',
           type: 'line',
-          elementDrawInfo: { width: 10, color: '#7513a1', opacity: 1 },
+          elementDrawInfo: { width: 10, color: '#7513a1', opacity: 0 },
           textStyleInfo: {
             color: '',
             fontSize: 10,
