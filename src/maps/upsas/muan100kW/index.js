@@ -583,6 +583,9 @@ const map = {
         dccName: '접속반 로거 B',
         connect_info: { type: 'modbus', subType: 'rtu', baudRate: 9600, port: 'COM4' },
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> bdff24182301f56668ece88539524910dfbd4ce6
       },
       {
         dccId: 'DCC_CNT_003',
@@ -639,6 +642,7 @@ const map = {
       {
         dccId: 'DCC_IVT_004',
         dccName: '인버터 로거 D',
+<<<<<<< HEAD
 =======
       },
       {
@@ -655,12 +659,17 @@ const map = {
         dccId: 'DCC_IVT_001',
         dccName: '인버터 로거 A',
 >>>>>>> @ 100kW map 갱신
+=======
+>>>>>>> bdff24182301f56668ece88539524910dfbd4ce6
         connect_info: {
           type: 'serial',
           subType: 'parser',
           baudRate: 9600,
           port: 'COM3',
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> bdff24182301f56668ece88539524910dfbd4ce6
           addConfigInfo: {
             parser: 'delimiterParser',
             option: Buffer.from([0x04]),
@@ -675,6 +684,7 @@ const map = {
       { dpcId: 'DPC_001', protocol_info: { mainCategory: 'UPSAS', subCategory: 'xbee' } },
       { dpcId: 'DPC_002', protocol_info: { mainCategory: 'UPSAS', subCategory: 'muan100kW' } },
       {
+<<<<<<< HEAD
 <<<<<<< HEAD
         dpcId: 'DPC_IVT_001',
         protocol_info: { mainCategory: 'Inverter', subCategory: 'hexPowerTriple' },
@@ -719,8 +729,14 @@ const map = {
             target_name: '무안 100kW D (25kW 급)',
           },
         ],
+=======
+        dpcId: 'DPC_IVT_001',
+        protocol_info: { mainCategory: 'Inverter', subCategory: 'hexPowerTriple' },
+>>>>>>> bdff24182301f56668ece88539524910dfbd4ce6
       },
+      { dpcId: 'DPC_CNT_001', protocol_info: { mainCategory: 'Sensor', subCategory: 'CNT_dm_v1' } },
       {
+<<<<<<< HEAD
         repeatId: 'RE_PREFIX_IVT',
         repeatCategory: 'prefix',
         nodeList: [
@@ -742,6 +758,15 @@ const map = {
       },
       {
         repeatId: 'RE_NODE_CNT',
+=======
+        dpcId: 'DPC_CNT_002',
+        protocol_info: { mainCategory: 'Sensor', subCategory: 'CNT_DK_v2.2' },
+      },
+    ],
+    repeatNodeList: [
+      {
+        repeatId: 'RE_NODE_IVT',
+>>>>>>> bdff24182301f56668ece88539524910dfbd4ce6
         repeatCategory: 'node',
         nodeList: [
           {
@@ -761,6 +786,7 @@ const map = {
             target_name: '무안 100kW D (25kW 급)',
           },
         ],
+<<<<<<< HEAD
 =======
         dccId: 'DCC_IVT_003',
         dccName: '인버터 로거 C',
@@ -870,6 +896,69 @@ const map = {
         ],
       },
 >>>>>>> @ 100kW map 갱신
+=======
+      },
+      {
+        repeatId: 'RE_PREFIX_IVT',
+        repeatCategory: 'prefix',
+        nodeList: [
+          'IVT_PV_V',
+          'IVT_PV_A',
+          'IVT_PV_KW',
+          'IVT_G_RS_V',
+          'IVT_G_ST_V',
+          'IVT_G_TR_V',
+          'IVT_G_R_A',
+          'IVT_G_S_A',
+          'IVT_G_T_A',
+          'IVT_G_L_F',
+          'IVT_PW_PV_KW',
+          'IVT_PW_G_KW',
+          'IVT_PW_C_KWH',
+          'IVT_TRB',
+        ],
+      },
+      {
+        repeatId: 'RE_NODE_CNT',
+        repeatCategory: 'node',
+        nodeList: [
+          {
+            target_code: '001',
+            target_name: '무안 100kW A (25kW 급)',
+          },
+          {
+            target_code: '002',
+            target_name: '무안 100kW B (25kW 급)',
+          },
+          {
+            target_code: '003',
+            target_name: '무안 100kW C (25kW 급)',
+          },
+          {
+            target_code: '004',
+            target_name: '무안 100kW D (25kW 급)',
+          },
+        ],
+      },
+      {
+        repeatId: 'RE_PREFIX_CNT',
+        repeatCategory: 'prefix',
+        nodeList: [
+          'CNT_A_1CH',
+          'CNT_V_1CH',
+          'CNT_A_2CH',
+          'CNT_V_2CH',
+          'CNT_A_3CH',
+          'CNT_V_3CH',
+          'CNT_A_4CH',
+          'CNT_V_4CH',
+          'CNT_A_5CH',
+          'CNT_V_5CH',
+          'CNT_A_6CH',
+          'CNT_V_6CH',
+        ],
+      },
+>>>>>>> bdff24182301f56668ece88539524910dfbd4ce6
     ],
     dataLoggerStructureList: [
       {
@@ -1379,9 +1468,13 @@ const map = {
     ],
     nodeStructureList: [
 <<<<<<< HEAD
+<<<<<<< HEAD
       // 수중 태양광 데이터
 =======
 >>>>>>> @ 100kW map 갱신
+=======
+      // 수중 태양광 데이터
+>>>>>>> bdff24182301f56668ece88539524910dfbd4ce6
       {
         target_id: 'temp',
         target_name: '온도',
@@ -1595,6 +1688,9 @@ const map = {
             target_name: '접속반 지락 계전기',
             nodeList: [],
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> bdff24182301f56668ece88539524910dfbd4ce6
           },
         ],
       },
@@ -1903,6 +1999,7 @@ const map = {
         ],
       },
       // 수중 태양광 장소
+<<<<<<< HEAD
 =======
           },
         ],
@@ -2210,6 +2307,8 @@ const map = {
           },
         ],
       },
+=======
+>>>>>>> bdff24182301f56668ece88539524910dfbd4ce6
       {
         target_id: 'salternBlock',
         target_name: '염판',
