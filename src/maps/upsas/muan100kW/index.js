@@ -3356,6 +3356,7 @@ const map = {
     setCmdList: [
       {
         cmdId: 'closeAllDevice',
+        cmdName: '모든 장치 닫기',
         trueNodeList: [],
         falseNodeList: [
           'GV_101',
@@ -3403,6 +3404,7 @@ const map = {
       },
       {
         cmdId: 'rainMode',
+        cmdName: '우천 모드',
         trueNodeList: [
           'GV_106',
           'GV_108',
@@ -3453,6 +3455,7 @@ const map = {
     scenarioCmdList: [
       {
         scenarioId: 'rainMode',
+        scenarioName: '우천 대피',
         scenarioList: [
           { wrapCmdFormat: 'SET', wrapCmdType: 'CONTROL', setCmdId: 'closeAllDevice' },
           [
@@ -3546,6 +3549,7 @@ const map = {
       },
       {
         scenarioId: 'normalFlowScenario',
+        scenarioName: '소금 생산 시나리오',
         scenarioList: [
           { wrapCmdFormat: 'SET', wrapCmdType: 'CONTROL', setCmdId: 'closeAllDevice' },
           [
