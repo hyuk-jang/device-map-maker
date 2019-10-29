@@ -582,10 +582,6 @@ const map = {
         dccId: 'DCC_CNT_002',
         dccName: '접속반 로거 B',
         connect_info: { type: 'modbus', subType: 'rtu', baudRate: 9600, port: 'COM4' },
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> bdff24182301f56668ece88539524910dfbd4ce6
       },
       {
         dccId: 'DCC_CNT_003',
@@ -642,41 +638,15 @@ const map = {
       {
         dccId: 'DCC_IVT_004',
         dccName: '인버터 로거 D',
-<<<<<<< HEAD
-=======
-      },
-      {
-        dccId: 'DCC_CNT_003',
-        dccName: '접속반 로거 C',
-        connect_info: { type: 'modbus', subType: 'rtu', baudRate: 9600, port: 'COM4' },
-      },
-      {
-        dccId: 'DCC_CNT_004',
-        dccName: '접속반 로거 D',
-        connect_info: { type: 'modbus', subType: 'rtu', baudRate: 9600, port: 'COM4' },
-      },
-      {
-        dccId: 'DCC_IVT_001',
-        dccName: '인버터 로거 A',
->>>>>>> @ 100kW map 갱신
-=======
->>>>>>> bdff24182301f56668ece88539524910dfbd4ce6
         connect_info: {
           type: 'serial',
           subType: 'parser',
           baudRate: 9600,
           port: 'COM3',
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> bdff24182301f56668ece88539524910dfbd4ce6
           addConfigInfo: {
             parser: 'delimiterParser',
             option: Buffer.from([0x04]),
           },
-=======
-          addConfigInfo: { parser: 'delimiterParser', option: { type: 'Buffer', data: [4] } },
->>>>>>> @ 100kW map 갱신
         },
       },
     ],
@@ -684,25 +654,11 @@ const map = {
       { dpcId: 'DPC_001', protocol_info: { mainCategory: 'UPSAS', subCategory: 'xbee' } },
       { dpcId: 'DPC_002', protocol_info: { mainCategory: 'UPSAS', subCategory: 'muan100kW' } },
       {
-<<<<<<< HEAD
-<<<<<<< HEAD
         dpcId: 'DPC_IVT_001',
         protocol_info: { mainCategory: 'Inverter', subCategory: 'hexPowerTriple' },
-=======
-        dccId: 'DCC_IVT_002',
-        dccName: '인버터 로거 B',
-        connect_info: {
-          type: 'serial',
-          subType: 'parser',
-          baudRate: 9600,
-          port: 'COM3',
-          addConfigInfo: { parser: 'delimiterParser', option: { type: 'Buffer', data: [4] } },
-        },
->>>>>>> @ 100kW map 갱신
       },
       { dpcId: 'DPC_CNT_001', protocol_info: { mainCategory: 'Sensor', subCategory: 'CNT_dm_v1' } },
       {
-<<<<<<< HEAD
         dpcId: 'DPC_CNT_002',
         protocol_info: { mainCategory: 'Sensor', subCategory: 'CNT_DK_v2.2' },
       },
@@ -729,14 +685,9 @@ const map = {
             target_name: '무안 100kW D (25kW 급)',
           },
         ],
-=======
-        dpcId: 'DPC_IVT_001',
-        protocol_info: { mainCategory: 'Inverter', subCategory: 'hexPowerTriple' },
->>>>>>> bdff24182301f56668ece88539524910dfbd4ce6
       },
       { dpcId: 'DPC_CNT_001', protocol_info: { mainCategory: 'Sensor', subCategory: 'CNT_dm_v1' } },
       {
-<<<<<<< HEAD
         repeatId: 'RE_PREFIX_IVT',
         repeatCategory: 'prefix',
         nodeList: [
@@ -758,15 +709,6 @@ const map = {
       },
       {
         repeatId: 'RE_NODE_CNT',
-=======
-        dpcId: 'DPC_CNT_002',
-        protocol_info: { mainCategory: 'Sensor', subCategory: 'CNT_DK_v2.2' },
-      },
-    ],
-    repeatNodeList: [
-      {
-        repeatId: 'RE_NODE_IVT',
->>>>>>> bdff24182301f56668ece88539524910dfbd4ce6
         repeatCategory: 'node',
         nodeList: [
           {
@@ -786,29 +728,6 @@ const map = {
             target_name: '무안 100kW D (25kW 급)',
           },
         ],
-<<<<<<< HEAD
-=======
-        dccId: 'DCC_IVT_003',
-        dccName: '인버터 로거 C',
-        connect_info: {
-          type: 'serial',
-          subType: 'parser',
-          baudRate: 9600,
-          port: 'COM3',
-          addConfigInfo: { parser: 'delimiterParser', option: { type: 'Buffer', data: [4] } },
-        },
-      },
-      {
-        dccId: 'DCC_IVT_004',
-        dccName: '인버터 로거 D',
-        connect_info: {
-          type: 'serial',
-          subType: 'parser',
-          baudRate: 9600,
-          port: 'COM3',
-          addConfigInfo: { parser: 'delimiterParser', option: { type: 'Buffer', data: [4] } },
-        },
->>>>>>> @ 100kW map 갱신
       },
       {
         repeatId: 'RE_PREFIX_CNT',
@@ -827,76 +746,6 @@ const map = {
           'CNT_A_6CH',
           'CNT_V_6CH',
         ],
-      },
-<<<<<<< HEAD
-=======
-      { dpcId: 'DPC_CNT_001', protocol_info: { mainCategory: 'Sensor', subCategory: 'CNT_dm_v1' } },
-      {
-        dpcId: 'DPC_CNT_002',
-        protocol_info: { mainCategory: 'Sensor', subCategory: 'CNT_DK_v2.2' },
-      },
-    ],
-    repeatNodeList: [
-      {
-        repeatId: 'RE_NODE_IVT',
-        repeatCategory: 'node',
-        nodeList: [
-          { target_code: '001', target_name: '무안 100kW A (25kW 급)' },
-          { target_code: '002', target_name: '무안 100kW B (25kW 급)' },
-          { target_code: '003', target_name: '무안 100kW C (25kW 급)' },
-          { target_code: '004', target_name: '무안 100kW D (25kW 급)' },
-        ],
-      },
-      {
-        repeatId: 'RE_PREFIX_IVT',
-        repeatCategory: 'prefix',
-        nodeList: [
-          'IVT_PV_V',
-          'IVT_PV_A',
-          'IVT_PV_KW',
-          'IVT_G_RS_V',
-          'IVT_G_ST_V',
-          'IVT_G_TR_V',
-          'IVT_G_R_A',
-          'IVT_G_S_A',
-          'IVT_G_T_A',
-          'IVT_G_L_F',
-          'IVT_PW_PV_KW',
-          'IVT_PW_G_KW',
-          'IVT_PW_C_KWH',
-          'IVT_TRB',
-        ],
-      },
-      {
-        repeatId: 'RE_NODE_CNT',
-        repeatCategory: 'node',
-        nodeList: [
-          { target_code: '001', target_name: '무안 100kW A (25kW 급)' },
-          { target_code: '002', target_name: '무안 100kW B (25kW 급)' },
-          { target_code: '003', target_name: '무안 100kW C (25kW 급)' },
-          { target_code: '004', target_name: '무안 100kW D (25kW 급)' },
-        ],
-      },
-      {
-        repeatId: 'RE_PREFIX_CNT',
-        repeatCategory: 'prefix',
-        nodeList: [
-          'CNT_A_1CH',
-          'CNT_V_1CH',
-          'CNT_A_2CH',
-          'CNT_V_2CH',
-          'CNT_A_3CH',
-          'CNT_V_3CH',
-          'CNT_A_4CH',
-          'CNT_V_4CH',
-          'CNT_A_5CH',
-          'CNT_V_5CH',
-          'CNT_A_6CH',
-          'CNT_V_6CH',
-        ],
-      },
->>>>>>> @ 100kW map 갱신
-=======
       },
       {
         repeatId: 'RE_PREFIX_IVT',
@@ -958,7 +807,6 @@ const map = {
           'CNT_V_6CH',
         ],
       },
->>>>>>> bdff24182301f56668ece88539524910dfbd4ce6
     ],
     dataLoggerStructureList: [
       {
@@ -1467,14 +1315,7 @@ const map = {
       },
     ],
     nodeStructureList: [
-<<<<<<< HEAD
-<<<<<<< HEAD
       // 수중 태양광 데이터
-=======
->>>>>>> @ 100kW map 갱신
-=======
-      // 수중 태양광 데이터
->>>>>>> bdff24182301f56668ece88539524910dfbd4ce6
       {
         target_id: 'temp',
         target_name: '온도',
@@ -1687,10 +1528,6 @@ const map = {
             target_prefix: 'CGR',
             target_name: '접속반 지락 계전기',
             nodeList: [],
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> bdff24182301f56668ece88539524910dfbd4ce6
           },
         ],
       },
@@ -1916,7 +1753,6 @@ const map = {
   },
   relationInfo: {
     placeRelationList: [
-      // 인버터 / 접속반 장소
       {
         target_id: 'inverter',
         target_name: '인버터',
@@ -1998,317 +1834,6 @@ const map = {
           },
         ],
       },
-      // 수중 태양광 장소
-<<<<<<< HEAD
-=======
-          },
-        ],
-      },
->>>>>>> @ 100kW map 갱신
-      {
-        target_id: 'vol',
-        target_name: '전압',
-        is_sensor: 2,
-        save_db_type: 'block',
-        data_unit: 'V',
-        description: null,
-        defList: [
-          {
-            target_id: 'volCh1',
-            target_name: '접속반 1 CH 전압',
-            target_prefix: 'CNT_V_1CH',
-            repeatId: 'RE_NODE_CNT',
-          },
-          {
-            target_id: 'volCh2',
-            target_name: '접속반 2 CH 전압',
-            target_prefix: 'CNT_V_2CH',
-            repeatId: 'RE_NODE_CNT',
-          },
-          {
-            target_id: 'volCh3',
-            target_name: '접속반 3 CH 전압',
-            target_prefix: 'CNT_V_3CH',
-            repeatId: 'RE_NODE_CNT',
-          },
-          {
-            target_id: 'volCh4',
-            target_name: '접속반 4 CH 전압',
-            target_prefix: 'CNT_V_4CH',
-            repeatId: 'RE_NODE_CNT',
-          },
-          {
-            target_id: 'volCh5',
-            target_name: '접속반 5 CH 전압',
-            target_prefix: 'CNT_V_5CH',
-            repeatId: 'RE_NODE_CNT',
-          },
-          {
-            target_id: 'volCh6',
-            target_name: '접속반 6 CH 전압',
-            target_prefix: 'CNT_V_6CH',
-            repeatId: 'RE_NODE_CNT',
-          },
-          {
-            target_id: 'pvVol',
-            target_name: '인버터 PV 전압',
-            target_prefix: 'IVT_PV_V',
-            repeatId: 'RE_NODE_IVT',
-          },
-          {
-            target_id: 'gridRsVol',
-            target_name: 'RS 선간 전압',
-            target_prefix: 'IVT_G_RS_V',
-            repeatId: 'RE_NODE_IVT',
-          },
-          {
-            target_id: 'gridStVol',
-            target_name: 'ST 선간 전압',
-            target_prefix: 'IVT_G_ST_V',
-            repeatId: 'RE_NODE_IVT',
-          },
-          {
-            target_id: 'gridTrVol',
-            target_name: 'TR 선간 전압',
-            target_prefix: 'IVT_G_TR_V',
-            repeatId: 'RE_NODE_IVT',
-          },
-        ],
-      },
-      {
-        target_id: 'amp',
-        target_name: '전류',
-        is_sensor: 2,
-        save_db_type: 'block',
-        data_unit: 'A',
-        description: null,
-        defList: [
-          {
-            target_id: 'ampCh1',
-            target_name: '접속반 1 CH 전류',
-            target_prefix: 'CNT_A_1CH',
-            repeatId: 'RE_NODE_CNT',
-          },
-          {
-            target_id: 'ampCh2',
-            target_name: '접속반 2 CH 전류',
-            target_prefix: 'CNT_A_2CH',
-            repeatId: 'RE_NODE_CNT',
-          },
-          {
-            target_id: 'ampCh3',
-            target_name: '접속반 3 CH 전류',
-            target_prefix: 'CNT_A_3CH',
-            repeatId: 'RE_NODE_CNT',
-          },
-          {
-            target_id: 'ampCh4',
-            target_name: '접속반 4 CH 전류',
-            target_prefix: 'CNT_A_4CH',
-            repeatId: 'RE_NODE_CNT',
-          },
-          {
-            target_id: 'ampCh5',
-            target_name: '접속반 5 CH 전류',
-            target_prefix: 'CNT_A_5CH',
-            repeatId: 'RE_NODE_CNT',
-          },
-          {
-            target_id: 'ampCh6',
-            target_name: '접속반 6 CH 전류',
-            target_prefix: 'CNT_A_6CH',
-            repeatId: 'RE_NODE_CNT',
-          },
-          {
-            target_id: 'pvAmp',
-            target_name: '인버터 PV 전류',
-            target_prefix: 'IVT_PV_A',
-            repeatId: 'RE_NODE_IVT',
-          },
-          {
-            target_id: 'gridRAmp',
-            target_name: '인버터 R상 전류',
-            target_prefix: 'IVT_G_R_A',
-            repeatId: 'RE_NODE_IVT',
-          },
-          {
-            target_id: 'gridSAmp',
-            target_name: '인버터 S상 전류',
-            target_prefix: 'IVT_G_S_A',
-            repeatId: 'RE_NODE_IVT',
-          },
-          {
-            target_id: 'gridTAmp',
-            target_name: '인버터 T상 전류',
-            target_prefix: 'IVT_G_T_A',
-            repeatId: 'RE_NODE_IVT',
-          },
-        ],
-      },
-      {
-        target_id: 'kW',
-        target_name: '전력량',
-        is_sensor: 2,
-        save_db_type: 'block',
-        data_unit: 'kW',
-        description: '1 킬로와트(기호 kW)는 1 초 동안의 1,000 줄(N·m)에 해당하는 일률의 SI 단위',
-        defList: [
-          {
-            target_id: 'pvKw',
-            target_name: '인버터 PV 출력',
-            target_prefix: 'IVT_PV_KW',
-            description: 'PV',
-            repeatId: 'RE_NODE_IVT',
-          },
-          {
-            target_id: 'powerGridKw',
-            target_name: '인버터 현재 전력',
-            target_prefix: 'IVT_PW_G_KW',
-            description: 'Power',
-            repeatId: 'RE_NODE_IVT',
-          },
-        ],
-      },
-      {
-        target_id: 'kWh',
-        target_name: '전력량',
-        is_sensor: 2,
-        save_db_type: 'block',
-        data_unit: 'kWh',
-        description: '시간당 에너지 단위, 1 kW의 일률로 1 시간 동안 하는 일의 양',
-        defList: [
-          {
-            target_id: 'powerDailyKwh',
-            target_name: '인버터 하루 발전량',
-            target_prefix: 'IVT_PW_D_KWH',
-            repeatId: 'RE_NODE_IVT',
-          },
-          {
-            target_id: 'powerCpKwh',
-            target_name: '인버터 누적 발전량',
-            target_prefix: 'IVT_PW_C_KWH',
-            description: 'Cumulative Power Generation',
-            repeatId: 'RE_NODE_IVT',
-          },
-        ],
-      },
-      {
-        target_id: 'frequency',
-        target_name: '주파수',
-        is_sensor: 2,
-        save_db_type: 'block',
-        data_unit: 'Hz',
-        defList: [
-          {
-            target_id: 'gridLf',
-            target_name: '계통 주파수',
-            target_prefix: 'IVT_G_L_F',
-            repeatId: 'RE_NODE_IVT',
-          },
-        ],
-      },
-      {
-        target_id: 'trouble',
-        target_name: '오류 목록',
-        is_sensor: 2,
-        save_db_type: 'trouble',
-        description: '장치에서 보내오는 이상 데이터',
-        defList: [
-          {
-            target_id: 'operTroubleList',
-            target_name: '인버터 에러',
-            target_prefix: 'IVT_TRB',
-            repeatId: 'RE_NODE_IVT',
-          },
-        ],
-      },
-    ],
-  },
-  relationInfo: {
-    placeRelationList: [
-      {
-        target_id: 'inverter',
-        target_name: '인버터',
-        description: '인버터를 설치한 공간',
-        defList: [
-          {
-            target_id: 'inverter',
-            target_prefix: 'P_IVT',
-            placeList: [
-              {
-                target_code: '001',
-                target_name: 'SK 쏠라 (25kW 급)',
-                chart_color: '#212529',
-                chart_sort_rank: 1,
-                repeatId: 'RE_PREFIX_IVT',
-              },
-              {
-                target_code: '002',
-                target_name: '쏠라 테크 A (25kW 급)',
-                chart_color: '#fcc2d7',
-                chart_sort_rank: 2,
-                repeatId: 'RE_PREFIX_IVT',
-              },
-              {
-                target_code: '003',
-                target_name: '쏠라 테크 B (25kW 급)',
-                chart_color: '#d0bfff',
-                chart_sort_rank: 3,
-                repeatId: 'RE_PREFIX_IVT',
-              },
-              {
-                target_code: '004',
-                target_name: '쏠라 테크 C (25kW 급)',
-                chart_color: '#99e9f2',
-                chart_sort_rank: 4,
-                repeatId: 'RE_PREFIX_IVT',
-              },
-            ],
-          },
-        ],
-      },
-      {
-        target_id: 'connector',
-        target_name: '접속반',
-        defList: [
-          {
-            target_id: 'connector',
-            target_prefix: 'P_CNT',
-            placeList: [
-              {
-                target_code: '001',
-                target_name: 'SK 쏠라 (25kW 급)',
-                chart_sort_rank: 1,
-                chart_color: '#212529',
-                repeatId: 'RE_PREFIX_CNT',
-              },
-              {
-                target_code: '002',
-                target_name: '쏠라테크 A (25kW 급)',
-                chart_color: '#fcc2d7',
-                chart_sort_rank: 2,
-                repeatId: 'RE_PREFIX_CNT',
-              },
-              {
-                target_code: '003',
-                target_name: '쏠라테크 B (25kW 급)',
-                chart_color: '#d0bfff',
-                chart_sort_rank: 3,
-                repeatId: 'RE_PREFIX_CNT',
-              },
-              {
-                target_code: '004',
-                target_name: '쏠라테크 C (25kW 급)',
-                chart_color: '#99e9f2',
-                chart_sort_rank: 4,
-                repeatId: 'RE_PREFIX_CNT',
-              },
-            ],
-          },
-        ],
-      },
-=======
->>>>>>> bdff24182301f56668ece88539524910dfbd4ce6
       {
         target_id: 'salternBlock',
         target_name: '염판',
