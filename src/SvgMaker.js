@@ -1,11 +1,16 @@
 const _ = require('lodash');
+const fs = require('fs');
+const path = require('path')
+
 const { BU } = require('base-util-jh');
 
-const map = require(`./maps/${process.env.SOURCE_PATH}/${process.env.SOURCE_FILE}`);
-const mapBase64 = require(`./maps/${process.env.SOURCE_PATH}/${process.env.SOURCE_FILE}/mapBase64`);
+const mapPath = path.join(process.cwd(), '/src/maps/', `${process.env.SOURCE_PATH}/${process.env.SOURCE_FILE}`) ;
+
+const map = require(mapPath);
+
+// const mapBase64 = require(`./maps/${process.env.SOURCE_PATH}/${process.env.SOURCE_FILE}/mapBase64`);
 // const mapBase64 = require('./maps/upsas/mapBase64');
 
-require('dotenv').config();
 require('default-intelligence');
 
 class SvgMaker {
@@ -49,15 +54,30 @@ class SvgMaker {
 
   async writeMapFile() {
     try {
-      map.drawInfo.frame.mapInfo.backgroundInfo.backgroundData = mapBase64;
+      // map.drawInfo.frame.mapInfo.backgroundInfo.backgroundData = mapBase64;
+
+      const mapImgPath = `${mapPath}/${process.env.SOURCE_FILE}.png`;
+
       const finalStrMap = `var map = ${JSON.stringify(map)}`;
       await BU.writeFile('./out/defaultMap.js', finalStrMap, 'w');
+
+      const inputImgStream = fs.createReadStream(mapImgPath);
+      const outputImgStream = fs.createWriteStream('./out/defaultMap.png');
+      inputImgStream.pipe(outputImgStream);
+
       // FIXME:
       await BU.writeFile(
         `./out/${process.env.SOURCE_PATH}/output_${process.env.SOURCE_FILE}.js`,
         finalStrMap,
         'w',
       );
+
+      // const inputImgStream2 = fs.createReadStream(mapImgPath);
+      // const copyStream = fs.createWriteStream(
+      //   `./out/${process.env.SOURCE_PATH}/output_${process.env.SOURCE_FILE}.png`,
+      // );
+      // inputImgStream2.pipe(copyStream);
+
       return BU.CLI('Map 자동 생성 성공');
     } catch (error) {
       BU.CLI('Map 생성 실패', error);
