@@ -19,7 +19,14 @@ const NODE_CLASS_KEY = [
   'data_unit',
   'description',
 ];
-const NODE_DEF_KEY = ['target_id', 'target_prefix', 'target_name', 'is_avg_center', 'description'];
+const NODE_DEF_KEY = [
+  'target_id',
+  'target_prefix',
+  'target_name',
+  'is_submit_api',
+  'is_avg_center',
+  'description',
+];
 const NODE_KEY = ['target_code', 'target_name', 'data_logger_index', 'serial_number'];
 const PLACE_CLASS_KEY = ['target_id', 'target_name', 'description'];
 const PLACE_DEF_KEY = ['target_id', 'target_prefix', 'target_name'];
@@ -389,19 +396,25 @@ class UploadToDB {
 
     // Node Class 리스트 순회
     this.map.setInfo.nodeStructureList.forEach(nodeClassInfo => {
+      const { is_submit_api: isSubmitApiByClass = 1 } = nodeClassInfo;
       // DEF 목록 순회
       nodeClassInfo.defList.forEach(nodeDefInfo => {
+        const { is_submit_api: isSubmitApiByDef } = nodeDefInfo;
         // const pickInfo = _.omit(nodeDefInfo, 'nodeList');
         // nodeList Key 제외 Pick
         const pickInfo = {};
 
+        // API 전송 Flag 정의
+        const isSubmitApi = _.isUndefined(isSubmitApiByDef) ? isSubmitApiByClass : isSubmitApiByDef;
+        nodeDefInfo.is_submit_api = _.includes([0, 1], isSubmitApi) ? isSubmitApi : 1;
+
         // Def에서 필수 구성 Key가 존재하지 않는다면 Class 정보를 복사
-        _.forEach(NODE_DEF_KEY, key => {
-          if (!_.has(pickInfo, key)) {
-            if (_.get(nodeDefInfo, key, null) === null) {
-              _.set(pickInfo, key, _.get(nodeClassInfo, key, null));
+        _.forEach(NODE_DEF_KEY, defKey => {
+          if (!_.has(pickInfo, defKey)) {
+            if (_.get(nodeDefInfo, defKey) === undefined) {
+              _.set(pickInfo, defKey, _.get(nodeClassInfo, defKey, null));
             } else {
-              _.set(pickInfo, key, _.get(nodeDefInfo, key, null));
+              _.set(pickInfo, defKey, _.get(nodeDefInfo, defKey, null));
             }
           }
         });
