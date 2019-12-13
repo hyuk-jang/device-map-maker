@@ -1,11 +1,17 @@
 require('dotenv').config();
+
 const _ = require('lodash');
 const { BU } = require('base-util-jh');
 const { TempStorage } = require('base-model-jh');
-const { DEVICE, SENSOR, NONE } = require('../../default-intelligence').dcmConfigModel.nodeDataType;
+const {
+  dcmConfigModel: {
+    nodeDataType: { DEVICE, SENSOR, NONE },
+  },
+} = require('../../default-intelligence');
 
+const { SOURCE_PATH, SOURCE_FILE } = process.env;
 /** @type {mDeviceMap} */
-const map = require(`../src/maps/${process.env.SOURCE_PATH}/${process.env.SOURCE_FILE}`);
+const map = require(`../src/maps/${SOURCE_PATH}/${SOURCE_FILE}`);
 
 const BiModule = require('./BiModule');
 

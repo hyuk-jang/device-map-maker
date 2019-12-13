@@ -1,14 +1,16 @@
 const _ = require('lodash');
 const fs = require('fs');
-const path = require('path')
+const path = require('path');
 
 const { BU } = require('base-util-jh');
 
-const mapPath = path.join(process.cwd(), '/src/maps/', `${process.env.SOURCE_PATH}/${process.env.SOURCE_FILE}`) ;
+const { SOURCE_PATH, SOURCE_FILE } = process.env;
+
+const mapPath = path.join(process.cwd(), '/src/maps/', `${SOURCE_PATH}/${SOURCE_FILE}`);
 
 const map = require(mapPath);
 
-// const mapBase64 = require(`./maps/${process.env.SOURCE_PATH}/${process.env.SOURCE_FILE}/mapBase64`);
+// const mapBase64 = require(`./maps/${SOURCE_PATH}/${SOURCE_FILE}/mapBase64`);
 // const mapBase64 = require('./maps/upsas/mapBase64');
 
 require('default-intelligence');
@@ -16,10 +18,11 @@ require('default-intelligence');
 class SvgMaker {
   constructor() {
     // map 정보를 비구조화 할당 처리하여 내부 메소드에서 사용하는 체인을 줄임
+    /** @type {mDeviceMap} */
     const {
       drawInfo: {
         frame: { svgModelResourceList },
-        positionInfo = {},
+        positionInfo: { svgNodeList = [], svgPlaceList = [] } = {},
       },
       setInfo: { nodeStructureList },
       relationInfo: { placeRelationList, svgResourceConnectionList },
@@ -28,12 +31,9 @@ class SvgMaker {
     // SVG Drawing 리소스를 저장하는 목록
     this.mSvgModelResourceList = svgModelResourceList;
 
-    // 생성 시킬 svgNodeList 초기화
-    positionInfo.svgNodeList = [];
-
     // Position SVG 장소 목록, Node 목록
-    this.mSvgPlaceList = positionInfo.svgPlaceList;
-    this.mSvgNodeList = positionInfo.svgNodeList;
+    this.mSvgPlaceList = svgPlaceList;
+    this.mSvgNodeList = svgNodeList;
 
     // SetInfo 노드 구조 정의 목록
     this.mNodeStructureList = nodeStructureList;
@@ -42,21 +42,31 @@ class SvgMaker {
     this.mPlaceRelationList = placeRelationList;
     this.mSvgResourceConnectionList = svgResourceConnectionList;
 
-    // SVG NodeList를 생성하기 위한 임시 저장소 생성
-    this.setSvgNodeTempStorageList();
-    // Node(센서 제외) SVG 위치 정보 산출
-    this.makeSvgNodeList();
-    // Node(센서) SVG 위치 정보 산출
-    this.makeSensorList();
-    // File로 떨굼
-    this.writeMapFile();
+    this.makeSvgMapFile();
+  }
+
+  async makeSvgMapFile() {
+    try {
+      // SVG NodeList를 생성하기 위한 임시 저장소 생성
+      this.setSvgNodeTempStorageList();
+      // Node(센서 제외) SVG 위치 정보 산출
+      this.makeSvgNodeList();
+      // Node(센서) SVG 위치 정보 산출
+      this.makeSensorList();
+      // File로 떨굼
+      this.writeMapFile().catch(e => {
+        throw e;
+      });
+    } catch (error) {
+      BU.CLI(error);
+    }
   }
 
   async writeMapFile() {
     try {
       // map.drawInfo.frame.mapInfo.backgroundInfo.backgroundData = mapBase64;
 
-      const mapImgPath = `${mapPath}/${process.env.SOURCE_FILE}.png`;
+      const mapImgPath = `${mapPath}/${SOURCE_FILE}.png`;
 
       const finalStrMap = `var map = ${JSON.stringify(map)}`;
       await BU.writeFile('./out/defaultMap.js', finalStrMap, 'w');
@@ -66,15 +76,11 @@ class SvgMaker {
       inputImgStream.pipe(outputImgStream);
 
       // FIXME:
-      await BU.writeFile(
-        `./out/${process.env.SOURCE_PATH}/output_${process.env.SOURCE_FILE}.js`,
-        finalStrMap,
-        'w',
-      );
+      await BU.writeFile(`./out/${SOURCE_PATH}/output_${SOURCE_FILE}.js`, finalStrMap, 'w');
 
       // const inputImgStream2 = fs.createReadStream(mapImgPath);
       // const copyStream = fs.createWriteStream(
-      //   `./out/${process.env.SOURCE_PATH}/output_${process.env.SOURCE_FILE}.png`,
+      //   `./out/${SOURCE_PATH}/output_${SOURCE_FILE}.png`,
       // );
       // inputImgStream2.pipe(copyStream);
 
@@ -309,6 +315,8 @@ class SvgMaker {
   discoverObjectPoint(placeId) {
     let targetPoint = []; // [x1,y1,x2,y2]
 
+    BU.CLIN(this.mSvgPlaceList);
+
     this.mSvgPlaceList.forEach(svgPlaceInfo => {
       /** @type {defInfo} */
       const targetInfo = _.find(svgPlaceInfo.defList, { id: placeId });
@@ -397,120 +405,124 @@ class SvgMaker {
    * 센서 자동 배치 함수
    */
   makeSensorList() {
-    this.mPlaceRelationList.forEach(placeClassInfo => {
-      placeClassInfo.defList.forEach(placeDefInfo => {
-        const { target_prefix: pdPrefix, placeList = [] } = placeDefInfo;
+    try {
+      this.mPlaceRelationList.forEach(placeClassInfo => {
+        placeClassInfo.defList.forEach(placeDefInfo => {
+          const { target_prefix: pdPrefix, placeList = [] } = placeDefInfo;
 
-        placeList.forEach(placeInfo => {
-          const { target_code: pCode = null, nodeList: pNodeList = [] } = placeInfo;
-          const sensorStorage = [];
+          placeList.forEach(placeInfo => {
+            const { target_code: pCode = null, nodeList: pNodeList = [] } = placeInfo;
+            const sensorStorage = [];
 
-          pNodeList.forEach(nodeId => {
-            const foundSensorValue = this.findIsSensorValue(nodeId);
-            if (foundSensorValue === 1) {
-              sensorStorage.push(nodeId);
-            }
-          });
+            pNodeList.forEach(nodeId => {
+              const foundSensorValue = this.findIsSensorValue(nodeId);
+              if (foundSensorValue === 1) {
+                sensorStorage.push(nodeId);
+              }
+            });
 
-          const placeId = `${pdPrefix}${pCode ? `_${pCode}` : ''}`;
+            const placeId = `${pdPrefix}${pCode ? `_${pCode}` : ''}`;
 
-          // FIXME: 개선해야 하는 소스
-          _.forEach(sensorStorage, (sensorId, index) => {
-            const sensorPrefix = this.getReplace(sensorId, /[_\d]/g);
-            const placePoint = this.discoverObjectPoint(placeId);
-            const { axisScale } = this.getAxisMoveScale(sensorId);
-            let { moveScale } = this.getAxisMoveScale(sensorId);
+            // FIXME: 개선해야 하는 소스
+            _.forEach(sensorStorage, (sensorId, index) => {
+              const sensorPrefix = this.getReplace(sensorId, /[_\d]/g);
+              const placePoint = this.discoverObjectPoint(placeId);
+              const { axisScale } = this.getAxisMoveScale(sensorId);
+              let { moveScale } = this.getAxisMoveScale(sensorId);
 
-            if (sensorStorage.length === 1) {
-              moveScale = [0 + moveScale[0], -1 + moveScale[1]];
-            } else if (sensorStorage.length > 2 < 5) {
-              moveScale = [
-                [-1 + moveScale[0], -1 + moveScale[1]],
-                [1 + moveScale[0], -1 + moveScale[1]],
-                [-1 + moveScale[0], 1 + moveScale[1]],
-                [1 + moveScale[0], 1 + moveScale[1]],
-              ];
-              moveScale = moveScale[index];
-            } else if (sensorStorage.length > 4 < 10) {
-              moveScale = [
-                [-1.2 + moveScale[0], -1.2 + moveScale[1]],
-                [0 + moveScale[0], -1.2 + moveScale[1]],
-                [1.2 + moveScale[0], -1.2 + moveScale[1]],
-                [-1.2 + moveScale[0], 0 + moveScale[1]],
-                [0 + moveScale[0], 1.2 + moveScale[1]],
-                [-1.2 + moveScale[0], 1.2 + moveScale[1]],
-                [0 + moveScale[0], 1.2 + moveScale[1]],
-                [1.2 + moveScale[0], 1.2 + moveScale[1]],
-              ];
-              moveScale = moveScale[index];
-            } else if (sensorStorage.length > 9 < 17) {
-              moveScale = [
-                [-1.5 + moveScale[0], -1 + moveScale[1]],
-                [-0.7 + moveScale[0], -1 + moveScale[1]],
-                [0.7 + moveScale[0], -1 + moveScale[1]],
-                [1.5 + moveScale[0], -1 + moveScale[1]],
-                [-1.5 + moveScale[0], -0.5 + moveScale[1]],
-                [1.5 + moveScale[0], -0.5 + moveScale[1]],
-                [-1.5 + moveScale[0], 0.5 + moveScale[1]],
-                [1.5 + moveScale[0], 0.5 + moveScale[1]],
-                [-1.5 + moveScale[0], 1 + moveScale[1]],
-                [-0.7 + moveScale[0], 1 + moveScale[1]],
-                [0.7 + moveScale[0], 1 + moveScale[1]],
-                [1.5 + moveScale[0], 1 + moveScale[1]],
-              ];
-              moveScale = moveScale[index];
-            }
+              if (sensorStorage.length === 1) {
+                moveScale = [0 + moveScale[0], -1 + moveScale[1]];
+              } else if (sensorStorage.length > 2 < 5) {
+                moveScale = [
+                  [-1 + moveScale[0], -1 + moveScale[1]],
+                  [1 + moveScale[0], -1 + moveScale[1]],
+                  [-1 + moveScale[0], 1 + moveScale[1]],
+                  [1 + moveScale[0], 1 + moveScale[1]],
+                ];
+                moveScale = moveScale[index];
+              } else if (sensorStorage.length > 4 < 10) {
+                moveScale = [
+                  [-1.2 + moveScale[0], -1.2 + moveScale[1]],
+                  [0 + moveScale[0], -1.2 + moveScale[1]],
+                  [1.2 + moveScale[0], -1.2 + moveScale[1]],
+                  [-1.2 + moveScale[0], 0 + moveScale[1]],
+                  [0 + moveScale[0], 1.2 + moveScale[1]],
+                  [-1.2 + moveScale[0], 1.2 + moveScale[1]],
+                  [0 + moveScale[0], 1.2 + moveScale[1]],
+                  [1.2 + moveScale[0], 1.2 + moveScale[1]],
+                ];
+                moveScale = moveScale[index];
+              } else if (sensorStorage.length > 9 < 17) {
+                moveScale = [
+                  [-1.5 + moveScale[0], -1 + moveScale[1]],
+                  [-0.7 + moveScale[0], -1 + moveScale[1]],
+                  [0.7 + moveScale[0], -1 + moveScale[1]],
+                  [1.5 + moveScale[0], -1 + moveScale[1]],
+                  [-1.5 + moveScale[0], -0.5 + moveScale[1]],
+                  [1.5 + moveScale[0], -0.5 + moveScale[1]],
+                  [-1.5 + moveScale[0], 0.5 + moveScale[1]],
+                  [1.5 + moveScale[0], 0.5 + moveScale[1]],
+                  [-1.5 + moveScale[0], 1 + moveScale[1]],
+                  [-0.7 + moveScale[0], 1 + moveScale[1]],
+                  [0.7 + moveScale[0], 1 + moveScale[1]],
+                  [1.5 + moveScale[0], 1 + moveScale[1]],
+                ];
+                moveScale = moveScale[index];
+              }
 
-            const resourceInfo = this.getResourceInfo(sensorId);
-            const { width, height, color } = resourceInfo.elementDrawInfo;
-            const [x1, y1, x2, y2] = placePoint;
-            let x;
-            let y;
-            let targetAxis = [];
+              const resourceInfo = this.getResourceInfo(sensorId);
+              const { width, height, color } = resourceInfo.elementDrawInfo;
+              const [x1, y1, x2, y2] = placePoint;
+              let x;
+              let y;
+              let targetAxis = [];
 
-            x = x1 + (x2 - x1) / 2 - width / 2 + moveScale[0] * width;
-            y = y1 + (y2 - y1) / 2 - height / 2 + moveScale[1] * height;
+              x = x1 + (x2 - x1) / 2 - width / 2 + moveScale[0] * width;
+              y = y1 + (y2 - y1) / 2 - height / 2 + moveScale[1] * height;
 
-            this.x = x;
+              this.x = x;
 
-            targetAxis = [x, y];
-            // className을 찾기.
-            this.mNodeStructureList.forEach(nodeClassInfo => {
-              const foundNodeDefInfo = _.find(nodeClassInfo.defList, {
-                target_prefix: sensorPrefix,
-              });
-              if (_.isUndefined(foundNodeDefInfo)) return false;
+              targetAxis = [x, y];
+              // className을 찾기.
+              this.mNodeStructureList.forEach(nodeClassInfo => {
+                const foundNodeDefInfo = _.find(nodeClassInfo.defList, {
+                  target_prefix: sensorPrefix,
+                });
+                if (_.isUndefined(foundNodeDefInfo)) return false;
 
-              const nodeDefId = foundNodeDefInfo.target_id;
-              const newDefInfo = {
-                id: sensorId,
-                name: this.findNodeName(sensorId),
-                placeId,
-                resourceId: resourceInfo.id,
-                point: targetAxis,
-              };
-              // 그룹 존재
-              let foundSensor = _.find(this.mSvgNodeList, {
-                nodeDefId: resourceInfo.id,
-              });
-              if (_.isEmpty(foundSensor)) {
-                foundSensor = {
-                  nodeDefId,
-                  is_sensor: nodeClassInfo.is_sensor,
-                  defList: [],
+                const nodeDefId = foundNodeDefInfo.target_id;
+                const newDefInfo = {
+                  id: sensorId,
+                  name: this.findNodeName(sensorId),
+                  placeId,
+                  resourceId: resourceInfo.id,
+                  point: targetAxis,
                 };
-                this.mSvgNodeList.push(foundSensor);
-              }
-              /** @type {defInfo} */
-              const foundNodeIt = _.find(foundSensor.defList, { id: sensorId });
-              if (_.isEmpty(foundNodeIt)) {
-                foundSensor.defList.push(newDefInfo);
-              }
+                // 그룹 존재
+                let foundSensor = _.find(this.mSvgNodeList, {
+                  nodeDefId: resourceInfo.id,
+                });
+                if (_.isEmpty(foundSensor)) {
+                  foundSensor = {
+                    nodeDefId,
+                    is_sensor: nodeClassInfo.is_sensor,
+                    defList: [],
+                  };
+                  this.mSvgNodeList.push(foundSensor);
+                }
+                /** @type {defInfo} */
+                const foundNodeIt = _.find(foundSensor.defList, { id: sensorId });
+                if (_.isEmpty(foundNodeIt)) {
+                  foundSensor.defList.push(newDefInfo);
+                }
+              });
             });
           });
         });
       });
-    });
+    } catch (error) {
+      throw error;
+    }
   }
 }
 module.exports = SvgMaker;

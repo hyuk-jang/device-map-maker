@@ -61,7 +61,7 @@ const map = {
         },
       ],
     },
-    positionList: [{}],
+    positionInfo: {},
   },
   setInfo: {
     mainInfo: {
