@@ -138,7 +138,8 @@ class UploadToDB {
 
     // 데이터 로거 재구성
     this.setInfo.dataLoggerStructureList.forEach(dataLoggerDefInfo => {
-      dataLoggerDefInfo.dataLoggerDeviceList.forEach(dataLoggerInfo => {
+      const { dataLoggerDeviceList = [] } = dataLoggerDefInfo;
+      dataLoggerDeviceList.forEach(dataLoggerInfo => {
         const { repeatId = '', target_code: uniqNumber = '' } = dataLoggerInfo;
         // repeatId가 있을 경우
         if (repeatId.length) {
@@ -266,9 +267,9 @@ class UploadToDB {
 
     // 데이터 로거 대분류 구조 순회
     this.map.setInfo.dataLoggerStructureList.forEach(dataLoggerClassInfo => {
-      const { target_prefix: prefix } = dataLoggerClassInfo;
+      const { target_prefix: prefix, dataLoggerDeviceList = [] } = dataLoggerClassInfo;
       // 데이터 로거 장치 목록 순회
-      dataLoggerClassInfo.dataLoggerDeviceList.forEach(dataLoggerDeviceInfo => {
+      dataLoggerDeviceList.forEach(dataLoggerDeviceInfo => {
         const {
           target_name: tName = null,
           target_code: tCode = null,
@@ -485,7 +486,7 @@ class UploadToDB {
           // 노드 ID가 사용되어지는 DL ID 목록을 지정
           const usedDataLoggerIdList = [];
           _.forEach(this.setInfo.dataLoggerStructureList, dataStructureInfo => {
-            const { target_prefix: dldPrefix, dataLoggerDeviceList } = dataStructureInfo;
+            const { target_prefix: dldPrefix, dataLoggerDeviceList = [] } = dataStructureInfo;
             dataLoggerDeviceList.forEach(dataLoggerInfo => {
               const { target_code: dlCode, nodeList: dlNodeList } = dataLoggerInfo;
               const dataLoggerId = `${dldPrefix}${dlCode ? `_${dlCode}` : ''}`;

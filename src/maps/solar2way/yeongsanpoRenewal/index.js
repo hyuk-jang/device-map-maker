@@ -20,7 +20,7 @@ const map = {
   },
   setInfo: {
     mainInfo: {
-      uuid: '102',
+      uuid: '101',
     },
     dccConstructorList: [
       {
@@ -50,7 +50,7 @@ const map = {
           mainCategory: 'Inverter',
           subCategory: 'das_1.3',
           wrapperCategory: 'default',
-          cmdExecTimeoutMs: 1000 * 10,
+          cmdExecTimeoutMs: 1000 * 5,
         },
       },
       {
@@ -59,7 +59,7 @@ const map = {
           mainCategory: 'Inverter',
           subCategory: 's5500k',
           wrapperCategory: 'default',
-          cmdExecTimeoutMs: 1000 * 10,
+          cmdExecTimeoutMs: 1000 * 5,
         },
       },
       {
@@ -68,7 +68,7 @@ const map = {
           mainCategory: 'Inverter',
           subCategory: 'ESP3K5',
           wrapperCategory: 'default',
-          cmdExecTimeoutMs: 1000 * 10,
+          cmdExecTimeoutMs: 1000 * 5,
         },
       },
       {
@@ -77,7 +77,7 @@ const map = {
           mainCategory: 'Inverter',
           subCategory: 'KDX_300',
           wrapperCategory: 'default',
-          cmdExecTimeoutMs: 1000 * 10,
+          cmdExecTimeoutMs: 1000 * 5,
         },
       },
     ],
@@ -154,7 +154,7 @@ const map = {
           {
             target_code: 'A',
             target_name: '단면 4x9(I)',
-            serial_number: Buffer.from([85]),
+            serial_number: Buffer.from([47]),
             dccId: 'DCC_001',
             dpcId: 'DPC_IVT_003',
             repeatId: 'RE_PREFIX_IVT',
@@ -162,7 +162,7 @@ const map = {
           {
             target_code: 'B',
             target_name: '양면 4x9(I)',
-            serial_number: Buffer.from([46]),
+            serial_number: Buffer.from([85]),
             dccId: 'DCC_001',
             dpcId: 'DPC_IVT_003',
             repeatId: 'RE_PREFIX_IVT',
@@ -170,7 +170,7 @@ const map = {
           {
             target_code: 'C',
             target_name: '단면(2.5m) 3x12(I)',
-            serial_number: Buffer.from([86]),
+            serial_number: Buffer.from([46]),
             dccId: 'DCC_001',
             dpcId: 'DPC_IVT_003',
             repeatId: 'RE_PREFIX_IVT',
@@ -178,7 +178,7 @@ const map = {
           {
             target_code: 'D',
             target_name: '양면(2.5m) 3x12(I)',
-            serial_number: Buffer.from([47]),
+            serial_number: Buffer.from([86]),
             dccId: 'DCC_001',
             dpcId: 'DPC_IVT_003',
             repeatId: 'RE_PREFIX_IVT',
