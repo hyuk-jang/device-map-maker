@@ -315,7 +315,7 @@ class SvgMaker {
   discoverObjectPoint(placeId) {
     let targetPoint = []; // [x1,y1,x2,y2]
 
-    BU.CLIN(this.mSvgPlaceList);
+    // BU.CLIN(this.mSvgPlaceList);
 
     this.mSvgPlaceList.forEach(svgPlaceInfo => {
       /** @type {defInfo} */
@@ -432,7 +432,8 @@ class SvgMaker {
 
               if (sensorStorage.length === 1) {
                 moveScale = [0 + moveScale[0], -1 + moveScale[1]];
-              } else if (sensorStorage.length > 2 < 5) {
+              } else if (sensorStorage.length > 1 && sensorStorage.length < 5) {
+                // BU.CLI(sensorStorage.length);
                 moveScale = [
                   [-1 + moveScale[0], -1 + moveScale[1]],
                   [1 + moveScale[0], -1 + moveScale[1]],
@@ -440,7 +441,7 @@ class SvgMaker {
                   [1 + moveScale[0], 1 + moveScale[1]],
                 ];
                 moveScale = moveScale[index];
-              } else if (sensorStorage.length > 4 < 10) {
+              } else if (sensorStorage.length > 4 && sensorStorage.length < 10) {
                 moveScale = [
                   [-1.2 + moveScale[0], -1.2 + moveScale[1]],
                   [0 + moveScale[0], -1.2 + moveScale[1]],
@@ -452,7 +453,7 @@ class SvgMaker {
                   [1.2 + moveScale[0], 1.2 + moveScale[1]],
                 ];
                 moveScale = moveScale[index];
-              } else if (sensorStorage.length > 9 < 17) {
+              } else if (sensorStorage.length > 9 && sensorStorage.length < 17) {
                 moveScale = [
                   [-1.5 + moveScale[0], -1 + moveScale[1]],
                   [-0.7 + moveScale[0], -1 + moveScale[1]],
