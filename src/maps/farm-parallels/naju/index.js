@@ -769,7 +769,8 @@ const map = {
       {
         target_id: 'vol',
         target_name: '전압',
-        is_sensor: 0,
+        is_sensor: 2,
+        is_submit_api: 0,
         save_db_type: BLOCK,
         data_unit: 'V',
         description: null,
@@ -803,7 +804,8 @@ const map = {
       {
         target_id: 'amp',
         target_name: '전류',
-        is_sensor: 1,
+        is_sensor: 2,
+        is_submit_api: 0,
         save_db_type: BLOCK,
         data_unit: 'A',
         description: null,
@@ -837,7 +839,8 @@ const map = {
       {
         target_id: 'W',
         target_name: '전력량',
-        is_sensor: 1,
+        is_sensor: 2,
+        is_submit_api: 0,
         save_db_type: BLOCK,
         data_unit: 'W',
         description: '1 와트(기호 W)는 1 초 동안의 1 줄(N·m)에 해당하는 일률의 SI 단위',
@@ -846,7 +849,8 @@ const map = {
       {
         target_id: 'kW',
         target_name: '전력량',
-        is_sensor: 1,
+        is_sensor: 2,
+        is_submit_api: 0,
         save_db_type: BLOCK,
         data_unit: 'kW',
         description: '1 킬로와트(기호 kW)는 1 초 동안의 1,000 줄(N·m)에 해당하는 일률의 SI 단위',
@@ -870,7 +874,8 @@ const map = {
       {
         target_id: 'MW',
         target_name: '전력량',
-        is_sensor: 1,
+        is_sensor: 2,
+        is_submit_api: 0,
         save_db_type: BLOCK,
         data_unit: 'MW',
         description:
@@ -880,7 +885,8 @@ const map = {
       {
         target_id: 'Wh',
         target_name: '전력량',
-        is_sensor: 1,
+        is_sensor: 2,
+        is_submit_api: 0,
         save_db_type: BLOCK,
         data_unit: 'Wh',
         description: '시간당 에너지 단위, 1 W의 일률로 1 시간 동안 하는 일의 양',
@@ -889,7 +895,8 @@ const map = {
       {
         target_id: 'kWh',
         target_name: '전력량',
-        is_sensor: 1,
+        is_sensor: 2,
+        is_submit_api: 0,
         save_db_type: BLOCK,
         data_unit: 'kWh',
         description: '시간당 에너지 단위, 1 kW의 일률로 1 시간 동안 하는 일의 양',
@@ -912,7 +919,8 @@ const map = {
       {
         target_id: 'MWh',
         target_name: '전력량',
-        is_sensor: 1,
+        is_sensor: 2,
+        is_submit_api: 0,
         save_db_type: BLOCK,
         data_unit: 'MWh',
         description: '시간당 에너지 단위, 1 MW의 일률로 1 시간 동안 하는 일의 양',
@@ -921,7 +929,8 @@ const map = {
       {
         target_id: 'powerFactor',
         target_name: '역률',
-        is_sensor: 1,
+        is_sensor: 2,
+        is_submit_api: 0,
         save_db_type: BLOCK,
         data_unit: '%',
         defList: [],
@@ -929,7 +938,8 @@ const map = {
       {
         target_id: 'frequency',
         target_name: '주파수',
-        is_sensor: 1,
+        is_sensor: 2,
+        is_submit_api: 0,
         save_db_type: BLOCK,
         data_unit: 'Hz',
         defList: [
@@ -944,7 +954,8 @@ const map = {
       {
         target_id: 'trouble',
         target_name: '오류 목록',
-        is_sensor: 1,
+        is_sensor: 2,
+        is_submit_api: 0,
         save_db_type: TROUBLE,
         description: '장치에서 보내오는 이상 데이터',
         defList: [
