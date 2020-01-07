@@ -10,58 +10,102 @@ const {
 const map = {
   drawInfo: {
     frame: {
-      mapSize: {
-        width: 880,
+      mapInfo: {
+        width: 2000,
         height: 1230,
+        backgroundInfo: {
+          backgroundData: '',
+          backgroundPosition: [0, 0],
+        },
       },
       svgModelResourceList: [
         {
-          id: 'salternBlock_001',
+          id: 'farmParallelSite',
           type: 'rect',
-          elementDrawInfo: {
-            width: 100,
-            height: 150,
-            color: '#33ffff',
+          elementDrawInfo: { width: 250, height: 350, color: 'red', opacity: 0.5 },
+          textStyleInfo: {
+            color: 'white',
           },
         },
         {
-          id: 'salternBlock_002',
+          id: 'outside',
           type: 'rect',
-          elementDrawInfo: {
-            width: 100,
-            height: 150,
-            color: '#33ffff',
+          elementDrawInfo: { width: 700, height: 200, color: '#009432', opacity: 0.5 },
+          textStyleInfo: {
+            color: 'white',
           },
         },
         {
-          id: 'salternLine_001',
-          type: 'line',
-          elementDrawInfo: {
-            strokeWidth: 100,
-            color: '#33ccff',
+          id: 'inverter',
+          type: 'rect',
+          elementDrawInfo: { width: 100, height: 100, color: '#0652DD', opacity: 0.5 },
+          textStyleInfo: {
+            color: 'white',
           },
         },
         {
-          id: 'pump_001',
-          type: 'circle',
-          elementDrawInfo: {
-            radius: 20,
-            color: '#9fe667',
-          },
-        },
-        {
-          id: 'valve_001',
-          type: 'rhombus',
-          elementDrawInfo: {
-            width: 20,
-            height: 20,
-            rotate: 45,
-            color: '#efb4ce',
-          },
+          id: 'sensor',
+          type: 'rect',
+          elementDrawInfo: { width: 100, height: 30, color: '#f0f0f0' },
         },
       ],
     },
-    positionList: [{}],
+    positionInfo: {
+      svgPlaceList: [
+        {
+          placeId: 'farmParallelSite',
+          defList: [
+            {
+              id: 'PV_N_062',
+              name: '좌측_062',
+              resourceId: 'farmParallelSite',
+              point: [300, 100],
+            },
+            {
+              id: 'PV_N_061',
+              name: '중앙_061',
+              resourceId: 'farmParallelSite',
+              point: [600, 100],
+            },
+            {
+              id: 'PV_N_010',
+              name: '우측_010',
+              resourceId: 'farmParallelSite',
+              point: [900, 100],
+            },
+          ],
+        },
+        {
+          placeId: 'outside',
+          defList: [
+            {
+              id: 'OS_011',
+              name: '외기 환경_011',
+              resourceId: 'outside',
+              point: [400, 600],
+            },
+          ],
+        },
+        {
+          placeId: 'inverter',
+          defList: [
+            {
+              id: 'IVT_A',
+              name: '인버터_A',
+              resourceId: 'inverter',
+              point: [800, 470],
+            },
+            {
+              id: 'IVT_B',
+              name: '인버터_B',
+              resourceId: 'inverter',
+              point: [550, 470],
+            },
+          ],
+        },
+      ],
+      svgNodeList: [],
+    },
   },
   setInfo: {
     mainInfo: {
@@ -238,9 +282,13 @@ const map = {
             nodeList: [
               {
                 target_code: '010',
+                axisScale: [0, 0],
+                moveScale: [0, 0],
               },
               {
                 target_code: '011',
+                axisScale: [0, 0],
+                moveScale: [0.7, 0.9],
               },
             ],
           },
@@ -251,9 +299,13 @@ const map = {
             nodeList: [
               {
                 target_code: '011',
+                axisScale: [0, 0],
+                moveScale: [-0.7, 0.9],
               },
               {
                 target_code: '061',
+                axisScale: [0, 0],
+                moveScale: [-1.2, -1.5],
               },
             ],
           },
@@ -273,9 +325,13 @@ const map = {
             nodeList: [
               {
                 target_code: '010',
+                axisScale: [0, 0],
+                moveScale: [-1.2, -1.5],
               },
               {
                 target_code: '011',
+                axisScale: [0, 0],
+                moveScale: [-0.7, 0.7],
               },
             ],
           },
@@ -286,9 +342,13 @@ const map = {
             nodeList: [
               {
                 target_code: '011',
+                axisScale: [0, 0],
+                moveScale: [0.7, 0],
               },
               {
                 target_code: '061',
+                axisScale: [0, 0],
+                moveScale: [1.2, -3],
               },
             ],
           },
@@ -304,13 +364,18 @@ const map = {
           {
             target_id: 'windSpeed',
             target_prefix: 'W_S',
+            target_name: '풍속',
             nodeList: [
               {
                 target_code: '011',
+                axisScale: [0, 0],
+                moveScale: [0.4, 0.4],
               },
               // TODO:
               {
                 target_code: '061',
+                axisScale: [0, 0],
+                moveScale: [0, 0],
               },
             ],
           },
@@ -325,13 +390,18 @@ const map = {
           {
             target_id: 'windDirection',
             target_prefix: 'W_D',
+            target_name: '풍향',
             nodeList: [
               {
                 target_code: '011',
+                axisScale: [0, 0],
+                moveScale: [0.7, 0.4],
               },
               // TODO:
               {
                 target_code: '061',
+                axisScale: [0, 0],
+                moveScale: [1.2, 2.7],
               },
             ],
           },
@@ -351,6 +421,8 @@ const map = {
             nodeList: [
               {
                 target_code: '011',
+                axisScale: [0, 0],
+                moveScale: [0.7, 0.7],
               },
             ],
           },
@@ -367,21 +439,29 @@ const map = {
             nodeList: [
               {
                 target_code: '010',
+                axisScale: [0, 0],
+                moveScale: [1.2, 2.7],
               },
               {
                 target_code: '061',
                 target_name: 'A',
                 data_logger_index: 1,
+                axisScale: [0, 0],
+                moveScale: [0, 0],
               },
               {
                 target_code: '062',
                 target_name: 'B',
                 data_logger_index: 1,
+                axisScale: [0, 0],
+                moveScale: [1, -1.5],
               },
               {
                 target_code: '063',
                 target_name: 'C',
                 data_logger_index: 2,
+                axisScale: [0, 0],
+                moveScale: [-1, 0],
               },
             ],
           },
@@ -401,6 +481,8 @@ const map = {
             nodeList: [
               {
                 target_code: '011',
+                axisScale: [0, 0],
+                moveScale: [0, 0],
               },
             ],
           },
@@ -415,11 +497,13 @@ const map = {
         defList: [
           {
             target_id: 'isRain',
-            target_prefix: 'IR',
+            target_prefix: 'I_R',
             target_name: '강우 감지 여부',
             nodeList: [
               {
                 target_code: '011',
+                axisScale: [0, 0],
+                moveScale: [0, 0],
               },
             ],
           },
@@ -435,12 +519,17 @@ const map = {
           {
             target_id: 'co2',
             target_prefix: 'CO2',
+            target_name: '이산화탄소',
             nodeList: [
               {
                 target_code: '010',
+                axisScale: [0, 0],
+                moveScale: [1.2, -3],
               },
               {
                 target_code: '011',
+                axisScale: [0, 0],
+                moveScale: [-0.7, 0],
               },
             ],
           },
@@ -464,12 +553,17 @@ const map = {
           {
             target_id: 'lux',
             target_prefix: 'LX',
+            target_name: '조도',
             nodeList: [
               {
                 target_code: '010',
+                axisScale: [0, 0],
+                moveScale: [0, 0],
               },
               {
                 target_code: '011',
+                axisScale: [0, 0],
+                moveScale: [0, 0],
               },
             ],
           },
@@ -489,9 +583,13 @@ const map = {
             nodeList: [
               {
                 target_code: '010',
+                axisScale: [0, 0],
+                moveScale: [1.2, 3],
               },
               {
                 target_code: '011',
+                axisScale: [0, 0],
+                moveScale: [0.4, 0.4],
               },
             ],
           },
@@ -746,22 +844,17 @@ const map = {
                 target_name: '하부',
                 chart_color: '#2b8a3e',
                 chart_sort_rank: 10,
-                nodeList: [
-                  'LX_010',
-                  'S_PU_010',
-                  'CO2_010',
-                  'WV_S_010',
-                  'T_S_010',
-                  'RH_S_010',
-                  'W_S_061',
-                  'W_D_061',
-                  'T_OA_061',
-                  'RH_OA_061',
-                  // FIXME:
-                  'S_PU_061',
-                  'S_PU_062',
-                  'S_PU_063',
-                ],
+                nodeList: ['CO2_010', 'LX_010', 'RH_S_010', 'S_PU_010', 'T_S_010', 'WV_S_010'],
+              },
+              {
+                target_code: '061',
+                nodeList: ['RH_OA_061', 'S_PU_061', 'T_OA_061', 'W_D_061', 'W_S_061'],
+                depth: 0,
+              },
+              {
+                target_code: '062',
+                nodeList: ['S_PU_062', 'S_PU_063'],
+                depth: 0,
               },
             ],
           },
@@ -782,23 +875,59 @@ const map = {
                 chart_color: '#ff6b6b',
                 chart_sort_rank: 11,
                 nodeList: [
-                  'LX_011',
-                  'S_H_011',
                   'CO2_011',
-                  'WV_S_011',
-                  'T_S_011',
-                  'RH_S_011',
-                  'T_OA_011',
+                  'I_R_911',
+                  'LX_011',
+                  'RF1_011',
                   'RH_OA_011',
+                  'RH_S_011',
+                  'S_H_011',
+                  'T_OA_011',
+                  'T_S_011',
+                  'WV_S_011',
                   'W_D_011',
                   'W_S_011',
-                  'RF1_011',
-                  'IR_011',
                 ],
               },
             ],
           },
         ],
+      },
+    ],
+    svgResourceConnectionList: [
+      {
+        targetIdList: ['PV_N_062', 'PV_N_061', 'PV_N_010'],
+        resourceIdList: ['farmParallelSite'],
+      },
+      {
+        targetIdList: [
+          'S_PU_063',
+          'S_PU_062',
+          'RH_OA_061',
+          'S_PU_061',
+          'T_OA_061',
+          'W_D_061',
+          'W_S_061',
+          'CO2_010',
+          'LX_010',
+          'RH_S_010',
+          'S_PU_010',
+          'T_S_010',
+          'WV_S_010',
+          'CO2_011',
+          'I_R_011',
+          'LX_011',
+          'RF1_011',
+          'RH_OA_011',
+          'RH_S_011',
+          'S_H_011',
+          'T_OA_011',
+          'T_S_011',
+          'WV_S_011',
+          'W_D_011',
+          'W_S_011',
+        ],
+        resourceIdList: ['sensor'],
       },
     ],
   },

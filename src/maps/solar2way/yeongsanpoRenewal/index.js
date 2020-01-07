@@ -10,13 +10,102 @@ const {
 const map = {
   drawInfo: {
     frame: {
-      mapSize: {
-        width: 880,
+      mapInfo: {
+        width: 2000,
         height: 1230,
+        backgroundInfo: {
+          backgroundData: '',
+          backgroundPosition: [0, 0],
+        },
       },
-      svgModelResourceList: [],
+      svgModelResourceList: [
+        {
+          id: 'farmParallelSite',
+          type: 'rect',
+          elementDrawInfo: { width: 250, height: 350, color: 'red', opacity: 0.5 },
+          textStyleInfo: {
+            color: 'white',
+          },
+        },
+        {
+          id: 'outside',
+          type: 'rect',
+          elementDrawInfo: { width: 700, height: 200, color: '#009432', opacity: 0.5 },
+          textStyleInfo: {
+            color: 'white',
+          },
+        },
+        {
+          id: 'inverter',
+          type: 'rect',
+          elementDrawInfo: { width: 100, height: 100, color: '#0652DD', opacity: 0.5 },
+          textStyleInfo: {
+            color: 'white',
+          },
+        },
+        {
+          id: 'sensor',
+          type: 'rect',
+          elementDrawInfo: { width: 100, height: 30, color: '#f0f0f0' },
+        },
+      ],
     },
-    positionInfo: {},
+    positionInfo: {
+      svgPlaceList: [
+        {
+          placeId: 'farmParallelSite',
+          defList: [
+            {
+              id: 'FPS_62',
+              name: '좌측_62',
+              resourceId: 'farmParallelSite',
+              point: [300, 100],
+            },
+            {
+              id: 'FPS_61',
+              name: '중앙_61',
+              resourceId: 'farmParallelSite',
+              point: [600, 100],
+            },
+            {
+              id: 'FPS_10',
+              name: '우측_10',
+              resourceId: 'farmParallelSite',
+              point: [900, 100],
+            },
+          ],
+        },
+        {
+          placeId: 'outside',
+          defList: [
+            {
+              id: 'OS_11',
+              name: '외기 환경_11',
+              resourceId: 'outside',
+              point: [400, 600],
+            },
+          ],
+        },
+        {
+          placeId: 'inverter',
+          defList: [
+            {
+              id: 'IVT_A',
+              name: '인버터_A',
+              resourceId: 'inverter',
+              point: [800, 470],
+            },
+            {
+              id: 'IVT_B',
+              name: '인버터_B',
+              resourceId: 'inverter',
+              point: [550, 470],
+            },
+          ],
+        },
+      ],
+      svgNodeList: [],
+    },
   },
   setInfo: {
     mainInfo: {
@@ -229,15 +318,37 @@ const map = {
         defList: [
           {
             target_id: 'soilTemperature',
-            target_prefix: 'T_S',
+            target_prefix: 'TS',
             target_name: '토양 온도',
-            nodeList: [],
+            nodeList: [
+              {
+                target_code: '010',
+                axisScale: [0, 0],
+                moveScale: [0, 0],
+              },
+              {
+                target_code: '011',
+                axisScale: [0, 0],
+                moveScale: [0.7, 0.9],
+              },
+            ],
           },
           {
             target_id: 'outsideAirTemperature',
-            target_prefix: 'T_OA',
+            target_prefix: 'TOA',
             target_name: '외기 온도',
-            nodeList: [],
+            nodeList: [
+              {
+                target_code: '061',
+                axisScale: [0, 0],
+                moveScale: [-1.2, -1.5],
+              },
+              {
+                target_code: '011',
+                axisScale: [0, 0],
+                moveScale: [-0.7, 0.9],
+              },
+            ],
           },
         ],
       },
@@ -251,13 +362,37 @@ const map = {
         defList: [
           {
             target_id: 'soilReh',
-            target_prefix: 'RH_S',
+            target_prefix: 'RHS',
             target_name: '토양 습도',
+            nodeList: [
+              {
+                target_code: '010',
+                axisScale: [0, 0],
+                moveScale: [-1.2, -1.5],
+              },
+              {
+                target_code: '011',
+                axisScale: [0, 0],
+                moveScale: [-0.7, 0.7],
+              },
+            ],
           },
           {
             target_id: 'outsideAirReh',
-            target_prefix: 'RH_OA',
+            target_prefix: 'RHOA',
             target_name: '외기 습도',
+            nodeList: [
+              {
+                target_code: '061',
+                axisScale: [0, 0],
+                moveScale: [1.2, -3],
+              },
+              {
+                target_code: '011',
+                axisScale: [0, 0],
+                moveScale: [0.7, 0],
+              },
+            ],
           },
         ],
       },
@@ -271,7 +406,20 @@ const map = {
         defList: [
           {
             target_id: 'windSpeed',
-            target_prefix: 'W_S',
+            target_prefix: 'WS',
+            target_name: '풍속',
+            nodeList: [
+              {
+                target_code: '061',
+                axisScale: [0, 0],
+                moveScale: [0, 0],
+              },
+              {
+                target_code: '011',
+                axisScale: [0, 0],
+                moveScale: [0.4, 0.4],
+              },
+            ],
           },
         ],
       },
@@ -284,7 +432,20 @@ const map = {
         defList: [
           {
             target_id: 'windDirection',
-            target_prefix: 'W_D',
+            target_prefix: 'WD',
+            target_name: '풍향',
+            nodeList: [
+              {
+                target_code: '061',
+                axisScale: [0, 0],
+                moveScale: [1.2, 2.7],
+              },
+              {
+                target_code: '011',
+                axisScale: [0, 0],
+                moveScale: [0.7, 0.4],
+              },
+            ],
           },
         ],
       },
@@ -299,7 +460,14 @@ const map = {
           {
             target_id: 'horizontalSolar',
             target_name: '수평 일사량',
-            target_prefix: 'S_H',
+            target_prefix: 'SH',
+            nodeList: [
+              {
+                target_code: '011',
+                axisScale: [0, 0],
+                moveScale: [0.7, 0.7],
+              },
+            ],
           },
           {
             target_id: 'inclinedSolar',
@@ -310,7 +478,30 @@ const map = {
           {
             target_id: 'pvUnderlyingSolar',
             target_name: '모듈 하부 일사량',
-            target_prefix: 'S_PU',
+            target_prefix: 'SPU',
+            description: null,
+            nodeList: [
+              {
+                target_code: '062',
+                axisScale: [0, 0],
+                moveScale: [1, -1.5],
+              },
+              {
+                target_code: '063',
+                axisScale: [0, 0],
+                moveScale: [-1, 0],
+              },
+              {
+                target_code: '061',
+                axisScale: [0, 0],
+                moveScale: [0, 0],
+              },
+              {
+                target_code: '010',
+                axisScale: [0, 0],
+                moveScale: [1.2, 2.7],
+              },
+            ],
           },
         ],
       },
@@ -323,10 +514,16 @@ const map = {
         description: '시간당 일정한 곳에 내린 비의 분량. 단위는 mm',
         defList: [
           {
-            target_id: 'r1',
-            target_prefix: 'RF1',
+            target_id: 'rainfallHour',
+            target_prefix: 'RFH',
             target_name: '시간당 강우량',
-            nodeList: [],
+            nodeList: [
+              {
+                target_code: '011',
+                axisScale: [0, 0],
+                moveScale: [0, 0],
+              },
+            ],
           },
         ],
       },
@@ -341,7 +538,13 @@ const map = {
             target_id: 'isRain',
             target_prefix: 'IR',
             target_name: '강우 감지 여부',
-            nodeList: [],
+            nodeList: [
+              {
+                target_code: '011',
+                axisScale: [0, 0],
+                moveScale: [0, 0],
+              },
+            ],
           },
         ],
       },
@@ -355,8 +558,20 @@ const map = {
         defList: [
           {
             target_id: 'co2',
-            target_prefix: 'CO2',
-            nodeList: [],
+            target_prefix: 'CO',
+            target_name: '이산화탄소',
+            nodeList: [
+              {
+                target_code: '010',
+                axisScale: [0, 0],
+                moveScale: [1.2, -3],
+              },
+              {
+                target_code: '011',
+                axisScale: [0, 0],
+                moveScale: [-0.7, 0],
+              },
+            ],
           },
         ],
       },
@@ -380,6 +595,19 @@ const map = {
           {
             target_id: 'lux',
             target_prefix: 'LX',
+            target_name: '조도',
+            nodeList: [
+              {
+                target_code: '010',
+                axisScale: [0, 0],
+                moveScale: [0, 0],
+              },
+              {
+                target_code: '011',
+                axisScale: [0, 0],
+                moveScale: [0, 0],
+              },
+            ],
           },
         ],
       },
@@ -393,8 +621,20 @@ const map = {
         defList: [
           {
             target_id: 'soilWaterValue',
-            target_prefix: 'WV_S',
+            target_prefix: 'WVS',
             target_name: '토양 EC 값',
+            nodeList: [
+              {
+                target_code: '010',
+                axisScale: [0, 0],
+                moveScale: [1.2, 3],
+              },
+              {
+                target_code: '011',
+                axisScale: [0, 0],
+                moveScale: [0.4, 0.4],
+              },
+            ],
           },
         ],
       },
@@ -668,16 +908,101 @@ const map = {
         target_id: 'farmParallelSite',
         target_name: '농업 병행 부지',
         description: '농업 병행 태양광 부지로 작물 생육 환경 센서가 존재',
-        defList: [],
+        defList: [
+          {
+            target_id: 'farmParallelSite',
+            target_prefix: 'FPS',
+            target_name: '농업 병행 부지',
+            placeList: [
+              {
+                target_code: '62',
+                nodeList: ['SPU_062', 'SPU_063'],
+                depth: 0,
+              },
+              {
+                target_code: '61',
+                nodeList: ['RHOA_061', 'SPU_061', 'TOA_061', 'WD_061', 'WS_061'],
+                depth: 0,
+              },
+              {
+                target_code: '10',
+                nodeList: ['CO_010', 'LX_010', 'RHS_010', 'SPU_010', 'TS_010', 'WVS_010'],
+                depth: 0,
+              },
+            ],
+          },
+        ],
       },
       {
         target_id: 'outside',
         target_name: '외부 환경',
         description:
           '농업 병행 태양광 부지와의 대조군으로 작물 생육에 들어간 센서와 기상환경 계측 센서 존재',
-        defList: [],
+        defList: [
+          {
+            target_id: 'outside',
+            target_prefix: 'OS',
+            target_name: '외기 환경',
+            placeList: [
+              {
+                target_code: '11',
+                nodeList: [
+                  'CO_011',
+                  'IR_911',
+                  'LX_011',
+                  'RFH_011',
+                  'RHOA_011',
+                  'RHS_011',
+                  'SH_011',
+                  'TOA_011',
+                  'TS_011',
+                  'WVS_011',
+                  'WD_011',
+                  'WS_011',
+                ],
+              },
+            ],
+          },
+        ],
       },
     ],
+    svgResourceConnectionList: [
+      {
+        targetIdList: ['FPS_62', 'FPS_61', 'FPS_10'],
+        resourceIdList: ['farmParallelSite'],
+      },
+      {
+        targetIdList: [
+          'SPU_063',
+          'SPU_062',
+          'RHOA_061',
+          'SPU_061',
+          'TOA_061',
+          'WD_061',
+          'WS_061',
+          'CO_010',
+          'LX_010',
+          'RHS_010',
+          'SPU_010',
+          'TS_010',
+          'WVS_010',
+          'CO_011',
+          'IR_911',
+          'LX_011',
+          'RFH_011',
+          'RHOA_011',
+          'RHS_011',
+          'SH_011',
+          'TOA_011',
+          'TS_011',
+          'WVS_011',
+          'WD_011',
+          'WS_011',
+        ],
+        resourceIdList: ['sensor'],
+      },
+    ],
+    hiddenTextSvgModelResourceIdList: [],
   },
   controlInfo: {},
 };
