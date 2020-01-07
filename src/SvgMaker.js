@@ -189,8 +189,10 @@ class SvgMaker {
    * @return {{axisScale: [], moveScale: []}}
    */
   getAxisMoveScale(targetId) {
-    const targetPrefix = this.getReplace(targetId, /[_\d]/g);
-    const targetCode = this.getReplace(targetId, /\D/g);
+    const getReplaceVal = this.getReplace(targetId, /(?<=_)[0-9]+/g);
+    const targetPrefix = getReplaceVal.substring(0, getReplaceVal.length - 1);
+    const targetCode = _.replace(targetId, getReplaceVal, '');
+    // BU.CLIS(targetPrefix, targetCode);
 
     let returnValue = {
       axisScale: [],
@@ -352,8 +354,9 @@ class SvgMaker {
    * @param {string} nodeId
    */
   findNodeName(nodeId) {
-    const nodePrefix = this.getReplace(nodeId, /[_\d]/g);
-    const nodeCode = this.getReplace(nodeId, /\D/g);
+    const getReplaceVal = this.getReplace(nodeId, /(?<=_)[0-9]+/g);
+    const nodePrefix = getReplaceVal.substring(0, getReplaceVal.length - 1);
+    const nodeCode = _.replace(nodeId, getReplaceVal, '');
     // BU.CLIS(nodeId, nodePrefix, nodeCode);
     let nodeName;
 
@@ -425,7 +428,8 @@ class SvgMaker {
 
             // FIXME: 개선해야 하는 소스
             _.forEach(sensorStorage, (sensorId, index) => {
-              const sensorPrefix = this.getReplace(sensorId, /[_\d]/g);
+              const getReplaceVal = this.getReplace(sensorId, /(?<=_)[0-9]+/g);
+              const sensorPrefix = getReplaceVal.substring(sensorId, getReplaceVal.length - 1);
               const placePoint = this.discoverObjectPoint(placeId);
               const { axisScale } = this.getAxisMoveScale(sensorId);
               let { moveScale } = this.getAxisMoveScale(sensorId);
@@ -472,6 +476,7 @@ class SvgMaker {
               }
 
               const resourceInfo = this.getResourceInfo(sensorId);
+              BU.CLIS(sensorId, resourceInfo.elementDrawInfo);
               const { width, height, color } = resourceInfo.elementDrawInfo;
               const [x1, y1, x2, y2] = placePoint;
               let x;
