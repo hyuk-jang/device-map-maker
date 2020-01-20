@@ -167,7 +167,7 @@ const map = {
             target_name: '양면형',
             dccId: 'DCC_001',
             dpcId: 'DPC_001',
-            nodeList: [],
+            nodeList: ['T_S_071', 'T_OA_071', 'RH_S_071', 'RH_OA_071', 'S_PU_071'],
           },
           {
             serial_number: 72,
@@ -175,7 +175,7 @@ const map = {
             target_name: '경량(투과)형',
             dccId: 'DCC_001',
             dpcId: 'DPC_001',
-            nodeList: [],
+            nodeList: ['T_S_072', 'T_OA_072', 'RH_S_072', 'RH_OA_072', 'S_PU_072'],
           },
         ],
       },
@@ -211,7 +211,7 @@ const map = {
         dataLoggerDeviceList: [
           {
             target_name: '일반형 (33kW 급)',
-            serial_number: '001',
+            serial_number: '003',
             target_code: '008',
             dccId: 'DCC_001',
             dpcId: 'DPC_IVT_001',
@@ -227,7 +227,7 @@ const map = {
           },
           {
             target_name: '경량(투과)형 (33kW 급)',
-            serial_number: '003',
+            serial_number: '001',
             target_code: '010',
             dccId: 'DCC_001',
             dpcId: 'DPC_IVT_001',
@@ -255,6 +255,12 @@ const map = {
               {
                 target_code: '013',
               },
+              {
+                target_code: '071',
+              },
+              {
+                target_code: '072',
+              },
             ],
           },
           {
@@ -264,6 +270,12 @@ const map = {
             nodeList: [
               {
                 target_code: '012',
+              },
+              {
+                target_code: '071',
+              },
+              {
+                target_code: '072',
               },
             ],
           },
@@ -287,6 +299,12 @@ const map = {
               {
                 target_code: '013',
               },
+              {
+                target_code: '071',
+              },
+              {
+                target_code: '072',
+              },
             ],
           },
           {
@@ -296,6 +314,12 @@ const map = {
             nodeList: [
               {
                 target_code: '012',
+              },
+              {
+                target_code: '071',
+              },
+              {
+                target_code: '072',
               },
             ],
           },
@@ -366,6 +390,12 @@ const map = {
             nodeList: [
               {
                 target_code: '013',
+              },
+              {
+                target_code: '071',
+              },
+              {
+                target_code: '072',
               },
             ],
           },
@@ -484,7 +514,7 @@ const map = {
       {
         target_id: 'vol',
         target_name: '전압',
-        is_sensor: 0,
+        is_sensor: 2,
         is_submit_api: 0,
         save_db_type: BLOCK,
         data_unit: 'V',
@@ -519,7 +549,7 @@ const map = {
       {
         target_id: 'amp',
         target_name: '전류',
-        is_sensor: 1,
+        is_sensor: 2,
         is_submit_api: 0,
         save_db_type: BLOCK,
         data_unit: 'A',
@@ -554,7 +584,7 @@ const map = {
       {
         target_id: 'W',
         target_name: '전력량',
-        is_sensor: 1,
+        is_sensor: 2,
         is_submit_api: 0,
         save_db_type: BLOCK,
         data_unit: 'W',
@@ -564,7 +594,7 @@ const map = {
       {
         target_id: 'kW',
         target_name: '전력량',
-        is_sensor: 1,
+        is_sensor: 2,
         is_submit_api: 0,
         save_db_type: BLOCK,
         data_unit: 'kW',
@@ -589,7 +619,7 @@ const map = {
       {
         target_id: 'MW',
         target_name: '전력량',
-        is_sensor: 1,
+        is_sensor: 2,
         is_submit_api: 0,
         save_db_type: BLOCK,
         data_unit: 'MW',
@@ -600,7 +630,7 @@ const map = {
       {
         target_id: 'Wh',
         target_name: '전력량',
-        is_sensor: 1,
+        is_sensor: 2,
         is_submit_api: 0,
         save_db_type: BLOCK,
         data_unit: 'Wh',
@@ -610,7 +640,7 @@ const map = {
       {
         target_id: 'kWh',
         target_name: '전력량',
-        is_sensor: 1,
+        is_sensor: 2,
         is_submit_api: 0,
         save_db_type: BLOCK,
         data_unit: 'kWh',
@@ -634,7 +664,7 @@ const map = {
       {
         target_id: 'MWh',
         target_name: '전력량',
-        is_sensor: 1,
+        is_sensor: 2,
         is_submit_api: 0,
         save_db_type: BLOCK,
         data_unit: 'MWh',
@@ -644,7 +674,7 @@ const map = {
       {
         target_id: 'powerFactor',
         target_name: '역률',
-        is_sensor: 1,
+        is_sensor: 2,
         is_submit_api: 0,
         save_db_type: BLOCK,
         data_unit: '%',
@@ -653,7 +683,7 @@ const map = {
       {
         target_id: 'frequency',
         target_name: '주파수',
-        is_sensor: 1,
+        is_sensor: 2,
         is_submit_api: 0,
         save_db_type: BLOCK,
         data_unit: 'Hz',
@@ -669,7 +699,7 @@ const map = {
       {
         target_id: 'trouble',
         target_name: '오류 목록',
-        is_sensor: 1,
+        is_sensor: 2,
         is_submit_api: 0,
         save_db_type: TROUBLE,
         description: '장치에서 보내오는 이상 데이터',
@@ -701,7 +731,7 @@ const map = {
                 chart_color: '#e67700',
                 chart_sort_rank: 8,
                 repeatId: 'RE_PREFIX_IVT',
-                nodeList: ['S_PU_012'],
+                nodeList: [],
               },
               {
                 target_code: '009',
@@ -745,14 +775,14 @@ const map = {
                 target_name: '양면형',
                 chart_color: '#212529',
                 chart_sort_rank: 13,
-                nodeList: [],
+                nodeList: ['T_S_071', 'T_OA_071', 'RH_S_071', 'RH_OA_071', 'S_PU_071'],
               },
               {
                 target_code: '072',
                 target_name: '경량(투과)형',
                 chart_color: '#fcc2d7',
                 chart_sort_rank: 14,
-                nodeList: [],
+                nodeList: ['T_S_072', 'T_OA_072', 'RH_S_072', 'RH_OA_072', 'S_PU_072'],
               },
             ],
           },
