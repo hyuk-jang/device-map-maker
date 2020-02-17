@@ -126,7 +126,7 @@ const map = {
           {
             serial_number: 41,
             target_code: '041',
-            target_name: '구조물 하부',
+            target_name: '처리구',
             dccId: 'DCC_001',
             dpcId: 'DPC_001',
             nodeList: ['S_PU_041', 'T_S_041', 'RH_S_041'],
@@ -134,10 +134,33 @@ const map = {
           {
             serial_number: 42,
             target_code: '042',
-            target_name: '대조군',
+            target_name: '대조구',
             dccId: 'DCC_001',
             dpcId: 'DPC_001',
             nodeList: ['S_PU_042', 'T_S_042', 'RH_S_042'],
+          },
+        ],
+      },
+      {
+        target_prefix: 'D_OE',
+        target_name: 'Outside Environment (외기 환경)',
+        dataLoggerDeviceList: [
+          {
+            serial_number: 43,
+            target_code: '043',
+            target_name: '외기 환경',
+            dccId: 'DCC_001',
+            dpcId: 'DPC_001',
+            nodeList: [
+              'S_H_043',
+              'T_S_043',
+              'RH_S_043',
+              'T_OA_043',
+              'RH_OA_043',
+              'RF1_043',
+              'W_S_043',
+              'W_D_043',
+            ],
           },
         ],
       },
@@ -192,6 +215,19 @@ const map = {
               {
                 target_code: '042',
               },
+              {
+                target_code: '043',
+              },
+            ],
+          },
+          {
+            target_id: 'outsideAirTemperature',
+            target_prefix: 'T_OA',
+            target_name: '외기 온도',
+            nodeList: [
+              {
+                target_code: '043',
+              },
             ],
           },
         ],
@@ -215,11 +251,60 @@ const map = {
               {
                 target_code: '042',
               },
+              {
+                target_code: '043',
+              },
+            ],
+          },
+          {
+            target_id: 'outsideAirReh',
+            target_prefix: 'RH_OA',
+            target_name: '외기 습도',
+            nodeList: [
+              {
+                target_code: '043',
+              },
             ],
           },
         ],
       },
-
+      {
+        target_id: 'ws',
+        target_name: '풍속',
+        is_sensor: 1,
+        // save_db_type: BLOCK,
+        data_unit: 'm/s',
+        description: '초당 바람이 이동하는 거리(m)',
+        defList: [
+          {
+            target_id: 'windSpeed',
+            target_prefix: 'W_S',
+            nodeList: [
+              {
+                target_code: '043',
+              },
+            ],
+          },
+        ],
+      },
+      {
+        target_id: 'wd',
+        target_name: '풍향',
+        is_sensor: 1,
+        // save_db_type: BLOCK,
+        description: '풍향 0~7 (북, 북동, 동, 남동, 남, 남서, 서, 북서)',
+        defList: [
+          {
+            target_id: 'windDirection',
+            target_prefix: 'W_D',
+            nodeList: [
+              {
+                target_code: '043',
+              },
+            ],
+          },
+        ],
+      },
       {
         target_id: 'solar',
         target_name: '일사량',
@@ -228,6 +313,16 @@ const map = {
         data_unit: 'W/m²',
         description: '1평방 미터당 조사되는 일사에너지의 양이 1W',
         defList: [
+          {
+            target_id: 'horizontalSolar',
+            target_name: '수평 일사량',
+            target_prefix: 'S_H',
+            nodeList: [
+              {
+                target_code: '043',
+              },
+            ],
+          },
           {
             target_id: 'pvUnderlyingSolar',
             target_name: '하부 일사량',
@@ -240,6 +335,41 @@ const map = {
                 target_code: '042',
               },
             ],
+          },
+        ],
+      },
+      {
+        target_id: 'rainfall',
+        target_name: '강우량',
+        is_sensor: 1,
+        // save_db_type: BLOCK,
+        data_unit: 'mm/hr',
+        description: '시간당 일정한 곳에 내린 비의 분량. 단위는 mm',
+        defList: [
+          {
+            target_id: 'r1',
+            target_prefix: 'RF1',
+            target_name: '시간당 강우량',
+            nodeList: [
+              {
+                target_code: '043',
+              },
+            ],
+          },
+        ],
+      },
+      {
+        target_id: 'isRain',
+        target_name: '강우 감지 여부',
+        is_sensor: 1,
+        // save_db_type: BLOCK,
+        description: '감지시 1, 미감지시 0',
+        defList: [
+          {
+            target_id: 'isRain',
+            target_prefix: 'IR',
+            target_name: '강우 감지 여부',
+            nodeList: [],
           },
         ],
       },
@@ -446,17 +576,46 @@ const map = {
             placeList: [
               {
                 target_code: '041',
-                target_name: '구조물 하부',
+                target_name: '처리구',
                 chart_color: '#c92a2a',
                 chart_sort_rank: 41,
                 nodeList: ['S_PU_041', 'T_S_041', 'RH_S_041'],
               },
               {
                 target_code: '042',
-                target_name: '대조군',
+                target_name: '대조구',
                 chart_color: '#868e96',
                 chart_sort_rank: 42,
                 nodeList: ['S_PU_042', 'T_S_042', 'RH_S_042'],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        target_id: 'outside',
+        target_name: '외기 환경',
+        description:
+          '농업 병행 태양광 부지와의 대조군으로 작물 생육에 들어간 센서와 기상환경 계측 센서 존재',
+        defList: [
+          {
+            target_id: 'outside',
+            target_prefix: 'OS',
+            placeList: [
+              {
+                target_code: '043',
+                chart_color: '#b9560d',
+                chart_sort_rank: 43,
+                nodeList: [
+                  'S_H_043',
+                  'T_S_043',
+                  'RH_S_043',
+                  'T_OA_043',
+                  'RH_OA_043',
+                  'RF1_043',
+                  'W_S_043',
+                  'W_D_043',
+                ],
               },
             ],
           },
