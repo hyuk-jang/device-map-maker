@@ -1259,7 +1259,7 @@ const map = {
             placeList: [
               {
                 target_code: '1',
-                nodeList: ['WD_001'],
+                nodeList: [],
                 depth: 5,
                 place_info: {},
               },
@@ -1412,7 +1412,7 @@ const map = {
               { target_code: '013', nodeList: [], depth: 0.3 },
               { target_code: '014', nodeList: [], depth: 0.8 },
               { target_code: '015', nodeList: [], depth: 0.8 },
-              { target_code: '016', nodeList: [], depth: 0.7 },
+              { target_code: '016', nodeList: ['WD_001'], depth: 0.7 },
               { target_code: '017', nodeList: [], depth: 0.5 },
               { target_code: '018', nodeList: [], depth: 0.5 },
               { target_code: '019', nodeList: [], depth: 0.5 },
