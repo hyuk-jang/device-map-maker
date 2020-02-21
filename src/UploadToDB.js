@@ -289,20 +289,13 @@ class UploadToDB {
           dpcId,
         });
         // 국번이 숫자라면 Unicode 형태라고 판단. 아닐경우에는 기본 변환
-        protocolInfo.deviceId = _.isNumber(SN)
-          ? Buffer.from([SN]).toJSON()
-          : Buffer.from(SN).toJSON();
+        protocolInfo.deviceId = _.isNumber(SN) ? Buffer.from([SN]).toJSON() : SN;
 
         const { connect_info: connectInfo } = _.find(dccConstructorList, {
           dccId,
         });
         // SN 을 connect_info 에 추가하고자 할 경우
         isAddSerialNumberToDCC && _.set(connectInfo, 'id', SN);
-
-        // unicode 설정
-        if (_.get(connectInfo, 'addConfigInfo.option')) {
-          _.set(connectInfo, 'addConfigInfo.option', Buffer.from(SN).toJSON());
-        }
 
         /** @type {DV_DATA_LOGGER} */
         const dataLoggerInfo = {

@@ -574,7 +574,7 @@ const map = {
           subType: 'parser',
           baudRate: 9600,
           port: 'COM3',
-          addConfigInfo: { parser: 'delimiterParser', option: { type: 'Buffer', data: [4] } },
+          addConfigInfo: { parser: 'delimiterParser', option: Buffer.from([4]) },
         },
       },
       {
@@ -585,7 +585,7 @@ const map = {
           subType: 'parser',
           baudRate: 9600,
           port: 'COM3',
-          addConfigInfo: { parser: 'delimiterParser', option: { type: 'Buffer', data: [4] } },
+          addConfigInfo: { parser: 'delimiterParser', option: Buffer.from([4]) },
         },
       },
       {
@@ -596,7 +596,7 @@ const map = {
           subType: 'parser',
           baudRate: 9600,
           port: 'COM3',
-          addConfigInfo: { parser: 'delimiterParser', option: { type: 'Buffer', data: [4] } },
+          addConfigInfo: { parser: 'delimiterParser', option: Buffer.from([4]) },
         },
       },
       {
@@ -607,7 +607,7 @@ const map = {
           subType: 'parser',
           baudRate: 9600,
           port: 'COM3',
-          addConfigInfo: { parser: 'delimiterParser', option: { type: 'Buffer', data: [4] } },
+          addConfigInfo: { parser: 'delimiterParser', option: Buffer.from([4]) },
         },
       },
     ],
@@ -690,7 +690,7 @@ const map = {
         target_name: '수문 DL',
         dataLoggerDeviceList: [
           {
-            serial_number: '0013A20040F70001',
+            serial_number: '0013A2004190F068',
             target_code: '001',
             isAddSerialNumberToDCC: false,
             dccId: 'DCC_SSCS_001',
@@ -704,7 +704,7 @@ const map = {
         target_name: '게이트형 밸브',
         dataLoggerDeviceList: [
           {
-            serial_number: '0013A20040F70106',
+            serial_number: '0013A2004190EC74',
             target_code: '106',
             isAddSerialNumberToDCC: false,
             dccId: 'DCC_SSCS_001',
@@ -718,7 +718,7 @@ const map = {
         target_name: '펌프 DL',
         dataLoggerDeviceList: [
           {
-            serial_number: '0013A20040F72004',
+            serial_number: '0013A2004190EC6B',
             target_code: '004',
             isAddSerialNumberToDCC: false,
             dccId: 'DCC_SSCS_001',
