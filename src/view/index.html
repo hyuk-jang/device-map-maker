@@ -16,8 +16,11 @@
       href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.7/dist/css/bootstrap-select.min.css"
     />
 
-    <script src="../js/jquery-3.1.1.min.js"></script>
-    <script src="../js/jquery.panzoom.js"></script>
+    <!-- <script src="../js/jquery-3.1.1.min.js"></script> -->
+    <script src="../js/jquery-3.4.1.min.js"></script>
+    <!-- <script src="../js/jquery.panzoom.js"></script> -->
+    <script src="../js/panzoom.js"></script>
+    <script src="https://unpkg.com/panzoom@8.7.3/dist/panzoom.min.js"></script>
     <script src="../js/jquery.mousewheel.js"></script>
 
     <script src="../js/bootstrap.min.js"></script>
@@ -35,31 +38,30 @@
 
   <body>
     <!-- 메인 -->
+    <!-- FIXME: 버튼 구조 수정 많이 필요  -->
     <div class="jumbotron text-center jumbotron_line">
-      <div class="">
-        <div id="zoom" style="display: flex; justify-content: center;">
-          <button id="zoom-in" class="btn btn-default btn-sm" style="margin-right: 5px">
-            <span class="glyphicon glyphicon-zoom-in"></span> Zoom-in
-          </button>
-          <button id="zoom-out" class="btn btn-default btn-sm" style="margin-right: 5px">
-            <span class="glyphicon glyphicon-zoom-out"></span> Zoom-out
-          </button>
-          <button id="reset" class="btn btn-default btn-sm" style="margin-right: 5px">
-            <span class="glyphicon glyphicon-refresh"></span> Reset
-          </button>
-          <div style="margin-right: 5px">
-            <input id="placeNodeChangeNameToogleBtn" type="checkbox" data-toggle="toggle" />
-          </div>
-          <select class="selectpicker">
-            <option value="view" selected>뷰 모드</option>
-            <option value="control">제어 모드</option>
-            <option value="develop">개발 모드</option>
-          </select>
+      <div id="zoom" style="display: flex; justify-content: center;">
+        <button id="zoomIn" class="btn btn-default btn-sm" style="margin-right: 5px">
+          <span class="glyphicon glyphicon-zoomIn"></span> Zoom-in
+        </button>
+        <button id="zoomOut" class="btn btn-default btn-sm" style="margin-right: 5px">
+          <span class="glyphicon glyphicon-zoomOut"></span> Zoom-out
+        </button>
+        <button id="reset" class="btn btn-default btn-sm" style="margin-right: 5px">
+          <span class="glyphicon glyphicon-refresh"></span> Reset
+        </button>
+        <div style="margin-right: 5px">
+          <input id="placeNodeChangeNameToogleBtn" type="checkbox" data-toggle="toggle" />
         </div>
-        <!-- FIXME:canvas -->
-        <div style="height:1800px">
-          <div id="canvas" style=" display: flex; justify-content: center; margin: 5px;"></div>
-        </div>
+        <select class="selectpicker">
+          <option value="view" selected>뷰 모드</option>
+          <option value="control">제어 모드</option>
+          <option value="develop">개발 모드</option>
+        </select>
+      </div>
+      <!-- FIXME: 스타일 적용 이런식으로 하면 노답.  -->
+      <div>
+        <div id="canvas" style="display: flex; justify-content: center; margin: 5px;"></div>
       </div>
     </div>
 
@@ -68,7 +70,7 @@
       map.drawInfo.frame.mapInfo.backgroundInfo.backgroundData = '../../out/defaultMap.png';
       // 멥 그리기
       drawSvgBasePlace('canvas');
-      setPanzoom();
+      // setPanzoom();
 
       //FIXME: 테스트 용 선언
       //   showNodeData('P_002', 'open');
@@ -86,7 +88,8 @@
         // showNodeData('P_002', 'open', isChecked); // 새롭게 그려진 svg map 다시 데이터 뿌리기 (체크 상태 포함)
         // showNodeData('WL_004', '100', isChecked);
       });
-
+    </script>
+    <script>
       // panzoom 옵션 세팅
       function setPanzoom() {
         const svgMap = SVG.get('svgCanvas');
@@ -100,8 +103,8 @@
         const filter = 'win16|win32|win64|mac';
 
         // 맵 size 재설정
-        canvas.style.width = svgMap.node.width.baseVal.value + 'px';
-        canvas.style.height = svgMap.node.height.baseVal.value + 'px';
+        // canvas.style.width = svgMap.node.width.baseVal.value + 'px';
+        // canvas.style.height = svgMap.node.height.baseVal.value + 'px';
 
         //모바일, pc 접속 분별하여 zoom in/out 활셩 여부 설정
         if (navigator.platform) {
@@ -113,7 +116,7 @@
               disableZoom: true,
               startTransform: matrix,
             });
-            $('#zoom-out', '#zoom-in', '#reset').hide();
+            $('#zoomOut', '#zoomIn', '#reset').hide();
           } else {
             // pc
             // panzoom
@@ -135,10 +138,10 @@
             });
 
             // zoom 기능 기준점 재정의
-            $('#zoom-in').click(function(e) {
+            $('#zoomIn').click(function(e) {
               $canvas.panzoom('zoom', {});
             });
-            $('#zoom-out').click(function(e) {
+            $('#zoomOut').click(function(e) {
               $canvas.panzoom('zoom', 'zoomOut', {});
             });
           }
@@ -146,10 +149,18 @@
       }
     </script>
     <script>
-      //FIXME: 임시 선언
-      function changeNodeData(nodeId, nodeData) {
-        console.log(nodeId, nodeData);
-      }
+      //TODO: set new panzoom library
+      var canvas = document.getElementById('svgCanvas');
+      var svgMap = SVG.get('svgCanvas');
+      var canvasPanzoom = Panzoom(canvas, {});
+      // 맵 size 재설정
+      canvas.style.width = svgMap.node.width.baseVal.value + 'px';
+      canvas.style.height = svgMap.node.height.baseVal.value + 'px';
+
+      $('#zoomIn').on('click', canvasPanzoom.zoomIn);
+      $('#zoomOut').on('click', canvasPanzoom.zoomOut);
+      $('#reset').on('click', canvasPanzoom.reset);
+      canvas.addEventListener('wheel', canvasPanzoom.zoomWithWheel);
     </script>
   </body>
 </html>
