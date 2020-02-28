@@ -476,7 +476,7 @@ class SvgMaker {
               }
 
               const resourceInfo = this.getResourceInfo(sensorId);
-              BU.CLIS(sensorId, resourceInfo.elementDrawInfo);
+              // BU.CLIS(sensorId, resourceInfo.elementDrawInfo);
               const { width, height, color } = resourceInfo.elementDrawInfo;
               const [x1, y1, x2, y2] = placePoint;
               let x;
