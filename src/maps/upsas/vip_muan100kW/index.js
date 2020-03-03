@@ -13,8 +13,8 @@ const map = {
   drawInfo: {
     frame: {
       mapInfo: {
-        width: 3000,
-        height: 2000,
+        width: 1500,
+        height: 800,
         backgroundInfo: {
           backgroundData: '',
           backgroundPosition: [160, 0],
@@ -24,31 +24,31 @@ const map = {
         {
           id: 'solarEvaporationBlock',
           type: 'rect',
-          elementDrawInfo: { width: 100, height: 280, color: '#abe3e1', opacity: 1 },
+          elementDrawInfo: { width: 340, height: 80, color: '#abe3e1', opacity: 1 },
           textStyleInfo: { color: '', fontSize: 10 },
         },
         {
           id: 'normalEvaporationBlock_A',
           type: 'rect',
-          elementDrawInfo: { width: 1010, height: 180, color: '#bd8f3a', opacity: 1 },
+          elementDrawInfo: { width: 300, height: 650, color: '#bd8f3a', opacity: 1 },
           textStyleInfo: { color: '', fontSize: 10 },
         },
         {
           id: 'normalEvaporationBlock_B',
           type: 'rect',
-          elementDrawInfo: { width: 700, height: 100, color: '#bd8f3a', opacity: 1 },
+          elementDrawInfo: { width: 150, height: 650, color: '#bd8f3a', opacity: 1 },
           textStyleInfo: { color: '', fontSize: 10 },
         },
         {
           id: 'normalCrystalizingBlock',
           type: 'rect',
-          elementDrawInfo: { width: 200, height: 160, color: '#988224', opacity: 1 },
+          elementDrawInfo: { width: 160, height: 200, color: '#988224', opacity: 1 },
           textStyleInfo: { color: '', fontSize: 10 },
         },
         {
           id: 'reservoir_A',
           type: 'rect',
-          elementDrawInfo: { width: 1010, height: 90, color: 'blue', opacity: 1 },
+          elementDrawInfo: { width: 110, height: 780, color: 'blue', opacity: 1 },
           textStyleInfo: { color: '', fontSize: 10 },
         },
         {
@@ -66,7 +66,7 @@ const map = {
         {
           id: 'brineWarehouse_A',
           type: 'rect',
-          elementDrawInfo: { width: 1010, height: 80, color: '#90b4dd', opacity: 1 },
+          elementDrawInfo: { width: 130, height: 700, color: '#90b4dd', opacity: 1 },
           textStyleInfo: { color: '', fontSize: 10 },
         },
         {
@@ -84,13 +84,19 @@ const map = {
         {
           id: 'brineWarehouse_D',
           type: 'rect',
-          elementDrawInfo: { width: 110, height: 80, color: '#90b4dd', opacity: 1 },
+          elementDrawInfo: { width: 100, height: 110, color: '#90b4dd', opacity: 1 },
           textStyleInfo: { color: '', fontSize: 10 },
         },
         {
           id: 'sea',
           type: 'rect',
-          elementDrawInfo: { width: 1010, height: 20, color: 'skyblue', opacity: 1 },
+          elementDrawInfo: { width: 50, height: 780, color: 'skyblue', opacity: 1 },
+          textStyleInfo: { color: '', fontSize: 10 },
+        },
+        {
+          id: 'container',
+          type: 'rect',
+          elementDrawInfo: { width: 100, height: 100, color: '#34495e', opacity: 1 },
           textStyleInfo: { color: '', fontSize: 10 },
         },
         {
@@ -211,77 +217,130 @@ const map = {
               id: 'SEB_1',
               name: '증발지_1',
               resourceId: 'solarEvaporationBlock',
-              point: [190, 435],
+              point: [220, 10],
             },
             {
               id: 'SEB_2',
               name: '증발지_2',
               resourceId: 'solarEvaporationBlock',
-              point: [312, 435],
+              point: [220, 110],
             },
             {
               id: 'SEB_3',
               name: '증발지_3',
               resourceId: 'solarEvaporationBlock',
-              point: [435, 435],
+              point: [220, 210],
             },
             {
               id: 'SEB_4',
               name: '증발지_4',
               resourceId: 'solarEvaporationBlock',
-              point: [558, 435],
+              point: [220, 310],
             },
             {
               id: 'SEB_5',
               name: '증발지_5',
               resourceId: 'solarEvaporationBlock',
-              point: [685, 435],
+              point: [220, 410],
             },
             {
               id: 'SEB_6',
               name: '증발지_6',
               resourceId: 'solarEvaporationBlock',
-              point: [815, 435],
+              point: [220, 510],
             },
             {
               id: 'SEB_7',
               name: '증발지_7',
               resourceId: 'solarEvaporationBlock',
-              point: [940, 435],
+              point: [220, 610],
             },
             {
               id: 'SEB_8',
               name: '증발지_8',
               resourceId: 'solarEvaporationBlock',
-              point: [1060, 435],
+              point: [220, 710],
             },
             {
               id: 'NEB_1',
               name: '일반 증발지_1',
               resourceId: 'normalEvaporationBlock_A',
-              point: [170, 145],
+              point: [910, 10],
             },
-            { id: 'NCB', name: '결정지', resourceId: 'normalCrystalizingBlock', point: [170, 730] },
+            {
+              id: 'NEB_2',
+              name: '일반 증발지_2',
+              resourceId: 'normalEvaporationBlock_B',
+              point: [750, 10],
+            },
+            {
+              id: 'NCB',
+              name: '결정지',
+              resourceId: 'normalCrystalizingBlock',
+              point: [10, 10],
+            },
           ],
         },
         {
           placeId: 'brineWarehouse',
           defList: [
-            { id: 'BW_1', name: '해주_1', resourceId: 'brineWarehouse_A', point: [170, 340] },
-            { id: 'BW_5', name: '해주_5', resourceId: 'brineWarehouse_D', point: [445, 730] },
+            {
+              id: 'BW_1',
+              name: '해주_1',
+              resourceId: 'brineWarehouse_A',
+              point: [590, 10],
+            },
+            {
+              id: 'BW_2',
+              name: '해주_2',
+              resourceId: 'brineWarehouse_D',
+              point: [70, 280],
+            },
           ],
         },
         {
           placeId: 'reservoir',
-          defList: [{ id: 'RV_1', name: '저수지_1', resourceId: 'reservoir_A', point: [170, 40] }],
+          defList: [
+            {
+              id: 'RV',
+              name: '저수지',
+              resourceId: 'reservoir_A',
+              point: [1240, 10],
+            },
+          ],
         },
         {
           placeId: 'sea',
-          defList: [{ id: 'SEA', name: '바다', resourceId: 'sea', point: [170, 10] }],
+          defList: [
+            {
+              id: 'SEA',
+              name: '바다',
+              resourceId: 'sea',
+              point: [1360, 10],
+            },
+          ],
+        },
+        {
+          placeId: 'controlRoom',
+          defList: [
+            {
+              id: 'controlRoom',
+              name: '통제실',
+              resourceId: 'container',
+              point: [10, 600],
+            },
+          ],
         },
         {
           placeId: 'waterWay',
-          defList: [],
+          defList: [
+            {
+              id: 'WW',
+              name: '수로',
+              resourceId: 'waterWay',
+              point: [200, 10, 200, 790],
+            },
+          ],
         },
         {
           placeId: 'pipeLine',

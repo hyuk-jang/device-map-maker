@@ -74,9 +74,6 @@ function drawSvgBasePlace(documentId, isText, isShow = true) {
       writeSvgText(svgCanvas, nodeDefInfo, nodeSvgResourceInfo, isText);
     });
   });
-
-  //TODO: vip용 임시 시뮬레이션
-  setVipSimulator(svgCanvas);
 }
 
 /**
@@ -719,25 +716,4 @@ function checkTrueFalseData(data) {
     result = ERROR_DATA;
   }
   return result;
-}
-
-/**
- * TODO: vip용 급조 시뮬레이션 FIXME: dmm 구조 격변 때 분류 필요
- */
-function setVipSimulator(svgCanvas) {
-  // const path = svgCanvas.path('M0 0 A50 50 0 0 1 50 50 A50 50 0 0 0 100 100');
-  const waterFlow = svgCanvas.path('M10 10 L500 10 L500 700');
-
-  waterFlow.fill('none').stroke({ width: 1, color: 'red' });
-
-  waterFlow.marker('end', 20, 20, add => {
-    add
-      .path('M0 0 L10 5 L0 10 z')
-      .center(6, 10)
-      .fill('red');
-  });
-
-  waterFlow.animate(1000).plot('M10 10 L500 10 L500 700');
-  // .attr({ opacity: 0 })
-  // .loop(true, false);
 }
