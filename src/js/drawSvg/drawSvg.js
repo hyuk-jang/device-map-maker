@@ -74,6 +74,9 @@ function drawSvgBasePlace(documentId, isText, isShow = true) {
       writeSvgText(svgCanvas, nodeDefInfo, nodeSvgResourceInfo, isText);
     });
   });
+
+  // FIXME: 시나리오 svg 추가 (dmm 구조 리펙토링 때 제거)
+  drawWaterFlow(svgCanvas);
 }
 
 /**
@@ -716,4 +719,22 @@ function checkTrueFalseData(data) {
     result = ERROR_DATA;
   }
   return result;
+}
+
+/**
+ * FIXME: vip 용 시뮬레이션 물흐름 표시 (dmm 구조 격번 때 제거 )
+ */
+function drawWaterFlow(svgCanvas) {
+  const wf = svgCanvas
+    .path('M500 50 L650 50 L650 300')
+    .stroke({ color: '#f06', width: 4, linecap: 'round', linejoin: 'round' })
+    .attr({ id: 'test' })
+    .fill('none');
+
+  svgCanvas.path('M10 10 L20 20 L').attr({ id: 'testRect' });
+
+  // wf.marker('end', 20, 20, add => {
+  //   add.circle(2).center(10, 10);
+  //   add.attr({ id: 'marker' });
+  // });
 }

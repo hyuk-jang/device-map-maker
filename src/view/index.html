@@ -32,9 +32,8 @@
     <script src="../../out/defaultMap.js"></script>
     <script src="../js/drawSvg/drawSvg.js"></script>
 
-    <!-- <script src="../gsap.min.js"></script> -->
-    <!-- <script src="../js/MorphSVGPlugin3.min.js"></script> -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/vivus/0.4.5/vivus.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.1.0/anime.min.js"></script>
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/vivus/0.4.5/vivus.min.js"></script> -->
   </head>
 
   <body>
@@ -54,32 +53,36 @@
         <div class="mr_1rem">
           <input id="placeNodeChangeNameToogleBtn" type="checkbox" data-toggle="toggle" />
         </div>
-        <select class="selectpicker">
+        <select class="selectpicker mr_1rem">
           <option value="view" selected>뷰 모드</option>
           <option value="control">제어 모드</option>
           <option value="develop">개발 모드</option>
         </select>
+        <button id="rainMode" class="btn btn-default btn-sm mr_1rem">
+          <span class="glyphicon"></span> 우천모드
+        </button>
       </div>
       <div>
         <div id="canvas" style="justify-content:center;"></div>
       </div>
 
-      <svg stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 3000 3000">
+      <!-- FIXME: 라이브러리 테스트용 svg가 -->
+      <svg id="" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 550 300">
         <path
-          transform="translate(100,10)"
+          hidden
           id="line"
-          fill="black"
-          stroke="black"
-          stroke-width="10"
-          d="M50 50 500 50"
-        />
-
-        <path
-          transform="translate(10,10)"
-          id="arrow"
+          fill="none"
           stroke="#000"
-          stroke-width="12"
-          d="M465.7 172.9l47.1 6-29.8 33.3-17.3-39.3z"
+          stroke-width="10"
+          d="M18.9 128.6c62 33 186 99 311.3 28.5 37.3-21 77.3-108-81.2-92.3-175.5 17.3-6 116.6 54.4 132.5 16.7 4.4 108.5 34.2 209.9-18.6"
+        />
+        <path
+          id="line"
+          fill="none"
+          stroke="#000"
+          stroke-width="10"
+          d="M18.9 128.6c62 33 186 99 311.3 28.5 37.3-21 77.3-108-81.2-92.3-175.5 17.3-6 116.6 54.4 132.5 16.7 4.4 108.5 34.2 209.9-18.6"
+          transform="translate(0,50)"
         />
       </svg>
     </div>
@@ -123,6 +126,36 @@
         console.log(x + ', ' + y);
       });
     </script>
-    <script></script>
+
+    <!-- TODO: 애니메이션 테스트 -->
+    <script>
+      var lineDrawing = anime({
+        targets: '#test',
+        strokeDashoffset: [anime.setDashoffset, 0],
+        easing: 'easeOutSine',
+        opacity: 0,
+        duration: 1500,
+        direction: 'normal',
+        // autoplay: false,
+        loop: true,
+      });
+
+      var path = anime.path('#test');
+
+      anime({
+        targets: '#testRect',
+        translateX: path('x'),
+        translateY: path('y'),
+        rotate: path('angle'),
+        easing: 'easeOutSine',
+        opacity: 0,
+        duration: 1500,
+        direction: 'normal',
+        // autoplay: false,
+        loop: true,
+      });
+
+      // document.querySelector('#rainMode').onclick = lineDrawing.play;
+    </script>
   </body>
 </html>
