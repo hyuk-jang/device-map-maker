@@ -399,8 +399,8 @@ const map = {
           type: 'zigbee',
           subType: 'xbee',
           baudRate: 9600,
-          port: 'COM2',
-          retryChance: 5,
+          port: 'COM6',
+          // retryChance: 5,
         },
       },
       {
@@ -482,7 +482,7 @@ const map = {
     ],
     dpcConstructorList: [
       { dpcId: 'DPC_001', protocol_info: { mainCategory: 'UPSAS', subCategory: 'xbee' } },
-      { dpcId: 'DPC_002', protocol_info: { mainCategory: 'UPSAS', subCategory: 'muan25kW' } },
+      { dpcId: 'DPC_002', protocol_info: { mainCategory: 'UPSAS', subCategory: 'muan100kW' } },
       {
         dpcId: 'DPC_IVT_001',
         protocol_info: { mainCategory: 'Inverter', subCategory: 'hexPowerTriple' },
