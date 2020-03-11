@@ -1,12 +1,10 @@
 const {
-  dcmConfigModel: {
-    reqWrapCmdType: reqWCT,
-    reqWrapCmdFormat: reqWCF,
-    reqDeviceControlType: reqDCT,
-    goalDataRange: goalDR,
-    nodeDataType: { BLOCK, TROUBLE, NONE },
+  di: {
+    dcmConfigModel: {
+      nodeDataType: { BLOCK, TROUBLE, NONE },
+    },
   },
-} = require('../../../../../default-intelligence');
+} = require('../../../module');
 
 /**
  * @type {mDeviceMap}
