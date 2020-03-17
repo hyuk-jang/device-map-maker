@@ -1154,7 +1154,7 @@ const map = {
             nodeList: ['WL_014', 'S_007', 'MRT_006', 'BT_006'],
           },
           {
-            serial_number: '0013420040E58A73',
+            serial_number: '0013A20040E58A73',
             target_code: '015',
             dccId: 'DCC_SSCS_001',
             dpcId: 'DPC_002',
