@@ -2052,7 +2052,7 @@ const map = {
               {
                 target_code: '1_B',
                 target_name: '수중 최종 G2G(단)',
-                nodeList: ['GV_002', 'WL_002', 'V_002', 'MRT_002', 'O_002', 'BT_002'],
+                nodeList: ['MRT_002', 'O_002'],
                 depth: 5,
                 place_info: {
                   thresholdConfigList: [
@@ -2083,7 +2083,7 @@ const map = {
               {
                 target_code: '1_C',
                 target_name: '수중 최종 G2G(단)',
-                nodeList: ['GV_003', 'WL_003', 'V_003', 'MRT_003', 'O_003', 'BT_003'],
+                nodeList: ['MRT_003', 'O_003'],
                 depth: 5,
                 place_info: {
                   thresholdConfigList: [
