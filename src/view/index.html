@@ -32,8 +32,6 @@
     <script src="../../out/defaultMap.js"></script>
     <script src="../js/drawSvg/drawSvg.js"></script>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.1.0/anime.min.js"></script>
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/vivus/0.4.5/vivus.min.js"></script> -->
   </head>
 
   <body>
@@ -60,6 +58,25 @@
         </select>
         <button id="rainMode" class="btn btn-default btn-sm mr_1rem">
           <span class="glyphicon"></span> 우천모드
+        </button>
+        <button id="1" class="btn btn-default btn-sm mr_1rem">
+          <span class="glyphicon"></span> 저수지>증발지1
+        </button>
+        <button id="2" class="btn btn-default btn-sm mr_1rem">
+          <span class="glyphicon"></span> 증발지1>증발지2
+        </button>
+        <button id="3" class="btn btn-default btn-sm mr_1rem">
+          <span class="glyphicon"></span> 증발지2>해주
+        </button>
+        <button id="4" class="btn btn-default btn-sm mr_1rem">
+          <span class="glyphicon"></span> 해주>모듈
+        </button>
+        <button id="5" class="btn btn-default btn-sm mr_1rem">
+          <span class="glyphicon"></span> 모듈>결정지
+        </button>
+        </button>
+        <button id="6" class="btn btn-default btn-sm mr_1rem">
+          <span class="glyphicon"></span> 결정지>해주2
         </button>
       </div>
       <div>
@@ -109,33 +126,426 @@
 
     <!-- TODO: 애니메이션 테스트 -->
     <script>
-      var lineDrawing = anime({
-        targets: '#test',
-        strokeDashoffset: [anime.setDashoffset, 0],
-        easing: 'easeOutSine',
-        opacity: 0,
-        duration: 1500,
-        direction: 'normal',
-        autoplay: false,
-        loop: true,
+      var svgCanvas = SVG.get('#svgCanvas');
+
+      // 저수지 물결
+      var resorviorWave = svgCanvas
+        .image('../../img/resorviorWave.gif')
+        .move(1258, 30)
+        .attr({ opacity: 0.2 });
+
+      // 증발지 1 물결
+      var normalEvaporationAWave = svgCanvas
+        .image('../../img/normalEvaporationAWave.gif')
+        .move(922, 26)
+        .attr({ opacity: 0.2 });
+
+      // 증발지2 물결
+      var normalEvaporationBWave = svgCanvas
+        .image('../../img/normalEvaporationBWave.gif')
+        .move(762, 27)
+        .attr({ opacity: 0.2 });
+
+      // 해주1 물결
+      var brineWarehouseAWave = svgCanvas
+        .image('../../img/brineWarehouseAWave.gif')
+        .move(605, 29)
+        .attr({ opacity: 0.2 });
+
+      // 모듈 물결
+      var moduleWave = svgCanvas
+        .image('../../img/moduleWave.gif')
+        .move(228, 23)
+        .attr({ opacity: 0.2 });
+
+      // 해주2 물결
+      var brineWarehouseBWave = svgCanvas
+        .image('../../img/brineWarehouseBWave.gif')
+        .move(81, 300)
+        .attr({ opacity: 0.2 });
+
+      // 레인 모드 폭포
+      var rainModeWaterfull = svgCanvas
+        .image('../../img/rainModeWaterfull.gif')
+        .move(4, 10)
+        .attr({ opacity: 0 });
+
+      // 증발지1 폭포
+      var normalEvaAwaterfull = svgCanvas
+        .image('../../img/waterfallRight.gif')
+        .move(1146, 30)
+        .attr({ opacity: 0 });
+
+      // 증발지2 폭포
+      var normalEvaBWaterfull = svgCanvas
+        .image('../../img/waterfallRight.gif')
+        .move(836, 30)
+        .attr({ opacity: 0 });
+
+      // 해주1 폭포
+      var brineWHAWaterfull = svgCanvas
+        .image('../../img/brineWHAWaterfull.gif')
+        .move(4, 10)
+        .attr({ opacity: 0 });
+
+      // 결정지 폭포
+      var normalCrystalWaterfull = svgCanvas
+        .image('../../img/waterfallRight.gif')
+        .move(105, 30)
+        .attr({ opacity: 0 });
+
+      // 모듈 폭포
+      var systemAWaterfull = svgCanvas
+        .image('../../img/moduleWaterfull.gif')
+        .move(500, 22)
+        .attr({ opacity: 0 });
+      var systemBWaterfull = svgCanvas
+        .image('../../img/moduleWaterfull.gif')
+        .move(500, 222)
+        .attr({ opacity: 0 });
+      var systemCWaterfull = svgCanvas
+        .image('../../img/moduleWaterfull.gif')
+        .move(500, 426)
+        .attr({ opacity: 0 });
+      var systemDWaterfull = svgCanvas
+        .image('../../img/moduleWaterfull.gif')
+        .move(500, 630)
+        .attr({ opacity: 0 });
+
+      // 해주2 폭포
+      var brineWHBWaterfull = svgCanvas
+        .image('../../img/waterfallRight.gif')
+        .move(110, 350)
+        .rotate(270)
+        .scale(0.8)
+        .attr({ opacity: 0 });
+
+      
+    </script>
+    <script>
+      //TODO: reset
+      function resetWave() {
+        resorviorWave
+          .animate({
+            duration: 1000,
+            when: 'now',
+          })
+          .attr({ opacity: 0.2 });
+
+        normalEvaporationAWave
+          .animate({
+            duration: 1000,
+            when: 'now',
+          })
+          .attr({ opacity: 0.2 });
+
+        normalEvaporationBWave
+          .animate({
+            duration: 1000,
+            when: 'now',
+          })
+          .attr({ opacity: 0.2 });
+
+        brineWarehouseAWave
+          .animate({
+            duration: 1000,
+            when: 'now',
+          })
+          .attr({ opacity: 0.2 });
+
+        moduleWave
+          .animate({
+            duration: 1000,
+            when: 'now',
+          })
+          .attr({ opacity: 0.2 });
+
+        brineWarehouseBWave
+          .animate({
+            duration: 1000,
+            when: 'now',
+          })
+          .attr({ opacity: 0.2 });
+
+        rainModeWaterfull
+          .animate({
+            duration: 1000,
+            when: 'now',
+          })
+          .attr({ opacity: 0 });
+
+        normalEvaAwaterfull
+          .animate({
+            duraton: 1000,
+            when: 'now',
+          })
+          .attr({ opacity: 0 });
+
+        normalEvaBWaterfull
+          .animate({
+            duraton: 1000,
+            when: 'now',
+          })
+          .attr({ opacity: 0 });
+
+        brineWHAWaterfull
+          .animate({
+            duraton: 1000,
+            when: 'now',
+          })
+          .attr({ opacity: 0 });
+
+        normalCrystalWaterfull
+          .animate({
+            duraton: 1000,
+            when: 'now',
+          })
+          .attr({ opacity: 0 });
+
+        systemAWaterfull
+          .animate({
+            duraton: 1000,
+            when: 'now',
+          })
+          .attr({ opacity: 0 });
+
+        systemBWaterfull
+          .animate({
+            duraton: 1000,
+            when: 'now',
+          })
+          .attr({ opacity: 0 });
+
+        systemCWaterfull
+          .animate({
+            duraton: 1000,
+            when: 'now',
+          })
+          .attr({ opacity: 0 });
+
+        systemDWaterfull
+          .animate({
+            duraton: 1000,
+            when: 'now',
+          })
+          .attr({ opacity: 0 });
+
+        normalCrystalWaterfull
+          .animate({
+            duraton: 1000,
+            when: 'now',
+          })
+          .attr({ opacity: 0 });
+
+        brineWHBWaterfull
+          .animate({
+            duration: 1000,
+            when: 'now',
+          })
+          .attr({
+            opacity: 0,
+          });
+      }
+
+      // TODO: rain mode
+      function startRainMode() {
+        resetWave();
+
+        rainModeWaterfull
+          .animate({
+            duration: 1000,
+            delay: 500,
+            when: 'now',
+          })
+          .attr({ opacity: 1 });
+
+        brineWarehouseAWave
+          .animate({
+            duration: 6000,
+            when: 'now',
+          })
+          .attr({ opacity: 0.5 });
+
+        brineWarehouseBWave
+          .animate({
+            duration: 6000,
+            when: 'now',
+          })
+          .attr({ opacity: 0.5 });
+
+        normalEvaporationAWave
+          .animate({
+            duration: 9000,
+            when: 'now',
+          })
+          .attr({ opacity: 0 });
+
+        normalEvaporationBWave
+          .animate({
+            duration: 9000,
+            when: 'now',
+          })
+          .attr({ opacity: 0 });
+
+        moduleWave
+          .animate({
+            duration: 9000,
+            when: 'now',
+          })
+          .attr({ opacity: 0 });
+      }
+
+      //TODO: 저수지 > 증발지 1
+      function flowToNormalEvaporationA() {
+        resetWave();
+
+        normalEvaAwaterfull
+          .move(1146, 30)
+          .animate({
+            duration: 1000,
+            when: 'now',
+          })
+          .attr({ opacity: 1 });
+
+        normalEvaporationAWave
+          .animate({
+            duration: 9000,
+            when: 'now',
+          })
+          .attr({ opacity: 0.4 });
+      }
+
+      //TODO: 증발지1 > 증발지2
+      function flowToNormalEvaporationB() {
+        resetWave();
+
+        normalEvaBWaterfull
+          .animate({
+            duration: 1000,
+            when: 'now',
+          })
+          .attr({ opacity: 1 });
+
+        normalEvaporationBWave
+          .animate({
+            duration: 9000,
+            when: 'now',
+          })
+          .attr({ opacity: 0.4 });
+      }
+
+      //TODO: 증발지2 > 해주1
+      function flowToBrineWarehouseA() {
+        resetWave();
+
+        brineWHAWaterfull
+          .animate({
+            duration: 1000,
+            when: 'now',
+          })
+          .attr({ opacity: 1 });
+
+        brineWarehouseAWave
+          .animate({
+            duration: 1000,
+            when: 'now',
+          })
+          .attr({ opacity: 0.4 });
+      }
+
+      //TODO: 해주1 > 모듈
+      function flowToModule() {
+        resetWave();
+
+        systemAWaterfull
+          .animate({
+            duration: 1000,
+            when: 'now',
+          })
+          .attr({ opacity: 1 });
+
+        systemBWaterfull
+          .animate({
+            duration: 1000,
+            when: 'now',
+          })
+          .attr({ opacity: 1 });
+
+        systemCWaterfull
+          .animate({
+            duration: 1000,
+            when: 'now',
+          })
+          .attr({ opacity: 1 });
+
+        systemDWaterfull
+          .animate({
+            duration: 1000,
+            when: 'now',
+          })
+          .attr({ opacity: 1 });
+
+        moduleWave
+          .animate({
+            duration: 9000,
+            when: 'now',
+          })
+          .attr({ opacity: 0.4 });
+      }
+
+      //TODO: 모듈 > 결정지
+      function flowTonormalCrystal() {
+        resetWave();
+
+        normalCrystalWaterfull
+          .animate({
+            duration: 1000,
+            when: 'now',
+          })
+          .attr({ opacity: 0.3 });
+      }
+
+      //TODO: 결정지 > 해주2
+      function flowToBrineWarehouseB() {
+        resetWave();
+
+        brineWHBWaterfull
+          .animate({
+            duration: 1000,
+            when: 'now',
+          })
+          .attr({ opacity: 1 });
+
+        brineWarehouseBWave
+          .animate({
+            duration: 9000,
+            when: 'now',
+          })
+          .attr({ opacity: 0.4 });
+      }
+
+      //TODO: button event
+      $('#rainMode').on('click', function() {
+        startRainMode();
       });
-
-      var path = anime.path('#test');
-
-      // anime({
-      //   targets: '#testRect',
-      //   translateX: path('x'),
-      //   translateY: path('y'),
-      //   rotate: path('angle'),
-      //   easing: 'easeOutSine',
-      //   opacity: 0,
-      //   duration: 1500,
-      //   direction: 'normal',
-      //   // autoplay: false,
-      //   loop: true,
-      // });
-
-      // document.querySelector('#rainMode').onclick = lineDrawing.play;
+      $('#1').on('click', function() {
+        flowToNormalEvaporationA();
+      });
+      $('#2').on('click', function() {
+        flowToNormalEvaporationB();
+      });
+      $('#3').on('click', function() {
+        flowToBrineWarehouseA();
+      });
+      $('#4').on('click', function() {
+        flowToModule();
+      });
+      $('#5').on('click', function() {
+        flowTonormalCrystal();
+      });
+      $('#6').on('click', function() {
+        flowToBrineWarehouseB();
+      });
     </script>
   </body>
 </html>

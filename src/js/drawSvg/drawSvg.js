@@ -74,9 +74,6 @@ function drawSvgBasePlace(documentId, isText, isShow = true) {
       writeSvgText(svgCanvas, nodeDefInfo, nodeSvgResourceInfo, isText);
     });
   });
-
-  // FIXME: 시나리오 svg 추가 (dmm 구조 리펙토링 때 제거)
-  drawWaterFlow(svgCanvas);
 }
 
 /**
@@ -102,14 +99,12 @@ function showNodeData(nodeDefId, data = '', isChangePlaceNodeName = false) {
   isChangePlaceNodeName ? (nodeName = foundSvgTextInfo.id) : (nodeName = foundSvgTextInfo.name);
 
   // 데이터, 속성, 스타일 등을 적용해 tspan 다시 그리기
-  foundNodeTextChild.get(0).innerHTML = `<tspan id='nodeName' x="${
-    foundSvgTextInfo.textX
-  }"> ${nodeName}</tspan>`;
   foundNodeTextChild.get(
     0,
-  ).innerHTML += `<tspan id="nodeData" class ="${nodeDefId}" value="${data}" x="${
-    foundSvgTextInfo.textX
-  }" style="${style}" dx="${dx}" dy="${dy}">${data}</tspan>`; // data 표시
+  ).innerHTML = `<tspan id='nodeName' x="${foundSvgTextInfo.textX}"> ${nodeName}</tspan>`;
+  foundNodeTextChild.get(
+    0,
+  ).innerHTML += `<tspan id="nodeData" class ="${nodeDefId}" value="${data}" x="${foundSvgTextInfo.textX}" style="${style}" dx="${dx}" dy="${dy}">${data}</tspan>`; // data 표시
   foundNodeTextChild.get(0).innerHTML += `<tspan>${dataUnit}</tspan>`; // data 단위 표시
 }
 
@@ -719,22 +714,4 @@ function checkTrueFalseData(data) {
     result = ERROR_DATA;
   }
   return result;
-}
-
-/**
- * FIXME: vip 용 시뮬레이션 물흐름 표시 (dmm 구조 격번 때 제거 )
- */
-function drawWaterFlow(svgCanvas) {
-  const wf = svgCanvas
-    .path('M500 50 L650 50 L650 300')
-    .stroke({ color: '#f06', width: 4, linecap: 'round', linejoin: 'round' })
-    .attr({ id: 'test' })
-    .fill('none');
-
-  svgCanvas.path('M10 10 L20 20 L').attr({ id: 'testRect' });
-
-  // wf.marker('end', 20, 20, add => {
-  //   add.circle(2).center(10, 10);
-  //   add.attr({ id: 'marker' });
-  // });
 }
