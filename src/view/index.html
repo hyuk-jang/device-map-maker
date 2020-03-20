@@ -124,7 +124,7 @@
       });
     </script>
 
-    <!-- TODO: 애니메이션 테스트 -->
+    <!-- TODO: 물결 세팅 노가다 -->
     <script>
       var svgCanvas = SVG.get('#svgCanvas');
 
@@ -156,6 +156,7 @@
       var moduleWave = svgCanvas
         .image('../../img/moduleWave.gif')
         .move(228, 23)
+        .backward()
         .attr({ opacity: 0.2 });
 
       // 해주2 물결
@@ -220,8 +221,8 @@
         .scale(0.8)
         .attr({ opacity: 0 });
 
-      
     </script>
+    <!-- TODO: 이벤트 노가다 -->
     <script>
       //TODO: reset
       function resetWave() {
@@ -354,7 +355,6 @@
         rainModeWaterfull
           .animate({
             duration: 1000,
-            delay: 500,
             when: 'now',
           })
           .attr({ opacity: 1 });
@@ -494,7 +494,7 @@
       }
 
       //TODO: 모듈 > 결정지
-      function flowTonormalCrystal() {
+      function flowToNormalCrystal() {
         resetWave();
 
         normalCrystalWaterfull
@@ -502,7 +502,7 @@
             duration: 1000,
             when: 'now',
           })
-          .attr({ opacity: 0.3 });
+          .attr({ opacity: 1 });
       }
 
       //TODO: 결정지 > 해주2
@@ -541,7 +541,7 @@
         flowToModule();
       });
       $('#5').on('click', function() {
-        flowTonormalCrystal();
+        flowToNormalCrystal();
       });
       $('#6').on('click', function() {
         flowToBrineWarehouseB();

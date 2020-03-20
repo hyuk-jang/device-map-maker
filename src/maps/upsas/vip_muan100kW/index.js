@@ -14,7 +14,7 @@ const map = {
     frame: {
       mapInfo: {
         width: 1500,
-        height: 800,
+        height: 1000,
         backgroundInfo: {
           backgroundData: '',
           backgroundPosition: [4, 0],
@@ -91,7 +91,7 @@ const map = {
           id: 'sea',
           type: 'rect',
           elementDrawInfo: { width: 50, height: 780, color: 'skyblue', opacity: 0 },
-          textStyleInfo: { color: 'white', fontSize: 10 },
+          textStyleInfo: { color: 'black', fontSize: 10 },
         },
         {
           id: 'container',
@@ -191,14 +191,25 @@ const map = {
         {
           id: 'moduleRearTemperature',
           type: 'rect',
-          elementDrawInfo: { width: 45, height: 25, color: '#f0f0f0', opacity: 0 },
-          textStyleInfo: { color: '', fontSize: 5 },
+          elementDrawInfo: { width: 45, height: 25, color: '#f0f0f0', opacity: 1 },
+          textStyleInfo: { color: '', fontSize: 8 },
         },
         {
           id: 'waterLevel',
           type: 'rect',
-          elementDrawInfo: { width: 45, height: 25, color: '#f0f0f0', opacity: 0 },
+          elementDrawInfo: {
+            width: 45,
+            height: 25,
+            color: '#f0f0f0',
+            opacity: 1,
+          },
           textStyleInfo: { color: '', fontSize: 8 },
+        },
+        {
+          id: 'systemArea',
+          type: 'rect',
+          elementDrawInfo: { width: 355, height: 185, color: 'pink', opacity: 0 },
+          textStyleInfo: { color: 'blue', fontSize: 10 },
         },
         {
           id: 'brineTemperature',
@@ -279,6 +290,30 @@ const map = {
               resourceId: 'normalCrystalizingBlock',
               point: [10, 10],
             },
+            {
+              id: 'SYSTEM_1',
+              name: '',
+              resourceId: 'systemArea',
+              point: [210, 10],
+            },
+            {
+              id: 'SYSTEM_2',
+              name: '',
+              resourceId: 'systemArea',
+              point: [210, 215],
+            },
+            {
+              id: 'SYSTEM_3',
+              name: '',
+              resourceId: 'systemArea',
+              point: [210, 415],
+            },
+            {
+              id: 'SYSTEM_4',
+              name: '',
+              resourceId: 'systemArea',
+              point: [210, 622],
+            },
           ],
         },
         {
@@ -343,11 +378,166 @@ const map = {
       svgNodeList: [],
     },
   },
-  setInfo: {},
+  setInfo: {
+    mainInfo: { main_seq: 2, uuid: 'bbbbb' },
+    dccConstructorList: [],
+    dpcConstructorList: [],
+    repeatNodeList: [],
+    dataLoggerStructureList: [],
+    nodeStructureList: [
+      // 수중 태양광 데이터
+      {
+        target_id: 'temp',
+        target_name: '온도',
+        is_sensor: 1,
+        data_unit: '℃',
+        description: '섭씨',
+        defList: [
+          {
+            target_id: 'moduleRearTemperature',
+            target_prefix: 'MRT',
+            target_name: '모듈 뒷면 온도',
+            description: null,
+            nodeList: [
+              { target_code: '001', axisScale: [0, 0], moveScale: [0, 0] },
+              { target_code: '002', axisScale: [0, 0], moveScale: [0, 0] },
+              { target_code: '003', axisScale: [0, 0], moveScale: [0, 0] },
+              { target_code: '004', axisScale: [0, 0], moveScale: [0, 0] },
+            ],
+          },
+        ],
+      },
+      {
+        target_id: 'salinity',
+        target_name: '염도',
+        is_sensor: 1,
+        data_unit: '%',
+        defList: [
+          {
+            target_id: 'salinity',
+            target_prefix: 'S',
+            target_name: '염도',
+            description: null,
+            nodeList: [
+              { target_code: '001', axisScale: [0, 0], moveScale: [0, 0] },
+              { target_code: '002', axisScale: [0, 0], moveScale: [0, 0] },
+              { target_code: '003', axisScale: [0, 0], moveScale: [0, 0] },
+              { target_code: '004', axisScale: [0, 0], moveScale: [0, 0] },
+            ],
+          },
+        ],
+      },
+      {
+        target_id: 'waterLevel',
+        target_name: '수위',
+        is_sensor: 1,
+        data_unit: 'cm',
+        defList: [
+          {
+            target_id: 'waterLevel',
+            target_prefix: 'WL',
+            target_name: '수위',
+            nodeList: [
+              { target_code: '001', axisScale: [0, 0], moveScale: [0, 0] },
+              { target_code: '002', axisScale: [0, 0], moveScale: [0, 0] },
+              { target_code: '003', axisScale: [0, 0], moveScale: [0, 0] },
+              { target_code: '004', axisScale: [0, 0], moveScale: [0, 0] },
+            ],
+          },
+        ],
+      },
+      {
+        target_id: 'kW',
+        target_name: '전력량',
+        is_sensor: 1,
+        is_submit_api: 0,
+        save_db_type: BLOCK,
+        data_unit: 'kW',
+        description: '1 킬로와트(기호 kW)는 1 초 동안의 1,000 줄(N·m)에 해당하는 일률의 SI 단위',
+        defList: [
+          {
+            target_id: 'powerGridKw',
+            target_name: '인버터 현재 전력',
+            target_prefix: 'IVT_PW_G_KW',
+            description: 'Power',
+            repeatId: 'RE_NODE_IVT',
+            nodeList: [
+              { target_code: '001', axisScale: [0, 0], moveScale: [0, 0] },
+              { target_code: '002', axisScale: [0, 0], moveScale: [0, 0] },
+              { target_code: '003', axisScale: [0, 0], moveScale: [0, 0] },
+              { target_code: '004', axisScale: [0, 0], moveScale: [0, 0] },
+            ],
+          },
+        ],
+      },
+    ],
+  },
   relationInfo: {
-    placeRelationList: [],
+    placeRelationList: [
+      {
+        target_id: 'salternBlock',
+        target_name: '염판',
+        description: null,
+        defList: [
+          {
+            target_id: 'systemArea',
+            target_prefix: 'SYSTEM',
+            target_name: '시스템',
+            placeList: [
+              {
+                target_code: '1',
+                nodeList: ['WL_001', 'S_001', 'MRT_001', 'IVT_PW_G_KW_001'],
+                depth: 5,
+                place_info: {
+                  thresholdConfigList: [],
+                  placeSize: {},
+                },
+              },
+              {
+                target_code: '2',
+                nodeList: ['WL_002', 'S_002', 'MRT_002', 'IVT_PW_G_KW_002'],
+                depth: 5,
+                place_info: {
+                  thresholdConfigList: [],
+                  placeSize: {},
+                },
+              },
+              {
+                target_code: '3',
+                nodeList: ['WL_003', 'S_003', 'MRT_003', 'IVT_PW_G_KW_003'],
+                depth: 5,
+                place_info: {
+                  thresholdConfigList: [],
+                  placeSize: {},
+                },
+              },
+              {
+                target_code: '4',
+                nodeList: ['WL_004', 'S_004', 'MRT_004', 'IVT_PW_G_KW_004'],
+                depth: 5,
+                place_info: {
+                  thresholdConfigList: [],
+                  placeSize: {},
+                },
+              },
+            ],
+          },
+        ],
+      },
+    ],
     smartSalternInfo: {},
-    svgResourceConnectionList: [],
+    svgResourceConnectionList: [
+      { targetIdList: ['WL_001', 'WL_002', 'WL_003', 'WL_004'], resourceIdList: ['waterLevel'] },
+      { targetIdList: ['S_001', 'S_002', 'S_003', 'S_004'], resourceIdList: ['waterLevel'] },
+      {
+        targetIdList: ['MRT_001', 'MRT_002', 'MRT_003', 'MRT_004'],
+        resourceIdList: ['moduleRearTemperature'],
+      },
+      {
+        targetIdList: ['IVT_PW_G_KW_001', 'IVT_PW_G_KW_002', 'IVT_PW_G_KW_003', 'IVT_PW_G_KW_004'],
+        resourceIdList: ['moduleRearTemperature'],
+      },
+    ],
     hiddenTextSvgModelResourceIdList: [],
   },
   controlInfo: {
