@@ -78,6 +78,9 @@
         <button id="6" class="btn btn-default btn-sm mr_1rem">
           <span class="glyphicon"></span> 결정지>해주2
         </button>
+        <button id="animationReset" class="btn btn-default btn-sm mr_1rem">
+          <span class="glyphicon"></span> 액션 리셋
+        </button>
       </div>
       <div>
         <div id="canvas" style="justify-content:center;"></div>
@@ -545,6 +548,9 @@
       });
       $('#6').on('click', function() {
         flowToBrineWarehouseB();
+      });
+      $('#animationReset').on('click', function() {
+        resetWave()
       });
     </script>
   </body>
