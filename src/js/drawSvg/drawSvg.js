@@ -99,12 +99,14 @@ function showNodeData(nodeDefId, data = '', isChangePlaceNodeName = false) {
   isChangePlaceNodeName ? (nodeName = foundSvgTextInfo.id) : (nodeName = foundSvgTextInfo.name);
 
   // 데이터, 속성, 스타일 등을 적용해 tspan 다시 그리기
+  foundNodeTextChild.get(0).innerHTML = `<tspan id='nodeName' x="${
+    foundSvgTextInfo.textX
+  }"> ${nodeName}</tspan>`;
   foundNodeTextChild.get(
     0,
-  ).innerHTML = `<tspan id='nodeName' x="${foundSvgTextInfo.textX}"> ${nodeName}</tspan>`;
-  foundNodeTextChild.get(
-    0,
-  ).innerHTML += `<tspan id="nodeData" class ="${nodeDefId}" value="${data}" x="${foundSvgTextInfo.textX}" style="${style}" dx="${dx}" dy="${dy}">${data}</tspan>`; // data 표시
+  ).innerHTML += `<tspan id="nodeData" class ="${nodeDefId}" value="${data}" x="${
+    foundSvgTextInfo.textX
+  }" style="${style}" dx="${dx}" dy="${dy}">${data}</tspan>`; // data 표시
   foundNodeTextChild.get(0).innerHTML += `<tspan>${dataUnit}</tspan>`; // data 단위 표시
 }
 
@@ -257,6 +259,7 @@ function writeSvgText(svgCanvas, defInfo, resourceInfo, isChangedPlaceNodeName =
     .attr({
       'pointer-events': 'none', // text 커서 모양 설정
       id: `text_${defInfo.id}`,
+      name: 'text',
     });
 
   // 그려진 svg 텍스트의 정보 수집
@@ -608,6 +611,7 @@ function drawSvgImage(svgCanvas, point, elementDrawInfo, id, isShow = true) {
  */
 function drawSvgShadow(model, defId) {
   if (isSensor(defId)) {
+    model.attr({ name: 'sensor' });
     model.filter(add => {
       const blur = add
         .offset(0, 5)

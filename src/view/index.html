@@ -112,6 +112,8 @@
         cursor: 'default',
       });
 
+
+      canvasPanzoom.pan(5, 100)
       $('#zoomIn').on('click', canvasPanzoom.zoomIn);
       $('#zoomOut').on('click', canvasPanzoom.zoomOut);
       $('#reset').on('click', canvasPanzoom.reset);
@@ -160,7 +162,7 @@
         .image('../../img/moduleWave.gif')
         .move(228, 23)
         .backward()
-        .attr({ opacity: 0.2 });
+        .attr({ opacity: 0.2 })
 
       // 해주2 물결
       var brineWarehouseBWave = svgCanvas
@@ -552,6 +554,14 @@
       $('#animationReset').on('click', function() {
         resetWave()
       });
+    </script>
+    <script>
+
+      var sensor =  svgCanvas.select('rect[name="sensor"]')
+      var text =  svgCanvas.select('text[name="text"]')
+      
+      sensor.front();
+      text.front();
     </script>
   </body>
 </html>
