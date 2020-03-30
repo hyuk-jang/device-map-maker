@@ -527,7 +527,7 @@ class SvgMaker {
         });
       });
     } catch (error) {
-      throw error;
+      // throw error;
     }
   }
 }
