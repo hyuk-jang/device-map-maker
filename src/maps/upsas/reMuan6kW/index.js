@@ -1179,6 +1179,7 @@ const map = {
             dccId: 'DCC_SSCS_001',
             dpcId: 'DPC_001',
             nodeList: ['WD_005'],
+            is_deleted: 1,
           },
           {
             serial_number: '0013A20040F7B486',
@@ -1186,6 +1187,7 @@ const map = {
             dccId: 'DCC_SSCS_001',
             dpcId: 'DPC_001',
             nodeList: ['WD_006'],
+            is_deleted: 1,
           },
           {
             serial_number: '0013A20040F7B47C',
@@ -1193,6 +1195,7 @@ const map = {
             dccId: 'DCC_SSCS_001',
             dpcId: 'DPC_001',
             nodeList: ['WD_007'],
+            is_deleted: 1,
           },
           {
             serial_number: '0013A20040F7AB9C',
@@ -1200,6 +1203,7 @@ const map = {
             dccId: 'DCC_SSCS_001',
             dpcId: 'DPC_001',
             nodeList: ['WD_008'],
+            is_deleted: 1,
           },
           {
             serial_number: '0013A20040F7B430',
@@ -1207,6 +1211,7 @@ const map = {
             dccId: 'DCC_SSCS_001',
             dpcId: 'DPC_001',
             nodeList: ['WD_009'],
+            is_deleted: 1,
           },
           {
             serial_number: '0013A20040F7AB7D',
@@ -1214,6 +1219,7 @@ const map = {
             dccId: 'DCC_SSCS_001',
             dpcId: 'DPC_001',
             nodeList: ['WD_010', 'S_001'],
+            is_deleted: 1,
           },
           {
             serial_number: '0013A20040F7B4A9',
@@ -1221,6 +1227,7 @@ const map = {
             dccId: 'DCC_SSCS_001',
             dpcId: 'DPC_001',
             nodeList: ['WD_011', 'S_002'],
+            is_deleted: 1,
           },
           {
             serial_number: '0013A20040F7B460',
@@ -1228,6 +1235,7 @@ const map = {
             dccId: 'DCC_SSCS_001',
             dpcId: 'DPC_001',
             nodeList: ['WD_012', 'S_003'],
+            is_deleted: 1,
           },
           {
             serial_number: '0013A20040F7B49B',
@@ -1235,6 +1243,7 @@ const map = {
             dccId: 'DCC_SSCS_001',
             dpcId: 'DPC_001',
             nodeList: ['WD_013'],
+            is_deleted: 1,
           },
           {
             serial_number: '0013A20040F7B453',
@@ -1242,6 +1251,7 @@ const map = {
             dccId: 'DCC_SSCS_001',
             dpcId: 'DPC_001',
             nodeList: ['WD_014'],
+            is_deleted: 1,
           },
           {
             serial_number: '0013A20040F7B474',
@@ -1249,6 +1259,7 @@ const map = {
             dccId: 'DCC_SSCS_001',
             dpcId: 'DPC_001',
             nodeList: ['WD_015'],
+            is_deleted: 1,
           },
           {
             serial_number: '0013A20040F7AB98',
@@ -1256,6 +1267,7 @@ const map = {
             dccId: 'DCC_SSCS_001',
             dpcId: 'DPC_001',
             nodeList: ['WD_016'],
+            is_deleted: 1,
           },
         ],
       },
@@ -1269,6 +1281,7 @@ const map = {
             dccId: 'DCC_SSCS_001',
             dpcId: 'DPC_001',
             nodeList: ['V_001', 'MRT_001', 'BT_001'],
+            is_deleted: 1,
           },
           {
             serial_number: '0013A20040F7B4A4',
@@ -1276,6 +1289,7 @@ const map = {
             dccId: 'DCC_SSCS_001',
             dpcId: 'DPC_001',
             nodeList: ['V_002', 'BT_002'],
+            is_deleted: 1,
           },
           {
             serial_number: '0013A20040F7B455',
@@ -1283,6 +1297,7 @@ const map = {
             dccId: 'DCC_SSCS_001',
             dpcId: 'DPC_001',
             nodeList: ['V_003', 'BT_003'],
+            is_deleted: 1,
           },
           {
             serial_number: '0013A20040F7B43C',
@@ -1290,6 +1305,7 @@ const map = {
             dccId: 'DCC_SSCS_001',
             dpcId: 'DPC_001',
             nodeList: ['V_004', 'MRT_004', 'BT_004'],
+            is_deleted: 1,
           },
           {
             serial_number: '0013A20040F7B469',
@@ -1297,6 +1313,7 @@ const map = {
             dccId: 'DCC_SSCS_001',
             dpcId: 'DPC_001',
             nodeList: ['V_006'],
+            is_deleted: 1,
           },
           {
             serial_number: '0013A20040F7B4A7',
@@ -1304,6 +1321,7 @@ const map = {
             dccId: 'DCC_SSCS_001',
             dpcId: 'DPC_001',
             nodeList: ['V_007'],
+            is_deleted: 1,
           },
         ],
       },
@@ -1317,6 +1335,7 @@ const map = {
             dccId: 'DCC_SSCS_001',
             dpcId: 'DPC_001',
             nodeList: ['GV_001', 'WL_001'],
+            is_deleted: 1,
           },
           {
             serial_number: '0013A20040F7AB76',
@@ -1324,6 +1343,7 @@ const map = {
             dccId: 'DCC_SSCS_001',
             dpcId: 'DPC_001',
             nodeList: ['GV_002', 'WL_002'],
+            is_deleted: 1,
           },
           {
             serial_number: '0013A20040F7AB69',
@@ -1331,6 +1351,7 @@ const map = {
             dccId: 'DCC_SSCS_001',
             dpcId: 'DPC_001',
             nodeList: ['GV_003', 'WL_003'],
+            is_deleted: 1,
           },
           {
             serial_number: '0013A20040F7AB96',
@@ -1338,6 +1359,7 @@ const map = {
             dccId: 'DCC_SSCS_001',
             dpcId: 'DPC_001',
             nodeList: ['GV_004', 'WL_004'],
+            is_deleted: 1,
           },
           {
             serial_number: '0013A20040F7B4AB',
@@ -1345,6 +1367,7 @@ const map = {
             dccId: 'DCC_SSCS_001',
             dpcId: 'DPC_001',
             nodeList: ['GV_005', 'WL_005', 'BT_005', 'MRT_007'],
+            is_deleted: 1,
           },
         ],
       },
@@ -1353,7 +1376,7 @@ const map = {
         target_name: '육상 모듈 DL',
         dataLoggerDeviceList: [
           {
-            serial_number: '0013A20040E58A5E',
+            serial_number: '0013A2004190EDC2',
             target_code: '001',
             target_name: '육상 태양광 계측용',
             dccId: 'DCC_SSCS_001',
@@ -1380,6 +1403,7 @@ const map = {
             dccId: 'DCC_SSCS_001',
             dpcId: 'DPC_001',
             nodeList: ['P_001'],
+            is_deleted: 1,
           },
           {
             serial_number: '0013A20040F7B446',
@@ -1387,6 +1411,7 @@ const map = {
             dccId: 'DCC_SSCS_001',
             dpcId: 'DPC_001',
             nodeList: ['P_002'],
+            is_deleted: 1,
           },
           {
             serial_number: '0013A20040F7B44A',
@@ -1394,6 +1419,7 @@ const map = {
             dccId: 'DCC_SSCS_001',
             dpcId: 'DPC_001',
             nodeList: ['P_003'],
+            is_deleted: 1,
           },
           {
             serial_number: '0013A20040F7A4E0',
@@ -1401,6 +1427,7 @@ const map = {
             dccId: 'DCC_SSCS_001',
             dpcId: 'DPC_001',
             nodeList: ['P_004'],
+            is_deleted: 1,
           },
           {
             serial_number: '0013A20040F7A4D8',
@@ -1408,6 +1435,7 @@ const map = {
             dccId: 'DCC_SSCS_001',
             dpcId: 'DPC_001',
             nodeList: ['P_005'],
+            is_deleted: 1,
           },
           {
             serial_number: '0013A20040F7AB1C',
@@ -1415,6 +1443,7 @@ const map = {
             dccId: 'DCC_SSCS_001',
             dpcId: 'DPC_001',
             nodeList: ['P_006'],
+            is_deleted: 1,
           },
         ],
       },
@@ -1428,6 +1457,7 @@ const map = {
             dccId: 'DCC_SSCS_001',
             dpcId: 'DPC_001',
             nodeList: ['CGR_001', 'CGR_002'],
+            is_deleted: 1,
           },
         ],
       },
@@ -1980,11 +2010,13 @@ const map = {
                 target_code: '001',
                 target_name: '육상 최종 G2G(다) 쏠라테크',
                 repeatId: 'RE_PREFIX_IVT',
+                nodeList: ['MRT_005'],
               },
               {
                 target_code: '002',
                 target_name: '육상 최종 G2G(다) 에스케이쏠라',
                 repeatId: 'RE_PREFIX_IVT',
+                nodeList: ['MRT_006'],
               },
               {
                 target_code: '003',
