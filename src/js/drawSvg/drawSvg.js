@@ -5,15 +5,15 @@ const ERROR_DATA = '-1';
 /** @type {{nodeId: string, nodeName: '', text: textElement}[]} */
 const writtenSvgTextList = [];
 
+/** @type {mDeviceMap} */
+const realMap = map;
+
 /**
  * @param {string} documentId // 그려질 div의 id
  * @param {string=} title // 제목
  * @param {Boolean=} isShow // true: 화면 표시 (기본값), false: 숨김
  */
 function drawSvgBasePlace(documentId, isText, isShow = true) {
-  /** @type {mDeviceMap} */
-  const realMap = map;
-
   // svgCanvas 생성
   const { width: svgCanvasWidth, height: svgCanvasHeight } = realMap.drawInfo.frame.mapInfo;
   const {
@@ -23,7 +23,7 @@ function drawSvgBasePlace(documentId, isText, isShow = true) {
   const svgCanvas = SVG(documentId).size(svgCanvasWidth, svgCanvasHeight);
 
   // 팬줌 초기 맵 사이즈를 지정하기 위한 그려지는 공간의 id 지정
-  svgCanvas.attr({ id: 'svgCanvas' });
+  svgCanvas.attr({ id: 'svgCanvas', class: 'svg_map' });
 
   // map에 배경의 데이터가 있을경우 배경 이미지 지정
   const backgroundImg = svgCanvas.image(backgroundData);
@@ -81,13 +81,16 @@ function drawSvgBasePlace(documentId, isText, isShow = true) {
  * @param {string} nodeDefId
  * @param {number|string} data 데이터 값
  */
-function showNodeData(nodeDefId, data = '', isChangePlaceNodeName = false) {
+function showNodeData(nodeDefId, data = '', isIdText = false) {
+  // default Text가 숨겨진 상태이면 데이터 표시 생략
+  if (checkHidableText(nodeDefId)) return false;
+
   // 데이터 값에 따른 상태 색 변경
   changeNodeStatusColor(nodeDefId, data);
 
   let dataUnit = getDataUnit(nodeDefId); // 데이터 단위
   if (data === '' || _.isNull(dataUnit)) dataUnit = ''; // 장치일 경우 단위가 없음
-  let [dx, dy, style, nodeName] = [0, 15, 'font-size: 15pt; fill: #7675ff; stroke-width: 0.2', '']; // <Tspan> 속성
+  let [dx, dy, style, nodeName] = [0, 7, 'font-size: 5pt; fill: #7675ff; stroke-width: 0.2', '']; // <Tspan> 속성
 
   // svg로 그려진 Text의 정보를 찾는다. (위치값을 알기위한 용도)
   const foundSvgTextInfo = _.find(writtenSvgTextList, { id: nodeDefId });
@@ -96,18 +99,20 @@ function showNodeData(nodeDefId, data = '', isChangePlaceNodeName = false) {
   const foundNodeTextChild = $(`#text_${nodeDefId}`);
 
   // 장소, 장비, 센서 이름 재정의
-  isChangePlaceNodeName ? (nodeName = foundSvgTextInfo.id) : (nodeName = foundSvgTextInfo.name);
+  isIdText ? (nodeName = foundSvgTextInfo.id) : (nodeName = foundSvgTextInfo.name);
 
   // 데이터, 속성, 스타일 등을 적용해 tspan 다시 그리기
   foundNodeTextChild.get(0).innerHTML = `<tspan id='nodeName' x="${
     foundSvgTextInfo.textX
-  }"> ${nodeName}</tspan>`;
+  }" dy="8"> ${nodeName}</tspan>`;
   foundNodeTextChild.get(
     0,
   ).innerHTML += `<tspan id="nodeData" class ="${nodeDefId}" value="${data}" x="${
     foundSvgTextInfo.textX
   }" style="${style}" dx="${dx}" dy="${dy}">${data}</tspan>`; // data 표시
-  foundNodeTextChild.get(0).innerHTML += `<tspan>${dataUnit}</tspan>`; // data 단위 표시
+  if (_.isString(dataUnit)) {
+    foundNodeTextChild.get(0).innerHTML += `<tspan>${dataUnit}</tspan>`; // data 단위 표시
+  }
 }
 
 /**
@@ -144,7 +149,7 @@ function changeNodeStatusColor(nDefId, data) {
 
     // 데이터 상태에 따른 색상 변경
     if (checkDataStatus === FALSE_DATA) {
-      drawedSvgElement.attr({ fill: getNodeBgColor[0], opacity: 0.8 });
+      drawedSvgElement.attr({ fill: getNodeBgColor[0] });
     } else if (checkDataStatus === TRUE_DATA) {
       drawedSvgElement.attr({ fill: getNodeBgColor[1] });
     } else {
@@ -199,7 +204,7 @@ function writeSvgText(svgCanvas, defInfo, resourceInfo, isChangedPlaceNodeName =
     textColor = 'black';
     anchor = 'middle';
     textSize = 25;
-    leading = '0.8em';
+    leading = '1.1em';
   }
 
   // 사각형, 패턴 형식일 때 위치값 조정
@@ -259,7 +264,6 @@ function writeSvgText(svgCanvas, defInfo, resourceInfo, isChangedPlaceNodeName =
     .attr({
       'pointer-events': 'none', // text 커서 모양 설정
       id: `text_${defInfo.id}`,
-      name: 'text',
     });
 
   // 그려진 svg 텍스트의 정보 수집
@@ -279,28 +283,24 @@ function writeSvgText(svgCanvas, defInfo, resourceInfo, isChangedPlaceNodeName =
  */
 function checkHidableText(defId) {
   /** @type {mDeviceMap} */
-  const realMap = map;
+  const hiddenTextList = map.relationInfo.hiddenTextSvgModelResourceIdList;
   let isHidableText; //
+
+  if (_.includes(hiddenTextList, 'all')) return true;
 
   // defId 값이 장소인지 노드인지 구분
   // 장소
-  const foundPlaceInfo = _.find(realMap.drawInfo.positionInfo.svgPlaceList, svgPlaceInfo =>
+  const foundPlaceInfo = _.find(map.drawInfo.positionInfo.svgPlaceList, svgPlaceInfo =>
     _.map(svgPlaceInfo.defList, 'id').includes(defId),
   );
   // 노드
   if (_.isUndefined(foundPlaceInfo)) {
-    const foundNodeInfo = _.find(realMap.drawInfo.positionInfo.svgNodeList, svgNodeInfo =>
+    const foundNodeInfo = _.find(map.drawInfo.positionInfo.svgNodeList, svgNodeInfo =>
       _.map(svgNodeInfo.defList, 'id').includes(defId),
     );
-    isHidableText = _.includes(
-      realMap.relationInfo.hiddenTextSvgModelResourceIdList,
-      foundNodeInfo.nodeDefId,
-    );
+    isHidableText = _.includes(hiddenTextList, foundNodeInfo.nodeDefId);
   } else {
-    isHidableText = _.includes(
-      realMap.relationInfo.hiddenTextSvgModelResourceIdList,
-      foundPlaceInfo.placeId,
-    );
+    isHidableText = _.includes(hiddenTextList, foundPlaceInfo.placeId);
   }
 
   return isHidableText;
@@ -310,22 +310,27 @@ function checkHidableText(defId) {
  *  그려진 svg map 에서 장치,센서 클릭하여 제어할 수 있는 기능을 바인딩.
  * @param {socekt} socket
  */
-function bindingClickEventNode(socket, selectedModeVal = 'view') {
+function bindingClickNodeEvent(socket, selectedModeVal = 'view') {
   /** @type {mDeviceMap} */
   const realMap = map;
 
   realMap.drawInfo.positionInfo.svgNodeList.forEach(svgNodeInfo => {
     svgNodeInfo.defList.forEach(nodeDefInfo => {
+      // console.log(nodeDefInfo);
       const $drawedSvgElement = $(`#${nodeDefInfo.id}`);
 
       // 클릭 이벤트 바인딩
       $drawedSvgElement.on('click touchstart', () => {
         const deviceType = svgNodeInfo.is_sensor; // 장치 or 센서 구분  1: 센서, 0: 장치, -1: 미분류
-        const $nodeTspanEleInfo = $(`tspan.${nodeDefInfo.id}`); // svg 그려진 노드 <Tspan> 정보
+        const $nodeTspanEleList = $(`tspan.${nodeDefInfo.id}`); // svg 그려진 노드 <Tspan> 정보
 
         // 장치 and 제어모드
         if (deviceType === 0 && selectedModeVal === 'control') {
-          const currentNodeStatus = _.head($nodeTspanEleInfo).innerHTML; // 현재 들어오는 노드의 최근 데이터
+          if ($nodeTspanEleList.length === 0) {
+            return alert('장치 상태 미식별');
+          }
+
+          const currentNodeStatus = _.head($nodeTspanEleList).innerHTML; // 현재 들어오는 노드의 최근 데이터
           const checkedDataStatus = checkTrueFalseData(currentNodeStatus); // 데이터의 타입이 true데이터인지 false 데이터인지 체크
           // 현재 상태에 따라 confirm창 내용 변경
           if (checkedDataStatus === TRUE_DATA) {
@@ -366,17 +371,28 @@ function bindingClickEventNode(socket, selectedModeVal = 'view') {
  * @param {string} nodeId
  */
 function executeCommand(socket, controlType, nodeId) {
-  const requestMsg = {
-    commandId: 'SINGLE',
-    contents: {
-      wrapCmdType: 'CONTROL',
-      nodeId,
-      singleControlType: controlType,
-      rank: 2,
-    },
+  const reqCmdInfo = {
+    cmdFormat: 'SINGLE',
+    cmdType: 'CONTROL',
+    nodeId,
+    singleControlType: controlType,
+    // cmdType: $(reqCmdBtn).data('cmd-type'),
+    // cmdGoal: {
+    //   goalDataList: [],
+    // },
   };
-  console.log(requestMsg);
-  socket.emit('executeCommand', requestMsg);
+
+  // const requestMsg = {
+  //   commandId: 'SINGLE',
+  //   contents: {
+  //     wrapCmdType: 'CONTROL',
+  //     nodeId,
+  //     singleControlType: controlType,
+  //     rank: 2,
+  //   },
+  // };
+  // console.log(requestMsg);
+  socket.emit('executeCommand', reqCmdInfo);
 }
 
 /**
@@ -611,7 +627,6 @@ function drawSvgImage(svgCanvas, point, elementDrawInfo, id, isShow = true) {
  */
 function drawSvgShadow(model, defId) {
   if (isSensor(defId)) {
-    model.attr({ name: 'sensor' });
     model.filter(add => {
       const blur = add
         .offset(0, 5)
@@ -622,9 +637,9 @@ function drawSvgShadow(model, defId) {
   } else {
     model.filter(add => {
       const blur = add
-        .offset(5, 5)
+        .offset(7, 7)
         .in(add.sourceAlpha)
-        .gaussianBlur(2);
+        .gaussianBlur(4);
 
       add.blend(add.source, blur);
     });

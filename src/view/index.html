@@ -49,6 +49,7 @@
           <span class="glyphicon glyphicon-refresh"></span> 초기화
         </button>
         <div class="mr_1rem">
+          한/영
           <input id="placeNodeChangeNameToogleBtn" type="checkbox" data-toggle="toggle" />
         </div>
         <select class="selectpicker mr_1rem">
@@ -105,6 +106,7 @@
         bindingClickEventNode('', selectedModeVal); // 장치, 센서 클릭 이벤트 다시 바인딩
       });
     </script>
+
     <!-- set panzoom -->
     <script>
       var canvas = document.getElementById('canvas');
@@ -119,6 +121,7 @@
       $('#reset').on('click', canvasPanzoom.reset);
       canvas.addEventListener('wheel', canvasPanzoom.zoomWithWheel);
     </script>
+
     <!-- FIXME: map 그릴 때 좌표 찾기 용 -->
     <script>
       $('#svgCanvas').click(function(e) {
@@ -129,7 +132,7 @@
       });
     </script>
 
-    <!-- TODO: 물결 세팅 노가다 -->
+    <!-- FIXME: 물결 세팅 노가다 *추후 삭제 또는 활용 -->  
     <script>
       var svgCanvas = SVG.get('#svgCanvas');
 
@@ -227,9 +230,10 @@
         .attr({ opacity: 0 });
 
     </script>
-    <!-- TODO: 이벤트 노가다 -->
+
+    <!-- FIXME: 이벤트 노가다 *추후 삭제 또는 활용 -->  
     <script>
-      //TODO: reset
+      //FIXME: reset  *추후 삭제 또는 활용
       function resetWave() {
         resorviorWave
           .animate({
@@ -353,208 +357,174 @@
           });
       }
 
-      // TODO: rain mode
-      function startRainMode() {
-        resetWave();
-
+      // FIXME: rain mode  *추후 삭제 또는 활용
+      function startRainMode(isTrue=true) {
         rainModeWaterfull
           .animate({
             duration: 1000,
             when: 'now',
           })
-          .attr({ opacity: 1 });
+          .attr({ opacity: isTrue ? 1 : 0 });
 
         brineWarehouseAWave
           .animate({
             duration: 6000,
             when: 'now',
           })
-          .attr({ opacity: 0.5 });
+          .attr({ opacity: isTrue ? 0.5 : 0.2 });
 
         brineWarehouseBWave
           .animate({
             duration: 6000,
             when: 'now',
           })
-          .attr({ opacity: 0.5 });
+          .attr({ opacity: isTrue ? 0.5 : 0.2 });
 
         normalEvaporationAWave
           .animate({
             duration: 9000,
             when: 'now',
           })
-          .attr({ opacity: 0 });
+          .attr({ opacity: isTrue ? 0 : 0.2 });
 
         normalEvaporationBWave
           .animate({
             duration: 9000,
             when: 'now',
           })
-          .attr({ opacity: 0 });
+          .attr({ opacity: isTrue ? 0 : 0.2 });
 
         moduleWave
           .animate({
             duration: 9000,
             when: 'now',
           })
-          .attr({ opacity: 0 });
+          .attr({ opacity: isTrue ? 0 : 0.2 });
       }
 
-      //TODO: 저수지 > 증발지 1
-      function flowToNormalEvaporationA() {
-        resetWave();
-
+      //FIXME: 저수지 > 증발지 1  *추후 삭제 또는 활용
+      function flowToNormalEvaporationA(isTrue) {
         normalEvaAwaterfull
           .move(1146, 30)
           .animate({
             duration: 1000,
             when: 'now',
           })
-          .attr({ opacity: 1 });
+          .attr({ opacity: isTrue ? 1 :0 });
 
         normalEvaporationAWave
           .animate({
             duration: 9000,
             when: 'now',
           })
-          .attr({ opacity: 0.4 });
+          .attr({ opacity: isTrue ? 0.4 : 0.2 });
       }
 
-      //TODO: 증발지1 > 증발지2
+      //FIXME: 증발지1 > 증발지2  *추후 삭제 또는 활용
       function flowToNormalEvaporationB() {
-        resetWave();
 
         normalEvaBWaterfull
           .animate({
             duration: 1000,
             when: 'now',
           })
-          .attr({ opacity: 1 });
+          .attr({ opacity: isTrue ? 1 : 0 });
 
         normalEvaporationBWave
           .animate({
             duration: 9000,
             when: 'now',
           })
-          .attr({ opacity: 0.4 });
+          .attr({ opacity: isTrue ? 0.4 : 0.2});
       }
 
-      //TODO: 증발지2 > 해주1
+      //FIXME: 증발지2 > 해주1  *추후 삭제 또는 활용
       function flowToBrineWarehouseA() {
-        resetWave();
 
         brineWHAWaterfull
           .animate({
             duration: 1000,
             when: 'now',
           })
-          .attr({ opacity: 1 });
+          .attr({ opacity: isTrue ? 1 : 0 });
 
         brineWarehouseAWave
           .animate({
             duration: 1000,
             when: 'now',
           })
-          .attr({ opacity: 0.4 });
+          .attr({ opacity:isTrue ? 0 : 0.2 });
       }
 
-      //TODO: 해주1 > 모듈
+      //FIXME: 해주1 > 모듈  *추후 삭제 또는 활용
       function flowToModule() {
-        resetWave();
 
         systemAWaterfull
           .animate({
             duration: 1000,
             when: 'now',
           })
-          .attr({ opacity: 1 });
+          .attr({ opacity: isTrue ? 1 : 0 });
 
         systemBWaterfull
           .animate({
             duration: 1000,
             when: 'now',
           })
-          .attr({ opacity: 1 });
+          .attr({ opacity: isTrue ? 1 : 0 });
 
         systemCWaterfull
           .animate({
             duration: 1000,
             when: 'now',
           })
-          .attr({ opacity: 1 });
+          .attr({ opacity: isTrue ? 1 : 0 });
 
         systemDWaterfull
           .animate({
             duration: 1000,
             when: 'now',
           })
-          .attr({ opacity: 1 });
+          .attr({ opacity: isTrue ? 1 : 0 });
 
         moduleWave
           .animate({
             duration: 9000,
             when: 'now',
           })
-          .attr({ opacity: 0.4 });
+          .attr({ opacity: isTrue ? 0.4 : 0.2 });
       }
 
-      //TODO: 모듈 > 결정지
+      //FIXME: 모듈 > 결정지  *추후 삭제 또는 활용
       function flowToNormalCrystal() {
-        resetWave();
 
         normalCrystalWaterfull
           .animate({
             duration: 1000,
             when: 'now',
           })
-          .attr({ opacity: 1 });
+          .attr({ opacity: isTrue ? 1 : 0 });
       }
 
-      //TODO: 결정지 > 해주2
+      //FIXME: 결정지 > 해주2  *추후 삭제 또는 활용
       function flowToBrineWarehouseB() {
-        resetWave();
-
         brineWHBWaterfull
           .animate({
             duration: 1000,
             when: 'now',
           })
-          .attr({ opacity: 1 });
+          .attr({ opacity: isTrue ? 1 : 0 });
 
         brineWarehouseBWave
           .animate({
             duration: 9000,
             when: 'now',
           })
-          .attr({ opacity: 0.4 });
+          .attr({ opacity: isTrue ? 0.4 : 0.2 });
       }
-
-      //TODO: button event
-      $('#rainMode').on('click', function() {
-        startRainMode();
-      });
-      $('#1').on('click', function() {
-        flowToNormalEvaporationA();
-      });
-      $('#2').on('click', function() {
-        flowToNormalEvaporationB();
-      });
-      $('#3').on('click', function() {
-        flowToBrineWarehouseA();
-      });
-      $('#4').on('click', function() {
-        flowToModule();
-      });
-      $('#5').on('click', function() {
-        flowToNormalCrystal();
-      });
-      $('#6').on('click', function() {
-        flowToBrineWarehouseB();
-      });
-      $('#animationReset').on('click', function() {
-        resetWave()
-      });
     </script>
+
+    <!-- FIXME: 추 후 drawSvg로 이동해야할 소스 -->
     <script>
 
       var sensor =  svgCanvas.select('rect[name="sensor"]')
@@ -562,6 +532,71 @@
       
       sensor.front();
       text.front();
+    </script>
+
+    <!-- FIXME: 애니메이션 효과 통합 func  *추후 삭제 또는 활용--> 
+    <script>
+      // 0(우천 시 염수 해주로 이동), stepNum 1 ~ 6 (수지에서 결정지까지 흐름), reset (default)
+      function startFlowAnimation(stepNum, isTrue){
+        switch (stepNum) {
+          case 0:
+            startRainMode(isTrue);
+            break;
+          case 1:
+            flowToNormalEvaporationA(isTrue);
+            break;
+          case 2:
+            flowToNormalEvaporationB(isTrue);
+            break;
+          case 3:
+            flowToBrineWarehouseA(isTrue);
+            break;
+          case 4:
+            flowToModule(isTrue);
+            break;
+          case 5:
+            flowToNormalCrystal(isTrue);
+            break;
+          case 6:
+            flowToBrineWarehouseB(isTrue);
+            break;
+          case 'reset':
+            resetWave();
+            break;
+          default:
+            break;
+        }
+      }
+    
+    </script>
+
+    <!-- FIXME: 추 후 삭제 -->
+    <script>
+        //FIXME: button event  *추후 삭제 또는 활용
+      $('#rainMode').on('click', function() {
+        startFlowAnimation(0);
+      });
+      $('#1').on('click', function() {
+         startFlowAnimation(1);
+      });
+      $('#2').on('click', function() {
+         startFlowAnimation(2);
+      });
+      $('#3').on('click', function() {
+         startFlowAnimation(3);
+      });
+      $('#4').on('click', function() {
+         startFlowAnimation(4);
+      });
+      $('#5').on('click', function() {
+         startFlowAnimation(5);
+      });
+      $('#6').on('click', function() {
+         startFlowAnimation(6);
+      });
+      $('#animationReset').on('click', function() {
+         startFlowAnimation('reset');
+      });
     </script>
   </body>
 </html>
