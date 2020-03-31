@@ -934,7 +934,7 @@ const map = {
           subType: 'xbee',
           baudRate: 9600,
           port: 'COM2',
-          retryChance: 1,
+          // retryChance: 1,
         },
       },
       {
@@ -1275,14 +1275,14 @@ const map = {
             target_code: '002',
             dccId: 'DCC_SSCS_001',
             dpcId: 'DPC_001',
-            nodeList: ['V_002', 'MRT_002', 'BT_002'],
+            nodeList: ['V_002', 'BT_002'],
           },
           {
             serial_number: '0013A20040F7B455',
             target_code: '003',
             dccId: 'DCC_SSCS_001',
             dpcId: 'DPC_001',
-            nodeList: ['V_003', 'MRT_003', 'BT_003'],
+            nodeList: ['V_003', 'BT_003'],
           },
           {
             serial_number: '0013A20040F7B43C',
@@ -1353,11 +1353,20 @@ const map = {
         target_name: '육상 모듈 DL',
         dataLoggerDeviceList: [
           {
-            serial_number: '0013A20040F7AB86',
+            serial_number: '0013A20040E58A5E',
             target_code: '001',
+            target_name: '육상 태양광 계측용',
             dccId: 'DCC_SSCS_001',
             dpcId: 'DPC_001',
             nodeList: ['MRT_005', 'MRT_006'],
+          },
+          {
+            serial_number: '0013A20040E58A1A',
+            target_code: '002',
+            target_name: '수증 2, 3 모듈 온도 계측용',
+            dccId: 'DCC_SSCS_001',
+            dpcId: 'DPC_001',
+            nodeList: ['MRT_002', 'MRT_003'],
           },
         ],
       },
@@ -1529,10 +1538,10 @@ const map = {
             nodeList: [
               { target_code: '001', axisScale: [0, 0], moveScale: [0, 0] },
               { target_code: '002', axisScale: [0, 0], moveScale: [0, 0] },
-              { target_code: '003', axisScale: [0, 0], moveScale: [0, 0] },
+              { target_code: '003', data_logger_index: 1, axisScale: [0, 0], moveScale: [0, 0] },
               { target_code: '004', axisScale: [0, 0], moveScale: [0, 0] },
-              { target_code: '005', data_logger_index: 1, axisScale: [0, 0], moveScale: [0, -1] },
-              { target_code: '006', axisScale: [0, 0], moveScale: [0, -1] },
+              { target_code: '005', axisScale: [0, 0], moveScale: [0, -1] },
+              { target_code: '006', data_logger_index: 1, axisScale: [0, 0], moveScale: [0, -1] },
               { target_code: '007', axisScale: [0, 0], moveScale: [0, 0] },
             ],
           },
@@ -1971,13 +1980,11 @@ const map = {
                 target_code: '001',
                 target_name: '육상 최종 G2G(다) 쏠라테크',
                 repeatId: 'RE_PREFIX_IVT',
-                nodeList: ['MRT_005'],
               },
               {
                 target_code: '002',
                 target_name: '육상 최종 G2G(다) 에스케이쏠라',
                 repeatId: 'RE_PREFIX_IVT',
-                nodeList: ['MRT_006'],
               },
               {
                 target_code: '003',
@@ -2020,7 +2027,7 @@ const map = {
             placeList: [
               {
                 target_code: '1_A',
-                target_name: '수중 G2G(다)',
+                target_name: '수중 일반(단) 에스에너지',
                 nodeList: ['GV_001', 'WL_001', 'V_001', 'MRT_001', 'O_001', 'BT_001'],
                 depth: 5,
                 place_info: {
@@ -2051,7 +2058,7 @@ const map = {
               },
               {
                 target_code: '1_B',
-                target_name: '수중 최종 G2G(단)',
+                target_name: '수중 최종 G2G(단) 에스케이쏠라',
                 nodeList: ['MRT_002', 'O_002'],
                 depth: 5,
                 place_info: {
@@ -2082,7 +2089,7 @@ const map = {
               },
               {
                 target_code: '1_C',
-                target_name: '수중 최종 G2G(단)',
+                target_name: '수중 최종 G2G(단) 쏠라테크',
                 nodeList: ['MRT_003', 'O_003'],
                 depth: 5,
                 place_info: {
@@ -2113,7 +2120,7 @@ const map = {
               },
               {
                 target_code: '1_D',
-                target_name: '수중 일반(단)',
+                target_name: '수중 G2G(다) 에스에너지',
                 nodeList: ['GV_004', 'WL_004', 'V_004', 'MRT_004', 'O_004', 'BT_004'],
                 depth: 5,
                 place_info: {
