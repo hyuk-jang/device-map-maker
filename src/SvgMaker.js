@@ -419,7 +419,7 @@ class SvgMaker {
 
             pNodeList.forEach(nodeId => {
               const foundSensorValue = this.findIsSensorValue(nodeId);
-              if (foundSensorValue === 1) {
+              if (foundSensorValue === 1 || foundSensorValue === 2) {
                 sensorStorage.push(nodeId);
               }
             });

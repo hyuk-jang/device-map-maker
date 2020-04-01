@@ -80,15 +80,20 @@ function drawSvgBasePlace(documentId, isText, isShow = true) {
  * 노드 또는 센서에 데이터 표시
  * @param {string} nodeDefId
  * @param {number|string} data 데이터 값
+ * @param {Object=} options
+ * @param {boolean=} options.isIdText id로 표현할 것인가 name으로 표현할 것인가.
+ * @param {boolean=} options.isShowCodeNum 고유 이름 중 고유 코드를 보여 줄 것인가.
  */
-function showNodeData(nodeDefId, data = '', isIdText = false) {
+function showNodeData(nodeDefId, data = '', options) {
+  const { isIdText, isShowCodeNum } = options;
+
   // default Text가 숨겨진 상태이면 데이터 표시 생략
   if (checkHidableText(nodeDefId)) return false;
 
   // 데이터 값에 따른 상태 색 변경
   changeNodeStatusColor(nodeDefId, data);
 
-  let dataUnit = getDataUnit(nodeDefId); // 데이터 단위
+  let dataUnit = getDataUnit(nodeDefId); // 데이터 단위 /(?<=_)[0-9]+/g
   if (data === '' || _.isNull(dataUnit)) dataUnit = ''; // 장치일 경우 단위가 없음
   let [dx, dy, style, nodeName] = [0, 7, 'font-size: 5pt; fill: #7675ff; stroke-width: 0.2', '']; // <Tspan> 속성
 
@@ -100,6 +105,13 @@ function showNodeData(nodeDefId, data = '', isIdText = false) {
 
   // 장소, 장비, 센서 이름 재정의
   isIdText ? (nodeName = foundSvgTextInfo.id) : (nodeName = foundSvgTextInfo.name);
+  if (!isShowCodeNum) {
+    nodeName = _(nodeName)
+      .split('_')
+      .dropRight()
+      .join('_');
+  }
+  // !isShowCodeNum &&
 
   // 데이터, 속성, 스타일 등을 적용해 tspan 다시 그리기
   foundNodeTextChild.get(0).innerHTML = `<tspan id='nodeName' x="${
@@ -245,6 +257,7 @@ function writeSvgText(svgCanvas, defInfo, resourceInfo, isChangedPlaceNodeName =
     textColor = foundSvgModelResourceInfo.textStyleInfo.color;
     textSize = foundSvgModelResourceInfo.textStyleInfo.fontSize;
     leading = foundSvgModelResourceInfo.textStyleInfo.leading;
+    transform = foundSvgModelResourceInfo.textStyleInfo.transform;
   }
 
   // 제외 할 텍스트 찾기
@@ -264,6 +277,8 @@ function writeSvgText(svgCanvas, defInfo, resourceInfo, isChangedPlaceNodeName =
     .attr({
       'pointer-events': 'none', // text 커서 모양 설정
       id: `text_${defInfo.id}`,
+      name: 'text',
+      transform,
     });
 
   // 그려진 svg 텍스트의 정보 수집
@@ -627,6 +642,7 @@ function drawSvgImage(svgCanvas, point, elementDrawInfo, id, isShow = true) {
  */
 function drawSvgShadow(model, defId) {
   if (isSensor(defId)) {
+    model.attr({ name: 'sensor' });
     model.filter(add => {
       const blur = add
         .offset(0, 5)
@@ -671,8 +687,14 @@ function getDataUnit(nDefId) {
   const realMap = map;
 
   const foundUnit = _.find(realMap.setInfo.nodeStructureList, nodeStructureInfo =>
-    _.map(nodeStructureInfo.defList, 'target_prefix').includes(_.replace(nDefId, /[_\d]/g, '')),
+    _.map(nodeStructureInfo.defList, 'target_prefix').includes(
+      _.replace(nDefId, /(?<=_)[0-9]+/g, '').substring(
+        nDefId,
+        _.replace(nDefId, /(?<=_)[0-9]+/g, '').length - 1,
+      ),
+    ),
   );
+
   if (_.isUndefined(foundUnit)) return false;
   return foundUnit.data_unit;
 }

@@ -179,32 +179,38 @@ const map = {
         {
           id: 'salinity',
           type: 'rect',
-          elementDrawInfo: { width: 55, height: 25, color: '#f0f0f0', opacity: 0 },
+          elementDrawInfo: { width: 55, height: 25, color: '#f0f0f0', opacity: 1 },
           textStyleInfo: { color: '', fontSize: 8 },
         },
         {
           id: 'moduleRearTemperature',
           type: 'rect',
-          elementDrawInfo: { width: 55, height: 25, color: '#f0f0f0', opacity: 0 },
+          elementDrawInfo: { width: 55, height: 25, color: '#f0f0f0', opacity: 1 },
           textStyleInfo: { color: '', fontSize: 8 },
         },
         {
           id: 'waterLevel',
           type: 'rect',
-          elementDrawInfo: { width: 55, height: 25, color: '#f0f0f0', opacity: 0 },
+          elementDrawInfo: { width: 55, height: 25, color: '#f0f0f0', opacity: 1 },
           textStyleInfo: { color: '', fontSize: 8 },
         },
         {
           id: 'brineTemperature',
           type: 'rect',
-          elementDrawInfo: { width: 55, height: 25, color: '#f0f0f0', opacity: 0 },
+          elementDrawInfo: { width: 55, height: 25, color: '#f0f0f0', opacity: 1 },
+          textStyleInfo: { color: '', fontSize: 8 },
+        },
+        {
+          id: 'powerGridKw',
+          type: 'rect',
+          elementDrawInfo: { width: 55, height: 25, color: '#f0f0f0', opacity: 1 },
           textStyleInfo: { color: '', fontSize: 8 },
         },
         {
           id: 'system',
           type: 'rect',
           elementDrawInfo: { width: 340, height: 160, color: 'green', opacity: 0 },
-          textStyleInfo: { color: '', fontSize: 8 },
+          textStyleInfo: { color: 'white', fontSize: 15, transform: 'translate(-120 -70)' },
         },
       ],
     },
@@ -291,7 +297,7 @@ const map = {
           placeId: 'reservoir',
           defList: [
             { id: 'RV_1', name: '저수지_1', resourceId: 'reservoir_A', point: [1240, 10] },
-            { id: 'RV_2', name: '저수지_2', resourceId: 'reservoir_B', point: [1240, 750] },
+            { id: 'RV_2', name: '', resourceId: 'reservoir_B', point: [1240, 750] },
           ],
         },
         {
@@ -1406,14 +1412,14 @@ const map = {
             target_prefix: 'BT',
             target_name: '염수 온도',
             nodeList: [
-              { target_code: '001', axisScale: [0, 0], moveScale: [-1, 0] },
-              { target_code: '002', axisScale: [0, 0], moveScale: [-1, 0] },
-              { target_code: '003', axisScale: [0, 0], moveScale: [-1, 0] },
-              { target_code: '004', axisScale: [0, 0], moveScale: [-1, 0] },
-              { target_code: '005', axisScale: [0, 0], moveScale: [-1, 0] },
-              { target_code: '006', axisScale: [0, 0], moveScale: [-1, 0] },
-              { target_code: '007', axisScale: [0, 0], moveScale: [-1, 0] },
-              { target_code: '008', axisScale: [0, 0], moveScale: [-1, 0] },
+              { target_code: '001', axisScale: [0, 0], moveScale: [0, 3.2] },
+              { target_code: '002', axisScale: [0, 0], moveScale: [0, 0] },
+              { target_code: '003', axisScale: [0, 0], moveScale: [0, 3.2] },
+              { target_code: '004', axisScale: [0, 0], moveScale: [0, 0] },
+              { target_code: '005', axisScale: [0, 0], moveScale: [0, 3.2] },
+              { target_code: '006', axisScale: [0, 0], moveScale: [0, 0] },
+              { target_code: '007', axisScale: [0, 0], moveScale: [0, 3.2] },
+              { target_code: '008', axisScale: [0, 0], moveScale: [0, 0] },
             ],
           },
           {
@@ -1422,14 +1428,14 @@ const map = {
             target_name: '모듈 온도',
             description: null,
             nodeList: [
-              { target_code: '001', axisScale: [0, 0], moveScale: [1, -2] },
-              { target_code: '002', axisScale: [0, 0], moveScale: [1, -2] },
-              { target_code: '003', axisScale: [0, 0], moveScale: [1, -2] },
-              { target_code: '004', axisScale: [0, 0], moveScale: [1, -2] },
-              { target_code: '005', axisScale: [0, 0], moveScale: [1, -2] },
-              { target_code: '006', axisScale: [0, 0], moveScale: [1, -2] },
-              { target_code: '007', axisScale: [0, 0], moveScale: [1, -2] },
-              { target_code: '008', axisScale: [0, 0], moveScale: [1, -2] },
+              { target_code: '001', axisScale: [0, 0], moveScale: [-0.2, 4.4] },
+              { target_code: '002', axisScale: [0, 0], moveScale: [0, 0] },
+              { target_code: '003', axisScale: [0, 0], moveScale: [-0.2, 4.4] },
+              { target_code: '004', axisScale: [0, 0], moveScale: [0, 0] },
+              { target_code: '005', axisScale: [0, 0], moveScale: [-0.2, 4.4] },
+              { target_code: '006', axisScale: [0, 0], moveScale: [0, 0] },
+              { target_code: '007', axisScale: [0, 0], moveScale: [-0.2, 4.4] },
+              { target_code: '008', axisScale: [0, 0], moveScale: [0, 0] },
             ],
           },
         ],
@@ -1447,14 +1453,14 @@ const map = {
             description: null,
             nodeList: [
               { target_code: '001', axisScale: [0, 0], moveScale: [0, 0] },
-              { target_code: '002', axisScale: [0, 0], moveScale: [1, -3] },
-              { target_code: '003', axisScale: [0, 0], moveScale: [1, -3] },
-              { target_code: '004', axisScale: [0, 0], moveScale: [1, -3] },
-              { target_code: '005', axisScale: [0, 0], moveScale: [1, -3] },
-              { target_code: '006', axisScale: [0, 0], moveScale: [1, -3] },
-              { target_code: '007', axisScale: [0, 0], moveScale: [1, -3] },
-              { target_code: '008', axisScale: [0, 0], moveScale: [1, -3] },
-              { target_code: '009', axisScale: [0, 0], moveScale: [1, -3] },
+              { target_code: '002', axisScale: [0, 0], moveScale: [0, 2] },
+              { target_code: '003', axisScale: [0, 0], moveScale: [0, 0] },
+              { target_code: '004', axisScale: [0, 0], moveScale: [0, 2] },
+              { target_code: '005', axisScale: [0, 0], moveScale: [0, 0] },
+              { target_code: '006', axisScale: [0, 0], moveScale: [0, 2] },
+              { target_code: '007', axisScale: [0, 0], moveScale: [0, 0] },
+              { target_code: '008', axisScale: [0, 0], moveScale: [0, 2] },
+              { target_code: '009', axisScale: [0, 0], moveScale: [0, 0] },
             ],
           },
         ],
@@ -1478,14 +1484,14 @@ const map = {
               { target_code: '006', axisScale: [0, 0], moveScale: [0, 0] },
               { target_code: '007', axisScale: [0, 0], moveScale: [0, 0] },
               { target_code: '008', axisScale: [0, 0], moveScale: [0, 0] },
-              { target_code: '009', axisScale: [0, 0], moveScale: [-1, -1.5] },
-              { target_code: '010', axisScale: [0, 0], moveScale: [-1, -1.5] },
-              { target_code: '011', axisScale: [0, 0], moveScale: [-1, -1.5] },
-              { target_code: '012', axisScale: [0, 0], moveScale: [-1, -1.5] },
-              { target_code: '013', axisScale: [0, 0], moveScale: [-1, -1.5] },
-              { target_code: '014', axisScale: [0, 0], moveScale: [-1, -1.5] },
-              { target_code: '015', axisScale: [0, 0], moveScale: [-1, -1.5] },
-              { target_code: '016', axisScale: [0, 0], moveScale: [-1, -1.5] },
+              { target_code: '009', axisScale: [0, 0], moveScale: [1, 2] },
+              { target_code: '010', axisScale: [0, 0], moveScale: [0, 0] },
+              { target_code: '011', axisScale: [0, 0], moveScale: [1, 2] },
+              { target_code: '012', axisScale: [0, 0], moveScale: [0, 0] },
+              { target_code: '013', axisScale: [0, 0], moveScale: [1, 2] },
+              { target_code: '014', axisScale: [0, 0], moveScale: [0, 0] },
+              { target_code: '015', axisScale: [0, 0], moveScale: [1, 2] },
+              { target_code: '016', axisScale: [0, 0], moveScale: [0, 0] },
               { target_code: '017', axisScale: [0, 0], moveScale: [0, 0] },
               { target_code: '018', axisScale: [0, 0], moveScale: [0, 0] },
             ],
@@ -1786,10 +1792,32 @@ const map = {
           },
           {
             target_id: 'powerGridKw',
-            target_name: '인버터 현재 전력',
+            target_name: '전력',
             target_prefix: 'IVT_PW_G_KW',
             description: 'Power',
             repeatId: 'RE_NODE_IVT',
+            nodeList: [
+              {
+                target_code: '001',
+                axisScale: [0, 0],
+                moveScale: [2.5, 3.1],
+              },
+              {
+                target_code: '002',
+                axisScale: [0, 0],
+                moveScale: [2.5, 3.1],
+              },
+              {
+                target_code: '003',
+                axisScale: [0, 0],
+                moveScale: [2.5, 3.1],
+              },
+              {
+                target_code: '004',
+                axisScale: [0, 0],
+                moveScale: [2.5, 3.1],
+              },
+            ],
           },
         ],
       },
@@ -1946,7 +1974,7 @@ const map = {
             placeList: [
               {
                 target_code: '1',
-                nodeList: ['S_002', 'WL_009', 'MRT_001', 'BT_001', 'O_004'],
+                nodeList: ['S_002', 'WL_009', 'MRT_001', 'BT_001', 'O_004', 'IVT_PW_G_KW_001'],
                 depth: 5,
                 place_info: {
                   thresholdConfigList: [
@@ -1978,7 +2006,7 @@ const map = {
               },
               {
                 target_code: '2',
-                nodeList: ['S_003', 'WL_010', 'MRT_002', 'BT_002', 'O_005'],
+                nodeList: [],
                 depth: 5,
                 place_info: {
                   thresholdConfigList: [
@@ -2010,7 +2038,7 @@ const map = {
               },
               {
                 target_code: '3',
-                nodeList: ['S_004', 'WL_011', 'MRT_003', 'BT_003', 'O_006'],
+                nodeList: ['S_004', 'WL_011', 'MRT_003', 'BT_003', 'O_006', 'IVT_PW_G_KW_002'],
                 depth: 5,
                 place_info: {
                   thresholdConfigList: [
@@ -2042,7 +2070,7 @@ const map = {
               },
               {
                 target_code: '4',
-                nodeList: ['S_005', 'WL_012', 'MRT_004', 'BT_004', 'O_007'],
+                nodeList: [],
                 depth: 5,
                 place_info: {
                   thresholdConfigList: [
@@ -2074,7 +2102,7 @@ const map = {
               },
               {
                 target_code: '5',
-                nodeList: ['S_006', 'WL_013', 'MRT_005', 'BT_005', 'O_008'],
+                nodeList: ['S_006', 'WL_013', 'MRT_005', 'BT_005', 'O_008', 'IVT_PW_G_KW_003'],
                 depth: 5,
                 place_info: {
                   thresholdConfigList: [
@@ -2106,7 +2134,7 @@ const map = {
               },
               {
                 target_code: '6',
-                nodeList: ['S_007', 'WL_014', 'MRT_006', 'BT_006', 'O_009'],
+                nodeList: [],
                 depth: 5,
                 place_info: {
                   thresholdConfigList: [
@@ -2138,7 +2166,7 @@ const map = {
               },
               {
                 target_code: '7',
-                nodeList: ['S_008', 'WL_015', 'MRT_007', 'BT_007', 'O_010'],
+                nodeList: ['S_008', 'WL_015', 'MRT_007', 'BT_007', 'O_010', 'IVT_PW_G_KW_004'],
                 depth: 5,
                 place_info: {
                   thresholdConfigList: [
@@ -2170,7 +2198,7 @@ const map = {
               },
               {
                 target_code: '8',
-                nodeList: ['S_009', 'WL_016', 'MRT_008', 'BT_008', 'O_011'],
+                nodeList: [],
                 depth: 5,
                 place_info: {
                   thresholdConfigList: [
@@ -2209,7 +2237,7 @@ const map = {
             placeList: [
               {
                 target_code: '1',
-                nodeList: ['WD_001', 'WD_002', 'WD_003', 'WL_003', 'O_002'],
+                nodeList: ['WD_001', 'WD_002', 'WD_003', 'O_002'],
                 depth: 5,
                 place_info: {
                   thresholdConfigList: [
@@ -2228,7 +2256,7 @@ const map = {
               },
               {
                 target_code: '2',
-                nodeList: ['WD_002', 'WD_003', 'WD_004', 'S_001', 'WL_004', 'O_003'],
+                nodeList: ['WD_002', 'WD_003', 'WD_004', 'O_003'],
                 depth: 4,
                 place_info: {
                   thresholdConfigList: [
@@ -2259,7 +2287,7 @@ const map = {
             placeList: [
               {
                 target_code: '',
-                nodeList: ['WL_017', 'O_012'],
+                nodeList: ['O_012'],
                 depth: 0,
                 place_info: {
                   thresholdConfigList: [
@@ -2291,7 +2319,7 @@ const map = {
             placeList: [
               {
                 target_code: '1',
-                nodeList: ['WD_005', 'P_003', 'WL_005'],
+                nodeList: ['WD_005', 'P_003'],
                 depth: -1,
                 place_info: {
                   thresholdConfigList: [
@@ -2308,7 +2336,7 @@ const map = {
               },
               {
                 target_code: '2',
-                nodeList: ['WD_006', 'P_004', 'P_005', 'P_006', 'P_007', 'P_008', 'WL_006'],
+                nodeList: ['WD_006', 'P_004', 'P_005', 'P_006', 'P_007', 'P_008'],
                 depth: -1,
                 place_info: {
                   thresholdConfigList: [
@@ -2325,7 +2353,7 @@ const map = {
               },
               {
                 target_code: '3',
-                nodeList: ['P_009', 'P_010', 'P_011', 'WL_007'],
+                nodeList: ['P_009', 'P_010', 'P_011'],
                 depth: -1,
                 place_info: {
                   thresholdConfigList: [
@@ -2342,7 +2370,7 @@ const map = {
               },
               {
                 target_code: '4',
-                nodeList: ['P_012', 'WL_008'],
+                nodeList: ['P_012'],
                 depth: -1,
                 place_info: {
                   thresholdConfigList: [
@@ -2359,7 +2387,7 @@ const map = {
               },
               {
                 target_code: '5',
-                nodeList: ['P_013', 'WL_018', 'O_013'],
+                nodeList: ['P_013', 'O_013'],
                 depth: -1,
                 place_info: {
                   thresholdConfigList: [
@@ -2407,7 +2435,7 @@ const map = {
             placeList: [
               {
                 target_code: '1',
-                nodeList: ['P_001', 'P_014', 'WL_001', 'O_001', 'O_014'],
+                nodeList: ['P_001', 'P_014', 'O_001', 'O_014'],
                 depth: -1,
                 place_info: {
                   thresholdConfigList: [
@@ -2424,7 +2452,7 @@ const map = {
               },
               {
                 target_code: '2',
-                nodeList: ['P_002', 'WL_002'],
+                nodeList: ['P_002'],
                 depth: -1,
                 place_info: {
                   thresholdConfigList: [
@@ -2599,49 +2627,6 @@ const map = {
       { targetIdList: ['BW_3', 'BW_4'], resourceIdList: ['brineWarehouse_C'] },
       { targetIdList: ['BW_5', 'BW_6'], resourceIdList: ['brineWarehouse_D'] },
       {
-        targetIdList: ['WW_001', 'WW_002', 'WW_003', 'WW_004', 'WW_005', 'WW_006', 'WW_007'],
-        resourceIdList: ['waterWay'],
-      },
-      {
-        targetIdList: [
-          'WW_008',
-          'WW_009',
-          'WW_010',
-          'WW_011',
-          'WW_012',
-          'WW_013',
-          'WW_014',
-          'WW_015',
-          'WW_016',
-          'WW_017',
-          'WW_018',
-          'WW_019',
-        ],
-        resourceIdList: ['peWaterWay'],
-      },
-      {
-        targetIdList: [
-          'WW_020',
-          'WW_021',
-          'WW_022',
-          'WW_023',
-          'WW_024',
-          'WW_025',
-          'WW_026',
-          'WW_027',
-          'WW_028',
-          'WW_029',
-          'WW_030',
-          'WW_031',
-          'WW_032',
-          'WW_033',
-          'WW_034',
-          'WW_035',
-          'WW_036',
-        ],
-        resourceIdList: ['waterWay_B'],
-      },
-      {
         targetIdList: [
           'PL_003',
           'PL_004',
@@ -2754,7 +2739,7 @@ const map = {
       },
       {
         targetIdList: [
-          // 'S_001',
+          'S_001',
           'S_002',
           'S_003',
           'S_004',
@@ -2781,14 +2766,14 @@ const map = {
       },
       {
         targetIdList: [
-          // 'WL_001',
-          // 'WL_002',
-          // 'WL_003',
-          // 'WL_004',
-          // 'WL_005',
-          // 'WL_006',
-          // 'WL_007',
-          // 'WL_008',
+          'WL_001',
+          'WL_002',
+          'WL_003',
+          'WL_004',
+          'WL_005',
+          'WL_006',
+          'WL_007',
+          'WL_008',
           'WL_009',
           'WL_010',
           'WL_011',
@@ -2815,8 +2800,24 @@ const map = {
         ],
         resourceIdList: ['brineTemperature'],
       },
+      {
+        targetIdList: ['IVT_PW_G_KW_001', 'IVT_PW_G_KW_002', 'IVT_PW_G_KW_003', 'IVT_PW_G_KW_004'],
+        resourceIdList: ['powerGridKw'],
+      },
     ],
-    hiddenTextSvgModelResourceIdList: ['all'],
+    hiddenTextSvgModelResourceIdList: [
+      'sea',
+      'reservoir',
+      'salternBlock',
+      'pipeLine',
+      'outlet',
+      'waterDoor',
+      'gateValve',
+      'overPump',
+      'underPump',
+      'waterWay',
+      'brineWarehouse',
+    ],
   },
   controlInfo: {
     flowCmdList: [
