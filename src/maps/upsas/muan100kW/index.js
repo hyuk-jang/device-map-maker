@@ -1701,6 +1701,7 @@ const map = {
           {
             target_id: 'powerGridKw',
             target_name: '인버터 현재 전력',
+            is_submit_api: 1,
             target_prefix: 'IVT_PW_G_KW',
             description: 'Power',
             repeatId: 'RE_NODE_IVT',
