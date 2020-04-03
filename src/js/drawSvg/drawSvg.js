@@ -5,25 +5,28 @@ const ERROR_DATA = '-1';
 /** @type {{nodeId: string, nodeName: '', text: textElement}[]} */
 const writtenSvgTextList = [];
 
-/** @type {mDeviceMap} */
-const realMap = map;
-
 /**
  * @param {string} documentId // 그려질 div의 id
  * @param {string=} title // 제목
  * @param {Boolean=} isShow // true: 화면 표시 (기본값), false: 숨김
  */
 function drawSvgBasePlace(documentId, isText, isShow = true) {
+  /** @type {mDeviceMap} */
+  const realMap = map;
+
   // svgCanvas 생성
   const { width: svgCanvasWidth, height: svgCanvasHeight } = realMap.drawInfo.frame.mapInfo;
   const {
     backgroundData,
     backgroundPosition = [0, 0],
   } = realMap.drawInfo.frame.mapInfo.backgroundInfo;
-  const svgCanvas = SVG(documentId).size(svgCanvasWidth, svgCanvasHeight);
+  const svgCanvas = SVG(documentId).size('100%', '100%');
 
   // 팬줌 초기 맵 사이즈를 지정하기 위한 그려지는 공간의 id 지정
-  svgCanvas.attr({ id: 'svgCanvas', class: 'svg_map' });
+  svgCanvas.attr({ id: 'svgCanvas', class: 'svg_map', preserveAspectRatio: 'xMidYMin meet' });
+
+  // 브라우저 크기에 반응하기 위한 뷰박스 세팅
+  svgCanvas.viewbox(0, 0, svgCanvasWidth, svgCanvasHeight);
 
   // map에 배경의 데이터가 있을경우 배경 이미지 지정
   const backgroundImg = svgCanvas.image(backgroundData);
@@ -84,46 +87,51 @@ function drawSvgBasePlace(documentId, isText, isShow = true) {
  * @param {boolean=} options.isIdText id로 표현할 것인가 name으로 표현할 것인가.
  * @param {boolean=} options.isShowCodeNum 고유 이름 중 고유 코드를 보여 줄 것인가.
  */
-function showNodeData(nodeDefId, data = '', options) {
-  const { isIdText, isShowCodeNum } = options;
+function showNodeData(nodeDefId, data = '', options = {}) {
+  try {
+    const { isIdText, isShowCodeNum } = options;
 
-  // default Text가 숨겨진 상태이면 데이터 표시 생략
-  if (checkHidableText(nodeDefId)) return false;
+    // default Text가 숨겨진 상태이면 데이터 표시 생략
+    if (checkHidableText(nodeDefId)) return false;
 
-  // 데이터 값에 따른 상태 색 변경
-  changeNodeStatusColor(nodeDefId, data);
+    // 데이터 값에 따른 상태 색 변경
+    changeNodeStatusColor(nodeDefId, data);
 
-  let dataUnit = getDataUnit(nodeDefId); // 데이터 단위 /(?<=_)[0-9]+/g
-  if (data === '' || _.isNull(dataUnit)) dataUnit = ''; // 장치일 경우 단위가 없음
-  let [dx, dy, style, nodeName] = [0, 7, 'font-size: 5pt; fill: #7675ff; stroke-width: 0.2', '']; // <Tspan> 속성
+    let dataUnit = getDataUnit(nodeDefId); // 데이터 단위
+    if (data === '' || _.isNull(dataUnit)) dataUnit = ''; // 장치일 경우 단위가 없음
+    let [dx, dy, style, nodeName] = [0, 7, 'font-size: 5pt; fill: #7675ff; stroke-width: 0.2', '']; // <Tspan> 속성
 
-  // svg로 그려진 Text의 정보를 찾는다. (위치값을 알기위한 용도)
-  const foundSvgTextInfo = _.find(writtenSvgTextList, { id: nodeDefId });
-  if (_.isUndefined(foundSvgTextInfo)) return false;
-  // svg로 그려진 Text의 자식 Tspan 을 찾는다.
-  const foundNodeTextChild = $(`#text_${nodeDefId}`);
+    // svg로 그려진 Text의 정보를 찾는다. (위치값을 알기위한 용도)
+    const foundSvgTextInfo = _.find(writtenSvgTextList, { id: nodeDefId });
+    if (_.isUndefined(foundSvgTextInfo)) return false;
+    // svg로 그려진 Text의 자식 Tspan 을 찾는다.
+    const foundNodeTextChild = $(`#text_${nodeDefId}`);
 
-  // 장소, 장비, 센서 이름 재정의
-  isIdText ? (nodeName = foundSvgTextInfo.id) : (nodeName = foundSvgTextInfo.name);
-  if (!isShowCodeNum) {
-    nodeName = _(nodeName)
-      .split('_')
-      .dropRight()
-      .join('_');
-  }
-  // !isShowCodeNum &&
+    // 장소, 장비, 센서 이름 재정의
+    isIdText ? (nodeName = foundSvgTextInfo.id) : (nodeName = foundSvgTextInfo.name);
+    if (!isShowCodeNum) {
+      nodeName = _(nodeName)
+        .split('_')
+        .dropRight()
+        .join('_');
+    }
 
-  // 데이터, 속성, 스타일 등을 적용해 tspan 다시 그리기
-  foundNodeTextChild.get(0).innerHTML = `<tspan id='nodeName' x="${
-    foundSvgTextInfo.textX
-  }" dy="8"> ${nodeName}</tspan>`;
-  foundNodeTextChild.get(
-    0,
-  ).innerHTML += `<tspan id="nodeData" class ="${nodeDefId}" value="${data}" x="${
-    foundSvgTextInfo.textX
-  }" style="${style}" dx="${dx}" dy="${dy}">${data}</tspan>`; // data 표시
-  if (_.isString(dataUnit)) {
-    foundNodeTextChild.get(0).innerHTML += `<tspan>${dataUnit}</tspan>`; // data 단위 표시
+    // 데이터, 속성, 스타일 등을 적용해 tspan 다시 그리기
+    foundNodeTextChild.get(0).innerHTML = `<tspan id='nodeName' x="${
+      foundSvgTextInfo.textX
+    }" dy="8"> ${nodeName}</tspan>`;
+    foundNodeTextChild.get(
+      0,
+    ).innerHTML += `<tspan id="nodeData" class ="${nodeDefId}" value="${data}" x="${
+      foundSvgTextInfo.textX
+    }" style="${style}" dx="${dx}" dy="${dy}">${data}</tspan>`; // data 표시
+    if (_.isString(dataUnit)) {
+      foundNodeTextChild.get(0).innerHTML += `<tspan>${dataUnit}</tspan>`; // data 단위 표시
+    }
+  } catch (error) {
+    console.log(`'${nodeDefId}' is not included in svgNodeList!`);
+
+    return false;
   }
 }
 
@@ -298,24 +306,30 @@ function writeSvgText(svgCanvas, defInfo, resourceInfo, isChangedPlaceNodeName =
  */
 function checkHidableText(defId) {
   /** @type {mDeviceMap} */
-  const hiddenTextList = map.relationInfo.hiddenTextSvgModelResourceIdList;
+  const realMap = map;
   let isHidableText; //
 
-  if (_.includes(hiddenTextList, 'all')) return true;
+  if (_.includes(realMap.relationInfo.hiddenTextSvgModelResourceIdList, 'all')) return true;
 
   // defId 값이 장소인지 노드인지 구분
   // 장소
-  const foundPlaceInfo = _.find(map.drawInfo.positionInfo.svgPlaceList, svgPlaceInfo =>
+  const foundPlaceInfo = _.find(realMap.drawInfo.positionInfo.svgPlaceList, svgPlaceInfo =>
     _.map(svgPlaceInfo.defList, 'id').includes(defId),
   );
   // 노드
   if (_.isUndefined(foundPlaceInfo)) {
-    const foundNodeInfo = _.find(map.drawInfo.positionInfo.svgNodeList, svgNodeInfo =>
+    const foundNodeInfo = _.find(realMap.drawInfo.positionInfo.svgNodeList, svgNodeInfo =>
       _.map(svgNodeInfo.defList, 'id').includes(defId),
     );
-    isHidableText = _.includes(hiddenTextList, foundNodeInfo.nodeDefId);
+    isHidableText = _.includes(
+      realMap.relationInfo.hiddenTextSvgModelResourceIdList,
+      foundNodeInfo.nodeDefId,
+    );
   } else {
-    isHidableText = _.includes(hiddenTextList, foundPlaceInfo.placeId);
+    isHidableText = _.includes(
+      realMap.relationInfo.hiddenTextSvgModelResourceIdList,
+      foundPlaceInfo.placeId,
+    );
   }
 
   return isHidableText;
