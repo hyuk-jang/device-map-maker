@@ -419,7 +419,7 @@ class SvgMaker {
 
             pNodeList.forEach(nodeId => {
               const foundSensorValue = this.findIsSensorValue(nodeId);
-              if (foundSensorValue === 1) {
+              if (foundSensorValue === 1 || foundSensorValue === 2) {
                 sensorStorage.push(nodeId);
               }
             });
@@ -476,7 +476,7 @@ class SvgMaker {
               }
 
               const resourceInfo = this.getResourceInfo(sensorId);
-              BU.CLIS(sensorId, resourceInfo.elementDrawInfo);
+              // BU.CLIS(sensorId, resourceInfo.elementDrawInfo);
               const { width, height, color } = resourceInfo.elementDrawInfo;
               const [x1, y1, x2, y2] = placePoint;
               let x;
@@ -527,7 +527,7 @@ class SvgMaker {
         });
       });
     } catch (error) {
-      throw error;
+      // throw error;
     }
   }
 }

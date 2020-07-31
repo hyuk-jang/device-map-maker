@@ -15,13 +15,10 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.7/dist/css/bootstrap-select.min.css"
     />
+    <link rel="stylesheet" href="../css/template/common.css" />
 
-    <!-- <script src="../js/jquery-3.1.1.min.js"></script> -->
     <script src="../js/jquery-3.4.1.min.js"></script>
-    <!-- <script src="../js/jquery.panzoom.js"></script> -->
-    <script src="../js/panzoom.js"></script>
-    <script src="https://unpkg.com/panzoom@8.7.3/dist/panzoom.min.js"></script>
-    <script src="../js/jquery.mousewheel.js"></script>
+    <script src="../js/panzoom.min.js"></script>
 
     <script src="../js/bootstrap.min.js"></script>
     <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
@@ -34,47 +31,69 @@
 
     <script src="../../out/defaultMap.js"></script>
     <script src="../js/drawSvg/drawSvg.js"></script>
+    <script src="../setVipMode.js"></script>
+
   </head>
 
   <body>
     <!-- 메인 -->
     <!-- FIXME: 버튼 구조 수정 많이 필요  -->
     <div class="jumbotron text-center jumbotron_line">
-      <div id="zoom" style="display: flex; justify-content: center;">
-        <button id="zoomIn" class="btn btn-default btn-sm" style="margin-right: 5px">
-          <span class="glyphicon glyphicon-zoomIn"></span> Zoom-in
+      <div id="zoom" class="zoom_box">
+        <button id="zoomIn" class="btn btn-default btn-sm mr_1rem">
+          <span class="glyphicon glyphicon-zoom-in"></span> 확대
         </button>
-        <button id="zoomOut" class="btn btn-default btn-sm" style="margin-right: 5px">
-          <span class="glyphicon glyphicon-zoomOut"></span> Zoom-out
+        <button id="zoomOut" class="btn btn-default btn-sm mr_1rem">
+          <span class="glyphicon glyphicon-zoom-out"></span> 축소
         </button>
-        <button id="reset" class="btn btn-default btn-sm" style="margin-right: 5px">
-          <span class="glyphicon glyphicon-refresh"></span> Reset
+        <button id="reset" class="btn btn-default btn-sm mr_1rem">
+          <span class="glyphicon glyphicon-refresh"></span> 초기화
         </button>
-        <div style="margin-right: 5px">
+        <div class="mr_1rem">
+          한/영
           <input id="placeNodeChangeNameToogleBtn" type="checkbox" data-toggle="toggle" />
         </div>
-        <select class="selectpicker">
+        <select class="selectpicker mr_1rem">
           <option value="view" selected>뷰 모드</option>
           <option value="control">제어 모드</option>
           <option value="develop">개발 모드</option>
         </select>
+        <button id="rainMode" class="btn btn-default btn-sm mr_1rem">
+          <span class="glyphicon"></span> 우천모드
+        </button>
+        <button id="1" class="btn btn-default btn-sm mr_1rem">
+          <span class="glyphicon"></span> 저수지>증발지1
+        </button>
+        <button id="2" class="btn btn-default btn-sm mr_1rem">
+          <span class="glyphicon"></span> 증발지1>증발지2
+        </button>
+        <button id="3" class="btn btn-default btn-sm mr_1rem">
+          <span class="glyphicon"></span> 증발지2>해주
+        </button>
+        <button id="4" class="btn btn-default btn-sm mr_1rem">
+          <span class="glyphicon"></span> 해주>모듈
+        </button>
+        <button id="5" class="btn btn-default btn-sm mr_1rem">
+          <span class="glyphicon"></span> 모듈>결정지
+        </button>
+        </button>
+        <button id="6" class="btn btn-default btn-sm mr_1rem">
+          <span class="glyphicon"></span> 결정지>해주2
+        </button>
+        <button id="animationReset" class="btn btn-default btn-sm mr_1rem">
+          <span class="glyphicon"></span> 액션 리셋
+        </button>
       </div>
-      <!-- FIXME: 스타일 적용 이런식으로 하면 노답.  -->
       <div>
-        <div id="canvas" style="display: flex; justify-content: center; margin: 5px;"></div>
+        <div id="canvas" style="justify-content:center;"></div>
       </div>
     </div>
 
     <script>
-      // FIXME: 실제 사용할 때는 해당 부분 수정
+      // 실제 사용할 때는 해당 부분 수정
       map.drawInfo.frame.mapInfo.backgroundInfo.backgroundData = '../../out/defaultMap.png';
       // 멥 그리기
       drawSvgBasePlace('canvas');
-      // setPanzoom();
-
-      //FIXME: 테스트 용 선언
-      //   showNodeData('P_002', 'open');
-      //   showNodeData('WL_004', '100');
 
       //모드 선택 설렉트 박스 and 한/영 토글 버튼
       $('select, #placeNodeChangeNameToogleBtn').change(() => {
@@ -82,85 +101,65 @@
         const isChecked = $('#placeNodeChangeNameToogleBtn').prop('checked'); // 체크 상태 false: off, true: on
 
         $(`#canvas`).empty(); // svg가 그려진 공간 초기화
+
         drawSvgBasePlace('canvas', isChecked); // 초기화 후 다시 그리기 (체크 상태 포함)
 
         bindingClickEventNode('', selectedModeVal); // 장치, 센서 클릭 이벤트 다시 바인딩
-        // showNodeData('P_002', 'open', isChecked); // 새롭게 그려진 svg map 다시 데이터 뿌리기 (체크 상태 포함)
-        // showNodeData('WL_004', '100', isChecked);
       });
     </script>
+
+    <!-- set panzoom -->
     <script>
-      // panzoom 옵션 세팅
-      function setPanzoom() {
-        const svgMap = SVG.get('svgCanvas');
-        const canvas = document.getElementById('canvas');
-        const $canvas = $('#canvas');
-        //FIXME:
-        const { innerWidth, innerHeight } = window;
-        const { width, height } = map.drawInfo.frame.mapInfo;
-        // const matrix = `matrix(1, 0, 0, 1, ${width - width * 1.27}, ${height - height * 1.3})`;
-        const matrix = `matrix(1, 0, 0, 1, 0, 0)`;
-        const filter = 'win16|win32|win64|mac';
+      var canvas = document.getElementById('canvas');
+      var canvasPanzoom = Panzoom(canvas, {
+        cursor: 'default',
+      });
 
-        // 맵 size 재설정
-        // canvas.style.width = svgMap.node.width.baseVal.value + 'px';
-        // canvas.style.height = svgMap.node.height.baseVal.value + 'px';
 
-        //모바일, pc 접속 분별하여 zoom in/out 활셩 여부 설정
-        if (navigator.platform) {
-          if (0 > filter.indexOf(navigator.platform.toLowerCase())) {
-            // mobile
-            // panzoom
-            $canvas.panzoom({
-              disablePan: true,
-              disableZoom: true,
-              startTransform: matrix,
-            });
-            $('#zoomOut', '#zoomIn', '#reset').hide();
-          } else {
-            // pc
-            // panzoom
-            $canvas.panzoom({
-              $reset: $('#reset'),
-              cursor: 'context-menu',
-              startTransform: matrix,
-            });
-
-            // mouseWheel
-            $canvas.panzoom().on('mousewheel.focal', function(e) {
-              e.preventDefault();
-              const delta = e.delta || e.originalEvent.wheelDelta;
-              const zoomOut = delta ? delta < 0 : e.originalEvent.deltaY > 0;
-              $canvas.panzoom('zoom', zoomOut, {
-                animate: false,
-                focal: e,
-              });
-            });
-
-            // zoom 기능 기준점 재정의
-            $('#zoomIn').click(function(e) {
-              $canvas.panzoom('zoom', {});
-            });
-            $('#zoomOut').click(function(e) {
-              $canvas.panzoom('zoom', 'zoomOut', {});
-            });
-          }
-        }
-      }
-    </script>
-    <script>
-      //TODO: set new panzoom library
-      var canvas = document.getElementById('svgCanvas');
-      var svgMap = SVG.get('svgCanvas');
-      var canvasPanzoom = Panzoom(canvas, {});
-      // 맵 size 재설정
-      canvas.style.width = svgMap.node.width.baseVal.value + 'px';
-      canvas.style.height = svgMap.node.height.baseVal.value + 'px';
-
+      canvasPanzoom.pan(5, 100)
       $('#zoomIn').on('click', canvasPanzoom.zoomIn);
       $('#zoomOut').on('click', canvasPanzoom.zoomOut);
       $('#reset').on('click', canvasPanzoom.reset);
       canvas.addEventListener('wheel', canvasPanzoom.zoomWithWheel);
+    </script>
+
+    <!-- FIXME: map 그릴 때 좌표 찾기 용 -->
+    <script>
+      $('#svgCanvas').click(function(e) {
+        var x = e.pageX;
+        var y = e.pageY;
+
+        console.log(x + ', ' + y);
+      });
+    </script>
+
+    <!-- FIXME: 물결 세팅 --> 
+    <script>
+      vipInit();
+    </script> 
+
+    <!-- FIXME: 추 후 drawSvg로 이동해야할 소스 -->
+    <script>
+
+      var sensor =  SVG.get('#svgCanvas').select('rect[name="sensor"]')
+      var text =  SVG.get('#svgCanvas').select('text[name="text"]')
+      
+      sensor.front();
+      text.front();
+    </script>
+
+
+    <!-- FIXME: 추 후 삭제 -->
+
+    <!-- FIXME: 삭제 할 코드-->
+    <script>
+      options = {isIdText :false, isShowCodeNum: false}
+
+      showNodeData('S_002',3.1,options);
+      showNodeData('WL_009',2.8,options);
+      showNodeData('BT_001',13.7,options);
+      showNodeData('MRT_001',15.1,options);
+      showNodeData('IVT_PW_G_KW_001',10.3,options);
     </script>
   </body>
 </html>
