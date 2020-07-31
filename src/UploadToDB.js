@@ -278,7 +278,7 @@ class UploadToDB {
           serial_number: SN = null,
           subDeviceId: SDI = null,
           isAddSerialNumberToDCC,
-          is_deleted: 0
+          is_deleted = 0,
         } = dataLoggerDeviceInfo;
 
         let dataLoggerId = prefix;
@@ -321,7 +321,7 @@ class UploadToDB {
           target_code: tCode,
           connect_info: _.isObject(connectInfo) ? JSON.stringify(connectInfo) : null,
           protocol_info: _.isObject(protocolInfo) ? JSON.stringify(protocolInfo) : null,
-          is_deleted
+          is_deleted,
         };
 
         // DV_NODE 경우 uniqueKey가 Seq이기 때문에 update일 경우에 해당 seq를 삽입한 확장

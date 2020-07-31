@@ -90,27 +90,35 @@ const map = {
         nodeList: [
           {
             target_code: '1',
-            target_name: '1(I)',
+            target_name: '투명(I)',
           },
           {
             target_code: '2',
-            target_name: '2(I)',
+            target_name: '일반(I)',
           },
           {
-            target_code: '3',
-            target_name: '1(M.I)',
+            target_code: '11',
+            target_name: '투명 1(I)',
           },
           {
-            target_code: '4',
-            target_name: '2(M.I)',
+            target_code: '12',
+            target_name: '투명 2(I)',
           },
           {
-            target_code: '5',
-            target_name: '3(M.I)',
+            target_code: '13',
+            target_name: '일반 1(M.I)',
           },
           {
-            target_code: '6',
-            target_name: '4(M.I)',
+            target_code: '14',
+            target_name: '일반 2(M.I)',
+          },
+          {
+            target_code: '15',
+            target_name: '일반 3(M.I)',
+          },
+          {
+            target_code: '16',
+            target_name: '투명 4(M.I)',
           },
         ],
       },
@@ -118,6 +126,7 @@ const map = {
         repeatId: 'RE_PREFIX_IVT',
         repeatCategory: 'prefix',
         nodeList: [
+          'IVT_PV_V_2',
           'IVT_PV_V',
           'IVT_PV_A',
           'IVT_PV_KW',
@@ -140,26 +149,26 @@ const map = {
           {
             serial_number: 21,
             target_code: '021',
-            target_name: '일반 처리구',
+            target_name: 'A',
             dccId: 'DCC_001',
             dpcId: 'DPC_001',
-            nodeList: ['S_PU_021', 'T_S_021', 'RH_S_021'],
+            nodeList: ['S_PU_021'],
           },
           {
             serial_number: 22,
             target_code: '022',
-            target_name: '투명 처리구',
+            target_name: 'B',
             dccId: 'DCC_001',
             dpcId: 'DPC_001',
-            nodeList: ['S_PU_022', 'T_S_022', 'RH_S_022'],
+            nodeList: ['S_PU_022', 'T_S_022', 'RH_S_022', 'T_OA_022', 'RH_OA_022'],
           },
           {
             serial_number: 23,
             target_code: '023',
-            target_name: '대조구',
+            target_name: 'C',
             dccId: 'DCC_001',
             dpcId: 'DPC_001',
-            nodeList: ['S_PU_023', 'T_S_023', 'RH_S_023'],
+            nodeList: ['S_PU_023'],
           },
         ],
       },
@@ -173,16 +182,7 @@ const map = {
             target_name: '외기 환경',
             dccId: 'DCC_001',
             dpcId: 'DPC_001',
-            nodeList: [
-              'S_H_024',
-              'T_S_024',
-              'RH_S_024',
-              'T_OA_024',
-              'RH_OA_024',
-              'RF1_024',
-              'W_S_024',
-              'W_D_024',
-            ],
+            nodeList: ['S_H_024', 'T_S_024', 'RH_S_024', 'T_OA_024', 'RH_OA_024'],
           },
         ],
       },
@@ -193,7 +193,7 @@ const map = {
           {
             target_code: '1',
             target_name: '1(I)',
-            serial_number: Buffer.from([1]),
+            serial_number: Buffer.from([58]),
             dccId: 'DCC_001',
             dpcId: 'DPC_IVT_003',
             repeatId: 'RE_PREFIX_IVT',
@@ -201,14 +201,14 @@ const map = {
           {
             target_code: '2',
             target_name: '2(I)',
-            serial_number: Buffer.from([2]),
+            serial_number: Buffer.from([57]),
             dccId: 'DCC_001',
             dpcId: 'DPC_IVT_003',
             repeatId: 'RE_PREFIX_IVT',
           },
 
           {
-            target_code: '3',
+            target_code: '11',
             target_name: '1(M.I)',
             serial_number: 1,
             dccId: 'DCC_001',
@@ -216,7 +216,7 @@ const map = {
             repeatId: 'RE_PREFIX_IVT',
           },
           {
-            target_code: '4',
+            target_code: '12',
             target_name: '2(M.I)',
             serial_number: 2,
             dccId: 'DCC_001',
@@ -224,20 +224,40 @@ const map = {
             repeatId: 'RE_PREFIX_IVT',
           },
           {
-            target_code: '5',
+            target_code: '13',
             target_name: '3(M.I)',
             serial_number: 3,
             dccId: 'DCC_001',
             dpcId: 'DPC_IVT_004',
             repeatId: 'RE_PREFIX_IVT',
+            is_deleted: 1,
           },
           {
-            target_code: '6',
+            target_code: '14',
             target_name: '4(M.I)',
             serial_number: 4,
             dccId: 'DCC_001',
             dpcId: 'DPC_IVT_004',
             repeatId: 'RE_PREFIX_IVT',
+            is_deleted: 1,
+          },
+          {
+            target_code: '15',
+            target_name: '5(M.I)',
+            serial_number: 5,
+            dccId: 'DCC_001',
+            dpcId: 'DPC_IVT_004',
+            repeatId: 'RE_PREFIX_IVT',
+            is_deleted: 1,
+          },
+          {
+            target_code: '16',
+            target_name: '6(M.I)',
+            serial_number: 6,
+            dccId: 'DCC_001',
+            dpcId: 'DPC_IVT_004',
+            repeatId: 'RE_PREFIX_IVT',
+            is_deleted: 1,
           },
         ],
       },
@@ -257,13 +277,7 @@ const map = {
             target_name: '토양 온도',
             nodeList: [
               {
-                target_code: '021',
-              },
-              {
                 target_code: '022',
-              },
-              {
-                target_code: '023',
               },
               {
                 target_code: '024',
@@ -275,6 +289,9 @@ const map = {
             target_prefix: 'T_OA',
             target_name: '외기 온도',
             nodeList: [
+              {
+                target_code: '022',
+              },
               {
                 target_code: '024',
               },
@@ -296,13 +313,7 @@ const map = {
             target_name: '토양 습도',
             nodeList: [
               {
-                target_code: '021',
-              },
-              {
                 target_code: '022',
-              },
-              {
-                target_code: '023',
               },
               {
                 target_code: '024',
@@ -315,42 +326,8 @@ const map = {
             target_name: '외기 습도',
             nodeList: [
               {
-                target_code: '024',
+                target_code: '022',
               },
-            ],
-          },
-        ],
-      },
-      {
-        target_id: 'ws',
-        target_name: '풍속',
-        is_sensor: 1,
-        // save_db_type: BLOCK,
-        data_unit: 'm/s',
-        description: '초당 바람이 이동하는 거리(m)',
-        defList: [
-          {
-            target_id: 'windSpeed',
-            target_prefix: 'W_S',
-            nodeList: [
-              {
-                target_code: '024',
-              },
-            ],
-          },
-        ],
-      },
-      {
-        target_id: 'wd',
-        target_name: '풍향',
-        is_sensor: 1,
-        // save_db_type: BLOCK,
-        description: '풍향 0~7 (북, 북동, 동, 남동, 남, 남서, 서, 북서)',
-        defList: [
-          {
-            target_id: 'windDirection',
-            target_prefix: 'W_D',
-            nodeList: [
               {
                 target_code: '024',
               },
@@ -362,7 +339,6 @@ const map = {
         target_id: 'solar',
         target_name: '일사량',
         is_sensor: 1,
-        // save_db_type: BLOCK,
         data_unit: 'W/m²',
         description: '1평방 미터당 조사되는 일사에너지의 양이 1W',
         defList: [
@@ -375,11 +351,6 @@ const map = {
                 target_code: '024',
               },
             ],
-          },
-          {
-            target_id: 'inclinedSolar',
-            target_name: '경사 일사량',
-            target_prefix: 'S_I',
           },
           {
             target_id: 'pvUnderlyingSolar',
@@ -400,41 +371,6 @@ const map = {
         ],
       },
       {
-        target_id: 'rainfall',
-        target_name: '강우량',
-        is_sensor: 1,
-        // save_db_type: BLOCK,
-        data_unit: 'mm/hr',
-        description: '시간당 일정한 곳에 내린 비의 분량. 단위는 mm',
-        defList: [
-          {
-            target_id: 'r1',
-            target_prefix: 'RF1',
-            target_name: '시간당 강우량',
-            nodeList: [
-              {
-                target_code: '024',
-              },
-            ],
-          },
-        ],
-      },
-      {
-        target_id: 'isRain',
-        target_name: '강우 감지 여부',
-        is_sensor: 1,
-        // save_db_type: BLOCK,
-        description: '감지시 1, 미감지시 0',
-        defList: [
-          {
-            target_id: 'isRain',
-            target_prefix: 'IR',
-            target_name: '강우 감지 여부',
-            nodeList: [],
-          },
-        ],
-      },
-      {
         target_id: 'vol',
         target_name: '전압',
         is_sensor: 2,
@@ -443,6 +379,44 @@ const map = {
         data_unit: 'V',
         description: null,
         defList: [
+          {
+            target_id: 'pvVol2',
+            target_name: '인버터 PV 전압 2',
+            target_prefix: 'IVT_PV_V_2',
+            repeatId: 'RE_NODE_IVT',
+            nodeList: [
+              {
+                target_code: '11',
+                target_name: '투명 1(I)',
+                data_logger_index: 1,
+              },
+              {
+                target_code: '12',
+                target_name: '투명 2(I)',
+                data_logger_index: 1,
+              },
+              {
+                target_code: '13',
+                target_name: '일반 1(M.I)',
+                data_logger_index: 1,
+              },
+              {
+                target_code: '14',
+                target_name: '일반 2(M.I)',
+                data_logger_index: 1,
+              },
+              {
+                target_code: '15',
+                target_name: '일반 3(M.I)',
+                data_logger_index: 1,
+              },
+              {
+                target_code: '16',
+                target_name: '투명 4(M.I)',
+                data_logger_index: 1,
+              },
+            ],
+          },
           {
             target_id: 'pvVol',
             target_name: '인버터 PV 전압',
@@ -481,16 +455,6 @@ const map = {
         ],
       },
       {
-        target_id: 'W',
-        target_name: '전력량',
-        is_sensor: 2,
-        is_submit_api: 0,
-        save_db_type: BLOCK,
-        data_unit: 'W',
-        description: '1 와트(기호 W)는 1 초 동안의 1 줄(N·m)에 해당하는 일률의 SI 단위',
-        defList: [],
-      },
-      {
         target_id: 'kW',
         target_name: '전력량',
         is_sensor: 2,
@@ -514,27 +478,6 @@ const map = {
             repeatId: 'RE_NODE_IVT',
           },
         ],
-      },
-      {
-        target_id: 'MW',
-        target_name: '전력량',
-        is_sensor: 2,
-        is_submit_api: 0,
-        save_db_type: BLOCK,
-        data_unit: 'MW',
-        description:
-          '1 메가와트(기호 MW)는 1 초 동안의 1,000,000 줄(N·m)에 해당하는 일률의 SI 단위',
-        defList: [],
-      },
-      {
-        target_id: 'Wh',
-        target_name: '전력량',
-        is_sensor: 2,
-        is_submit_api: 0,
-        save_db_type: BLOCK,
-        data_unit: 'Wh',
-        description: '시간당 에너지 단위, 1 W의 일률로 1 시간 동안 하는 일의 양',
-        defList: [],
       },
       {
         target_id: 'kWh',
@@ -637,31 +580,45 @@ const map = {
                 repeatId: 'RE_PREFIX_IVT',
               },
               {
-                target_code: '3',
+                target_code: '11',
                 target_name: '1(M.I)',
                 chart_color: '#b9560d',
                 chart_sort_rank: 23,
                 repeatId: 'RE_PREFIX_IVT',
               },
               {
-                target_code: '4',
+                target_code: '12',
                 target_name: '2(M.I)',
                 chart_color: '#3bc9db',
                 chart_sort_rank: 24,
                 repeatId: 'RE_PREFIX_IVT',
               },
               {
-                target_code: '5',
+                target_code: '13',
                 target_name: '3(M.I)',
                 chart_color: '#868e96',
                 chart_sort_rank: 25,
                 repeatId: 'RE_PREFIX_IVT',
               },
               {
-                target_code: '6',
+                target_code: '14',
                 target_name: '4(M.I)',
                 chart_color: '#7048e8',
                 chart_sort_rank: 26,
+                repeatId: 'RE_PREFIX_IVT',
+              },
+              {
+                target_code: '15',
+                target_name: '5(M.I)',
+                chart_color: '#20c997',
+                chart_sort_rank: 27,
+                repeatId: 'RE_PREFIX_IVT',
+              },
+              {
+                target_code: '16',
+                target_name: '6(M.I)',
+                chart_color: '#fcc419',
+                chart_sort_rank: 28,
                 repeatId: 'RE_PREFIX_IVT',
               },
             ],
@@ -679,24 +636,24 @@ const map = {
             placeList: [
               {
                 target_code: '021',
-                target_name: '일반 처리구',
+                target_name: 'A',
                 chart_color: '#c92a2a',
                 chart_sort_rank: 21,
-                nodeList: ['S_PU_021', 'T_S_021', 'RH_S_021'],
+                nodeList: ['S_PU_021'],
               },
               {
-                target_code: '023',
-                target_name: '투명 처리구',
+                target_code: '022',
+                target_name: 'B',
                 chart_color: '#868e96',
                 chart_sort_rank: 22,
-                nodeList: ['S_PU_022', 'T_S_022', 'RH_S_022'],
+                nodeList: ['S_PU_022', 'T_S_022', 'RH_S_022', 'T_OA_022', 'RH_OA_022'],
               },
               {
                 target_code: '023',
-                target_name: '대조구',
+                target_name: 'C',
                 chart_color: '#b9560d',
                 chart_sort_rank: 23,
-                nodeList: ['S_PU_023', 'T_S_023', 'RH_S_023'],
+                nodeList: ['S_PU_023'],
               },
             ],
           },
@@ -716,16 +673,7 @@ const map = {
                 target_code: '024',
                 chart_color: '#99e9f2',
                 chart_sort_rank: 24,
-                nodeList: [
-                  'S_H_024',
-                  'T_S_024',
-                  'RH_S_024',
-                  'T_OA_024',
-                  'RH_OA_024',
-                  'RF1_024',
-                  'W_S_024',
-                  'W_D_024',
-                ],
+                nodeList: ['S_H_024', 'T_S_024', 'RH_S_024', 'T_OA_024', 'RH_OA_024'],
               },
             ],
           },
