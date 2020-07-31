@@ -276,6 +276,7 @@ class UploadToDB {
           dccId,
           dpcId,
           serial_number: SN = null,
+          subDeviceId: SDI = null,
           isAddSerialNumberToDCC,
           is_deleted: 0
         } = dataLoggerDeviceInfo;
@@ -290,7 +291,14 @@ class UploadToDB {
           dpcId,
         });
         // 국번이 숫자라면 Unicode 형태라고 판단. 아닐경우에는 기본 변환
+
         protocolInfo.deviceId = _.isNumber(SN) ? Buffer.from([SN]).toJSON() : SN;
+        // 서브 장치 ID가 존재할 경우에만 프로토콜 정보에 추가
+        if (!_.isNil(SDI)) {
+          protocolInfo.subDeviceId = _.isNumber(SDI) ? Buffer.from([SDI]).toJSON() : SDI;
+        } else {
+          delete protocolInfo.subDeviceId;
+        }
 
         const { connect_info: connectInfo } = _.find(dccConstructorList, {
           dccId,
