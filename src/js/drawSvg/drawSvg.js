@@ -110,21 +110,16 @@ function showNodeData(nodeDefId, data = '', options = {}) {
     // 장소, 장비, 센서 이름 재정의
     isIdText ? (nodeName = foundSvgTextInfo.id) : (nodeName = foundSvgTextInfo.name);
     if (!isShowCodeNum) {
-      nodeName = _(nodeName)
-        .split('_')
-        .dropRight()
-        .join('_');
+      nodeName = _(nodeName).split('_').dropRight().join('_');
     }
 
     // 데이터, 속성, 스타일 등을 적용해 tspan 다시 그리기
-    foundNodeTextChild.get(0).innerHTML = `<tspan id='nodeName' x="${
-      foundSvgTextInfo.textX
-    }" dy="8"> ${nodeName}</tspan>`;
     foundNodeTextChild.get(
       0,
-    ).innerHTML += `<tspan id="nodeData" class ="${nodeDefId}" value="${data}" x="${
-      foundSvgTextInfo.textX
-    }" style="${style}" dx="${dx}" dy="${dy}">${data}</tspan>`; // data 표시
+    ).innerHTML = `<tspan id='nodeName' x="${foundSvgTextInfo.textX}" dy="8"> ${nodeName}</tspan>`;
+    foundNodeTextChild.get(
+      0,
+    ).innerHTML += `<tspan id="nodeData" class ="${nodeDefId}" value="${data}" x="${foundSvgTextInfo.textX}" style="${style}" dx="${dx}" dy="${dy}">${data}</tspan>`; // data 표시
     if (_.isString(dataUnit)) {
       foundNodeTextChild.get(0).innerHTML += `<tspan>${dataUnit}</tspan>`; // data 단위 표시
     }
@@ -475,16 +470,11 @@ function drawSvgRect(svgCanvas, point, elementDrawInfo, id, isShow = true) {
 
   // color가 배열이 아니면 배열로 변환
   color = Array.isArray(color) ? color : [color];
-  const model = svgCanvas
-    .rect(width, height)
-    .fill(color[0])
-    .move(x, y)
-    .radius(radius)
-    .attr({
-      id,
-      radius,
-      opacity,
-    });
+  const model = svgCanvas.rect(width, height).fill(color[0]).move(x, y).radius(radius).attr({
+    id,
+    radius,
+    opacity,
+  });
   drawSvgShadow(model, id);
 }
 
@@ -506,12 +496,9 @@ function drawSvgLine(svgCanvas, point, elementDrawInfo, id, isShow = true) {
   // color가 배열이 아니면 배열로 변환
   color = Array.isArray(color) ? color : [color];
 
-  svgCanvas
-    .line(x1, y1, x2, y2)
-    .stroke({ color: color[0], width, opacity })
-    .attr({
-      id,
-    });
+  svgCanvas.line(x1, y1, x2, y2).stroke({ color: color[0], width, opacity }).attr({
+    id,
+  });
 }
 
 /**
@@ -531,15 +518,10 @@ function drawSvgCircle(svgCanvas, point, elementDrawInfo, id, isShow = true) {
 
   // color가 배열이 아니면 배열로 변환
   color = Array.isArray(color) ? color : [color];
-  const model = svgCanvas
-    .circle(radius)
-    .fill(color[0])
-    .move(x, y)
-    .stroke({ width: 0.5 })
-    .attr({
-      id,
-      opacity,
-    });
+  const model = svgCanvas.circle(radius).fill(color[0]).move(x, y).stroke({ width: 0.5 }).attr({
+    id,
+    opacity,
+  });
   drawSvgShadow(model, id);
 }
 
@@ -564,14 +546,10 @@ function drawSvgPolygon(svgCanvas, point, elementDrawInfo, id, isShow = true) {
   const model = svgCanvas.polyline(
     `${width},${0} ${width * 2},${height} ${width},${height * 2} ${0},${height}`,
   );
-  model
-    .fill(color[0])
-    .move(x, y)
-    .stroke({ width: 0.5 })
-    .attr({
-      id,
-      opacity,
-    });
+  model.fill(color[0]).move(x, y).stroke({ width: 0.5 }).attr({
+    id,
+    opacity,
+  });
   drawSvgShadow(model, id);
 }
 
@@ -603,23 +581,14 @@ function drawSvgPattern(svgCanvas, point, elementDrawInfo, id, isShow = true) {
   const patternSize = 21;
   const pattern = svgCanvas.pattern(patternSize, patternSize, add => {
     add.rect(patternSize, patternSize).fill('white');
-    add
-      .rect(patternSize, patternSize)
-      .move(0.4, 0.4)
-      .fill(color[0])
-      .radius(radius)
-      .attr({
-        opacity,
-      });
-  });
-  svgCanvas
-    .rect(width, height)
-    .move(x, y)
-    .fill(pattern)
-    .attr({
-      id,
+    add.rect(patternSize, patternSize).move(0.4, 0.4).fill(color[0]).radius(radius).attr({
       opacity,
     });
+  });
+  svgCanvas.rect(width, height).move(x, y).fill(pattern).attr({
+    id,
+    opacity,
+  });
 }
 
 /**
@@ -637,15 +606,11 @@ function drawSvgImage(svgCanvas, point, elementDrawInfo, id, isShow = true) {
 
   isShow ? opacity : (opacity = 0);
 
-  const model = svgCanvas
-    .image(imgUrl)
-    .move(x, y)
-    .size(width, height)
-    .attr({
-      id,
-      radius,
-      opacity,
-    });
+  const model = svgCanvas.image(imgUrl).move(x, y).size(width, height).attr({
+    id,
+    radius,
+    opacity,
+  });
   drawSvgShadow(model, id);
 }
 
@@ -658,18 +623,12 @@ function drawSvgShadow(model, defId) {
   if (isSensor(defId)) {
     model.attr({ name: 'sensor' });
     model.filter(add => {
-      const blur = add
-        .offset(0, 5)
-        .in(add.sourceAlpha)
-        .gaussianBlur(3);
+      const blur = add.offset(0, 5).in(add.sourceAlpha).gaussianBlur(3);
       add.blend(add.source, blur);
     });
   } else {
     model.filter(add => {
-      const blur = add
-        .offset(7, 7)
-        .in(add.sourceAlpha)
-        .gaussianBlur(4);
+      const blur = add.offset(7, 7).in(add.sourceAlpha).gaussianBlur(4);
 
       add.blend(add.source, blur);
     });

@@ -6,12 +6,10 @@ const { BU } = require('base-util-jh');
 
 const { SOURCE_PATH, SOURCE_FILE } = process.env;
 
-const mapPath = path.join(process.cwd(), '/src/maps/', `${SOURCE_PATH}/${SOURCE_FILE}`);
+const mapPath = path.join(process.cwd(), 'src', 'maps', SOURCE_PATH, SOURCE_FILE);
 
+// eslint-disable-next-line import/no-dynamic-require
 const map = require(mapPath);
-
-// const mapBase64 = require(`./maps/${SOURCE_PATH}/${SOURCE_FILE}/mapBase64`);
-// const mapBase64 = require('./maps/upsas/mapBase64');
 
 require('default-intelligence');
 
@@ -41,53 +39,55 @@ class SvgMaker {
     // RelationInfo 장소 관계 목록, SVG Resouce 관계 목록
     this.mPlaceRelationList = placeRelationList;
     this.mSvgResourceConnectionList = svgResourceConnectionList;
-
-    this.makeSvgMapFile();
   }
 
+  /**
+   * @return {mDeviceMap}
+   */
   async makeSvgMapFile() {
-    try {
-      // SVG NodeList를 생성하기 위한 임시 저장소 생성
-      this.setSvgNodeTempStorageList();
-      // Node(센서 제외) SVG 위치 정보 산출
-      this.makeSvgNodeList();
-      // Node(센서) SVG 위치 정보 산출
-      this.makeSensorList();
-      // File로 떨굼
-      this.writeMapFile().catch(e => {
-        throw e;
-      });
-    } catch (error) {
-      BU.CLI(error);
-    }
+    // SVG NodeList를 생성하기 위한 임시 저장소 생성
+    this.setSvgNodeTempStorageList();
+    // Node(센서 제외) SVG 위치 정보 산출
+    this.makeSvgNodeList();
+    // Node(센서) SVG 위치 정보 산출
+    this.makeSensorList();
+
+    await this.writeMapFile();
+
+    return map;
   }
 
+  /**
+   */
   async writeMapFile() {
-    try {
-      // map.drawInfo.frame.mapInfo.backgroundInfo.backgroundData = mapBase64;
+    // 사용할 프로젝트 맵 이미지 경로
+    const inputMapImgPath = path.join(mapPath, `${SOURCE_FILE}.png`);
 
-      const mapImgPath = `${mapPath}/${SOURCE_FILE}.png`;
+    const outputMapPath = path.join(process.cwd(), 'out', 'defaultMap.js');
+    // 이미지 사용될 경우 defaultMap.png 로 저장
+    const outputImgPath = path.join(process.cwd(), 'out', 'defaultMap.png');
+    const outputProjectMapPath = path.join(
+      process.cwd(),
+      'out',
+      SOURCE_PATH,
+      `output_${SOURCE_FILE}.js`,
+    );
 
-      const finalStrMap = `var map = ${JSON.stringify(map)}`;
-      await BU.writeFile('./out/defaultMap.js', finalStrMap, 'w');
-
-      const inputImgStream = fs.createReadStream(mapImgPath);
-      const outputImgStream = fs.createWriteStream('./out/defaultMap.png');
-      inputImgStream.pipe(outputImgStream);
-
-      // FIXME:
-      await BU.writeFile(`./out/${SOURCE_PATH}/output_${SOURCE_FILE}.js`, finalStrMap, 'w');
-
-      // const inputImgStream2 = fs.createReadStream(mapImgPath);
-      // const copyStream = fs.createWriteStream(
-      //   `./out/${SOURCE_PATH}/output_${SOURCE_FILE}.png`,
-      // );
-      // inputImgStream2.pipe(copyStream);
-
-      return BU.CLI('Map 자동 생성 성공');
-    } catch (error) {
-      BU.CLI('Map 생성 실패', error);
+    const isExistMapImg = await fs.existsSync(inputMapImgPath);
+    // 이미지가 존재할 경우 복사본 생성
+    if (isExistMapImg) {
+      fs.createReadStream(inputMapImgPath).pipe(fs.createWriteStream(outputImgPath));
+    } else if (fs.existsSync(outputImgPath)) {
+      // 프로젝트 이미지가 존재하지 않고 out 경로에 생성된 이미지가 존재할 경우 해당 이미지 삭제
+      await fs.accessSync(outputImgPath, fs.constants.F_OK);
+      fs.unlink(outputImgPath, console.error);
     }
+    // 모듈화
+    const finalStrMap = `module.exports = ${JSON.stringify(map)}`;
+
+    await BU.writeFile(outputMapPath, finalStrMap, 'w');
+
+    await BU.writeFile(outputProjectMapPath, finalStrMap, 'w');
   }
 
   /**

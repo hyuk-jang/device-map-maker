@@ -6,19 +6,424 @@ const {
   },
 } = require('../../../module');
 
+// Map Size 정보
+const ms = {
+  // 비닐 하우스 (Vinyl House)
+  VH: {
+    START_X: 100,
+    START_Y: 100,
+    INTERVAL: 100,
+    WIDTH: 400,
+    HEIGHT: 80,
+  },
+  // 센서 (SenSor)
+  SS: {
+    WIDTH: 100,
+    INTERVAL: 20,
+  },
+};
+
 /**
  * @type {mDeviceMap}
  */
 const map = {
   drawInfo: {
     frame: {
-      mapSize: {
+      mapInfo: {
         width: 880,
         height: 1230,
+        backgroundInfo: {
+          backgroundData: '',
+          backgroundPosition: [160, 0],
+        },
       },
-      svgModelResourceList: [],
+      svgModelResourceList: [
+        /* *************       Place        ***************** */
+        {
+          id: 'vinylHouse',
+          type: 'rect',
+          elementDrawInfo: {
+            width: ms.VH.WIDTH,
+            height: ms.VH.HEIGHT,
+            color: 'blue',
+            opacity: 1,
+          },
+          textStyleInfo: { color: 'white', fontSize: 10 },
+        },
+        {
+          id: 'pvSensor',
+          type: 'rect',
+          elementDrawInfo: {
+            width: ms.SS.WIDTH,
+            height: ms.VH.HEIGHT / 2,
+            color: 'red',
+            opacity: 1,
+          },
+          textStyleInfo: { color: 'white', fontSize: 10 },
+        },
+        {
+          id: 'outsideSensor',
+          type: 'rect',
+          elementDrawInfo: {
+            width: ms.SS.WIDTH,
+            height: ms.VH.HEIGHT / 2,
+            color: 'gold',
+            opacity: 1,
+          },
+          textStyleInfo: { color: 'white', fontSize: 10 },
+        },
+        {
+          id: 'pvN_4EA',
+          type: 'rect',
+          elementDrawInfo: {
+            width: (ms.VH.WIDTH / 8) * 4,
+            height: ms.VH.HEIGHT / 2,
+            color: '#abe3e1',
+            opacity: 1,
+          },
+          textStyleInfo: { color: '', fontSize: 10 },
+        },
+        {
+          id: 'pvN_6EA',
+          type: 'rect',
+          elementDrawInfo: {
+            width: (ms.VH.WIDTH / 8) * 6,
+            height: ms.VH.HEIGHT / 2,
+            color: '#abe3e1',
+            opacity: 1,
+          },
+          textStyleInfo: { color: '', fontSize: 10 },
+        },
+        {
+          id: 'pvN_7EA',
+          type: 'rect',
+          elementDrawInfo: {
+            width: (ms.VH.WIDTH / 8) * 7,
+            height: ms.VH.HEIGHT / 2,
+            color: '#abe3e1',
+            opacity: 1,
+          },
+          textStyleInfo: { color: '', fontSize: 10 },
+        },
+        {
+          id: 'pvN_8EA',
+          type: 'rect',
+          elementDrawInfo: {
+            width: ms.VH.WIDTH,
+            height: ms.VH.HEIGHT / 2,
+            color: '#abe3e1',
+            opacity: 1,
+          },
+          textStyleInfo: { color: '', fontSize: 10 },
+        },
+        {
+          id: 'pvT_4EA',
+          type: 'rect',
+          elementDrawInfo: {
+            width: (ms.VH.WIDTH / 8) * 4,
+            height: ms.VH.HEIGHT / 2,
+            color: '#eeeeee',
+            opacity: 1,
+          },
+          textStyleInfo: { color: '', fontSize: 10 },
+        },
+        {
+          id: 'pvT_6EA',
+          type: 'rect',
+          elementDrawInfo: {
+            width: (ms.VH.WIDTH / 8) * 6,
+            height: ms.VH.HEIGHT / 2,
+            color: '#eeeeee',
+            opacity: 1,
+          },
+          textStyleInfo: { color: '', fontSize: 10 },
+        },
+        {
+          id: 'pvT_7EA',
+          type: 'rect',
+          elementDrawInfo: {
+            width: (ms.VH.WIDTH / 8) * 7,
+            height: ms.VH.HEIGHT / 2,
+            color: '#eeeeee',
+            opacity: 1,
+          },
+          textStyleInfo: { color: '', fontSize: 10 },
+        },
+        {
+          id: 'pvT_8EA',
+          type: 'rect',
+          elementDrawInfo: {
+            width: ms.VH.WIDTH / 8,
+            height: ms.VH.HEIGHT / 2,
+            color: '#eeeeee',
+            opacity: 1,
+          },
+          textStyleInfo: { color: '', fontSize: 10 },
+        },
+        {
+          id: 'pumpPanel',
+          type: 'rect',
+          elementDrawInfo: { width: 200, height: 200, color: 'skyblue', opacity: 1 },
+          textStyleInfo: { color: '', fontSize: 10 },
+        },
+        {
+          id: 'pcsPanel',
+          type: 'rect',
+          elementDrawInfo: { width: 50, height: 50, color: '#90b4dd', opacity: 1 },
+          textStyleInfo: { color: '', fontSize: 10 },
+        },
+        /* *************       Device        ***************** */
+        {
+          id: 'shutter',
+          type: 'circle',
+          elementDrawInfo: {
+            width: 35,
+            height: 35,
+            radius: 35,
+            color: ['#a3a3a3', '#22fb00', '#dc1d1f'],
+            opacity: 1,
+            leading: '10em',
+          },
+          textStyleInfo: { color: '', fontSize: 6 },
+        },
+        {
+          id: 'pump',
+          type: 'circle',
+          elementDrawInfo: {
+            width: 27,
+            height: 27,
+            radius: 27,
+            color: ['#a3a3a3', '#8b24b0', '#dc1d1f'],
+            opacity: 1,
+          },
+          textStyleInfo: { color: '', fontSize: 6 },
+        },
+        /* *************       Sensor        ***************** */
+        {
+          id: 'soilTemperature',
+          type: 'rect',
+          elementDrawInfo: { width: 55, height: 25, color: '#f0f0f0', opacity: 1 },
+          textStyleInfo: { color: '', fontSize: 8 },
+        },
+        {
+          id: 'outsideAirTemperature',
+          type: 'rect',
+          elementDrawInfo: { width: 55, height: 25, color: '#f0f0f0', opacity: 1 },
+          textStyleInfo: { color: '', fontSize: 8 },
+        },
+        {
+          id: 'soilReh',
+          type: 'rect',
+          elementDrawInfo: { width: 55, height: 25, color: '#f0f0f0', opacity: 1 },
+          textStyleInfo: { color: '', fontSize: 8 },
+        },
+        {
+          id: 'outsideAirReh',
+          type: 'rect',
+          elementDrawInfo: { width: 55, height: 25, color: '#f0f0f0', opacity: 1 },
+          textStyleInfo: { color: '', fontSize: 8 },
+        },
+        {
+          id: 'horizontalSolar',
+          type: 'rect',
+          elementDrawInfo: { width: 55, height: 25, color: '#f0f0f0', opacity: 1 },
+          textStyleInfo: { color: '', fontSize: 8 },
+        },
+        {
+          id: 'pvUnderlyingSolar',
+          type: 'rect',
+          elementDrawInfo: { width: 55, height: 25, color: '#f0f0f0', opacity: 1 },
+          textStyleInfo: { color: '', fontSize: 8 },
+        },
+        {
+          id: 'powerGridKw',
+          type: 'rect',
+          elementDrawInfo: { width: 55, height: 25, color: '#f0f0f0', opacity: 1 },
+          textStyleInfo: { color: '', fontSize: 8 },
+        },
+      ],
     },
-    positionInfo: {},
+    positionInfo: {
+      svgPlaceList: [
+        {
+          placeId: 'vinylHouse',
+          defList: [
+            {
+              id: 'VNH_1',
+              name: '비닐 하우스 1',
+              resourceId: 'vinylHouse',
+              point: [ms.VH.START_X, ms.VH.START_Y],
+            },
+            {
+              id: 'VNH_2',
+              name: '비닐 하우스 2',
+              resourceId: 'vinylHouse',
+              point: [ms.VH.START_X, ms.VH.START_Y + ms.VH.INTERVAL * 1],
+            },
+            {
+              id: 'VNH_3',
+              name: '비닐 하우스 3',
+              resourceId: 'vinylHouse',
+              point: [ms.VH.START_X, ms.VH.START_Y + ms.VH.INTERVAL * 2],
+            },
+            {
+              id: 'VNH_4',
+              name: '비닐 하우스 4',
+              resourceId: 'vinylHouse',
+              point: [ms.VH.START_X, ms.VH.START_Y + ms.VH.INTERVAL * 3],
+            },
+            {
+              id: 'VNH_5',
+              name: '비닐 하우스 5',
+              resourceId: 'vinylHouse',
+              point: [ms.VH.START_X, ms.VH.START_Y + ms.VH.INTERVAL * 4],
+            },
+            {
+              id: 'VNH_6',
+              name: '비닐 하우스 6',
+              resourceId: 'vinylHouse',
+              point: [ms.VH.START_X, ms.VH.START_Y + ms.VH.INTERVAL * 5],
+            },
+            {
+              id: 'VNH_7',
+              name: '비닐 하우스 7',
+              resourceId: 'vinylHouse',
+              point: [ms.VH.START_X, ms.VH.START_Y + ms.VH.INTERVAL * 6],
+            },
+            {
+              id: 'VNH_8',
+              name: '비닐 하우스 8',
+              resourceId: 'vinylHouse',
+              point: [ms.VH.START_X, ms.VH.START_Y + ms.VH.INTERVAL * 7],
+            },
+          ],
+        },
+        {
+          placeId: 'sensor',
+          defList: [
+            {
+              id: 'S_1',
+              name: '생육환경 A',
+              resourceId: 'pvSensor',
+              point: [ms.VH.START_X + ms.SS.INTERVAL, ms.VH.START_Y + ms.VH.INTERVAL * 5],
+            },
+            {
+              id: 'S_2',
+              name: '생육환경 B',
+              resourceId: 'pvSensor',
+              point: [
+                ms.VH.START_X + ms.VH.WIDTH / 2 - ms.SS.WIDTH / 2,
+                ms.VH.START_Y + ms.VH.INTERVAL * 5,
+              ],
+            },
+            {
+              id: 'S_3',
+              name: '생육환경 C',
+              resourceId: 'pvSensor',
+              point: [
+                ms.VH.START_X - ms.SS.INTERVAL + ms.VH.WIDTH - ms.SS.WIDTH,
+                ms.VH.START_Y + ms.VH.INTERVAL * 5,
+              ],
+            },
+            {
+              id: 'S_4',
+              name: '외기환경',
+              resourceId: 'outsideSensor',
+              point: [
+                ms.VH.START_X + ms.VH.WIDTH / 2 - ms.SS.WIDTH / 2,
+                ms.VH.START_Y + ms.VH.INTERVAL * 8,
+              ],
+            },
+          ],
+        },
+        {
+          placeId: 'pumpPanel',
+          defList: [
+            {
+              id: 'pumpArea',
+              name: '펌프 제어반',
+              resourceId: 'pumpPanel',
+              point: [
+                ms.VH.START_X + ms.VH.WIDTH + ms.VH.INTERVAL,
+                ms.VH.START_Y + ms.VH.INTERVAL * 6,
+              ],
+            },
+          ],
+        },
+        {
+          placeId: 'pvPanel',
+          defList: [
+            {
+              id: 'PV_1',
+              name: 'PV_1_S_일반(7)',
+              resourceId: 'pvN_7EA',
+              point: [ms.VH.START_X, ms.VH.START_Y + ms.VH.INTERVAL * 0 + ms.VH.HEIGHT / 2],
+            },
+            {
+              id: 'PV_2',
+              name: 'PV_2_S_투명(7)',
+              resourceId: 'pvT_7EA',
+              point: [ms.VH.START_X, ms.VH.START_Y + ms.VH.INTERVAL * 1 + ms.VH.HEIGHT / 2],
+            },
+            {
+              id: 'PV_3',
+              name: 'PV_3_S_일반(7)',
+              resourceId: 'pvN_7EA',
+              point: [ms.VH.START_X, ms.VH.START_Y + ms.VH.INTERVAL * 2 + ms.VH.HEIGHT / 2],
+            },
+            {
+              id: 'PV_4',
+              name: 'PV_4_S_투명(7)',
+              resourceId: 'pvT_7EA',
+              point: [ms.VH.START_X, ms.VH.START_Y + ms.VH.INTERVAL * 3 + ms.VH.HEIGHT / 2],
+            },
+            {
+              id: 'PV_5',
+              name: 'PV_5_M_투명(6)',
+              resourceId: 'pvT_6EA',
+              point: [ms.VH.START_X, ms.VH.START_Y + ms.VH.INTERVAL * 4 + ms.VH.HEIGHT / 2],
+            },
+            {
+              id: 'PV_6',
+              name: 'PV_6_M_일반(8)',
+              resourceId: 'pvN_8EA',
+              point: [ms.VH.START_X, ms.VH.START_Y + ms.VH.INTERVAL * 5 + ms.VH.HEIGHT / 2],
+            },
+            {
+              id: 'PV_7-A',
+              name: 'PV_7-A_M_투명(4)',
+              resourceId: 'pvT_4EA',
+              point: [ms.VH.START_X, ms.VH.START_Y + ms.VH.INTERVAL * 6 + ms.VH.HEIGHT / 2],
+            },
+            {
+              id: 'PV_7-B',
+              name: 'PV_7-B_M_일반(4)',
+              resourceId: 'pvN_4EA',
+              point: [
+                ms.VH.START_X + (ms.VH.WIDTH / 8) * 4,
+                ms.VH.START_Y + ms.VH.INTERVAL * 6 + ms.VH.HEIGHT / 2,
+              ],
+            },
+            {
+              id: 'PV_8-A',
+              name: 'PV_8-A_M_투명(4)',
+              resourceId: 'pvT_4EA',
+              point: [ms.VH.START_X, ms.VH.START_Y + ms.VH.INTERVAL * 7 + ms.VH.HEIGHT / 2],
+            },
+            {
+              id: 'PV_8-B',
+              name: 'PV_8-B_M_일반(4)',
+              resourceId: 'pvN_4EA',
+              point: [
+                ms.VH.START_X + (ms.VH.WIDTH / 8) * 4,
+                ms.VH.START_Y + ms.VH.INTERVAL * 7 + ms.VH.HEIGHT / 2,
+              ],
+            },
+          ],
+        },
+      ],
+      svgNodeList: [],
+    },
   },
   setInfo: {
     mainInfo: {
@@ -42,6 +447,15 @@ const map = {
         protocol_info: {
           mainCategory: 'S2W',
           subCategory: 'dmTech',
+          wrapperCategory: 'default',
+          cmdExecTimeoutMs: 1000 * 2,
+        },
+      },
+      {
+        dpcId: 'DPC_002',
+        protocol_info: {
+          mainCategory: 'S2W',
+          subCategory: 'sm',
           wrapperCategory: 'default',
           cmdExecTimeoutMs: 1000 * 2,
         },
@@ -126,7 +540,7 @@ const map = {
         repeatId: 'RE_PREFIX_IVT',
         repeatCategory: 'prefix',
         nodeList: [
-          'IVT_PV_V_2',
+          'IVT_PV_V2',
           'IVT_PV_V',
           'IVT_PV_A',
           'IVT_PV_KW',
@@ -192,7 +606,7 @@ const map = {
         dataLoggerDeviceList: [
           {
             target_code: '1',
-            target_name: '1(I)',
+            target_name: '투명 16장(I)',
             serial_number: Buffer.from([58]),
             dccId: 'DCC_001',
             dpcId: 'DPC_IVT_003',
@@ -200,7 +614,7 @@ const map = {
           },
           {
             target_code: '2',
-            target_name: '2(I)',
+            target_name: '일반 14장(I)',
             serial_number: Buffer.from([57]),
             dccId: 'DCC_001',
             dpcId: 'DPC_IVT_003',
@@ -209,7 +623,7 @@ const map = {
 
           {
             target_code: '11',
-            target_name: '1(M.I)',
+            target_name: '투명 4장(M.I)',
             serial_number: 1,
             dccId: 'DCC_001',
             dpcId: 'DPC_IVT_004',
@@ -217,7 +631,7 @@ const map = {
           },
           {
             target_code: '12',
-            target_name: '2(M.I)',
+            target_name: '일반 4장(M.I)',
             serial_number: 2,
             dccId: 'DCC_001',
             dpcId: 'DPC_IVT_004',
@@ -225,7 +639,7 @@ const map = {
           },
           {
             target_code: '13',
-            target_name: '3(M.I)',
+            target_name: '투명 4장(M.I)',
             serial_number: 3,
             dccId: 'DCC_001',
             dpcId: 'DPC_IVT_004',
@@ -234,7 +648,7 @@ const map = {
           },
           {
             target_code: '14',
-            target_name: '4(M.I)',
+            target_name: '일반 4장(M.I)',
             serial_number: 4,
             dccId: 'DCC_001',
             dpcId: 'DPC_IVT_004',
@@ -243,7 +657,7 @@ const map = {
           },
           {
             target_code: '15',
-            target_name: '5(M.I)',
+            target_name: '일반 8장(M.I)',
             serial_number: 5,
             dccId: 'DCC_001',
             dpcId: 'DPC_IVT_004',
@@ -252,7 +666,7 @@ const map = {
           },
           {
             target_code: '16',
-            target_name: '6(M.I)',
+            target_name: '투명 6장(M.I)',
             serial_number: 6,
             dccId: 'DCC_001',
             dpcId: 'DPC_IVT_004',
@@ -261,8 +675,180 @@ const map = {
           },
         ],
       },
+      {
+        target_prefix: 'D_ST',
+        target_name: '개폐기 DL',
+        dataLoggerDeviceList: [
+          {
+            serial_number: '0013A2004190ED67',
+            target_code: '01',
+            target_name: '하우스 개폐기',
+            dccId: 'DCC_001',
+            dpcId: 'DPC_002',
+            nodeList: [
+              'ST_001',
+              'ST_002',
+              'ST_003',
+              'ST_004',
+              'ST_005',
+              'ST_006',
+              'ST_007',
+              'ST_008',
+              'ST_009',
+              'ST_010',
+              'ST_011',
+              'ST_012',
+              'ST_013',
+              'ST_014',
+              'ST_015',
+              'ST_016',
+            ],
+          },
+        ],
+      },
+      {
+        target_prefix: 'D_P',
+        target_name: '펌프 DL',
+        dataLoggerDeviceList: [
+          {
+            serial_number: '0013A2004190EDB7',
+            target_code: '001',
+            target_name: '펌프 제어반',
+            dccId: 'DCC_001',
+            dpcId: 'DPC_002',
+            nodeList: ['P_001', 'P_002', 'P_003'],
+          },
+        ],
+      },
     ],
     nodeStructureList: [
+      /* *********             Device             ********* */
+      {
+        target_id: 'shutter',
+        target_name: '개폐기',
+        is_sensor: 0,
+        is_submit_api: 1,
+        description: '개폐기',
+        defList: [
+          {
+            target_id: 'shutter',
+            target_prefix: 'ST',
+            target_name: '하우스 개폐기',
+            nodeList: [
+              {
+                target_code: '001',
+                target_name: '1-A',
+                data_logger_index: 0,
+              },
+              {
+                target_code: '002',
+                target_name: '1-B',
+                data_logger_index: 1,
+              },
+              {
+                target_code: '003',
+                target_name: '2-A',
+                data_logger_index: 2,
+              },
+              {
+                target_code: '004',
+                target_name: '2-B',
+                data_logger_index: 3,
+              },
+              {
+                target_code: '005',
+                target_name: '3-A',
+                data_logger_index: 4,
+              },
+              {
+                target_code: '006',
+                target_name: '3-B',
+                data_logger_index: 5,
+              },
+              {
+                target_code: '007',
+                target_name: '4-A',
+                data_logger_index: 6,
+              },
+              {
+                target_code: '008',
+                target_name: '4-B',
+                data_logger_index: 7,
+              },
+              {
+                target_code: '009',
+                target_name: '5-A',
+                data_logger_index: 8,
+              },
+              {
+                target_code: '010',
+                target_name: '5-B',
+                data_logger_index: 9,
+              },
+              {
+                target_code: '011',
+                target_name: '6-A',
+                data_logger_index: 10,
+              },
+              {
+                target_code: '012',
+                target_name: '6-B',
+                data_logger_index: 11,
+              },
+              {
+                target_code: '013',
+                target_name: '7-A',
+                data_logger_index: 12,
+              },
+              {
+                target_code: '014',
+                target_name: '7-B',
+                data_logger_index: 13,
+              },
+              {
+                target_code: '015',
+                target_name: '8-A',
+                data_logger_index: 14,
+              },
+              {
+                target_code: '016',
+                target_name: '8-B',
+                data_logger_index: 15,
+              },
+            ],
+          },
+        ],
+      },
+      {
+        target_id: 'pump',
+        target_name: '펌프',
+        is_sensor: 0,
+        defList: [
+          {
+            target_id: 'pump',
+            target_prefix: 'P',
+            target_name: '펌프',
+            nodeList: [
+              {
+                target_code: '001',
+                target_name: '펌프',
+                data_logger_index: 0,
+              },
+              {
+                target_code: '002',
+                target_name: '양액 A',
+                data_logger_index: 1,
+              },
+              {
+                target_code: '003',
+                target_name: '양액 B',
+                data_logger_index: 2,
+              },
+            ],
+          },
+        ],
+      },
+      /* *********             Sensor             ********* */
       {
         target_id: 'temp',
         target_name: '온도',
@@ -370,6 +956,7 @@ const map = {
           },
         ],
       },
+      /* *********             PCS             ********* */
       {
         target_id: 'vol',
         target_name: '전압',
@@ -382,38 +969,16 @@ const map = {
           {
             target_id: 'pvVol2',
             target_name: '인버터 PV 전압 2',
-            target_prefix: 'IVT_PV_V_2',
+            target_prefix: 'IVT_PV_V2',
             repeatId: 'RE_NODE_IVT',
             nodeList: [
               {
-                target_code: '11',
+                target_code: '1',
                 target_name: '투명 1(I)',
-                data_logger_index: 1,
               },
               {
-                target_code: '12',
-                target_name: '투명 2(I)',
-                data_logger_index: 1,
-              },
-              {
-                target_code: '13',
-                target_name: '일반 1(M.I)',
-                data_logger_index: 1,
-              },
-              {
-                target_code: '14',
-                target_name: '일반 2(M.I)',
-                data_logger_index: 1,
-              },
-              {
-                target_code: '15',
-                target_name: '일반 3(M.I)',
-                data_logger_index: 1,
-              },
-              {
-                target_code: '16',
-                target_name: '투명 4(M.I)',
-                data_logger_index: 1,
+                target_code: '2',
+                target_name: '일반 2(I)',
               },
             ],
           },
@@ -679,7 +1244,62 @@ const map = {
           },
         ],
       },
+      {
+        target_id: 'house',
+        target_name: '비닐 하우스',
+        defList: [
+          {
+            target_id: 'vinylHouse',
+            target_prefix: 'VNH',
+            placeList: [
+              {
+                target_code: '1',
+                nodeList: ['ST_001', 'ST_002'],
+              },
+              {
+                target_code: '2',
+                nodeList: ['ST_003', 'ST_004'],
+              },
+              {
+                target_code: '3',
+                nodeList: ['ST_005', 'ST_006'],
+              },
+              {
+                target_code: '4',
+                nodeList: ['ST_007', 'ST_008'],
+              },
+              {
+                target_code: '5',
+                nodeList: ['ST_009', 'ST_010'],
+              },
+              {
+                target_code: '6',
+                nodeList: ['ST_011', 'ST_012'],
+              },
+              {
+                target_code: '7',
+                nodeList: ['ST_013', 'ST_014'],
+              },
+              {
+                target_code: '8',
+                nodeList: ['ST_015', 'ST_016'],
+              },
+            ],
+          },
+          {
+            target_id: 'pumpControl',
+            target_name: '펌프 제어반',
+            target_prefix: 'PCH',
+            placeList: [
+              {
+                nodeList: ['P_001', 'P_002', 'P_003'],
+              },
+            ],
+          },
+        ],
+      },
     ],
+    svgResourceConnectionList: [{}],
   },
   controlInfo: {},
 };

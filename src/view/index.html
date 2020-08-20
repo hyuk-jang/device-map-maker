@@ -15,24 +15,21 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.7/dist/css/bootstrap-select.min.css"
     />
-    <link rel="stylesheet" href="../css/template/common.css" />
+    <link rel="stylesheet" href="/css/template/common.css" />
 
-    <script src="../js/jquery-3.4.1.min.js"></script>
-    <script src="../js/panzoom.min.js"></script>
+    <script src="/js/jquery-3.4.1.min.js"></script>
+    <script src="/js/panzoom.min.js"></script>
 
-    <script src="../js/bootstrap.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
     <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.7/dist/js/bootstrap-select.min.js"></script>
 
-    <script src="../js/svg.js"></script>
-    <script src="../js/svg.filter.js"></script>
+    <script src="/js/svg.js"></script>
+    <script src="/js/svg.filter.js"></script>
 
-    <script src="../js/lodash.min.js"></script>
+    <script src="/js/lodash.min.js"></script>
 
-    <script src="../../out/defaultMap.js"></script>
-    <script src="../js/drawSvg/drawSvg.js"></script>
-    <script src="../setVipMode.js"></script>
-
+    <script src="/js/drawSvg/drawSvg.js"></script>
   </head>
 
   <body>
@@ -58,40 +55,17 @@
           <option value="control">제어 모드</option>
           <option value="develop">개발 모드</option>
         </select>
-        <button id="rainMode" class="btn btn-default btn-sm mr_1rem">
-          <span class="glyphicon"></span> 우천모드
-        </button>
-        <button id="1" class="btn btn-default btn-sm mr_1rem">
-          <span class="glyphicon"></span> 저수지>증발지1
-        </button>
-        <button id="2" class="btn btn-default btn-sm mr_1rem">
-          <span class="glyphicon"></span> 증발지1>증발지2
-        </button>
-        <button id="3" class="btn btn-default btn-sm mr_1rem">
-          <span class="glyphicon"></span> 증발지2>해주
-        </button>
-        <button id="4" class="btn btn-default btn-sm mr_1rem">
-          <span class="glyphicon"></span> 해주>모듈
-        </button>
-        <button id="5" class="btn btn-default btn-sm mr_1rem">
-          <span class="glyphicon"></span> 모듈>결정지
-        </button>
-        </button>
-        <button id="6" class="btn btn-default btn-sm mr_1rem">
-          <span class="glyphicon"></span> 결정지>해주2
-        </button>
-        <button id="animationReset" class="btn btn-default btn-sm mr_1rem">
-          <span class="glyphicon"></span> 액션 리셋
-        </button>
       </div>
       <div>
-        <div id="canvas" style="justify-content:center;"></div>
+        <div id="canvas" style="justify-content: center;"></div>
       </div>
     </div>
 
     <script>
+      const map = <%- JSON.stringify(map) %>;
+      const backgroudMap = <%- JSON.stringify(backgroudMap) %>;
       // 실제 사용할 때는 해당 부분 수정
-      map.drawInfo.frame.mapInfo.backgroundInfo.backgroundData = '../../out/defaultMap.png';
+      // map.drawInfo.frame.mapInfo.backgroundInfo.backgroundData = '../../out/defaultMap.png';
       // 멥 그리기
       drawSvgBasePlace('canvas');
 
@@ -115,8 +89,7 @@
         cursor: 'default',
       });
 
-
-      canvasPanzoom.pan(5, 100)
+      canvasPanzoom.pan(5, 100);
       $('#zoomIn').on('click', canvasPanzoom.zoomIn);
       $('#zoomOut').on('click', canvasPanzoom.zoomOut);
       $('#reset').on('click', canvasPanzoom.reset);
@@ -125,7 +98,7 @@
 
     <!-- FIXME: map 그릴 때 좌표 찾기 용 -->
     <script>
-      $('#svgCanvas').click(function(e) {
+      $('#svgCanvas').click(function (e) {
         var x = e.pageX;
         var y = e.pageY;
 
@@ -133,33 +106,31 @@
       });
     </script>
 
-    <!-- FIXME: 물결 세팅 --> 
+    <!-- FIXME: 물결 세팅 -->
     <script>
-      vipInit();
-    </script> 
+      // vipInit();
+    </script>
 
     <!-- FIXME: 추 후 drawSvg로 이동해야할 소스 -->
     <script>
+      var sensor = SVG.get('#svgCanvas').select('rect[name="sensor"]');
+      var text = SVG.get('#svgCanvas').select('text[name="text"]');
 
-      var sensor =  SVG.get('#svgCanvas').select('rect[name="sensor"]')
-      var text =  SVG.get('#svgCanvas').select('text[name="text"]')
-      
       sensor.front();
       text.front();
     </script>
-
 
     <!-- FIXME: 추 후 삭제 -->
 
     <!-- FIXME: 삭제 할 코드-->
     <script>
-      options = {isIdText :false, isShowCodeNum: false}
+      options = { isIdText: false, isShowCodeNum: false };
 
-      showNodeData('S_002',3.1,options);
-      showNodeData('WL_009',2.8,options);
-      showNodeData('BT_001',13.7,options);
-      showNodeData('MRT_001',15.1,options);
-      showNodeData('IVT_PW_G_KW_001',10.3,options);
+      // showNodeData('S_002',3.1,options);
+      // showNodeData('WL_009',2.8,options);
+      // showNodeData('BT_001',13.7,options);
+      // showNodeData('MRT_001',15.1,options);
+      // showNodeData('IVT_PW_G_KW_001',10.3,options);
     </script>
   </body>
 </html>
