@@ -212,7 +212,7 @@ const map = {
       svgPlaceList: [
         {
           placeId: 'salternBlock',
-          defList: [
+          svgPositonList: [
             {
               id: 'SEB_1',
               name: '증발지_1',
@@ -247,7 +247,7 @@ const map = {
         },
         {
           placeId: 'brineWarehouse',
-          defList: [
+          svgPositonList: [
             { id: 'BW_1', name: '해주_1', resourceId: 'brineWarehouse_A', point: [200, 450] },
             { id: 'BW_2', name: '해주_2', resourceId: 'brineWarehouse_B', point: [460, 450] },
             { id: 'BW_5', name: '해주_5', resourceId: 'brineWarehouse_D', point: [445, 930] },
@@ -255,15 +255,17 @@ const map = {
         },
         {
           placeId: 'reservoir',
-          defList: [{ id: 'RV_1', name: '저수지_1', resourceId: 'reservoir_A', point: [170, 40] }],
+          svgPositonList: [
+            { id: 'RV_1', name: '저수지_1', resourceId: 'reservoir_A', point: [170, 40] },
+          ],
         },
         {
           placeId: 'sea',
-          defList: [{ id: 'SEA', name: '바다', resourceId: 'sea', point: [170, 10] }],
+          svgPositonList: [{ id: 'SEA', name: '바다', resourceId: 'sea', point: [170, 10] }],
         },
         {
           placeId: 'waterWay',
-          defList: [
+          svgPositonList: [
             {
               id: 'WW_001',
               name: '수로_001',
@@ -376,7 +378,7 @@ const map = {
         },
         {
           placeId: 'pipeLine',
-          defList: [],
+          svgPositonList: [],
         },
       ],
       svgNodeList: [],

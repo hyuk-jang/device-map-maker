@@ -34,7 +34,7 @@ function drawSvgBasePlace(documentId, isText, isShow = true) {
 
   // 장소 그리기
   realMap.drawInfo.positionInfo.svgPlaceList.forEach(svgPlaceInfo => {
-    svgPlaceInfo.defList.forEach(placeDefInfo => {
+    svgPlaceInfo.svgPositonList.forEach(placeDefInfo => {
       /** @type {mSvgModelResource} */
       const placeSvgResourceInfo = _.find(realMap.drawInfo.frame.svgModelResourceList, {
         id: placeDefInfo.resourceId,
@@ -57,7 +57,7 @@ function drawSvgBasePlace(documentId, isText, isShow = true) {
 
   // 장비, 센서 그리기
   realMap.drawInfo.positionInfo.svgNodeList.forEach(svgNodeInfo => {
-    svgNodeInfo.defList.forEach(nodeDefInfo => {
+    svgNodeInfo.svgPositonList.forEach(nodeDefInfo => {
       /** @type {mSvgModelResource} */
       const nodeSvgResourceInfo = _.find(realMap.drawInfo.frame.svgModelResourceList, {
         id: nodeDefInfo.resourceId,
@@ -141,7 +141,7 @@ function changeNodeStatusColor(nDefId, data) {
   let getNodeBgColor;
 
   realMap.drawInfo.positionInfo.svgNodeList.forEach(svgNodeInfo => {
-    const foundNodeDefInfo = _.find(svgNodeInfo.defList, { id: nDefId });
+    const foundNodeDefInfo = _.find(svgNodeInfo.svgPositonList, { id: nDefId });
     if (_.isUndefined(foundNodeDefInfo)) return false;
 
     // 장소, 장비, 센서의 기본 색상을 찾기위한 그리기 정보 찾기
@@ -153,7 +153,7 @@ function changeNodeStatusColor(nDefId, data) {
 
   // nDefId 가 장소, 장비, 센서 인지 구분하기 위한 노드 정보 찾기
   const foundNodeInfo = _.find(realMap.drawInfo.positionInfo.svgNodeList, svgNo =>
-    _.map(svgNo.defList, 'id').includes(nDefId),
+    _.map(svgNo.svgPositonList, 'id').includes(nDefId),
   );
   if (_.isUndefined(foundNodeInfo)) return false;
 
@@ -190,11 +190,11 @@ function writeSvgText(svgCanvas, defInfo, resourceInfo, isChangedPlaceNodeName =
 
   // svgPositionList를 검색하여 장치인지 센서인지 구분
   let foundSvgInfo = _.find(map.drawInfo.positionInfo.svgNodeList, svgNodeInfo =>
-    _.map(svgNodeInfo.defList, 'id').includes(defInfo.id),
+    _.map(svgNodeInfo.svgPositonList, 'id').includes(defInfo.id),
   );
   if (_.isUndefined(foundSvgInfo)) {
     foundSvgInfo = _.find(map.drawInfo.positionInfo.svgPlaceList, svgNodeInfo =>
-      _.map(svgNodeInfo.defList, 'id').includes(defInfo.id),
+      _.map(svgNodeInfo.svgPositonList, 'id').includes(defInfo.id),
     );
     if (_.isUndefined(foundSvgInfo)) return false;
   }
@@ -309,12 +309,12 @@ function checkHidableText(defId) {
   // defId 값이 장소인지 노드인지 구분
   // 장소
   const foundPlaceInfo = _.find(realMap.drawInfo.positionInfo.svgPlaceList, svgPlaceInfo =>
-    _.map(svgPlaceInfo.defList, 'id').includes(defId),
+    _.map(svgPlaceInfo.svgPositonList, 'id').includes(defId),
   );
   // 노드
   if (_.isUndefined(foundPlaceInfo)) {
     const foundNodeInfo = _.find(realMap.drawInfo.positionInfo.svgNodeList, svgNodeInfo =>
-      _.map(svgNodeInfo.defList, 'id').includes(defId),
+      _.map(svgNodeInfo.svgPositonList, 'id').includes(defId),
     );
     isHidableText = _.includes(
       realMap.relationInfo.hiddenTextSvgModelResourceIdList,
@@ -339,7 +339,7 @@ function bindingClickNodeEvent(socket, selectedModeVal = 'view') {
   const realMap = map;
 
   realMap.drawInfo.positionInfo.svgNodeList.forEach(svgNodeInfo => {
-    svgNodeInfo.defList.forEach(nodeDefInfo => {
+    svgNodeInfo.svgPositonList.forEach(nodeDefInfo => {
       // console.log(nodeDefInfo);
       const $drawedSvgElement = $(`#${nodeDefInfo.id}`);
 
@@ -644,7 +644,7 @@ function isSensor(nDefId) {
   const realMap = map;
 
   const foundNodeDefInfo = _.find(realMap.drawInfo.positionInfo.svgNodeList, svgNodeInfo =>
-    _.map(svgNodeInfo.defList, 'id').includes(nDefId),
+    _.map(svgNodeInfo.svgPositonList, 'id').includes(nDefId),
   );
   if (_.isUndefined(foundNodeDefInfo)) return false;
 

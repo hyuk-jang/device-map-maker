@@ -57,6 +57,7 @@ class SvgMaker {
     return map;
   }
 
+  // Step 4
   /**
    */
   async writeMapFile() {
@@ -106,114 +107,142 @@ class SvgMaker {
    * @param {string} targetId  ex) 'SEB_001', 'MRT_002' ...
    */
   getResourceInfo(targetId) {
+    /** @type {mSvgModelResource} */
+    let resourceInfo = {};
+
     /** @type {mSvgResourceConnectionInfo} */
-    const foundSVGResourceConnectionInfo = _.find(this.mSvgResourceConnectionList, {
+    const svgResourceConnInfo = _.find(this.mSvgResourceConnectionList, {
       targetIdList: [targetId],
     });
 
-    if (_.isObject(foundSVGResourceConnectionInfo)) {
-      const resourceId = foundSVGResourceConnectionInfo.resourceIdList[0];
-      // BU.CLI(resourceId);
-      /** @type {mSvgModelResource} */
-      const resourceInfo = _.find(this.mSvgModelResourceList, {
-        id: resourceId,
-      });
-
+    if (svgResourceConnInfo === undefined) {
       return resourceInfo;
     }
+
+    const resourceId = svgResourceConnInfo.resourceIdList[0];
+    // BU.CLI(resourceId);
+
+    const resource = _.find(this.mSvgModelResourceList, {
+      id: resourceId,
+    });
+
+    if (resource !== undefined) {
+      resourceInfo = resource;
+    }
+
+    return resourceInfo;
   }
 
+  // Step 1
   /**
    * svgNodeList를 만들기 전 nodeDef 항목끼리 묶어 데이터를 거치시킴. 임시 저장소(메모리 상 거주)
    */
   setSvgNodeTempStorageList() {
+    // console.time('setSvgNodeTempStorageList');
+    /** @type {Map<string, mNodeStorageInfo>} nodeId를 기준으로 nodeInfo 정보를 저장할 Map */
+    this.mNodeStorage = new Map();
+
+    this.mNodeStructureList.forEach(nClassInfo => {
+      const { defList, is_sensor: isSensor } = nClassInfo;
+      defList.forEach(nDefInfo => {
+        const { nodeList = [], target_prefix: ndPrefix, target_name: ndName } = nDefInfo;
+
+        nodeList.forEach(nodeInfo => {
+          const { target_code: nCode } = nodeInfo;
+          const nodeId = `${ndPrefix}${nCode ? `_${nCode}` : ''}`;
+          const nodeName = `${ndName}${nCode ? `_${nCode}` : ''}`;
+
+          nodeInfo.nodeName = nodeName;
+          nodeInfo.isSensor = isSensor;
+
+          this.mNodeStorage.set(nodeId, nodeInfo);
+        });
+      });
+    });
+
+    /** @type {Map<string, mSvgStorageInfo>} */
+    this.mSvgStorage = new Map();
+    this.mSvgPlaceList.forEach(svgPlaceInfo => {
+      const { placeId, svgPositonList } = svgPlaceInfo;
+
+      svgPositonList.forEach(svgPositionInfo => {
+        const { resourceId, id: svgPositionId } = svgPositionInfo;
+
+        const svgResourceInfo = _.find(this.mSvgModelResourceList, {
+          id: resourceId,
+        });
+
+        this.mSvgStorage.set(svgPositionId, {
+          svgPositionInfo,
+          svgResourceInfo,
+        });
+      });
+    });
+
+    // BU.CLIN(this.mSvgStorage);
+
     /** @type {storageInfo[]} */
     const storageList = [];
 
+    // console.timeLog('setSvgNodeTempStorageList');
     // 장소 대분류 구조 목록을 순회
-    this.mPlaceRelationList.forEach(placeClassInfo => {
+    this.mPlaceRelationList.forEach(pClassInfo => {
       // 장소 개요 목록 순회
-      placeClassInfo.defList.forEach(placeDefInfo => {
-        const { target_prefix: pdPrefix } = placeDefInfo;
+      pClassInfo.defList.forEach(pDefInfo => {
+        const { target_prefix: pdPrefix, placeList = [] } = pDefInfo;
         // 장소 목록 순회
-        placeDefInfo.placeList.forEach(placeInfo => {
-          const { target_code: pCode = null, nodeList = [] } = placeInfo;
+        placeList.forEach(pInfo => {
+          const { target_code: pCode = null, nodeList = [] } = pInfo;
           // Place ID 정의
           const placeId = `${pdPrefix}${pCode ? `_${pCode}` : ''}`;
 
-          _.forEach(nodeList, nodeId => {
-            const { axisScale, moveScale = [0, 0] } = this.getAxisMoveScale(nodeId);
-            const resourceInfo = this.getResourceInfo(nodeId);
-            const resourceId = _.result(resourceInfo, 'id');
+          nodeList.forEach(nodeId => {
+            // 노드 좌표의 시작 좌표 및 이동 좌표
+            const { axisScale, moveScale = [0, 0] } = this.mNodeStorage.get(nodeId);
+
+            const { id: resourceId } = this.getResourceInfo(nodeId);
 
             // resourceId가 존재하지 않는다면 그리지 않는다고 판단. 해당 node는 제외
             if (resourceId === undefined) return false;
 
-            if (_.isArray(axisScale)) {
-              /** @type {detailNodeInfo} */
-              const detailNode = {
-                nodeId,
-                placeId,
-                resourceId,
-                point: [],
-                axisScale,
-                moveScale,
-              };
+            // axisScale이 존재하지 않는다면
+            if (!_.isArray(axisScale)) return false;
 
-              // 그룹 존재
-              /** @type {storageInfo[]} */
-              let foundIt = _.find(storageList, { nodeDefId: resourceId });
-              if (_.isEmpty(foundIt)) {
-                foundIt = {
-                  nodeDefId: resourceId,
-                  defList: [],
-                };
-                storageList.push(foundIt);
-              }
-              /** @type {defInfo} */
-              const foundNodeIt = _.find(foundIt.defList, { nodeId });
-              if (_.isEmpty(foundNodeIt)) {
-                foundIt.defList.push(detailNode);
-              }
+            /** @type {detailNodeInfo} */
+            const detailNode = {
+              nodeId,
+              placeId,
+              resourceId,
+              point: [],
+              axisScale,
+              moveScale,
+            };
+
+            // storage 조회
+            let storageInfo = _.find(storageList, { nodeDefId: resourceId });
+            // 존재하지 않을 경우 새로이 생성하고 삽입
+            if (storageInfo === undefined) {
+              storageInfo = {
+                nodeDefId: resourceId,
+                defList: [],
+              };
+              storageList.push(storageInfo);
+            }
+            // 존재하지 않을 경우 삽입
+            if (_.findIndex(storageInfo.defList, { nodeId }) === -1) {
+              storageInfo.defList.push(detailNode);
             }
           });
         });
       });
     });
+
+    // BU.CLIN(storageList, 3);
+    // console.timeEnd('setSvgNodeTempStorageList');
     this.storageList = storageList;
   }
 
-  /**
-   * axisScale, moveScale 값 가져오기
-   * @param {string} targetId ex) 'SEB_001', 'MRT_002' ...
-   * @return {{axisScale: [], moveScale: []}}
-   */
-  getAxisMoveScale(targetId) {
-    const getReplaceVal = this.getReplace(targetId, /(?<=_)[0-9]+/g);
-    const targetPrefix = getReplaceVal.substring(0, getReplaceVal.length - 1);
-    const targetCode = _.replace(targetId, getReplaceVal, '');
-    // BU.CLIS(targetPrefix, targetCode);
-
-    let returnValue = {
-      axisScale: [],
-      moveScale: [],
-    };
-
-    this.mNodeStructureList.forEach(nodeStructureInfo => {
-      /** @type {mNodeDefInfo} */
-      const targetDefInfo = _.find(nodeStructureInfo.defList, {
-        target_prefix: targetPrefix,
-      });
-      if (_.isObject(targetDefInfo)) {
-        /** @type {mNodeModelInfo} */
-        const targetNodeInfo = _.find(targetDefInfo.nodeList, { target_code: targetCode });
-        returnValue = _.pick(targetNodeInfo, ['axisScale', 'moveScale']);
-      }
-    });
-
-    return returnValue;
-  }
-
+  // Step 2
   /**
    * 최종으로 저장될 svgNodeList 생성
    */
@@ -221,47 +250,53 @@ class SvgMaker {
     // BU.CLI('makeSvgNodeList');
     const { storageList } = this;
     // BU.CLIN(storageList, 2);
+
+    // BU.CLIN(this.mSvgStorage);
+
     /** @type {mSvgNodeInfo[]} */
     storageList.forEach(storageInfo => {
-      _.forEach(storageInfo.defList, (detailNodeInfo, index) => {
-        const { placeId, nodeId } = detailNodeInfo;
-        const targetPoint = this.discoverObjectPoint(placeId);
-        const finalAxis = this.calcPlacePoint(detailNodeInfo, targetPoint);
-        const finalObj = _.set(detailNodeInfo, 'point', finalAxis);
-        const name = this.findNodeName(nodeId);
+      const { defList: nodeDetailList, nodeDefId } = storageInfo;
+      nodeDetailList.forEach(detailNodeInfo => {
+        const { placeId, nodeId, resourceId } = detailNodeInfo;
+
+        // 장소 [시작좌표, 끝좌표]
+        const placePoint = this.getPlacePoint(placeId);
+        // 노드 중심 좌표
+        const finalAxis = this.getNodeAxis(detailNodeInfo, placePoint);
+        detailNodeInfo.point = finalAxis;
+
         const isSensor = this.findIsSensorValue(nodeId);
-        /** @type {defInfo} */
-        const newDetailNode = {
-          id: finalObj.nodeId,
-          name,
-          placeId: finalObj.placeId,
-          resourceId: finalObj.resourceId,
-          point: finalObj.point,
-        };
 
         // 그룹 존재
         /** @type {mSvgNodeInfo} */
-        let foundIt = _.find(this.mSvgNodeList, {
-          nodeDefId: storageInfo.nodeDefId,
+        let svgNodeInfo = _.find(this.mSvgNodeList, {
+          nodeDefId,
         });
 
-        if (_.isEmpty(foundIt)) {
-          foundIt = {
-            nodeDefId: storageInfo.nodeDefId,
+        if (svgNodeInfo === undefined) {
+          svgNodeInfo = {
+            nodeDefId,
             is_sensor: isSensor,
-            defList: [],
+            svgPositonList: [],
           };
 
           // 장치 종류가 센서 타입이 아니라면 추가
-          if (foundIt.is_sensor !== 1) {
-            this.mSvgNodeList.push(foundIt);
+          if (isSensor !== 1) {
+            this.mSvgNodeList.push(svgNodeInfo);
           }
         }
 
-        /** @type {defInfo} */
-        const foundNodeIt = _.find(foundIt.defList, { id: finalObj.nodeId });
-        if (_.isEmpty(foundNodeIt)) {
-          foundIt.defList.push(newDetailNode);
+        /** @type {mSvgPositionInfo} */
+        const svgNodePositionInfo = _.find(svgNodeInfo.svgPositonList, { id: nodeId });
+        if (svgNodePositionInfo === undefined) {
+          // BU.CLI(detailNodeInfo);
+          svgNodeInfo.svgPositonList.push({
+            id: nodeId,
+            name: this.mNodeStorage.get(nodeId).nodeName,
+            placeId,
+            resourceId,
+            point: detailNodeInfo.point,
+          });
         }
       });
     });
@@ -269,104 +304,150 @@ class SvgMaker {
 
   /**
    * 장소에 따른 노드의 위치 지정
-   * @param {detailNodeInfo} storageDefInfo storageList에 저장된 defList 정보
+   * @param {detailNodeInfo} nodeDetailInfo storageList에 저장된 defList 정보
    * @param {number[]} placePoint 장소의 (x1,y1,x2,y2) 정보
+   * @return Node Axis [x, y]
    */
-  calcPlacePoint(storageDefInfo, placePoint) {
-    const nodeResourceInfo = this.getResourceInfo(storageDefInfo.nodeId);
-    if (_.isUndefined(nodeResourceInfo)) return false;
-    const { width, height } = nodeResourceInfo.elementDrawInfo;
-    const nodeType = nodeResourceInfo.type;
-    const isSensor = this.findIsSensorValue(storageDefInfo.nodeId);
+  getNodeAxis(nodeDetailInfo, placePoint) {
+    // Model Resource 정보
+    const {
+      type: nodeType,
+      elementDrawInfo: { width: nModelWidth, height: nModelHeight },
+    } = this.getResourceInfo(nodeDetailInfo.nodeId);
 
-    const [axisX, axisY] = storageDefInfo.axisScale;
-    const [moveX, moveY] = storageDefInfo.moveScale;
-    const [x1, y1, x2, y2] = placePoint;
+    // Node Axis 계산 옵션
+    const {
+      axisScale: [axisX, axisY],
+      moveScale: [moveX, moveY],
+    } = nodeDetailInfo;
+    // 노드 센서 여부
+    const { isSensor } = this.mNodeStorage.get(nodeDetailInfo.nodeId);
 
-    let targetAxis = [];
-    let x;
-    let y;
+    // 노드를 관리하는 장소의 시작좌표 및 끝좌표
+    const [px1, py1, px2, py2] = placePoint;
 
+    // 노드 중심축 좌표
+    let nodeAxis = [];
+    let nAxisX;
+    let nAxisY;
+
+    const pModelWidth = px2 - px1;
+    const pModelHeight = py2 - py1;
+
+    // 센서 배치
     if (isSensor === 1) {
-      x = x1 + ((x2 - x1) / 2 - width / 2) + moveX;
-      y = y1 + ((y2 - y1) / 2 - height / 2) + moveY;
+      // 센서 노드 중심 좌표
+      const sNodeX = pModelWidth / 2 - nModelWidth / 2;
+      const sNodeY = pModelHeight / 2 - nModelHeight / 2;
 
-      targetAxis = [x, y];
+      nAxisX = px1 + sNodeX + moveX;
+      nAxisY = py1 + sNodeY + moveY;
+
+      nodeAxis = [nAxisX, nAxisY];
     } else {
-      x = x1 + axisX * (x2 - x1);
-      y = y1 + axisY * (y2 - y1);
-      if (nodeType === 'rect') {
-        x = x - axisX * width + moveX * width;
-        y = y - axisY * height + moveY * height;
-      } else if (nodeType === 'circle') {
-        x = x - axisX * width + moveX * width;
-        y = y - axisY * height + moveY * height;
-      } else if (nodeType === 'polygon') {
-        x = x - axisX * (width * 2) + moveX * (width * 2);
-        y = y - axisY * (height * 2) + moveY * (height * 2);
+      // 시작 점을 기준으로 axis 비율에 따라 끝점값을 가감하여 Node의 Axis 계산
+      nAxisX = px1 + axisX * pModelWidth;
+      nAxisY = py1 + axisY * pModelHeight;
+      // 노드 타입에 따라서 Axis 조정
+
+      switch (nodeType) {
+        case 'rect':
+        case 'circle':
+          nAxisX -= axisX * nModelWidth - moveX * nModelWidth;
+          nAxisY -= axisY * nModelHeight - moveY * nModelHeight;
+          break;
+        case 'polygon':
+          nAxisX -= axisX * (nModelWidth * 2) - moveX * (nModelWidth * 2);
+          nAxisY -= axisY * (nModelHeight * 2) - moveY * (nModelHeight * 2);
+          break;
+        default:
+          break;
       }
-      targetAxis = [x, y];
+
+      // if (nodeType === 'rect') {
+      //   nAxisX -= axisX * width + moveX * width;
+      //   nAxisY -= axisY * height + moveY * height;
+      // } else if (nodeType === 'circle') {
+      //   nAxisX = nAxisX - axisX * width + moveX * width;
+      //   nAxisY = nAxisY - axisY * height + moveY * height;
+      // } else if (nodeType === 'polygon') {
+      //   nAxisX = nAxisX - axisX * (width * 2) + moveX * (width * 2);
+      //   nAxisY = nAxisY - axisY * (height * 2) + moveY * (height * 2);
+      // }
+
+      nodeAxis = [nAxisX, nAxisY];
     }
-    return targetAxis;
+    return nodeAxis;
   }
 
   /**
-   * 장소의 정보를 이용해 (x1,y1) 과 (x2,y2)를 구한다
+   * svgPlaceInfo.svgPositonList 목록 중 id가 placeId와 일치하는 SVG 객체의 시작점과 끝점을 추출
    * @param {string} placeId ex) 'SEB_001'
    */
-  discoverObjectPoint(placeId) {
-    let targetPoint = []; // [x1,y1,x2,y2]
+  getPlacePoint(placeId) {
+    let svgPosPoint = []; // [x1,y1,x2,y2]
+    // BU.CLI(placeId);
 
-    // BU.CLIN(this.mSvgPlaceList);
-
-    this.mSvgPlaceList.forEach(svgPlaceInfo => {
-      /** @type {defInfo} */
-      const targetInfo = _.find(svgPlaceInfo.defList, { id: placeId });
-      if (_.isUndefined(targetInfo)) return false;
-      const targetResourceId = targetInfo.resourceId;
-      /** @type {mSvgModelResource} */
-      const svgModelResourceInfo = _.find(this.mSvgModelResourceList, {
-        id: targetResourceId,
-      });
-
-      const targetType = svgModelResourceInfo.type;
-      const { width, height } = svgModelResourceInfo.elementDrawInfo;
-      const [x, y, x1, y1] = targetInfo.point;
-
+    try {
+      const {
+        svgPositionInfo: {
+          point: [x, y, x1, y1],
+        },
+        svgResourceInfo: {
+          type: targetType,
+          elementDrawInfo: { width, height },
+        },
+      } = this.mSvgStorage.get(placeId);
+      // BU.CLI(svgResourceInfo);
       if (targetType === 'rect' || targetType === 'pattern' || targetType === 'image') {
-        targetPoint = [x, y, x + width, y + height];
+        svgPosPoint = [x, y, x + width, y + height];
         // line position:(x1,y1,x2,y2)
       } else if (targetType === 'line') {
         if (y === y1) {
-          targetPoint = [x, y - width / 2, x1, y1 - width / 2];
+          svgPosPoint = [x, y - width / 2, x1, y1 - width / 2];
         } else {
-          targetPoint = [x - width / 2, y - width, x1 - width / 2, y1 + width];
+          svgPosPoint = [x - width / 2, y - width, x1 - width / 2, y1 + width];
         }
       } else {
         // 다른 조건문 작성
       }
-    });
-    return targetPoint;
-  }
+      return svgPosPoint;
+    } catch (error) {
+      if (placeId === 'PCH') {
+        // BU.CLIN(error);
+      }
+      return svgPosPoint;
+    }
 
-  /**
-   * node의 name을 찾는 함수
-   * @param {string} nodeId
-   */
-  findNodeName(nodeId) {
-    const getReplaceVal = this.getReplace(nodeId, /(?<=_)[0-9]+/g);
-    const nodePrefix = getReplaceVal.substring(0, getReplaceVal.length - 1);
-    const nodeCode = _.replace(nodeId, getReplaceVal, '');
-    // BU.CLIS(nodeId, nodePrefix, nodeCode);
-    let nodeName;
+    // this.mSvgPlaceList.forEach(svgPlaceInfo => {
+    //   // /** @type {mSvgPositionInfo} */
+    //   const svgPositionInfo = _.find(svgPlaceInfo.svgPositonList, { id: placeId });
+    //   if (_.isUndefined(svgPositionInfo)) return false;
+    //   const targetResourceId = svgPositionInfo.resourceId;
+    //   /** @type {mSvgModelResource} */
+    //   const svgModelResourceInfo = _.find(this.mSvgModelResourceList, {
+    //     id: targetResourceId,
+    //   });
 
-    this.mNodeStructureList.forEach(nodeStructureInfo => {
-      const findDefInfo = _.find(nodeStructureInfo.defList, { target_prefix: nodePrefix });
-      if (_.isUndefined(findDefInfo)) return false;
-      nodeName = `${findDefInfo.target_name}_${nodeCode}`;
-      // BU.CLI(nodeName);
-    });
-    return nodeName;
+    //   const targetType = svgModelResourceInfo.type;
+    //   const { width, height } = svgModelResourceInfo.elementDrawInfo;
+    //   const [x, y, x1, y1] = svgPositionInfo.point;
+
+    //   if (targetType === 'rect' || targetType === 'pattern' || targetType === 'image') {
+    //     targetPoint = [x, y, x + width, y + height];
+    //     // line position:(x1,y1,x2,y2)
+    //   } else if (targetType === 'line') {
+    //     if (y === y1) {
+    //       targetPoint = [x, y - width / 2, x1, y1 - width / 2];
+    //     } else {
+    //       targetPoint = [x - width / 2, y - width, x1 - width / 2, y1 + width];
+    //     }
+    //   } else {
+    //     // 다른 조건문 작성
+    //   }
+    // });
+    // BU.CLI(targetPoint);
+    // return targetPoint;
   }
 
   /**
@@ -404,6 +485,7 @@ class SvgMaker {
     return sensorValue;
   }
 
+  // Step 3
   /**
    * 센서 자동 배치 함수
    */
@@ -430,7 +512,7 @@ class SvgMaker {
             _.forEach(sensorStorage, (sensorId, index) => {
               const getReplaceVal = this.getReplace(sensorId, /(?<=_)[0-9]+/g);
               const sensorPrefix = getReplaceVal.substring(sensorId, getReplaceVal.length - 1);
-              const placePoint = this.discoverObjectPoint(placeId);
+              const placePoint = this.getPlacePoint(placeId);
               const { axisScale } = this.getAxisMoveScale(sensorId);
               let { moveScale } = this.getAxisMoveScale(sensorId);
 
@@ -499,7 +581,7 @@ class SvgMaker {
                 const nodeDefId = foundNodeDefInfo.target_id;
                 const newDefInfo = {
                   id: sensorId,
-                  name: this.findNodeName(sensorId),
+                  name: this.mNodeStorage.get(sensorId).nodeName,
                   placeId,
                   resourceId: resourceInfo.id,
                   point: targetAxis,
@@ -512,14 +594,14 @@ class SvgMaker {
                   foundSensor = {
                     nodeDefId,
                     is_sensor: nodeClassInfo.is_sensor,
-                    defList: [],
+                    svgPositonList: [],
                   };
                   this.mSvgNodeList.push(foundSensor);
                 }
-                /** @type {defInfo} */
-                const foundNodeIt = _.find(foundSensor.defList, { id: sensorId });
+                /** @type {mSvgPositionInfo} */
+                const foundNodeIt = _.find(foundSensor.svgPositonList, { id: sensorId });
                 if (_.isEmpty(foundNodeIt)) {
-                  foundSensor.defList.push(newDefInfo);
+                  foundSensor.svgPositonList.push(newDefInfo);
                 }
               });
             });
@@ -529,6 +611,36 @@ class SvgMaker {
     } catch (error) {
       // throw error;
     }
+  }
+
+  /**
+   * axisScale, moveScale 값 가져오기
+   * @param {string} targetId ex) 'SEB_001', 'MRT_002' ...
+   * @return {{axisScale: [], moveScale: []}}
+   */
+  getAxisMoveScale(targetId) {
+    const getReplaceVal = this.getReplace(targetId, /(?<=_)[0-9]+/g);
+    const targetPrefix = getReplaceVal.substring(0, getReplaceVal.length - 1);
+    const targetCode = _.replace(targetId, getReplaceVal, '');
+
+    let returnValue = {
+      axisScale: [],
+      moveScale: [],
+    };
+
+    this.mNodeStructureList.forEach(nodeStructureInfo => {
+      /** @type {mNodeDefInfo} */
+      const targetDefInfo = _.find(nodeStructureInfo.defList, {
+        target_prefix: targetPrefix,
+      });
+      if (_.isObject(targetDefInfo)) {
+        /** @type {mNodeModelInfo} */
+        const targetNodeInfo = _.find(targetDefInfo.nodeList, { target_code: targetCode });
+        returnValue = _.pick(targetNodeInfo, ['axisScale', 'moveScale']);
+      }
+    });
+
+    return returnValue;
   }
 }
 module.exports = SvgMaker;

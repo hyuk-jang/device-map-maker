@@ -247,7 +247,7 @@ const map = {
       svgPlaceList: [
         {
           placeId: 'vinylHouse',
-          defList: [
+          svgPositonList: [
             {
               id: 'VNH_1',
               name: '비닐 하우스 1',
@@ -300,7 +300,7 @@ const map = {
         },
         {
           placeId: 'sensor',
-          defList: [
+          svgPositonList: [
             {
               id: 'S_1',
               name: '생육환경 A',
@@ -338,9 +338,9 @@ const map = {
         },
         {
           placeId: 'pumpPanel',
-          defList: [
+          svgPositonList: [
             {
-              id: 'pumpArea',
+              id: 'PCH',
               name: '펌프 제어반',
               resourceId: 'pumpPanel',
               point: [
@@ -352,7 +352,7 @@ const map = {
         },
         {
           placeId: 'pvPanel',
-          defList: [
+          svgPositonList: [
             {
               id: 'PV_1',
               name: 'PV_1_S_일반(7)',
@@ -739,81 +739,113 @@ const map = {
                 target_code: '001',
                 target_name: '1-A',
                 data_logger_index: 0,
+                axisScale: [0, 0],
+                moveScale: [-1, 0],
               },
               {
                 target_code: '002',
                 target_name: '1-B',
                 data_logger_index: 1,
+                axisScale: [0, 1],
+                moveScale: [-1, 0],
               },
               {
                 target_code: '003',
                 target_name: '2-A',
                 data_logger_index: 2,
+                axisScale: [0, 0],
+                moveScale: [-1, 0],
               },
               {
                 target_code: '004',
                 target_name: '2-B',
                 data_logger_index: 3,
+                axisScale: [0, 1],
+                moveScale: [-1, 0],
               },
               {
                 target_code: '005',
                 target_name: '3-A',
                 data_logger_index: 4,
+                axisScale: [0, 0],
+                moveScale: [-1, 0],
               },
               {
                 target_code: '006',
                 target_name: '3-B',
                 data_logger_index: 5,
+                axisScale: [0, 1],
+                moveScale: [-1, 0],
               },
               {
                 target_code: '007',
                 target_name: '4-A',
                 data_logger_index: 6,
+                axisScale: [0, 0],
+                moveScale: [-1, 0],
               },
               {
                 target_code: '008',
                 target_name: '4-B',
                 data_logger_index: 7,
+                axisScale: [0, 1],
+                moveScale: [-1, 0],
               },
               {
                 target_code: '009',
                 target_name: '5-A',
                 data_logger_index: 8,
+                axisScale: [0, 0],
+                moveScale: [-1, 0],
               },
               {
                 target_code: '010',
                 target_name: '5-B',
                 data_logger_index: 9,
+                axisScale: [0, 1],
+                moveScale: [-1, 0],
               },
               {
                 target_code: '011',
                 target_name: '6-A',
                 data_logger_index: 10,
+                axisScale: [0, 0],
+                moveScale: [-1, 0],
               },
               {
                 target_code: '012',
                 target_name: '6-B',
                 data_logger_index: 11,
+                axisScale: [0, 1],
+                moveScale: [-1, 0],
               },
               {
                 target_code: '013',
                 target_name: '7-A',
                 data_logger_index: 12,
+                axisScale: [0, 0],
+                moveScale: [-1, 0],
               },
               {
                 target_code: '014',
                 target_name: '7-B',
                 data_logger_index: 13,
+                axisScale: [0, 1],
+                moveScale: [-1, 0],
               },
               {
                 target_code: '015',
                 target_name: '8-A',
                 data_logger_index: 14,
+                axisScale: [0, 0],
+                moveScale: [-1, 0],
               },
               {
                 target_code: '016',
                 target_name: '8-B',
                 data_logger_index: 15,
+                axisScale: [0, 1],
+                moveScale: [-1, 0],
               },
             ],
           },
@@ -833,16 +865,22 @@ const map = {
                 target_code: '001',
                 target_name: '펌프',
                 data_logger_index: 0,
+                axisScale: [1, 1],
+                moveScale: [-1, -1],
               },
               {
                 target_code: '002',
                 target_name: '양액 A',
                 data_logger_index: 1,
+                axisScale: [0.1, 0.2],
+                moveScale: [0, 0],
               },
               {
                 target_code: '003',
                 target_name: '양액 B',
                 data_logger_index: 2,
+                axisScale: [0.8, 0.2],
+                moveScale: [0, 0],
               },
             ],
           },
@@ -1286,12 +1324,14 @@ const map = {
               },
             ],
           },
+          // Pump Control House
           {
             target_id: 'pumpControl',
             target_name: '펌프 제어반',
             target_prefix: 'PCH',
             placeList: [
               {
+                target_code: '',
                 nodeList: ['P_001', 'P_002', 'P_003'],
               },
             ],
@@ -1299,7 +1339,70 @@ const map = {
         ],
       },
     ],
-    svgResourceConnectionList: [{}],
+    svgResourceConnectionList: [
+      {
+        targetIdList: [
+          'ST_001',
+          'ST_002',
+          'ST_003',
+          'ST_004',
+          'ST_005',
+          'ST_006',
+          'ST_007',
+          'ST_008',
+          'ST_009',
+          'ST_010',
+          'ST_011',
+          'ST_012',
+          'ST_013',
+          'ST_014',
+          'ST_015',
+          'ST_016',
+        ],
+        resourceIdList: ['shutter'],
+      },
+      {
+        targetIdList: ['P_001', 'P_002', 'P_003'],
+        resourceIdList: ['pump'],
+      },
+      {
+        targetIdList: ['T_S_022', 'T_S_024'],
+        resourceIdList: ['soilTemperature'],
+      },
+      {
+        targetIdList: ['T_OA_022', 'T_OA_024'],
+        resourceIdList: ['outsideAirTemperature'],
+      },
+      {
+        targetIdList: ['RH_S_022', 'RH_S_024'],
+        resourceIdList: ['soilReh'],
+      },
+      {
+        targetIdList: ['RH_OA_022', 'RH_OA_024'],
+        resourceIdList: ['outsideAirReh'],
+      },
+      {
+        targetIdList: ['S_H_024'],
+        resourceIdList: ['horizontalSolar'],
+      },
+      {
+        targetIdList: ['S_PU_021', 'S_PU_022', 'S_PU_023'],
+        resourceIdList: ['pvUnderlyingSolar'],
+      },
+      {
+        targetIdList: [
+          'IVT_PW_G_KW_1',
+          'IVT_PW_G_KW_2',
+          'IVT_PW_G_KW_11',
+          'IVT_PW_G_KW_12',
+          'IVT_PW_G_KW_13',
+          'IVT_PW_G_KW_14',
+          'IVT_PW_G_KW_15',
+          'IVT_PW_G_KW_16',
+        ],
+        resourceIdList: ['powerGridKw'],
+      },
+    ],
   },
   controlInfo: {},
 };

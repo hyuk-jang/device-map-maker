@@ -159,7 +159,7 @@ const map = {
       svgPlaceList: [
         {
           placeId: 'salternBlock',
-          defList: [
+          svgPositonList: [
             {
               id: 'SEB_1_A',
               name: '증발지_1A',
@@ -219,14 +219,14 @@ const map = {
         },
         {
           placeId: 'earth',
-          defList: [
+          svgPositonList: [
             { id: 'EA_일반', name: '육상_일반', resourceId: 'earth', point: [10, 1600] },
             { id: 'EA_G2G', name: '육상_G2G', resourceId: 'earth', point: [10, 1770] },
           ],
         },
         {
           placeId: 'brineWarehouse',
-          defList: [
+          svgPositonList: [
             { id: 'BW_1', name: '해주_1', resourceId: 'brineWarehouse', point: [1100, 162] },
             { id: 'BW_2', name: '해주_2', resourceId: 'brineWarehouse', point: [1360, 162] },
             { id: 'BW_3', name: '해주_3', resourceId: 'brineWarehouse', point: [1620, 162] },
@@ -234,15 +234,15 @@ const map = {
         },
         {
           placeId: 'reservoir',
-          defList: [{ id: 'RV', name: '저수조', resourceId: 'reservoir', point: [1100, 3] }],
+          svgPositonList: [{ id: 'RV', name: '저수조', resourceId: 'reservoir', point: [1100, 3] }],
         },
         {
           placeId: 'sea',
-          defList: [{ id: 'SEA', name: '바다', resourceId: 'sea', point: [1858.5, 1812] }],
+          svgPositonList: [{ id: 'SEA', name: '바다', resourceId: 'sea', point: [1858.5, 1812] }],
         },
         {
           placeId: 'waterWay',
-          defList: [
+          svgPositonList: [
             {
               id: 'WW_001',
               name: '수로_1',
@@ -289,7 +289,7 @@ const map = {
         },
         {
           placeId: 'pipeLine',
-          defList: [
+          svgPositonList: [
             { id: 'PL_001', name: '파이프_1', resourceId: 'pipeLine', point: [1860, 20, 2550, 20] },
             {
               id: 'PL_002',
@@ -382,7 +382,7 @@ const map = {
         {
           nodeDefId: 'gateValve',
           is_sensor: 0,
-          defList: [
+          svgPositonList: [
             {
               id: 'GV_001',
               name: '수문 용 밸브_001',
@@ -423,7 +423,7 @@ const map = {
         {
           nodeDefId: 'valve',
           is_sensor: 0,
-          defList: [
+          svgPositonList: [
             {
               id: 'V_001',
               name: '밸브_001',
@@ -472,7 +472,7 @@ const map = {
           nodeDefId: 'outlet',
           is_sensor: -1,
 
-          defList: [
+          svgPositonList: [
             {
               id: 'O_001',
               name: '배출구_001',
@@ -534,7 +534,7 @@ const map = {
         {
           nodeDefId: 'waterDoor',
           is_sensor: 0,
-          defList: [
+          svgPositonList: [
             {
               id: 'WD_005',
               name: '수문_005',
@@ -624,7 +624,7 @@ const map = {
         {
           nodeDefId: 'pump',
           is_sensor: 0,
-          defList: [
+          svgPositonList: [
             {
               id: 'P_003',
               name: '펌프_003',
@@ -660,7 +660,7 @@ const map = {
         {
           nodeDefId: 'moduleRearTemperature',
           is_sensor: 1,
-          defList: [
+          svgPositonList: [
             {
               id: 'MRT_006',
               name: '모듈 뒷면 온도_006',
@@ -673,7 +673,7 @@ const map = {
         {
           nodeDefId: 'moduleRearTemperature',
           is_sensor: 1,
-          defList: [
+          svgPositonList: [
             {
               id: 'MRT_005',
               name: '모듈 뒷면 온도_005',
@@ -686,7 +686,7 @@ const map = {
         {
           nodeDefId: 'waterLevel',
           is_sensor: 1,
-          defList: [
+          svgPositonList: [
             {
               id: 'WL_001',
               name: '수위_001',
@@ -699,7 +699,7 @@ const map = {
         {
           nodeDefId: 'moduleRearTemperature',
           is_sensor: 1,
-          defList: [
+          svgPositonList: [
             {
               id: 'MRT_001',
               name: '모듈 뒷면 온도_001',
@@ -712,7 +712,7 @@ const map = {
         {
           nodeDefId: 'brineTemperature',
           is_sensor: 1,
-          defList: [
+          svgPositonList: [
             {
               id: 'BT_001',
               name: '염수 온도_001',
@@ -725,7 +725,7 @@ const map = {
         {
           nodeDefId: 'waterLevel',
           is_sensor: 1,
-          defList: [
+          svgPositonList: [
             {
               id: 'WL_002',
               name: '수위_002',
@@ -738,7 +738,7 @@ const map = {
         {
           nodeDefId: 'moduleRearTemperature',
           is_sensor: 1,
-          defList: [
+          svgPositonList: [
             {
               id: 'MRT_002',
               name: '모듈 뒷면 온도_002',
@@ -751,7 +751,7 @@ const map = {
         {
           nodeDefId: 'brineTemperature',
           is_sensor: 1,
-          defList: [
+          svgPositonList: [
             {
               id: 'BT_002',
               name: '염수 온도_002',
@@ -764,7 +764,7 @@ const map = {
         {
           nodeDefId: 'waterLevel',
           is_sensor: 1,
-          defList: [
+          svgPositonList: [
             {
               id: 'WL_003',
               name: '수위_003',
@@ -777,7 +777,7 @@ const map = {
         {
           nodeDefId: 'moduleRearTemperature',
           is_sensor: 1,
-          defList: [
+          svgPositonList: [
             {
               id: 'MRT_003',
               name: '모듈 뒷면 온도_003',
@@ -790,7 +790,7 @@ const map = {
         {
           nodeDefId: 'brineTemperature',
           is_sensor: 1,
-          defList: [
+          svgPositonList: [
             {
               id: 'BT_003',
               name: '염수 온도_003',
@@ -803,7 +803,7 @@ const map = {
         {
           nodeDefId: 'waterLevel',
           is_sensor: 1,
-          defList: [
+          svgPositonList: [
             {
               id: 'WL_004',
               name: '수위_004',
@@ -816,7 +816,7 @@ const map = {
         {
           nodeDefId: 'moduleRearTemperature',
           is_sensor: 1,
-          defList: [
+          svgPositonList: [
             {
               id: 'MRT_004',
               name: '모듈 뒷면 온도_004',
@@ -829,7 +829,7 @@ const map = {
         {
           nodeDefId: 'brineTemperature',
           is_sensor: 1,
-          defList: [
+          svgPositonList: [
             {
               id: 'BT_004',
               name: '염수 온도_004',
@@ -842,7 +842,7 @@ const map = {
         {
           nodeDefId: 'moduleRearTemperature',
           is_sensor: 1,
-          defList: [
+          svgPositonList: [
             {
               id: 'MRT_007',
               name: '모듈 뒷면 온도_007',
@@ -855,7 +855,7 @@ const map = {
         {
           nodeDefId: 'waterLevel',
           is_sensor: 1,
-          defList: [
+          svgPositonList: [
             {
               id: 'WL_005',
               name: '수위_005',
@@ -868,7 +868,7 @@ const map = {
         {
           nodeDefId: 'brineTemperature',
           is_sensor: 1,
-          defList: [
+          svgPositonList: [
             {
               id: 'BT_005',
               name: '염수 온도_005',

@@ -218,7 +218,7 @@ const map = {
       svgPlaceList: [
         {
           placeId: 'salternBlock',
-          defList: [
+          svgPositonList: [
             {
               id: 'SEB_1',
               name: '증발지_1',
@@ -284,7 +284,7 @@ const map = {
         },
         {
           placeId: 'brineWarehouse',
-          defList: [
+          svgPositonList: [
             { id: 'BW_1', name: '해주_1', resourceId: 'brineWarehouse_A', point: [590, 10] },
             { id: 'BW_2', name: '해주_2', resourceId: 'brineWarehouse_B', point: [590, 265] },
             { id: 'BW_3', name: '해주_3', resourceId: 'brineWarehouse_C', point: [590, 470] },
@@ -295,21 +295,21 @@ const map = {
         },
         {
           placeId: 'reservoir',
-          defList: [
+          svgPositonList: [
             { id: 'RV_1', name: '저수지_1', resourceId: 'reservoir_A', point: [1240, 10] },
             { id: 'RV_2', name: '', resourceId: 'reservoir_B', point: [1240, 750] },
           ],
         },
         {
           placeId: 'sea',
-          defList: [
+          svgPositonList: [
             { id: 'SEA', name: '바다', resourceId: 'sea', point: [1360, 10] },
             { id: 'D', name: '', resourceId: 'drainage', point: [1240, 670] },
           ],
         },
         {
           placeId: 'waterWay',
-          defList: [
+          svgPositonList: [
             {
               id: 'WW_001',
               name: '수로_001',
@@ -524,7 +524,7 @@ const map = {
         },
         {
           placeId: 'pipeLine',
-          defList: [
+          svgPositonList: [
             { id: 'PL_003', name: '파이프_003', resourceId: 'pipeLine_A', point: [0, 0, 0, 0] },
             { id: 'PL_004', name: '파이프_004', resourceId: 'pipeLine_A', point: [0, 0, 0, 0] },
             { id: 'PL_005', name: '파이프_005', resourceId: 'pipeLine_A', point: [0, 0, 0, 0] },
@@ -562,7 +562,7 @@ const map = {
         },
         {
           placeId: 'system',
-          defList: [
+          svgPositonList: [
             {
               id: 'SYSTEM_A',
               name: '시스템_A',
