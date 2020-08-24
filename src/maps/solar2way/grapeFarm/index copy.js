@@ -250,7 +250,243 @@ const map = {
       ],
     },
     positionInfo: {
-      svgPlaceList: [],
+      svgPlaceList: [
+        {
+          placeId: 'waterWay',
+          svgPositonList: [
+            {
+              id: 'WW_001',
+              name: '수로_001',
+              resourceId: 'waterWay',
+              point: [700, 200, 700, 500],
+            },
+            {
+              id: 'WW_002',
+              name: '수로_002',
+              resourceId: 'waterWay',
+              point: [700, 200, 800, 200],
+            },
+            {
+              id: 'WW_003',
+              name: '수로_003',
+              resourceId: 'waterWay',
+              point: [700, 200, 800, 300],
+            },
+            // {
+            //   id: 'WW_004',
+            //   name: '수로_004',
+            //   resourceId: 'waterWay',
+            //   point: [170, 610, 1090, 610],
+            // },
+            // {
+            //   id: 'WW_005',
+            //   name: '수로_005',
+            //   resourceId: 'waterWay',
+            //   point: [1075, 610, 1075, 950],
+            // },
+            // {
+            //   id: 'WW_006',
+            //   name: '수로_006',
+            //   resourceId: 'waterWay',
+            //   point: [170, 950, 300, 950],
+            // },
+            // {
+            //   id: 'WW_007',
+            //   name: '수로_007',
+            //   resourceId: 'waterWay',
+            //   point: [170, 1150, 1163, 1150],
+            // },
+            // {
+            //   id: 'WW_009',
+            //   name: '수로_009',
+            //   resourceId: 'peWaterWay',
+            //   point: [435, 410, 435, 432],
+            // },
+            // {
+            //   id: 'WW_010',
+            //   name: '수로_010',
+            //   resourceId: 'peWaterWay',
+            //   point: [435, 432, 435, 450],
+            // },
+          ],
+        },
+        {
+          placeId: 'vinylHouse',
+          svgPositonList: [
+            {
+              id: 'VNH_1',
+              name: '비닐 하우스 1',
+              resourceId: 'vinylHouse',
+              point: [ms.VH.START_X, ms.VH.START_Y],
+            },
+            {
+              id: 'VNH_2',
+              name: '비닐 하우스 2',
+              resourceId: 'vinylHouse',
+              point: [ms.VH.START_X, ms.VH.START_Y + ms.VH.INTERVAL * 1],
+            },
+            {
+              id: 'VNH_3',
+              name: '비닐 하우스 3',
+              resourceId: 'vinylHouse',
+              point: [ms.VH.START_X, ms.VH.START_Y + ms.VH.INTERVAL * 2],
+            },
+            {
+              id: 'VNH_4',
+              name: '비닐 하우스 4',
+              resourceId: 'vinylHouse',
+              point: [ms.VH.START_X, ms.VH.START_Y + ms.VH.INTERVAL * 3],
+            },
+            {
+              id: 'VNH_5',
+              name: '비닐 하우스 5',
+              resourceId: 'vinylHouse',
+              point: [ms.VH.START_X, ms.VH.START_Y + ms.VH.INTERVAL * 4],
+            },
+            {
+              id: 'VNH_6',
+              name: '비닐 하우스 6',
+              resourceId: 'vinylHouse',
+              point: [ms.VH.START_X, ms.VH.START_Y + ms.VH.INTERVAL * 5],
+            },
+            {
+              id: 'VNH_7',
+              name: '비닐 하우스 7',
+              resourceId: 'vinylHouse',
+              point: [ms.VH.START_X, ms.VH.START_Y + ms.VH.INTERVAL * 6],
+            },
+            {
+              id: 'VNH_8',
+              name: '비닐 하우스 8',
+              resourceId: 'vinylHouse',
+              point: [ms.VH.START_X, ms.VH.START_Y + ms.VH.INTERVAL * 7],
+            },
+          ],
+        },
+        {
+          placeId: 'sensor',
+          svgPositonList: [
+            {
+              id: 'S_1',
+              name: '생육환경 A',
+              resourceId: 'pvSensor',
+              point: [ms.VH.START_X + ms.SS.INTERVAL, ms.VH.START_Y + ms.VH.INTERVAL * 5],
+            },
+            {
+              id: 'S_2',
+              name: '생육환경 B',
+              resourceId: 'pvSensor',
+              point: [
+                ms.VH.START_X + ms.VH.WIDTH / 2 - ms.SS.WIDTH / 2,
+                ms.VH.START_Y + ms.VH.INTERVAL * 5,
+              ],
+            },
+            {
+              id: 'S_3',
+              name: '생육환경 C',
+              resourceId: 'pvSensor',
+              point: [
+                ms.VH.START_X - ms.SS.INTERVAL + ms.VH.WIDTH - ms.SS.WIDTH,
+                ms.VH.START_Y + ms.VH.INTERVAL * 5,
+              ],
+            },
+            {
+              id: 'S_4',
+              name: '외기환경',
+              resourceId: 'outsideSensor',
+              point: [
+                ms.VH.START_X + ms.VH.WIDTH / 2 - ms.SS.WIDTH / 2,
+                ms.VH.START_Y + ms.VH.INTERVAL * 8,
+              ],
+            },
+          ],
+        },
+        {
+          placeId: 'pumpPanel',
+          svgPositonList: [
+            {
+              id: 'PCH',
+              name: '펌프 제어반',
+              resourceId: 'pumpPanel',
+              point: [
+                ms.VH.START_X + ms.VH.WIDTH + ms.VH.INTERVAL,
+                ms.VH.START_Y + ms.VH.INTERVAL * 6,
+              ],
+            },
+          ],
+        },
+        {
+          placeId: 'pvPanel',
+          svgPositonList: [
+            {
+              id: 'PV_1',
+              name: 'PV_1_S_일반(7)',
+              resourceId: 'pvN_7EA',
+              point: [ms.VH.START_X, ms.VH.START_Y + ms.VH.INTERVAL * 0 + ms.VH.HEIGHT / 2],
+            },
+            {
+              id: 'PV_2',
+              name: 'PV_2_S_투명(7)',
+              resourceId: 'pvT_7EA',
+              point: [ms.VH.START_X, ms.VH.START_Y + ms.VH.INTERVAL * 1 + ms.VH.HEIGHT / 2],
+            },
+            {
+              id: 'PV_3',
+              name: 'PV_3_S_일반(7)',
+              resourceId: 'pvN_7EA',
+              point: [ms.VH.START_X, ms.VH.START_Y + ms.VH.INTERVAL * 2 + ms.VH.HEIGHT / 2],
+            },
+            {
+              id: 'PV_4',
+              name: 'PV_4_S_투명(7)',
+              resourceId: 'pvT_7EA',
+              point: [ms.VH.START_X, ms.VH.START_Y + ms.VH.INTERVAL * 3 + ms.VH.HEIGHT / 2],
+            },
+            {
+              id: 'PV_5',
+              name: 'PV_5_M_투명(6)',
+              resourceId: 'pvT_6EA',
+              point: [ms.VH.START_X, ms.VH.START_Y + ms.VH.INTERVAL * 4 + ms.VH.HEIGHT / 2],
+            },
+            {
+              id: 'PV_6',
+              name: 'PV_6_M_일반(8)',
+              resourceId: 'pvN_8EA',
+              point: [ms.VH.START_X, ms.VH.START_Y + ms.VH.INTERVAL * 5 + ms.VH.HEIGHT / 2],
+            },
+            {
+              id: 'PV_7-A',
+              name: 'PV_7-A_M_투명(4)',
+              resourceId: 'pvT_4EA',
+              point: [ms.VH.START_X, ms.VH.START_Y + ms.VH.INTERVAL * 6 + ms.VH.HEIGHT / 2],
+            },
+            {
+              id: 'PV_7-B',
+              name: 'PV_7-B_M_일반(4)',
+              resourceId: 'pvN_4EA',
+              point: [
+                ms.VH.START_X + (ms.VH.WIDTH / 8) * 4,
+                ms.VH.START_Y + ms.VH.INTERVAL * 6 + ms.VH.HEIGHT / 2,
+              ],
+            },
+            {
+              id: 'PV_8-A',
+              name: 'PV_8-A_M_투명(4)',
+              resourceId: 'pvT_4EA',
+              point: [ms.VH.START_X, ms.VH.START_Y + ms.VH.INTERVAL * 7 + ms.VH.HEIGHT / 2],
+            },
+            {
+              id: 'PV_8-B',
+              name: 'PV_8-B_M_일반(4)',
+              resourceId: 'pvN_4EA',
+              point: [
+                ms.VH.START_X + (ms.VH.WIDTH / 8) * 4,
+                ms.VH.START_Y + ms.VH.INTERVAL * 7 + ms.VH.HEIGHT / 2,
+              ],
+            },
+          ],
+        },
+      ],
       svgNodeList: [],
     },
   },
@@ -1139,94 +1375,79 @@ const map = {
           },
         ],
       },
+
       {
-        target_id: 'house',
-        target_name: '비닐 하우스',
+        target_id: 'farmParallelSite',
+        target_name: '농업 병행 부지',
+        description: '농업 병행 태양광 부지로 작물 생육 환경 센서가 존재',
         defList: [
           {
-            target_id: 'vinylHouse',
-            target_prefix: 'VNH',
+            target_id: 'normalType',
+            target_prefix: 'PV_N',
             placeList: [
               {
-                target_code: '1',
-                nodeList: ['ST_001', 'ST_002'],
+                target_code: '021',
+                target_name: 'A',
+                chart_color: '#c92a2a',
+                chart_sort_rank: 21,
+                nodeList: ['S_PU_021'],
                 svgPositionInfo: {
-                  resourceId: 'vinylHouse',
-                  point: [ms.VH.START_X, ms.VH.START_Y],
+                  resourceId: 'pvSensor',
+                  point: [ms.VH.START_X + ms.SS.INTERVAL, ms.VH.START_Y + ms.VH.INTERVAL * 5],
                 },
               },
               {
-                target_code: '2',
-                nodeList: ['ST_003', 'ST_004'],
+                target_code: '022',
+                target_name: 'B',
+                chart_color: '#868e96',
+                chart_sort_rank: 22,
+                nodeList: ['S_PU_022', 'T_S_022', 'RH_S_022', 'T_OA_022', 'RH_OA_022'],
                 svgPositionInfo: {
-                  resourceId: 'vinylHouse',
-                  point: [ms.VH.START_X, ms.VH.START_Y + ms.VH.INTERVAL * 1],
+                  resourceId: 'pvSensor',
+                  point: [
+                    ms.VH.START_X + ms.VH.WIDTH / 2 - ms.SS.WIDTH / 2,
+                    ms.VH.START_Y + ms.VH.INTERVAL * 5,
+                  ],
                 },
               },
               {
-                target_code: '3',
-                nodeList: ['ST_005', 'ST_006'],
+                target_code: '023',
+                target_name: 'C',
+                chart_color: '#b9560d',
+                chart_sort_rank: 23,
+                nodeList: ['S_PU_023'],
                 svgPositionInfo: {
-                  resourceId: 'vinylHouse',
-                  point: [ms.VH.START_X, ms.VH.START_Y + ms.VH.INTERVAL * 2],
-                },
-              },
-              {
-                target_code: '4',
-                nodeList: ['ST_007', 'ST_008'],
-                svgPositionInfo: {
-                  resourceId: 'vinylHouse',
-                  point: [ms.VH.START_X, ms.VH.START_Y + ms.VH.INTERVAL * 3],
-                },
-              },
-              {
-                target_code: '5',
-                nodeList: ['ST_009', 'ST_010'],
-                svgPositionInfo: {
-                  resourceId: 'vinylHouse',
-                  point: [ms.VH.START_X, ms.VH.START_Y + ms.VH.INTERVAL * 4],
-                },
-              },
-              {
-                target_code: '6',
-                nodeList: ['ST_011', 'ST_012'],
-                svgPositionInfo: {
-                  resourceId: 'vinylHouse',
-                  point: [ms.VH.START_X, ms.VH.START_Y + ms.VH.INTERVAL * 5],
-                },
-              },
-              {
-                target_code: '7',
-                nodeList: ['ST_013', 'ST_014'],
-                svgPositionInfo: {
-                  resourceId: 'vinylHouse',
-                  point: [ms.VH.START_X, ms.VH.START_Y + ms.VH.INTERVAL * 6],
-                },
-              },
-              {
-                target_code: '8',
-                nodeList: ['ST_015', 'ST_016'],
-                svgPositionInfo: {
-                  resourceId: 'vinylHouse',
-                  point: [ms.VH.START_X, ms.VH.START_Y + ms.VH.INTERVAL * 7],
+                  resourceId: 'pvSensor',
+                  point: [
+                    ms.VH.START_X - ms.SS.INTERVAL + ms.VH.WIDTH - ms.SS.WIDTH,
+                    ms.VH.START_Y + ms.VH.INTERVAL * 5,
+                  ],
                 },
               },
             ],
           },
-          // Pump Control House
+        ],
+      },
+      {
+        target_id: 'outside',
+        target_name: '외기 환경',
+        description:
+          '농업 병행 태양광 부지와의 대조구으로 작물 생육에 들어간 센서와 기상환경 계측 센서 존재',
+        defList: [
           {
-            target_id: 'pumpControl',
-            target_name: '펌프 제어반',
-            target_prefix: 'PCH',
+            target_id: 'outside',
+            target_prefix: 'OS',
             placeList: [
               {
-                target_code: '',
-                nodeList: ['P_001', 'P_002', 'P_003'],
+                target_code: '024',
+                chart_color: '#99e9f2',
+                chart_sort_rank: 24,
+                nodeList: ['S_H_024', 'T_S_024', 'RH_S_024', 'T_OA_024', 'RH_OA_024'],
                 svgPositionInfo: {
-                  resourceId: 'pumpPanel',
+                  resourceId: 'outsideSensor',
                   point: [
-                    ms.VH.START_X + ms.VH.WIDTH + ms.VH.INTERVAL,
-                    ms.VH.START_Y + ms.VH.INTERVAL * 6,
+                    ms.VH.START_X + ms.VH.WIDTH / 2 - ms.SS.WIDTH / 2,
+                    ms.VH.START_Y + ms.VH.INTERVAL * 8,
                   ],
                 },
               },
@@ -1342,77 +1563,93 @@ const map = {
         ],
       },
       {
-        target_id: 'farmParallelSite',
-        target_name: '농업 병행 부지',
-        description: '농업 병행 태양광 부지로 작물 생육 환경 센서가 존재',
+        target_id: 'house',
+        target_name: '비닐 하우스',
         defList: [
           {
-            target_id: 'normalType',
-            target_prefix: 'PV_N',
+            target_id: 'vinylHouse',
+            target_prefix: 'VNH',
             placeList: [
               {
-                target_code: '021',
-                target_name: 'A',
-                chart_color: '#c92a2a',
-                chart_sort_rank: 21,
-                nodeList: ['S_PU_021'],
+                target_code: '1',
+                nodeList: ['ST_001', 'ST_002'],
                 svgPositionInfo: {
-                  resourceId: 'pvSensor',
-                  point: [ms.VH.START_X + ms.SS.INTERVAL, ms.VH.START_Y + ms.VH.INTERVAL * 5],
+                  resourceId: 'vinylHouse',
+                  point: [ms.VH.START_X, ms.VH.START_Y],
                 },
               },
               {
-                target_code: '022',
-                target_name: 'B',
-                chart_color: '#868e96',
-                chart_sort_rank: 22,
-                nodeList: ['S_PU_022', 'T_S_022', 'RH_S_022', 'T_OA_022', 'RH_OA_022'],
+                target_code: '2',
+                nodeList: ['ST_003', 'ST_004'],
                 svgPositionInfo: {
-                  resourceId: 'pvSensor',
-                  point: [
-                    ms.VH.START_X + ms.VH.WIDTH / 2 - ms.SS.WIDTH / 2,
-                    ms.VH.START_Y + ms.VH.INTERVAL * 5,
-                  ],
+                  resourceId: 'vinylHouse',
+                  point: [ms.VH.START_X, ms.VH.START_Y + ms.VH.INTERVAL * 1],
                 },
               },
               {
-                target_code: '023',
-                target_name: 'C',
-                chart_color: '#b9560d',
-                chart_sort_rank: 23,
-                nodeList: ['S_PU_023'],
+                target_code: '3',
+                nodeList: ['ST_005', 'ST_006'],
                 svgPositionInfo: {
-                  resourceId: 'pvSensor',
-                  point: [
-                    ms.VH.START_X - ms.SS.INTERVAL + ms.VH.WIDTH - ms.SS.WIDTH,
-                    ms.VH.START_Y + ms.VH.INTERVAL * 5,
-                  ],
+                  resourceId: 'vinylHouse',
+                  point: [ms.VH.START_X, ms.VH.START_Y + ms.VH.INTERVAL * 2],
+                },
+              },
+              {
+                target_code: '4',
+                nodeList: ['ST_007', 'ST_008'],
+                svgPositionInfo: {
+                  resourceId: 'vinylHouse',
+                  point: [ms.VH.START_X, ms.VH.START_Y + ms.VH.INTERVAL * 3],
+                },
+              },
+              {
+                target_code: '5',
+                nodeList: ['ST_009', 'ST_010'],
+                svgPositionInfo: {
+                  resourceId: 'vinylHouse',
+                  point: [ms.VH.START_X, ms.VH.START_Y + ms.VH.INTERVAL * 4],
+                },
+              },
+              {
+                target_code: '6',
+                nodeList: ['ST_011', 'ST_012'],
+                svgPositionInfo: {
+                  resourceId: 'vinylHouse',
+                  point: [ms.VH.START_X, ms.VH.START_Y + ms.VH.INTERVAL * 5],
+                },
+              },
+              {
+                target_code: '7',
+                nodeList: ['ST_013', 'ST_014'],
+                svgPositionInfo: {
+                  resourceId: 'vinylHouse',
+                  point: [ms.VH.START_X, ms.VH.START_Y + ms.VH.INTERVAL * 6],
+                },
+              },
+              {
+                target_code: '8',
+                nodeList: ['ST_015', 'ST_016'],
+                svgPositionInfo: {
+                  resourceId: 'vinylHouse',
+                  point: [ms.VH.START_X, ms.VH.START_Y + ms.VH.INTERVAL * 7],
                 },
               },
             ],
           },
-        ],
-      },
-      {
-        target_id: 'outside',
-        target_name: '외기 환경',
-        description:
-          '농업 병행 태양광 부지와의 대조구으로 작물 생육에 들어간 센서와 기상환경 계측 센서 존재',
-        defList: [
+          // Pump Control House
           {
-            target_id: 'outside',
-            target_prefix: 'OS',
+            target_id: 'pumpControl',
+            target_name: '펌프 제어반',
+            target_prefix: 'PCH',
             placeList: [
               {
-                target_code: '024',
-                chart_color: '#99e9f2',
-                chart_sort_rank: 24,
-                nodeList: ['S_H_024', 'T_S_024', 'RH_S_024', 'T_OA_024', 'RH_OA_024'],
+                target_code: '',
+                nodeList: ['P_001', 'P_002', 'P_003'],
                 svgPositionInfo: {
-                  resourceId: 'outsideSensor',
+                  resourceId: 'pumpPanel',
                   point: [
-                    ms.VH.START_X + ms.VH.WIDTH / 2 - ms.SS.WIDTH / 2,
-                    ms.VH.START_Y + ms.VH.INTERVAL * 8,
+                    ms.VH.START_X + ms.VH.WIDTH + ms.VH.INTERVAL,
+                    ms.VH.START_Y + ms.VH.INTERVAL * 6,
                   ],
                 },
               },

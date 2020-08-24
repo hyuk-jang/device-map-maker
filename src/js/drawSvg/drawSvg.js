@@ -623,7 +623,8 @@ function drawSvgShadow(model, defId) {
   if (isSensor(defId)) {
     model.attr({ name: 'sensor' });
     model.filter(add => {
-      const blur = add.offset(0, 5).in(add.sourceAlpha).gaussianBlur(3);
+      const blur = add.offset(0, 0).in(add.sourceAlpha);
+
       add.blend(add.source, blur);
     });
   } else {

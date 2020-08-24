@@ -9,7 +9,6 @@ const { SOURCE_PATH, SOURCE_FILE } = process.env;
 const mapPath = path.join(process.cwd(), 'src', 'maps', SOURCE_PATH, SOURCE_FILE);
 
 // eslint-disable-next-line import/no-dynamic-require
-/** @type {mDeviceMap} */
 const map = require(mapPath);
 
 require('default-intelligence');
@@ -47,153 +46,15 @@ class SvgMaker {
    */
   async makeSvgMapFile() {
     // SVG NodeList를 생성하기 위한 임시 저장소 생성
-    // this.setSvgNodeTempStorageList();
+    this.setSvgNodeTempStorageList();
     // Node(센서 제외) SVG 위치 정보 산출
     // this.makeSvgNodeList();
     // Node(센서) SVG 위치 정보 산출
     // this.makeSensorList();
 
-    this.init();
-
-    this.setSvgPlaceList();
-
-    // TODO: PlaceRelationList 목록을 순회하면서 positionInfo.svgPlaceList 에 세팅
-
     await this.writeMapFile();
 
-    // BU.CLIN(map.drawInfo.positionInfo.svgPlaceList);
-
     return map;
-  }
-
-  /**
-   * Map 초기화 진행
-   * Map<placeId, mdPlaceInfo>, Map<nodeId, mdNodeInfo> 생성
-   */
-  init() {
-    // svgModelResourceList 생성
-    /** @type {Map<string, mSvgModelResource>} */
-    this.mdMapStorage = new Map();
-    this.mSvgModelResourceList.forEach(modelInfo => {
-      const { id } = modelInfo;
-      this.mdMapStorage.set(id, modelInfo);
-    });
-
-    // TODO: PlaceRelationList을 순회하면서 Map<placeId, mSvgStorageInfo> 세팅
-
-    /** @type {Map<string, mdPlaceInfo>} */
-    this.mdPlaceStorage = new Map();
-
-    this.mPlaceRelationList.forEach(pClassInfo => {
-      const { defList, target_name: pcName } = pClassInfo;
-      defList.forEach(pDefInfo => {
-        const { target_prefix: pdPrefix, target_name: pdName = pcName, placeList = [] } = pDefInfo;
-        // 장소 목록 순회
-        placeList.forEach(pInfo => {
-          const {
-            target_code: pCode = null,
-            target_name: pName = pdName,
-            nodeList = [],
-            svgPositionInfo: { point, resourceId } = {},
-          } = pInfo;
-          // Place ID 정의
-
-          // svgPositionInfo 정보가 없다면 추가하지 않음
-          if (resourceId === undefined) return false;
-
-          const placeId = `${pdPrefix}${pCode ? `_${pCode}` : ''}`;
-          const placeName = `${pName}${pCode ? `_${pCode}` : ''}`;
-
-          this.mdPlaceStorage.set(placeId, {
-            placeId,
-            placeName,
-            nodeList,
-            point,
-            svgModelResource: this.mdMapStorage.get(resourceId),
-          });
-        });
-      });
-    });
-
-    // BU.CLIN(this.mdPlaceStorage);
-
-    // TODO: SetInfo NodeStrutureList 를 순회하면서 Map<placeId, mSvgStorageInfo> 세팅
-    /** @type {Map<string, mdNodeInfo>} nodeId를 기준으로 nodeInfo 정보를 저장할 Map */
-    this.mNodeStorage = new Map();
-
-    this.mNodeStructureList.forEach(nClassInfo => {
-      const { defList, is_sensor: isSensor, target_name: ncName } = nClassInfo;
-      defList.forEach(nDefInfo => {
-        const { nodeList = [], target_prefix: ndPrefix, target_name: ndName = ncName } = nDefInfo;
-
-        nodeList.forEach(nodeInfo => {
-          const {
-            target_code: nCode,
-            target_name: nName = ndName,
-            svgNodePosOpt = {},
-            svgNodePosOpt: { resourceId, axisScale, moveScale } = {},
-          } = nodeInfo;
-
-          let { svgNodePosOpt: { placeId } = {} } = nodeInfo;
-
-          // SVG Node의 위치 설정 정보가 없을 경우 추가하지 않음
-          if (_.isEmpty(svgNodePosOpt)) {
-            return false;
-          }
-
-          const nodeId = `${ndPrefix}${nCode ? `_${nCode}` : ''}`;
-          const nodeName = `${nName}${nCode ? `_${nCode}` : ''}`;
-
-          // resourceId의 정보가 없다면 placeRelation에 있는지 찾아서 정의
-          if (placeId === undefined) {
-            const psIterator = this.mdPlaceStorage.values();
-
-            let psInfo = psIterator.next();
-
-            while (!psInfo.done) {
-              if (_.includes(_.get(psInfo.value, 'nodeList', []), nodeId)) {
-                placeId = _.get(psInfo.value, 'placeId');
-                break;
-              }
-              psInfo = psIterator.next();
-            }
-          }
-
-          this.mNodeStorage.set(nodeId, {
-            nodeId,
-            nodeName,
-            isSensor,
-            placeId,
-            axisScale,
-            moveScale,
-            point: [],
-            mdPlaceInfo: this.mdPlaceStorage.get(placeId),
-            svgModelResource: this.mdMapStorage.get(resourceId),
-          });
-        });
-      });
-    });
-  }
-
-  setSvgPlaceList() {
-    // FIXME: 구버젼 호환 임시
-    /** @type {mSvgPlaceInfo} */
-    const temp = { placeId: 'test', svgPositonList: [] };
-
-    this.mSvgPlaceList.push(temp);
-
-    this.mdPlaceStorage.forEach(mdPlaceInfo => {
-      const { placeId, placeName, point, svgModelResource } = mdPlaceInfo;
-      temp.svgPositonList.push({
-        // this.mSvgPlaceList.push({
-        id: placeId,
-        name: placeName,
-        point,
-        resourceId: svgModelResource.id,
-      });
-    });
-
-    // BU.CLIN(this.mSvgPlaceList);
   }
 
   // Step 4
