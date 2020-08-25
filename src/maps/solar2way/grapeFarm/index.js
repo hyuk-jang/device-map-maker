@@ -206,6 +206,12 @@ const map = {
         },
         /* *************       Sensor        ***************** */
         {
+          id: 'sensor',
+          type: 'rect',
+          elementDrawInfo: { width: 55, height: 25, color: '#f0f0f0', opacity: 1 },
+          textStyleInfo: { color: '', fontSize: 8 },
+        },
+        {
           id: 'soilTemperature',
           type: 'rect',
           elementDrawInfo: { width: 55, height: 25, color: '#f0f0f0', opacity: 1 },
@@ -807,9 +813,17 @@ const map = {
             nodeList: [
               {
                 target_code: '022',
+                svgNodePosOpt: {
+                  resourceId: 'sensor',
+                  axisScale: [0.25, 0.25],
+                },
               },
               {
                 target_code: '024',
+                svgNodePosOpt: {
+                  resourceId: 'sensor',
+                  axisScale: [0.25, 0.25],
+                },
               },
             ],
           },
@@ -820,9 +834,17 @@ const map = {
             nodeList: [
               {
                 target_code: '022',
+                svgNodePosOpt: {
+                  resourceId: 'sensor',
+                  axisScale: [0.75, 0.25],
+                },
               },
               {
                 target_code: '024',
+                svgNodePosOpt: {
+                  resourceId: 'sensor',
+                  axisScale: [0.75, 0.25],
+                },
               },
             ],
           },
@@ -843,9 +865,17 @@ const map = {
             nodeList: [
               {
                 target_code: '022',
+                svgNodePosOpt: {
+                  resourceId: 'sensor',
+                  axisScale: [0.25, 0.75],
+                },
               },
               {
                 target_code: '024',
+                svgNodePosOpt: {
+                  resourceId: 'sensor',
+                  axisScale: [0.25, 0.75],
+                },
               },
             ],
           },
@@ -856,9 +886,17 @@ const map = {
             nodeList: [
               {
                 target_code: '022',
+                svgNodePosOpt: {
+                  resourceId: 'sensor',
+                  axisScale: [0.75, 0.75],
+                },
               },
               {
                 target_code: '024',
+                svgNodePosOpt: {
+                  resourceId: 'sensor',
+                  axisScale: [0.75, 0.75],
+                },
               },
             ],
           },
@@ -878,6 +916,10 @@ const map = {
             nodeList: [
               {
                 target_code: '024',
+                svgNodePosOpt: {
+                  resourceId: 'sensor',
+                  axisScale: [0.5, 0.5],
+                },
               },
             ],
           },
@@ -888,18 +930,24 @@ const map = {
             nodeList: [
               {
                 target_code: '021',
-                axisScale: [0, 0],
-                moveScale: [0, 0],
+                svgNodePosOpt: {
+                  resourceId: 'sensor',
+                  axisScale: [0.5, 0.5],
+                },
               },
               {
                 target_code: '022',
-                axisScale: [0, 0],
-                moveScale: [0, 0],
+                svgNodePosOpt: {
+                  resourceId: 'sensor',
+                  axisScale: [0.5, 0.5],
+                },
               },
               {
                 target_code: '023',
-                axisScale: [0, 0],
-                moveScale: [0, 0],
+                svgNodePosOpt: {
+                  resourceId: 'sensor',
+                  axisScale: [0.5, 0.5],
+                },
               },
             ],
           },
@@ -989,7 +1037,72 @@ const map = {
             target_name: '인버터 현재 전력',
             target_prefix: 'IVT_PW_G_KW',
             description: 'Power',
-            repeatId: 'RE_NODE_IVT',
+            nodeList: [
+              {
+                target_code: '1',
+                target_name: '투명(I)',
+                svgNodePosOpt: {
+                  resourceId: 'powerGridKw',
+                  axisScale: [0.5, 0.5],
+                },
+              },
+              {
+                target_code: '2',
+                target_name: '일반(I)',
+                svgNodePosOpt: {
+                  resourceId: 'powerGridKw',
+                  axisScale: [0.5, 0.5],
+                },
+              },
+              {
+                target_code: '11',
+                target_name: '투명 1(I)',
+                svgNodePosOpt: {
+                  resourceId: 'powerGridKw',
+                  axisScale: [0.5, 0.5],
+                },
+              },
+              {
+                target_code: '12',
+                target_name: '투명 2(I)',
+                svgNodePosOpt: {
+                  resourceId: 'powerGridKw',
+                  axisScale: [0.5, 0.5],
+                },
+              },
+              {
+                target_code: '13',
+                target_name: '일반 1(M.I)',
+                svgNodePosOpt: {
+                  resourceId: 'powerGridKw',
+                  axisScale: [0.5, 0.5],
+                },
+              },
+              {
+                target_code: '14',
+                target_name: '일반 2(M.I)',
+                svgNodePosOpt: {
+                  resourceId: 'powerGridKw',
+                  axisScale: [0.5, 0.5],
+                },
+              },
+              {
+                target_code: '15',
+                target_name: '일반 3(M.I)',
+                svgNodePosOpt: {
+                  resourceId: 'powerGridKw',
+                  axisScale: [0.5, 0.5],
+                },
+              },
+              {
+                target_code: '16',
+                target_name: '투명 4(M.I)',
+                svgNodePosOpt: {
+                  resourceId: 'powerGridKw',
+                  axisScale: [0.5, 0.5],
+                },
+              },
+            ],
           },
         ],
       },
