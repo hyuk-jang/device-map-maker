@@ -19,11 +19,25 @@
     <!-- Default Publishing -->
     <!-- jQuery (부트스트랩의 자바스크립트 플러그인을 위해 필요합니다) -->
     <script src="/js/jquery-3.4.1.min.js"></script>
+
     <link href="/css/bootstrap.min.css" rel="stylesheet" />
     <script src="/js/bootstrap.min.js"></script>
 
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css" />
+    <script
+      src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"
+      integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU="
+      crossorigin="anonymous"
+    ></script>
+    <!-- <script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
+
     <!-- SVG Map 을 생성하기 위한 필수 Library -->
     <!-- <script src="/js/svg.js"></script> -->
+    <!-- <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/svg.js/3.0.16/svg.min.js"
+      integrity="sha512-p3Tp2zn+wApBreZCgRkmMwnfpN8MUPXzzOihXx7iGYXqE7t6m9drY8HeyMeeFuDWiTFKrGUrq3jpbT0vX6zY/Q=="
+      crossorigin="anonymous"
+    ></script> -->
     <script src="/js/svg/svg.js"></script>
     <!-- <script src="/js/svg/svg.filter.js"></script> -->
     <!-- <script src="/js/svg.filter.js"></script> -->
@@ -51,6 +65,9 @@
           <!-- Svg Map -->
           <div class="" id="structure">
             <div class="map_control_box" id="mapControlBox">
+              <button class="ui-button ui-widget ui-corner-all" onclick="crayBtn1()">
+                창 띄우기
+              </button>
               <!-- panzoom button-->
               <button id="zoomIn" class="btn btn-default btn-sm">
                 <span class="glyphicon glyphicon-zoom-in"></span>
@@ -98,13 +115,120 @@
       </div>
     </div>
 
+    <div id="dialog-message" title="선택하세요." style="display: none;">
+      동작 제어
+      <br />
+      <span style="color: red;">PHP</span>, <span style="color: green;">ASP</span>,
+      <span style="color: blue;">JSP</span>
+    </div>
+    <!-- <div id="dialog-message-flag" title="선택하세요." style="display: none;">
+      동작 제어
+      다음중 <span style="font-size: 25pt;">가</span>장 많이 쓰는 <b><u>웹언어</u></b
+      >는?<br />
+      <span style="color: red;">PHP</span>, <span style="color: green;">ASP</span>,
+      <span style="color: blue;">JSP</span>
+    </div> -->
+
     <script src="/js/drawSvg/drawSvg.js"></script>
+
+    <script>
+      function crayBtn1() {
+        $('#dialog-message').dialog({
+          // 출현시 어둡게
+          modal: true,
+          open: function () {
+            $('.ui-widget-overlay').bind('click', function () {
+              $('#dialog-message').dialog('close');
+            });
+          },
+          closeText: 'Close',
+          buttons: {
+            'Open / On': function () {
+              $(this).dialog('close');
+            },
+            ASP: function () {
+              $(this).dialog('close');
+            },
+            JSP: function () {
+              $(this).dialog('close');
+            },
+          },
+        });
+      }
+      crayBtn1();
+    </script>
 
     <!-- SVG Map 세팅 -->
     <script>
+      // $('#dialog-message').dialog({
+      //   modal: true,
+      //   buttons: {
+      //     PHP: function () {
+      //       $(this).dialog('close');
+      //       alert('정답');
+      //     },
+      //     ASP: function () {
+      //       $(this).dialog('close');
+      //       alert('글쎄요');
+      //     },
+      //     JSP: function () {
+      //       $(this).dialog('close');
+      //       alert('몰라요');
+      //     },
+      //   },
+      // });
+
       initDrawSvg();
       drawSvgBasePlace('canvas'); // 멥 그리기
+
+      // FIXME:
+
       // bindingClickNodeEvent(socket, 'control');
+    </script>
+
+    <!-- panzoom & 맵 제어 박스 세팅 -->
+    <script>
+      var filter = 'win16|win32|win64|mac|macintel';
+      var canvas = document.getElementById('svgCanvas');
+      var startScale = 1;
+
+      var canvasPanzoom = Panzoom(canvas, {
+        cursor: 'default',
+        startScale: startScale,
+      });
+
+      document.getElementById('zoomIn').addEventListener('click', canvasPanzoom.zoomIn);
+      document.getElementById('zoomOut').addEventListener('click', canvasPanzoom.zoomOut);
+      document.getElementById('reset').addEventListener('click', canvasPanzoom.reset);
+      document.getElementById('scrollUp').addEventListener('click', () => {
+        document.documentElement.scrollTop = 0;
+      });
+      canvas.addEventListener('wheel', canvasPanzoom.zoomWithWheel); // 마우스 휠 확대/축소 이벤트
+
+      // 맵 제어 박스 스크롤에 반응하여 상단 고정
+      $(document).ready(() => {
+        const mCBoxOffset = $('#mapControlBox').offset();
+
+        $(window).scroll(() => {
+          $(document).scrollTop() > mCBoxOffset.top
+            ? $('#mapControlBox').css({ position: 'fixed', top: '0px' })
+            : $('#mapControlBox').css({ position: '', top: '' });
+        });
+      });
+
+      // 모니터링 버튼 이벤트
+      document.querySelector('#monitoring_mode').addEventListener('click', () => {
+        $('.container_row').toggleClass('hidden');
+        $('.container-fluid_st').toggleClass('hidden');
+        $('#wrap > header').toggleClass('hidden');
+        $('#wrap > footer').toggleClass('hidden');
+
+        $('#monitoring_mode').children().toggleClass('glyphicon-fullscreen');
+        $('#monitoring_mode').children().toggleClass('glyphicon-remove');
+
+        $('.svg_area').height(window.innerHeight);
+        window.dispatchEvent(new Event('resize'));
+      });
     </script>
   </body>
 </html>

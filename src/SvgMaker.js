@@ -130,7 +130,8 @@ class SvgMaker {
     this.mdNodeStorage = new Map();
 
     this.mNodeStructureList.forEach(nClassInfo => {
-      const { defList, is_sensor: isSensor, target_name: ncName } = nClassInfo;
+      const { defList, is_sensor: isSensor, target_name: ncName, data_unit: dataUnit } = nClassInfo;
+
       defList.forEach(nDefInfo => {
         const { nodeList = [], target_prefix: ndPrefix, target_name: ndName = ncName } = nDefInfo;
 
@@ -171,6 +172,7 @@ class SvgMaker {
             nodeId,
             nodeName,
             isSensor,
+            dataUnit,
             placeId,
             axisScale,
             moveScale,
@@ -266,6 +268,7 @@ class SvgMaker {
         axisScale: [axisX = 0, axisY = 0] = [],
         moveScale: [moveX = 0, moveY = 0] = [],
         mdPlaceInfo: {
+          placeId,
           point: [px1, py1, px2, py2],
           svgModelResource: pSvgModel,
         },
@@ -276,6 +279,7 @@ class SvgMaker {
           elementDrawInfo: {
             width: nModelWidth,
             height: nModelHeight,
+            radius: nModelRadius,
             color,
             strokeInfo: {
               color: strokeColor = STROKE_INFO.color,
@@ -301,9 +305,12 @@ class SvgMaker {
 
       switch (nodeType) {
         case 'rect':
-        case 'circle':
           nAxisX -= axisX * nModelWidth - moveX * nModelWidth;
           nAxisY -= axisY * nModelHeight - moveY * nModelHeight;
+          break;
+        case 'circle':
+          nAxisX -= axisX * nModelRadius - moveX * nModelRadius;
+          nAxisY -= axisY * nModelRadius - moveY * nModelRadius;
           break;
         case 'polygon':
           nAxisX -= axisX * (nModelWidth * 2) - moveX * (nModelWidth * 2);
@@ -327,6 +334,7 @@ class SvgMaker {
       this.mSvgNodeList.push({
         id: nodeId,
         name: nodeName,
+        placeId,
         is_sensor: isSensor,
         point: mdNodeInfo.point,
         resourceId: nodeModelId,

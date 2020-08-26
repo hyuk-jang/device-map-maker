@@ -13,12 +13,14 @@ const ms = {
     START_X: 100,
     START_Y: 100,
     INTERVAL: 100,
-    WIDTH: 400,
+    WIDTH: 500,
     HEIGHT: 80,
+    BIG_HEIGHT: 180,
   },
   // 센서 (SenSor)
   SS: {
     WIDTH: 100,
+    BIG_WIDTH: 200,
     INTERVAL: 20,
   },
 };
@@ -42,7 +44,7 @@ const map = {
           id: 'waterWay',
           type: 'line',
           elementDrawInfo: { width: 25, color: 'red', opacity: 1 },
-          textStyleInfo: { color: '', fontSize: 10 },
+          textStyleInfo: { color: '' },
         },
         /* *************       Place        ***************** */
         {
@@ -54,29 +56,51 @@ const map = {
             color: 'blue',
             opacity: 1,
           },
-          textStyleInfo: { color: 'white', fontSize: 10 },
+          textStyleInfo: { color: 'white', axisScale: [0.5, 0.3] },
+        },
+        {
+          id: 'bigVinylHouse',
+          type: 'rect',
+          elementDrawInfo: {
+            width: ms.VH.WIDTH,
+            height: ms.VH.BIG_HEIGHT,
+            color: 'blue',
+            opacity: 1,
+          },
+          textStyleInfo: { color: 'white' },
         },
         {
           id: 'pvSensor',
           type: 'rect',
           elementDrawInfo: {
             width: ms.SS.WIDTH,
-            height: ms.VH.HEIGHT / 2,
+            height: ms.VH.BIG_HEIGHT - ms.VH.HEIGHT / 2,
             color: 'red',
             opacity: 1,
           },
-          textStyleInfo: { color: 'white', fontSize: 10 },
+          textStyleInfo: { color: 'white' },
+        },
+        {
+          id: 'bigPvSensor',
+          type: 'rect',
+          elementDrawInfo: {
+            width: ms.SS.BIG_WIDTH,
+            height: ms.VH.BIG_HEIGHT - ms.VH.HEIGHT / 2,
+            color: 'red',
+            opacity: 1,
+          },
+          textStyleInfo: { color: 'white' },
         },
         {
           id: 'outsideSensor',
           type: 'rect',
           elementDrawInfo: {
-            width: ms.SS.WIDTH,
-            height: ms.VH.HEIGHT / 2,
+            width: ms.SS.BIG_WIDTH,
+            height: ms.VH.BIG_HEIGHT - ms.VH.HEIGHT / 2,
             color: 'gold',
             opacity: 1,
           },
-          textStyleInfo: { color: 'white', fontSize: 10 },
+          textStyleInfo: { color: 'white' },
         },
         {
           id: 'pvN_4EA',
@@ -87,7 +111,7 @@ const map = {
             color: '#abe3e1',
             opacity: 1,
           },
-          textStyleInfo: { color: '', fontSize: 10 },
+          textStyleInfo: { color: '' },
         },
         {
           id: 'pvN_6EA',
@@ -98,7 +122,7 @@ const map = {
             color: '#abe3e1',
             opacity: 1,
           },
-          textStyleInfo: { color: '', fontSize: 10 },
+          textStyleInfo: { color: '' },
         },
         {
           id: 'pvN_7EA',
@@ -109,7 +133,7 @@ const map = {
             color: '#abe3e1',
             opacity: 1,
           },
-          textStyleInfo: { color: '', fontSize: 10 },
+          textStyleInfo: { color: '' },
         },
         {
           id: 'pvN_8EA',
@@ -120,7 +144,7 @@ const map = {
             color: '#abe3e1',
             opacity: 1,
           },
-          textStyleInfo: { color: '', fontSize: 10 },
+          textStyleInfo: { color: '' },
         },
         {
           id: 'pvT_4EA',
@@ -131,7 +155,7 @@ const map = {
             color: '#eeeeee',
             opacity: 1,
           },
-          textStyleInfo: { color: '', fontSize: 10 },
+          textStyleInfo: { color: '' },
         },
         {
           id: 'pvT_6EA',
@@ -142,7 +166,7 @@ const map = {
             color: '#eeeeee',
             opacity: 1,
           },
-          textStyleInfo: { color: '', fontSize: 10 },
+          textStyleInfo: { color: '' },
         },
         {
           id: 'pvT_7EA',
@@ -153,7 +177,7 @@ const map = {
             color: '#eeeeee',
             opacity: 1,
           },
-          textStyleInfo: { color: '', fontSize: 10 },
+          textStyleInfo: { color: '' },
         },
         {
           id: 'pvT_8EA',
@@ -164,19 +188,19 @@ const map = {
             color: '#eeeeee',
             opacity: 1,
           },
-          textStyleInfo: { color: '', fontSize: 10 },
+          textStyleInfo: { color: '' },
         },
         {
           id: 'pumpPanel',
           type: 'rect',
           elementDrawInfo: { width: 200, height: 200, color: 'skyblue', opacity: 1 },
-          textStyleInfo: { color: '', fontSize: 10 },
+          textStyleInfo: { color: '' },
         },
         {
           id: 'pcsPanel',
           type: 'rect',
           elementDrawInfo: { width: 50, height: 50, color: '#90b4dd', opacity: 1 },
-          textStyleInfo: { color: '', fontSize: 10 },
+          textStyleInfo: { color: '' },
         },
         /* *************       Device        ***************** */
         {
@@ -185,12 +209,12 @@ const map = {
           elementDrawInfo: {
             width: 35,
             height: 35,
-            radius: 35,
+            radius: 40,
             color: ['#a3a3a3', '#22fb00', '#dc1d1f'],
             opacity: 1,
-            leading: '10em',
+            // leading: '10em',
           },
-          textStyleInfo: { color: '', fontSize: 6 },
+          textStyleInfo: { fontSize: 8 },
         },
         {
           id: 'pump',
@@ -198,59 +222,59 @@ const map = {
           elementDrawInfo: {
             width: 27,
             height: 27,
-            radius: 27,
+            radius: 40,
             color: ['#a3a3a3', '#8b24b0', '#dc1d1f'],
             opacity: 1,
           },
-          textStyleInfo: { color: '', fontSize: 6 },
+          textStyleInfo: { fontSize: 8 },
         },
         /* *************       Sensor        ***************** */
         {
           id: 'sensor',
           type: 'rect',
-          elementDrawInfo: { width: 55, height: 25, color: '#f0f0f0', opacity: 1 },
+          elementDrawInfo: { width: 60, height: 30, color: '#f0f0f0', opacity: 1 },
           textStyleInfo: { color: '', fontSize: 8 },
         },
         {
           id: 'soilTemperature',
           type: 'rect',
-          elementDrawInfo: { width: 55, height: 25, color: '#f0f0f0', opacity: 1 },
+          elementDrawInfo: { width: 60, height: 30, color: '#f0f0f0', opacity: 1 },
           textStyleInfo: { color: '', fontSize: 8 },
         },
         {
           id: 'outsideAirTemperature',
           type: 'rect',
-          elementDrawInfo: { width: 55, height: 25, color: '#f0f0f0', opacity: 1 },
+          elementDrawInfo: { width: 60, height: 30, color: '#f0f0f0', opacity: 1 },
           textStyleInfo: { color: '', fontSize: 8 },
         },
         {
           id: 'soilReh',
           type: 'rect',
-          elementDrawInfo: { width: 55, height: 25, color: '#f0f0f0', opacity: 1 },
+          elementDrawInfo: { width: 60, height: 30, color: '#f0f0f0', opacity: 1 },
           textStyleInfo: { color: '', fontSize: 8 },
         },
         {
           id: 'outsideAirReh',
           type: 'rect',
-          elementDrawInfo: { width: 55, height: 25, color: '#f0f0f0', opacity: 1 },
+          elementDrawInfo: { width: 60, height: 30, color: '#f0f0f0', opacity: 1 },
           textStyleInfo: { color: '', fontSize: 8 },
         },
         {
           id: 'horizontalSolar',
           type: 'rect',
-          elementDrawInfo: { width: 55, height: 25, color: '#f0f0f0', opacity: 1 },
+          elementDrawInfo: { width: 60, height: 30, color: '#f0f0f0', opacity: 1 },
           textStyleInfo: { color: '', fontSize: 8 },
         },
         {
           id: 'pvUnderlyingSolar',
           type: 'rect',
-          elementDrawInfo: { width: 55, height: 25, color: '#f0f0f0', opacity: 1 },
+          elementDrawInfo: { width: 60, height: 30, color: '#f0f0f0', opacity: 1 },
           textStyleInfo: { color: '', fontSize: 8 },
         },
         {
           id: 'powerGridKw',
           type: 'rect',
-          elementDrawInfo: { width: 55, height: 25, color: '#f0f0f0', opacity: 1 },
+          elementDrawInfo: { width: 60, height: 30, color: '#f0f0f0', opacity: 1 },
           textStyleInfo: { color: '', fontSize: 8 },
         },
       ],
@@ -564,6 +588,7 @@ const map = {
         is_sensor: 0,
         is_submit_api: 1,
         description: '개폐기',
+        controlType: 1,
         defList: [
           {
             target_id: 'shutter',
@@ -778,7 +803,7 @@ const map = {
                 svgNodePosOpt: {
                   placeId: 'PCH',
                   resourceId: 'pump',
-                  axisScale: [0.1, 0.2],
+                  axisScale: [0.1, 0.15],
                   moveScale: [0, 0],
                 },
               },
@@ -789,7 +814,7 @@ const map = {
                 svgNodePosOpt: {
                   placeId: 'PCH',
                   resourceId: 'pump',
-                  axisScale: [0.8, 0.2],
+                  axisScale: [0.8, 0.15],
                   moveScale: [0, 0],
                 },
               },
@@ -815,14 +840,14 @@ const map = {
                 target_code: '022',
                 svgNodePosOpt: {
                   resourceId: 'sensor',
-                  axisScale: [0.25, 0.25],
+                  axisScale: [0.25, 0.15],
                 },
               },
               {
                 target_code: '024',
                 svgNodePosOpt: {
                   resourceId: 'sensor',
-                  axisScale: [0.25, 0.25],
+                  axisScale: [0.25, 0.15],
                 },
               },
             ],
@@ -836,14 +861,14 @@ const map = {
                 target_code: '022',
                 svgNodePosOpt: {
                   resourceId: 'sensor',
-                  axisScale: [0.75, 0.25],
+                  axisScale: [0.75, 0.15],
                 },
               },
               {
                 target_code: '024',
                 svgNodePosOpt: {
                   resourceId: 'sensor',
-                  axisScale: [0.75, 0.25],
+                  axisScale: [0.75, 0.15],
                 },
               },
             ],
@@ -867,14 +892,14 @@ const map = {
                 target_code: '022',
                 svgNodePosOpt: {
                   resourceId: 'sensor',
-                  axisScale: [0.25, 0.75],
+                  axisScale: [0.25, 0.85],
                 },
               },
               {
                 target_code: '024',
                 svgNodePosOpt: {
                   resourceId: 'sensor',
-                  axisScale: [0.25, 0.75],
+                  axisScale: [0.25, 0.85],
                 },
               },
             ],
@@ -888,14 +913,14 @@ const map = {
                 target_code: '022',
                 svgNodePosOpt: {
                   resourceId: 'sensor',
-                  axisScale: [0.75, 0.75],
+                  axisScale: [0.75, 0.85],
                 },
               },
               {
                 target_code: '024',
                 svgNodePosOpt: {
                   resourceId: 'sensor',
-                  axisScale: [0.75, 0.75],
+                  axisScale: [0.75, 0.85],
                 },
               },
             ],
@@ -1304,7 +1329,7 @@ const map = {
                 target_code: '6',
                 nodeList: ['ST_011', 'ST_012'],
                 svgPositionInfo: {
-                  resourceId: 'vinylHouse',
+                  resourceId: 'bigVinylHouse',
                   point: [ms.VH.START_X, ms.VH.START_Y + ms.VH.INTERVAL * 5],
                 },
               },
@@ -1313,7 +1338,7 @@ const map = {
                 nodeList: ['ST_013', 'ST_014'],
                 svgPositionInfo: {
                   resourceId: 'vinylHouse',
-                  point: [ms.VH.START_X, ms.VH.START_Y + ms.VH.INTERVAL * 6],
+                  point: [ms.VH.START_X, ms.VH.START_Y + ms.VH.INTERVAL * 7],
                 },
               },
               {
@@ -1321,7 +1346,7 @@ const map = {
                 nodeList: ['ST_015', 'ST_016'],
                 svgPositionInfo: {
                   resourceId: 'vinylHouse',
-                  point: [ms.VH.START_X, ms.VH.START_Y + ms.VH.INTERVAL * 7],
+                  point: [ms.VH.START_X, ms.VH.START_Y + ms.VH.INTERVAL * 8],
                 },
               },
             ],
@@ -1405,7 +1430,7 @@ const map = {
                 nodeList: ['IVT_PW_G_KW_12'],
                 svgPositionInfo: {
                   resourceId: 'pvN_8EA',
-                  point: [ms.VH.START_X, ms.VH.START_Y + ms.VH.INTERVAL * 5 + ms.VH.HEIGHT / 2],
+                  point: [ms.VH.START_X, ms.VH.START_Y + ms.VH.INTERVAL * 6 + ms.VH.HEIGHT / 2],
                 },
               },
               {
@@ -1414,7 +1439,7 @@ const map = {
                 nodeList: ['IVT_PW_G_KW_13'],
                 svgPositionInfo: {
                   resourceId: 'pvT_4EA',
-                  point: [ms.VH.START_X, ms.VH.START_Y + ms.VH.INTERVAL * 6 + ms.VH.HEIGHT / 2],
+                  point: [ms.VH.START_X, ms.VH.START_Y + ms.VH.INTERVAL * 7 + ms.VH.HEIGHT / 2],
                 },
               },
               {
@@ -1425,7 +1450,7 @@ const map = {
                   resourceId: 'pvN_4EA',
                   point: [
                     ms.VH.START_X + (ms.VH.WIDTH / 8) * 4,
-                    ms.VH.START_Y + ms.VH.INTERVAL * 6 + ms.VH.HEIGHT / 2,
+                    ms.VH.START_Y + ms.VH.INTERVAL * 7 + ms.VH.HEIGHT / 2,
                   ],
                 },
               },
@@ -1435,7 +1460,7 @@ const map = {
                 nodeList: ['IVT_PW_G_KW_15'],
                 svgPositionInfo: {
                   resourceId: 'pvT_4EA',
-                  point: [ms.VH.START_X, ms.VH.START_Y + ms.VH.INTERVAL * 7 + ms.VH.HEIGHT / 2],
+                  point: [ms.VH.START_X, ms.VH.START_Y + ms.VH.INTERVAL * 8 + ms.VH.HEIGHT / 2],
                 },
               },
               {
@@ -1446,7 +1471,7 @@ const map = {
                   resourceId: 'pvN_4EA',
                   point: [
                     ms.VH.START_X + (ms.VH.WIDTH / 8) * 4,
-                    ms.VH.START_Y + ms.VH.INTERVAL * 7 + ms.VH.HEIGHT / 2,
+                    ms.VH.START_Y + ms.VH.INTERVAL * 8 + ms.VH.HEIGHT / 2,
                   ],
                 },
               },
@@ -1481,9 +1506,9 @@ const map = {
                 chart_sort_rank: 22,
                 nodeList: ['S_PU_022', 'T_S_022', 'RH_S_022', 'T_OA_022', 'RH_OA_022'],
                 svgPositionInfo: {
-                  resourceId: 'pvSensor',
+                  resourceId: 'bigPvSensor',
                   point: [
-                    ms.VH.START_X + ms.VH.WIDTH / 2 - ms.SS.WIDTH / 2,
+                    ms.VH.START_X + ms.VH.WIDTH / 2 - ms.SS.BIG_WIDTH / 2,
                     ms.VH.START_Y + ms.VH.INTERVAL * 5,
                   ],
                 },
@@ -1524,8 +1549,8 @@ const map = {
                 svgPositionInfo: {
                   resourceId: 'outsideSensor',
                   point: [
-                    ms.VH.START_X + ms.VH.WIDTH / 2 - ms.SS.WIDTH / 2,
-                    ms.VH.START_Y + ms.VH.INTERVAL * 8,
+                    ms.VH.START_X + ms.VH.WIDTH / 2 - ms.SS.BIG_WIDTH / 2,
+                    ms.VH.START_Y + ms.VH.INTERVAL * 9,
                   ],
                 },
               },
