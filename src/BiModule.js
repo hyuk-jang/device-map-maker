@@ -1,5 +1,4 @@
 const _ = require('lodash');
-require('default-intelligence');
 const { BU } = require('base-util-jh');
 const { BM } = require('base-model-jh');
 

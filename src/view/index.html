@@ -16,6 +16,8 @@
     <!-- 위 3개의 메타 태그는 *반드시* head 태그의 처음에 와야합니다; 어떤 다른 콘텐츠들은 반드시 이 태그들 *다음에* 와야 합니다 -->
     <script src="/js/lodash.min.js"></script>
 
+    <script src="/js/handlebars.js"></script>
+
     <!-- Default Publishing -->
     <!-- jQuery (부트스트랩의 자바스크립트 플러그인을 위해 필요합니다) -->
     <script src="/js/jquery-3.4.1.min.js"></script>
@@ -115,6 +117,14 @@
       </div>
     </div>
 
+    <div id="dialog-dynamic" title="선택하세요." style="display: none;"></div>
+    <script id="dialog-dynamic-template" type="template">
+      <p>{{ confirmMsg }}</p>
+      {{#if isSetValue}}
+      <p>{{ setMsg }} <input type="number" name="" id="dialog-dynamic-input" class="ui-widget-content ui-corner-all" /></p>
+      {{/if}}
+    </script>
+
     <div id="dialog-message" title="선택하세요." style="display: none;">
       동작 제어
       <br />
@@ -132,8 +142,24 @@
     <script src="/js/drawSvg/drawSvg.js"></script>
 
     <script>
+      var scenarioConfirmInfo;
+      var dialog;
+      function showDynamicDialog(buttonFn) {
+        dialog = $('#dialog-dynamic').dialog({
+          // 출현시 어둡게
+          modal: true,
+          open: function () {
+            $('.ui-widget-overlay').bind('click', function () {
+              $('#dialog-dynamic').dialog('close');
+            });
+          },
+          closeText: 'Close',
+          buttons: buttonFn,
+        });
+      }
+
       function crayBtn1() {
-        $('#dialog-message').dialog({
+        dialog = $('#dialog-message').dialog({
           // 출현시 어둡게
           modal: true,
           open: function () {
@@ -145,17 +171,23 @@
           buttons: {
             'Open / On': function () {
               $(this).dialog('close');
+              return {
+                modal: 'T_T',
+              };
             },
             ASP: function () {
               $(this).dialog('close');
+              return [0, 1];
             },
-            JSP: function () {
-              $(this).dialog('close');
+            JSP: () => {
+              dialog.dialog('close');
+              return 'JSP';
             },
           },
         });
       }
-      crayBtn1();
+      // const resturnCrayBtn1 = crayBtn1();
+      // console.log(resturnCrayBtn1);
     </script>
 
     <!-- SVG Map 세팅 -->
@@ -182,6 +214,7 @@
       drawSvgBasePlace('canvas'); // 멥 그리기
 
       // FIXME:
+      alertDeviceCmdConfirm(mdNodeStorage.get('ST_015'));
 
       // bindingClickNodeEvent(socket, 'control');
     </script>

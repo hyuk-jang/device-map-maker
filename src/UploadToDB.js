@@ -7,7 +7,7 @@ const {
   dcmConfigModel: {
     nodeDataType: { DEVICE, SENSOR, NONE },
   },
-} = require('../../default-intelligence');
+} = require('./module').di;
 
 const { SOURCE_PATH, SOURCE_FILE } = process.env;
 /** @type {mDeviceMap} */
@@ -744,12 +744,7 @@ class UploadToDB {
             };
 
             // 관계 장치중에 Node Structure에 없거나 Place 정보가 없다면 관계가 없는 것으로 판단하고 해당 값은 입력하지 않음
-            if (
-              _(placeRelationInfo)
-                .values()
-                .includes(undefined)
-            )
-              return false;
+            if (_(placeRelationInfo).values().includes(undefined)) return false;
 
             tempStorage.addStorage(placeRelationInfo, 'place_relation_seq', 'place_relation_seq');
           });

@@ -9,22 +9,15 @@ var SVG = SVG;
 const realMap = map;
 
 const DATA_RANGE = {
-  TRUE: ['OPEN', 'OPENING', 'ON', '1'],
-  FALSE: ['CLOSE', 'CLOSING', 'OFF', '0'],
+  TRUE: ['OPEN', 'OPENING', 'ON', '1', 'FOLD'],
+  FALSE: ['CLOSE', 'CLOSING', 'OFF', '0', 'UNFOLD'],
 };
 
-const CONTROL_CONFIRM_LIST = [
-  {
-    deviceList: ['valve', 'shutter'],
-    enControlList: ['Open', 'Close'],
-    krControlList: ['열기', '닫기'],
-  },
-  {
-    deviceList: ['pump', 'waterDoor'],
-    enControlList: ['On', 'Off'],
-    krControlList: ['동작', '정지'],
-  },
-];
+const SENSOR_TYPE = {
+  DEVICE: 0,
+  SENSOR: 1,
+  NONE: -1,
+};
 
 const {
   drawInfo: {
@@ -36,6 +29,7 @@ const {
   },
   setInfo: { nodeStructureList },
   relationInfo: { placeRelationList },
+  configInfo: { deviceCmdList } = {},
 } = realMap;
 
 // svgModelResourceList 생성
@@ -47,6 +41,9 @@ const mdPlaceStorage = new Map();
 
 /** @type {Map<string, mdNodeInfo>} nodeId를 기준으로 nodeInfo 정보를 저장할 Map */
 const mdNodeStorage = new Map();
+
+/** @type {Map<string, dCmdScenarioInfo>} node Class Id를 기준으로 nodeInfo 정보를 저장할 Map */
+const mdDeviceScenaioStorage = new Map();
 
 /**
  * Map 초기화 진행
@@ -95,6 +92,7 @@ function initDrawSvg() {
     const {
       defList,
       is_sensor: isSensor = 1,
+      target_id: ncId,
       target_name: ncName,
       data_unit: dataUnit,
     } = nClassInfo;
@@ -117,7 +115,12 @@ function initDrawSvg() {
         }
 
         const nodeId = `${ndPrefix}${nCode ? `_${nCode}` : ''}`;
-        const nodeName = `${nName}${nCode ? `_${nCode}` : ''}`;
+        let nodeName;
+        if (typeof nName === 'string' && nName.length) {
+          nodeName = nName;
+        } else {
+          nodeName = `${ndName}${nCode ? `_${nCode}` : ''}`;
+        }
 
         // resourceId의 정보가 없다면 placeRelation에 있는지 찾아서 정의
         if (placeId === undefined) {
@@ -135,8 +138,11 @@ function initDrawSvg() {
         }
 
         mdNodeStorage.set(nodeId, {
+          ncId,
+          ndName,
           nodeId,
           nodeName,
+          nodeData: undefined,
           isSensor,
           dataUnit,
           placeId,
@@ -147,6 +153,14 @@ function initDrawSvg() {
           svgModelResource: mdMapStorage.get(resourceId),
         });
       });
+    });
+  });
+
+  // 장치 제어 목록 설정
+  deviceCmdList.forEach(deviceCmdInfo => {
+    const { applyDeviceList, dCmdScenarioInfo } = deviceCmdInfo;
+    applyDeviceList.forEach(ncId => {
+      mdDeviceScenaioStorage.set(ncId, dCmdScenarioInfo);
     });
   });
 }
@@ -248,40 +262,43 @@ function drawSvgElement(svgDrawInfo) {
       point: [x1, y1, x2, y2],
       placeId,
     },
-    svgModelResource: {
-      type: svgModelType,
-      elementDrawInfo,
-      elementDrawInfo: {
-        color: [defaultColor],
-        radius = 1,
-        opacity = 1,
-        strokeInfo,
-        imgUrl,
+    ownerInfo,
+    ownerInfo: {
+      svgModelResource: {
+        type: svgModelType,
+        elementDrawInfo,
+        elementDrawInfo: {
+          color: [defaultColor],
+          radius = 1,
+          opacity = 1,
+          strokeInfo,
+          imgUrl,
+        },
+        textStyleInfo,
       },
-      textStyleInfo,
     },
     isShow = true,
   } = svgDrawInfo;
 
   let { width: svgModelWidth, height: svgModelHeight } = elementDrawInfo;
 
-  let model;
+  let svgCanvasBgElement;
 
   // SVG 생성
   switch (svgModelType) {
     case 'rect':
-      model = svgCanvas.rect(svgModelWidth, svgModelHeight);
+      svgCanvasBgElement = svgCanvas.rect(svgModelWidth, svgModelHeight);
       break;
     case 'circle':
       svgModelWidth = radius;
       svgModelHeight = radius;
-      model = svgCanvas.circle(radius);
+      svgCanvasBgElement = svgCanvas.circle(radius);
       break;
     case 'image':
-      model = svgCanvas.image(imgUrl);
+      svgCanvasBgElement = svgCanvas.image(imgUrl);
       break;
     case 'line':
-      model = svgCanvas.line(x1, y1, x2, y2);
+      svgCanvasBgElement = svgCanvas.line(x1, y1, x2, y2);
       break;
     case 'polygon':
       svgCanvas.polyline(
@@ -297,8 +314,8 @@ function drawSvgElement(svgDrawInfo) {
       break;
   }
   // 모델 색상, 좌표 이동, 외곽선 굵기, Attr 세팅
-  model !== undefined &&
-    model
+  svgCanvasBgElement !== undefined &&
+    svgCanvasBgElement
       .fill(defaultColor)
       .move(x1, y1)
       .stroke(strokeInfo)
@@ -306,6 +323,9 @@ function drawSvgElement(svgDrawInfo) {
         id: positionId,
         opacity: isShow ? opacity : 0,
       });
+
+  // mdNodeInfo|mdPlaceInfo 에 SVG BG 정의
+  ownerInfo.svgEleBg = svgCanvasBgElement;
 
   // tSpan을 그리기 위한 SVG 생성 정보
   const {
@@ -322,31 +342,17 @@ function drawSvgElement(svgDrawInfo) {
   let textModelDy = 0;
   svgCanvas
     .text(text => {
-      // 이름
-      text
-        .tspan(positionName)
-        .attr({
-          id: `${positionId}_title`,
-        })
-        .font({ fill: color, size: fontSize });
-      // 데이터 공간
+      // mdNodeInfo|mdPlaceInfo 에 SVG Title 정의
+      ownerInfo.svgEleName = text.tspan(positionName).font({ fill: color, size: fontSize });
 
+      // 데이터 공간
       if (placeId !== undefined) {
         textModelDy = -fontSize * 0.7;
-        text
-          .tspan(' ')
-          .newLine()
-          .font({ size: fontSize, fill: dataColor })
-          .attr({
-            id: `${positionId}_data`,
-          });
-        // 단위 공간
-        text
-          .tspan('')
-          .attr({
-            id: `${positionId}_unit`,
-          })
-          .font({ size: fontSize * 0.9 });
+        // mdNodeInfo|mdPlaceInfo 에 SVG Data 정의
+        ownerInfo.svgEleData = text.tspan(' ').newLine().font({ size: fontSize, fill: dataColor });
+
+        // mdNodeInfo|mdPlaceInfo 에 SVG Data Unit 정의
+        ownerInfo.svgEleDataUnit = text.tspan('').font({ size: fontSize * 0.9 });
       }
     })
     // 공통 옵션
@@ -354,58 +360,8 @@ function drawSvgElement(svgDrawInfo) {
     .move(x1 + svgModelWidth * tAxisScaleX, y1 - fontSize / 2 + svgModelHeight * tAxisScaleY)
     .font({ anchor: 'middle', weight: 'bold', transform, 'pointer-events': 'none' })
     .dy(textModelDy);
-}
 
-/**
- *  그려진 svg map 에서 장치,센서 클릭하여 제어할 수 있는 기능을 바인딩.
- * @param {socekt} socket
- */
-function bindingClickNodeEvent(socket) {
-  try {
-    // mdNodeStorage 저장소를 순회하면서 장치 노드(isSensor = 0) 일 경우에만 제어 바인딩
-
-    // Node의 현 상태가 Error 일 경우 제어 불가
-
-    // Node.controlType 여부에 따라 Jquery.Dialog 구성 변경
-
-    // ControlType: 0  장치 동작을 True/False
-
-    // Node의 ncId에 따라 On/Off 인지 Open/Close 인지 결정
-
-    // ControlType: 1   Confirm 발생
-
-    // ControlType: 2   ControlType(0, 1) 동시 수용
-
-    // map에서 그려진 node 리스트를 순환
-    realMap.drawInfo.positionInfo.svgNodeList.forEach(svgNodeInfo => {
-      const deviceType = svgNodeInfo.is_sensor; // 장치 or 센서 구분 ( 1: 센서, 0: 장치, -1: 미분류 )
-
-      svgNodeInfo.defList.forEach(nodeDefInfo => {
-        // 그려진 SVG 노드 객체에 클릭 이벤트 바인딩
-        SVG(`#${nodeDefInfo.id}`).click(() => {
-          const nodeData = SVG(`#${nodeDefInfo.id}_data`).text().trim();
-
-          //데이터 상태 체크
-          const dataStatus = checkTrueFalseData(nodeData);
-
-          if (_.isUndefined(nodeData)) return alert('장치 상태 미식별');
-
-          if (deviceType === 0 && dataStatus === TRUE_DATA) {
-            const confirmBool = confirm(`'${nodeDefInfo.name}' 을(를) 닫으시겠습니까?`);
-            confirmBool ? executeCommand(socket, '0', nodeDefInfo.id) : null;
-          } else if (deviceType === 0 && dataStatus === FALSE_DATA) {
-            const confirmBool = confirm(`'${nodeDefInfo.name}' 을(를) 여시겠습니까?`);
-            confirmBool ? executeCommand(socket, '1', nodeDefInfo.id) : null;
-          } else if (deviceType === 0 && dataStatus === ERROR_DATA) {
-            alert('장치 상태 이상');
-          }
-        });
-      });
-    });
-  } catch (error) {
-    // console.log(error);
-    return false;
-  }
+  return svgCanvasBgElement;
 }
 
 /**
@@ -415,13 +371,24 @@ function bindingClickNodeEvent(socket) {
  */
 function showNodeData(nodeId, data = '') {
   try {
+    const mdNodeInfo = mdNodeStorage.get(nodeId);
     const {
+      nodeData,
       isSensor,
-      dataUnit,
+      dataUnit = '',
       svgModelResource: {
         elementDrawInfo: { color },
       },
-    } = mdNodeStorage.get(nodeId);
+      svgEleBg,
+      svgEleData,
+      svgEleDataUnit,
+    } = mdNodeInfo;
+
+    // 현재 데이터와 수신 받은 데이터가 같다면 종료
+    if (nodeData === data) return false;
+
+    // data update
+    mdNodeInfo.nodeData = data;
 
     // data의 상태에 따라 tspan(data, dataUnit) 색상 및 Visible 변경
     let isValidData = 0;
@@ -448,20 +415,91 @@ function showNodeData(nodeId, data = '') {
       }
     }
 
-    SVG(`#${nodeId}`).fill(color[colorIndex]);
+    svgEleBg.fill(color[colorIndex]);
     if (isValidData) {
-      SVG(`#${nodeId}_data`).clear().text(data);
-      dataUnit && SVG(`#${nodeId}_unit`).clear().text(dataUnit).dx(2);
+      svgEleData.text(data);
+      svgEleDataUnit.text(dataUnit).dx(2);
     } else {
       // data가 유효범위가 아닐 경우
-      SVG(`#${nodeId}_data`).clear();
-      dataUnit && SVG(`#${nodeId}_unit`).clear();
+      svgEleData.clear();
+      svgEleDataUnit.clear();
     }
 
     return false;
   } catch (e) {
     console.error(e);
   }
+}
+
+/**
+ * Svg Node Device 객체를 선택하여 제어를 하고자 할 경우
+ * @param {mdNodeInfo} mdNodeInfo Device Node Id
+ * @param {dCmdScenarioInfo=} dCmdScenarioInfo 현재 수행 중인 장치 제어 단계
+ */
+function alertDeviceCmdConfirm(mdNodeInfo, dCmdScenarioInfo) {
+  const { ncId, ndName = '', nodeName, nodeData } = mdNodeInfo;
+
+  if (dCmdScenarioInfo === undefined) {
+    dCmdScenarioInfo = mdDeviceScenaioStorage.get(ncId);
+  }
+  const { scenarioMsg, isSetValue = false, confirmList } = dCmdScenarioInfo;
+
+  // Node의 현 상태가 Error 일 경우 제어 불가
+  if (nodeData === undefined || nodeData === '') {
+    alert('장치 상태를 점검해주세요.');
+  }
+
+  const btnFn = confirmList.reduce((btnFnInfo, dConfirmInfo) => {
+    const { enName, krName, controlValue, nextStepInfo } = dConfirmInfo;
+
+    if (nextStepInfo === undefined) {
+      // 다음 스텝이 없으면 즉시 실행
+      btnFnInfo[krName] = () => {
+        const deviceSetValue = $('#dialog-dynamic-input').val();
+        // 값 입력이 활성화 되어 있으나 사용자의 값 입력에 문제가 있을 경우
+        if (isSetValue && !deviceSetValue.length) {
+        }
+        dialog.dialog('close');
+
+        console.log('Cmd 실행', dConfirmInfo, $('#dialog-dynamic-input').val());
+      };
+    } else {
+      btnFnInfo[krName] = () => {
+        dialog.dialog('close');
+        alertDeviceCmdConfirm(mdNodeInfo, nextStepInfo);
+      };
+    }
+    return btnFnInfo;
+  }, {});
+
+  // console.log(document.getElementById('dialog-dynamic'));
+
+  const dynamicDialogDom = $('#dialog-dynamic-template').html();
+  const dynamicDialogTemplate = Handlebars.compile(dynamicDialogDom);
+  const resultTempalte = dynamicDialogTemplate({
+    confirmMsg: scenarioMsg,
+    isSetValue,
+    setMsg: '가자',
+  });
+
+  console.dir(resultTempalte);
+
+  const $dynamicDialog = $('#dialog-dynamic');
+
+  $dynamicDialog.attr('title', `${ndName} ${nodeName} 제어`);
+
+  $dynamicDialog.empty();
+  $dynamicDialog.append(resultTempalte);
+
+  showDynamicDialog(btnFn);
+
+  // Dialog 메시지를 생성하여 id: dialog-message의 msg를 변경
+
+  // confirmList에 따라 동적 Function 생성
+
+  // 사용자에게 Confirm 입력 대기
+
+  //
 }
 
 /**
@@ -490,27 +528,37 @@ function drawSvgBasePlace(documentId, isKorText = true) {
 
   // Place 그리기
   svgPlaceList.forEach(svgPositionInfo => {
-    const { resourceId } = svgPositionInfo;
+    const { id: placeId } = svgPositionInfo;
+
     drawSvgElement({
       svgCanvas,
       svgPositionInfo,
-      svgModelResource: mdMapStorage.get(resourceId),
       isShow: !backgroundData.length,
+      ownerInfo: mdPlaceStorage.get(placeId),
     });
   });
 
   // Node 그리기
   svgNodeList.forEach(svgNodeInfo => {
-    const { resourceId } = svgNodeInfo;
-    drawSvgElement({
+    const { id: nodeId } = svgNodeInfo;
+    const mdNodeInfo = mdNodeStorage.get(nodeId);
+
+    const svgCanvasBgElement = drawSvgElement({
       svgCanvas,
       svgPositionInfo: svgNodeInfo,
-      svgModelResource: mdMapStorage.get(resourceId),
+      ownerInfo: mdNodeInfo,
     });
+
+    // 노드 타입이 장치라면 클릭 이벤트 바인딩
+    if (mdNodeInfo.isSensor === SENSOR_TYPE.DEVICE) {
+      svgCanvasBgElement.click(() => {
+        alertDeviceCmdConfirm(mdNodeInfo);
+      });
+    }
   });
 
   // FIXME: TEST
-  SVG('#IVT_PW_G_KW_1_title').clear().text('TEST');
+  // SVG('#IVT_PW_G_KW_1_title').clear().text('TEST');
 
   mdNodeStorage.forEach(mdNodeInfo => {
     const { nodeId, isSensor } = mdNodeInfo;
@@ -544,4 +592,5 @@ function drawSvgBasePlace(documentId, isKorText = true) {
  * @property {mSvgPositionInfo} svgPositionInfo
  * @property {boolean} isShow default: true,  true: 화면 표시 (기본값), false: 숨김
  * @property {mSvgModelResource} svgModelResource {width, height, radius, color}
+ * @property {mdNodeInfo|mdPlaceInfo} ownerInfo mdNodeInfo or mdPlaceInfo
  */

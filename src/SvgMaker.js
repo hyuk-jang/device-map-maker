@@ -12,7 +12,7 @@ const mapPath = path.join(process.cwd(), 'src', 'maps', SOURCE_PATH, SOURCE_FILE
 /** @type {mDeviceMap} */
 const map = require(mapPath);
 
-require('default-intelligence');
+require('./module').di;
 
 const STROKE_INFO = {
   color: '#ccc',
@@ -130,15 +130,27 @@ class SvgMaker {
     this.mdNodeStorage = new Map();
 
     this.mNodeStructureList.forEach(nClassInfo => {
-      const { defList, is_sensor: isSensor, target_name: ncName, data_unit: dataUnit } = nClassInfo;
+      const {
+        defList,
+        is_sensor: isSensor,
+        target_id: ncId,
+        target_name: ncName,
+        controlType: ncControlType,
+        data_unit: dataUnit,
+      } = nClassInfo;
 
       defList.forEach(nDefInfo => {
-        const { nodeList = [], target_prefix: ndPrefix, target_name: ndName = ncName } = nDefInfo;
+        const {
+          nodeList = [],
+          controlType: ndControlType = ncControlType,
+          target_prefix: ndPrefix,
+          target_name: ndName = ncName,
+        } = nDefInfo;
 
         nodeList.forEach(nodeInfo => {
           const {
             target_code: nCode,
-            target_name: nName = ndName,
+            target_name: nName,
             svgNodePosOpt = {},
             svgNodePosOpt: { resourceId, axisScale, moveScale } = {},
           } = nodeInfo;
@@ -151,7 +163,12 @@ class SvgMaker {
           }
 
           const nodeId = `${ndPrefix}${nCode ? `_${nCode}` : ''}`;
-          const nodeName = `${nName}${nCode ? `_${nCode}` : ''}`;
+          let nodeName;
+          if (typeof nName === 'string' && nName.length) {
+            nodeName = nName;
+          } else {
+            nodeName = `${ndName}${nCode ? `_${nCode}` : ''}`;
+          }
 
           // resourceId의 정보가 없다면 placeRelation에 있는지 찾아서 정의
           if (placeId === undefined) {
@@ -169,8 +186,11 @@ class SvgMaker {
           }
 
           this.mdNodeStorage.set(nodeId, {
+            ncId,
+            ndName,
             nodeId,
             nodeName,
+            controlType: ndControlType,
             isSensor,
             dataUnit,
             placeId,

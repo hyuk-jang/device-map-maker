@@ -1625,6 +1625,100 @@ const map = {
     ],
   },
   controlInfo: {},
+  configInfo: {
+    deviceCmdList: [
+      {
+        deviceCmdName: '테스트 제어',
+        applyDeviceList: ['act', 'exam', 'shutter'],
+        dCmdScenarioInfo: {
+          scenarioMsg: '제어 동작을 선택하세요.',
+          confirmList: [
+            {
+              enName: 'Off',
+              krName: '끔',
+              controlValue: 0,
+            },
+            {
+              enName: 'On',
+              krName: '켬',
+              controlValue: 1,
+            },
+            {
+              enName: 'Unfold',
+              krName: '접음',
+              controlValue: 10,
+            },
+            {
+              enName: 'Fold',
+              krName: '펼침',
+              controlValue: 11,
+            },
+            {
+              enName: 'Move',
+              krName: '이동',
+              nextStepInfo: {
+                scenarioMsg: '이동 방향을 선택하세요.',
+                confirmList: [
+                  {
+                    enName: 'left',
+                    krName: '좌',
+                    controlValue: 21,
+                    nextStepInfo: {
+                      scenarioMsg: '이동 거리를 입력하세요.',
+                      confirmList: [
+                        {
+                          enName: 'm',
+                          krName: '미터',
+                          controlValue: 21,
+                          isSetValue: true,
+                        },
+                      ],
+                    },
+                  },
+                  {
+                    enName: 'right',
+                    krName: '우',
+                    controlValue: 22,
+                    nextStepInfo: {
+                      scenarioMsg: '이동 거리를 입력하세요.',
+                      confirmList: [
+                        {
+                          enName: 'm',
+                          krName: '미터',
+                          controlValue: 21,
+                          isSetValue: true,
+                        },
+                      ],
+                    },
+                  },
+                ],
+              },
+            },
+            {
+              enName: 'Move',
+              krName: '이동 2',
+              nextStepInfo: {
+                scenarioMsg: '이동 방향과 거리(m) 선택하세요.',
+                isSetValue: true,
+                confirmList: [
+                  {
+                    enName: 'left',
+                    krName: '좌',
+                    controlValue: 21,
+                  },
+                  {
+                    enName: 'right',
+                    krName: '우',
+                    controlValue: 22,
+                  },
+                ],
+              },
+            },
+          ],
+        },
+      },
+    ],
+  },
 };
 
 module.exports = map;
