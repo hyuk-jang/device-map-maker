@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <title id="projectTitle"></title>
+    <meta charset="utf-8" />
+    <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge"> -->
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+
     <link
       rel="stylesheet"
       href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"
@@ -44,6 +50,8 @@
     <!-- <script src="/js/svg/svg.filter.js"></script> -->
     <!-- <script src="/js/svg.filter.js"></script> -->
     <script src="/js/panzoom.min.js"></script>
+
+    <link href="/css/template/common.css" rel="stylesheet" />
 
     <!-- toggle library -->
     <!-- <script src="/js/bootstrap-toggle.min.js"></script>
@@ -116,38 +124,23 @@
         </div>
       </div>
     </div>
-
-    <div id="dialog-dynamic" title="선택하세요." style="display: none;"></div>
+    <div id="dialog-dynamic" title="" style="display: none;"></div>
     <script id="dialog-dynamic-template" type="template">
       <p>{{ confirmMsg }}</p>
       {{#if isSetValue}}
-      <p>{{ setMsg }} <input type="number" name="" id="dialog-dynamic-input" class="ui-widget-content ui-corner-all" /></p>
+      <p>{{ setMsg }} <input type="number" min="{{ min }}" max="{{ max }}" name="" placeholder="{{ min }} ~ {{ max }}" id="dialog-dynamic-input" class="ui-widget-content ui-corner-all" /></p>
       {{/if}}
     </script>
-
-    <div id="dialog-message" title="선택하세요." style="display: none;">
-      동작 제어
-      <br />
-      <span style="color: red;">PHP</span>, <span style="color: green;">ASP</span>,
-      <span style="color: blue;">JSP</span>
-    </div>
-    <!-- <div id="dialog-message-flag" title="선택하세요." style="display: none;">
-      동작 제어
-      다음중 <span style="font-size: 25pt;">가</span>장 많이 쓰는 <b><u>웹언어</u></b
-      >는?<br />
-      <span style="color: red;">PHP</span>, <span style="color: green;">ASP</span>,
-      <span style="color: blue;">JSP</span>
-    </div> -->
 
     <script src="/js/drawSvg/drawSvg.js"></script>
 
     <script>
-      var scenarioConfirmInfo;
-      var dialog;
-      function showDynamicDialog(buttonFn) {
+      let dialog;
+      function showDynamicDialog(title, buttonFn) {
         dialog = $('#dialog-dynamic').dialog({
-          // 출현시 어둡게
+          width: 300,
           modal: true,
+          title,
           open: function () {
             $('.ui-widget-overlay').bind('click', function () {
               $('#dialog-dynamic').dialog('close');
@@ -157,66 +150,16 @@
           buttons: buttonFn,
         });
       }
-
-      function crayBtn1() {
-        dialog = $('#dialog-message').dialog({
-          // 출현시 어둡게
-          modal: true,
-          open: function () {
-            $('.ui-widget-overlay').bind('click', function () {
-              $('#dialog-message').dialog('close');
-            });
-          },
-          closeText: 'Close',
-          buttons: {
-            'Open / On': function () {
-              $(this).dialog('close');
-              return {
-                modal: 'T_T',
-              };
-            },
-            ASP: function () {
-              $(this).dialog('close');
-              return [0, 1];
-            },
-            JSP: () => {
-              dialog.dialog('close');
-              return 'JSP';
-            },
-          },
-        });
-      }
-      // const resturnCrayBtn1 = crayBtn1();
-      // console.log(resturnCrayBtn1);
     </script>
 
     <!-- SVG Map 세팅 -->
     <script>
-      // $('#dialog-message').dialog({
-      //   modal: true,
-      //   buttons: {
-      //     PHP: function () {
-      //       $(this).dialog('close');
-      //       alert('정답');
-      //     },
-      //     ASP: function () {
-      //       $(this).dialog('close');
-      //       alert('글쎄요');
-      //     },
-      //     JSP: function () {
-      //       $(this).dialog('close');
-      //       alert('몰라요');
-      //     },
-      //   },
-      // });
-
       initDrawSvg();
       drawSvgBasePlace('canvas'); // 멥 그리기
 
       // FIXME:
-      alertDeviceCmdConfirm(mdNodeStorage.get('ST_015'));
-
-      // bindingClickNodeEvent(socket, 'control');
+      // alertDeviceCmdConfirm(mdNodeStorage.get('P_001'));
+      // alertDeviceCmdConfirm(mdNodeStorage.get('ST_015'));
     </script>
 
     <!-- panzoom & 맵 제어 박스 세팅 -->
@@ -265,16 +208,3 @@
     </script>
   </body>
 </html>
-
-<!-- 명령 상태, 결과 -->
-<!-- <div class="container-fluid_st">
-          <p class="">
-            시스템 구동 모드:
-            <span
-              id="operationSystem"
-              data-algorithm-id=""
-              data-algorithm-name=""
-              data-cmd-strategy=""
-            ></span>
-          </p>
-        </div> -->

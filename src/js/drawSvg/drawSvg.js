@@ -102,7 +102,7 @@ function initDrawSvg() {
       nodeList.forEach(nodeInfo => {
         const {
           target_code: nCode,
-          target_name: nName = ndName,
+          target_name: nName,
           svgNodePosOpt = {},
           svgNodePosOpt: { resourceId, axisScale, moveScale } = {},
         } = nodeInfo;
@@ -407,7 +407,7 @@ function showNodeData(nodeId, data = '') {
         isValidData = 1;
         colorIndex = 1;
         // False 영역일 경우
-        if (DATA_RANGE.TRUE.includes(strUpperData)) {
+        if (DATA_RANGE.FALSE.includes(strUpperData)) {
           colorIndex = 0;
         }
       } else {
@@ -436,70 +436,100 @@ function showNodeData(nodeId, data = '') {
  * @param {mdNodeInfo} mdNodeInfo Device Node Id
  * @param {dCmdScenarioInfo=} dCmdScenarioInfo 현재 수행 중인 장치 제어 단계
  */
-function alertDeviceCmdConfirm(mdNodeInfo, dCmdScenarioInfo) {
+function alertDeviceCmdConfirm(mdNodeInfo, dCmdScenarioInfo = {}) {
   const { ncId, ndName = '', nodeName, nodeData } = mdNodeInfo;
 
-  if (dCmdScenarioInfo === undefined) {
-    dCmdScenarioInfo = mdDeviceScenaioStorage.get(ncId);
+  const deviceName = `${ndName}(${nodeName})`;
+
+  // 노드 장치 제어 정보가 없을 경우
+  if (_.isEmpty(dCmdScenarioInfo)) {
+    const deviceScenarioInfo = mdDeviceScenaioStorage.get(ncId);
+    // map에 해당 장치 노드 조작 정보가 있다면 입력
+    deviceScenarioInfo !== undefined && (dCmdScenarioInfo = deviceScenarioInfo);
   }
-  const { scenarioMsg, isSetValue = false, confirmList } = dCmdScenarioInfo;
+  // 노드 장치 제어 정보
+  const {
+    scenarioMsg = '제어 동작을 선택하세요.',
+    isSetValue = false,
+    setValueInfo: { msg = '', min = 0, max = 100 } = {},
+    confirmList = [
+      {
+        enName: 'On/Open',
+        krName: 'On/Open',
+        controlValue: 1,
+      },
+      {
+        enName: 'Off/Close',
+        krName: 'Off/Close',
+        controlValue: 0,
+      },
+    ],
+  } = dCmdScenarioInfo;
 
   // Node의 현 상태가 Error 일 경우 제어 불가
   if (nodeData === undefined || nodeData === '') {
-    alert('장치 상태를 점검해주세요.');
+    alert(`${deviceName}의 상태를 점검해주세요.`);
   }
 
+  // 동적 다이어로그 구성
   const btnFn = confirmList.reduce((btnFnInfo, dConfirmInfo) => {
     const { enName, krName, controlValue, nextStepInfo } = dConfirmInfo;
 
     if (nextStepInfo === undefined) {
       // 다음 스텝이 없으면 즉시 실행
-      btnFnInfo[krName] = () => {
-        const deviceSetValue = $('#dialog-dynamic-input').val();
+      btnFnInfo[krName] = function () {
+        const $deviceSetValue = $('#dialog-dynamic-input');
         // 값 입력이 활성화 되어 있으나 사용자의 값 입력에 문제가 있을 경우
-        if (isSetValue && !deviceSetValue.length) {
-        }
-        dialog.dialog('close');
+        if (isSetValue) {
+          const deviceSetValue = $deviceSetValue.val();
+          if (!deviceSetValue.length) {
+            // 값 존재 필요
+            return $deviceSetValue.addClass('ui-state-error');
+          }
 
-        console.log('Cmd 실행', dConfirmInfo, $('#dialog-dynamic-input').val());
+          const inputMin = Number($deviceSetValue.attr('min'));
+          const inputMax = Number($deviceSetValue.attr('max'));
+          // 데이터의 유효 범위 충족 여부
+          const isGoodScope = deviceSetValue >= inputMin && deviceSetValue <= inputMax;
+
+          if (!isGoodScope) {
+            // 데이터 범위 오류
+            return $deviceSetValue.addClass('ui-state-error');
+          }
+        }
+
+        $(this).dialog('close');
+
+        // TODO: Execute 전송
+        console.log('Cmd 실행', controlValue);
       };
     } else {
-      btnFnInfo[krName] = () => {
-        dialog.dialog('close');
+      btnFnInfo[krName] = function () {
+        $(this).dialog('close');
         alertDeviceCmdConfirm(mdNodeInfo, nextStepInfo);
       };
     }
     return btnFnInfo;
   }, {});
 
-  // console.log(document.getElementById('dialog-dynamic'));
-
+  // 동적 다이어로그 박스 생성
   const dynamicDialogDom = $('#dialog-dynamic-template').html();
   const dynamicDialogTemplate = Handlebars.compile(dynamicDialogDom);
   const resultTempalte = dynamicDialogTemplate({
     confirmMsg: scenarioMsg,
     isSetValue,
-    setMsg: '가자',
+    setMsg: msg,
+    min,
+    max,
   });
 
-  console.dir(resultTempalte);
-
   const $dynamicDialog = $('#dialog-dynamic');
-
-  $dynamicDialog.attr('title', `${ndName} ${nodeName} 제어`);
 
   $dynamicDialog.empty();
   $dynamicDialog.append(resultTempalte);
 
-  showDynamicDialog(btnFn);
-
-  // Dialog 메시지를 생성하여 id: dialog-message의 msg를 변경
-
-  // confirmList에 따라 동적 Function 생성
-
-  // 사용자에게 Confirm 입력 대기
-
-  //
+  // Dialog 메시지를 생성하여 dialog title, 버튼 정보 전송
+  showDynamicDialog(`${deviceName} 제어`, btnFn);
 }
 
 /**
@@ -552,6 +582,7 @@ function drawSvgBasePlace(documentId, isKorText = true) {
     // 노드 타입이 장치라면 클릭 이벤트 바인딩
     if (mdNodeInfo.isSensor === SENSOR_TYPE.DEVICE) {
       svgCanvasBgElement.click(() => {
+        console.log(mdNodeInfo);
         alertDeviceCmdConfirm(mdNodeInfo);
       });
     }

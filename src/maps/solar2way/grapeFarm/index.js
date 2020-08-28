@@ -33,7 +33,7 @@ const map = {
     frame: {
       mapInfo: {
         width: 880,
-        height: 1230,
+        height: 1500,
         backgroundInfo: {
           backgroundData: '',
           backgroundPosition: [160, 0],
@@ -104,12 +104,13 @@ const map = {
         },
         {
           id: 'pvN_4EA',
-          type: 'rect',
+          type: 'image',
           elementDrawInfo: {
             width: (ms.VH.WIDTH / 8) * 4,
             height: ms.VH.HEIGHT / 2,
             color: '#abe3e1',
             opacity: 1,
+            imgUrl: '/out/cell.jpg',
           },
           textStyleInfo: { color: '' },
         },
@@ -212,7 +213,10 @@ const map = {
             radius: 40,
             color: ['#a3a3a3', '#22fb00', '#dc1d1f'],
             opacity: 1,
-            // leading: '10em',
+            strokeInfo: {
+              width: 0.7,
+              color: '#000',
+            },
           },
           textStyleInfo: { fontSize: 8 },
         },
@@ -225,6 +229,10 @@ const map = {
             radius: 40,
             color: ['#a3a3a3', '#8b24b0', '#dc1d1f'],
             opacity: 1,
+            strokeInfo: {
+              width: 0.7,
+              color: '#000',
+            },
           },
           textStyleInfo: { fontSize: 8 },
         },
@@ -232,49 +240,115 @@ const map = {
         {
           id: 'sensor',
           type: 'rect',
-          elementDrawInfo: { width: 60, height: 30, color: '#f0f0f0', opacity: 1 },
+          elementDrawInfo: {
+            width: 60,
+            height: 30,
+            color: '#f0f0f0',
+            opacity: 1,
+            strokeInfo: {
+              width: 0.7,
+              color: '#000',
+            },
+          },
           textStyleInfo: { color: '', fontSize: 8 },
         },
         {
           id: 'soilTemperature',
           type: 'rect',
-          elementDrawInfo: { width: 60, height: 30, color: '#f0f0f0', opacity: 1 },
+          elementDrawInfo: {
+            width: 60,
+            height: 30,
+            color: '#f0f0f0',
+            opacity: 1,
+            strokeInfo: {
+              width: 0.7,
+            },
+          },
           textStyleInfo: { color: '', fontSize: 8 },
         },
         {
           id: 'outsideAirTemperature',
           type: 'rect',
-          elementDrawInfo: { width: 60, height: 30, color: '#f0f0f0', opacity: 1 },
+          elementDrawInfo: {
+            width: 60,
+            height: 30,
+            color: '#f0f0f0',
+            opacity: 1,
+            strokeInfo: {
+              width: 1,
+            },
+          },
           textStyleInfo: { color: '', fontSize: 8 },
         },
         {
           id: 'soilReh',
           type: 'rect',
-          elementDrawInfo: { width: 60, height: 30, color: '#f0f0f0', opacity: 1 },
+          elementDrawInfo: {
+            width: 60,
+            height: 30,
+            color: '#f0f0f0',
+            opacity: 1,
+            strokeInfo: {
+              width: 1,
+            },
+          },
           textStyleInfo: { color: '', fontSize: 8 },
         },
         {
           id: 'outsideAirReh',
           type: 'rect',
-          elementDrawInfo: { width: 60, height: 30, color: '#f0f0f0', opacity: 1 },
+          elementDrawInfo: {
+            width: 60,
+            height: 30,
+            color: '#f0f0f0',
+            opacity: 1,
+            strokeInfo: {
+              width: 1,
+            },
+          },
           textStyleInfo: { color: '', fontSize: 8 },
         },
         {
           id: 'horizontalSolar',
           type: 'rect',
-          elementDrawInfo: { width: 60, height: 30, color: '#f0f0f0', opacity: 1 },
+          elementDrawInfo: {
+            width: 60,
+            height: 30,
+            color: '#f0f0f0',
+            opacity: 1,
+            strokeInfo: {
+              width: 1,
+            },
+          },
           textStyleInfo: { color: '', fontSize: 8 },
         },
         {
           id: 'pvUnderlyingSolar',
           type: 'rect',
-          elementDrawInfo: { width: 60, height: 30, color: '#f0f0f0', opacity: 1 },
+          elementDrawInfo: {
+            width: 60,
+            height: 30,
+            color: '#f0f0f0',
+            opacity: 1,
+            strokeInfo: {
+              width: 1,
+            },
+          },
           textStyleInfo: { color: '', fontSize: 8 },
         },
         {
           id: 'powerGridKw',
           type: 'rect',
-          elementDrawInfo: { width: 60, height: 30, color: '#f0f0f0', opacity: 1 },
+          elementDrawInfo: {
+            width: 60,
+            height: 30,
+            color: '#f0f0f0',
+            opacity: 1,
+            strokeInfo: {
+              width: 0.7,
+              color: '#000',
+            },
+          },
           textStyleInfo: { color: '', fontSize: 8 },
         },
       ],
@@ -1655,51 +1729,15 @@ const map = {
             },
             {
               enName: 'Move',
-              krName: '이동',
-              nextStepInfo: {
-                scenarioMsg: '이동 방향을 선택하세요.',
-                confirmList: [
-                  {
-                    enName: 'left',
-                    krName: '좌',
-                    controlValue: 21,
-                    nextStepInfo: {
-                      scenarioMsg: '이동 거리를 입력하세요.',
-                      confirmList: [
-                        {
-                          enName: 'm',
-                          krName: '미터',
-                          controlValue: 21,
-                          isSetValue: true,
-                        },
-                      ],
-                    },
-                  },
-                  {
-                    enName: 'right',
-                    krName: '우',
-                    controlValue: 22,
-                    nextStepInfo: {
-                      scenarioMsg: '이동 거리를 입력하세요.',
-                      confirmList: [
-                        {
-                          enName: 'm',
-                          krName: '미터',
-                          controlValue: 21,
-                          isSetValue: true,
-                        },
-                      ],
-                    },
-                  },
-                ],
-              },
-            },
-            {
-              enName: 'Move',
               krName: '이동 2',
               nextStepInfo: {
                 scenarioMsg: '이동 방향과 거리(m) 선택하세요.',
-                isSetValue: true,
+                isSetValue: 1,
+                setValueInfo: {
+                  msg: '이동 거리',
+                  min: -0.5,
+                  max: 45,
+                },
                 confirmList: [
                   {
                     enName: 'left',

@@ -30,8 +30,8 @@ class SimulatorApp {
     app.set('views', path.join(__dirname, 'view'));
 
     app.use(
-      '/out',
-      express.static(path.join(__dirname, 'map'), {
+      'out',
+      express.static(path.join(__dirname, '../out'), {
         extensions: ['jpg', 'png', 'gif'],
       }),
     );
