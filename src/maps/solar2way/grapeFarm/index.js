@@ -6,6 +6,30 @@ const {
   },
 } = require('../../../module');
 
+const pvNormalPatternInfo = {
+  patternSize: [10, 10],
+  patternList: [
+    {
+      patternType: 'image',
+      fill: '/out/cell',
+      size: [10, 10],
+      opacity: 0.5,
+    },
+  ],
+};
+
+const pvTransPatternInfo = {
+  patternSize: [10, 10],
+  patternList: [
+    {
+      patternType: 'image',
+      fill: '/out/cell',
+      size: [10, 10],
+      opacity: 0.8,
+    },
+  ],
+};
+
 // Map Size 정보
 const ms = {
   // 비닐 하우스 (Vinyl House)
@@ -53,10 +77,10 @@ const map = {
           elementDrawInfo: {
             width: ms.VH.WIDTH,
             height: ms.VH.HEIGHT,
-            color: 'blue',
+            color: '#dbe4ff',
             opacity: 1,
           },
-          textStyleInfo: { color: 'white', axisScale: [0.5, 0.3] },
+          textStyleInfo: { color: '', axisScale: [0.5, 0.3] },
         },
         {
           id: 'bigVinylHouse',
@@ -64,10 +88,10 @@ const map = {
           elementDrawInfo: {
             width: ms.VH.WIDTH,
             height: ms.VH.BIG_HEIGHT,
-            color: 'blue',
+            color: '#dbe4ff',
             opacity: 1,
           },
-          textStyleInfo: { color: 'white' },
+          textStyleInfo: { color: '' },
         },
         {
           id: 'pvSensor',
@@ -76,7 +100,7 @@ const map = {
             width: ms.SS.WIDTH,
             height: ms.VH.BIG_HEIGHT - ms.VH.HEIGHT / 2,
             color: 'red',
-            opacity: 1,
+            opacity: 0,
           },
           textStyleInfo: { color: 'white' },
         },
@@ -87,7 +111,7 @@ const map = {
             width: ms.SS.BIG_WIDTH,
             height: ms.VH.BIG_HEIGHT - ms.VH.HEIGHT / 2,
             color: 'red',
-            opacity: 1,
+            opacity: 0,
           },
           textStyleInfo: { color: 'white' },
         },
@@ -104,13 +128,13 @@ const map = {
         },
         {
           id: 'pvN_4EA',
-          type: 'image',
+          type: 'rect',
           elementDrawInfo: {
             width: (ms.VH.WIDTH / 8) * 4,
             height: ms.VH.HEIGHT / 2,
             color: '#abe3e1',
             opacity: 1,
-            imgUrl: '/out/cell.jpg',
+            patternInfo: pvNormalPatternInfo,
           },
           textStyleInfo: { color: '' },
         },
@@ -122,6 +146,7 @@ const map = {
             height: ms.VH.HEIGHT / 2,
             color: '#abe3e1',
             opacity: 1,
+            patternInfo: pvNormalPatternInfo,
           },
           textStyleInfo: { color: '' },
         },
@@ -133,6 +158,7 @@ const map = {
             height: ms.VH.HEIGHT / 2,
             color: '#abe3e1',
             opacity: 1,
+            patternInfo: pvNormalPatternInfo,
           },
           textStyleInfo: { color: '' },
         },
@@ -144,6 +170,7 @@ const map = {
             height: ms.VH.HEIGHT / 2,
             color: '#abe3e1',
             opacity: 1,
+            patternInfo: pvNormalPatternInfo,
           },
           textStyleInfo: { color: '' },
         },
@@ -153,8 +180,9 @@ const map = {
           elementDrawInfo: {
             width: (ms.VH.WIDTH / 8) * 4,
             height: ms.VH.HEIGHT / 2,
-            color: '#eeeeee',
+            color: '#4dabf7',
             opacity: 1,
+            patternInfo: pvTransPatternInfo,
           },
           textStyleInfo: { color: '' },
         },
@@ -164,8 +192,9 @@ const map = {
           elementDrawInfo: {
             width: (ms.VH.WIDTH / 8) * 6,
             height: ms.VH.HEIGHT / 2,
-            color: '#eeeeee',
+            color: '#4dabf7',
             opacity: 1,
+            patternInfo: pvTransPatternInfo,
           },
           textStyleInfo: { color: '' },
         },
@@ -175,8 +204,9 @@ const map = {
           elementDrawInfo: {
             width: (ms.VH.WIDTH / 8) * 7,
             height: ms.VH.HEIGHT / 2,
-            color: '#eeeeee',
+            color: '#4dabf7',
             opacity: 1,
+            patternInfo: pvTransPatternInfo,
           },
           textStyleInfo: { color: '' },
         },
@@ -186,8 +216,9 @@ const map = {
           elementDrawInfo: {
             width: ms.VH.WIDTH / 8,
             height: ms.VH.HEIGHT / 2,
-            color: '#eeeeee',
+            color: '#4dabf7',
             opacity: 1,
+            patternInfo: pvTransPatternInfo,
           },
           textStyleInfo: { color: '' },
         },
@@ -211,7 +242,7 @@ const map = {
             width: 35,
             height: 35,
             radius: 40,
-            color: ['#a3a3a3', '#22fb00', '#dc1d1f'],
+            color: ['#a3a3a3', '#22fb00'],
             opacity: 1,
             strokeInfo: {
               width: 0.7,
@@ -227,7 +258,7 @@ const map = {
             width: 27,
             height: 27,
             radius: 40,
-            color: ['#a3a3a3', '#8b24b0', '#dc1d1f'],
+            color: ['#a3a3a3', '#8b24b0'],
             opacity: 1,
             strokeInfo: {
               width: 0.7,
@@ -1698,7 +1729,65 @@ const map = {
       },
     ],
   },
-  controlInfo: {},
+  controlInfo: {
+    setCmdList: [
+      {
+        cmdId: 'closeAllDevice',
+        cmdName: '모든 장치 닫기',
+        trueNodeList: [],
+        falseNodeList: [
+          'P_001',
+          'P_002',
+          'P_003',
+          'ST_001',
+          'ST_002',
+          'ST_003',
+          'ST_004',
+          'ST_005',
+          'ST_006',
+          'ST_007',
+          'ST_008',
+          'ST_009',
+          'ST_010',
+          'ST_011',
+          'ST_012',
+          'ST_013',
+          'ST_014',
+          'ST_015',
+          'ST_016',
+        ],
+      },
+      {
+        cmdId: 'closeAllShutter',
+        cmdName: '모든 개폐기 폐쇄',
+        trueNodeList: [],
+        falseNodeList: [
+          'ST_001',
+          'ST_002',
+          'ST_003',
+          'ST_004',
+          'ST_005',
+          'ST_006',
+          'ST_007',
+          'ST_008',
+          'ST_009',
+          'ST_010',
+          'ST_011',
+          'ST_012',
+          'ST_013',
+          'ST_014',
+          'ST_015',
+          'ST_016',
+        ],
+      },
+      {
+        cmdId: 'closeAllPump',
+        cmdName: '모든 펌프 폐쇄',
+        trueNodeList: [],
+        falseNodeList: ['P_001', 'P_002', 'P_003'],
+      },
+    ],
+  },
   configInfo: {
     deviceCmdList: [
       {

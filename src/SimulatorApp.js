@@ -28,10 +28,9 @@ class SimulatorApp {
     app.engine('html', ejs.renderFile);
     app.set('view engine', 'html');
     app.set('views', path.join(__dirname, 'view'));
-
     app.use(
-      'out',
-      express.static(path.join(__dirname, '../out'), {
+      '/out',
+      express.static(path.join(__dirname, '..', 'out'), {
         extensions: ['jpg', 'png', 'gif'],
       }),
     );

@@ -146,6 +146,7 @@ function initDrawSvg() {
           isSensor,
           dataUnit,
           placeId,
+          placeNameList: [],
           axisScale,
           moveScale,
           point: [],
@@ -165,23 +166,6 @@ function initDrawSvg() {
   });
 }
 
-const SVG_TYPE = {
-  place: undefined,
-  device: 0,
-  sensor: 1,
-  non: -1,
-};
-
-/**
- *
- * @param {mdNodeInfo} svgPositionInfo
- */
-function getSvgType(svgPositionInfo) {
-  const { id: nodeId, placeId } = svgPositionInfo;
-
-  return placeId === undefined ? SVG_TYPE.place : mdNodeStorage.get(nodeId).isSensor;
-}
-
 /**
  * FIXME: SVG Filter 로딩 오류로 인해 사용하지 못함
  * 그림자
@@ -189,7 +173,6 @@ function getSvgType(svgPositionInfo) {
  * @param {mSvgPositionInfo} svgPositionInfo 장소와 노드를 구분하기 위한 장소 또는 노드의 defId 값
  */
 function drawSvgShadow(model, svgPositionInfo) {
-  // console.log(model);
   // if (getSvgType === SVG_TYPE.sensor) {
   //   model.attr({ name: 'sensor' });
   //   model.filter(add => {
@@ -205,46 +188,44 @@ function drawSvgShadow(model, svgPositionInfo) {
 }
 
 /**
- * 패턴 방식 (바둑판 등)
- * @param {svgDrawInfo} svgDrawInfo
+ *
+ * @param {SVG} svgCanvas
+ * @param {mPatternInfo} patternInfo
  */
-function drawSvgPattern(svgDrawInfo) {
-  // console.dir(svgDrawInfo);
+function drawSvgPattern(svgCanvas, patternInfo) {
   const {
-    svgCanvas,
-    svgPositionInfo: {
-      id: positionId,
-      point: [x1, y1, x2, y2],
-    },
-    svgModelResource: {
-      elementDrawInfo: {
-        color: [defaultColor],
-        width,
-        height,
-        radius = 1,
+    patternSize: [pW, pH],
+    patternList,
+  } = patternInfo;
+
+  return svgCanvas.pattern(pW, pH, add => {
+    patternList.forEach(elePatternInfo => {
+      const {
+        patternType,
+        fill,
+        move: [mX, mY] = [],
+        radius,
+        size: [width, height],
         opacity = 1,
-        strokeInfo,
-      },
-    },
-  } = svgDrawInfo;
+      } = elePatternInfo;
 
-  // 그림자를 적용하기위해 pattern 뒤에 사각형 그리기.
-  const model = svgCanvas.rect(width, height);
-  model.move(x1, y1).stroke({ color: 'black' });
+      switch (patternType) {
+        case 'rect':
+          add.rect(width, height).opacity(opacity);
+          break;
+        case 'circle':
+          add.circle(radius).opacity(opacity);
+          break;
+        case 'image':
+          add.image(fill).size(width, height).opacity(opacity);
+          break;
+        default:
+          break;
+      }
+      // add.opacity(opacity);
 
-  drawSvgShadow(model, positionId);
-
-  // pattern 안의 작은 사각형의 크기
-  const patternSize = 21;
-  const pattern = svgCanvas.pattern(patternSize, patternSize, add => {
-    add.rect(patternSize, patternSize).fill('white');
-    add.rect(patternSize, patternSize).move(0.4, 0.4).fill(defaultColor).radius(radius).attr({
-      opacity,
+      mX && mY && add.move(mX, mY);
     });
-  });
-  return svgCanvas.rect(width, height).move(x1, y1).fill(pattern).attr({
-    positionId,
-    opacity,
   });
 }
 
@@ -253,7 +234,6 @@ function drawSvgPattern(svgDrawInfo) {
  * @param {svgDrawInfo} svgDrawInfo
  */
 function drawSvgElement(svgDrawInfo) {
-  // console.log(svgDrawInfo);
   const {
     svgCanvas,
     svgPositionInfo: {
@@ -267,20 +247,18 @@ function drawSvgElement(svgDrawInfo) {
       svgModelResource: {
         type: svgModelType,
         elementDrawInfo,
-        elementDrawInfo: {
-          color: [defaultColor],
-          radius = 1,
-          opacity = 1,
-          strokeInfo,
-          imgUrl,
-        },
+        elementDrawInfo: { errColor = 'red', radius = 1, opacity = 1, strokeInfo, patternInfo },
         textStyleInfo,
       },
     },
     isShow = true,
   } = svgDrawInfo;
 
-  let { width: svgModelWidth, height: svgModelHeight } = elementDrawInfo;
+  let {
+    color: [defaultColor],
+    width: svgModelWidth,
+    height: svgModelHeight,
+  } = elementDrawInfo;
 
   let svgCanvasBgElement;
 
@@ -288,41 +266,41 @@ function drawSvgElement(svgDrawInfo) {
   switch (svgModelType) {
     case 'rect':
       svgCanvasBgElement = svgCanvas.rect(svgModelWidth, svgModelHeight);
+      // 장소일 경우 color사용, Place 위에 그려지는 Node의 초기값은 Error
+      defaultColor = placeId === undefined ? defaultColor : errColor;
       break;
     case 'circle':
       svgModelWidth = radius;
       svgModelHeight = radius;
       svgCanvasBgElement = svgCanvas.circle(radius);
+      // 장소일 경우 color사용, Place 위에 그려지는 Node의 초기값은 Error
+      defaultColor = placeId === undefined ? defaultColor : errColor;
       break;
     case 'image':
-      svgCanvasBgElement = svgCanvas.image(imgUrl);
+      svgCanvasBgElement = svgCanvas.image(defaultColor).size(svgModelWidth, svgModelHeight);
       break;
     case 'line':
       svgCanvasBgElement = svgCanvas.line(x1, y1, x2, y2);
       break;
-    case 'polygon':
-      svgCanvas.polyline(
-        `${svgModelWidth},${0} ${svgModelWidth * 2},${svgModelHeight} ${svgModelWidth},${
-          svgModelHeight * 2
-        } ${0},${svgModelHeight}`,
-      );
-      break;
     case 'pattern':
-      drawSvgPattern(svgDrawInfo);
+      svgCanvasBgElement = svgCanvas.rect(svgModelWidth, svgModelHeight);
+      // Pattern 가져옴
+      defaultColor = drawSvgPattern(svgCanvas, patternInfo);
       break;
     default:
       break;
   }
+
   // 모델 색상, 좌표 이동, 외곽선 굵기, Attr 세팅
   svgCanvasBgElement !== undefined &&
     svgCanvasBgElement
-      .fill(defaultColor)
       .move(x1, y1)
       .stroke(strokeInfo)
       .attr({
         id: positionId,
         opacity: isShow ? opacity : 0,
-      });
+      })
+      .fill(defaultColor);
 
   // mdNodeInfo|mdPlaceInfo 에 SVG BG 정의
   ownerInfo.svgEleBg = svgCanvasBgElement;
@@ -377,7 +355,10 @@ function showNodeData(nodeId, data = '') {
       isSensor,
       dataUnit = '',
       svgModelResource: {
-        elementDrawInfo: { color },
+        elementDrawInfo: {
+          color: [baseColor, actionColor],
+          errColor = 'red',
+        },
       },
       svgEleBg,
       svgEleData,
@@ -392,11 +373,14 @@ function showNodeData(nodeId, data = '') {
 
     // data의 상태에 따라 tspan(data, dataUnit) 색상 및 Visible 변경
     let isValidData = 0;
-    let colorIndex = 0;
+    let selectedColor = baseColor;
 
     // node 타입이 Sensor 일 경우에는 Number 형식이 와야함. 아닐 경우 에러
     if (isSensor) {
-      isValidData = !Number.isNaN(_.toNumber(data));
+      isValidData = typeof data !== 'number' ? 0 : !Number.isNaN(Number(data));
+      if (!isValidData) {
+        selectedColor = errColor;
+      }
     } else {
       // node 타입이 Device 일 경우에는 DATA_RANGE 범위 측정. 아닐 경우 에러
       const strData = _.toString(data);
@@ -405,17 +389,17 @@ function showNodeData(nodeId, data = '') {
       // 데이터가 들어오면 유효한 데이터
       if (strData.length) {
         isValidData = 1;
-        colorIndex = 1;
+        selectedColor = actionColor;
         // False 영역일 경우
         if (DATA_RANGE.FALSE.includes(strUpperData)) {
-          colorIndex = 0;
+          selectedColor = baseColor;
         }
       } else {
-        colorIndex = 2;
+        selectedColor = errColor;
       }
     }
 
-    svgEleBg.fill(color[colorIndex]);
+    svgEleBg.fill(selectedColor);
     if (isValidData) {
       svgEleData.text(data);
       svgEleDataUnit.text(dataUnit).dx(2);
@@ -475,13 +459,14 @@ function alertDeviceCmdConfirm(mdNodeInfo, dCmdScenarioInfo = {}) {
   const btnFn = confirmList.reduce((btnFnInfo, dConfirmInfo) => {
     const { enName, krName, controlValue, nextStepInfo } = dConfirmInfo;
 
+    let deviceSetValue = '';
     if (nextStepInfo === undefined) {
       // 다음 스텝이 없으면 즉시 실행
       btnFnInfo[krName] = function () {
         const $deviceSetValue = $('#dialog-dynamic-input');
         // 값 입력이 활성화 되어 있으나 사용자의 값 입력에 문제가 있을 경우
         if (isSetValue) {
-          const deviceSetValue = $deviceSetValue.val();
+          deviceSetValue = $deviceSetValue.val();
           if (!deviceSetValue.length) {
             // 값 존재 필요
             return $deviceSetValue.addClass('ui-state-error');
@@ -501,7 +486,6 @@ function alertDeviceCmdConfirm(mdNodeInfo, dCmdScenarioInfo = {}) {
         $(this).dialog('close');
 
         // TODO: Execute 전송
-        console.log('Cmd 실행', controlValue);
       };
     } else {
       btnFnInfo[krName] = function () {
@@ -533,6 +517,7 @@ function alertDeviceCmdConfirm(mdNodeInfo, dCmdScenarioInfo = {}) {
 }
 
 /**
+ * SVG Map 세팅
  * @param {string} documentId // 그려질 div의 id 값
  * @param {string=} isKorText // 장소, 장치, 센서 한글로 표현 유무
  */
@@ -582,12 +567,16 @@ function drawSvgBasePlace(documentId, isKorText = true) {
     // 노드 타입이 장치라면 클릭 이벤트 바인딩
     if (mdNodeInfo.isSensor === SENSOR_TYPE.DEVICE) {
       svgCanvasBgElement.click(() => {
-        console.log(mdNodeInfo);
         alertDeviceCmdConfirm(mdNodeInfo);
       });
     }
   });
+}
 
+/**
+ * Simulator 데이터 입력
+ */
+function runSimulator() {
   // FIXME: TEST
   // SVG('#IVT_PW_G_KW_1_title').clear().text('TEST');
 
