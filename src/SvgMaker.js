@@ -8,8 +8,8 @@ const { SOURCE_PATH, SOURCE_FILE } = process.env;
 
 const mapPath = path.join(process.cwd(), 'src', 'maps', SOURCE_PATH, SOURCE_FILE);
 
-// eslint-disable-next-line import/no-dynamic-require
 /** @type {mDeviceMap} */
+// eslint-disable-next-line import/no-dynamic-require
 const map = require(mapPath);
 
 require('./module').di;
@@ -30,7 +30,7 @@ class SvgMaker {
         positionInfo: { svgNodeList = [], svgPlaceList = [] } = {},
       },
       setInfo: { nodeStructureList },
-      relationInfo: { placeRelationList, svgResourceConnectionList },
+      relationInfo: { placeRelationList },
     } = map;
 
     // SVG Drawing 리소스를 저장하는 목록
@@ -45,31 +45,20 @@ class SvgMaker {
 
     // RelationInfo 장소 관계 목록, SVG Resouce 관계 목록
     this.mPlaceRelationList = placeRelationList;
-    this.mSvgResourceConnectionList = svgResourceConnectionList;
   }
 
   /**
    * @return {mDeviceMap}
    */
   async makeSvgMapFile() {
-    // SVG NodeList를 생성하기 위한 임시 저장소 생성
-    // this.setSvgNodeTempStorageList();
-    // Node(센서 제외) SVG 위치 정보 산출
-    // this.makeSvgNodeList();
-    // Node(센서) SVG 위치 정보 산출
-    // this.makeSensorList();
-
+    // Step 1: Node, Place Storage 생성
     this.init();
-
+    // Step 2: Svg Place Position 목록 생성
     this.setSvgPlaceList();
-
+    // Step 3: Svg Node Position 목록 생성
     this.setSvgNodeList();
-
-    // TODO: PlaceRelationList 목록을 순회하면서 positionInfo.svgPlaceList 에 세팅
-
+    // Step 4: Map File 생성
     await this.writeMapFile();
-
-    // BU.CLIN(map.drawInfo.positionInfo.svgPlaceList);
 
     return map;
   }
@@ -77,6 +66,7 @@ class SvgMaker {
   /**
    * Map 초기화 진행
    * Map<placeId, mdPlaceInfo>, Map<nodeId, mdNodeInfo> 생성
+   * Step 1: Node, Place Storage 생성
    */
   init() {
     // svgModelResourceList 생성
@@ -87,8 +77,7 @@ class SvgMaker {
       this.mdMapStorage.set(id, modelInfo);
     });
 
-    // TODO: PlaceRelationList을 순회하면서 Map<placeId, mSvgStorageInfo> 세팅
-
+    // PlaceRelationList을 순회하면서 Map<placeId, mSvgStorageInfo> 세팅
     /** @type {Map<string, mdPlaceInfo>} */
     this.mdPlaceStorage = new Map();
 
@@ -123,9 +112,7 @@ class SvgMaker {
       });
     });
 
-    // BU.CLIN(this.mdPlaceStorage);
-
-    // TODO: SetInfo NodeStrutureList 를 순회하면서 Map<placeId, mSvgStorageInfo> 세팅
+    // SetInfo NodeStrutureList 를 순회하면서 Map<placeId, mSvgStorageInfo> 세팅
     /** @type {Map<string, mdNodeInfo>} nodeId를 기준으로 nodeInfo 정보를 저장할 Map */
     this.mdNodeStorage = new Map();
 
@@ -135,17 +122,11 @@ class SvgMaker {
         is_sensor: isSensor,
         target_id: ncId,
         target_name: ncName,
-        controlType: ncControlType,
         data_unit: dataUnit,
       } = nClassInfo;
 
       defList.forEach(nDefInfo => {
-        const {
-          nodeList = [],
-          controlType: ndControlType = ncControlType,
-          target_prefix: ndPrefix,
-          target_name: ndName = ncName,
-        } = nDefInfo;
+        const { nodeList = [], target_prefix: ndPrefix, target_name: ndName = ncName } = nDefInfo;
 
         nodeList.forEach(nodeInfo => {
           const {
@@ -170,46 +151,43 @@ class SvgMaker {
             nodeName = `${ndName}${nCode ? `_${nCode}` : ''}`;
           }
 
-          // resourceId의 정보가 없다면 placeRelation에 있는지 찾아서 정의
-          if (placeId === undefined) {
-            const psIterator = this.mdPlaceStorage.values();
+          // 노드를 포함하는 Place Id 목록
+          const placeIdList = [];
 
-            let psInfo = psIterator.next();
+          this.mdPlaceStorage.forEach(mdPlaceInfo => {
+            const { nodeList: mdPlaceNodeList, placeId: mdPlaceId } = mdPlaceInfo;
+            if (mdPlaceNodeList.includes(nodeId)) {
+              placeIdList.push(mdPlaceId);
 
-            while (!psInfo.done) {
-              if (_.includes(_.get(psInfo.value, 'nodeList', []), nodeId)) {
-                placeId = _.get(psInfo.value, 'placeId');
-                break;
+              // placeId의 정보가 없다면 placeRelation에 있는지 찾아서 정의
+              if (placeId === '' || placeId === undefined) {
+                placeId = mdPlaceId;
               }
-              psInfo = psIterator.next();
             }
-          }
+          });
 
           this.mdNodeStorage.set(nodeId, {
             ncId,
             ndName,
             nodeId,
             nodeName,
-            controlType: ndControlType,
             isSensor,
             dataUnit,
             placeId,
             axisScale,
             moveScale,
             point: [],
+            placeIdList,
+            placeNameList: placeIdList.map(pId => this.mdPlaceStorage.get(pId).placeName),
             mdPlaceInfo: this.mdPlaceStorage.get(placeId),
             svgModelResource: this.mdMapStorage.get(resourceId),
           });
         });
       });
     });
-
-    // BU.CLIN(this.mNodeStorage);
   }
 
-  /**
-   * SetInfo SVG Place List 정의
-   */
+  /** Step 2: Svg Place Position 목록 생성 */
   setSvgPlaceList() {
     this.mdPlaceStorage.forEach(mdPlaceInfo => {
       const {
@@ -269,18 +247,11 @@ class SvgMaker {
         resourceId: id,
       });
     });
-
-    // BU.CLIN(this.mSvgPlaceList);
   }
 
+  /** Step 3: Svg Node Position 목록 생성 */
   setSvgNodeList() {
-    /** @type {mSvgNodeInfo} */
-    const temp = { nodeDefId: 'test', is_sensor: 0, svgPositonList: [] };
-
-    // this.mSvgNodeList.push(temp);
-
     this.mdNodeStorage.forEach(mdNodeInfo => {
-      // BU.CLIN(mdNodeInfo);
       const {
         nodeId,
         nodeName,
@@ -290,7 +261,6 @@ class SvgMaker {
         mdPlaceInfo: {
           placeId,
           point: [px1, py1, px2, py2],
-          svgModelResource: pSvgModel,
         },
         svgModelResource: {
           id: nodeModelId,
@@ -307,13 +277,9 @@ class SvgMaker {
               width: strokeWidth = STROKE_INFO.width,
             } = {},
           },
-          textStyleInfo: nTextStyleInfo,
         },
       } = mdNodeInfo;
 
-      // BU.CLI('wtf');
-      // 노드 중심축 좌표
-      const nodeAxis = [];
       let nAxisX;
       let nAxisY;
 
@@ -348,9 +314,6 @@ class SvgMaker {
         width: strokeWidth,
       };
 
-      // BU.CLIN(mdNodeInfo.point);
-
-      // temp.svgPositonList.push({
       this.mSvgNodeList.push({
         id: nodeId,
         name: nodeName,
@@ -359,16 +322,10 @@ class SvgMaker {
         point: mdNodeInfo.point,
         resourceId: nodeModelId,
       });
-
-      //
     });
-
-    // BU.CLIN(this.mSvgNodeList, 3);
   }
 
-  // Step 4
-  /**
-   */
+  /** Step 4: Map File 생성 */
   async writeMapFile() {
     // 사용할 프로젝트 맵 이미지 경로
     const inputMapImgPath = path.join(mapPath, `${SOURCE_FILE}.png`);
@@ -401,20 +358,3 @@ class SvgMaker {
   }
 }
 module.exports = SvgMaker;
-
-/**
- * @typedef {Object} storageInfo
- * @property {string} nodeDefId
- * @property {detailNodeInfo[]} defList
- */
-
-/**
- * @typedef {Object} detailNodeInfo
- * @property {string} placeId
- * @property {string} nodeId
- * @property {string} name
- * @property {string} resourceId
- * @property {number[]} axisScale
- * @property {number[]} moveScale
- * @property {number[]} point 최종 적으로 나올 좌표 정보
- */

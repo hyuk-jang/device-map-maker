@@ -35,9 +35,9 @@ const ms = {
   // 비닐 하우스 (Vinyl House)
   VH: {
     START_X: 100,
-    START_Y: 100,
+    START_Y: 30,
     INTERVAL: 100,
-    WIDTH: 500,
+    WIDTH: 450,
     HEIGHT: 80,
     BIG_HEIGHT: 180,
   },
@@ -56,11 +56,11 @@ const map = {
   drawInfo: {
     frame: {
       mapInfo: {
-        width: 880,
-        height: 1500,
+        width: 800,
+        height: 1100,
         backgroundInfo: {
           backgroundData: '',
-          backgroundPosition: [160, 0],
+          backgroundPosition: [0, 0],
         },
       },
       svgModelResourceList: [
@@ -225,7 +225,7 @@ const map = {
         {
           id: 'pumpPanel',
           type: 'rect',
-          elementDrawInfo: { width: 200, height: 200, color: 'skyblue', opacity: 1 },
+          elementDrawInfo: { width: 150, height: 150, color: 'skyblue', opacity: 1 },
           textStyleInfo: { color: '' },
         },
         {
@@ -693,7 +693,6 @@ const map = {
         is_sensor: 0,
         is_submit_api: 1,
         description: '개폐기',
-        controlType: 1,
         defList: [
           {
             target_id: 'shutter',
@@ -898,7 +897,7 @@ const map = {
                   placeId: 'PCH',
                   resourceId: 'pump',
                   axisScale: [1, 1],
-                  moveScale: [-1, -1],
+                  moveScale: [-0.3, -0.3],
                 },
               },
               {
@@ -908,8 +907,8 @@ const map = {
                 svgNodePosOpt: {
                   placeId: 'PCH',
                   resourceId: 'pump',
-                  axisScale: [0.1, 0.15],
-                  moveScale: [0, 0],
+                  axisScale: [0, 0],
+                  moveScale: [0.3, 0.3],
                 },
               },
               {
@@ -919,8 +918,8 @@ const map = {
                 svgNodePosOpt: {
                   placeId: 'PCH',
                   resourceId: 'pump',
-                  axisScale: [0.8, 0.15],
-                  moveScale: [0, 0],
+                  axisScale: [1, 0],
+                  moveScale: [-0.3, 0.3],
                 },
               },
             ],
@@ -1468,8 +1467,8 @@ const map = {
                 svgPositionInfo: {
                   resourceId: 'pumpPanel',
                   point: [
-                    ms.VH.START_X + ms.VH.WIDTH + ms.VH.INTERVAL,
-                    ms.VH.START_Y + ms.VH.INTERVAL * 6,
+                    ms.VH.START_X + ms.VH.WIDTH + ms.VH.INTERVAL / 2,
+                    ms.VH.START_Y + ms.VH.INTERVAL * 7,
                   ],
                 },
               },
