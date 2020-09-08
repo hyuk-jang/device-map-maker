@@ -2,6 +2,7 @@ const {
   di: {
     dcmConfigModel: {
       nodeDataType: { BLOCK, TROUBLE, NONE },
+      textAnchorType,
     },
   },
 } = require('../../../module');
@@ -80,7 +81,7 @@ const map = {
             color: '#dbe4ff',
             opacity: 1,
           },
-          textStyleInfo: { color: '', axisScale: [0.5, 0.3] },
+          textStyleInfo: { color: '', axisScale: [0.5, 0.25] },
         },
         {
           id: 'bigVinylHouse',
@@ -136,7 +137,7 @@ const map = {
             opacity: 1,
             patternInfo: pvNormalPatternInfo,
           },
-          textStyleInfo: { color: '' },
+          textStyleInfo: { axisScale: [0.5, 0.25], fontSize: 9 },
         },
         {
           id: 'pvN_6EA',
@@ -148,7 +149,7 @@ const map = {
             opacity: 1,
             patternInfo: pvNormalPatternInfo,
           },
-          textStyleInfo: { color: '' },
+          textStyleInfo: { axisScale: [0.5, 0.25], fontSize: 9 },
         },
         {
           id: 'pvN_7EA',
@@ -160,7 +161,7 @@ const map = {
             opacity: 1,
             patternInfo: pvNormalPatternInfo,
           },
-          textStyleInfo: { color: '' },
+          textStyleInfo: { axisScale: [0.5, 0.25], fontSize: 9 },
         },
         {
           id: 'pvN_8EA',
@@ -172,7 +173,7 @@ const map = {
             opacity: 1,
             patternInfo: pvNormalPatternInfo,
           },
-          textStyleInfo: { color: '' },
+          textStyleInfo: { axisScale: [0.5, 0.25], fontSize: 9 },
         },
         {
           id: 'pvT_4EA',
@@ -184,7 +185,7 @@ const map = {
             opacity: 1,
             patternInfo: pvTransPatternInfo,
           },
-          textStyleInfo: { color: '' },
+          textStyleInfo: { axisScale: [0.5, 0.25], fontSize: 9 },
         },
         {
           id: 'pvT_6EA',
@@ -196,7 +197,7 @@ const map = {
             opacity: 1,
             patternInfo: pvTransPatternInfo,
           },
-          textStyleInfo: { color: '' },
+          textStyleInfo: { axisScale: [0.5, 0.25], fontSize: 9 },
         },
         {
           id: 'pvT_7EA',
@@ -208,7 +209,7 @@ const map = {
             opacity: 1,
             patternInfo: pvTransPatternInfo,
           },
-          textStyleInfo: { color: '' },
+          textStyleInfo: { axisScale: [0.5, 0.25], fontSize: 9 },
         },
         {
           id: 'pvT_8EA',
@@ -220,12 +221,12 @@ const map = {
             opacity: 1,
             patternInfo: pvTransPatternInfo,
           },
-          textStyleInfo: { color: '' },
+          textStyleInfo: { axisScale: [0.5, 0.25], fontSize: 9 },
         },
         {
           id: 'pumpPanel',
           type: 'rect',
-          elementDrawInfo: { width: 150, height: 150, color: 'skyblue', opacity: 1 },
+          elementDrawInfo: { width: 200, height: 120, color: 'skyblue', opacity: 1 },
           textStyleInfo: { color: '' },
         },
         {
@@ -258,7 +259,7 @@ const map = {
             width: 27,
             height: 27,
             radius: 40,
-            color: ['#a3a3a3', '#8b24b0'],
+            color: ['#a3a3a3', '#22fb00'],
             opacity: 1,
             strokeInfo: {
               width: 0.7,
@@ -268,6 +269,36 @@ const map = {
           textStyleInfo: { fontSize: 8 },
         },
         /* *************       Sensor        ***************** */
+        {
+          id: 'shutterControlType',
+          type: 'rect',
+          elementDrawInfo: {
+            width: 40,
+            height: 30,
+            color: '#f0f0f0',
+            opacity: 1,
+            strokeInfo: {
+              width: 0.7,
+              color: '#000',
+            },
+          },
+          textStyleInfo: { dataColor: ['black', 'brown'], fontSize: 8 },
+        },
+        {
+          id: 'pumpControlType',
+          type: 'rect',
+          elementDrawInfo: {
+            width: 45,
+            height: 30,
+            color: '#f0f0f0',
+            opacity: 1,
+            strokeInfo: {
+              width: 0.7,
+              color: '#000',
+            },
+          },
+          textStyleInfo: { dataColor: ['black', 'brown'], fontSize: 8 },
+        },
         {
           id: 'sensor',
           type: 'rect',
@@ -281,7 +312,14 @@ const map = {
               color: '#000',
             },
           },
-          textStyleInfo: { color: '', fontSize: 8 },
+          textStyleInfo: {
+            // isHiddenTitle: true,
+            // anchor: textAnchorType.END,
+            // axisScale: [0.5, 0.5],
+            color: '',
+            dataColor: '',
+            fontSize: 8,
+          },
         },
         {
           id: 'soilTemperature',
@@ -295,7 +333,7 @@ const map = {
               width: 0.7,
             },
           },
-          textStyleInfo: { color: '', fontSize: 8 },
+          textStyleInfo: { color: '', dataColor: 'blue', fontSize: 8 },
         },
         {
           id: 'outsideAirTemperature',
@@ -371,8 +409,8 @@ const map = {
           id: 'powerGridKw',
           type: 'rect',
           elementDrawInfo: {
-            width: 60,
-            height: 30,
+            width: 80,
+            height: 15,
             color: '#f0f0f0',
             opacity: 1,
             strokeInfo: {
@@ -380,7 +418,7 @@ const map = {
               color: '#000',
             },
           },
-          textStyleInfo: { color: '', fontSize: 8 },
+          textStyleInfo: { isHiddenTitle: false, isTitleWrap: false, fontSize: 8 },
         },
       ],
     },
@@ -704,7 +742,6 @@ const map = {
                 target_name: '1-A',
                 data_logger_index: 0,
                 svgNodePosOpt: {
-                  // placeId: 'VNH_1',
                   resourceId: 'shutter',
                   axisScale: [0, 0],
                   moveScale: [-1, 0],
@@ -896,8 +933,8 @@ const map = {
                 svgNodePosOpt: {
                   placeId: 'PCH',
                   resourceId: 'pump',
-                  axisScale: [1, 1],
-                  moveScale: [-0.3, -0.3],
+                  axisScale: [0, 0],
+                  moveScale: [0.3, 0.3],
                 },
               },
               {
@@ -907,8 +944,8 @@ const map = {
                 svgNodePosOpt: {
                   placeId: 'PCH',
                   resourceId: 'pump',
-                  axisScale: [0, 0],
-                  moveScale: [0.3, 0.3],
+                  axisScale: [0.5, 0],
+                  moveScale: [0, 0.3],
                 },
               },
               {
@@ -927,6 +964,218 @@ const map = {
         ],
       },
       /* *********             Sensor             ********* */
+      {
+        target_id: 'controlType',
+        target_name: '제어 타입',
+        is_sensor: 1,
+        description: '자동 or 수동',
+        defList: [
+          {
+            target_id: 'shutterControlType',
+            target_prefix: 'ST_CT',
+            description: '개폐기 제어 타입',
+            nodeList: [
+              {
+                target_code: '001',
+                target_name: '1-A 모드',
+                data_logger_index: 0,
+                svgNodePosOpt: {
+                  resourceId: 'shutterControlType',
+                  axisScale: [0, 0],
+                  moveScale: [0.15, 0.2],
+                },
+              },
+              {
+                target_code: '002',
+                target_name: '1-B 모드',
+                data_logger_index: 1,
+                svgNodePosOpt: {
+                  resourceId: 'shutterControlType',
+                  axisScale: [0, 1],
+                  moveScale: [0.15, -0.2],
+                },
+              },
+              {
+                target_code: '003',
+                target_name: '2-A 모드',
+                data_logger_index: 2,
+                svgNodePosOpt: {
+                  resourceId: 'shutterControlType',
+                  axisScale: [0, 0],
+                  moveScale: [0.15, 0.2],
+                },
+              },
+              {
+                target_code: '004',
+                target_name: '2-B 모드',
+                data_logger_index: 3,
+                svgNodePosOpt: {
+                  resourceId: 'shutterControlType',
+                  axisScale: [0, 1],
+                  moveScale: [0.15, -0.2],
+                },
+              },
+              {
+                target_code: '005',
+                target_name: '3-A 모드',
+                data_logger_index: 4,
+                svgNodePosOpt: {
+                  resourceId: 'shutterControlType',
+                  axisScale: [0, 0],
+                  moveScale: [0.15, 0.2],
+                },
+              },
+              {
+                target_code: '006',
+                target_name: '3-B 모드',
+                data_logger_index: 5,
+                svgNodePosOpt: {
+                  resourceId: 'shutterControlType',
+                  axisScale: [0, 1],
+                  moveScale: [0.15, -0.2],
+                },
+              },
+              {
+                target_code: '007',
+                target_name: '4-A 모드',
+                data_logger_index: 6,
+                svgNodePosOpt: {
+                  resourceId: 'shutterControlType',
+                  axisScale: [0, 0],
+                  moveScale: [0.15, 0.2],
+                },
+              },
+              {
+                target_code: '008',
+                target_name: '4-B 모드',
+                data_logger_index: 7,
+                svgNodePosOpt: {
+                  resourceId: 'shutterControlType',
+                  axisScale: [0, 1],
+                  moveScale: [0.15, -0.2],
+                },
+              },
+              {
+                target_code: '009',
+                target_name: '5-A 모드',
+                data_logger_index: 8,
+                svgNodePosOpt: {
+                  resourceId: 'shutterControlType',
+                  axisScale: [0, 0],
+                  moveScale: [0.15, 0.2],
+                },
+              },
+              {
+                target_code: '010',
+                target_name: '5-B 모드',
+                data_logger_index: 9,
+                svgNodePosOpt: {
+                  resourceId: 'shutterControlType',
+                  axisScale: [0, 1],
+                  moveScale: [0.15, -0.2],
+                },
+              },
+              {
+                target_code: '011',
+                target_name: '6-A 모드',
+                data_logger_index: 10,
+                svgNodePosOpt: {
+                  resourceId: 'shutterControlType',
+                  axisScale: [0, 0],
+                  moveScale: [0.15, 0.2],
+                },
+              },
+              {
+                target_code: '012',
+                target_name: '6-B 모드',
+                data_logger_index: 11,
+                svgNodePosOpt: {
+                  resourceId: 'shutterControlType',
+                  axisScale: [0, 1],
+                  moveScale: [0.15, -0.2],
+                },
+              },
+              {
+                target_code: '013',
+                target_name: '7-A 모드',
+                data_logger_index: 12,
+                svgNodePosOpt: {
+                  resourceId: 'shutterControlType',
+                  axisScale: [0, 0],
+                  moveScale: [0.15, 0.2],
+                },
+              },
+              {
+                target_code: '014',
+                target_name: '7-B 모드',
+                data_logger_index: 13,
+                svgNodePosOpt: {
+                  resourceId: 'shutterControlType',
+                  axisScale: [0, 1],
+                  moveScale: [0.15, -0.2],
+                },
+              },
+              {
+                target_code: '015',
+                target_name: '8-A 모드',
+                data_logger_index: 14,
+                svgNodePosOpt: {
+                  resourceId: 'shutterControlType',
+                  axisScale: [0, 0],
+                  moveScale: [0.15, 0.2],
+                },
+              },
+              {
+                target_code: '016',
+                target_name: '8-B 모드',
+                data_logger_index: 15,
+                svgNodePosOpt: {
+                  resourceId: 'shutterControlType',
+                  axisScale: [0, 0.9],
+                  moveScale: [0.15, 0],
+                },
+              },
+            ],
+          },
+          {
+            target_id: 'pumpControlType',
+            target_prefix: 'P_CT',
+            description: '펌프 제어 타입',
+            nodeList: [
+              {
+                target_code: '001',
+                target_name: '펌프 모드',
+                svgNodePosOpt: {
+                  placeId: 'PCH',
+                  resourceId: 'pumpControlType',
+                  axisScale: [0, 1],
+                  moveScale: [0.3, -0.3],
+                },
+              },
+              {
+                target_code: '002',
+                target_name: '양액 A 모드',
+                svgNodePosOpt: {
+                  placeId: 'PCH',
+                  resourceId: 'pumpControlType',
+                  axisScale: [0.5, 1],
+                  moveScale: [0, -0.3],
+                },
+              },
+              {
+                target_code: '003',
+                target_name: '양액 B 모드',
+                svgNodePosOpt: {
+                  placeId: 'PCH',
+                  resourceId: 'pumpControlType',
+                  axisScale: [1, 1],
+                  moveScale: [-0.3, -0.3],
+                },
+              },
+            ],
+          },
+        ],
+      },
       {
         target_id: 'temp',
         target_name: '온도',
@@ -1169,66 +1418,74 @@ const map = {
             nodeList: [
               {
                 target_code: '1',
-                target_name: '투명(I)',
+                // target_name: '투명(I)',
+                target_name: '출력',
                 svgNodePosOpt: {
                   resourceId: 'powerGridKw',
-                  axisScale: [0.5, 0.5],
+                  axisScale: [0.5, 0.8],
                 },
               },
               {
                 target_code: '2',
-                target_name: '일반(I)',
+                // target_name: '일반(I)',
+                target_name: '출력',
                 svgNodePosOpt: {
                   resourceId: 'powerGridKw',
-                  axisScale: [0.5, 0.5],
+                  axisScale: [0.5, 0.8],
                 },
               },
               {
                 target_code: '11',
-                target_name: '투명 1(I)',
+                // target_name: '투명 1(I)',
+                target_name: '출력',
                 svgNodePosOpt: {
                   resourceId: 'powerGridKw',
-                  axisScale: [0.5, 0.5],
+                  axisScale: [0.5, 0.8],
                 },
               },
               {
                 target_code: '12',
-                target_name: '투명 2(I)',
+                // target_name: '투명 2(I)',
+                target_name: '출력',
                 svgNodePosOpt: {
                   resourceId: 'powerGridKw',
-                  axisScale: [0.5, 0.5],
+                  axisScale: [0.5, 0.8],
                 },
               },
               {
                 target_code: '13',
-                target_name: '일반 1(M.I)',
+                // target_name: '일반 1(M.I)',
+                target_name: '출력',
                 svgNodePosOpt: {
                   resourceId: 'powerGridKw',
-                  axisScale: [0.5, 0.5],
+                  axisScale: [0.5, 0.8],
                 },
               },
               {
                 target_code: '14',
-                target_name: '일반 2(M.I)',
+                // target_name: '일반 2(M.I)',
+                target_name: '출력',
                 svgNodePosOpt: {
                   resourceId: 'powerGridKw',
-                  axisScale: [0.5, 0.5],
+                  axisScale: [0.5, 0.8],
                 },
               },
               {
                 target_code: '15',
-                target_name: '일반 3(M.I)',
+                // target_name: '일반 3(M.I)',
+                target_name: '출력',
                 svgNodePosOpt: {
                   resourceId: 'powerGridKw',
-                  axisScale: [0.5, 0.5],
+                  axisScale: [0.5, 0.8],
                 },
               },
               {
                 target_code: '16',
-                target_name: '투명 4(M.I)',
+                // target_name: '투명 4(M.I)',
+                target_name: '출력',
                 svgNodePosOpt: {
                   resourceId: 'powerGridKw',
-                  axisScale: [0.5, 0.5],
+                  axisScale: [0.5, 0.8],
                 },
               },
             ],
@@ -1383,7 +1640,7 @@ const map = {
       },
       {
         target_id: 'house',
-        target_name: '비닐 하우스',
+        target_name: '하우스',
         defList: [
           {
             target_id: 'vinylHouse',
@@ -1391,7 +1648,7 @@ const map = {
             placeList: [
               {
                 target_code: '1',
-                nodeList: ['ST_001', 'ST_002'],
+                nodeList: ['ST_001', 'ST_002', 'ST_CT_001', 'ST_CT_002'],
                 svgPositionInfo: {
                   resourceId: 'vinylHouse',
                   point: [ms.VH.START_X, ms.VH.START_Y],
@@ -1399,7 +1656,7 @@ const map = {
               },
               {
                 target_code: '2',
-                nodeList: ['ST_003', 'ST_004'],
+                nodeList: ['ST_003', 'ST_004', 'ST_CT_003', 'ST_CT_004'],
                 svgPositionInfo: {
                   resourceId: 'vinylHouse',
                   point: [ms.VH.START_X, ms.VH.START_Y + ms.VH.INTERVAL * 1],
@@ -1407,7 +1664,7 @@ const map = {
               },
               {
                 target_code: '3',
-                nodeList: ['ST_005', 'ST_006'],
+                nodeList: ['ST_005', 'ST_006', 'ST_CT_005', 'ST_CT_006'],
                 svgPositionInfo: {
                   resourceId: 'vinylHouse',
                   point: [ms.VH.START_X, ms.VH.START_Y + ms.VH.INTERVAL * 2],
@@ -1415,7 +1672,7 @@ const map = {
               },
               {
                 target_code: '4',
-                nodeList: ['ST_007', 'ST_008'],
+                nodeList: ['ST_007', 'ST_008', 'ST_CT_007', 'ST_CT_008'],
                 svgPositionInfo: {
                   resourceId: 'vinylHouse',
                   point: [ms.VH.START_X, ms.VH.START_Y + ms.VH.INTERVAL * 3],
@@ -1423,7 +1680,7 @@ const map = {
               },
               {
                 target_code: '5',
-                nodeList: ['ST_009', 'ST_010'],
+                nodeList: ['ST_009', 'ST_010', 'ST_CT_009', 'ST_CT_010'],
                 svgPositionInfo: {
                   resourceId: 'vinylHouse',
                   point: [ms.VH.START_X, ms.VH.START_Y + ms.VH.INTERVAL * 4],
@@ -1431,7 +1688,7 @@ const map = {
               },
               {
                 target_code: '6',
-                nodeList: ['ST_011', 'ST_012'],
+                nodeList: ['ST_011', 'ST_012', 'ST_CT_011', 'ST_CT_012'],
                 svgPositionInfo: {
                   resourceId: 'bigVinylHouse',
                   point: [ms.VH.START_X, ms.VH.START_Y + ms.VH.INTERVAL * 5],
@@ -1439,7 +1696,7 @@ const map = {
               },
               {
                 target_code: '7',
-                nodeList: ['ST_013', 'ST_014'],
+                nodeList: ['ST_013', 'ST_014', 'ST_CT_013', 'ST_CT_014'],
                 svgPositionInfo: {
                   resourceId: 'vinylHouse',
                   point: [ms.VH.START_X, ms.VH.START_Y + ms.VH.INTERVAL * 7],
@@ -1447,7 +1704,7 @@ const map = {
               },
               {
                 target_code: '8',
-                nodeList: ['ST_015', 'ST_016'],
+                nodeList: ['ST_015', 'ST_016', 'ST_CT_015', 'ST_CT_016'],
                 svgPositionInfo: {
                   resourceId: 'vinylHouse',
                   point: [ms.VH.START_X, ms.VH.START_Y + ms.VH.INTERVAL * 8],
@@ -1463,7 +1720,7 @@ const map = {
             placeList: [
               {
                 target_code: '',
-                nodeList: ['P_001', 'P_002', 'P_003'],
+                nodeList: ['P_001', 'P_002', 'P_003', 'P_CT_001', 'P_CT_002', 'P_CT_003'],
                 svgPositionInfo: {
                   resourceId: 'pumpPanel',
                   point: [
@@ -1600,7 +1857,7 @@ const map = {
                 nodeList: ['S_PU_021'],
                 svgPositionInfo: {
                   resourceId: 'pvSensor',
-                  point: [ms.VH.START_X + ms.SS.INTERVAL, ms.VH.START_Y + ms.VH.INTERVAL * 5],
+                  point: [ms.VH.START_X + ms.SS.INTERVAL * 2, ms.VH.START_Y + ms.VH.INTERVAL * 5],
                 },
               },
               {
@@ -1626,7 +1883,7 @@ const map = {
                 svgPositionInfo: {
                   resourceId: 'pvSensor',
                   point: [
-                    ms.VH.START_X - ms.SS.INTERVAL + ms.VH.WIDTH - ms.SS.WIDTH,
+                    ms.VH.START_X - ms.SS.INTERVAL * 2 + ms.VH.WIDTH - ms.SS.WIDTH,
                     ms.VH.START_Y + ms.VH.INTERVAL * 5,
                   ],
                 },
@@ -1661,70 +1918,6 @@ const map = {
             ],
           },
         ],
-      },
-    ],
-    svgResourceConnectionList: [
-      {
-        targetIdList: [
-          'ST_001',
-          'ST_002',
-          'ST_003',
-          'ST_004',
-          'ST_005',
-          'ST_006',
-          'ST_007',
-          'ST_008',
-          'ST_009',
-          'ST_010',
-          'ST_011',
-          'ST_012',
-          'ST_013',
-          'ST_014',
-          'ST_015',
-          'ST_016',
-        ],
-        resourceIdList: ['shutter'],
-      },
-      {
-        targetIdList: ['P_001', 'P_002', 'P_003'],
-        resourceIdList: ['pump'],
-      },
-      {
-        targetIdList: ['T_S_022', 'T_S_024'],
-        resourceIdList: ['soilTemperature'],
-      },
-      {
-        targetIdList: ['T_OA_022', 'T_OA_024'],
-        resourceIdList: ['outsideAirTemperature'],
-      },
-      {
-        targetIdList: ['RH_S_022', 'RH_S_024'],
-        resourceIdList: ['soilReh'],
-      },
-      {
-        targetIdList: ['RH_OA_022', 'RH_OA_024'],
-        resourceIdList: ['outsideAirReh'],
-      },
-      {
-        targetIdList: ['S_H_024'],
-        resourceIdList: ['horizontalSolar'],
-      },
-      {
-        targetIdList: ['S_PU_021', 'S_PU_022', 'S_PU_023'],
-        resourceIdList: ['pvUnderlyingSolar'],
-      },
-      {
-        targetIdList: [
-          'IVT_PW_G_KW_1',
-          'IVT_PW_G_KW_2',
-          'IVT_PW_G_KW_11',
-          'IVT_PW_G_KW_12',
-          'IVT_PW_G_KW_13',
-          'IVT_PW_G_KW_14',
-          'IVT_PW_G_KW_15',
-          'IVT_PW_G_KW_16',
-        ],
-        resourceIdList: ['powerGridKw'],
       },
     ],
   },
@@ -1790,59 +1983,97 @@ const map = {
   configInfo: {
     deviceCmdList: [
       {
-        deviceCmdName: '테스트 제어',
-        applyDeviceList: ['act', 'exam', 'shutter'],
+        deviceCmdName: '펌프 제어',
+        applyDeviceList: ['pump'],
         dCmdScenarioInfo: {
           scenarioMsg: '제어 동작을 선택하세요.',
           confirmList: [
             {
               enName: 'Off',
-              krName: '끔',
+              krName: '동작',
               controlValue: 0,
             },
             {
               enName: 'On',
-              krName: '켬',
+              krName: '정지',
               controlValue: 1,
-            },
-            {
-              enName: 'Unfold',
-              krName: '접음',
-              controlValue: 10,
-            },
-            {
-              enName: 'Fold',
-              krName: '펼침',
-              controlValue: 11,
-            },
-            {
-              enName: 'Move',
-              krName: '이동 2',
-              nextStepInfo: {
-                scenarioMsg: '이동 방향과 거리(m) 선택하세요.',
-                isSetValue: 1,
-                setValueInfo: {
-                  msg: '이동 거리',
-                  min: -0.5,
-                  max: 45,
-                },
-                confirmList: [
-                  {
-                    enName: 'left',
-                    krName: '좌',
-                    controlValue: 21,
-                  },
-                  {
-                    enName: 'right',
-                    krName: '우',
-                    controlValue: 22,
-                  },
-                ],
-              },
             },
           ],
         },
       },
+      {
+        deviceCmdName: '개폐기 제어',
+        applyDeviceList: ['shutter'],
+        dCmdScenarioInfo: {
+          scenarioMsg: '제어 동작을 선택하세요.',
+          confirmList: [
+            {
+              enName: 'Unfold',
+              krName: '접음',
+              controlValue: 0,
+            },
+            {
+              enName: 'Fold',
+              krName: '펼침',
+              controlValue: 1,
+            },
+          ],
+        },
+      },
+      // {
+      //   deviceCmdName: '테스트 제어',
+      //   applyDeviceList: ['act', 'exam', 'shutter'],
+      //   dCmdScenarioInfo: {
+      //     scenarioMsg: '제어 동작을 선택하세요.',
+      //     confirmList: [
+      //       {
+      //         enName: 'Off',
+      //         krName: '끔',
+      //         controlValue: 0,
+      //       },
+      //       {
+      //         enName: 'On',
+      //         krName: '켬',
+      //         controlValue: 1,
+      //       },
+      //       {
+      //         enName: 'Unfold',
+      //         krName: '접음',
+      //         controlValue: 0,
+      //       },
+      //       {
+      //         enName: 'Fold',
+      //         krName: '펼침',
+      //         controlValue: 1,
+      //       },
+      //       {
+      //         enName: 'Move',
+      //         krName: '이동 2',
+      //         nextStepInfo: {
+      //           scenarioMsg: '이동 방향과 거리(m) 선택하세요.',
+      //           isSetValue: 1,
+      //           setValueInfo: {
+      //             msg: '이동 거리',
+      //             min: -0.5,
+      //             max: 45,
+      //           },
+      //           confirmList: [
+      //             {
+      //               enName: 'left',
+      //               krName: '좌',
+      //               controlValue: 21,
+      //             },
+      //             {
+      //               enName: 'right',
+      //               krName: '우',
+      //               controlValue: 22,
+      //             },
+      //           ],
+      //         },
+      //       },
+      //     ],
+      //   },
+      // },
     ],
   },
 };

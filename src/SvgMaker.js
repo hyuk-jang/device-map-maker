@@ -277,6 +277,8 @@ class SvgMaker {
               width: strokeWidth = STROKE_INFO.width,
             } = {},
           },
+          textStyleInfo,
+          textStyleInfo: { dataColor } = {},
         },
       } = mdNodeInfo;
 
@@ -307,12 +309,20 @@ class SvgMaker {
       }
 
       mdNodeInfo.point = [nAxisX, nAxisY];
+      // 배경 도형 프로퍼티 재정의
       elementDrawInfo.color = Array.isArray(color) ? color : [color];
       elementDrawInfo.strokeInfo = {
         color: strokeColor,
         linecap,
         width: strokeWidth,
       };
+
+      // 데이터 색상을 배열 형식으로 변환
+      if (dataColor === undefined || dataColor === '') {
+        delete textStyleInfo.dataColor;
+      } else if (!Array.isArray(dataColor)) {
+        textStyleInfo.dataColor = [dataColor];
+      }
 
       this.mSvgNodeList.push({
         id: nodeId,
