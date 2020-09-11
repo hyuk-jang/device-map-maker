@@ -14,6 +14,10 @@
     "prefer-arrow-callback": "off",
     "func-names": "off",
     "no-bitwise": ["error", { "allow": ["^"] }],
-    "prettier/prettier": "error"
+    "prettier/prettier": "error",
+    "react/state-in-constructor": "off",
+    "react/static-property-placement": "off",
+    "react/jsx-props-no-spreading": "off",
+    "react/jsx-curly-newline": "off"
   }
 }

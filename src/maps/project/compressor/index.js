@@ -2,7 +2,6 @@ const {
   di: {
     dcmConfigModel: {
       nodeDataType: { BLOCK, TROUBLE, NONE },
-      textAnchorType,
     },
   },
 } = require('../../../module');
@@ -33,6 +32,18 @@ const pvTransPatternInfo = {
 
 // Map Size 정보
 const ms = {
+  SENSOR: {
+    START_X: 100,
+    START_Y: 30,
+    WIDTH: 300,
+    HEIGHT: 400,
+  },
+  DEVICE: {
+    START_X: 500,
+    START_Y: 30,
+    WIDTH: 300,
+    HEIGHT: 400,
+  },
   // 비닐 하우스 (Vinyl House)
   VH: {
     START_X: 100,
@@ -66,198 +77,32 @@ const map = {
       },
       svgModelResourceList: [
         {
-          id: 'waterWay',
-          type: 'line',
-          elementDrawInfo: { width: 25, color: 'red', opacity: 1 },
-          textStyleInfo: { color: '' },
-        },
-        /* *************       Place        ***************** */
-        {
-          id: 'vinylHouse',
+          id: 'sensorArea',
           type: 'rect',
           elementDrawInfo: {
-            width: ms.VH.WIDTH,
-            height: ms.VH.HEIGHT,
+            width: ms.SENSOR.WIDTH,
+            height: ms.SENSOR.HEIGHT,
             color: '#dbe4ff',
             opacity: 1,
           },
-          textStyleInfo: { color: '', fontSize: 10, axisScale: [0.5, 0.25] },
+          textStyleInfo: { color: '', axisScale: [0.5, -0.3] },
         },
         {
-          id: 'bigVinylHouse',
+          id: 'deviceArea',
           type: 'rect',
           elementDrawInfo: {
-            width: ms.VH.WIDTH,
-            height: ms.VH.BIG_HEIGHT,
-            color: '#dbe4ff',
+            width: ms.DEVICE.WIDTH,
+            height: ms.DEVICE.BIG_HEIGHT,
+            color: '#abefff',
             opacity: 1,
           },
-          textStyleInfo: { color: '' },
-        },
-        {
-          id: 'pvSensor',
-          type: 'rect',
-          elementDrawInfo: {
-            width: ms.SS.WIDTH,
-            height: ms.VH.BIG_HEIGHT - ms.VH.HEIGHT / 2,
-            color: 'red',
-            opacity: 0,
-          },
-          textStyleInfo: { color: 'white' },
-        },
-        {
-          id: 'bigPvSensor',
-          type: 'rect',
-          elementDrawInfo: {
-            width: ms.SS.BIG_WIDTH,
-            height: ms.VH.BIG_HEIGHT - ms.VH.HEIGHT / 2,
-            color: 'red',
-            opacity: 0,
-          },
-          textStyleInfo: { color: 'white' },
-        },
-        {
-          id: 'outsideSensor',
-          type: 'rect',
-          elementDrawInfo: {
-            width: ms.SS.BIG_WIDTH,
-            height: ms.VH.BIG_HEIGHT - ms.VH.HEIGHT / 2,
-            color: 'gold',
-            opacity: 1,
-          },
-          textStyleInfo: { color: 'white' },
-        },
-        {
-          id: 'pvN_4EA',
-          type: 'rect',
-          elementDrawInfo: {
-            width: (ms.VH.WIDTH / 8) * 4,
-            height: ms.VH.HEIGHT / 2,
-            color: '#abe3e1',
-            opacity: 1,
-            patternInfo: pvNormalPatternInfo,
-          },
-          textStyleInfo: { axisScale: [0.5, 0.25], fontSize: 9 },
-        },
-        {
-          id: 'pvN_6EA',
-          type: 'rect',
-          elementDrawInfo: {
-            width: (ms.VH.WIDTH / 8) * 6,
-            height: ms.VH.HEIGHT / 2,
-            color: '#abe3e1',
-            opacity: 1,
-            patternInfo: pvNormalPatternInfo,
-          },
-          textStyleInfo: { axisScale: [0.5, 0.25], fontSize: 9 },
-        },
-        {
-          id: 'pvN_7EA',
-          type: 'rect',
-          elementDrawInfo: {
-            width: (ms.VH.WIDTH / 8) * 7,
-            height: ms.VH.HEIGHT / 2,
-            color: '#abe3e1',
-            opacity: 1,
-            patternInfo: pvNormalPatternInfo,
-          },
-          textStyleInfo: { axisScale: [0.5, 0.25], fontSize: 9 },
-        },
-        {
-          id: 'pvN_8EA',
-          type: 'rect',
-          elementDrawInfo: {
-            width: ms.VH.WIDTH,
-            height: ms.VH.HEIGHT / 2,
-            color: '#abe3e1',
-            opacity: 1,
-            patternInfo: pvNormalPatternInfo,
-          },
-          textStyleInfo: { axisScale: [0.5, 0.25], fontSize: 9 },
-        },
-        {
-          id: 'pvT_4EA',
-          type: 'rect',
-          elementDrawInfo: {
-            width: (ms.VH.WIDTH / 8) * 4,
-            height: ms.VH.HEIGHT / 2,
-            color: '#4dabf7',
-            opacity: 1,
-            patternInfo: pvTransPatternInfo,
-          },
-          textStyleInfo: { axisScale: [0.5, 0.25], fontSize: 9 },
-        },
-        {
-          id: 'pvT_6EA',
-          type: 'rect',
-          elementDrawInfo: {
-            width: (ms.VH.WIDTH / 8) * 6,
-            height: ms.VH.HEIGHT / 2,
-            color: '#4dabf7',
-            opacity: 1,
-            patternInfo: pvTransPatternInfo,
-          },
-          textStyleInfo: { axisScale: [0.5, 0.25], fontSize: 9 },
-        },
-        {
-          id: 'pvT_7EA',
-          type: 'rect',
-          elementDrawInfo: {
-            width: (ms.VH.WIDTH / 8) * 7,
-            height: ms.VH.HEIGHT / 2,
-            color: '#4dabf7',
-            opacity: 1,
-            patternInfo: pvTransPatternInfo,
-          },
-          textStyleInfo: { axisScale: [0.5, 0.25], fontSize: 9 },
-        },
-        {
-          id: 'pvT_8EA',
-          type: 'rect',
-          elementDrawInfo: {
-            width: ms.VH.WIDTH / 8,
-            height: ms.VH.HEIGHT / 2,
-            color: '#4dabf7',
-            opacity: 1,
-            patternInfo: pvTransPatternInfo,
-          },
-          textStyleInfo: { axisScale: [0.5, 0.25], fontSize: 9 },
-        },
-        {
-          id: 'pumpPanel',
-          type: 'rect',
-          elementDrawInfo: { width: 130, height: 120, color: 'skyblue', opacity: 1 },
-          textStyleInfo: { color: '' },
-        },
-        {
-          id: 'pcsPanel',
-          type: 'rect',
-          elementDrawInfo: { width: 50, height: 50, color: '#90b4dd', opacity: 1 },
           textStyleInfo: { color: '' },
         },
         /* *************       Device        ***************** */
         {
-          id: 'shutter',
+          id: 'valve',
           type: 'circle',
           elementDrawInfo: {
-            width: 35,
-            height: 35,
-            radius: 40,
-            color: ['#a3a3a3', '#22fb00'],
-            opacity: 1,
-            strokeInfo: {
-              width: 0.7,
-              color: '#000',
-            },
-          },
-          textStyleInfo: { fontSize: 8 },
-        },
-        {
-          id: 'pump',
-          type: 'circle',
-          elementDrawInfo: {
-            width: 27,
-            height: 27,
             radius: 40,
             color: ['#a3a3a3', '#22fb00'],
             opacity: 1,
@@ -270,40 +115,10 @@ const map = {
         },
         /* *************       Sensor        ***************** */
         {
-          id: 'shutterControlType',
-          type: 'rect',
-          elementDrawInfo: {
-            width: 40,
-            height: 30,
-            color: '#f0f0f0',
-            opacity: 1,
-            strokeInfo: {
-              width: 0.7,
-              color: '#000',
-            },
-          },
-          textStyleInfo: { dataColor: ['black', 'brown'], fontSize: 8 },
-        },
-        {
-          id: 'pumpControlType',
-          type: 'rect',
-          elementDrawInfo: {
-            width: 45,
-            height: 30,
-            color: '#f0f0f0',
-            opacity: 1,
-            strokeInfo: {
-              width: 0.7,
-              color: '#000',
-            },
-          },
-          textStyleInfo: { dataColor: ['black', 'brown'], fontSize: 8 },
-        },
-        {
           id: 'sensor',
           type: 'rect',
           elementDrawInfo: {
-            width: 65,
+            width: 60,
             height: 30,
             color: '#f0f0f0',
             opacity: 1,
@@ -312,17 +127,10 @@ const map = {
               color: '#000',
             },
           },
-          textStyleInfo: {
-            // isHiddenTitle: true,
-            // anchor: textAnchorType.END,
-            // axisScale: [0.5, 0.5],
-            color: '',
-            dataColor: '',
-            fontSize: 8,
-          },
+          textStyleInfo: { color: '', fontSize: 8 },
         },
         {
-          id: 'soilTemperature',
+          id: 'pressureSensor',
           type: 'rect',
           elementDrawInfo: {
             width: 60,
@@ -333,92 +141,7 @@ const map = {
               width: 0.7,
             },
           },
-          textStyleInfo: { color: '', dataColor: 'blue', fontSize: 8 },
-        },
-        {
-          id: 'outsideAirTemperature',
-          type: 'rect',
-          elementDrawInfo: {
-            width: 60,
-            height: 30,
-            color: '#f0f0f0',
-            opacity: 1,
-            strokeInfo: {
-              width: 1,
-            },
-          },
           textStyleInfo: { color: '', fontSize: 8 },
-        },
-        {
-          id: 'soilReh',
-          type: 'rect',
-          elementDrawInfo: {
-            width: 60,
-            height: 30,
-            color: '#f0f0f0',
-            opacity: 1,
-            strokeInfo: {
-              width: 1,
-            },
-          },
-          textStyleInfo: { color: '', fontSize: 8 },
-        },
-        {
-          id: 'outsideAirReh',
-          type: 'rect',
-          elementDrawInfo: {
-            width: 60,
-            height: 30,
-            color: '#f0f0f0',
-            opacity: 1,
-            strokeInfo: {
-              width: 1,
-            },
-          },
-          textStyleInfo: { color: '', fontSize: 8 },
-        },
-        {
-          id: 'horizontalSolar',
-          type: 'rect',
-          elementDrawInfo: {
-            width: 60,
-            height: 30,
-            color: '#f0f0f0',
-            opacity: 1,
-            strokeInfo: {
-              width: 1,
-            },
-          },
-          textStyleInfo: { color: '', fontSize: 8 },
-        },
-        {
-          id: 'pvUnderlyingSolar',
-          type: 'rect',
-          elementDrawInfo: {
-            width: 60,
-            height: 30,
-            color: '#f0f0f0',
-            opacity: 1,
-            strokeInfo: {
-              width: 1,
-            },
-          },
-          textStyleInfo: { color: '', fontSize: 8 },
-        },
-        {
-          id: 'powerGridKw',
-          type: 'rect',
-          elementDrawInfo: {
-            width: 80,
-            height: 16,
-            color: '#f0f0f0',
-            opacity: 1,
-            strokeInfo: {
-              width: 0.7,
-              color: '#000',
-            },
-          },
-          textStyleInfo: { isHiddenTitle: false, isTitleWrap: false, fontSize: 8 },
         },
       ],
     },
@@ -447,114 +170,18 @@ const map = {
       {
         dpcId: 'DPC_001',
         protocol_info: {
-          mainCategory: 'S2W',
-          subCategory: 'dmTech',
-          wrapperCategory: 'default',
+          mainCategory: 'Sensor',
+          subCategory: 'pressorSensor',
           cmdExecTimeoutMs: 1000 * 2,
         },
       },
       {
         dpcId: 'DPC_002',
         protocol_info: {
-          mainCategory: 'S2W',
-          subCategory: 'sm',
-          wrapperCategory: 'default',
+          mainCategory: 'Sensor',
+          subCategory: 'Valve',
           cmdExecTimeoutMs: 1000 * 2,
         },
-      },
-      {
-        dpcId: 'DPC_IVT_001',
-        protocol_info: {
-          mainCategory: 'Inverter',
-          subCategory: 'das_1.3',
-          wrapperCategory: 'default',
-          cmdExecTimeoutMs: 1000 * 5,
-        },
-      },
-      {
-        dpcId: 'DPC_IVT_002',
-        protocol_info: {
-          mainCategory: 'Inverter',
-          subCategory: 's5500k',
-          wrapperCategory: 'default',
-          cmdExecTimeoutMs: 1000 * 5,
-        },
-      },
-      {
-        dpcId: 'DPC_IVT_003',
-        protocol_info: {
-          mainCategory: 'Inverter',
-          subCategory: 'ESP3K5',
-          wrapperCategory: 'default',
-          cmdExecTimeoutMs: 1000 * 5,
-        },
-      },
-      {
-        dpcId: 'DPC_IVT_004',
-        protocol_info: {
-          mainCategory: 'Inverter',
-          subCategory: 'KDX_300',
-          wrapperCategory: 'default',
-          cmdExecTimeoutMs: 1000 * 5,
-        },
-      },
-    ],
-    repeatNodeList: [
-      {
-        repeatId: 'RE_NODE_IVT',
-        repeatCategory: 'node',
-        nodeList: [
-          {
-            target_code: '1',
-            target_name: '투명(I)',
-          },
-          {
-            target_code: '2',
-            target_name: '일반(I)',
-          },
-          {
-            target_code: '11',
-            target_name: '투명 1(I)',
-          },
-          {
-            target_code: '12',
-            target_name: '투명 2(I)',
-          },
-          {
-            target_code: '13',
-            target_name: '일반 1(M.I)',
-          },
-          {
-            target_code: '14',
-            target_name: '일반 2(M.I)',
-          },
-          {
-            target_code: '15',
-            target_name: '일반 3(M.I)',
-          },
-          {
-            target_code: '16',
-            target_name: '투명 4(M.I)',
-          },
-        ],
-      },
-      {
-        repeatId: 'RE_PREFIX_IVT',
-        repeatCategory: 'prefix',
-        nodeList: [
-          'IVT_PV_V2',
-          'IVT_PV_V',
-          'IVT_PV_A',
-          'IVT_PV_KW',
-          'IVT_G_RS_V',
-          'IVT_G_R_A',
-          'IVT_G_L_F',
-          'IVT_PW_G_KW',
-          'IVT_PW_PF',
-          'IVT_PW_D_KWH',
-          'IVT_PW_C_KWH',
-          'IVT_TRB',
-        ],
       },
     ],
     dataLoggerStructureList: [
@@ -704,7 +331,6 @@ const map = {
               'ST_014',
               'ST_015',
               'ST_016',
-              'ST_CT',
             ],
           },
         ],
@@ -719,7 +345,7 @@ const map = {
             target_name: '펌프 제어반',
             dccId: 'DCC_001',
             dpcId: 'DPC_002',
-            nodeList: ['P_001', 'P_002', 'P_003', 'P_CT'],
+            nodeList: ['P_001', 'P_002', 'P_003'],
           },
         ],
       },
@@ -732,7 +358,6 @@ const map = {
         is_sensor: 0,
         is_submit_api: 1,
         description: '개폐기',
-        operationStatusList: [['CLOSE', 'CLOSING'], ['OPEN', 'OPENING'], ['FOLD'], ['UNFOLD']],
         defList: [
           {
             target_id: 'shutter',
@@ -744,6 +369,7 @@ const map = {
                 target_name: '1-A',
                 data_logger_index: 0,
                 svgNodePosOpt: {
+                  // placeId: 'VNH_1',
                   resourceId: 'shutter',
                   axisScale: [0, 0],
                   moveScale: [-1, 0],
@@ -922,7 +548,6 @@ const map = {
         target_id: 'pump',
         target_name: '펌프',
         is_sensor: 0,
-        operationStatusList: [['CLOSE', 'CLOSING'], ['OPEN', 'OPENING'], ['FOLD'], ['UNFOLD']],
         defList: [
           {
             target_id: 'pump',
@@ -936,8 +561,8 @@ const map = {
                 svgNodePosOpt: {
                   placeId: 'PCH',
                   resourceId: 'pump',
-                  axisScale: [0, 1],
-                  moveScale: [0.3, -0.3],
+                  axisScale: [1, 1],
+                  moveScale: [-0.3, -0.3],
                 },
               },
               {
@@ -967,49 +592,6 @@ const map = {
         ],
       },
       /* *********             Sensor             ********* */
-      {
-        target_id: 'controlType',
-        target_name: '제어 타입',
-        is_sensor: 1,
-        description: '자동 or 수동',
-        operationStatusList: [['CLOSE', 'CLOSING'], ['OPEN', 'OPENING'], ['FOLD'], ['UNFOLD']],
-        defList: [
-          {
-            target_id: 'shutterControlType',
-            target_prefix: 'ST_CT',
-            description: '개폐기 제어 타입',
-            nodeList: [
-              {
-                // target_code: '',
-                target_name: '제어 모드',
-                data_logger_index: 0,
-                svgNodePosOpt: {
-                  resourceId: 'shutterControlType',
-                  axisScale: [0, 1],
-                  moveScale: [-1, 1.2],
-                },
-              },
-            ],
-          },
-          {
-            target_id: 'pumpControlType',
-            target_prefix: 'P_CT',
-            description: '펌프 제어 타입',
-            nodeList: [
-              {
-                // target_code: '001',
-                target_name: '제어 모드',
-                svgNodePosOpt: {
-                  placeId: 'PCH',
-                  resourceId: 'pumpControlType',
-                  axisScale: [1, 1],
-                  moveScale: [-0.3, -0.5],
-                },
-              },
-            ],
-          },
-        ],
-      },
       {
         target_id: 'temp',
         target_name: '온도',
@@ -1252,74 +834,66 @@ const map = {
             nodeList: [
               {
                 target_code: '1',
-                // target_name: '투명(I)',
-                target_name: '출력',
+                target_name: '투명(I)',
                 svgNodePosOpt: {
                   resourceId: 'powerGridKw',
-                  axisScale: [0.5, 0.8],
+                  axisScale: [0.5, 0.5],
                 },
               },
               {
                 target_code: '2',
-                // target_name: '일반(I)',
-                target_name: '출력',
+                target_name: '일반(I)',
                 svgNodePosOpt: {
                   resourceId: 'powerGridKw',
-                  axisScale: [0.5, 0.8],
+                  axisScale: [0.5, 0.5],
                 },
               },
               {
                 target_code: '11',
-                // target_name: '투명 1(I)',
-                target_name: '출력',
+                target_name: '투명 1(I)',
                 svgNodePosOpt: {
                   resourceId: 'powerGridKw',
-                  axisScale: [0.5, 0.8],
+                  axisScale: [0.5, 0.5],
                 },
               },
               {
                 target_code: '12',
-                // target_name: '투명 2(I)',
-                target_name: '출력',
+                target_name: '투명 2(I)',
                 svgNodePosOpt: {
                   resourceId: 'powerGridKw',
-                  axisScale: [0.5, 0.8],
+                  axisScale: [0.5, 0.5],
                 },
               },
               {
                 target_code: '13',
-                // target_name: '일반 1(M.I)',
-                target_name: '출력',
+                target_name: '일반 1(M.I)',
                 svgNodePosOpt: {
                   resourceId: 'powerGridKw',
-                  axisScale: [0.5, 0.8],
+                  axisScale: [0.5, 0.5],
                 },
               },
               {
                 target_code: '14',
-                // target_name: '일반 2(M.I)',
-                target_name: '출력',
+                target_name: '일반 2(M.I)',
                 svgNodePosOpt: {
                   resourceId: 'powerGridKw',
-                  axisScale: [0.5, 0.8],
+                  axisScale: [0.5, 0.5],
                 },
               },
               {
                 target_code: '15',
-                // target_name: '일반 3(M.I)',
-                target_name: '출력',
+                target_name: '일반 3(M.I)',
                 svgNodePosOpt: {
                   resourceId: 'powerGridKw',
-                  axisScale: [0.5, 0.8],
+                  axisScale: [0.5, 0.5],
                 },
               },
               {
                 target_code: '16',
-                // target_name: '투명 4(M.I)',
-                target_name: '출력',
+                target_name: '투명 4(M.I)',
                 svgNodePosOpt: {
                   resourceId: 'powerGridKw',
-                  axisScale: [0.5, 0.8],
+                  axisScale: [0.5, 0.5],
                 },
               },
             ],
@@ -1474,7 +1048,7 @@ const map = {
       },
       {
         target_id: 'house',
-        target_name: '하우스',
+        target_name: '비닐 하우스',
         defList: [
           {
             target_id: 'vinylHouse',
@@ -1538,7 +1112,7 @@ const map = {
               },
               {
                 target_code: '8',
-                nodeList: ['ST_015', 'ST_016', 'ST_CT'],
+                nodeList: ['ST_015', 'ST_016'],
                 svgPositionInfo: {
                   resourceId: 'vinylHouse',
                   point: [ms.VH.START_X, ms.VH.START_Y + ms.VH.INTERVAL * 8],
@@ -1554,7 +1128,7 @@ const map = {
             placeList: [
               {
                 target_code: '',
-                nodeList: ['P_001', 'P_002', 'P_003', 'P_CT'],
+                nodeList: ['P_001', 'P_002', 'P_003'],
                 svgPositionInfo: {
                   resourceId: 'pumpPanel',
                   point: [
@@ -1691,7 +1265,7 @@ const map = {
                 nodeList: ['S_PU_021'],
                 svgPositionInfo: {
                   resourceId: 'pvSensor',
-                  point: [ms.VH.START_X + ms.SS.INTERVAL * 2, ms.VH.START_Y + ms.VH.INTERVAL * 5],
+                  point: [ms.VH.START_X + ms.SS.INTERVAL, ms.VH.START_Y + ms.VH.INTERVAL * 5],
                 },
               },
               {
@@ -1717,7 +1291,7 @@ const map = {
                 svgPositionInfo: {
                   resourceId: 'pvSensor',
                   point: [
-                    ms.VH.START_X - ms.SS.INTERVAL * 2 + ms.VH.WIDTH - ms.SS.WIDTH,
+                    ms.VH.START_X - ms.SS.INTERVAL + ms.VH.WIDTH - ms.SS.WIDTH,
                     ms.VH.START_Y + ms.VH.INTERVAL * 5,
                   ],
                 },
@@ -1752,6 +1326,70 @@ const map = {
             ],
           },
         ],
+      },
+    ],
+    svgResourceConnectionList: [
+      {
+        targetIdList: [
+          'ST_001',
+          'ST_002',
+          'ST_003',
+          'ST_004',
+          'ST_005',
+          'ST_006',
+          'ST_007',
+          'ST_008',
+          'ST_009',
+          'ST_010',
+          'ST_011',
+          'ST_012',
+          'ST_013',
+          'ST_014',
+          'ST_015',
+          'ST_016',
+        ],
+        resourceIdList: ['shutter'],
+      },
+      {
+        targetIdList: ['P_001', 'P_002', 'P_003'],
+        resourceIdList: ['pump'],
+      },
+      {
+        targetIdList: ['T_S_022', 'T_S_024'],
+        resourceIdList: ['soilTemperature'],
+      },
+      {
+        targetIdList: ['T_OA_022', 'T_OA_024'],
+        resourceIdList: ['outsideAirTemperature'],
+      },
+      {
+        targetIdList: ['RH_S_022', 'RH_S_024'],
+        resourceIdList: ['soilReh'],
+      },
+      {
+        targetIdList: ['RH_OA_022', 'RH_OA_024'],
+        resourceIdList: ['outsideAirReh'],
+      },
+      {
+        targetIdList: ['S_H_024'],
+        resourceIdList: ['horizontalSolar'],
+      },
+      {
+        targetIdList: ['S_PU_021', 'S_PU_022', 'S_PU_023'],
+        resourceIdList: ['pvUnderlyingSolar'],
+      },
+      {
+        targetIdList: [
+          'IVT_PW_G_KW_1',
+          'IVT_PW_G_KW_2',
+          'IVT_PW_G_KW_11',
+          'IVT_PW_G_KW_12',
+          'IVT_PW_G_KW_13',
+          'IVT_PW_G_KW_14',
+          'IVT_PW_G_KW_15',
+          'IVT_PW_G_KW_16',
+        ],
+        resourceIdList: ['powerGridKw'],
       },
     ],
   },
@@ -1817,44 +1455,6 @@ const map = {
   configInfo: {
     deviceCmdList: [
       {
-        deviceCmdName: '펌프 제어',
-        applyDeviceList: ['pump'],
-        dCmdScenarioInfo: {
-          scenarioMsg: '제어 동작을 선택하세요.',
-          confirmList: [
-            {
-              enName: 'Off',
-              krName: '동작',
-              controlValue: 0,
-            },
-            {
-              enName: 'On',
-              krName: '정지',
-              controlValue: 1,
-            },
-          ],
-        },
-      },
-      {
-        deviceCmdName: '개폐기 제어',
-        applyDeviceList: ['shutter'],
-        dCmdScenarioInfo: {
-          scenarioMsg: '제어 동작을 선택하세요.',
-          confirmList: [
-            {
-              enName: 'Unfold',
-              krName: '접음',
-              controlValue: 0,
-            },
-            {
-              enName: 'Fold',
-              krName: '펼침',
-              controlValue: 1,
-            },
-          ],
-        },
-      },
-      {
         deviceCmdName: '테스트 제어',
         applyDeviceList: ['act', 'exam', 'shutter'],
         dCmdScenarioInfo: {
@@ -1873,12 +1473,12 @@ const map = {
             {
               enName: 'Unfold',
               krName: '접음',
-              controlValue: 0,
+              controlValue: 10,
             },
             {
               enName: 'Fold',
               krName: '펼침',
-              controlValue: 1,
+              controlValue: 11,
             },
             {
               enName: 'Move',
@@ -1911,5 +1511,4 @@ const map = {
     ],
   },
 };
-
 module.exports = map;

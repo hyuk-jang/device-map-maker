@@ -319,7 +319,6 @@ function drawSvgElement(svgDrawInfo) {
     ownerInfo,
     ownerInfo: {
       svgModelResource: {
-        id: svgModelId,
         type: svgModelType,
         elementDrawInfo,
         elementDrawInfo: { errColor = 'red', radius = 1, opacity = 1, strokeInfo, patternInfo },
@@ -329,14 +328,21 @@ function drawSvgElement(svgDrawInfo) {
     isShow = true,
   } = svgDrawInfo;
 
-  // console.log(placeId);
-  // console.log(placeIdList);
-
   let {
     color: [defaultColor],
     width: svgModelWidth,
     height: svgModelHeight,
   } = elementDrawInfo;
+
+  const bgOption = {
+    id: positionId,
+    opacity: isShow ? opacity : 0,
+  };
+  // placeId가 존재하지 않으면 Node이고 Node의 isSensor가 0이면 Device이므로 Cursor: Pointer 처리
+  if (placeId !== undefined) {
+    const { isSensor } = mdNodeStorage.get(positionId);
+    isSensor === 0 && (bgOption.cursor = 'pointer');
+  }
 
   let svgCanvasBgElement;
 
@@ -371,14 +377,7 @@ function drawSvgElement(svgDrawInfo) {
 
   // 모델 색상, 좌표 이동, 외곽선 굵기, Attr 세팅
   svgCanvasBgElement !== undefined &&
-    svgCanvasBgElement
-      .move(x1, y1)
-      .stroke(strokeInfo)
-      .attr({
-        id: positionId,
-        opacity: isShow ? opacity : 0,
-      })
-      .fill(defaultColor);
+    svgCanvasBgElement.move(x1, y1).stroke(strokeInfo).attr(bgOption).fill(defaultColor);
 
   // mdNodeInfo|mdPlaceInfo 에 SVG BG 정의
   ownerInfo.svgEleBg = svgCanvasBgElement;
@@ -387,37 +386,38 @@ function drawSvgElement(svgDrawInfo) {
   const {
     isHiddenTitle = false,
     isTitleWrap = true,
+    leading = 1.1,
     color = BASE.TXT.TITLE_COLOR,
     dataColor: [TXT_DATA_COLOR] = [BASE.TXT.DATA_COLOR],
     fontSize = BASE.TXT.FONT_SIZE,
-    // 행간
-    leading = 1.2,
     transform,
     axisScale: [tAxisScaleX, tAxisScaleY] = [0.5, 0.5],
     anchor = BASE.TXT.ANCHOR,
   } = textStyleInfo;
 
-  // 텍스트 그리기
-  let textModelDy = 0;
+  // tspan 옵션
+  const fontOption = {
+    leading,
+    anchor: 'middle',
+    weight: 'bold',
+    transform,
+    'dominant-baseline': 'middle',
+    'pointer-events': 'none',
+  };
 
   // isTitleWrap을 하지 않을 경우 배경 데이터 공간을 기준으로 [좌: 타이틀, 우: 데이터] text 각각 생성
   if (!isTitleWrap && !isHiddenTitle && placeId !== undefined) {
-    const yAxis = y1 + fontSize / 3 + svgModelHeight * tAxisScaleY;
-    // const yAxis = y1 - fontSize / 2 + svgModelHeight * tAxisScaleY;
-    console.log(y1, yAxis, svgModelHeight, tAxisScaleY);
+    const yAxisPoint = y1 + svgModelHeight * tAxisScaleY + fontSize * 0.1;
     // Title 생성
     svgCanvas
       .text(text => {
         // mdNodeInfo|mdPlaceInfo 에 SVG Title 정의
         ownerInfo.svgEleName = text.tspan('').font({ fill: color, size: fontSize });
       })
-      // 공통 옵션
       // 배경의 좌측 10% 공간에서 시작
-      .move(x1 + svgModelWidth * 0.1, yAxis)
+      .move(x1 + svgModelWidth * 0.1, yAxisPoint)
       // 시작점에서 우측으로 써나감
-      .font({ anchor: 'start', weight: 'bold', transform, 'pointer-events': 'none' });
-
-    // textModelDy = fontSize * 0.95;
+      .font({ ...fontOption, anchor: 'start' });
 
     svgCanvas
       .text(text => {
@@ -425,25 +425,22 @@ function drawSvgElement(svgDrawInfo) {
         // mdNodeInfo|mdPlaceInfo 에 SVG Data Unit 정의
         ownerInfo.svgEleDataUnit = text.tspan('').font({ size: fontSize * 0.9 });
       })
-      // 공통 옵션
-      // .leading(leading)
       // 배경의 좌측 90% 공간에서 시작
-      .move(x1 + svgModelWidth * 0.9, yAxis)
-      // 시작점에서 우측으로 써나감
-      .font({ anchor: 'end', weight: 'bold', transform, 'pointer-events': 'none' });
-    // .dy(textModelDy);
-
+      .move(x1 + svgModelWidth * 0.9, yAxisPoint)
+      // 시작점에서 좌측으로 써나감
+      .font({ ...fontOption, anchor: 'end' });
+    // tspan에 text를 집어넣을 경우 hidden, visible에 따라 위치 버그 발생때문에 아래로 배치
     ownerInfo.svgEleName && ownerInfo.svgEleName.text(positionName);
   } else {
-    console.log(positionName);
-    // let yAxisPoint = y1;
     let yAxisPoint = y1 + svgModelHeight * tAxisScaleY;
     svgCanvas
       .text(text => {
         // mdNodeInfo|mdPlaceInfo 에 SVG Title 정의
         if (!isHiddenTitle) {
           ownerInfo.svgEleName = text.tspan('').font({ fill: color, size: fontSize });
-          // yAxisPoint -= fontSize / 3;
+          // PlaceId가 존재하지 않을 경우 장소로 판단.
+          // data가 존재하지 않기 때문에 차감('dominant-baseline': 'middle'으로 해도 중심선이 안맞음. fontSize를 기준으로 10% 차감)
+          yAxisPoint -= placeId === undefined ? fontSize * -0.1 : fontSize * leading * 0.4;
         }
 
         // 데이터 공간이 있을 경우
@@ -451,7 +448,6 @@ function drawSvgElement(svgDrawInfo) {
           // 타이틀을 사용하지 않을 경우
           if (isHiddenTitle) {
             ownerInfo.svgEleData = text.tspan(' ').font({ size: fontSize, fill: TXT_DATA_COLOR });
-            // yAxisPoint += fontSize / 3;
           } else {
             // mdNodeInfo|mdPlaceInfo 에 SVG Data 정의
             ownerInfo.svgEleData = text
@@ -461,23 +457,13 @@ function drawSvgElement(svgDrawInfo) {
           }
           // mdNodeInfo|mdPlaceInfo 에 SVG Data Unit 정의
           ownerInfo.svgEleDataUnit = text.tspan('').font({ size: fontSize * 0.9 });
-        } else {
-          // yAxisPoint += fontSize;
         }
       })
       // 공통 옵션
-      .leading(leading)
       .move(x1 + svgModelWidth * tAxisScaleX, yAxisPoint)
-      // .move(x1 + svgModelWidth * tAxisScaleX, y1 - fontSize / 3 + svgModelHeight * tAxisScaleY)
-      .font({
-        anchor,
-        'dominant-baseline': 'middle',
-        weight: 'bold',
-        transform,
-        'pointer-events': 'none',
-      });
-    // .dy(textModelDy);
+      .font({ ...fontOption, anchor });
 
+    // tspan에 text를 집어넣을 경우 hidden, visible에 따라 위치 버그 발생때문에 아래로 배치
     ownerInfo.svgEleName && ownerInfo.svgEleName.text(positionName);
   }
 
@@ -702,7 +688,7 @@ function drawSvgBasePlace(documentId, isKorText = true) {
   // 일반 색상으로 표현하고자 할 경우
   if (backgroundData.length < 8) {
     const bgColor = backgroundData.length === 0 ? '#fff3bf' : backgroundData;
-    console.log(backgroundData);
+
     svgCanvas
       .rect(mapWidth, mapHeight)
       .fill(bgColor)
