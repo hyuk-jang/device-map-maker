@@ -479,8 +479,8 @@ class UploadToDB {
         // 노드 목록 순회
         nodeList.forEach(nodeInfo => {
           const {
-            target_code: nCode = null,
-            target_name: nName = null,
+            target_code: nCode = '',
+            target_name: nName = '',
             data_logger_index: nDLIndex = 0,
           } = nodeInfo;
           // 노드 ID 정의

@@ -41,7 +41,7 @@
     <div id="wrap" class="wrap">
       <!-- Header -->
       <!--메인-->
-      <div class="container_body">
+      <div class="container_body" id="container_body">
         <!-- Content -->
         <div id="controlContent">
           <!-- Svg Map -->
@@ -130,7 +130,7 @@
       initDrawSvg();
       drawSvgBasePlace('canvas'); // 멥 그리기
       runSimulator();
-      showNodeData('ST_CT_007', 'AUTO');
+      // showNodeData('ST_CT', 'AUTO');
       setInterval(() => {
         // runSimulator();
       }, 1000 * 5);
@@ -183,6 +183,8 @@
         $('.svg_area').height(window.innerHeight);
         window.dispatchEvent(new Event('resize'));
       });
+
+      $('#container_body').removeClass('hidden');
     </script>
   </body>
 </html>
