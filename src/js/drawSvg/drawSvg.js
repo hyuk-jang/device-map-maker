@@ -354,9 +354,17 @@ function drawSvgElement(svgDrawInfo) {
       defaultColor = placeId === undefined ? defaultColor : errColor;
       break;
     case 'circle':
-      svgModelWidth = radius;
-      svgModelHeight = radius;
-      svgCanvasBgElement = svgCanvas.circle(radius);
+      svgModelWidth = radius * 2;
+      svgModelHeight = svgModelWidth;
+      svgCanvasBgElement = svgCanvas.circle(radius * 2);
+      // 장소일 경우 color사용, Place 위에 그려지는 Node의 초기값은 Error
+      defaultColor = placeId === undefined ? defaultColor : errColor;
+      break;
+    case 'rhombus':
+      svgModelWidth = radius * 2;
+      svgModelHeight = svgModelWidth;
+      // Rect의 대각선 길이는 Root 2이기 때문에 세팅
+      svgCanvasBgElement = svgCanvas.rect(radius * Math.SQRT2, radius * Math.SQRT2);
       // 장소일 경우 color사용, Place 위에 그려지는 Node의 초기값은 Error
       defaultColor = placeId === undefined ? defaultColor : errColor;
       break;
@@ -378,6 +386,13 @@ function drawSvgElement(svgDrawInfo) {
   // 모델 색상, 좌표 이동, 외곽선 굵기, Attr 세팅
   svgCanvasBgElement !== undefined &&
     svgCanvasBgElement.move(x1, y1).stroke(strokeInfo).attr(bgOption).fill(defaultColor);
+
+  if (placeId !== undefined && svgModelType === 'rhombus') {
+    // 이미 이전에 Move를 하였기 때문에 Rect와의 시작 포인트에서 추가로 Root2의 소수부분으르 이동
+    const realMove = Math.SQRT2 - 1;
+    svgCanvasBgElement.rotate(45).dx(radius * realMove, radius * realMove);
+  }
+  // placeId !== undefined && svgModelType === 'square' && svgCanvasBgElement.rotate(45);
 
   // mdNodeInfo|mdPlaceInfo 에 SVG BG 정의
   ownerInfo.svgEleBg = svgCanvasBgElement;
@@ -581,12 +596,12 @@ function alertDeviceCmdConfirm(mdNodeInfo, dCmdScenarioInfo = {}) {
     confirmList = [
       {
         enName: 'On/Open',
-        krName: 'On/Open',
+        krName: '동작',
         controlValue: 1,
       },
       {
         enName: 'Off/Close',
-        krName: 'Off/Close',
+        krName: '정지',
         controlValue: 0,
       },
     ],

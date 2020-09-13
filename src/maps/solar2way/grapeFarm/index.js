@@ -240,9 +240,7 @@ const map = {
           id: 'shutter',
           type: 'circle',
           elementDrawInfo: {
-            width: 35,
-            height: 35,
-            radius: 40,
+            radius: 20,
             color: ['#a3a3a3', '#22fb00'],
             opacity: 1,
             strokeInfo: {
@@ -256,9 +254,7 @@ const map = {
           id: 'pump',
           type: 'circle',
           elementDrawInfo: {
-            width: 27,
-            height: 27,
-            radius: 40,
+            radius: 20,
             color: ['#a3a3a3', '#22fb00'],
             opacity: 1,
             strokeInfo: {
@@ -1824,12 +1820,12 @@ const map = {
           confirmList: [
             {
               enName: 'Off',
-              krName: '동작',
+              krName: '정지',
               controlValue: 0,
             },
             {
               enName: 'On',
-              krName: '정지',
+              krName: '동작',
               controlValue: 1,
             },
           ],

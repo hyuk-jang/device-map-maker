@@ -53,10 +53,15 @@ class SvgMaker {
   async makeSvgMapFile() {
     // Step 1: Node, Place Storage 생성
     this.init();
+
     // Step 2: Svg Place Position 목록 생성
     this.setSvgPlaceList();
+    // BU.CLIN(this.mdPlaceStorage);
+
     // Step 3: Svg Node Position 목록 생성
     this.setSvgNodeList();
+    // BU.CLIN(this.mdNodeStorage);
+
     // Step 4: Map File 생성
     await this.writeMapFile();
 
@@ -240,6 +245,10 @@ class SvgMaker {
         width: strokeWidth,
       };
 
+      if (!svgPosPoint.every(point => _.isNumber(point))) {
+        throw new Error(`placeId: ${placeId} is not defined point`);
+      }
+
       this.mSvgPlaceList.push({
         id: placeId,
         name: placeName,
@@ -252,6 +261,7 @@ class SvgMaker {
   /** Step 3: Svg Node Position 목록 생성 */
   setSvgNodeList() {
     this.mdNodeStorage.forEach(mdNodeInfo => {
+      // BU.CLIN(mdNodeInfo);
       const {
         nodeId,
         nodeName,
@@ -297,8 +307,9 @@ class SvgMaker {
           nAxisY -= axisY * nModelHeight - moveY * nModelHeight;
           break;
         case 'circle':
-          nAxisX -= axisX * nModelRadius - moveX * nModelRadius;
-          nAxisY -= axisY * nModelRadius - moveY * nModelRadius;
+        case 'rhombus':
+          nAxisX -= axisX * nModelRadius * 2 - moveX * nModelRadius * 2;
+          nAxisY -= axisY * nModelRadius * 2 - moveY * nModelRadius * 2;
           break;
         case 'polygon':
           nAxisX -= axisX * (nModelWidth * 2) - moveX * (nModelWidth * 2);
