@@ -49,6 +49,9 @@ const mdMapStorage = new Map();
 /** @type {Map<string, mdPlaceInfo>} */
 const mdPlaceStorage = new Map();
 
+/** @type {mdPlaceRelHeadStorage} */
+const mdPlaceRelationStorage = new Map();
+
 /** @type {Map<string, string[]>} ncId를 기준으로 속해있는 nodeIds  */
 const mdNodeClassStorage = new Map();
 
@@ -60,22 +63,6 @@ const mdDeviceScenaioStorage = new Map();
 
 /** @type {dControlNodeStorage} node Class Id를 기준으로 단일 제어 Select 영역 구성 필요 정보 */
 const mdControlIdenStorage = new Map();
-
-// const {isSetValue, setValueInfo: {
-//   max, min, msg
-// }} = mdControlIdenStorage.get().get();
-
-// const iterator = mdControlIdenStorage.keys();
-// const hi = iterator.next();
-
-// mdControlIdenStorage.keys().next((dControlValueStorage, ncId) => {
-//   const foundNcInfo = realMap.setInfo.nodeStructureList.find(ncInfo => {
-//     ncInfo.target_id === ncId;
-//   });
-
-//   if (foundNcInfo === undefined) return false;
-
-// });
 
 /**
  * 장치 제어 식별 Map 생성
@@ -122,7 +109,14 @@ function initDrawSvg() {
 
   // PlaceRelationList을 순회하면서 Map<placeId, mSvgStorageInfo> 세팅
   placeRelationList.forEach(pClassInfo => {
-    const { defList, target_name: pcName } = pClassInfo;
+    const { target_id: pcId, target_name: pcName, defList } = pClassInfo;
+
+    mdPlaceRelationStorage.set(pcId, {
+      pcId,
+      pcName,
+      mdPlaceRelTailStorage: new Map(),
+    });
+
     defList.forEach(pDefInfo => {
       const { target_prefix: pdPrefix, target_name: pdName = pcName, placeList = [] } = pDefInfo;
       // 장소 목록 순회
@@ -136,10 +130,26 @@ function initDrawSvg() {
         // Place ID 정의
 
         // svgPositionInfo 정보가 없다면 추가하지 않음
-        if (resourceId === undefined) return false;
+        if (resourceId === undefined) {
+          return mdPlaceRelationStorage.has(pcId) && mdPlaceRelationStorage.delete(pcId);
+        }
 
         const placeId = `${pdPrefix}${pCode ? `_${pCode}` : ''}`;
         const placeName = `${pName}${pCode ? `_${pCode}` : ''}`;
+
+        mdPlaceRelationStorage.get(pcId).mdPlaceRelTailStorage.set(placeId, {
+          pcId,
+          pId: placeId,
+          pName: placeName,
+          getNodeList: () => {
+            return nodeList.reduce((mdNodeList, nId) => {
+              const mdNodeInfo = mdNodeStorage.get(nId);
+              mdNodeInfo.isSensor === 1 && mdNodeList.push(mdNodeInfo);
+
+              return mdNodeList;
+            }, []);
+          },
+        });
 
         mdPlaceStorage.set(placeId, {
           placeId,
@@ -223,6 +233,19 @@ function initDrawSvg() {
           svgModelResource: mdMapStorage.get(resourceId),
         });
       });
+    });
+  });
+
+  // Place Class Storage 수정 (Node 상태에 따라)
+  mdPlaceRelationStorage.forEach(mdPlaceRelHeadInfo => {
+    const { pcId, mdPlaceRelTailStorage } = mdPlaceRelHeadInfo;
+
+    mdPlaceRelTailStorage.forEach(mdPlaceRelTailInfo => {
+      const { getNodeList } = mdPlaceRelTailInfo;
+
+      !getNodeList().length &&
+        mdPlaceRelationStorage.has(pcId) &&
+        mdPlaceRelationStorage.delete(pcId);
     });
   });
 

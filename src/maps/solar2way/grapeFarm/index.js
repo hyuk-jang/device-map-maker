@@ -1867,16 +1867,6 @@ const map = {
               controlValue: 1,
             },
             {
-              enName: 'Unfold',
-              krName: '접음',
-              controlValue: 0,
-            },
-            {
-              enName: 'Fold',
-              krName: '펼침',
-              controlValue: 1,
-            },
-            {
               enName: 'Move',
               krName: '이동 2',
               nextStepInfo: {
