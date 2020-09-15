@@ -33,7 +33,13 @@ const NODE_DEF_KEY = [
   'is_avg_center',
   'description',
 ];
-const NODE_KEY = ['target_code', 'target_name', 'data_logger_index', 'serial_number'];
+const NODE_KEY = [
+  'target_code',
+  'target_name',
+  'data_logger_index',
+  'data_index',
+  'serial_number',
+];
 const PLACE_CLASS_KEY = ['target_id', 'target_name', 'description'];
 const PLACE_DEF_KEY = ['target_id', 'target_prefix', 'target_name'];
 const PLACE_KEY = [
@@ -148,7 +154,9 @@ class UploadToDB {
             repeatCategory: 'prefix',
           }).nodeList;
 
-          dataLoggerInfo.nodeList = prefixNodeList.map(prefix => `${prefix}_${uniqNumber}`);
+          dataLoggerInfo.nodeList = prefixNodeList.map(
+            prefix => `${prefix}_${uniqNumber}`,
+          );
 
           delete dataLoggerInfo.repeatId;
         }
@@ -159,7 +167,11 @@ class UploadToDB {
     this.relationInfo.placeRelationList.forEach(placeClassInfo => {
       placeClassInfo.defList.forEach(placeDefInfo => {
         placeDefInfo.placeList.forEach(placeInfo => {
-          const { repeatId = '', target_code: uniqNumber = '', nodeList = [] } = placeInfo;
+          const {
+            repeatId = '',
+            target_code: uniqNumber = '',
+            nodeList = [],
+          } = placeInfo;
           // repeatId가 있을 경우
           if (repeatId.length) {
             const prefixNodeList = _.find(repeatNodeList, {
@@ -215,7 +227,9 @@ class UploadToDB {
       false,
     );
     if (_.isEmpty(mainRow)) {
-      throw new Error(`해당 Main UUID는 존재하지 않습니다.${this.map.setInfo.mainInfo.uuid}`);
+      throw new Error(
+        `해당 Main UUID는 존재하지 않습니다.${this.map.setInfo.mainInfo.uuid}`,
+      );
     }
     this.main_seq = mainRow.main_seq;
   }
@@ -241,7 +255,12 @@ class UploadToDB {
       tempStorage.addStorage(pickInfo, 'target_prefix', 'data_logger_def_seq');
     });
 
-    return this.doQuery(tempStorage, 'DV_DATA_LOGGER_DEF', ['data_logger_def_seq'], false);
+    return this.doQuery(
+      tempStorage,
+      'DV_DATA_LOGGER_DEF',
+      ['data_logger_def_seq'],
+      false,
+    );
   }
 
   /**
@@ -415,7 +434,9 @@ class UploadToDB {
         const pickInfo = {};
 
         // API 전송 Flag 정의
-        const isSubmitApi = _.isUndefined(isSubmitApiByDef) ? isSubmitApiByClass : isSubmitApiByDef;
+        const isSubmitApi = _.isUndefined(isSubmitApiByDef)
+          ? isSubmitApiByClass
+          : isSubmitApiByDef;
         nodeDefInfo.is_submit_api = _.includes([0, 1], isSubmitApi) ? isSubmitApi : 1;
 
         // Def에서 필수 구성 Key가 존재하지 않는다면 Class 정보를 복사
@@ -482,6 +503,7 @@ class UploadToDB {
             target_code: nCode = '',
             target_name: nName = '',
             data_logger_index: nDLIndex = 0,
+            data_index: dIndex = 0,
           } = nodeInfo;
           // 노드 ID 정의
           const nodeId = `${ndPrefix}${nCode ? `_${nCode}` : ''}`;
@@ -489,7 +511,10 @@ class UploadToDB {
           // 노드 ID가 사용되어지는 DL ID 목록을 지정
           const usedDataLoggerIdList = [];
           _.forEach(this.setInfo.dataLoggerStructureList, dataStructureInfo => {
-            const { target_prefix: dldPrefix, dataLoggerDeviceList = [] } = dataStructureInfo;
+            const {
+              target_prefix: dldPrefix,
+              dataLoggerDeviceList = [],
+            } = dataStructureInfo;
             dataLoggerDeviceList.forEach(dataLoggerInfo => {
               const { target_code: dlCode, nodeList: dlNodeList } = dataLoggerInfo;
               const dataLoggerId = `${dldPrefix}${dlCode ? `_${dlCode}` : ''}`;
@@ -510,6 +535,7 @@ class UploadToDB {
               target_code: nCode,
               target_name: nName,
               data_logger_index: nDLIndex,
+              data_index: dIndex,
               node_def_seq: _.get(
                 _.find(prevNDList, {
                   target_id: ndId,
@@ -602,7 +628,11 @@ class UploadToDB {
         _.forEach(PLACE_DEF_KEY, key => {
           if (!_.has(pickInfo, key)) {
             const pdValue = _.get(placeDefInfo, key, null);
-            _.set(pickInfo, key, _.isEmpty(pdValue) ? _.get(placeClassInfo, key, null) : pdValue);
+            _.set(
+              pickInfo,
+              key,
+              _.isEmpty(pdValue) ? _.get(placeClassInfo, key, null) : pdValue,
+            );
           }
         });
 
@@ -746,7 +776,11 @@ class UploadToDB {
             // 관계 장치중에 Node Structure에 없거나 Place 정보가 없다면 관계가 없는 것으로 판단하고 해당 값은 입력하지 않음
             if (_(placeRelationInfo).values().includes(undefined)) return false;
 
-            tempStorage.addStorage(placeRelationInfo, 'place_relation_seq', 'place_relation_seq');
+            tempStorage.addStorage(
+              placeRelationInfo,
+              'place_relation_seq',
+              'place_relation_seq',
+            );
           });
         });
       });

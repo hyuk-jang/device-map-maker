@@ -226,7 +226,7 @@ const map = {
         {
           id: 'pumpPanel',
           type: 'rect',
-          elementDrawInfo: { width: 130, height: 120, color: 'skyblue', opacity: 1 },
+          elementDrawInfo: { width: 130, height: 180, color: 'skyblue', opacity: 1 },
           textStyleInfo: { color: '' },
         },
         {
@@ -255,6 +255,20 @@ const map = {
           type: 'circle',
           elementDrawInfo: {
             radius: 20,
+            color: ['#a3a3a3', '#22fb00'],
+            opacity: 1,
+            strokeInfo: {
+              width: 0.7,
+              color: '#000',
+            },
+          },
+          textStyleInfo: { fontSize: 8 },
+        },
+        {
+          id: 'valve',
+          type: 'rhombus',
+          elementDrawInfo: {
+            radius: 25,
             color: ['#a3a3a3', '#22fb00'],
             opacity: 1,
             strokeInfo: {
@@ -715,7 +729,7 @@ const map = {
             target_name: '펌프 제어반',
             dccId: 'DCC_001',
             dpcId: 'DPC_002',
-            nodeList: ['P_001', 'P_002', 'P_003', 'P_CT'],
+            nodeList: ['P_001', 'V_N_001', 'V_N_002', 'V_W_001', 'V_W_002', 'P_CT'],
           },
         ],
       },
@@ -728,7 +742,12 @@ const map = {
         is_sensor: 0,
         is_submit_api: 1,
         description: '개폐기',
-        operationStatusList: [['CLOSE', 'CLOSING'], ['OPEN', 'OPENING'], ['FOLD'], ['UNFOLD']],
+        operationStatusList: [
+          ['CLOSE', 'CLOSING'],
+          ['OPEN', 'OPENING'],
+          ['FOLD'],
+          ['UNFOLD'],
+        ],
         defList: [
           {
             target_id: 'shutter',
@@ -739,6 +758,7 @@ const map = {
                 target_code: '001',
                 target_name: '1-A',
                 data_logger_index: 0,
+                data_index: 1,
                 svgNodePosOpt: {
                   resourceId: 'shutter',
                   axisScale: [0, 0],
@@ -749,6 +769,7 @@ const map = {
                 target_code: '002',
                 target_name: '1-B',
                 data_logger_index: 1,
+                data_index: 2,
                 svgNodePosOpt: {
                   placeId: 'VNH_1',
                   resourceId: 'shutter',
@@ -760,6 +781,7 @@ const map = {
                 target_code: '003',
                 target_name: '2-A',
                 data_logger_index: 2,
+                data_index: 3,
                 svgNodePosOpt: {
                   placeId: 'VNH_2',
                   resourceId: 'shutter',
@@ -771,6 +793,7 @@ const map = {
                 target_code: '004',
                 target_name: '2-B',
                 data_logger_index: 3,
+                data_index: 4,
                 svgNodePosOpt: {
                   placeId: 'VNH_2',
                   resourceId: 'shutter',
@@ -782,6 +805,7 @@ const map = {
                 target_code: '005',
                 target_name: '3-A',
                 data_logger_index: 4,
+                data_index: 5,
                 svgNodePosOpt: {
                   placeId: 'VNH_3',
                   resourceId: 'shutter',
@@ -793,6 +817,7 @@ const map = {
                 target_code: '006',
                 target_name: '3-B',
                 data_logger_index: 5,
+                data_index: 6,
                 svgNodePosOpt: {
                   placeId: 'VNH_3',
                   resourceId: 'shutter',
@@ -804,6 +829,7 @@ const map = {
                 target_code: '007',
                 target_name: '4-A',
                 data_logger_index: 6,
+                data_index: 7,
                 svgNodePosOpt: {
                   placeId: 'VNH_4',
                   resourceId: 'shutter',
@@ -815,6 +841,7 @@ const map = {
                 target_code: '008',
                 target_name: '4-B',
                 data_logger_index: 7,
+                data_index: 8,
                 svgNodePosOpt: {
                   placeId: 'VNH_4',
                   resourceId: 'shutter',
@@ -826,6 +853,7 @@ const map = {
                 target_code: '009',
                 target_name: '5-A',
                 data_logger_index: 8,
+                data_index: 9,
                 svgNodePosOpt: {
                   placeId: 'VNH_5',
                   resourceId: 'shutter',
@@ -837,6 +865,7 @@ const map = {
                 target_code: '010',
                 target_name: '5-B',
                 data_logger_index: 9,
+                data_index: 10,
                 svgNodePosOpt: {
                   placeId: 'VNH_5',
                   resourceId: 'shutter',
@@ -848,6 +877,7 @@ const map = {
                 target_code: '011',
                 target_name: '6-A',
                 data_logger_index: 10,
+                data_index: 11,
                 svgNodePosOpt: {
                   placeId: 'VNH_6',
                   resourceId: 'shutter',
@@ -859,6 +889,7 @@ const map = {
                 target_code: '012',
                 target_name: '6-B',
                 data_logger_index: 11,
+                data_index: 12,
                 svgNodePosOpt: {
                   placeId: 'VNH_6',
                   resourceId: 'shutter',
@@ -870,6 +901,7 @@ const map = {
                 target_code: '013',
                 target_name: '7-A',
                 data_logger_index: 12,
+                data_index: 13,
                 svgNodePosOpt: {
                   placeId: 'VNH_7',
                   resourceId: 'shutter',
@@ -881,6 +913,7 @@ const map = {
                 target_code: '014',
                 target_name: '7-B',
                 data_logger_index: 13,
+                data_index: 14,
                 svgNodePosOpt: {
                   placeId: 'VNH_7',
                   resourceId: 'shutter',
@@ -892,6 +925,7 @@ const map = {
                 target_code: '015',
                 target_name: '8-A',
                 data_logger_index: 14,
+                data_index: 15,
                 svgNodePosOpt: {
                   placeId: 'VNH_8',
                   resourceId: 'shutter',
@@ -903,6 +937,7 @@ const map = {
                 target_code: '016',
                 target_name: '8-B',
                 data_logger_index: 15,
+                data_index: 16,
                 svgNodePosOpt: {
                   placeId: 'VNH_8',
                   resourceId: 'shutter',
@@ -918,7 +953,12 @@ const map = {
         target_id: 'pump',
         target_name: '펌프',
         is_sensor: 0,
-        operationStatusList: [['CLOSE', 'CLOSING'], ['OPEN', 'OPENING'], ['FOLD'], ['UNFOLD']],
+        operationStatusList: [
+          ['CLOSE', 'CLOSING'],
+          ['OPEN', 'OPENING'],
+          ['FOLD'],
+          ['UNFOLD'],
+        ],
         defList: [
           {
             target_id: 'pump',
@@ -928,7 +968,7 @@ const map = {
               {
                 target_code: '001',
                 target_name: '펌프',
-                data_logger_index: 0,
+                data_index: 1,
                 svgNodePosOpt: {
                   placeId: 'PCH',
                   resourceId: 'pump',
@@ -936,26 +976,79 @@ const map = {
                   moveScale: [0.3, -0.3],
                 },
               },
+            ],
+          },
+        ],
+      },
+      {
+        target_id: 'valve',
+        target_name: '밸브',
+        is_sensor: 0,
+        operationStatusList: [
+          ['CLOSE', 'CLOSING'],
+          ['OPEN', 'OPENING'],
+          ['FOLD'],
+          ['UNFOLD'],
+        ],
+        defList: [
+          {
+            target_id: 'nutrientValve',
+            target_prefix: 'V_N',
+            target_name: '양액 밸브',
+            nodeList: [
               {
-                target_code: '002',
+                target_code: '001',
                 target_name: '양액 A',
-                data_logger_index: 1,
+                data_logger_index: 0,
+                data_index: 2,
                 svgNodePosOpt: {
                   placeId: 'PCH',
                   resourceId: 'pump',
-                  axisScale: [0, 0],
-                  moveScale: [0.3, 0.3],
+                  axisScale: [0, 0.5],
+                  moveScale: [0.3, 0],
                 },
               },
               {
-                target_code: '003',
+                target_code: '002',
                 target_name: '양액 B',
-                data_logger_index: 2,
+                data_logger_index: 1,
+                data_index: 3,
                 svgNodePosOpt: {
                   placeId: 'PCH',
                   resourceId: 'pump',
+                  axisScale: [1, 0.5],
+                  moveScale: [-0.3, 0],
+                },
+              },
+            ],
+          },
+          {
+            target_id: 'wateringValve',
+            target_prefix: 'V_W',
+            target_name: '관수 밸브',
+            nodeList: [
+              {
+                target_code: '001',
+                target_name: '밸브 A',
+                data_logger_index: 0,
+                data_index: 4,
+                svgNodePosOpt: {
+                  placeId: 'PCH',
+                  resourceId: 'valve',
+                  axisScale: [0, 0],
+                  moveScale: [0.2, 0.2],
+                },
+              },
+              {
+                target_code: '002',
+                target_name: '밸브 B',
+                data_logger_index: 1,
+                data_index: 5,
+                svgNodePosOpt: {
+                  placeId: 'PCH',
+                  resourceId: 'valve',
                   axisScale: [1, 0],
-                  moveScale: [-0.3, 0.3],
+                  moveScale: [-0.2, 0.2],
                 },
               },
             ],
@@ -966,9 +1059,14 @@ const map = {
       {
         target_id: 'controlType',
         target_name: '제어 타입',
-        is_sensor: 1,
+        is_sensor: 2,
         description: '자동 or 수동',
-        operationStatusList: [['CLOSE', 'CLOSING'], ['OPEN', 'OPENING'], ['FOLD'], ['UNFOLD']],
+        operationStatusList: [
+          ['CLOSE', 'CLOSING'],
+          ['OPEN', 'OPENING'],
+          ['FOLD'],
+          ['UNFOLD'],
+        ],
         defList: [
           {
             target_id: 'shutterControlType',
@@ -1228,10 +1326,11 @@ const map = {
         target_id: 'kW',
         target_name: '전력량',
         is_sensor: 2,
-        is_submit_api: 0,
+        is_submit_api: 1,
         save_db_type: BLOCK,
         data_unit: 'kW',
-        description: '1 킬로와트(기호 kW)는 1 초 동안의 1,000 줄(N·m)에 해당하는 일률의 SI 단위',
+        description:
+          '1 킬로와트(기호 kW)는 1 초 동안의 1,000 줄(N·m)에 해당하는 일률의 SI 단위',
         defList: [
           {
             target_id: 'pvKw',
@@ -1550,7 +1649,7 @@ const map = {
             placeList: [
               {
                 target_code: '',
-                nodeList: ['P_001', 'P_002', 'P_003', 'P_CT'],
+                nodeList: ['P_001', 'V_N_001', 'V_N_002', 'V_W_001', 'V_W_002', 'P_CT'],
                 svgPositionInfo: {
                   resourceId: 'pumpPanel',
                   point: [
@@ -1577,7 +1676,10 @@ const map = {
                 target_name: 'PV_1_S_일반(7)',
                 svgPositionInfo: {
                   resourceId: 'pvN_7EA',
-                  point: [ms.VH.START_X, ms.VH.START_Y + ms.VH.INTERVAL * 0 + ms.VH.HEIGHT / 2],
+                  point: [
+                    ms.VH.START_X,
+                    ms.VH.START_Y + ms.VH.INTERVAL * 0 + ms.VH.HEIGHT / 2,
+                  ],
                 },
               },
               {
@@ -1585,7 +1687,10 @@ const map = {
                 target_name: 'PV_2_S_투명(7)',
                 svgPositionInfo: {
                   resourceId: 'pvT_7EA',
-                  point: [ms.VH.START_X, ms.VH.START_Y + ms.VH.INTERVAL * 1 + ms.VH.HEIGHT / 2],
+                  point: [
+                    ms.VH.START_X,
+                    ms.VH.START_Y + ms.VH.INTERVAL * 1 + ms.VH.HEIGHT / 2,
+                  ],
                 },
               },
               {
@@ -1594,7 +1699,10 @@ const map = {
                 nodeList: ['IVT_PW_G_KW_1'],
                 svgPositionInfo: {
                   resourceId: 'pvN_7EA',
-                  point: [ms.VH.START_X, ms.VH.START_Y + ms.VH.INTERVAL * 2 + ms.VH.HEIGHT / 2],
+                  point: [
+                    ms.VH.START_X,
+                    ms.VH.START_Y + ms.VH.INTERVAL * 2 + ms.VH.HEIGHT / 2,
+                  ],
                 },
               },
               {
@@ -1603,7 +1711,10 @@ const map = {
                 nodeList: ['IVT_PW_G_KW_2'],
                 svgPositionInfo: {
                   resourceId: 'pvT_7EA',
-                  point: [ms.VH.START_X, ms.VH.START_Y + ms.VH.INTERVAL * 3 + ms.VH.HEIGHT / 2],
+                  point: [
+                    ms.VH.START_X,
+                    ms.VH.START_Y + ms.VH.INTERVAL * 3 + ms.VH.HEIGHT / 2,
+                  ],
                 },
               },
               {
@@ -1612,7 +1723,10 @@ const map = {
                 nodeList: ['IVT_PW_G_KW_11'],
                 svgPositionInfo: {
                   resourceId: 'pvT_6EA',
-                  point: [ms.VH.START_X, ms.VH.START_Y + ms.VH.INTERVAL * 4 + ms.VH.HEIGHT / 2],
+                  point: [
+                    ms.VH.START_X,
+                    ms.VH.START_Y + ms.VH.INTERVAL * 4 + ms.VH.HEIGHT / 2,
+                  ],
                 },
               },
               {
@@ -1621,7 +1735,10 @@ const map = {
                 nodeList: ['IVT_PW_G_KW_12'],
                 svgPositionInfo: {
                   resourceId: 'pvN_8EA',
-                  point: [ms.VH.START_X, ms.VH.START_Y + ms.VH.INTERVAL * 6 + ms.VH.HEIGHT / 2],
+                  point: [
+                    ms.VH.START_X,
+                    ms.VH.START_Y + ms.VH.INTERVAL * 6 + ms.VH.HEIGHT / 2,
+                  ],
                 },
               },
               {
@@ -1630,7 +1747,10 @@ const map = {
                 nodeList: ['IVT_PW_G_KW_13'],
                 svgPositionInfo: {
                   resourceId: 'pvT_4EA',
-                  point: [ms.VH.START_X, ms.VH.START_Y + ms.VH.INTERVAL * 7 + ms.VH.HEIGHT / 2],
+                  point: [
+                    ms.VH.START_X,
+                    ms.VH.START_Y + ms.VH.INTERVAL * 7 + ms.VH.HEIGHT / 2,
+                  ],
                 },
               },
               {
@@ -1651,7 +1771,10 @@ const map = {
                 nodeList: ['IVT_PW_G_KW_15'],
                 svgPositionInfo: {
                   resourceId: 'pvT_4EA',
-                  point: [ms.VH.START_X, ms.VH.START_Y + ms.VH.INTERVAL * 8 + ms.VH.HEIGHT / 2],
+                  point: [
+                    ms.VH.START_X,
+                    ms.VH.START_Y + ms.VH.INTERVAL * 8 + ms.VH.HEIGHT / 2,
+                  ],
                 },
               },
               {
@@ -1687,7 +1810,10 @@ const map = {
                 nodeList: ['S_PU_021'],
                 svgPositionInfo: {
                   resourceId: 'pvSensor',
-                  point: [ms.VH.START_X + ms.SS.INTERVAL * 2, ms.VH.START_Y + ms.VH.INTERVAL * 5],
+                  point: [
+                    ms.VH.START_X + ms.SS.INTERVAL * 2,
+                    ms.VH.START_Y + ms.VH.INTERVAL * 5,
+                  ],
                 },
               },
               {
@@ -1759,8 +1885,10 @@ const map = {
         trueNodeList: [],
         falseNodeList: [
           'P_001',
-          'P_002',
-          'P_003',
+          'V_N_001',
+          'V_N_002',
+          'V_W_001',
+          'V_W_002',
           'ST_001',
           'ST_002',
           'ST_003',
@@ -1781,7 +1909,7 @@ const map = {
       },
       {
         cmdId: 'closeAllShutter',
-        cmdName: '모든 개폐기 폐쇄',
+        cmdName: '모든 개폐기 닫음',
         trueNodeList: [],
         falseNodeList: [
           'ST_001',
@@ -1803,10 +1931,27 @@ const map = {
         ],
       },
       {
-        cmdId: 'closeAllPump',
-        cmdName: '모든 펌프 폐쇄',
+        cmdId: 'openAllShutter',
+        cmdName: '모든 개폐기 열음',
         trueNodeList: [],
-        falseNodeList: ['P_001', 'P_002', 'P_003'],
+        falseNodeList: [
+          'ST_001',
+          'ST_002',
+          'ST_003',
+          'ST_004',
+          'ST_005',
+          'ST_006',
+          'ST_007',
+          'ST_008',
+          'ST_009',
+          'ST_010',
+          'ST_011',
+          'ST_012',
+          'ST_013',
+          'ST_014',
+          'ST_015',
+          'ST_016',
+        ],
       },
     ],
   },
@@ -1832,6 +1977,25 @@ const map = {
         },
       },
       {
+        deviceCmdName: '밸브 제어',
+        applyDeviceList: ['valve'],
+        dCmdScenarioInfo: {
+          scenarioMsg: '제어 동작을 선택하세요.',
+          confirmList: [
+            {
+              enName: 'Close',
+              krName: '닫음',
+              controlValue: 0,
+            },
+            {
+              enName: 'Open',
+              krName: '열음',
+              controlValue: 1,
+            },
+          ],
+        },
+      },
+      {
         deviceCmdName: '개폐기 제어',
         applyDeviceList: ['shutter'],
         dCmdScenarioInfo: {
@@ -1846,50 +2010,6 @@ const map = {
               enName: 'Fold',
               krName: '펼침',
               controlValue: 1,
-            },
-          ],
-        },
-      },
-      {
-        deviceCmdName: '테스트 제어',
-        applyDeviceList: ['act', 'exam', 'shutter'],
-        dCmdScenarioInfo: {
-          scenarioMsg: '제어 동작을 선택하세요.',
-          confirmList: [
-            {
-              enName: 'Off',
-              krName: '끔',
-              controlValue: 0,
-            },
-            {
-              enName: 'On',
-              krName: '켬',
-              controlValue: 1,
-            },
-            {
-              enName: 'Move',
-              krName: '이동 2',
-              nextStepInfo: {
-                scenarioMsg: '이동 방향과 거리(m) 선택하세요.',
-                isSetValue: 1,
-                setValueInfo: {
-                  msg: '이동 거리',
-                  min: -0.5,
-                  max: 45,
-                },
-                confirmList: [
-                  {
-                    enName: 'left',
-                    krName: '좌',
-                    controlValue: 21,
-                  },
-                  {
-                    enName: 'right',
-                    krName: '우',
-                    controlValue: 22,
-                  },
-                ],
-              },
             },
           ],
         },

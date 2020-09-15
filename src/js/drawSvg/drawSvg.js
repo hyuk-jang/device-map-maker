@@ -118,7 +118,11 @@ function initDrawSvg() {
     });
 
     defList.forEach(pDefInfo => {
-      const { target_prefix: pdPrefix, target_name: pdName = pcName, placeList = [] } = pDefInfo;
+      const {
+        target_prefix: pdPrefix,
+        target_name: pdName = pcName,
+        placeList = [],
+      } = pDefInfo;
       // 장소 목록 순회
       placeList.forEach(pInfo => {
         const {
@@ -174,7 +178,11 @@ function initDrawSvg() {
     mdNodeClassStorage.set(ncId, []);
 
     defList.forEach(nDefInfo => {
-      const { nodeList = [], target_prefix: ndPrefix, target_name: ndName = ncName } = nDefInfo;
+      const {
+        nodeList = [],
+        target_prefix: ndPrefix,
+        target_name: ndName = ncName,
+      } = nDefInfo;
 
       nodeList.forEach(nodeInfo => {
         const {
@@ -240,13 +248,11 @@ function initDrawSvg() {
   mdPlaceRelationStorage.forEach(mdPlaceRelHeadInfo => {
     const { pcId, mdPlaceRelTailStorage } = mdPlaceRelHeadInfo;
 
-    mdPlaceRelTailStorage.forEach(mdPlaceRelTailInfo => {
-      const { getNodeList } = mdPlaceRelTailInfo;
-
-      !getNodeList().length &&
-        mdPlaceRelationStorage.has(pcId) &&
-        mdPlaceRelationStorage.delete(pcId);
+    // 장소에 조건을 충족하는 노드가 없을 경우 Map에서 해당 요소 삭제
+    mdPlaceRelTailStorage.forEach((mdPlaceRelTailInfo, pId) => {
+      mdPlaceRelTailInfo.getNodeList().length === 0 && mdPlaceRelTailStorage.delete(pId);
     });
+    mdPlaceRelTailStorage.size === 0 && mdPlaceRelationStorage.delete(pcId);
   });
 
   // 장치 제어 목록 설정
@@ -344,7 +350,13 @@ function drawSvgElement(svgDrawInfo) {
       svgModelResource: {
         type: svgModelType,
         elementDrawInfo,
-        elementDrawInfo: { errColor = 'red', radius = 1, opacity = 1, strokeInfo, patternInfo },
+        elementDrawInfo: {
+          errColor = 'red',
+          radius = 1,
+          opacity = 1,
+          strokeInfo,
+          patternInfo,
+        },
         textStyleInfo,
       },
     },
@@ -392,7 +404,9 @@ function drawSvgElement(svgDrawInfo) {
       defaultColor = placeId === undefined ? defaultColor : errColor;
       break;
     case 'image':
-      svgCanvasBgElement = svgCanvas.image(defaultColor).size(svgModelWidth, svgModelHeight);
+      svgCanvasBgElement = svgCanvas
+        .image(defaultColor)
+        .size(svgModelWidth, svgModelHeight);
       break;
     case 'line':
       svgCanvasBgElement = svgCanvas.line(x1, y1, x2, y2);
@@ -407,14 +421,28 @@ function drawSvgElement(svgDrawInfo) {
   }
 
   // 모델 색상, 좌표 이동, 외곽선 굵기, Attr 세팅
-  svgCanvasBgElement !== undefined &&
-    svgCanvasBgElement.move(x1, y1).stroke(strokeInfo).attr(bgOption).fill(defaultColor);
+  // svgCanvasBgElement !== undefined &&
+  //   svgCanvasBgElement.move(x1, y1).stroke(strokeInfo).attr(bgOption).fill(defaultColor);
 
-  if (placeId !== undefined && svgModelType === 'rhombus') {
+  if (svgCanvasBgElement !== undefined) {
+    svgCanvasBgElement.move(x1, y1).stroke(strokeInfo).attr(bgOption).fill(defaultColor);
+  } else if (placeId !== undefined && svgModelType === 'rhombus') {
     // 이미 이전에 Move를 하였기 때문에 Rect와의 시작 포인트에서 추가로 Root2의 소수부분으르 이동
     const realMove = Math.SQRT2 - 1;
-    svgCanvasBgElement.rotate(45).dx(radius * realMove, radius * realMove);
+    svgCanvasBgElement
+      .move(x1 + radius * realMove, y1 + radius * realMove)
+      // .rotate(45)
+      .stroke(strokeInfo)
+      .attr(bgOption)
+      .fill(defaultColor);
+    // .rotate(45);
   }
+
+  // if (placeId !== undefined && svgModelType === 'rhombus') {
+  //   // 이미 이전에 Move를 하였기 때문에 Rect와의 시작 포인트에서 추가로 Root2의 소수부분으르 이동
+  //   const realMove = Math.SQRT2 - 1;
+  //   svgCanvasBgElement.rotate(45).dx(radius * realMove, radius * realMove);
+  // }
   // placeId !== undefined && svgModelType === 'square' && svgCanvasBgElement.rotate(45);
 
   // mdNodeInfo|mdPlaceInfo 에 SVG BG 정의
@@ -459,7 +487,9 @@ function drawSvgElement(svgDrawInfo) {
 
     svgCanvas
       .text(text => {
-        ownerInfo.svgEleData = text.tspan('').font({ size: fontSize, fill: TXT_DATA_COLOR });
+        ownerInfo.svgEleData = text
+          .tspan('')
+          .font({ size: fontSize, fill: TXT_DATA_COLOR });
         // mdNodeInfo|mdPlaceInfo 에 SVG Data Unit 정의
         ownerInfo.svgEleDataUnit = text.tspan('').font({ size: fontSize * 0.9 });
       })
@@ -478,14 +508,17 @@ function drawSvgElement(svgDrawInfo) {
           ownerInfo.svgEleName = text.tspan('').font({ fill: color, size: fontSize });
           // PlaceId가 존재하지 않을 경우 장소로 판단.
           // data가 존재하지 않기 때문에 차감('dominant-baseline': 'middle'으로 해도 중심선이 안맞음. fontSize를 기준으로 10% 차감)
-          yAxisPoint -= placeId === undefined ? fontSize * -0.1 : fontSize * leading * 0.4;
+          yAxisPoint -=
+            placeId === undefined ? fontSize * -0.1 : fontSize * leading * 0.4;
         }
 
         // 데이터 공간이 있을 경우
         if (placeId !== undefined) {
           // 타이틀을 사용하지 않을 경우
           if (isHiddenTitle) {
-            ownerInfo.svgEleData = text.tspan(' ').font({ size: fontSize, fill: TXT_DATA_COLOR });
+            ownerInfo.svgEleData = text
+              .tspan(' ')
+              .font({ size: fontSize, fill: TXT_DATA_COLOR });
           } else {
             // mdNodeInfo|mdPlaceInfo 에 SVG Data 정의
             ownerInfo.svgEleData = text
@@ -708,7 +741,10 @@ function alertDeviceCmdConfirm(mdNodeInfo, dCmdScenarioInfo = {}) {
  */
 function drawSvgBasePlace(documentId, isKorText = true) {
   const textLang = isKorText ? 'ko' : 'en';
-  const { backgroundData = '', backgroundPosition: [bgPosX, bgPosY] = [0, 0] } = backgroundInfo;
+  const {
+    backgroundData = '',
+    backgroundPosition: [bgPosX, bgPosY] = [0, 0],
+  } = backgroundInfo;
 
   const svgCanvas = SVG().addTo(`#${documentId}`).size('100%', '100%');
 
