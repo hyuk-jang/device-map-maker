@@ -278,6 +278,22 @@ const map = {
           },
           textStyleInfo: { fontSize: 8 },
         },
+        /* *************       Command        ***************** */
+        {
+          id: 'cmd',
+          type: 'diamond',
+          elementDrawInfo: {
+            width: 30,
+            height: 20,
+            color: ['#a3a3a3', '#22fb00'],
+            opacity: 1,
+            strokeInfo: {
+              width: 0.7,
+              color: '#000',
+            },
+          },
+          textStyleInfo: { fontSize: 8 },
+        },
         /* *************       Sensor        ***************** */
         {
           id: 'shutterControlType',
@@ -1878,7 +1894,78 @@ const map = {
     ],
   },
   controlInfo: {
+    singleCmdList: [
+      {
+        singleCmdName: '펌프 제어',
+        applyDeviceList: ['pump'],
+        singleMidCateCmdInfo: {
+          scenarioMsg: '제어 동작을 선택하세요.',
+          subCmdList: [
+            {
+              enName: 'Off',
+              krName: '정지',
+              controlValue: 0,
+            },
+            {
+              enName: 'On',
+              krName: '동작',
+              controlValue: 1,
+            },
+          ],
+        },
+      },
+      {
+        singleCmdName: '밸브 제어',
+        applyDeviceList: ['valve'],
+        singleMidCateCmdInfo: {
+          scenarioMsg: '제어 동작을 선택하세요.',
+          subCmdList: [
+            {
+              enName: 'Close',
+              krName: '닫음',
+              controlValue: 0,
+            },
+            {
+              enName: 'Open',
+              krName: '열음',
+              controlValue: 1,
+            },
+          ],
+        },
+      },
+      {
+        singleCmdName: '개폐기 제어',
+        applyDeviceList: ['shutter'],
+        singleMidCateCmdInfo: {
+          scenarioMsg: '제어 동작을 선택하세요.',
+          subCmdList: [
+            {
+              enName: 'Unfold',
+              krName: '접음',
+              controlValue: 0,
+            },
+            {
+              enName: 'Fold',
+              krName: '펼침',
+              controlValue: 1,
+            },
+          ],
+        },
+      },
+    ],
     setCmdList: [
+      {
+        cmdId: 'waterSupplyPipeA',
+        cmdName: 'A 배관 물 공급',
+        trueNodeList: ['P_001', 'V_N_001', 'V_W_001'],
+        falseNodeList: [],
+        svgNodePosOpt: {
+          placeId: 'PCH',
+          resourceId: 'cmd',
+          axisScale: [0, 0],
+          moveScale: [0.1, 0.1],
+        },
+      },
       {
         cmdId: 'closeAllDevice',
         cmdName: '모든 장치 닫기',
@@ -1954,68 +2041,9 @@ const map = {
         ],
       },
     ],
+    flowCmdList: [],
   },
-  configInfo: {
-    deviceCmdList: [
-      {
-        deviceCmdName: '펌프 제어',
-        applyDeviceList: ['pump'],
-        dCmdScenarioInfo: {
-          scenarioMsg: '제어 동작을 선택하세요.',
-          confirmList: [
-            {
-              enName: 'Off',
-              krName: '정지',
-              controlValue: 0,
-            },
-            {
-              enName: 'On',
-              krName: '동작',
-              controlValue: 1,
-            },
-          ],
-        },
-      },
-      {
-        deviceCmdName: '밸브 제어',
-        applyDeviceList: ['valve'],
-        dCmdScenarioInfo: {
-          scenarioMsg: '제어 동작을 선택하세요.',
-          confirmList: [
-            {
-              enName: 'Close',
-              krName: '닫음',
-              controlValue: 0,
-            },
-            {
-              enName: 'Open',
-              krName: '열음',
-              controlValue: 1,
-            },
-          ],
-        },
-      },
-      {
-        deviceCmdName: '개폐기 제어',
-        applyDeviceList: ['shutter'],
-        dCmdScenarioInfo: {
-          scenarioMsg: '제어 동작을 선택하세요.',
-          confirmList: [
-            {
-              enName: 'Unfold',
-              krName: '접음',
-              controlValue: 0,
-            },
-            {
-              enName: 'Fold',
-              krName: '펼침',
-              controlValue: 1,
-            },
-          ],
-        },
-      },
-    ],
-  },
+  configInfo: {},
 };
 
 module.exports = map;

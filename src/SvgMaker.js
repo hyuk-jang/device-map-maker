@@ -27,7 +27,7 @@ class SvgMaker {
     const {
       drawInfo: {
         frame: { svgModelResourceList },
-        positionInfo: { svgNodeList = [], svgPlaceList = [] } = {},
+        positionInfo: { svgNodeList = [], svgPlaceList = [], svgCmdList = [] } = {},
       },
       setInfo: { nodeStructureList },
       relationInfo: { placeRelationList },
@@ -39,6 +39,7 @@ class SvgMaker {
     // Position SVG 장소 목록, Node 목록
     this.mSvgPlaceList = svgPlaceList;
     this.mSvgNodeList = svgNodeList;
+    this.mSvgCmdList = svgCmdList;
 
     // SetInfo 노드 구조 정의 목록
     this.mNodeStructureList = nodeStructureList;
@@ -61,6 +62,9 @@ class SvgMaker {
     // Step 3: Svg Node Position 목록 생성
     this.setSvgNodeList();
     // BU.CLIN(this.mdNodeStorage);
+
+    // Step 4: Svg Command Position 목록 생성
+    this.setSvgCmdList();
 
     // Step 4: Map File 생성
     await this.writeMapFile();
@@ -89,7 +93,11 @@ class SvgMaker {
     this.mPlaceRelationList.forEach(pClassInfo => {
       const { defList, target_name: pcName } = pClassInfo;
       defList.forEach(pDefInfo => {
-        const { target_prefix: pdPrefix, target_name: pdName = pcName, placeList = [] } = pDefInfo;
+        const {
+          target_prefix: pdPrefix,
+          target_name: pdName = pcName,
+          placeList = [],
+        } = pDefInfo;
         // 장소 목록 순회
         placeList.forEach(pInfo => {
           const {
@@ -131,7 +139,11 @@ class SvgMaker {
       } = nClassInfo;
 
       defList.forEach(nDefInfo => {
-        const { nodeList = [], target_prefix: ndPrefix, target_name: ndName = ncName } = nDefInfo;
+        const {
+          nodeList = [],
+          target_prefix: ndPrefix,
+          target_name: ndName = ncName,
+        } = nDefInfo;
 
         nodeList.forEach(nodeInfo => {
           const {
@@ -222,6 +234,7 @@ class SvgMaker {
         case 'rect':
         case 'pattern':
         case 'image':
+        case 'diamond':
           svgPosPoint = [x1, y1, x1 + width, y1 + height];
           break;
         case 'line':
@@ -303,6 +316,7 @@ class SvgMaker {
 
       switch (nodeType) {
         case 'rect':
+        case 'diamond':
           nAxisX -= axisX * nModelWidth - moveX * nModelWidth;
           nAxisY -= axisY * nModelHeight - moveY * nModelHeight;
           break;
@@ -345,6 +359,8 @@ class SvgMaker {
       });
     });
   }
+
+  setSvgCmdList() {}
 
   /** Step 4: Map File 생성 */
   async writeMapFile() {
