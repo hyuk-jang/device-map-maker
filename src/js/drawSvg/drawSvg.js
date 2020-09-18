@@ -29,17 +29,28 @@ const SENSOR_TYPE = {
   NONE: -1,
 };
 
+const DRAW_TYPE = {
+  PLACE: 0,
+  NODE: 1,
+  CMD: 2,
+};
+
 const {
   drawInfo: {
     frame: {
       mapInfo: { width: mapWidth, height: mapHeight, backgroundInfo },
       svgModelResourceList,
     },
-    positionInfo: { svgNodeList, svgPlaceList },
+    positionInfo: { svgNodeList = [], svgPlaceList = [], svgCmdList = [] },
   },
   setInfo: { nodeStructureList },
   relationInfo: { placeRelationList },
-  controlInfo: { singleCmdList = [] } = {},
+  controlInfo: {
+    singleCmdList = [],
+    setCmdList = [],
+    flowCmdList = [],
+    scenarioCmdList = [],
+  } = {},
 } = realMap;
 
 // svgModelResourceList 생성
@@ -63,6 +74,9 @@ const mdDeviceScenaioStorage = new Map();
 
 /** @type {Map<string, dControlValueStorage>} key:nodeId 단일 제어 Select 영역 구성 필요 정보 */
 const mdControlIdenStorage = new Map();
+
+/** @type {Map<string, mdCmdInfo>} */
+const mdCmdStorage = new Map();
 
 /**
  * 장치 제어 식별 Map 생성
@@ -99,6 +113,30 @@ function initDeviceControlIdentify(dCmdScenarioInfo, dControlValueStorage = new 
   });
 
   return dControlValueStorage;
+}
+
+/**
+ * mCmdStorage에 Map 요소를 추가하기 위한 메소드
+ * @param {string} cmdFormat
+ * @param {string} cmdId
+ * @param {string} cmdName
+ * @param {svgNodePosOpt} svgNodePosOpt
+ */
+function setCmdStorage(cmdFormat, cmdId, cmdName, svgNodePosOpt) {
+  if (_.isEmpty(svgNodePosOpt)) {
+    return false;
+  }
+  const { placeId, resourceId, axisScale, moveScale } = svgNodePosOpt;
+
+  mdCmdStorage.set(cmdId, {
+    cmdFormat,
+    cmdId,
+    cmdName,
+    axisScale,
+    moveScale,
+    mdPlaceInfo: mdPlaceStorage.get(placeId),
+    svgModelResource: mdMapStorage.get(resourceId),
+  });
 }
 
 /**
@@ -273,6 +311,51 @@ function initDrawSvg() {
       mdControlIdenStorage.set(ncId, dControlValueStorage);
     });
   });
+
+  // 설정 명령
+  setCmdList.forEach(setCmdInfo => {
+    const { cmdId, cmdName, svgNodePosOpt } = setCmdInfo;
+
+    setCmdStorage('SET', cmdId, cmdName, svgNodePosOpt);
+  });
+
+  // 흐름 명령
+  flowCmdList.forEach(flowCmdInfo => {
+    const { destList = [], srcPlaceId } = flowCmdInfo;
+    let { srcPlaceName } = flowCmdInfo;
+
+    // srcName이 사용자가 지정하지 않았을 경우 Place 저장소에서 이름 추출
+    if (srcPlaceName === undefined) {
+      srcPlaceName = mdPlaceStorage.get(srcPlaceId).placeName;
+      flowCmdInfo.srcPlaceName = srcPlaceName;
+    }
+    // 목적지 순회
+    destList.forEach(destInfo => {
+      const { destPlaceId, svgNodePosOpt } = destInfo;
+      let { destPlaceName } = destInfo;
+      // 도착지 이름이 지정되지 않았을 경우 place 저장소에서 이름 추출하여 정의
+      if (destPlaceName === undefined) {
+        destPlaceName = mdPlaceStorage.get(destPlaceId).placeName;
+        destInfo.destPlaceName = destPlaceName;
+      }
+
+      const cmdId = `${srcPlaceId}_TO_${destPlaceId}`;
+      const cmdName = `${srcPlaceName}_TO_${destPlaceName}`;
+
+      this.setCmdStorage('FLOW', cmdId, cmdName, svgNodePosOpt);
+    });
+  });
+
+  // 시나리오 명령
+  scenarioCmdList.forEach(scenarioCmdInfo => {
+    const { scenarioId: cmdId, scenarioName: cmdName, svgNodePosOpt } = scenarioCmdInfo;
+
+    setCmdStorage('SCENARIO', cmdId, cmdName, svgNodePosOpt);
+  });
+
+  // console.dir(mdNodeStorage);
+
+  // console.dir(mCmdStorage);
 }
 
 /**
@@ -340,13 +423,16 @@ function drawSvgPattern(svgCanvas, patternInfo) {
 /**
  * svg.js 의 도형별 그리기 이벤트를 모음
  * @param {svgDrawInfo} svgDrawInfo
+ * @param {string} drawType DRAW_TYPE(Place, Node, Cmd)
  */
-function drawSvgElement(svgDrawInfo) {
+function drawSvgElement(svgDrawInfo, drawType) {
   const {
     svgCanvas,
     svgPositionInfo: {
+      cmdFormat = '',
       id: positionId,
       name: positionName,
+      cursor = '',
       point: [x1, y1, x2, y2],
       placeId,
     },
@@ -378,28 +464,25 @@ function drawSvgElement(svgDrawInfo) {
     id: positionId,
     opacity: isShow ? opacity : 0,
     drawType: svgModelType,
+    cursor,
   };
-  // placeId가 존재하지 않으면 Node이고 Node의 isSensor가 0이면 Device이므로 Cursor: Pointer 처리
-  if (placeId !== undefined) {
-    const { isSensor } = mdNodeStorage.get(positionId);
-    isSensor === 0 && (bgOption.cursor = 'pointer');
-  }
 
   let svgCanvasBgElement;
 
   // SVG 생성
   switch (svgModelType) {
     case 'rect':
+    case 'diamond':
       svgCanvasBgElement = svgCanvas.rect(svgModelWidth, svgModelHeight);
-      // 장소일 경우 color사용, Place 위에 그려지는 Node의 초기값은 Error
-      defaultColor = placeId === undefined ? defaultColor : errColor;
+      // 노드 일 경우에는 초기값 Error, 그밖에는 기본 색상
+      defaultColor = drawType === DRAW_TYPE.NODE ? errColor : defaultColor;
       break;
     case 'circle':
       svgModelWidth = radius * 2;
       svgModelHeight = svgModelWidth;
       svgCanvasBgElement = svgCanvas.circle(radius * 2);
-      // 장소일 경우 color사용, Place 위에 그려지는 Node의 초기값은 Error
-      defaultColor = placeId === undefined ? defaultColor : errColor;
+      // 노드 일 경우에는 초기값 Error, 그밖에는 기본 색상
+      defaultColor = drawType === DRAW_TYPE.NODE ? errColor : defaultColor;
       break;
     case 'rhombus':
       svgModelWidth = radius * 2;
@@ -408,8 +491,8 @@ function drawSvgElement(svgDrawInfo) {
       svgCanvasBgElement = svgCanvas.polygon(
         `${radius}, 0 ${svgModelWidth}, ${radius} ${radius}, ${svgModelHeight} 0, ${radius} `,
       );
-      // 장소일 경우 color사용, Place 위에 그려지는 Node의 초기값은 Error
-      defaultColor = placeId === undefined ? defaultColor : errColor;
+      // 노드 일 경우에는 초기값 Error, 그밖에는 기본 색상
+      defaultColor = drawType === DRAW_TYPE.NODE ? errColor : defaultColor;
       break;
     case 'image':
       svgCanvasBgElement = svgCanvas
@@ -428,6 +511,7 @@ function drawSvgElement(svgDrawInfo) {
       break;
   }
 
+  // SVG Element 가 생성되었을 경우 속성 정의 및 이동
   if (svgCanvasBgElement !== undefined) {
     svgCanvasBgElement.move(x1, y1).stroke(strokeInfo).attr(bgOption).fill(defaultColor);
   }
@@ -556,7 +640,7 @@ function showNodeData(nodeId, data = '') {
       svgEleDataUnit,
     } = mdNodeInfo;
 
-    console.dir(mdNodeInfo);
+    // console.dir(mdNodeInfo);
 
     // 현재 데이터와 수신 받은 데이터가 같다면 종료
     if (nodeData === data) return false;
@@ -770,12 +854,15 @@ function drawSvgBasePlace(documentId, isKorText = true) {
   svgPlaceList.forEach(svgPositionInfo => {
     const { id: placeId } = svgPositionInfo;
 
-    drawSvgElement({
-      svgCanvas,
-      svgPositionInfo,
-      isShow: !backgroundData.length,
-      ownerInfo: mdPlaceStorage.get(placeId),
-    });
+    drawSvgElement(
+      {
+        svgCanvas,
+        svgPositionInfo,
+        isShow: !backgroundData.length,
+        ownerInfo: mdPlaceStorage.get(placeId),
+      },
+      DRAW_TYPE.PLACE,
+    );
   });
 
   // Node 그리기
@@ -783,11 +870,14 @@ function drawSvgBasePlace(documentId, isKorText = true) {
     const { id: nodeId } = svgNodeInfo;
     const mdNodeInfo = mdNodeStorage.get(nodeId);
 
-    const svgCanvasBgElement = drawSvgElement({
-      svgCanvas,
-      svgPositionInfo: svgNodeInfo,
-      ownerInfo: mdNodeInfo,
-    });
+    const svgCanvasBgElement = drawSvgElement(
+      {
+        svgCanvas,
+        svgPositionInfo: svgNodeInfo,
+        ownerInfo: mdNodeInfo,
+      },
+      DRAW_TYPE.NODE,
+    );
 
     // 노드 타입이 장치라면 클릭 이벤트 바인딩
     if (mdNodeInfo.isSensor === SENSOR_TYPE.DEVICE) {
@@ -796,6 +886,25 @@ function drawSvgBasePlace(documentId, isKorText = true) {
       });
     }
   });
+
+  // 명령 그리기
+  svgCmdList.forEach(svgCmdInfo => {
+    const { id: cmdId } = svgCmdInfo;
+
+    const mdCmdInfo = mdCmdStorage.get(cmdId);
+
+    const svgCanvasBgElement = drawSvgElement(
+      {
+        svgCanvas,
+        svgPositionInfo: svgCmdInfo,
+        ownerInfo: mdCmdInfo,
+      },
+      DRAW_TYPE.CMD,
+    );
+  });
+
+  // console.log(realMap);
+  console.log('@@', svgCmdList);
 }
 
 /**
@@ -837,5 +946,5 @@ function runSimulator() {
  * @property {mSvgPositionInfo} svgPositionInfo
  * @property {boolean} isShow default: true,  true: 화면 표시 (기본값), false: 숨김
  * @property {mSvgModelResource} svgModelResource {width, height, radius, color}
- * @property {mdNodeInfo|mdPlaceInfo} ownerInfo mdNodeInfo or mdPlaceInfo
+ * @property {mdNodeInfo|mdPlaceInfo|mdPlaceInfo} ownerInfo mdNodeInfo or mdPlaceInfo
  */

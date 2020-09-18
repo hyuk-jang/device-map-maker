@@ -48,6 +48,11 @@ const ms = {
     BIG_WIDTH: 200,
     INTERVAL: 20,
   },
+  SIDE: {
+    WIDTH: 130,
+    PUMP_HEIGHT: 180,
+    CMD_HEIGHT: 400,
+  },
 };
 
 /**
@@ -226,8 +231,24 @@ const map = {
         {
           id: 'pumpPanel',
           type: 'rect',
-          elementDrawInfo: { width: 130, height: 180, color: 'skyblue', opacity: 1 },
+          elementDrawInfo: {
+            width: ms.SIDE.WIDTH,
+            height: ms.SIDE.PUMP_HEIGHT,
+            color: 'skyblue',
+            opacity: 1,
+          },
           textStyleInfo: { color: '' },
+        },
+        {
+          id: 'cmdArea',
+          type: 'rect',
+          elementDrawInfo: {
+            width: ms.SIDE.WIDTH,
+            height: ms.SIDE.CMD_HEIGHT,
+            color: 'yellowgreen',
+            opacity: 1,
+          },
+          textStyleInfo: { color: '', isHiddenTitle: false },
         },
         {
           id: 'pcsPanel',
@@ -280,11 +301,11 @@ const map = {
         },
         /* *************       Command        ***************** */
         {
-          id: 'cmd',
+          id: 'cmdBtn',
           type: 'diamond',
           elementDrawInfo: {
-            width: 30,
-            height: 20,
+            width: ms.SIDE.WIDTH * 0.9,
+            height: ms.SIDE.CMD_HEIGHT * 0.15,
             color: ['#a3a3a3', '#22fb00'],
             opacity: 1,
             strokeInfo: {
@@ -292,7 +313,7 @@ const map = {
               color: '#000',
             },
           },
-          textStyleInfo: { fontSize: 8 },
+          textStyleInfo: { fontSize: 15 },
         },
         /* *************       Sensor        ***************** */
         {
@@ -1669,7 +1690,7 @@ const map = {
                 svgPositionInfo: {
                   resourceId: 'pumpPanel',
                   point: [
-                    ms.VH.START_X + ms.VH.WIDTH + ms.VH.INTERVAL / 2,
+                    ms.VH.START_X + ms.VH.WIDTH + ms.VH.INTERVAL / 3,
                     ms.VH.START_Y + ms.VH.INTERVAL * 7,
                   ],
                 },
@@ -1891,6 +1912,27 @@ const map = {
           },
         ],
       },
+      {
+        target_id: 'cmdArea',
+        target_name: '제어 영역',
+        defList: [
+          {
+            target_id: 'cmdArea',
+            target_prefix: 'CMD',
+            placeList: [
+              {
+                svgPositionInfo: {
+                  resourceId: 'cmdArea',
+                  point: [
+                    ms.VH.START_X + ms.VH.WIDTH + ms.VH.INTERVAL / 3,
+                    ms.VH.START_Y,
+                  ],
+                },
+              },
+            ],
+          },
+        ],
+      },
     ],
   },
   controlInfo: {
@@ -1960,10 +2002,22 @@ const map = {
         trueNodeList: ['P_001', 'V_N_001', 'V_W_001'],
         falseNodeList: [],
         svgNodePosOpt: {
-          placeId: 'PCH',
-          resourceId: 'cmd',
-          axisScale: [0, 0],
-          moveScale: [0.1, 0.1],
+          placeId: 'CMD',
+          resourceId: 'cmdBtn',
+          axisScale: [0.5, 0.1],
+          // moveScale: [0.1, 0.1],
+        },
+      },
+      {
+        cmdId: 'waterSupplyPipeB',
+        cmdName: 'B 배관 물 공급',
+        trueNodeList: ['P_001', 'V_N_002', 'V_W_002'],
+        falseNodeList: [],
+        svgNodePosOpt: {
+          placeId: 'CMD',
+          resourceId: 'cmdBtn',
+          axisScale: [0.5, 0.3],
+          // moveScale: [0.1, 0.1],
         },
       },
       {
@@ -2016,6 +2070,12 @@ const map = {
           'ST_015',
           'ST_016',
         ],
+        svgNodePosOpt: {
+          placeId: 'CMD',
+          resourceId: 'cmdBtn',
+          axisScale: [0.5, 0.5],
+          // moveScale: [0.1, 0.1],
+        },
       },
       {
         cmdId: 'openAllShutter',
@@ -2039,6 +2099,12 @@ const map = {
           'ST_015',
           'ST_016',
         ],
+        svgNodePosOpt: {
+          placeId: 'CMD',
+          resourceId: 'cmdBtn',
+          axisScale: [0.5, 0.7],
+          // moveScale: [0.1, 0.1],
+        },
       },
     ],
     flowCmdList: [],
