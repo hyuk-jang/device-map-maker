@@ -272,16 +272,7 @@ class SvgMaker {
           id,
           type: modelType,
           elementDrawInfo,
-          elementDrawInfo: {
-            width,
-            height,
-            color,
-            strokeInfo: {
-              color: strokeColor = STROKE_INFO.color,
-              linecap = STROKE_INFO.linecap,
-              width: strokeWidth = STROKE_INFO.width,
-            } = {},
-          },
+          elementDrawInfo: { width, height, color, svgClass },
         },
       } = mdPlaceInfo;
 
@@ -309,11 +300,10 @@ class SvgMaker {
       // 장소 위치정보 업데이트
       mdPlaceInfo.point = svgPosPoint;
       elementDrawInfo.color = Array.isArray(color) ? color : [color];
-      elementDrawInfo.strokeInfo = {
-        color: strokeColor,
-        linecap,
-        width: strokeWidth,
-      };
+      // svgClass가 존재하고 스트링일 경우 배열로 변환하여 저장
+      if (svgClass && typeof svgClass === 'string' && svgClass.length) {
+        elementDrawInfo.svgClass = [svgClass];
+      }
 
       if (!svgPosPoint.every(point => _.isNumber(point))) {
         throw new Error(`placeId: ${placeId} is not defined point`);
@@ -446,22 +436,17 @@ class SvgMaker {
         height: nModelHeight,
         radius: nModelRadius,
         color,
-        strokeInfo: {
-          color: strokeColor = STROKE_INFO.color,
-          linecap = STROKE_INFO.linecap,
-          width: strokeWidth = STROKE_INFO.width,
-        } = {},
+        svgClass,
       },
       textStyleInfo,
       textStyleInfo: { dataColor } = {},
     } = svgModelResource;
 
     elementDrawInfo.color = Array.isArray(color) ? color : [color];
-    elementDrawInfo.strokeInfo = {
-      color: strokeColor,
-      linecap,
-      width: strokeWidth,
-    };
+    // svgClass가 존재하고 스트링일 경우 배열로 변환하여 저장
+    if (svgClass && typeof svgClass === 'string' && svgClass.length) {
+      elementDrawInfo.svgClass = [svgClass];
+    }
 
     // 데이터 색상을 배열 형식으로 변환
     if (dataColor === undefined || dataColor === '') {

@@ -1,11 +1,13 @@
 const {
   di: {
+    dmmModel: { mmSvgBtnClass },
     dcmConfigModel: {
       nodeDataType: { BLOCK, TROUBLE, NONE },
       textAnchorType,
     },
   },
 } = require('../../../module');
+const { dmmModel } = require('../../../../../default-intelligence');
 
 const pvNormalPatternInfo = {
   patternSize: [10, 10],
@@ -29,6 +31,19 @@ const pvTransPatternInfo = {
       opacity: 0.8,
     },
   ],
+};
+
+const strokeInfo = {
+  pvNormal: {
+    color: '#ccc',
+    linecap: 'rect',
+    width: 0.5,
+  },
+  pvTrans: {
+    color: '#005e8c',
+    linecap: 'rect',
+    width: 0.5,
+  },
 };
 
 // Map Size 정보
@@ -73,8 +88,7 @@ const map = {
         {
           id: 'waterWay',
           type: 'line',
-          elementDrawInfo: { width: 25, color: 'red', opacity: 1 },
-          textStyleInfo: { color: '' },
+          elementDrawInfo: { width: 25, color: 'red' },
         },
         /* *************       Place        ***************** */
         {
@@ -83,9 +97,10 @@ const map = {
           elementDrawInfo: {
             width: ms.VH.WIDTH,
             height: ms.VH.HEIGHT,
-            color: '#dbe4ff',
-            opacity: 1,
-            filterId: 'drop',
+            color: 'url(#bg-sky-1)',
+            filterInfo: {
+              filter: 'url(#dropShadow)',
+            },
           },
           textStyleInfo: { color: '', fontSize: 10, axisScale: [0.5, 0.25] },
         },
@@ -96,7 +111,9 @@ const map = {
             width: ms.VH.WIDTH,
             height: ms.VH.BIG_HEIGHT,
             color: '#dbe4ff',
-            opacity: 1,
+            filterInfo: {
+              filter: 'url(#dropShadow)',
+            },
           },
           textStyleInfo: { color: '' },
         },
@@ -129,7 +146,9 @@ const map = {
             width: ms.SS.BIG_WIDTH,
             height: ms.VH.BIG_HEIGHT - ms.VH.HEIGHT / 2,
             color: 'gold',
-            opacity: 1,
+            filterInfo: {
+              filter: 'url(#dropShadow)',
+            },
           },
           textStyleInfo: { color: 'white' },
         },
@@ -140,7 +159,7 @@ const map = {
             width: (ms.VH.WIDTH / 8) * 4,
             height: ms.VH.HEIGHT / 2,
             color: '#abe3e1',
-            opacity: 1,
+            strokeInfo: strokeInfo.pvNormal,
             patternInfo: pvNormalPatternInfo,
           },
           textStyleInfo: { axisScale: [0.5, 0.25], fontSize: 9 },
@@ -152,8 +171,8 @@ const map = {
             width: (ms.VH.WIDTH / 8) * 6,
             height: ms.VH.HEIGHT / 2,
             color: '#abe3e1',
-            opacity: 1,
             patternInfo: pvNormalPatternInfo,
+            strokeInfo: strokeInfo.pvNormal,
           },
           textStyleInfo: { axisScale: [0.5, 0.25], fontSize: 9 },
         },
@@ -164,8 +183,8 @@ const map = {
             width: (ms.VH.WIDTH / 8) * 7,
             height: ms.VH.HEIGHT / 2,
             color: '#abe3e1',
-            opacity: 1,
             patternInfo: pvNormalPatternInfo,
+            strokeInfo: strokeInfo.pvNormal,
           },
           textStyleInfo: { axisScale: [0.5, 0.25], fontSize: 9 },
         },
@@ -176,8 +195,8 @@ const map = {
             width: ms.VH.WIDTH,
             height: ms.VH.HEIGHT / 2,
             color: '#abe3e1',
-            opacity: 1,
             patternInfo: pvNormalPatternInfo,
+            strokeInfo: strokeInfo.pvNormal,
           },
           textStyleInfo: { axisScale: [0.5, 0.25], fontSize: 9 },
         },
@@ -188,7 +207,7 @@ const map = {
             width: (ms.VH.WIDTH / 8) * 4,
             height: ms.VH.HEIGHT / 2,
             color: '#4dabf7',
-            opacity: 1,
+            strokeInfo: strokeInfo.pvTrans,
             patternInfo: pvTransPatternInfo,
           },
           textStyleInfo: { axisScale: [0.5, 0.25], fontSize: 9 },
@@ -200,7 +219,7 @@ const map = {
             width: (ms.VH.WIDTH / 8) * 6,
             height: ms.VH.HEIGHT / 2,
             color: '#4dabf7',
-            opacity: 1,
+            strokeInfo: strokeInfo.pvTrans,
             patternInfo: pvTransPatternInfo,
           },
           textStyleInfo: { axisScale: [0.5, 0.25], fontSize: 9 },
@@ -212,7 +231,7 @@ const map = {
             width: (ms.VH.WIDTH / 8) * 7,
             height: ms.VH.HEIGHT / 2,
             color: '#4dabf7',
-            opacity: 1,
+            strokeInfo: strokeInfo.pvTrans,
             patternInfo: pvTransPatternInfo,
           },
           textStyleInfo: { axisScale: [0.5, 0.25], fontSize: 9 },
@@ -224,7 +243,7 @@ const map = {
             width: ms.VH.WIDTH / 8,
             height: ms.VH.HEIGHT / 2,
             color: '#4dabf7',
-            opacity: 1,
+            strokeInfo: strokeInfo.pvTrans,
             patternInfo: pvTransPatternInfo,
           },
           textStyleInfo: { axisScale: [0.5, 0.25], fontSize: 9 },
@@ -236,7 +255,9 @@ const map = {
             width: ms.SIDE.WIDTH,
             height: ms.SIDE.PUMP_HEIGHT,
             color: 'skyblue',
-            opacity: 1,
+            filterInfo: {
+              filter: 'url(#dropShadow)',
+            },
           },
           textStyleInfo: { color: '' },
         },
@@ -247,14 +268,23 @@ const map = {
             width: ms.SIDE.WIDTH,
             height: ms.SIDE.CMD_HEIGHT,
             color: 'yellowgreen',
-            opacity: 1,
+            filterInfo: {
+              filter: 'url(#dropShadow)',
+            },
           },
           textStyleInfo: { color: '', isHiddenTitle: false },
         },
         {
           id: 'pcsPanel',
           type: 'rect',
-          elementDrawInfo: { width: 50, height: 50, color: '#90b4dd', opacity: 1 },
+          elementDrawInfo: {
+            width: 50,
+            height: 50,
+            color: '#90b4dd',
+            filterInfo: {
+              filter: 'url(#dropShadow)',
+            },
+          },
           textStyleInfo: { color: '' },
         },
         /* *************       Device        ***************** */
@@ -263,11 +293,14 @@ const map = {
           type: 'circle',
           elementDrawInfo: {
             radius: 20,
-            color: ['#a3a3a3', '#22fb00'],
-            opacity: 1,
+            color: ['url(#bg-gray-1)', 'url(#bg-green-1)'],
             strokeInfo: {
               width: 0.7,
-              color: '#000',
+              color: '#555',
+            },
+            svgClass: [mmSvgBtnClass.lightGray, mmSvgBtnClass.green],
+            filterInfo: {
+              filter: 'url(#deviceShadow)',
             },
           },
           textStyleInfo: { fontSize: 8 },
@@ -278,10 +311,9 @@ const map = {
           elementDrawInfo: {
             radius: 20,
             color: ['#a3a3a3', '#22fb00'],
-            opacity: 1,
-            strokeInfo: {
-              width: 0.7,
-              color: '#000',
+            svgClass: [mmSvgBtnClass.lightGray, mmSvgBtnClass.green],
+            filterInfo: {
+              filter: 'url(#deviceShadow)',
             },
           },
           textStyleInfo: { fontSize: 8 },
@@ -292,10 +324,9 @@ const map = {
           elementDrawInfo: {
             radius: 25,
             color: ['#a3a3a3', '#22fb00'],
-            opacity: 1,
-            strokeInfo: {
-              width: 0.7,
-              color: '#000',
+            svgClass: [mmSvgBtnClass.lightGray, mmSvgBtnClass.green],
+            filterInfo: {
+              filter: 'url(#deviceShadow)',
             },
           },
           textStyleInfo: { fontSize: 8 },
@@ -303,16 +334,12 @@ const map = {
         /* *************       Command        ***************** */
         {
           id: 'cmdBtn',
-          type: 'diamond',
+          type: 'rect',
           elementDrawInfo: {
             width: ms.SIDE.WIDTH * 0.9,
             height: ms.SIDE.CMD_HEIGHT * 0.15,
-            color: ['#a3a3a3', '#22fb00'],
-            opacity: 1,
-            strokeInfo: {
-              width: 0.7,
-              color: '#000',
-            },
+            color: ['url(#lin-orange)', '#22fb00'],
+            svgClass: mmSvgBtnClass.white,
           },
           textStyleInfo: { fontSize: 15 },
         },
@@ -324,7 +351,6 @@ const map = {
             width: 40,
             height: 30,
             color: '#f0f0f0',
-            opacity: 1,
             strokeInfo: {
               width: 0.7,
               color: '#000',
@@ -339,7 +365,6 @@ const map = {
             width: 45,
             height: 30,
             color: '#f0f0f0',
-            opacity: 1,
             strokeInfo: {
               width: 0.7,
               color: '#000',
@@ -354,7 +379,6 @@ const map = {
             width: 65,
             height: 30,
             color: '#f0f0f0',
-            opacity: 1,
             strokeInfo: {
               width: 0.7,
               color: '#000',
@@ -376,7 +400,6 @@ const map = {
             width: 60,
             height: 30,
             color: '#f0f0f0',
-            opacity: 1,
             strokeInfo: {
               width: 0.7,
             },
@@ -390,7 +413,6 @@ const map = {
             width: 60,
             height: 30,
             color: '#f0f0f0',
-            opacity: 1,
             strokeInfo: {
               width: 1,
             },
@@ -404,7 +426,6 @@ const map = {
             width: 60,
             height: 30,
             color: '#f0f0f0',
-            opacity: 1,
             strokeInfo: {
               width: 1,
             },
@@ -418,7 +439,6 @@ const map = {
             width: 60,
             height: 30,
             color: '#f0f0f0',
-            opacity: 1,
             strokeInfo: {
               width: 1,
             },
@@ -432,7 +452,6 @@ const map = {
             width: 60,
             height: 30,
             color: '#f0f0f0',
-            opacity: 1,
             strokeInfo: {
               width: 1,
             },
@@ -446,7 +465,6 @@ const map = {
             width: 60,
             height: 30,
             color: '#f0f0f0',
-            opacity: 1,
             strokeInfo: {
               width: 1,
             },
@@ -460,7 +478,6 @@ const map = {
             width: 80,
             height: 16,
             color: '#f0f0f0',
-            opacity: 1,
             strokeInfo: {
               width: 0.7,
               color: '#000',

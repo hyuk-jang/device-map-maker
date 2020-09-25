@@ -447,7 +447,8 @@ function drawSvgElement(svgDrawInfo, drawType) {
           opacity = 1,
           strokeInfo,
           patternInfo,
-          filterId = '',
+          svgClass: [defaultSvgClass] = [],
+          filterInfo = {},
         },
         textStyleInfo,
       },
@@ -465,8 +466,15 @@ function drawSvgElement(svgDrawInfo, drawType) {
     id: positionId,
     opacity: isShow ? opacity : 0,
     cursor,
-    filter: filterId.length ? `url(#${filterId})` : '',
   };
+
+  if (defaultSvgClass) {
+    bgOption.class = defaultSvgClass;
+  }
+
+  _.forEach(filterInfo, (attrValue, attrKey) => {
+    bgOption[attrKey] = attrValue;
+  });
 
   // console.log(bgOption);
 
@@ -516,14 +524,12 @@ function drawSvgElement(svgDrawInfo, drawType) {
 
   // SVG Element 가 생성되었을 경우 속성 정의 및 이동
   if (svgCanvasBgElement !== undefined) {
-    svgCanvasBgElement.move(x1, y1).stroke(strokeInfo).attr(bgOption).fill(defaultColor);
-  }
+    svgCanvasBgElement.move(x1, y1).attr(bgOption).fill(defaultColor);
 
-  // if (filterId.length) {
-  //   svgCanvasBgElement.attr({
-  //     filter: `url(#${filterId})`,
-  //   });
-  // }
+    if (strokeInfo) {
+      svgCanvasBgElement.stroke(strokeInfo);
+    }
+  }
 
   // mdNodeInfo|mdPlaceInfo 에 SVG BG 정의
   ownerInfo.svgEleBg = svgCanvasBgElement;
@@ -641,6 +647,8 @@ function showNodeData(nodeId, data = '') {
         elementDrawInfo: {
           color: [baseColor, actionColor],
           errColor = 'red',
+          svgClass = [],
+          svgClass: [baseSvgClass] = [],
         },
         textStyleInfo: { dataColor: [txtBaseColor, txtActionColor] = [] } = {},
       },
@@ -660,6 +668,7 @@ function showNodeData(nodeId, data = '') {
     // data의 상태에 따라 tspan(data, dataUnit) 색상 및 Visible 변경
     let isValidData = 0;
     let selectedColor = baseColor;
+    let selectedIndex = 0;
     let selectedTxtColor = txtBaseColor;
 
     // node 타입이 Sensor 일 경우에는 Number 형식이 와야함. 아닐 경우 에러
@@ -682,10 +691,12 @@ function showNodeData(nodeId, data = '') {
       // 데이터가 들어오면 유효한 데이터
       if (strData.length) {
         isValidData = 1;
+        selectedIndex = 1;
         selectedColor = actionColor;
         // False 영역일 경우
         if (DATA_RANGE.FALSE.includes(strUpperData)) {
           selectedColor = baseColor;
+          selectedIndex = 0;
         }
       } else {
         selectedColor = errColor;
@@ -694,6 +705,10 @@ function showNodeData(nodeId, data = '') {
 
     // 배경 색상 변경
     svgEleBg.fill(selectedColor);
+    // 데이터가 용이하고 class 가 존재할 경우 대체
+    if (isValidData && svgClass.length) {
+      svgEleBg.attr('class', svgClass[selectedIndex]);
+    }
     // 데이터 색상 변경
     svgEleData.font({ fill: selectedTxtColor });
     if (isValidData) {
