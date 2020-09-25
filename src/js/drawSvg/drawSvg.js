@@ -439,7 +439,7 @@ function drawSvgElement(svgDrawInfo, drawType) {
     ownerInfo,
     ownerInfo: {
       svgModelResource: {
-        type: svgModelType,
+        type: elementType,
         elementDrawInfo,
         elementDrawInfo: {
           errColor = 'red',
@@ -447,6 +447,7 @@ function drawSvgElement(svgDrawInfo, drawType) {
           opacity = 1,
           strokeInfo,
           patternInfo,
+          filterId = '',
         },
         textStyleInfo,
       },
@@ -463,14 +464,16 @@ function drawSvgElement(svgDrawInfo, drawType) {
   const bgOption = {
     id: positionId,
     opacity: isShow ? opacity : 0,
-    drawType: svgModelType,
     cursor,
+    filter: filterId.length ? `url(#${filterId})` : '',
   };
+
+  // console.log(bgOption);
 
   let svgCanvasBgElement;
 
   // SVG 생성
-  switch (svgModelType) {
+  switch (elementType) {
     case 'rect':
     case 'diamond':
       svgCanvasBgElement = svgCanvas.rect(svgModelWidth, svgModelHeight);
@@ -515,6 +518,12 @@ function drawSvgElement(svgDrawInfo, drawType) {
   if (svgCanvasBgElement !== undefined) {
     svgCanvasBgElement.move(x1, y1).stroke(strokeInfo).attr(bgOption).fill(defaultColor);
   }
+
+  // if (filterId.length) {
+  //   svgCanvasBgElement.attr({
+  //     filter: `url(#${filterId})`,
+  //   });
+  // }
 
   // mdNodeInfo|mdPlaceInfo 에 SVG BG 정의
   ownerInfo.svgEleBg = svgCanvasBgElement;
@@ -810,25 +819,13 @@ function alertDeviceCmdConfirm(mdNodeInfo, dCmdScenarioInfo = {}) {
 
 /**
  * SVG Map 세팅
- * @param {string} documentId // 그려질 div의 id 값
- * @param {string=} isKorText // 장소, 장치, 센서 한글로 표현 유무
+ * @param {SVG} SVG Canvas
  */
-function drawSvgBasePlace(documentId, isKorText = true) {
-  const textLang = isKorText ? 'ko' : 'en';
+function drawSvgBasePlace(svgCanvas) {
   const {
     backgroundData = '',
     backgroundPosition: [bgPosX, bgPosY] = [0, 0],
   } = backgroundInfo;
-
-  const svgCanvas = SVG().addTo(`#${documentId}`).size('100%', '100%');
-
-  // canvas 정의
-  svgCanvas.attr({
-    id: 'svgCanvas',
-    class: 'svg_map',
-    preserveAspectRatio: 'xMidYMin meet',
-    lang: textLang,
-  });
 
   // 브라우저 크기에 반응하기 위한 뷰박스 세팅
   svgCanvas.viewbox(0, 0, mapWidth, mapHeight);
@@ -904,7 +901,7 @@ function drawSvgBasePlace(documentId, isKorText = true) {
   });
 
   // console.log(realMap);
-  console.log('@@', svgCmdList);
+  // console.log('@@', svgCmdList);
 }
 
 /**

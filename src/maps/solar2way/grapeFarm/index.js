@@ -85,6 +85,7 @@ const map = {
             height: ms.VH.HEIGHT,
             color: '#dbe4ff',
             opacity: 1,
+            filterId: 'drop',
           },
           textStyleInfo: { color: '', fontSize: 10, axisScale: [0.5, 0.25] },
         },
@@ -2108,8 +2109,12 @@ const map = {
       },
     ],
     flowCmdList: [],
+    scenarioCmdList: [
+      {
+        scenarioId: 'ㅇㅇ',
+      },
+    ],
   },
-  configInfo: {},
 };
 
 module.exports = map;

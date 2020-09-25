@@ -439,7 +439,7 @@ class SvgMaker {
     } = mdPlaceInfo;
 
     const {
-      type: drawType,
+      type: elementType,
       elementDrawInfo,
       elementDrawInfo: {
         width: nModelWidth,
@@ -479,7 +479,7 @@ class SvgMaker {
     svgAxisX = px1 + axisX * pModelWidth;
     svgAxisY = py1 + axisY * pModelHeight;
 
-    switch (drawType) {
+    switch (elementType) {
       case 'rect':
       case 'diamond':
         svgAxisX -= axisX * nModelWidth - moveX * nModelWidth;
