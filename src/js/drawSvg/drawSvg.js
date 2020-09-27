@@ -429,12 +429,10 @@ function drawSvgElement(svgDrawInfo, drawType) {
   const {
     svgCanvas,
     svgPositionInfo: {
-      cmdFormat = '',
       id: positionId,
       name: positionName,
       cursor = '',
       point: [x1, y1, x2, y2],
-      placeId,
     },
     ownerInfo,
     ownerInfo: {
@@ -450,7 +448,7 @@ function drawSvgElement(svgDrawInfo, drawType) {
           svgClass: [defaultSvgClass] = [],
           filterInfo = {},
         },
-        textStyleInfo,
+        textStyleInfo = {},
       },
     },
     isShow = true,
@@ -468,10 +466,11 @@ function drawSvgElement(svgDrawInfo, drawType) {
     cursor,
   };
 
+  // 클래스를 지정한다면 Attr 추가
   if (defaultSvgClass) {
     bgOption.class = defaultSvgClass;
   }
-
+  // 필터 정보가 있다면 Attr 추가 정의
   _.forEach(filterInfo, (attrValue, attrKey) => {
     bgOption[attrKey] = attrValue;
   });
@@ -479,6 +478,8 @@ function drawSvgElement(svgDrawInfo, drawType) {
   // console.log(bgOption);
 
   let svgCanvasBgElement;
+  // 기본 색상 재정의
+  defaultColor = drawType === DRAW_TYPE.NODE ? errColor : defaultColor;
 
   // SVG 생성
   switch (elementType) {
@@ -486,14 +487,12 @@ function drawSvgElement(svgDrawInfo, drawType) {
     case 'diamond':
       svgCanvasBgElement = svgCanvas.rect(svgModelWidth, svgModelHeight);
       // 노드 일 경우에는 초기값 Error, 그밖에는 기본 색상
-      defaultColor = drawType === DRAW_TYPE.NODE ? errColor : defaultColor;
       break;
     case 'circle':
       svgModelWidth = radius * 2;
       svgModelHeight = svgModelWidth;
       svgCanvasBgElement = svgCanvas.circle(radius * 2);
       // 노드 일 경우에는 초기값 Error, 그밖에는 기본 색상
-      defaultColor = drawType === DRAW_TYPE.NODE ? errColor : defaultColor;
       break;
     case 'rhombus':
       svgModelWidth = radius * 2;
@@ -503,7 +502,6 @@ function drawSvgElement(svgDrawInfo, drawType) {
         `${radius}, 0 ${svgModelWidth}, ${radius} ${radius}, ${svgModelHeight} 0, ${radius} `,
       );
       // 노드 일 경우에는 초기값 Error, 그밖에는 기본 색상
-      defaultColor = drawType === DRAW_TYPE.NODE ? errColor : defaultColor;
       break;
     case 'image':
       svgCanvasBgElement = svgCanvas
@@ -524,11 +522,11 @@ function drawSvgElement(svgDrawInfo, drawType) {
 
   // SVG Element 가 생성되었을 경우 속성 정의 및 이동
   if (svgCanvasBgElement !== undefined) {
-    svgCanvasBgElement.move(x1, y1).attr(bgOption).fill(defaultColor);
+    svgCanvasBgElement.move(x1, y1).attr(bgOption);
 
-    if (strokeInfo) {
-      svgCanvasBgElement.stroke(strokeInfo);
-    }
+    defaultColor && svgCanvasBgElement.fill(defaultColor);
+    // 외곽 선 정보가 존재한다면 그림
+    strokeInfo && svgCanvasBgElement.stroke(strokeInfo);
   }
 
   // mdNodeInfo|mdPlaceInfo 에 SVG BG 정의
@@ -557,8 +555,8 @@ function drawSvgElement(svgDrawInfo, drawType) {
     'pointer-events': 'none',
   };
 
-  // isTitleWrap을 하지 않을 경우 배경 데이터 공간을 기준으로 [좌: 타이틀, 우: 데이터] text 각각 생성
-  if (!isTitleWrap && !isHiddenTitle && placeId !== undefined) {
+  // 데이터를 [좌: 타이틀, 우: 데이터] 로 배치할 경우 배경 데이터 공간을 기준으로 text 각각 생성
+  if (!(isTitleWrap || isHiddenTitle) && drawType !== DRAW_TYPE.PLACE) {
     const yAxisPoint = y1 + svgModelHeight * tAxisScaleY + fontSize * 0.1;
     // Title 생성
     svgCanvas
@@ -583,46 +581,41 @@ function drawSvgElement(svgDrawInfo, drawType) {
       .move(x1 + svgModelWidth * 0.9, yAxisPoint)
       // 시작점에서 좌측으로 써나감
       .font({ ...fontOption, anchor: 'end' });
-    // tspan에 text를 집어넣을 경우 hidden, visible에 따라 위치 버그 발생때문에 아래로 배치
-    ownerInfo.svgEleName && ownerInfo.svgEleName.text(positionName);
   } else {
     let yAxisPoint = y1 + svgModelHeight * tAxisScaleY;
+
     svgCanvas
       .text(text => {
-        // mdNodeInfo|mdPlaceInfo 에 SVG Title 정의
-        if (!isHiddenTitle) {
-          ownerInfo.svgEleName = text.tspan('').font({ fill: color, size: fontSize });
-          // PlaceId가 존재하지 않을 경우 장소로 판단.
-          // data가 존재하지 않기 때문에 차감('dominant-baseline': 'middle'으로 해도 중심선이 안맞음. fontSize를 기준으로 10% 차감)
-          yAxisPoint -=
-            placeId === undefined ? fontSize * -0.1 : fontSize * leading * 0.4;
-        }
-
-        // 데이터 공간이 있을 경우
-        if (placeId !== undefined) {
-          // 타이틀을 사용하지 않을 경우
-          if (isHiddenTitle) {
+        // 타이틀을 숨길 경우
+        if (isHiddenTitle) {
+          // 단독으로 데이터를 표현할 경우
+          if (drawType === DRAW_TYPE.NODE) {
             ownerInfo.svgEleData = text
               .tspan(' ')
               .font({ size: fontSize, fill: TXT_DATA_COLOR });
-          } else {
-            // mdNodeInfo|mdPlaceInfo 에 SVG Data 정의
+          }
+        } else {
+          ownerInfo.svgEleName = text.tspan('').font({ fill: color, size: fontSize });
+
+          if (drawType === DRAW_TYPE.NODE) {
+            // 글자 크기만큼 yAxis 좌표 위치를 위로 올림
+            yAxisPoint -= fontSize * leading * 0.4;
+
             ownerInfo.svgEleData = text
               .tspan(' ')
               .newLine()
               .font({ size: fontSize, fill: TXT_DATA_COLOR });
           }
-          // mdNodeInfo|mdPlaceInfo 에 SVG Data Unit 정의
-          ownerInfo.svgEleDataUnit = text.tspan('').font({ size: fontSize * 0.9 });
         }
+        // 데이터 단위 추가
+        ownerInfo.svgEleDataUnit = text.tspan('').font({ size: fontSize * 0.9 });
       })
       // 공통 옵션
       .move(x1 + svgModelWidth * tAxisScaleX, yAxisPoint)
       .font({ ...fontOption, anchor });
-
-    // tspan에 text를 집어넣을 경우 hidden, visible에 따라 위치 버그 발생때문에 아래로 배치
-    ownerInfo.svgEleName && ownerInfo.svgEleName.text(positionName);
   }
+  // tspan에 text를 집어넣을 경우 hidden, visible에 따라 위치 버그 발생때문에 아래로 배치
+  ownerInfo.svgEleName && ownerInfo.svgEleName.text(positionName);
 
   return svgCanvasBgElement;
 }
@@ -704,7 +697,7 @@ function showNodeData(nodeId, data = '') {
     }
 
     // 배경 색상 변경
-    svgEleBg.fill(selectedColor);
+    selectedColor && svgEleBg.fill(selectedColor);
     // 데이터가 용이하고 class 가 존재할 경우 대체
     if (isValidData && svgClass.length) {
       svgEleBg.attr('class', svgClass[selectedIndex]);
@@ -713,7 +706,7 @@ function showNodeData(nodeId, data = '') {
     svgEleData.font({ fill: selectedTxtColor });
     if (isValidData) {
       svgEleData.text(data);
-      svgEleDataUnit.text(dataUnit).dx(2);
+      svgEleDataUnit.text(dataUnit).dx(7);
     } else {
       // data가 유효범위가 아닐 경우
       svgEleData.clear();

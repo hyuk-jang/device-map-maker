@@ -504,6 +504,7 @@ class UploadToDB {
             target_name: nName = '',
             data_logger_index: nDLIndex = 0,
             data_index: dIndex = 0,
+            node_type: nType = null,
           } = nodeInfo;
           // 노드 ID 정의
           const nodeId = `${ndPrefix}${nCode ? `_${nCode}` : ''}`;
@@ -536,6 +537,7 @@ class UploadToDB {
               target_name: nName,
               data_logger_index: nDLIndex,
               data_index: dIndex,
+              node_type: nType,
               node_def_seq: _.get(
                 _.find(prevNDList, {
                   target_id: ndId,

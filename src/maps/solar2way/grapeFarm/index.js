@@ -7,7 +7,6 @@ const {
     },
   },
 } = require('../../../module');
-const { dmmModel } = require('../../../../../default-intelligence');
 
 const pvNormalPatternInfo = {
   patternSize: [10, 10],
@@ -272,7 +271,6 @@ const map = {
               filter: 'url(#dropShadow)',
             },
           },
-          textStyleInfo: { color: '', isHiddenTitle: false },
         },
         {
           id: 'pcsPanel',

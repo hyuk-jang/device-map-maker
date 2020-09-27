@@ -1,5 +1,6 @@
 const {
   di: {
+    dmmModel: { mmSvgBtnClass },
     dcmConfigModel: {
       nodeDataType: { BLOCK, TROUBLE, NONE },
       goalDataRange,
@@ -15,13 +16,14 @@ const ms = {
   SA: {
     START_X: 70,
     START_Y: 70,
-    WIDTH: 300,
+    WIDTH: 200,
     HEIGHT: 500,
+    WIDTH_INTERVAL: 50,
     BIG_HEIGHT: 180,
   },
   // 장치 영역 (Device Area)
   DA: {
-    WIDTH: 300,
+    WIDTH: 200,
     HEIGHT: 500,
     INTERVAL: 30,
   },
@@ -41,12 +43,6 @@ const map = {
         },
       },
       svgModelResourceList: [
-        {
-          id: 'waterWay',
-          type: 'line',
-          elementDrawInfo: { width: 25, color: 'red', opacity: 1 },
-          textStyleInfo: { color: '' },
-        },
         /* *************       Place        ***************** */
         {
           id: 'sensorArea',
@@ -54,10 +50,12 @@ const map = {
           elementDrawInfo: {
             width: ms.SA.WIDTH,
             height: ms.SA.HEIGHT,
-            color: '#dbe4ff',
-            opacity: 1,
+            color: 'url(#bg-gray-1)',
+            filterInfo: {
+              filter: 'url(#dropShadow)',
+            },
           },
-          textStyleInfo: { color: '', fontSize: 40, axisScale: [0.5, -0.07] },
+          textStyleInfo: { color: '', fontSize: 30, axisScale: [0.5, -0.07] },
         },
         {
           id: 'deviceArea',
@@ -65,10 +63,25 @@ const map = {
           elementDrawInfo: {
             width: ms.DA.WIDTH,
             height: ms.DA.HEIGHT,
-            color: '#dbe4ff',
-            opacity: 1,
+            color: 'url(#bg-sky-1)',
+            filterInfo: {
+              filter: 'url(#dropShadow)',
+            },
           },
-          textStyleInfo: { color: '', fontSize: 40, axisScale: [0.5, -0.07] },
+          textStyleInfo: { color: '', fontSize: 30, axisScale: [0.5, -0.07] },
+        },
+        {
+          id: 'commandArea',
+          type: 'rect',
+          elementDrawInfo: {
+            width: ms.DA.WIDTH,
+            height: ms.DA.HEIGHT,
+            color: 'url(#bg-sky-2)',
+            filterInfo: {
+              filter: 'url(#dropShadow)',
+            },
+          },
+          textStyleInfo: { color: '', fontSize: 30, axisScale: [0.5, -0.07] },
         },
         /* *************       Device        ***************** */
         {
@@ -77,14 +90,12 @@ const map = {
           elementDrawInfo: {
             width: ms.DA.WIDTH * 0.8,
             height: ms.DA.HEIGHT * 0.15,
-            color: ['#a3a3a3', '#22fb00'],
-            opacity: 1,
-            strokeInfo: {
-              width: 0.7,
-              color: '#000',
+            svgClass: [mmSvgBtnClass.lightGray, mmSvgBtnClass.green],
+            filterInfo: {
+              filter: 'url(#deviceShadow)',
             },
           },
-          textStyleInfo: { fontSize: 28 },
+          textStyleInfo: { fontSize: 20 },
         },
         {
           id: 'compressor',
@@ -92,14 +103,26 @@ const map = {
           elementDrawInfo: {
             width: ms.DA.WIDTH * 0.8,
             height: ms.DA.HEIGHT * 0.15,
-            color: ['#e3fafc', '#3bc9db'],
-            opacity: 1,
-            strokeInfo: {
-              width: 0.7,
-              color: '#000',
+            svgClass: [mmSvgBtnClass.lightGray, mmSvgBtnClass.blue],
+            filterInfo: {
+              filter: 'url(#deviceShadow)',
             },
           },
-          textStyleInfo: { fontSize: 28 },
+          textStyleInfo: { fontSize: 20 },
+        },
+        /* *************       Command        ***************** */
+        {
+          id: 'cmdBtn',
+          type: 'rect',
+          elementDrawInfo: {
+            width: ms.DA.WIDTH * 0.8,
+            height: ms.DA.HEIGHT * 0.15,
+            svgClass: [mmSvgBtnClass.lightGray, mmSvgBtnClass.orange],
+            filterInfo: {
+              filter: 'url(#deviceShadow)',
+            },
+          },
+          textStyleInfo: { fontSize: 20 },
         },
         /* *************       Sensor        ***************** */
         {
@@ -108,14 +131,12 @@ const map = {
           elementDrawInfo: {
             width: ms.SA.WIDTH * 0.8,
             height: ms.SA.HEIGHT * 0.15,
-            color: '#f0f0f0',
-            opacity: 1,
-            strokeInfo: {
-              width: 0.7,
-              color: '#000',
+            svgClass: [mmSvgBtnClass.white],
+            filterInfo: {
+              filter: 'url(#deviceShadow)',
             },
           },
-          textStyleInfo: { fontSize: 28 },
+          textStyleInfo: { fontSize: 20 },
         },
       ],
     },
@@ -132,10 +153,14 @@ const map = {
       {
         dccId: 'DCC_001',
         connect_info: {
-          type: 'python-shell',
-          subType: '',
-          host: 'path',
-          port: '',
+          type: 'socket',
+          subType: 'parser',
+          addConfigInfo: {
+            parser: 'delimiterParser',
+            option: Buffer.from('04', 'hex'),
+          },
+          host: 'localhost',
+          port: 9999,
         },
       },
     ],
@@ -143,32 +168,58 @@ const map = {
       {
         dpcId: 'DPC_001',
         protocol_info: {
-          mainCategory: 'NiDaqmx',
-          subCategory: 'ai_voltage_sw_timed',
+          mainCategory: 'NI',
+          subCategory: '9201',
           cmdExecTimeoutMs: 1000 * 2,
+          target_name: 'NI-DAQmx 9185',
         },
       },
       {
         dpcId: 'DPC_002',
         protocol_info: {
-          mainCategory: 'NiDaqmx',
-          subCategory: 'do_sw_timed',
+          mainCategory: 'NI',
+          subCategory: '9482',
           cmdExecTimeoutMs: 1000 * 2,
         },
       },
     ],
     dataLoggerStructureList: [
       {
-        target_prefix: 'D_NiDaqmx',
+        target_prefix: 'D_NI',
         target_name: 'NI-DAQmx',
         dataLoggerDeviceList: [
           {
-            serial_number: 1,
+            // Slot Serial
+            serial_number: '01EED6EF',
+            // cDaq Serial
+            subDeviceId: '01EE8DE7',
             target_code: '001',
-            target_name: 'NI-DAQmx 9185',
+            target_name: 'NI 9201',
             dccId: 'DCC_001',
             dpcId: 'DPC_001',
-            nodeList: [''],
+            nodeList: ['BAR_A', 'BAR_B'],
+          },
+          {
+            // Slot Serial
+            serial_number: '01EE1809',
+            // cDaq Serial
+            subDeviceId: '01EE8DE7',
+            target_code: '002',
+            target_name: 'NI 9482 컴프레셔',
+            dccId: 'DCC_001',
+            dpcId: 'DPC_002',
+            nodeList: ['CP'],
+          },
+          {
+            // Slot Serial
+            serial_number: '01EE1869',
+            // cDaq Serial
+            subDeviceId: '01EE8DE7',
+            target_code: '003',
+            target_name: 'NI 9482 밸브',
+            dccId: 'DCC_001',
+            dpcId: 'DPC_003',
+            nodeList: ['V_1', 'V_2', 'V_3'],
           },
         ],
       },
@@ -181,10 +232,6 @@ const map = {
         is_sensor: 0,
         is_submit_api: 1,
         description: '개방 밸브',
-        operationStatusList: [
-          ['CLOSE', 'CLOSING'],
-          ['OPEN', 'OPENING'],
-        ],
         defList: [
           {
             target_id: 'valve',
@@ -195,6 +242,7 @@ const map = {
                 target_code: '1',
                 target_name: '해수 공급 밸브',
                 data_logger_index: 0,
+                data_index: 0,
                 svgNodePosOpt: {
                   resourceId: 'valve',
                   axisScale: [0.5, 0.1],
@@ -205,6 +253,7 @@ const map = {
                 target_code: '2',
                 target_name: '상시 개방 밸브 A',
                 data_logger_index: 1,
+                data_index: 1,
                 svgNodePosOpt: {
                   resourceId: 'valve',
                   axisScale: [0.5, 0.37],
@@ -215,6 +264,7 @@ const map = {
                 target_code: '3',
                 target_name: '상시 개방 밸브 B',
                 data_logger_index: 2,
+                data_index: 2,
                 svgNodePosOpt: {
                   resourceId: 'valve',
                   axisScale: [0.5, 0.63],
@@ -229,7 +279,6 @@ const map = {
         target_id: 'compressor',
         target_name: '컴프레셔',
         is_sensor: 0,
-        operationStatusList: [['CLOSE', 'CLOSING'], ['OPEN', 'OPENING'], ['FOLD'], ['UNFOLD']],
         defList: [
           {
             target_id: 'compressor',
@@ -240,6 +289,7 @@ const map = {
                 // target_code: '001',
                 target_name: '공기 압축기',
                 data_logger_index: 0,
+                data_index: 3,
                 svgNodePosOpt: {
                   resourceId: 'compressor',
                   axisScale: [0.5, 0.9],
@@ -255,18 +305,20 @@ const map = {
         target_id: 'pressure',
         target_name: '압력 센서',
         is_sensor: 1,
-        description: '절대 압력',
+        description: '압력',
         data_unit: 'bar',
-        operationStatusList: [['CLOSE', 'CLOSING'], ['OPEN', 'OPENING'], ['FOLD'], ['UNFOLD']],
         defList: [
           {
-            target_id: 'tank_pressure',
+            target_id: 'absPressure',
             target_prefix: 'BAR',
+            target_name: '절대 압력',
             nodeList: [
               {
                 target_code: 'A',
                 target_name: '탱크 압력 A',
                 data_logger_index: 0,
+                data_index: 0,
+                node_type: 'PXM309',
                 svgNodePosOpt: {
                   resourceId: 'pressure',
                   axisScale: [0.5, 0.1],
@@ -276,6 +328,8 @@ const map = {
                 target_code: 'B',
                 target_name: '탱크 압력 B',
                 data_logger_index: 1,
+                data_index: 1,
+                node_type: 'PXM309',
                 svgNodePosOpt: {
                   resourceId: 'pressure',
                   axisScale: [0.5, 0.37],
@@ -295,7 +349,7 @@ const map = {
         defList: [
           {
             target_id: 'sensorArea',
-            target_name: '계측 영역',
+            target_name: '센서',
             target_prefix: 'SA',
             placeList: [
               {
@@ -309,14 +363,33 @@ const map = {
           },
           {
             target_id: 'deviceArea',
-            target_name: '제어 영역',
+            target_name: '단일 제어',
             target_prefix: 'DA',
             placeList: [
               {
                 nodeList: ['V_1', 'V_2', 'V_3', 'CP'],
                 svgPositionInfo: {
                   resourceId: 'deviceArea',
-                  point: [ms.SA.START_X + ms.SA.WIDTH + 70, ms.SA.START_Y],
+                  point: [
+                    ms.SA.START_X + ms.SA.WIDTH + ms.SA.WIDTH_INTERVAL,
+                    ms.SA.START_Y,
+                  ],
+                },
+              },
+            ],
+          },
+          {
+            target_id: 'commandArea',
+            target_name: '명령 제어',
+            target_prefix: 'CA',
+            placeList: [
+              {
+                svgPositionInfo: {
+                  resourceId: 'commandArea',
+                  point: [
+                    ms.SA.START_X + (ms.SA.WIDTH + ms.SA.WIDTH_INTERVAL) * 2,
+                    ms.SA.START_Y,
+                  ],
                 },
               },
             ],
@@ -326,6 +399,46 @@ const map = {
     ],
   },
   controlInfo: {
+    singleCmdList: [
+      {
+        singleCmdName: '밸브 제어',
+        applyDeviceList: ['valve'],
+        singleMidCateCmdInfo: {
+          scenarioMsg: '제어 동작을 선택하세요.',
+          subCmdList: [
+            {
+              enName: 'Close',
+              krName: '닫음',
+              controlValue: 0,
+            },
+            {
+              enName: 'Open',
+              krName: '열음',
+              controlValue: 1,
+            },
+          ],
+        },
+      },
+      {
+        singleCmdName: '공기 압축기 제어',
+        applyDeviceList: ['compressor'],
+        singleMidCateCmdInfo: {
+          scenarioMsg: '제어 동작을 선택하세요.',
+          subCmdList: [
+            {
+              enName: 'Off',
+              krName: '정지',
+              controlValue: 0,
+            },
+            {
+              enName: 'On',
+              krName: '동작',
+              controlValue: 1,
+            },
+          ],
+        },
+      },
+    ],
     setCmdList: [
       {
         cmdId: 'closeAllDevice',
@@ -348,6 +461,11 @@ const map = {
       {
         scenarioId: 'systemOn',
         scenarioName: '시스템 가동',
+        svgNodePosOpt: {
+          placeId: 'CA',
+          resourceId: 'cmdBtn',
+          axisScale: [0.5, 0.1],
+        },
         scenarioList: [
           {
             wrapCmdFormat: reqWrapCmdFormat.SINGLE,
@@ -376,6 +494,11 @@ const map = {
         scenarioId: 'airSystem',
         scenarioName: '에어 시스템',
         scenarioCount: 2,
+        svgNodePosOpt: {
+          placeId: 'CA',
+          resourceId: 'cmdBtn',
+          axisScale: [0.5, 0.37],
+        },
         scenarioList: [
           {
             wrapCmdFormat: reqWrapCmdFormat.SET,
@@ -415,48 +538,6 @@ const map = {
             },
           },
         ],
-      },
-    ],
-  },
-  configInfo: {
-    deviceCmdList: [
-      {
-        deviceCmdName: '밸브 제어',
-        applyDeviceList: ['valve'],
-        dCmdScenarioInfo: {
-          scenarioMsg: '제어 동작을 선택하세요.',
-          confirmList: [
-            {
-              enName: 'Close',
-              krName: '닫음',
-              controlValue: 0,
-            },
-            {
-              enName: 'Open',
-              krName: '열음',
-              controlValue: 1,
-            },
-          ],
-        },
-      },
-      {
-        deviceCmdName: '공기 압축기 제어',
-        applyDeviceList: ['compressor'],
-        dCmdScenarioInfo: {
-          scenarioMsg: '제어 동작을 선택하세요.',
-          confirmList: [
-            {
-              enName: 'Off',
-              krName: '정지',
-              controlValue: 0,
-            },
-            {
-              enName: 'On',
-              krName: '동작',
-              controlValue: 1,
-            },
-          ],
-        },
       },
     ],
   },
