@@ -105,7 +105,7 @@
       </div>
     </div>
 
-    <div id="dialog-dynamic" title="" style="display: none"></div>
+    <div id="dialog-dynamic" title="" style="display: none;"></div>
     <script id="dialog-dynamic-template" type="template">
       <p>{{ confirmMsg }}</p>
       {{#if isSetValue}}
@@ -156,6 +156,17 @@
       drawSvgBasePlace(svgCanvas); // 멥 그리기
 
       runSimulator();
+
+      updateCommand([
+        {
+          wrapCmdId: 'waterSupplyPipeA',
+          wrapCmdStep: 'WAIT',
+        },
+        {
+          wrapCmdId: 'closeAllShutter',
+          wrapCmdStep: 'END',
+        },
+      ]);
 
       // showNodeData('ST_CT', 'AUTO');
       setInterval(() => {

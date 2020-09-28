@@ -75,7 +75,7 @@ const mdDeviceScenaioStorage = new Map();
 /** @type {Map<string, dControlValueStorage>} key:nodeId 단일 제어 Select 영역 구성 필요 정보 */
 const mdControlIdenStorage = new Map();
 
-/** @type {Map<string, mdCmdInfo>} */
+/** @type {Map<string, mdCmdInfo>} key: cmdId */
 const mdCmdStorage = new Map();
 
 /**
@@ -96,7 +96,7 @@ function initDeviceControlIdentify(dCmdScenarioInfo, dControlValueStorage = new 
 
     // 다음 동작이 존재한다면 재귀
     if (nextStepInfo) {
-      return this.initDeviceControlIdentify(nextStepInfo, dControlValueStorage);
+      return initDeviceControlIdentify(nextStepInfo, dControlValueStorage);
     }
 
     /** @type {dControlIdenInfo} */
@@ -216,6 +216,7 @@ function initDrawSvg() {
       target_id: ncId,
       target_name: ncName,
       data_unit: dataUnit,
+      operationStatusList = [],
     } = nClassInfo;
 
     mdNodeClassStorage.set(ncId, []);
@@ -280,6 +281,7 @@ function initDrawSvg() {
           moveScale,
           point: [],
           placeIdList,
+          operationStatusList,
           placeNameList: placeIdList.map(pId => mdPlaceStorage.get(pId).placeName),
           svgModelResource: mdMapStorage.get(resourceId),
         });
@@ -342,7 +344,7 @@ function initDrawSvg() {
       const cmdId = `${srcPlaceId}_TO_${destPlaceId}`;
       const cmdName = `${srcPlaceName}_TO_${destPlaceName}`;
 
-      this.setCmdStorage('FLOW', cmdId, cmdName, svgNodePosOpt);
+      setCmdStorage('FLOW', cmdId, cmdName, svgNodePosOpt);
     });
   });
 
@@ -352,31 +354,6 @@ function initDrawSvg() {
 
     setCmdStorage('SCENARIO', cmdId, cmdName, svgNodePosOpt);
   });
-
-  // console.dir(mdNodeStorage);
-
-  // console.dir(mCmdStorage);
-}
-
-/**
- * FIXME: SVG Filter 로딩 오류로 인해 사용하지 못함
- * 그림자
- * @param {SVG} model 그려질 장소.
- * @param {mSvgPositionInfo} svgPositionInfo 장소와 노드를 구분하기 위한 장소 또는 노드의 defId 값
- */
-function drawSvgShadow(model, svgPositionInfo) {
-  // if (getSvgType === SVG_TYPE.sensor) {
-  //   model.attr({ name: 'sensor' });
-  //   model.filter(add => {
-  //     const blur = add.offset(0, 0).in(add.sourceAlpha);
-  //     add.blend(add.source, blur);
-  //   });
-  // } else {
-  //   model.filter(add => {
-  //     const blur = add.offset(7, 7).in(add.sourceAlpha).gaussianBlur(4);
-  //     add.blend(add.source, blur);
-  //   });
-  // }
 }
 
 /**
@@ -536,7 +513,7 @@ function drawSvgElement(svgDrawInfo, drawType) {
   const {
     isHiddenTitle = false,
     isTitleWrap = true,
-    leading = 1.1,
+    leading = 1,
     color = BASE.TXT.TITLE_COLOR,
     dataColor: [TXT_DATA_COLOR] = [BASE.TXT.DATA_COLOR],
     fontSize = BASE.TXT.FONT_SIZE,
@@ -599,7 +576,7 @@ function drawSvgElement(svgDrawInfo, drawType) {
 
           if (drawType === DRAW_TYPE.NODE) {
             // 글자 크기만큼 yAxis 좌표 위치를 위로 올림
-            yAxisPoint -= fontSize * leading * 0.4;
+            yAxisPoint -= fontSize * leading * 0.5;
 
             ownerInfo.svgEleData = text
               .tspan(' ')
@@ -613,6 +590,9 @@ function drawSvgElement(svgDrawInfo, drawType) {
       // 공통 옵션
       .move(x1 + svgModelWidth * tAxisScaleX, yAxisPoint)
       .font({ ...fontOption, anchor });
+
+    // 글자 크기에 비례하여 개행 간격 처리
+    ownerInfo.svgEleData && ownerInfo.svgEleData.dy(fontSize * leading * 1.33);
   }
   // tspan에 text를 집어넣을 경우 hidden, visible에 따라 위치 버그 발생때문에 아래로 배치
   ownerInfo.svgEleName && ownerInfo.svgEleName.text(positionName);
@@ -635,15 +615,13 @@ function showNodeData(nodeId, data = '') {
       nodeData,
       isSensor,
       dataUnit = '',
-      mdPlaceInfo,
       svgModelResource: {
         elementDrawInfo: {
           color: [baseColor, actionColor],
           errColor = 'red',
           svgClass = [],
-          svgClass: [baseSvgClass] = [],
         },
-        textStyleInfo: { dataColor: [txtBaseColor, txtActionColor] = [] } = {},
+        textStyleInfo: { dataColor: [txtBaseColor, txtActionColor] = [], fontSize } = {},
       },
       svgEleBg,
       svgEleData,
@@ -706,7 +684,7 @@ function showNodeData(nodeId, data = '') {
     svgEleData.font({ fill: selectedTxtColor });
     if (isValidData) {
       svgEleData.text(data);
-      svgEleDataUnit.text(dataUnit).dx(7);
+      svgEleDataUnit.text(dataUnit).dx(fontSize * 0.5);
     } else {
       // data가 유효범위가 아닐 경우
       svgEleData.clear();
@@ -720,11 +698,56 @@ function showNodeData(nodeId, data = '') {
 }
 
 /**
+ *
+ * @param {contractCmdInfo[]} commandList
+ */
+function updateCommand(commandList) {
+  // console.log(commandList);
+  mdCmdStorage.forEach(mdCmdInfo => {
+    const {
+      cmdId,
+      cmdStep,
+      svgModelResource: {
+        elementDrawInfo: {
+          color: [baseColor, actionColor],
+          svgClass = [],
+        },
+      },
+      svgEleBg,
+    } = mdCmdInfo;
+
+    // 현재 진행 중인 명령이 존재하는지 확인
+    const currCmdInfo = commandList.find(cmdInfo => cmdInfo.wrapCmdId === cmdId);
+
+    // data의 상태에 따라 tspan(data, dataUnit) 색상 및 Visible 변경
+    let selectedColor = baseColor;
+    let selectedIndex = 0;
+
+    // 수행중인 명령이 존재할 경우
+    if (currCmdInfo) {
+      const { wrapCmdStep } = currCmdInfo;
+      mdCmdInfo.cmdStep = wrapCmdStep;
+      selectedIndex = 1;
+      selectedColor = actionColor;
+    } else if (typeof cmdStep === 'string' && cmdStep.length) {
+      // 수행 중인 명령이 삭제되었을 경우
+      mdCmdInfo.cmdStep = '';
+    }
+
+    // console.log('selectedIndex', svgClass[selectedIndex]);
+
+    // 배경 색상 변경
+    selectedColor && svgEleBg.fill(selectedColor);
+    svgEleBg.attr('class', svgClass[selectedIndex]);
+  });
+}
+
+/**
  * Svg Node Device 객체를 선택하여 제어를 하고자 할 경우
  * @param {mdNodeInfo} mdNodeInfo Device Node Id
  * @param {mSingleMiddleCmdInfo=} dCmdScenarioInfo 현재 수행 중인 장치 제어 단계
  */
-function alertDeviceCmdConfirm(mdNodeInfo, dCmdScenarioInfo = {}) {
+function confirmDeviceControl(mdNodeInfo, dCmdScenarioInfo = {}) {
   const { ncId, ndName = '', nodeId, nodeName, nodeData } = mdNodeInfo;
 
   const deviceName = `${ndName}(${nodeName})`;
@@ -756,7 +779,7 @@ function alertDeviceCmdConfirm(mdNodeInfo, dCmdScenarioInfo = {}) {
 
   // Node의 현 상태가 Error 일 경우 제어 불가
   if (nodeData === undefined || nodeData === '') {
-    alert(`${deviceName}의 상태를 점검해주세요.`);
+    return alert(`${deviceName}의 상태를 점검해주세요.`);
   }
 
   // 동적 다이어로그 구성
@@ -772,7 +795,7 @@ function alertDeviceCmdConfirm(mdNodeInfo, dCmdScenarioInfo = {}) {
         // 값 입력이 활성화 되어 있으나 사용자의 값 입력에 문제가 있을 경우
         if (isSetValue) {
           deviceSetValue = $deviceSetValue.val();
-          if (!deviceSetValue.length) {
+          if (deviceSetValue.length === 0) {
             // 값 존재 필요
             return $deviceSetValue.addClass('ui-state-error');
           }
@@ -781,7 +804,7 @@ function alertDeviceCmdConfirm(mdNodeInfo, dCmdScenarioInfo = {}) {
           const inputMax = Number($deviceSetValue.attr('max'));
           // 데이터의 유효 범위 충족 여부
           const isGoodScope = deviceSetValue >= inputMin && deviceSetValue <= inputMax;
-
+          // 스코프 범위를 벗어날 경우 오류
           if (!isGoodScope) {
             // 데이터 범위 오류
             return $deviceSetValue.addClass('ui-state-error');
@@ -799,7 +822,7 @@ function alertDeviceCmdConfirm(mdNodeInfo, dCmdScenarioInfo = {}) {
       // eslint-disable-next-line func-names
       btnFnInfo[krName] = function () {
         $(this).dialog('close');
-        alertDeviceCmdConfirm(mdNodeInfo, nextStepInfo);
+        confirmDeviceControl(mdNodeInfo, nextStepInfo);
       };
     }
     return btnFnInfo;
@@ -823,6 +846,39 @@ function alertDeviceCmdConfirm(mdNodeInfo, dCmdScenarioInfo = {}) {
 
   // Dialog 메시지를 생성하여 dialog title, 버튼 정보 전송
   showDynamicDialog(`${deviceName} 제어`, btnFn);
+}
+
+/**
+ * mdCmdStorage에서 Single Command 를 제외한 명령 수행
+ * @param {mdCmdInfo} mdCmdInfo
+ */
+function confirmCommand(mdCmdInfo) {
+  const CF_FLOW = 'FLOW';
+
+  const { cmdFormat, cmdId, cmdStep = '', cmdName } = mdCmdInfo;
+
+  /** @type {wsGenerateControlCmdAPI} */
+  const wsGenerateControlCmdAPI = {
+    cmdFormat,
+    cmdId,
+    // 진행중인 단계가 존재한다면 취소, 아니라면 요청
+    cmdType: cmdStep.length ? 'CANCEL' : 'CONTROL',
+  };
+
+  // 흐름 명령일 경우
+  if (cmdFormat === CF_FLOW) {
+    const [SPI, DPI] = cmdId.split('_TO_');
+    wsGenerateControlCmdAPI.SPI = SPI;
+    wsGenerateControlCmdAPI.DPI = DPI;
+  }
+
+  const reqMsg = cmdStep.length ? '취소' : '요청';
+  const confirmMsg = `명령('${cmdName}')을 ${reqMsg}하시겠습니까?`;
+  // 명령을 수행할 경우
+  if (confirm(confirmMsg)) {
+    console.log(wsGenerateControlCmdAPI);
+    typeof reqCommandControl === 'function' && reqCommandControl(wsGenerateControlCmdAPI);
+  }
 }
 
 /**
@@ -863,7 +919,7 @@ function drawSvgBasePlace(svgCanvas) {
       {
         svgCanvas,
         svgPositionInfo,
-        isShow: !backgroundData.length,
+        isShow: backgroundData.length === 0,
         ownerInfo: mdPlaceStorage.get(placeId),
       },
       DRAW_TYPE.PLACE,
@@ -887,7 +943,7 @@ function drawSvgBasePlace(svgCanvas) {
     // 노드 타입이 장치라면 클릭 이벤트 바인딩
     if (mdNodeInfo.isSensor === SENSOR_TYPE.DEVICE) {
       svgCanvasBgElement.click(() => {
-        alertDeviceCmdConfirm(mdNodeInfo);
+        confirmDeviceControl(mdNodeInfo);
       });
     }
   });
@@ -906,10 +962,12 @@ function drawSvgBasePlace(svgCanvas) {
       },
       DRAW_TYPE.CMD,
     );
-  });
 
-  // console.log(realMap);
-  // console.log('@@', svgCmdList);
+    // 명령 클릭 이벤트 바인딩
+    svgCanvasBgElement.click(() => {
+      confirmCommand(mdCmdInfo);
+    });
+  });
 }
 
 /**

@@ -336,8 +336,10 @@ const map = {
           elementDrawInfo: {
             width: ms.SIDE.WIDTH * 0.9,
             height: ms.SIDE.CMD_HEIGHT * 0.15,
-            color: ['url(#lin-orange)', '#22fb00'],
-            svgClass: mmSvgBtnClass.white,
+            svgClass: [mmSvgBtnClass.white, mmSvgBtnClass.orange],
+            filterInfo: {
+              filter: 'url(#deviceShadow)',
+            },
           },
           textStyleInfo: { fontSize: 15 },
         },
@@ -1998,12 +2000,12 @@ const map = {
           scenarioMsg: '제어 동작을 선택하세요.',
           subCmdList: [
             {
-              enName: 'Unfold',
+              enName: 'Close',
               krName: '접음',
               controlValue: 0,
             },
             {
-              enName: 'Fold',
+              enName: 'Open',
               krName: '펼침',
               controlValue: 1,
             },
@@ -2124,11 +2126,7 @@ const map = {
       },
     ],
     flowCmdList: [],
-    scenarioCmdList: [
-      {
-        scenarioId: 'ㅇㅇ',
-      },
-    ],
+    scenarioCmdList: [],
   },
 };
 
