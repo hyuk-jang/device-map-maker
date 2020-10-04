@@ -350,7 +350,7 @@ function initDrawSvg() {
 
   // 시나리오 명령
   scenarioCmdList.forEach(scenarioCmdInfo => {
-    const { scenarioId: cmdId, scenarioName: cmdName, svgNodePosOpt } = scenarioCmdInfo;
+    const { cmdId, cmdName, svgNodePosOpt } = scenarioCmdInfo;
 
     setCmdStorage('SCENARIO', cmdId, cmdName, svgNodePosOpt);
   });

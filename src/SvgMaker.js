@@ -254,7 +254,7 @@ class SvgMaker {
 
     // 시나리오 명령
     this.mScenarioCmdList.forEach(scenarioCmdInfo => {
-      const { scenarioId: cmdId, scenarioName: cmdName, svgNodePosOpt } = scenarioCmdInfo;
+      const { cmdId, cmdName, svgNodePosOpt } = scenarioCmdInfo;
 
       this.setCmdStorage('SCENARIO', cmdId, cmdName, svgNodePosOpt);
     });

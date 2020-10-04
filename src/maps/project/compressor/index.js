@@ -169,17 +169,32 @@ const map = {
         dpcId: 'DPC_001',
         protocol_info: {
           mainCategory: 'NI',
-          subCategory: '9201',
-          cmdExecTimeoutMs: 1000 * 2,
-          target_name: 'NI-DAQmx 9185',
+          subCategory: 'cDaq',
+          cmdExecTimeoutMs: 1000 * 5,
+          protocolOptionInfo: {
+            hasTrackingData: true,
+          },
+          option: {
+            ni: {
+              slotModelType: '9201',
+            },
+          },
         },
       },
       {
         dpcId: 'DPC_002',
         protocol_info: {
           mainCategory: 'NI',
-          subCategory: '9482',
-          cmdExecTimeoutMs: 1000 * 2,
+          subCategory: 'cDaq',
+          cmdExecTimeoutMs: 1000 * 5,
+          protocolOptionInfo: {
+            hasTrackingData: true,
+          },
+          option: {
+            ni: {
+              slotModelType: '9482',
+            },
+          },
         },
       },
     ],
@@ -218,7 +233,7 @@ const map = {
             target_code: '003',
             target_name: 'NI 9482 밸브',
             dccId: 'DCC_001',
-            dpcId: 'DPC_003',
+            dpcId: 'DPC_002',
             nodeList: ['V_1', 'V_2', 'V_3'],
           },
         ],
@@ -289,7 +304,7 @@ const map = {
                 // target_code: '001',
                 target_name: '공기 압축기',
                 data_logger_index: 0,
-                data_index: 3,
+                data_index: 0,
                 svgNodePosOpt: {
                   resourceId: 'compressor',
                   axisScale: [0.5, 0.9],
@@ -407,14 +422,14 @@ const map = {
           scenarioMsg: '제어 동작을 선택하세요.',
           subCmdList: [
             {
-              enName: 'Close',
-              krName: '닫음',
-              controlValue: 0,
+              enName: 'Open',
+              krName: '열림',
+              controlValue: 1,
             },
             {
-              enName: 'Open',
-              krName: '열음',
-              controlValue: 1,
+              enName: 'Close',
+              krName: '닫힘',
+              controlValue: 0,
             },
           ],
         },
@@ -426,41 +441,24 @@ const map = {
           scenarioMsg: '제어 동작을 선택하세요.',
           subCmdList: [
             {
-              enName: 'Off',
-              krName: '정지',
-              controlValue: 0,
-            },
-            {
               enName: 'On',
               krName: '동작',
               controlValue: 1,
+            },
+            {
+              enName: 'Off',
+              krName: '정지',
+              controlValue: 0,
             },
           ],
         },
       },
     ],
-    setCmdList: [
-      {
-        cmdId: 'closeAllDevice',
-        cmdName: '모든 장치 정지',
-        falseNodeList: ['V_1', 'V_2', 'V_3', 'CP'],
-      },
-      {
-        cmdId: 'closeValve',
-        cmdName: '모든 밸브 폐쇄',
-        falseNodeList: ['V_1', 'V_2', 'V_3'],
-      },
-      {
-        cmdId: 'systemOn',
-        cmdName: '시스템 On',
-        trueNodeList: ['V_1'],
-        falseNodeList: ['V_2', 'V_3', 'CP'],
-      },
-    ],
+    setCmdList: [],
     scenarioCmdList: [
       {
-        scenarioId: 'systemOn',
-        scenarioName: '시스템 가동',
+        cmdId: 'systemOn',
+        cmdName: '시스템 가동',
         svgNodePosOpt: {
           placeId: 'CA',
           resourceId: 'cmdBtn',
@@ -470,7 +468,17 @@ const map = {
           {
             wrapCmdFormat: reqWrapCmdFormat.SINGLE,
             singleControlType: 0,
-            singleNodeId: ['V_2', 'V_3', 'CP'],
+            singleNodeId: 'V_2',
+          },
+          {
+            wrapCmdFormat: reqWrapCmdFormat.SINGLE,
+            singleControlType: 0,
+            singleNodeId: ['V_3', 'CP'],
+          },
+          {
+            wrapCmdFormat: reqWrapCmdFormat.SINGLE,
+            singleControlType: 0,
+            singleNodeId: 'CP',
           },
           {
             wrapCmdFormat: reqWrapCmdFormat.SINGLE,
@@ -481,9 +489,13 @@ const map = {
               // FIXME: 압력센서 1번과 2번의 압력차가 3Bar 이슈 처리 필요
               goalDataList: [
                 {
-                  nodeId: 'BAR_B',
-                  goalValue: 4,
+                  // nodeId: 'BAR_B',
+                  goalValue: 3,
                   goalRange: goalDataRange.UPPER,
+                  expressInfo: {
+                    nodeList: ['BAR_A', 'BAR_B'],
+                    expression: 'BAR_B - BAR_A',
+                  },
                 },
               ],
             },
@@ -491,8 +503,8 @@ const map = {
         ],
       },
       {
-        scenarioId: 'airSystem',
-        scenarioName: '에어 시스템',
+        cmdId: 'airSystem',
+        cmdName: '에어 시스템',
         scenarioCount: 2,
         svgNodePosOpt: {
           placeId: 'CA',
@@ -501,14 +513,25 @@ const map = {
         },
         scenarioList: [
           {
-            wrapCmdFormat: reqWrapCmdFormat.SET,
-            setCmdId: 'closeValve',
+            wrapCmdFormat: reqWrapCmdFormat.SINGLE,
+            singleControlType: 0,
+            singleNodeId: 'V_1',
+          },
+          {
+            wrapCmdFormat: reqWrapCmdFormat.SINGLE,
+            singleControlType: 0,
+            singleNodeId: 'V_2',
+          },
+          {
+            wrapCmdFormat: reqWrapCmdFormat.SINGLE,
+            singleControlType: 0,
+            singleNodeId: 'V_3',
           },
           {
             wrapCmdFormat: reqWrapCmdFormat.SINGLE,
             singleNodeId: 'CP',
             // 컴프레샤 가동
-            singleControlSetValue: 1,
+            singleControlType: 1,
             wrapCmdGoalInfo: {
               // 제한 시간
               limitTimeSec: 60,
@@ -527,7 +550,7 @@ const map = {
             singleNodeId: 'V_3',
             singleControlType: 1,
             wrapCmdGoalInfo: {
-              limitTimeSec: 60,
+              limitTimeSec: 3,
               goalDataList: [
                 {
                   nodeId: 'BAR_B',
@@ -535,6 +558,15 @@ const map = {
                   goalRange: goalDataRange.LOWER,
                 },
               ],
+            },
+          },
+          // 타이밍 10초를 기달리기 위하여 임시로 줌
+          {
+            wrapCmdFormat: reqWrapCmdFormat.SINGLE,
+            singleNodeId: 'V_3',
+            singleControlType: 0,
+            wrapCmdGoalInfo: {
+              limitTimeSec: 10,
             },
           },
         ],

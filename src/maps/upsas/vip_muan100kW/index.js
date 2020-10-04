@@ -3194,8 +3194,8 @@ const map = {
     ],
     scenarioCmdList: [
       {
-        scenarioId: 'rainMode',
-        scenarioName: '우천 대피',
+        cmdId: 'rainMode',
+        cmdName: '우천 대피',
         scenarioList: [
           { wrapCmdFormat: 'SET', wrapCmdType: 'CONTROL', setCmdId: 'closeAllDevice' },
           [
@@ -3288,8 +3288,8 @@ const map = {
         ],
       },
       {
-        scenarioId: 'normalFlowScenario',
-        scenarioName: '소금 생산 시나리오',
+        cmdId: 'normalFlowScenario',
+        cmdName: '소금 생산 시나리오',
         scenarioList: [
           {
             wrapCmdFormat: 'SET',
