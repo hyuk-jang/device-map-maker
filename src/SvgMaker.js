@@ -27,7 +27,7 @@ class SvgMaker {
     const {
       drawInfo: {
         frame: { svgModelResourceList },
-        positionInfo,
+        positionInfo = {},
         positionInfo: { svgNodeList = [], svgPlaceList = [], svgCmdList = [] } = {},
       },
       setInfo: { nodeStructureList },
@@ -46,6 +46,7 @@ class SvgMaker {
     positionInfo.svgPlaceList = svgPlaceList;
     positionInfo.svgNodeList = svgNodeList;
     positionInfo.svgCmdList = svgCmdList;
+    map.drawInfo.positionInfo = positionInfo;
 
     // SetInfo 노드 구조 정의 목록
     this.mNodeStructureList = nodeStructureList;
