@@ -44,7 +44,7 @@ const {
     positionInfo: { svgNodeList = [], svgPlaceList = [], svgCmdList = [] },
   },
   setInfo: { nodeStructureList },
-  relationInfo: { placeRelationList },
+  relationInfo: { placeRelationList = [], convertRelationList = [] },
   controlInfo: {
     singleCmdList = [],
     setCmdList = [],
@@ -54,29 +54,34 @@ const {
 } = realMap;
 
 // svgModelResourceList 생성
-/** @type {Map<string, mSvgModelResource>} */
+/** @type {Map<string, mSvgModelResource>} key: svgModelResourceId */
 const mdMapStorage = new Map();
 
-/** @type {Map<string, mdPlaceInfo>} */
+/** @type {Map<string, mdPlaceInfo>} (key: pId) */
 const mdPlaceStorage = new Map();
 
-/** @type {Map<string, mdPlaceRelHeadInfo>} key pcId, Map Place Relation Class 관계 */
+/** @type {Map<string, mdPlaceRelHeadInfo>} (key: pcId), Map Place Relation Class 관계 */
 const mdPlaceRelationStorage = new Map();
 
-/** @type {Map<string, string[]>} ncId를 기준으로 속해있는 nodeIds  */
+/** @type {Map<string, string[]>} (key: ncId를) 기준으로 속해있는 nodeIds  */
 const mdNodeClassStorage = new Map();
 
-/** @type {Map<string, mdNodeInfo>} nodeId를 기준으로 nodeInfo 정보를 저장할 Map */
+/** @type {Map<string, mdNodeInfo>} (key: nId) 기준으로 nodeInfo 정보를 저장할 Map */
 const mdNodeStorage = new Map();
 
-/** @type {Map<string, mSingleMiddleCmdInfo>} node Class Id를 기준으로 명령 정보를 저장할 Map */
+/** @type {Map<string, mSingleMiddleCmdInfo>} (key: ncId) 기준으로 명령 정보를 저장할 Map */
 const mdDeviceScenaioStorage = new Map();
 
-/** @type {Map<string, dControlValueStorage>} key:nodeId 단일 제어 Select 영역 구성 필요 정보 */
+/** @type {Map<string, dControlValueStorage>} (key: nId) 단일 제어 Select 영역 구성 필요 정보 */
 const mdControlIdenStorage = new Map();
 
-/** @type {Map<string, mdCmdInfo>} key: cmdId */
+/** @type {Map<string, mdCmdInfo>} (key: cmdId) */
 const mdCmdStorage = new Map();
+
+// /** @type {Map<string, mdConvertInfo>} key: nodeDefId */
+// const mdConvertStorage = new Map();
+
+console.log(nodeStructureList);
 
 /**
  * 장치 제어 식별 Map 생성
@@ -142,13 +147,16 @@ function setCmdStorage(cmdFormat, cmdId, cmdName, svgNodePosOpt) {
 /**
  * Map 초기화 진행
  * Map<placeId, mdPlaceInfo>, Map<nodeId, mdNodeInfo> 생성
+ * @param {boolean} isProd Map Relation 이 맞지 않더라도 진행할지 여부. (Map Position을 잡기 위해서 필요함)
  */
-function initDrawSvg() {
+function initDrawSvg(isProd = true) {
   // svgModelResourceList 생성
   svgModelResourceList.forEach(modelInfo => {
     const { id } = modelInfo;
     mdMapStorage.set(id, modelInfo);
   });
+
+  console.log(mdNodeStorage);
 
   // PlaceRelationList을 순회하면서 Map<placeId, mSvgStorageInfo> 세팅
   placeRelationList.forEach(pClassInfo => {
@@ -166,6 +174,7 @@ function initDrawSvg() {
         target_name: pdName = pcName,
         placeList = [],
       } = pDefInfo;
+
       // 장소 목록 순회
       placeList.forEach(pInfo => {
         const {
@@ -176,8 +185,8 @@ function initDrawSvg() {
         } = pInfo;
         // Place ID 정의
 
-        // svgPositionInfo 정보가 없다면 추가하지 않음
-        if (resourceId === undefined) {
+        // // svgPositionInfo 정보가 없다면 추가하지 않음
+        if (isProd && resourceId === undefined) {
           return mdPlaceRelationStorage.has(pcId) && mdPlaceRelationStorage.delete(pcId);
         }
 
@@ -191,6 +200,7 @@ function initDrawSvg() {
           getNodeList: () => {
             return nodeList.reduce((mdNodeList, nId) => {
               const mdNodeInfo = mdNodeStorage.get(nId);
+              console.log(pcId, nId);
               mdNodeInfo.isSensor === 1 && mdNodeList.push(mdNodeInfo);
 
               return mdNodeList;
@@ -211,7 +221,7 @@ function initDrawSvg() {
 
   nodeStructureList.forEach(nClassInfo => {
     const {
-      defList,
+      defList: nodeDefList = [],
       is_sensor: isSensor = 1,
       target_id: ncId,
       target_name: ncName,
@@ -221,9 +231,12 @@ function initDrawSvg() {
 
     mdNodeClassStorage.set(ncId, []);
 
-    defList.forEach(nDefInfo => {
+    console.log('ncId', ncId);
+
+    nodeDefList.forEach(nDefInfo => {
       const {
         nodeList = [],
+        target_id: ndId,
         target_prefix: ndPrefix,
         target_name: ndName = ncName,
       } = nDefInfo;
@@ -239,8 +252,8 @@ function initDrawSvg() {
         let { svgNodePosOpt: { placeId } = {} } = nodeInfo;
 
         // SVG Node의 위치 설정 정보가 없을 경우 추가하지 않음
-        if (_.isEmpty(svgNodePosOpt)) {
-          return false;
+        if (isProd && _.isEmpty(svgNodePosOpt)) {
+          return;
         }
 
         const nodeId = `${ndPrefix}${nCode ? `_${nCode}` : ''}`;
@@ -270,6 +283,7 @@ function initDrawSvg() {
 
         mdNodeStorage.set(nodeId, {
           ncId,
+          ndId,
           ncName,
           ndName,
           nodeId,
@@ -289,6 +303,7 @@ function initDrawSvg() {
     });
   });
 
+  console.log(mdNodeStorage);
   // Place Class Storage 수정 (Node 상태에 따라)
   mdPlaceRelationStorage.forEach(mdPlaceRelHeadInfo => {
     const { pcId, mdPlaceRelTailStorage } = mdPlaceRelHeadInfo;
@@ -354,6 +369,16 @@ function initDrawSvg() {
 
     setCmdStorage('SCENARIO', cmdId, cmdName, svgNodePosOpt);
   });
+}
+
+/**
+ *
+ * @param {mdNodeInfo} nodeInfo
+ */
+function convertDataFormat(nodeInfo) {
+  const { nodeId } = nodeInfo;
+  // mdNodeStorage.get(nodeId).
+  // const  convertRelationList.find(nodeId)
 }
 
 /**
@@ -519,6 +544,7 @@ function drawSvgElement(svgDrawInfo, drawType) {
     fontSize = BASE.TXT.FONT_SIZE,
     transform,
     axisScale: [tAxisScaleX, tAxisScaleY] = [0.5, 0.5],
+    moveScale: [tMoveScaleX, tMoveScaleY] = [0, 0],
     anchor = BASE.TXT.ANCHOR,
   } = textStyleInfo;
 
@@ -532,9 +558,13 @@ function drawSvgElement(svgDrawInfo, drawType) {
     'pointer-events': 'none',
   };
 
+  const movePointX = fontSize * tMoveScaleX;
+  const movePointY = fontSize * tMoveScaleY;
   // 데이터를 [좌: 타이틀, 우: 데이터] 로 배치할 경우 배경 데이터 공간을 기준으로 text 각각 생성
   if (!(isTitleWrap || isHiddenTitle) && drawType !== DRAW_TYPE.PLACE) {
-    const yAxisPoint = y1 + svgModelHeight * tAxisScaleY + fontSize * 0.1;
+    console.log(textStyleInfo);
+    const yAxisPoint = y1 + svgModelHeight * tAxisScaleY + fontSize * 0.1 + movePointY;
+    console.log(tAxisScaleY, yAxisPoint);
     // Title 생성
     svgCanvas
       .text(text => {
@@ -552,14 +582,16 @@ function drawSvgElement(svgDrawInfo, drawType) {
           .tspan('')
           .font({ size: fontSize, fill: TXT_DATA_COLOR });
         // mdNodeInfo|mdPlaceInfo 에 SVG Data Unit 정의
-        ownerInfo.svgEleDataUnit = text.tspan('').font({ size: fontSize * 0.9 });
+        ownerInfo.svgEleDataUnit = text
+          .tspan('')
+          .font({ fill: color, size: fontSize * 0.9 });
       })
       // 배경의 좌측 90% 공간에서 시작
       .move(x1 + svgModelWidth * 0.9, yAxisPoint)
       // 시작점에서 좌측으로 써나감
       .font({ ...fontOption, anchor: 'end' });
   } else {
-    let yAxisPoint = y1 + svgModelHeight * tAxisScaleY;
+    let yAxisPoint = y1 + svgModelHeight * tAxisScaleY + movePointY;
 
     svgCanvas
       .text(text => {
@@ -585,10 +617,12 @@ function drawSvgElement(svgDrawInfo, drawType) {
           }
         }
         // 데이터 단위 추가
-        ownerInfo.svgEleDataUnit = text.tspan('').font({ size: fontSize * 0.9 });
+        ownerInfo.svgEleDataUnit = text
+          .tspan('')
+          .font({ fill: color, size: fontSize * 0.9 });
       })
       // 공통 옵션
-      .move(x1 + svgModelWidth * tAxisScaleX, yAxisPoint)
+      .move(x1 + svgModelWidth * tAxisScaleX + movePointX, yAxisPoint)
       .font({ ...fontOption, anchor });
 
     // 글자 크기에 비례하여 개행 간격 처리
@@ -608,6 +642,7 @@ function drawSvgElement(svgDrawInfo, drawType) {
 function showNodeData(nodeId, data = '') {
   try {
     const mdNodeInfo = mdNodeStorage.get(nodeId);
+
     // 해당 노드가 존재하지 않는다면 처리 X
     if (mdNodeInfo === undefined) return false;
 
@@ -918,11 +953,17 @@ function drawSvgBasePlace(svgCanvas) {
   svgPlaceList.forEach(svgPositionInfo => {
     const { id: placeId } = svgPositionInfo;
 
+    const resourceOpcity = _.get(
+      mdPlaceStorage.get(placeId),
+      'svgModelResource.elementDrawInfo.opacity',
+      0,
+    );
+
     drawSvgElement(
       {
         svgCanvas,
         svgPositionInfo,
-        isShow: backgroundData.length === 0,
+        isShow: resourceOpcity,
         ownerInfo: mdPlaceStorage.get(placeId),
       },
       DRAW_TYPE.PLACE,
@@ -977,7 +1018,6 @@ function drawSvgBasePlace(svgCanvas) {
  * Simulator 데이터 입력
  */
 function runSimulator() {
-  // FIXME: TEST
   // SVG('#IVT_PW_G_KW_1_title').clear().text('TEST');
 
   mdNodeStorage.forEach(mdNodeInfo => {

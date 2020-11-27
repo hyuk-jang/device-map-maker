@@ -186,7 +186,14 @@ const map = {
             target_name: '나주 고정식 B-1',
             dccId: 'DCC_001',
             dpcId: 'DPC_001',
-            nodeList: ['LX_002', 'S_PU_002', 'CO2_002', 'WV_S_002', 'T_S_002', 'RH_S_002'],
+            nodeList: [
+              'LX_002',
+              'S_PU_002',
+              'CO2_002',
+              'WV_S_002',
+              'T_S_002',
+              'RH_S_002',
+            ],
           },
           // FIXME:
           {
@@ -245,7 +252,14 @@ const map = {
             target_name: '나주 가변식 B-1',
             dccId: 'DCC_001',
             dpcId: 'DPC_001',
-            nodeList: ['LX_005', 'S_PU_005', 'CO2_005', 'WV_S_005', 'T_S_005', 'RH_S_005'],
+            nodeList: [
+              'LX_005',
+              'S_PU_005',
+              'CO2_005',
+              'WV_S_005',
+              'T_S_005',
+              'RH_S_005',
+            ],
           },
           {
             serial_number: 35,
@@ -653,7 +667,8 @@ const map = {
         is_sensor: 1,
         // save_db_type: BLOCK,
         data_unit: 'ppm',
-        description: '백만분의 1. 이산화탄소 농도 395ppm = 395/1,000,000 * 100 = 0.0395 %',
+        description:
+          '백만분의 1. 이산화탄소 농도 395ppm = 395/1,000,000 * 100 = 0.0395 %',
         defList: [
           {
             target_id: 'co2',
@@ -855,7 +870,8 @@ const map = {
         is_submit_api: 0,
         save_db_type: BLOCK,
         data_unit: 'kW',
-        description: '1 킬로와트(기호 kW)는 1 초 동안의 1,000 줄(N·m)에 해당하는 일률의 SI 단위',
+        description:
+          '1 킬로와트(기호 kW)는 1 초 동안의 1,000 줄(N·m)에 해당하는 일률의 SI 단위',
         defList: [
           {
             target_id: 'pvKw',
@@ -988,7 +1004,6 @@ const map = {
                 chart_color: '#212529',
                 chart_sort_rank: 1,
                 repeatId: 'RE_PREFIX_IVT',
-                nodeList: ['S_I_001'],
               },
               {
                 target_code: '002',
@@ -996,7 +1011,6 @@ const map = {
                 chart_color: '#fcc2d7',
                 chart_sort_rank: 2,
                 repeatId: 'RE_PREFIX_IVT',
-                nodeList: ['S_I_001'],
               },
               {
                 target_code: '003',
@@ -1004,7 +1018,6 @@ const map = {
                 chart_color: '#d0bfff',
                 chart_sort_rank: 3,
                 repeatId: 'RE_PREFIX_IVT',
-                nodeList: ['S_I_004'],
               },
             ],
           },

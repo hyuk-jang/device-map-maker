@@ -425,9 +425,9 @@ class UploadToDB {
 
     // Node Class 리스트 순회
     this.map.setInfo.nodeStructureList.forEach(nodeClassInfo => {
-      const { is_submit_api: isSubmitApiByClass = 1 } = nodeClassInfo;
+      const { is_submit_api: isSubmitApiByClass = 1, defList = [] } = nodeClassInfo;
       // DEF 목록 순회
-      nodeClassInfo.defList.forEach(nodeDefInfo => {
+      defList.forEach(nodeDefInfo => {
         const { is_submit_api: isSubmitApiByDef } = nodeDefInfo;
         // const pickInfo = _.omit(nodeDefInfo, 'nodeList');
         // nodeList Key 제외 Pick

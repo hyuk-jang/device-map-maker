@@ -103,7 +103,7 @@ class SvgMaker {
     this.mdPlaceStorage = new Map();
 
     this.mPlaceRelationList.forEach(pClassInfo => {
-      const { defList, target_name: pcName } = pClassInfo;
+      const { defList = [], target_name: pcName } = pClassInfo;
       defList.forEach(pDefInfo => {
         const {
           target_prefix: pdPrefix,
@@ -143,8 +143,8 @@ class SvgMaker {
 
     this.mNodeStructureList.forEach(nClassInfo => {
       const {
-        defList,
-        is_sensor: isSensor,
+        defList = [],
+        is_sensor: isSensor = 1,
         target_id: ncId,
         target_name: ncName,
         data_unit: dataUnit,
@@ -265,6 +265,7 @@ class SvgMaker {
   /** Step 2: Svg Place Position 목록 생성 */
   setSvgPlaceList() {
     this.mdPlaceStorage.forEach(mdPlaceInfo => {
+      // BU.CLI(mdPlaceInfo);
       const {
         placeId,
         placeName,

@@ -1,3 +1,6 @@
+const { BU } = require('base-util-jh');
+const _ = require('lodash');
+
 const {
   di: {
     dmmModel: { mmSvgBtnClass },
@@ -19,20 +22,25 @@ const ms = {
     HEIGHT: 100,
     BIG_WIDTH: 200,
     INTERVAL: 20,
-  },
-  SS: {
-    WIDTH: 100,
-    BIG_WIDTH: 200,
-    INTERVAL: 20,
-  },
-  SIDE: {
-    WIDTH: 130,
-    PUMP_HEIGHT: 180,
-    CMD_HEIGHT: 600,
-    CMD_START_AXIS: 0.08,
-    CMD_INTREVAL_RATE: 0.125,
+    PADDING: 0.03,
   },
 };
+
+const deviceAxisXs = Array(5)
+  .fill(0)
+  .map((value, index, arr) => {
+    const {
+      DA: { PADDING },
+    } = ms;
+    const remainWidth = 1 - PADDING * 2;
+    const widthIntervalAxisX = remainWidth / (arr.length - 1);
+
+    return _.chain(widthIntervalAxisX)
+      .multiply(index)
+      .thru(v => v + PADDING)
+      .round(3)
+      .value();
+  });
 
 /**
  * @type {mDeviceMap}
@@ -63,7 +71,7 @@ const map = {
           id: 'cmdBtn',
           type: 'rect',
           elementDrawInfo: {
-            width: ms.DA.WIDTH * 0.18,
+            width: ms.DA.WIDTH * 0.17,
             height: ms.DA.HEIGHT * 0.8,
             svgClass: [mmSvgBtnClass.lightGray, mmSvgBtnClass.orange, mmSvgBtnClass.red],
             filterInfo: {
@@ -76,7 +84,7 @@ const map = {
           id: 'sensor',
           type: 'rect',
           elementDrawInfo: {
-            width: ms.DA.WIDTH * 0.18,
+            width: ms.DA.WIDTH * 0.17,
             height: ms.DA.HEIGHT * 0.8,
             color: '#f0f0f0',
             strokeInfo: {
@@ -220,7 +228,7 @@ const map = {
                 target_code: '',
                 svgNodePosOpt: {
                   resourceId: 'sensor',
-                  axisScale: [0, 0.5],
+                  axisScale: [deviceAxisXs[0], 0.5],
                   moveScale: [0, 0],
                 },
               },
@@ -245,7 +253,7 @@ const map = {
                 data_index: 1,
                 svgNodePosOpt: {
                   resourceId: 'cmdBtn',
-                  axisScale: [0.25, 0.5],
+                  axisScale: [deviceAxisXs[1], 0.5],
                 },
               },
               {
@@ -255,7 +263,7 @@ const map = {
                 data_index: 2,
                 svgNodePosOpt: {
                   resourceId: 'cmdBtn',
-                  axisScale: [0.5, 0.5],
+                  axisScale: [deviceAxisXs[2], 0.5],
                 },
               },
               {
@@ -265,7 +273,7 @@ const map = {
                 data_index: 1,
                 svgNodePosOpt: {
                   resourceId: 'cmdBtn',
-                  axisScale: [0.75, 0.5],
+                  axisScale: [deviceAxisXs[3], 0.5],
                 },
               },
               {
@@ -275,7 +283,7 @@ const map = {
                 data_index: 2,
                 svgNodePosOpt: {
                   resourceId: 'cmdBtn',
-                  axisScale: [1, 0.5],
+                  axisScale: [deviceAxisXs[4], 0.5],
                 },
               },
             ],
@@ -301,8 +309,8 @@ const map = {
                   thresholdConfigList: [
                     {
                       ndId: 'percentBattery',
-                      upperLimitValue: { value: 20 },
-                      lowerLimitValue: { value: 10 },
+                      upperLimitValue: { value: 40 },
+                      lowerLimitValue: { value: 25 },
                     },
                   ],
                 },
@@ -318,8 +326,8 @@ const map = {
                   thresholdConfigList: [
                     {
                       ndId: 'percentBattery',
-                      upperLimitValue: { value: 30 },
-                      lowerLimitValue: { value: 20 },
+                      upperLimitValue: { value: 50 },
+                      lowerLimitValue: { value: 40 },
                     },
                   ],
                 },
@@ -335,8 +343,8 @@ const map = {
                   thresholdConfigList: [
                     {
                       ndId: 'percentBattery',
-                      upperLimitValue: { value: 40 },
-                      lowerLimitValue: { value: 30 },
+                      upperLimitValue: { value: 60 },
+                      lowerLimitValue: { value: 50 },
                     },
                   ],
                 },
@@ -352,8 +360,8 @@ const map = {
                   thresholdConfigList: [
                     {
                       ndId: 'percentBattery',
-                      upperLimitValue: { value: 50 },
-                      lowerLimitValue: { value: 40 },
+                      upperLimitValue: { value: 70 },
+                      lowerLimitValue: { value: 60 },
                     },
                   ],
                 },
