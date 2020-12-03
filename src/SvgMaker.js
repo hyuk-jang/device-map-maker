@@ -441,8 +441,30 @@ class SvgMaker {
         svgClass,
       },
       textStyleInfo,
-      textStyleInfo: { dataColor } = {},
+      textStyleInfo: { dataColor, anchor } = {},
     } = svgModelResource;
+
+    // anchor 변환 설정
+    if (typeof anchor === 'number') {
+      let strAnchor = '';
+      switch (anchor) {
+        case 0:
+          strAnchor = 'start';
+          break;
+        case 1:
+          strAnchor = 'middle';
+          break;
+        case 2:
+          strAnchor = 'end';
+          break;
+        default:
+          break;
+      }
+
+      if (strAnchor.length) {
+        textStyleInfo.anchor = strAnchor;
+      }
+    }
 
     elementDrawInfo.color = Array.isArray(color) ? color : [color];
     // svgClass가 존재하고 스트링일 경우 배열로 변환하여 저장

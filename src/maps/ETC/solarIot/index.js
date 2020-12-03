@@ -187,16 +187,16 @@ const map = {
             dccId: 'DCC_001',
             dpcId: 'DPC_001',
             target_code: '001',
-            target_name: 'Lv.1 ~ Lv.2',
-            nodeList: ['R_1', 'R_2'],
+            target_name: 'Lv.1 ~ Lv.4',
+            nodeList: ['R_1', 'R_2', 'R_3', 'R_4'],
           },
-          {
-            dccId: 'DCC_002',
-            dpcId: 'DPC_001',
-            target_code: '002',
-            target_name: 'Lv.3 ~ Lv.4',
-            nodeList: ['R_3', 'R_4'],
-          },
+          // {
+          //   dccId: 'DCC_002',
+          //   dpcId: 'DPC_001',
+          //   target_code: '002',
+          //   target_name: 'Lv.3 ~ Lv.4',
+          //   nodeList: ['R_3', 'R_4'],
+          // },
         ],
       },
       {
@@ -225,7 +225,6 @@ const map = {
             target_prefix: 'B_P',
             nodeList: [
               {
-                target_code: '',
                 svgNodePosOpt: {
                   resourceId: 'sensor',
                   axisScale: [deviceAxisXs[0], 0.5],
@@ -269,8 +268,8 @@ const map = {
               {
                 target_code: '3',
                 target_name: 'Lv.3',
-                data_logger_index: 0,
-                data_index: 1,
+                data_logger_index: 2,
+                data_index: 3,
                 svgNodePosOpt: {
                   resourceId: 'cmdBtn',
                   axisScale: [deviceAxisXs[3], 0.5],
@@ -279,8 +278,8 @@ const map = {
               {
                 target_code: '4',
                 target_name: 'Lv.4',
-                data_logger_index: 1,
-                data_index: 2,
+                data_logger_index: 3,
+                data_index: 4,
                 svgNodePosOpt: {
                   resourceId: 'cmdBtn',
                   axisScale: [deviceAxisXs[4], 0.5],
