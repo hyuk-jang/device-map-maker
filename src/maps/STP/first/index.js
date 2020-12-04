@@ -3,6 +3,8 @@ const _ = require('lodash');
 
 const { BU } = require('base-util-jh');
 
+const CM = require('../../../common');
+
 const {
   di: {
     dmmModel: { mmSvgBtnClass },
@@ -85,7 +87,7 @@ const ms = {
       OP1: [mapSize.width * 0.6, mapSize.height * 0.3],
       OP2: [mapSize.width * 0.65, mapSize.height * 0.3],
       PTC: [mapSize.width * 0.75, mapSize.height * 0.35],
-      SW: [mapSize.width * 0.15, mapSize.height * 0.85],
+      SW: [mapSize.width * 0.15, mapSize.height * 0.75],
     },
   },
   DA: {
@@ -121,11 +123,12 @@ const map = {
           elementDrawInfo: {
             width: ms.DA.WIDTH,
             height: ms.DA.HEIGHT,
-            color: ['url(#bg-sky-1)'],
+            color: ['transparent'],
+            // color: ['url(#bg-sky-1)'],
             opacity: 0.7,
-            filterInfo: {
-              filter: 'url(#deviceShadow)',
-            },
+            // filterInfo: {
+            //   // filter: 'url(#deviceShadow)',
+            // },
           },
         },
         {
@@ -134,7 +137,6 @@ const map = {
           elementDrawInfo: {
             width: ms.AREA_S.WIDTH,
             height: ms.AREA_S.HEIGHT,
-            color: ['url(#bg-black-1)'],
             opacity: 0.7,
             filterInfo: {
               filter: 'url(#deviceShadow)',
@@ -149,6 +151,25 @@ const map = {
         },
         {
           id: 'middleArea',
+          type: 'rect',
+          elementDrawInfo: {
+            width: ms.AREA_S.WIDTH,
+            height: ms.AREA_S.HEIGHT * 1.5,
+            color: '',
+            opacity: 0.7,
+            filterInfo: {
+              filter: 'url(#deviceShadow)',
+            },
+          },
+          textStyleInfo: {
+            color: 'white',
+            axisScale: [0.5, 0],
+            moveScale: [0, 1],
+            fontSize: 12,
+          },
+        },
+        {
+          id: 'middleTbl',
           type: 'rect',
           elementDrawInfo: {
             width: ms.AREA_S.WIDTH,
@@ -193,12 +214,45 @@ const map = {
           id: 'ptcEnvArea',
           type: 'rect',
           elementDrawInfo: {
-            width: ms.PTC_ENV.WIDTH,
-            height: ms.PTC_ENV.HEIGHT,
-            color: ['url(#bg-black-1)'],
-            opacity: 0.7,
+            width: ms.PTC_ENV.WIDTH * 0.9,
+            height: ms.PTC_ENV.HEIGHT * 0.9,
+            // color: ['url(#bg-black-1)'],
+            opacity: 0.5,
             filterInfo: {
               filter: 'url(#deviceShadow)',
+            },
+            insideInfo: {
+              headerInfo: {
+                bgColor: 'gold',
+                shareRate: 0.2,
+                fontSize: 12,
+                fontColor: 'white',
+                strokeColor: 'blue',
+                strokeWidth: 2,
+                axisScale: [0.5, 0.5],
+              },
+              bodyInfo: {
+                // bgColor: 'green',
+                // svgClass: '',
+                fontSize: 10,
+                fontColor: 'white',
+                unitColor: 'orange',
+                axisScale: [0.5, 0.5],
+                tblInfo: {
+                  rowsCount: 4,
+                  strokeColor: 'red',
+                  strokeWidth: 1,
+                  vStrokeScale: 0.5,
+                  titleInfo: {
+                    anchor: CM.anchor.middle,
+                    xAxisScale: 0.1,
+                  },
+                  dataInfo: {
+                    anchor: CM.anchor.end,
+                    xAxisScale: 0.95,
+                  },
+                },
+              },
             },
           },
           textStyleInfo: {
@@ -289,8 +343,41 @@ const map = {
           id: 'cmdBtn',
           type: 'rect',
           elementDrawInfo: {
-            width: ms.DA.WIDTH * 0.17,
-            height: ms.DA.HEIGHT * 0.8,
+            width: ms.DA.WIDTH,
+            height: ms.DA.HEIGHT,
+            opacity: 0.8,
+            color: 'purple',
+            svgClass: [mmSvgBtnClass.blue, mmSvgBtnClass.orange, mmSvgBtnClass.red],
+            filterInfo: {
+              filter: 'url(#deviceShadow)',
+            },
+            insideInfo: {
+              headerInfo: {
+                bgColor: 'url(#bg-sky-1)',
+                // svgClass: [mmSvgBtnClass.orange, mmSvgBtnClass.orange, mmSvgBtnClass.red],
+                svgClass: [mmSvgBtnClass.orange],
+                shareRate: 0.3,
+                fontSize: 12,
+                fontColor: 'white',
+                strokeColor: 'blue',
+                strokeWidth: 2,
+              },
+              bodyInfo: {
+                fontSize: 10,
+                fontColor: 'white',
+                unitColor: 'orange',
+                axisScale: [0.5, 0.5],
+              },
+            },
+          },
+          textStyleInfo: { fontSize: 15 },
+        },
+        {
+          id: 'cmdBtn2',
+          type: 'rect',
+          elementDrawInfo: {
+            width: ms.DA.WIDTH,
+            height: ms.DA.HEIGHT,
             svgClass: [mmSvgBtnClass.lightGray, mmSvgBtnClass.orange, mmSvgBtnClass.red],
             filterInfo: {
               filter: 'url(#deviceShadow)',
@@ -314,7 +401,7 @@ const map = {
           },
           textStyleInfo: {
             isTitleWrap: 0,
-            // anchor: 0,
+            // anchor: CM.anchor.start,
             // isHiddenTitle: 1,
 
             color: 'white',
@@ -336,9 +423,9 @@ const map = {
             // },
           },
           textStyleInfo: {
-            // isTitleWrap: 1,
-            isHiddenTitle: 1,
-            anchor: 1,
+            isTitleWrap: 1,
+            isHiddenTitle: 0,
+            anchor: CM.anchor.middle,
             axisScale: [0.5, 0.5],
             // baseline: 'top',
             color: 'white',
@@ -376,7 +463,7 @@ const map = {
           textStyleInfo: {
             // isTitleWrap: 1,
             isHiddenTitle: 1,
-            anchor: 1,
+            anchor: CM.anchor.middle,
             axisScale: [0.5, 0.5],
             // baseline: 'top',
             color: 'white',
@@ -397,7 +484,7 @@ const map = {
           textStyleInfo: {
             // isTitleWrap: 1,
             isHiddenTitle: 1,
-            anchor: 1,
+            anchor: CM.anchor.middle,
             axisScale: [0.5, 0.5],
             // baseline: 'top',
             color: 'white',
@@ -707,6 +794,11 @@ const map = {
             nodeList: [
               {
                 note: 'D20',
+                svgNodePosOpt: {
+                  resourceId: 'ptcEnvArea',
+                  placeId: 'AREA_ENV',
+                  tblIndex: 2,
+                },
               },
             ],
           },
@@ -755,6 +847,10 @@ const map = {
               {
                 target_code: '1',
                 note: 'D500',
+                svgNodePosOpt: {
+                  resourceId: 'ptcEnvArea',
+                  tblIndex: 1,
+                },
               },
               {
                 target_code: '2',
@@ -778,6 +874,10 @@ const map = {
             nodeList: [
               {
                 note: 'D30',
+                svgNodePosOpt: {
+                  resourceId: 'ptcEnvArea',
+                  tblIndex: 0,
+                },
               },
             ],
           },
@@ -1019,6 +1119,9 @@ const map = {
             nodeList: [
               {
                 note: 'M74',
+                svgNodePosOpt: {
+                  resourceId: 'cmdBtn',
+                },
               },
             ],
           },

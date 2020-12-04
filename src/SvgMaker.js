@@ -162,7 +162,7 @@ class SvgMaker {
             target_code: nCode,
             target_name: nName,
             svgNodePosOpt = {},
-            svgNodePosOpt: { resourceId, axisScale, moveScale } = {},
+            svgNodePosOpt: { resourceId, axisScale, moveScale, tblIndex } = {},
           } = nodeInfo;
 
           let { svgNodePosOpt: { placeId } = {} } = nodeInfo;
@@ -205,6 +205,7 @@ class SvgMaker {
             placeId,
             axisScale,
             moveScale,
+            tblIndex,
             point: [],
             placeIdList,
             placeNameList: placeIdList.map(pId => this.mdPlaceStorage.get(pId).placeName),
@@ -300,7 +301,8 @@ class SvgMaker {
           break;
       }
       // 장소 위치정보 업데이트
-      mdPlaceInfo.point = svgPosPoint;
+      mdPlaceInfo.point = svgPosPoint.map(point => _.round(point, 2));
+
       elementDrawInfo.color = Array.isArray(color) ? color : [color];
       // svgClass가 존재하고 스트링일 경우 배열로 변환하여 저장
       if (svgClass && typeof svgClass === 'string' && svgClass.length) {
@@ -330,6 +332,7 @@ class SvgMaker {
         isSensor,
         axisScale,
         moveScale,
+        tblIndex,
         mdPlaceInfo,
         svgModelResource,
       } = mdNodeInfo;
@@ -341,6 +344,7 @@ class SvgMaker {
         is_sensor: isSensor,
         resourceId: svgModelResource.id,
         placeId: mdPlaceInfo.placeId,
+        tblIndex,
         point: this.calcSvgElementPoint(
           axisScale,
           moveScale,
@@ -507,7 +511,7 @@ class SvgMaker {
         break;
     }
 
-    return [svgAxisX, svgAxisY];
+    return [_.round(svgAxisX, 2), _.round(svgAxisY, 2)];
   }
 
   /**
