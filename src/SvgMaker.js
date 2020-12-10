@@ -94,7 +94,15 @@ class SvgMaker {
     /** @type {Map<string, mSvgModelResource>} */
     this.mdMapStorage = new Map();
     this.mSvgModelResourceList.forEach(modelInfo => {
-      const { id } = modelInfo;
+      const {
+        id,
+        elementDrawInfo,
+        elementDrawInfo: { width, height },
+      } = modelInfo;
+      // 자바스크립트 계산식 로직에 의한 소수점 생성부분 삭제
+      typeof width === 'number' && _.set(elementDrawInfo, 'width', _.round(width, 3));
+      typeof height === 'number' && _.set(elementDrawInfo, 'height', _.round(height, 3));
+
       this.mdMapStorage.set(id, modelInfo);
     });
 
@@ -114,17 +122,19 @@ class SvgMaker {
         placeList.forEach(pInfo => {
           const {
             target_code: pCode = null,
-            target_name: pName = pdName,
+            target_name: pName = '',
             nodeList = [],
             svgPositionInfo: { point, resourceId } = {},
           } = pInfo;
-          // Place ID 정의
 
           // svgPositionInfo 정보가 없다면 추가하지 않음
           if (resourceId === undefined) return false;
 
+          // Place ID 정의
           const placeId = `${pdPrefix}${pCode ? `_${pCode}` : ''}`;
-          const placeName = `${pName}${pCode ? `_${pCode}` : ''}`;
+          // 사용자 지정 이름이 있을 경우 사용
+          const placeName =
+            pName.length > 0 ? pName : `${pdName}${pCode ? ` ${pCode}` : ''}`;
 
           this.mdPlaceStorage.set(placeId, {
             placeId,
@@ -162,10 +172,10 @@ class SvgMaker {
             target_code: nCode,
             target_name: nName,
             svgNodePosOpt = {},
-            svgNodePosOpt: { resourceId, axisScale, moveScale, tblIndex } = {},
+            svgNodePosOpt: { axisScale, moveScale, tblIndex } = {},
           } = nodeInfo;
 
-          let { svgNodePosOpt: { placeId } = {} } = nodeInfo;
+          let { svgNodePosOpt: { placeId, resourceId } = {} } = nodeInfo;
 
           // SVG Node의 위치 설정 정보가 없을 경우 추가하지 않음
           if (_.isEmpty(svgNodePosOpt)) {
@@ -177,7 +187,7 @@ class SvgMaker {
           if (typeof nName === 'string' && nName.length) {
             nodeName = nName;
           } else {
-            nodeName = `${ndName}${nCode ? `_${nCode}` : ''}`;
+            nodeName = `${ndName}${nCode ? ` ${nCode}` : ''}`;
           }
 
           // 노드를 포함하는 Place Id 목록
@@ -191,9 +201,16 @@ class SvgMaker {
               // placeId의 정보가 없다면 placeRelation에 있는지 찾아서 정의
               if (placeId === '' || placeId === undefined) {
                 placeId = mdPlaceId;
+                svgNodePosOpt.placeId = placeId;
               }
             }
           });
+
+          // 자원이 존재하지 않으나 테이블 형식일 경우 노드를 포함하는 장소의 자원을 정의
+          if (resourceId === undefined && typeof tblIndex === 'number') {
+            resourceId = this.mdPlaceStorage.get(placeId).svgModelResource.id;
+            svgNodePosOpt.resourceId = resourceId;
+          }
 
           this.mdNodeStorage.set(nodeId, {
             ncId,
@@ -303,6 +320,9 @@ class SvgMaker {
       // 장소 위치정보 업데이트
       mdPlaceInfo.point = svgPosPoint.map(point => _.round(point, 2));
 
+      typeof width === 'number' && _.set(elementDrawInfo, 'width', _.round(width, 3));
+      typeof height === 'number' && _.set(elementDrawInfo, 'height', _.round(height, 3));
+
       elementDrawInfo.color = Array.isArray(color) ? color : [color];
       // svgClass가 존재하고 스트링일 경우 배열로 변환하여 저장
       if (svgClass && typeof svgClass === 'string' && svgClass.length) {
@@ -316,7 +336,7 @@ class SvgMaker {
       this.mSvgPlaceList.push({
         id: placeId,
         name: placeName,
-        point: svgPosPoint,
+        point: mdPlaceInfo.point,
         resourceId: id,
       });
     });
@@ -444,7 +464,7 @@ class SvgMaker {
         color,
         svgClass,
       },
-      textStyleInfo,
+      textStyleInfo = {},
       textStyleInfo: { dataColor, anchor } = {},
     } = svgModelResource;
 

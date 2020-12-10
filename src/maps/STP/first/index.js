@@ -75,26 +75,11 @@ const ms = {
     WIDTH: mapSize.width * 0.12,
     HEIGHT: mapSize.height * 0.7,
   },
-  POS: {
-    PTC: [mapSize.width * 0.7, mapSize.height * 0.2],
-    PTC_ENV: [mapSize.width * 0.6, mapSize.height * 0.45],
-    OP: [mapSize.width * 0.5, mapSize.height * 0.2],
-    OT1: [mapSize.width * 0.25, mapSize.height * 0.45],
-    OT2: [mapSize.width * 0.25, mapSize.height * 0.6],
-    SG: [mapSize.width * 0.1, mapSize.height * 0.3],
-    ALARM: [mapSize.width * 0.85, mapSize.height * 0.2],
-    DA: {
-      OP1: [mapSize.width * 0.6, mapSize.height * 0.3],
-      OP2: [mapSize.width * 0.65, mapSize.height * 0.3],
-      PTC: [mapSize.width * 0.75, mapSize.height * 0.35],
-      SW: [mapSize.width * 0.15, mapSize.height * 0.75],
-    },
-  },
   DA: {
     START_X: 100,
     START_Y: 50,
     WIDTH: mapSize.width * 0.05,
-    HEIGHT: mapSize.height * 0.1,
+    HEIGHT: mapSize.height * 0.07,
     BIG_WIDTH: 200,
     INTERVAL: 20,
     PADDING: 0.03,
@@ -123,219 +108,133 @@ const map = {
           elementDrawInfo: {
             width: ms.DA.WIDTH,
             height: ms.DA.HEIGHT,
-            color: ['transparent'],
-            // color: ['url(#bg-sky-1)'],
-            opacity: 0.7,
-            // filterInfo: {
-            //   // filter: 'url(#deviceShadow)',
-            // },
-          },
-        },
-        {
-          id: 'smallArea',
-          type: 'rect',
-          elementDrawInfo: {
-            width: ms.AREA_S.WIDTH,
-            height: ms.AREA_S.HEIGHT,
-            opacity: 0.7,
+            opacity: 0.6,
             filterInfo: {
               filter: 'url(#deviceShadow)',
             },
           },
           textStyleInfo: {
-            color: 'white',
-            axisScale: [0.5, 0],
-            moveScale: [0, 1],
-            fontSize: 12,
+            isHiddenTitle: 1,
           },
         },
         {
-          id: 'middleArea',
+          id: 'tblAlarmCase3',
           type: 'rect',
           elementDrawInfo: {
-            width: ms.AREA_S.WIDTH,
-            height: ms.AREA_S.HEIGHT * 1.5,
-            color: '',
-            opacity: 0.7,
-            filterInfo: {
-              filter: 'url(#deviceShadow)',
-            },
-          },
-          textStyleInfo: {
-            color: 'white',
-            axisScale: [0.5, 0],
-            moveScale: [0, 1],
-            fontSize: 12,
-          },
-        },
-        {
-          id: 'middleTbl',
-          type: 'rect',
-          elementDrawInfo: {
-            width: ms.AREA_S.WIDTH,
-            height: ms.AREA_S.HEIGHT * 1.5,
-            color: ['url(#bg-black-1)'],
-            opacity: 0.7,
-            filterInfo: {
-              filter: 'url(#deviceShadow)',
-            },
-          },
-          textStyleInfo: {
-            color: 'white',
-            titleInfo: {
-              lineColor: 'red',
-            },
-            axisScale: [0.5, 0],
-            moveScale: [0, 1],
-            fontSize: 12,
-          },
-        },
-
-        {
-          id: 'ptcArea',
-          type: 'rect',
-          elementDrawInfo: {
-            width: ms.PTC.WIDTH,
-            height: ms.PTC.HEIGHT,
-            color: ['url(#bg-black-1)'],
-            opacity: 0.7,
-            filterInfo: {
-              filter: 'url(#deviceShadow)',
-            },
-          },
-          textStyleInfo: {
-            color: 'white',
-            axisScale: [0.5, 0],
-            moveScale: [0, 1],
-            fontSize: 12,
-          },
-        },
-        {
-          id: 'ptcEnvArea',
-          type: 'rect',
-          elementDrawInfo: {
-            width: ms.PTC_ENV.WIDTH * 0.9,
-            height: ms.PTC_ENV.HEIGHT * 0.9,
-            // color: ['url(#bg-black-1)'],
+            width: ms.SIZE.width * 0.11,
+            height: ms.SIZE.height * 0.2,
             opacity: 0.5,
             filterInfo: {
               filter: 'url(#deviceShadow)',
             },
-            insideInfo: {
-              headerInfo: {
-                bgColor: 'gold',
-                shareRate: 0.2,
-                fontSize: 12,
-                fontColor: 'white',
-                strokeColor: 'blue',
-                strokeWidth: 2,
-                axisScale: [0.5, 0.5],
-              },
-              bodyInfo: {
-                // bgColor: 'green',
-                // svgClass: '',
-                fontSize: 10,
-                fontColor: 'white',
-                unitColor: 'orange',
-                axisScale: [0.5, 0.5],
-                tblInfo: {
-                  rowsCount: 4,
-                  strokeColor: 'red',
-                  strokeWidth: 1,
-                  vStrokeScale: 0.5,
-                  titleInfo: {
-                    anchor: CM.anchor.middle,
-                    xAxisScale: 0.1,
-                  },
-                  dataInfo: {
-                    anchor: CM.anchor.end,
-                    xAxisScale: 0.95,
-                  },
-                },
-              },
-            },
-          },
-          textStyleInfo: {
-            color: 'white',
-            axisScale: [0.5, 0],
-            moveScale: [0, 1],
-            fontSize: 12,
+            insideInfo: CM.insideAlarmTemplate1({
+              rowsCount: 4,
+              shareRate: 0.2,
+              dataAnchor: 'start',
+            }),
           },
         },
         {
-          id: 'otArea',
+          id: 'tblAlarmCase3x3',
           type: 'rect',
           elementDrawInfo: {
-            width: ms.OT.WIDTH,
-            height: ms.OT.HEIGHT,
-            color: ['url(#bg-black-1)'],
-            opacity: 0.7,
+            width: ms.SIZE.width * 0.11,
+            height: ms.SIZE.height * 0.18,
+            opacity: 0.5,
             filterInfo: {
               filter: 'url(#deviceShadow)',
             },
-          },
-          textStyleInfo: {
-            color: 'white',
-            axisScale: [0.5, 0],
-            moveScale: [0, 1],
-            fontSize: 12,
+            insideInfo: CM.insideSensorTemplate1({
+              rowsCount: 3,
+              shareRate: 0.2,
+              vStrokeScale: 0.5,
+              dataAnchor: CM.anchor.middle,
+            }),
           },
         },
         {
-          id: 'sgArea',
+          id: 'tblSensorCase2',
           type: 'rect',
           elementDrawInfo: {
-            width: ms.SG.WIDTH,
-            height: ms.SG.HEIGHT,
-            color: ['url(#bg-black-1)'],
-            opacity: 0.7,
+            width: ms.SIZE.width * 0.11,
+            height: ms.SIZE.height * 0.12,
+            opacity: 0.5,
             filterInfo: {
               filter: 'url(#deviceShadow)',
             },
-          },
-          textStyleInfo: {
-            color: 'white',
-            axisScale: [0.5, 0],
-            moveScale: [0, 1],
-            fontSize: 12,
+            insideInfo: CM.insideSensorTemplate1({
+              rowsCount: 2,
+              shareRate: 0.34,
+              vStrokeScale: 0.6,
+            }),
           },
         },
         {
-          id: 'swArea',
+          id: 'tblSensorCase3',
           type: 'rect',
           elementDrawInfo: {
-            width: ms.SW.WIDTH,
-            height: ms.SW.HEIGHT,
-            color: ['url(#bg-black-1)'],
-            opacity: 0.7,
+            width: ms.SIZE.width * 0.11,
+            height: ms.SIZE.height * 0.16,
+            opacity: 0.5,
             filterInfo: {
               filter: 'url(#deviceShadow)',
             },
-          },
-          textStyleInfo: {
-            color: 'white',
-            axisScale: [0.5, 0],
-            moveScale: [0, 1],
-            fontSize: 12,
+            insideInfo: CM.insideSensorTemplate1({
+              rowsCount: 3,
+              shareRate: 0.25,
+              vStrokeScale: 0.45,
+            }),
           },
         },
         {
-          id: 'alarmArea',
+          id: 'tblSensorCase4',
           type: 'rect',
           elementDrawInfo: {
-            width: ms.ALARM.WIDTH,
-            height: ms.ALARM.HEIGHT,
-            color: ['url(#bg-black-1)'],
-            opacity: 0.7,
+            width: ms.SIZE.width * 0.11,
+            height: ms.SIZE.height * 0.2,
+            opacity: 0.5,
             filterInfo: {
               filter: 'url(#deviceShadow)',
             },
+            insideInfo: CM.insideSensorTemplate1({
+              rowsCount: 4,
+              shareRate: 0.2,
+              vStrokeScale: 0.45,
+            }),
           },
-          textStyleInfo: {
-            color: 'white',
-            axisScale: [0.5, 0],
-            moveScale: [0, 1],
-            fontSize: 12,
+        },
+        {
+          id: 'tblSensorCase6',
+          type: 'rect',
+          elementDrawInfo: {
+            width: ms.SIZE.width * 0.11,
+            height: ms.SIZE.height * 0.28,
+            opacity: 0.5,
+            filterInfo: {
+              filter: 'url(#deviceShadow)',
+            },
+            insideInfo: CM.insideSensorTemplate1({
+              rowsCount: 6,
+              shareRate: 0.143,
+              vStrokeScale: 0.45,
+            }),
+          },
+        },
+        {
+          id: 'tblSensorCase7',
+          type: 'rect',
+          elementDrawInfo: {
+            width: ms.SIZE.width * 0.11,
+            height: ms.SIZE.height * 0.32,
+            opacity: 0.5,
+            filterInfo: {
+              filter: 'url(#deviceShadow)',
+            },
+            insideInfo: CM.insideSensorTemplate1({
+              rowsCount: 7,
+              shareRate: 0.125,
+              vStrokeScale: 0.45,
+            }),
           },
         },
         /* *************       Device        ***************** */
@@ -345,112 +244,21 @@ const map = {
           elementDrawInfo: {
             width: ms.DA.WIDTH,
             height: ms.DA.HEIGHT,
-            opacity: 0.8,
-            color: 'purple',
-            svgClass: [mmSvgBtnClass.blue, mmSvgBtnClass.orange, mmSvgBtnClass.red],
+            opacity: 0.5,
+            color: ['gray', 'green'],
+            // color: ['url(#bg-gray-1)', 'url(#bg-green-1)', 'url(#bg-sky-2)'],
+            errColor: 'red',
             filterInfo: {
               filter: 'url(#deviceShadow)',
             },
-            insideInfo: {
-              headerInfo: {
-                bgColor: 'url(#bg-sky-1)',
-                // svgClass: [mmSvgBtnClass.orange, mmSvgBtnClass.orange, mmSvgBtnClass.red],
-                svgClass: [mmSvgBtnClass.orange],
-                shareRate: 0.3,
-                fontSize: 12,
-                fontColor: 'white',
-                strokeColor: 'blue',
-                strokeWidth: 2,
-              },
-              bodyInfo: {
-                fontSize: 10,
-                fontColor: 'white',
-                unitColor: 'orange',
-                axisScale: [0.5, 0.5],
-              },
-            },
-          },
-          textStyleInfo: { fontSize: 15 },
-        },
-        {
-          id: 'cmdBtn2',
-          type: 'rect',
-          elementDrawInfo: {
-            width: ms.DA.WIDTH,
-            height: ms.DA.HEIGHT,
-            svgClass: [mmSvgBtnClass.lightGray, mmSvgBtnClass.orange, mmSvgBtnClass.red],
-            filterInfo: {
-              filter: 'url(#deviceShadow)',
-            },
+            insideInfo: CM.insideBtnTemplate1({
+              shareRate: 0.5,
+              dataAnchor: 'middle',
+            }),
           },
           textStyleInfo: { fontSize: 15 },
         },
         /* *************       Sensor        ***************** */
-        {
-          id: 'tableSensor',
-          type: 'rect',
-          elementDrawInfo: {
-            width: ms.AREA_S.WIDTH,
-            height: 10,
-            color: '#f0f0f0',
-            opacity: 0,
-            // strokeInfo: {
-            //   width: 0.7,
-            //   color: '#000',
-            // },
-          },
-          textStyleInfo: {
-            isTitleWrap: 0,
-            // anchor: CM.anchor.start,
-            // isHiddenTitle: 1,
-
-            color: 'white',
-            dataColor: 'red',
-            fontSize: 10,
-          },
-        },
-        {
-          id: 'tableHiddenSensor',
-          type: 'rect',
-          elementDrawInfo: {
-            width: ms.AREA_S.WIDTH,
-            height: (ms.AREA_S.HEIGHT * 1.5) / 4,
-            color: 'blue',
-            opacity: 0,
-            // strokeInfo: {
-            //   width: 0.7,
-            //   color: '#000',
-            // },
-          },
-          textStyleInfo: {
-            isTitleWrap: 1,
-            isHiddenTitle: 0,
-            anchor: CM.anchor.middle,
-            axisScale: [0.5, 0.5],
-            // baseline: 'top',
-            color: 'white',
-            dataColor: 'white',
-            fontSize: 10,
-          },
-        },
-        {
-          id: 'sensor',
-          type: 'rect',
-          elementDrawInfo: {
-            width: ms.DA.WIDTH * 0.17,
-            height: ms.DA.HEIGHT * 0.8,
-            color: '#f0f0f0',
-            strokeInfo: {
-              width: 0.7,
-              color: '#000',
-            },
-          },
-          textStyleInfo: {
-            color: 'white',
-            dataColor: '',
-            fontSize: 10,
-          },
-        },
         {
           id: 'sensorOdd',
           type: 'rect',
@@ -620,23 +428,21 @@ const map = {
             nodeList: [
               {
                 target_code: '1',
-                // target_name: '오일펌프 1',
+                target_name: '오일펌프 1',
                 data_logger_index: 1,
                 note: 'D16',
-                // svgNodePosOpt: {
-                //   resourceId: 'tableSensor',
-                //   axisScale: [0.5, 0.5],
-                // },
+                svgNodePosOpt: {
+                  tblIndex: 0,
+                },
               },
               {
                 target_code: '2',
                 target_name: '오일펌프 2',
                 data_logger_index: 0,
                 note: 'D14',
-                // svgNodePosOpt: {
-                //   resourceId: 'tableSensor',
-                //   axisScale: [0, 0.8],
-                // },
+                svgNodePosOpt: {
+                  tblIndex: 1,
+                },
               },
             ],
           },
@@ -656,15 +462,23 @@ const map = {
             nodeList: [
               {
                 target_code: '1',
-                target_name: '오일탱크 1 밸브',
+                target_name: '밸브 피드백',
                 data_logger_index: 0,
-                note: 'D12',
+                note: 'D12 오일탱크 1',
+                svgNodePosOpt: {
+                  placeId: 'AREA_OT_1',
+                  tblIndex: 0,
+                },
               },
               {
                 target_code: '2',
-                target_name: '오일탱크 2 밸브',
+                target_name: '밸브 피드백',
                 data_logger_index: 1,
-                note: 'D13',
+                note: 'D13 오일탱크 2',
+                svgNodePosOpt: {
+                  placeId: 'AREA_OT_2',
+                  tblIndex: 0,
+                },
               },
             ],
           },
@@ -675,8 +489,12 @@ const map = {
             target_prefix: 'FDVA_PTC',
             nodeList: [
               {
-                target_name: '집열기 밸브',
-                note: 'D11',
+                target_name: '밸브 피드백',
+                note: 'D11 집열기 밸브',
+                svgNodePosOpt: {
+                  placeId: 'AREA_PTC',
+                  tblIndex: 0,
+                },
               },
             ],
           },
@@ -687,8 +505,12 @@ const map = {
             target_prefix: 'FDVA_SG',
             nodeList: [
               {
-                target_name: '스팀발생기 밸브',
-                note: 'D10',
+                target_name: '밸브 피드백',
+                note: 'D10 스팀발생기 밸브',
+                svgNodePosOpt: {
+                  placeId: 'AREA_SG',
+                  tblIndex: 0,
+                },
               },
             ],
           },
@@ -707,7 +529,12 @@ const map = {
             target_prefix: 'FRCU_SG',
             nodeList: [
               {
+                target_name: '누계 유량',
                 note: 'D100',
+                svgNodePosOpt: {
+                  placeId: 'AREA_SG',
+                  tblIndex: 3,
+                },
               },
             ],
           },
@@ -718,7 +545,11 @@ const map = {
             target_prefix: 'FRCU_PIP',
             nodeList: [
               {
+                target_name: '누계 유량',
                 note: 'D604',
+                svgNodePosOpt: {
+                  tblIndex: 4,
+                },
               },
             ],
           },
@@ -737,7 +568,12 @@ const map = {
             target_prefix: 'FRIN_SG',
             nodeList: [
               {
+                target_name: '순시 유량',
                 note: 'D102',
+                svgNodePosOpt: {
+                  placeId: 'AREA_SG',
+                  tblIndex: 4,
+                },
               },
             ],
           },
@@ -748,7 +584,11 @@ const map = {
             target_prefix: 'FRIN_PIP',
             nodeList: [
               {
+                target_name: '순시 유량',
                 note: 'D600',
+                svgNodePosOpt: {
+                  tblIndex: 3,
+                },
               },
             ],
           },
@@ -759,7 +599,11 @@ const map = {
             target_prefix: 'FRIN_PIOP',
             nodeList: [
               {
+                target_name: '유량 방향',
                 note: 'D602',
+                svgNodePosOpt: {
+                  tblIndex: 5,
+                },
               },
             ],
           },
@@ -776,7 +620,11 @@ const map = {
             target_prefix: 'FRE_PIP',
             nodeList: [
               {
-                note: 'D612',
+                target_name: '주파수',
+                note: 'D612 파이프 주파수',
+                svgNodePosOpt: {
+                  tblIndex: 2,
+                },
               },
             ],
           },
@@ -793,10 +641,9 @@ const map = {
             target_prefix: 'IRR_ENV',
             nodeList: [
               {
-                note: 'D20',
+                target_name: '조도',
+                note: 'D20 환경 조도',
                 svgNodePosOpt: {
-                  resourceId: 'ptcEnvArea',
-                  placeId: 'AREA_ENV',
                   tblIndex: 2,
                 },
               },
@@ -816,7 +663,12 @@ const map = {
             target_prefix: 'PRGA_SG',
             nodeList: [
               {
+                target_name: '압력',
                 note: 'D18',
+                svgNodePosOpt: {
+                  placeId: 'AREA_SG',
+                  tblIndex: 5,
+                },
               },
             ],
           },
@@ -828,6 +680,9 @@ const map = {
             nodeList: [
               {
                 note: 'D610',
+                svgNodePosOpt: {
+                  tblIndex: 1,
+                },
               },
             ],
           },
@@ -846,9 +701,9 @@ const map = {
             nodeList: [
               {
                 target_code: '1',
+                target_name: '일사량',
                 note: 'D500',
                 svgNodePosOpt: {
-                  resourceId: 'ptcEnvArea',
                   tblIndex: 1,
                 },
               },
@@ -873,9 +728,9 @@ const map = {
             target_prefix: 'TEM_ENV',
             nodeList: [
               {
-                note: 'D30',
+                target_name: '온도',
+                note: 'D30 환경 온도',
                 svgNodePosOpt: {
-                  resourceId: 'ptcEnvArea',
                   tblIndex: 0,
                 },
               },
@@ -888,39 +743,63 @@ const map = {
             nodeList: [
               {
                 target_code: '1',
-                target_name: '집열기 진입 온도',
+                target_name: '입구 온도',
                 data_logger_index: 0,
-                note: 'D22',
+                note: 'D22 집열기 입구 온도',
+                svgNodePosOpt: {
+                  placeId: 'AREA_PTC',
+                  tblIndex: 1,
+                },
               },
               {
                 target_code: '2',
-                target_name: '집열기 출구 온도',
+                target_name: '출구 온도',
                 data_logger_index: 1,
-                note: 'D24',
+                note: 'D24 집열기 출구 온도',
+                svgNodePosOpt: {
+                  placeId: 'AREA_PTC',
+                  tblIndex: 2,
+                },
               },
               {
                 target_code: '3',
-                target_name: '오일 탱크 1 온도',
+                target_name: '오일 탱크 온도',
                 data_logger_index: 2,
-                note: 'D26',
+                note: 'D26 오일 탱크 1',
+                svgNodePosOpt: {
+                  placeId: 'AREA_OT_1',
+                  tblIndex: 1,
+                },
               },
               {
                 target_code: '4',
-                target_name: '오일 탱크 2 온도',
+                target_name: '오일 탱크 온도',
                 data_logger_index: 3,
-                note: 'D28',
+                note: 'D28 오일 탱크 2',
+                svgNodePosOpt: {
+                  placeId: 'AREA_OT_2',
+                  tblIndex: 1,
+                },
               },
               {
                 target_code: '5',
-                target_name: '증기발생기 입구 온도',
+                target_name: '입구 온도',
                 data_logger_index: 4,
-                note: 'D32',
+                note: 'D32 증기발생기 입구 온도',
+                svgNodePosOpt: {
+                  placeId: 'AREA_SG',
+                  tblIndex: 1,
+                },
               },
               {
                 target_code: '6',
-                target_name: '증기발생기 온도',
+                target_name: '내부 온도',
                 data_logger_index: 5,
-                note: 'D34',
+                note: 'D34 증기발생기 온도',
+                svgNodePosOpt: {
+                  placeId: 'AREA_SG',
+                  tblIndex: 2,
+                },
               },
             ],
           },
@@ -930,16 +809,12 @@ const map = {
             target_prefix: 'TEM_STE',
             nodeList: [
               {
-                target_code: '1',
-                target_name: '증기발생기 스팀 온도',
+                target_name: '출구 온도',
                 data_logger_index: 0,
-                note: 'D24',
-              },
-              {
-                target_code: '2',
-                target_name: '증기발생기 출구 온도',
-                data_logger_index: 0,
-                note: 'D608',
+                note: 'D608 증기발생기 출구 온도',
+                svgNodePosOpt: {
+                  tblIndex: 0,
+                },
               },
             ],
           },
@@ -949,7 +824,11 @@ const map = {
             target_prefix: 'TEM_UNI',
             nodeList: [
               {
+                target_name: '단위',
                 note: 'D614',
+                svgNodePosOpt: {
+                  tblIndex: 6,
+                },
               },
             ],
           },
@@ -964,11 +843,14 @@ const map = {
           {
             // Mode System Operation
             target_id: 'infoSysOper',
-            target_name: '시스템 동작 상태',
+            target_name: '시스템 동작',
             target_prefix: 'INF_SYOP',
             nodeList: [
               {
                 note: 'M72(0: Off, 1: On)',
+                svgNodePosOpt: {
+                  tblIndex: 0,
+                },
               },
             ],
           },
@@ -980,6 +862,9 @@ const map = {
             nodeList: [
               {
                 note: 'M75(0: 흐린 날씨, 1: 맑은 날씨)',
+                svgNodePosOpt: {
+                  tblIndex: 1,
+                },
               },
             ],
           },
@@ -1002,6 +887,9 @@ const map = {
             nodeList: [
               {
                 note: 'D2330(0: 로컬, 1: 타이머, 2: 원격)',
+                svgNodePosOpt: {
+                  tblIndex: 2,
+                },
               },
             ],
           },
@@ -1021,8 +909,7 @@ const map = {
                 data_logger_index: 0,
                 note: 'M116',
                 svgNodePosOpt: {
-                  resourceId: 'tableHiddenSensor',
-                  axisScale: [0.5, 0],
+                  tblIndex: 0,
                 },
               },
               {
@@ -1031,8 +918,7 @@ const map = {
                 data_logger_index: 1,
                 note: 'M117',
                 svgNodePosOpt: {
-                  resourceId: 'sensorOdd',
-                  axisScale: [0.5, 0.333],
+                  tblIndex: 1,
                 },
               },
               {
@@ -1041,8 +927,7 @@ const map = {
                 data_logger_index: 2,
                 note: 'M118',
                 svgNodePosOpt: {
-                  resourceId: 'sensorEven',
-                  axisScale: [0.5, 0.666],
+                  tblIndex: 2,
                 },
               },
               {
@@ -1051,8 +936,7 @@ const map = {
                 data_logger_index: 3,
                 note: 'M119',
                 svgNodePosOpt: {
-                  resourceId: 'tableHiddenSensor',
-                  axisScale: [0.1, 1],
+                  tblIndex: 3,
                 },
               },
             ],
@@ -1067,24 +951,36 @@ const map = {
                 target_name: '증기 직접 공급 모드 운행',
                 data_logger_index: 0,
                 note: 'M123',
+                svgNodePosOpt: {
+                  tblIndex: 0,
+                },
               },
               {
                 target_code: '2',
                 target_name: '열저장탱크 열저장모드 운행',
                 data_logger_index: 1,
                 note: 'M124',
+                svgNodePosOpt: {
+                  tblIndex: 1,
+                },
               },
               {
                 target_code: '3',
                 target_name: '열저장탱크 열방출모드 운행',
                 data_logger_index: 2,
                 note: 'M125',
+                svgNodePosOpt: {
+                  tblIndex: 2,
+                },
               },
               {
                 target_code: '4',
                 target_name: '우선적 열저장모드 운행',
                 data_logger_index: 3,
                 note: 'M126',
+                svgNodePosOpt: {
+                  tblIndex: 3,
+                },
               },
             ],
           },
@@ -1093,6 +989,7 @@ const map = {
       // Device
       {
         target_id: 'pump',
+        is_sensor: 2,
         defList: [
           {
             target_id: 'pumpOil',
@@ -1103,11 +1000,17 @@ const map = {
                 target_code: '1',
                 data_logger_index: 0,
                 note: 'M70',
+                svgNodePosOpt: {
+                  resourceId: 'cmdBtn',
+                },
               },
               {
                 target_code: '2',
                 data_logger_index: 1,
                 note: 'M71',
+                svgNodePosOpt: {
+                  resourceId: 'cmdBtn',
+                },
               },
             ],
           },
@@ -1129,13 +1032,19 @@ const map = {
       },
       {
         target_id: 'ptc',
+        is_sensor: 0,
         defList: [
           {
             target_id: 'ptc',
             target_prefix: 'PTC',
+            target_name: 'PTC 집광기',
             nodeList: [
               {
                 note: 'M73',
+                svgNodePosOpt: {
+                  placeId: 'AREA_PTC_OPE',
+                  resourceId: 'cmdBtn',
+                },
               },
             ],
           },
@@ -1159,63 +1068,37 @@ const map = {
                 target_name: '탱크 모드',
                 nodeList: ['MOD_OT_1', 'MOD_OT_2', 'MOD_OT_3', 'MOD_OT_4'],
                 svgPositionInfo: {
-                  resourceId: 'middleArea',
-                  point: convertPlacePosition(0.8, 0.8),
+                  resourceId: 'tblAlarmCase3',
+                  point: convertPlacePosition(0.85, 0.6),
                 },
               },
               {
                 target_code: 'STE',
-                target_name: '증기 직접 공급 모드',
+                target_name: '작동 모드',
                 nodeList: ['MOD_STE_1', 'MOD_STE_2', 'MOD_STE_3', 'MOD_STE_4'],
                 svgPositionInfo: {
-                  resourceId: 'smallArea',
-                  point: [mapSize.width * 0.8, mapSize.height * 0.6],
+                  resourceId: 'tblAlarmCase3',
+                  point: convertPlacePosition(0.85, 0.35),
                 },
               },
             ],
           },
           {
-            target_id: 'env',
-            target_name: '날씨 상태',
-            target_prefix: 'AREA_ALA_ENV',
+            target_id: 'base',
+            target_name: '기본 정보',
+            target_prefix: 'AREA_ALA_BASE',
             placeList: [
               {
-                nodeList: ['INF_SKY'],
+                nodeList: ['INF_SYMO', 'INF_SKY', 'INF_SYOP'],
                 svgPositionInfo: {
-                  resourceId: 'smallArea',
-                  point: [mapSize.width * 0.8, mapSize.height * 0.4],
-                },
-              },
-            ],
-          },
-          {
-            target_id: 'system',
-            target_name: '시스템 상태',
-            target_prefix: 'AREA_ALA_SYS',
-            placeList: [
-              {
-                target_code: 'MOD',
-                target_name: '운영 모드',
-                nodeList: ['INF_SYMO'],
-                svgPositionInfo: {
-                  resourceId: 'smallArea',
-                  point: [mapSize.width * 0.8, mapSize.height * 0.2],
-                },
-              },
-              {
-                target_code: 'OPER',
-                target_name: '시스템 동작 상태',
-                nodeList: ['INF_SYOP'],
-                svgPositionInfo: {
-                  resourceId: 'smallArea',
-                  point: [mapSize.width * 0.8, mapSize.height * 0],
+                  resourceId: 'tblAlarmCase3x3',
+                  point: convertPlacePosition(0.85, 0.1),
                 },
               },
             ],
           },
         ],
       },
-
       {
         target_id: 'envArea',
         target_name: '환경',
@@ -1225,10 +1108,10 @@ const map = {
             target_prefix: 'AREA_ENV',
             placeList: [
               {
-                nodeList: ['IRR_ENV', 'SOL_ENV_1', 'SOL_ENV_2', 'TEM_ENV'],
+                nodeList: ['IRR_ENV', 'SOL_ENV_1', 'TEM_ENV'],
                 svgPositionInfo: {
-                  resourceId: 'ptcEnvArea',
-                  point: ms.POS.PTC_ENV,
+                  resourceId: 'tblSensorCase3',
+                  point: convertPlacePosition(0.68, 0.45),
                 },
               },
             ],
@@ -1245,10 +1128,11 @@ const map = {
             placeList: [
               {
                 target_code: '0',
+                target_name: '오일펌프 전류',
                 nodeList: ['AMP_OP_1', 'AMP_OP_2'],
                 svgPositionInfo: {
-                  resourceId: 'smallArea',
-                  point: ms.POS.OP,
+                  resourceId: 'tblSensorCase2',
+                  point: convertPlacePosition(0.4, 0.1),
                 },
               },
               {
@@ -1257,7 +1141,7 @@ const map = {
                 nodeList: ['PUM_OIL_1'],
                 svgPositionInfo: {
                   resourceId: 'deviceArea',
-                  point: ms.POS.DA.OP1,
+                  point: convertPlacePosition(0.6, 0.1),
                 },
               },
               {
@@ -1266,7 +1150,7 @@ const map = {
                 nodeList: ['PUM_OIL_2'],
                 svgPositionInfo: {
                   resourceId: 'deviceArea',
-                  point: ms.POS.DA.OP2,
+                  point: convertPlacePosition(0.6, 0.25),
                 },
               },
             ],
@@ -1279,23 +1163,23 @@ const map = {
         defList: [
           {
             target_id: 'otArea',
-            target_nameL: '오일탱크',
+            target_name: '오일탱크',
             target_prefix: 'AREA_OT',
             placeList: [
               {
                 target_code: '1',
                 nodeList: ['TEM_OIL_3', 'FDVA_OT_1'],
                 svgPositionInfo: {
-                  resourceId: 'otArea',
-                  point: ms.POS.OT1,
+                  resourceId: 'tblSensorCase2',
+                  point: convertPlacePosition(0.25, 0.45),
                 },
               },
               {
                 target_code: '2',
                 nodeList: ['TEM_OIL_4', 'FDVA_OT_2'],
                 svgPositionInfo: {
-                  resourceId: 'otArea',
-                  point: ms.POS.OT2,
+                  resourceId: 'tblSensorCase2',
+                  point: convertPlacePosition(0.25, 0.6),
                 },
               },
             ],
@@ -1323,6 +1207,10 @@ const map = {
             placeList: [
               {
                 nodeList: ['FDVA_PTC', 'TEM_OIL_1', 'TEM_OIL_2'],
+                svgPositionInfo: {
+                  resourceId: 'tblSensorCase3',
+                  point: convertPlacePosition(0.55, 0.45),
+                },
               },
             ],
           },
@@ -1345,7 +1233,7 @@ const map = {
                 nodeList: ['PTC'],
                 svgPositionInfo: {
                   resourceId: 'deviceArea',
-                  point: ms.POS.DA.PTC,
+                  point: convertPlacePosition(0.71, 0.25),
                 },
               },
             ],
@@ -1362,20 +1250,35 @@ const map = {
             placeList: [
               {
                 target_name: '스팀발생기',
-                nodeList: ['FRCU_SG', 'FRIN_SG', 'PRGA_SG', 'TEM_OIL_6'],
+                nodeList: [
+                  'FDVA_SG',
+                  'TEM_OIL_5',
+                  'TEM_OIL_6',
+                  'FRCU_SG',
+                  'FRIN_SG',
+                  'PRGA_SG',
+                ],
                 svgPositionInfo: {
-                  resourceId: 'sgArea',
-                  point: ms.POS.SG,
+                  resourceId: 'tblSensorCase6',
+                  point: convertPlacePosition(0.07, 0.4),
                 },
               },
             ],
           },
-          {
-            target_id: 'sgInletArea',
-            target_name: '스팀발생기 입구',
-            target_prefix: 'AREA_SG_IN',
-            nodeList: ['TEM_OIL_5', 'FDVA_SG'],
-          },
+          // {
+          //   target_id: 'sgInletArea',
+          //   target_prefix: 'AREA_SG_IN',
+          //   placeList: [
+          //     {
+          //       target_name: '스팀발생기 입구',
+          //       // nodeList: ['TEM_OIL_5', 'FDVA_SG'],
+          //       // svgPositionInfo: {
+          //       //   resourceId: 'tblSensorCase2',
+          //       //   point: convertPlacePosition(0.185, 0.25),
+          //       // },
+          //     },
+          //   ],
+          // },
           {
             target_id: 'sgOutletArea',
             target_name: '스팀발생기 출구',
@@ -1383,14 +1286,18 @@ const map = {
             placeList: [
               {
                 nodeList: [
-                  'FRCU_PIP',
+                  'TEM_STE',
+                  'PRGA_PIP',
                   'FRE_PIP',
                   'FRIN_PIP',
-                  'PRGA_PIP',
+                  'FRCU_PIP',
                   'FRIN_PIOP',
-                  'TEM_STE_2',
                   'TEM_UNI',
                 ],
+                svgPositionInfo: {
+                  resourceId: 'tblSensorCase7',
+                  point: convertPlacePosition(0.05, 0.05),
+                },
               },
             ],
           },
@@ -1409,7 +1316,7 @@ const map = {
                 nodeList: ['PUM_SW'],
                 svgPositionInfo: {
                   resourceId: 'deviceArea',
-                  point: ms.POS.DA.SW,
+                  point: convertPlacePosition(0.1, 0.72),
                 },
               },
             ],
@@ -1438,8 +1345,8 @@ const map = {
   controlInfo: {
     singleCmdList: [
       {
-        applyDeviceList: ['relay'],
-        singleCmdName: '릴레이',
+        applyDeviceList: ['pumpSw'],
+        singleCmdName: '펌프',
         singleMidCateCmdInfo: {
           scenarioMsg: '제어 동작을 선택하세요.',
           subCmdList: [

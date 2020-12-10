@@ -179,7 +179,7 @@ function initDrawSvg(isProd = true) {
       placeList.forEach(pInfo => {
         const {
           target_code: pCode = null,
-          target_name: pName = pdName,
+          target_name: pName = '',
           nodeList = [],
           svgPositionInfo: { point, resourceId } = {},
         } = pInfo;
@@ -191,7 +191,9 @@ function initDrawSvg(isProd = true) {
         }
 
         const placeId = `${pdPrefix}${pCode ? `_${pCode}` : ''}`;
-        const placeName = `${pName}${pCode ? `_${pCode}` : ''}`;
+        // 사용자 지정 이름이 있을 경우 사용
+        const placeName =
+          pName.length > 0 ? pName : `${pdName}${pCode ? ` ${pCode}` : ''}`;
 
         mdPlaceRelationStorage.get(pcId).mdPlaceRelTailStorage.set(placeId, {
           pcId,
@@ -432,39 +434,32 @@ function drawInsideElement(svgDrawInfo, drawType) {
     svgPositionInfo: {
       id: positionId,
       name: positionName,
-      cursor = '',
-      point: [x1, y1, x2, y2],
+      point: [x1, y1],
     },
     ownerInfo,
     ownerInfo: {
       svgModelResource: {
-        type: elementType,
         elementDrawInfo,
         elementDrawInfo: {
           errColor = 'red',
           width,
           height,
           opacity = 1,
-          patternInfo,
           svgClass: [defaultSvgClass] = [],
-          filterInfo = {},
           insideInfo: {
             headerInfo: {
               shareRate = 0,
               bgColor: headerBgColor,
-              svgClass: [headerDefaultSvgClass] = [],
-              fontColor: headerFontColor = '#000',
+              svgClass: headerDefaultSvgClass = defaultSvgClass,
+              fontColor: headerFontColor = '#fff',
               fontSize: headerFontSize = 10,
               strokeColor: headerStrokeColor = 'white',
               strokeWidth: headerStrokeWidth = 1,
             } = {},
             bodyInfo: {
-              bgColor: bodyBgColor,
-              svgClass: [bodyDefaultSvgClass] = [],
-              fontColor: bodyFontColor,
+              fontColor: bodyFontColor = '#fff',
               fontSize: bodyFontSize = 10,
-              svgClass,
-              unitColor,
+              unitColor = '#fff',
               tblInfo: {
                 rowsCount = 1,
                 strokeColor: tblStrokeColor,
@@ -476,11 +471,13 @@ function drawInsideElement(svgDrawInfo, drawType) {
             },
           },
         },
-        textStyleInfo = {},
       },
     },
-    isShow = true,
   } = svgDrawInfo;
+
+  let {
+    color: [defaultColor],
+  } = elementDrawInfo;
 
   const fontOption = {
     'dominant-baseline': 'middle',
@@ -488,16 +485,16 @@ function drawInsideElement(svgDrawInfo, drawType) {
   };
 
   // Header.shareRate 에 따라 분할
-  const headerHeight = height * shareRate;
+  const headerHeight = _.round(height * shareRate, 2);
+  const headerOption = {
+    opacity,
+    'pointer-events': 'none',
+  };
   // Header 영역을 할당하였을 경우에만 처리
   if (shareRate > 0) {
     // Header 정보에 따라 Draw Rect
     const headerCanvasElement = svgCanvas.rect(width, headerHeight);
     // Header에는 Cursor 이벤트를 해제함
-    const headerOption = {
-      opacity,
-      'pointer-events': 'none',
-    };
 
     // 클래스를 지정한다면 Attr 추가
     if (headerDefaultSvgClass) {
@@ -516,11 +513,10 @@ function drawInsideElement(svgDrawInfo, drawType) {
           .tspan('')
           .font({ fill: headerFontColor, size: headerFontSize });
       })
-      .move(x1 + width * 0.5, y1 + headerHeight * 0.5)
+      .move(_.round(x1 + width * 0.5, 2), _.round(y1 + headerHeight * 0.5, 2))
       // 중앙에서 시작
-      .font({ ...fontOption, anchor: 'middle' });
-
-    // ownerInfo.svgEleName.dy(0);
+      .font({ ...fontOption, anchor: 'middle' })
+      .dy(_.round(headerFontSize * 0.1, 2));
 
     // Hedder 영역에 Draw Text
     ownerInfo.svgEleName.text(positionName);
@@ -529,6 +525,7 @@ function drawInsideElement(svgDrawInfo, drawType) {
   const bodyStartY = y1 + headerHeight;
   // Body 정보에 따라 Draw Rect
   const bodyHeight = height - headerHeight;
+  // console.log('@@', positionId, height, headerHeight);
   const bodyCanvasElement = svgCanvas.rect(width, bodyHeight);
 
   const bodyOption = {
@@ -537,10 +534,14 @@ function drawInsideElement(svgDrawInfo, drawType) {
   };
 
   // 클래스를 지정한다면 Attr 추가
-  if (bodyDefaultSvgClass) {
+  if (defaultSvgClass) {
     bodyOption.class = errColor;
+    bodyCanvasElement.attr('class', errColor);
   }
+  // 노드일 경우
   if (drawType === DRAW_TYPE.NODE) {
+    defaultColor = errColor;
+    defaultColor && bodyCanvasElement.fill(defaultColor);
     bodyOption.cursor = 'pointer';
   }
 
@@ -557,71 +558,76 @@ function drawInsideElement(svgDrawInfo, drawType) {
         .tspan('')
         .font({ fill: unitColor, size: bodyFontSize * 0.9 });
     })
-    .move(x1 + width * 0.5, y1 + headerHeight + bodyHeight * 0.5)
+    .move(_.round(x1 + width * 0.5, 2), _.round(y1 + headerHeight + bodyHeight * 0.5, 2))
     // 가운데에서 시작
-    .font({ ...fontOption, anchor: 'middle' });
+    .font({ ...fontOption, anchor: 'middle' })
+    .dy(_.round(bodyFontSize * 0.1, 2));
 
   // Tbl 정보가 있다면 Draw Stroke
   const strokeInfo = {
     color: tblStrokeColor,
     width: tblStrokeWidth,
   };
-  if (rowsCount > 1) {
+  // Table Rows 수가 1개 이상일 경우에만 라인을 긋든 텍스트 배치를 함
+  if (rowsCount > 0) {
     // 그어야할 Line 높이 추출
-    const lineHeight = bodyHeight / rowsCount;
+    const lineHeight = _.round(bodyHeight / rowsCount, 2);
 
     const {
       anchor: tblTitleAnchor = 'middle',
       xAxisScale: tblTitleScale = 0,
+      fontColor: tblTitleFontColor = bodyFontColor,
     } = titleInfo;
 
     const { anchor: tblDataAnchor = 'middle', xAxisScale: tblDataScale = 0 } = dataInfo;
-    // rowsCount - 1 만큼 Line 높이로 그어준다.
 
-    // TODO: Rows 만큼 Text 객체를 생성하여 ownerInfo 에 할당
+    // Rows 만큼 Text 객체를 생성하여 ownerInfo 에 할당
     ownerInfo.svgEleTbls = Array(rowsCount)
       .fill(bodyStartY)
       .map((v, idx) => {
         const yPoint = bodyStartY + lineHeight * idx;
-        const yFontPoint = yPoint + lineHeight * 0.5;
+        const yFontPoint = _.round(yPoint + lineHeight * 0.5, 2);
 
-        console.log(yFontPoint);
+        // console.log(yFontPoint);
         // Text 객체 생성
-
         const rowSvgInfo = {};
 
-        // tblTitleScale이 0이라면 Title은 사용하지 않는 것으로 판단
+        // tblTitleScale이 0 이상일 경우에만 Title 사용
         if (tblTitleScale > 0) {
-          console.log(titleInfo);
+          // Title
           svgCanvas
             .text(text => {
-              // mdNodeInfo|mdPlaceInfo 에 SVG Title 정의
               rowSvgInfo.svgEleName = text
                 .tspan('')
-                .font({ fill: bodyFontColor, size: bodyFontSize });
+                .font({ fill: tblTitleFontColor, size: bodyFontSize });
             })
             .move(x1 + width * tblTitleScale, yFontPoint)
-            .font({ ...fontOption, anchor: tblTitleAnchor });
+            .font({ ...fontOption, anchor: tblTitleAnchor })
+            .dy(_.round(bodyFontSize * 0.1, 2));
         }
-
+        // Data & Data Unit
         svgCanvas
           .text(text => {
-            // mdNodeInfo|mdPlaceInfo 에 SVG Title 정의
             rowSvgInfo.svgEleData = text
               .tspan('')
-              .font({ fill: bodyFontColor, size: bodyFontSize });
+              .font({ fill: bodyFontColor, size: bodyFontSize })
+              .dy(_.round(bodyFontSize * 0.1, 2));
 
             // 데이터 단위 추가
             rowSvgInfo.svgEleDataUnit = text
               .tspan('')
-              .font({ fill: unitColor, size: bodyFontSize * 0.9 });
+              .font({ fill: unitColor, size: _.round(bodyFontSize * 0.8, 2) })
+              .dy(_.round(bodyFontSize * 0.05, 2))
+              .dx(_.round(bodyFontSize * 0.4, 2));
           })
           .move(x1 + width * tblDataScale, yFontPoint)
-          // 가운데에서 시작
           .font({ ...fontOption, anchor: tblDataAnchor });
 
-        // Array.length - 1 Line
-        idx && svgCanvas.line(x1, yPoint, x1 + width, yPoint).stroke(strokeInfo);
+        // Draw Horizontal Line (여기서 TH 라인까지 다 그어버림. 수정시 idx 1부터 처리)
+        svgCanvas
+          .line(x1, yPoint, x1 + width, yPoint)
+          .stroke(strokeInfo)
+          .attr(headerOption);
 
         return rowSvgInfo;
       });
@@ -630,7 +636,8 @@ function drawInsideElement(svgDrawInfo, drawType) {
       const xPoint = x1 + width * vStrokeScale;
       svgCanvas
         .line(xPoint, bodyStartY, xPoint, bodyStartY + bodyHeight)
-        .stroke(strokeInfo);
+        .stroke(strokeInfo)
+        .attr(headerOption);
     }
     // 행 간격 설정
     bodyOption.lineHeight = lineHeight;
@@ -657,7 +664,7 @@ function setTableIndex(mdNodeInfo, svgPositionInfo) {
     placeId,
   ).svgEleTbls[tblIndex];
 
-  svgEleName.text(name);
+  svgEleName && svgEleName.text(name);
 
   mdNodeInfo.svgEleData = svgEleData;
   mdNodeInfo.svgEleDataUnit = svgEleDataUnit;
@@ -669,6 +676,8 @@ function setTableIndex(mdNodeInfo, svgPositionInfo) {
  * @param {string} drawType DRAW_TYPE(Place, Node, Cmd)
  */
 function drawSvgElement(svgDrawInfo, drawType) {
+  // console.log(svgDrawInfo);
+
   const {
     svgCanvas,
     svgPositionInfo: {
@@ -931,8 +940,6 @@ function showNodeData(nodeId, data = '') {
       svgEleDataUnit,
     } = mdNodeInfo;
 
-    // console.dir(mdNodeInfo);
-
     // 현재 데이터와 수신 받은 데이터가 같다면 종료
     if (nodeData === data) return false;
 
@@ -979,7 +986,8 @@ function showNodeData(nodeId, data = '') {
     }
 
     // 배경 색상 변경
-    selectedColor && svgEleBg.fill(selectedColor);
+    selectedColor && svgEleBg && svgEleBg.fill(selectedColor);
+
     // 데이터가 용이하고 class 가 존재할 경우 대체
     if (svgClass.length) {
       isValidData
@@ -988,9 +996,10 @@ function showNodeData(nodeId, data = '') {
     }
     // 데이터 색상 변경
     svgEleData.font({ fill: selectedTxtColor });
+
     if (isValidData) {
       svgEleData.text(data);
-      svgEleDataUnit.text(dataUnit).dx(fontSize * 0.5);
+      svgEleDataUnit.text(dataUnit);
     } else {
       // data가 유효범위가 아닐 경우
       svgEleData.clear();
@@ -1240,9 +1249,9 @@ function drawSvgBasePlace(svgCanvas) {
 
   // Node 그리기
   svgNodeList.forEach(svgNodeInfo => {
-    // console.log(svgNodeInfo);
     const { id: nodeId } = svgNodeInfo;
     const mdNodeInfo = mdNodeStorage.get(nodeId);
+    // console.log(svgNodeInfo);
 
     const svgCanvasBgElement = drawSvgElement(
       {

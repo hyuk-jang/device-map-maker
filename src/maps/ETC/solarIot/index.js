@@ -112,26 +112,14 @@ const map = {
           type: 'socket',
           subType: 'parser',
           addConfigInfo: {
-            parser: CPT.socket.BYTE_LENGTH,
-            option: 8,
+            // parser: CPT.socket.BYTE_LENGTH,
+            // option: 8,
+            parser: CPT.socket.READ_LINE,
+            option: Buffer.from(',OK\u0000'),
           },
           hasOnDataClose: true,
           host: '192.168.0.158',
           port: 15800,
-        },
-      },
-      {
-        dccId: 'DCC_002',
-        connect_info: {
-          type: 'socket',
-          subType: 'parser',
-          addConfigInfo: {
-            parser: CPT.socket.BYTE_LENGTH,
-            option: 8,
-          },
-          hasOnDataClose: true,
-          host: '192.168.0.158',
-          port: 15801,
         },
       },
       {
@@ -140,8 +128,8 @@ const map = {
           type: 'socket',
           subType: 'parser',
           addConfigInfo: {
-            parser: CPT.socket.DELIMITER,
-            option: Buffer.from('03', 'hex'),
+            parser: CPT.socket.READ_LINE,
+            option: Buffer.from(',OK\u0000'),
           },
           host: '192.168.0.158',
           // port: 15802,
@@ -167,7 +155,7 @@ const map = {
         dpcId: 'DPC_001',
         protocol_info: {
           mainCategory: 'ETC',
-          subCategory: 'JK_NR_2',
+          subCategory: 'Kincony',
         },
       },
       {
@@ -180,8 +168,8 @@ const map = {
     ],
     dataLoggerStructureList: [
       {
-        target_prefix: 'D_JK',
-        target_name: '릴레이 로거(JK_NR_2)',
+        target_prefix: 'D_KIN',
+        target_name: '릴레이 로거(Kincony)',
         dataLoggerDeviceList: [
           {
             dccId: 'DCC_001',
@@ -190,13 +178,6 @@ const map = {
             target_name: 'Lv.1 ~ Lv.4',
             nodeList: ['R_1', 'R_2', 'R_3', 'R_4'],
           },
-          // {
-          //   dccId: 'DCC_002',
-          //   dpcId: 'DPC_001',
-          //   target_code: '002',
-          //   target_name: 'Lv.3 ~ Lv.4',
-          //   nodeList: ['R_3', 'R_4'],
-          // },
         ],
       },
       {
