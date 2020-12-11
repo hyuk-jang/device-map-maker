@@ -35,6 +35,13 @@ class SimulatorApp {
       }),
     );
 
+    app.use(
+      '/img',
+      express.static(path.join(__dirname, '..', 'img'), {
+        extensions: ['jpg', 'png', 'gif'],
+      }),
+    );
+
     this.app = app;
 
     this.server = http.createServer(app);

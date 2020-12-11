@@ -5,6 +5,8 @@ const { BU } = require('base-util-jh');
 
 const CM = require('../../../common');
 
+const imgTrigger = require('./imgTrigger');
+
 const {
   di: {
     dmmModel: { mmSvgBtnClass },
@@ -16,12 +18,12 @@ const {
   },
 } = require('../../../module');
 
-const pvTransPatternInfo = {
+const imgPattern = {
   patternSize: [10, 10],
   patternList: [
     {
       patternType: 'image',
-      fill: '/out/cell',
+      fill: '/img/moduleWave',
       size: [10, 10],
       opacity: 0.8,
     },
@@ -103,12 +105,38 @@ const map = {
       svgModelResourceList: [
         /* *************       Place        ***************** */
         {
+          id: 'imgPattern',
+          type: 'image',
+          elementDrawInfo: {
+            width: mapSize.width * 0.15,
+            height: mapSize.height * 0.17,
+            color: '/img/moduleWave',
+            opacity: 1,
+            patternInfo: imgPattern,
+          },
+        },
+        {
+          id: 'imgArea',
+          type: 'rect',
+          elementDrawInfo: {
+            width: mapSize.width * 0.2,
+            height: mapSize.height * 0.2,
+            color: 'url(#bg-sky-1)',
+            opacity: 1,
+            filterInfo: {
+              filter: 'url(#dropShadow)',
+            },
+          },
+          textStyleInfo: { color: '', fontSize: 10, axisScale: [0.5, 0.25] },
+        },
+
+        {
           id: 'deviceArea',
           type: 'rect',
           elementDrawInfo: {
             width: ms.DA.WIDTH,
             height: ms.DA.HEIGHT,
-            opacity: 0.6,
+            opacity: 0.5,
             filterInfo: {
               filter: 'url(#deviceShadow)',
             },
@@ -245,7 +273,7 @@ const map = {
             width: ms.DA.WIDTH,
             height: ms.DA.HEIGHT,
             opacity: 0.5,
-            color: ['gray', 'green'],
+            color: ['lightgray', 'darkgreen'],
             // color: ['url(#bg-gray-1)', 'url(#bg-green-1)', 'url(#bg-sky-2)'],
             errColor: 'red',
             filterInfo: {
@@ -1032,7 +1060,7 @@ const map = {
       },
       {
         target_id: 'ptc',
-        is_sensor: 0,
+        is_sensor: 2,
         defList: [
           {
             target_id: 'ptc',
@@ -1054,6 +1082,26 @@ const map = {
   },
   relationInfo: {
     placeRelationList: [
+      {
+        target_id: 'imgArea',
+        target_name: '이미지',
+        defList: [
+          {
+            target_id: 'img',
+            target_prefix: 'IMG_ENV',
+            placeList: [
+              {
+                nodeList: [],
+                svgPositionInfo: {
+                  resourceId: 'imgPattern',
+                  point: convertPlacePosition(0.2, 0),
+                },
+              },
+            ],
+          },
+        ],
+      },
+
       {
         target_id: 'alarmArea',
         target_name: '알람',
@@ -1324,6 +1372,7 @@ const map = {
         ],
       },
     ],
+    imgTriggerList: imgTrigger,
     convertRelationList: [
       {
         nDefId: 'operStsMode',
@@ -1345,7 +1394,7 @@ const map = {
   controlInfo: {
     singleCmdList: [
       {
-        applyDeviceList: ['pumpSw'],
+        applyDeviceList: [''],
         singleCmdName: '펌프',
         singleMidCateCmdInfo: {
           scenarioMsg: '제어 동작을 선택하세요.',

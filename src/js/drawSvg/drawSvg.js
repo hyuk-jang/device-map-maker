@@ -282,6 +282,7 @@ function initDrawSvg(isProd = true) {
           }
         });
 
+        const observerList = [];
         mdNodeStorage.set(nodeId, {
           ncId,
           ndId,
@@ -299,6 +300,10 @@ function initDrawSvg(isProd = true) {
           operationStatusList,
           placeNameList: placeIdList.map(pId => mdPlaceStorage.get(pId).placeName),
           svgModelResource: mdMapStorage.get(resourceId),
+          observerList,
+          attach: observer => {
+            observerList.push(observer);
+          },
         });
       });
     });
@@ -542,7 +547,7 @@ function drawInsideElement(svgDrawInfo, drawType) {
   if (drawType === DRAW_TYPE.NODE) {
     defaultColor = errColor;
     defaultColor && bodyCanvasElement.fill(defaultColor);
-    bodyOption.cursor = 'pointer';
+    // bodyOption.cursor = 'pointer';
   }
 
   // Body 영역에 Draw Text
@@ -664,6 +669,9 @@ function setTableIndex(mdNodeInfo, svgPositionInfo) {
     placeId,
   ).svgEleTbls[tblIndex];
 
+  // FIXME: 데이터에 임시로 지정함
+  svgEleData.attr({ id: mdNodeInfo.nodeId });
+
   svgEleName && svgEleName.text(name);
 
   mdNodeInfo.svgEleData = svgEleData;
@@ -771,6 +779,7 @@ function drawSvgElement(svgDrawInfo, drawType) {
       // 노드 일 경우에는 초기값 Error, 그밖에는 기본 색상
       break;
     case 'image':
+      console.log(defaultColor);
       svgCanvasBgElement = svgCanvas
         .image(defaultColor)
         .size(svgModelWidth, svgModelHeight);
@@ -922,6 +931,11 @@ function showNodeData(nodeId, data = '') {
 
     // 해당 노드가 존재하지 않는다면 처리 X
     if (mdNodeInfo === undefined) return false;
+
+    // 옵저버에게 전파
+    mdNodeInfo.observerList.forEach(ob => {
+      _.get(ob, 'notifyNodeData') && ob.notifyNodeData(mdNodeInfo);
+    });
 
     const {
       nodeData,
