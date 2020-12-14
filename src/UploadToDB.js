@@ -164,9 +164,11 @@ class UploadToDB {
     });
 
     // 장소 재구성
-    this.relationInfo.placeRelationList.forEach(placeClassInfo => {
-      placeClassInfo.defList.forEach(placeDefInfo => {
-        placeDefInfo.placeList.forEach(placeInfo => {
+    this.relationInfo.placeRelationList.forEach(pClassInfo => {
+      const { defList } = pClassInfo;
+      defList.forEach(pDefInfo => {
+        const { placeList = [] } = pDefInfo;
+        placeList.forEach(placeInfo => {
           const {
             repeatId = '',
             target_code: uniqNumber = '',
@@ -675,12 +677,13 @@ class UploadToDB {
     tempStorage.setExistStorage(prevPList);
 
     // 장소 대분류 구조 목록을 순회
-    this.relationInfo.placeRelationList.forEach(placeClassInfo => {
+    this.relationInfo.placeRelationList.forEach(pClassInfo => {
+      const { defList = [] } = pClassInfo;
       // 장소 개요 목록 순회
-      placeClassInfo.defList.forEach(placeDefInfo => {
-        const { target_id: pdId, target_prefix: pdPrefix } = placeDefInfo;
+      defList.forEach(pDefInfo => {
+        const { target_id: pdId, target_prefix: pdPrefix, placeList = [] } = pDefInfo;
         // 장소 목록 순회
-        placeDefInfo.placeList.forEach(placeInfo => {
+        placeList.forEach(placeInfo => {
           const { target_code: pCode = null } = placeInfo;
           // Place ID 정의
           const placeId = `${pdPrefix}${pCode ? `_${pCode}` : ''}`;
@@ -752,9 +755,10 @@ class UploadToDB {
     // 해당 main seq와 관련이 있는 Rows 삭제
     await this.biModule.deletePlaceTbl([this.main_seq]);
 
-    this.relationInfo.placeRelationList.forEach(placeClassInfo => {
-      placeClassInfo.defList.forEach(placeDefInfo => {
-        const { target_prefix: pdPrefix, placeList } = placeDefInfo;
+    this.relationInfo.placeRelationList.forEach(pClassInfo => {
+      const { defList = [] } = pClassInfo;
+      defList.forEach(pDefInfo => {
+        const { target_prefix: pdPrefix, placeList = [] } = pDefInfo;
         placeList.forEach(placeInfo => {
           const { target_code: pCode = null, nodeList: pNodeList = [] } = placeInfo;
           // Place ID 정의

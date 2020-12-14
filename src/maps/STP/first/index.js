@@ -338,106 +338,73 @@ const map = {
     dccConstructorList: [
       {
         dccId: 'DCC_001',
-        connect_info: {
-          type: 'socket',
-          subType: 'parser',
-          addConfigInfo: {
-            parser: CPT.socket.BYTE_LENGTH,
-            option: 8,
-          },
-          hasOnDataClose: true,
-          host: '192.168.0.158',
-          port: 15800,
-        },
-      },
-      {
-        dccId: 'DCC_002',
-        connect_info: {
-          type: 'socket',
-          subType: 'parser',
-          addConfigInfo: {
-            parser: CPT.socket.BYTE_LENGTH,
-            option: 8,
-          },
-          hasOnDataClose: true,
-          host: '192.168.0.158',
-          port: 15801,
-        },
-      },
-      {
-        dccId: 'DCC_003',
-        connect_info: {
-          type: 'socket',
-          subType: 'parser',
-          addConfigInfo: {
-            parser: CPT.socket.DELIMITER,
-            option: Buffer.from('03', 'hex'),
-          },
-          host: '192.168.0.158',
-          // port: 15802,
-          port: 'COM3',
-        },
-      },
-      {
-        dccId: 'DCC_004',
-        connect_info: {
-          type: 'socket',
-          subType: 'parser',
-          addConfigInfo: {
-            parser: CPT.socket.DELIMITER,
-            option: Buffer.from('03', 'hex'),
-          },
-          host: '192.168.0.158',
-          port: 15803,
-        },
+        dccName: '데이터로거',
+        connect_info: { type: 'socket', subType: '', baudRate: 9600, port: '15300' },
+        // connect_info: { type: 'modbus', subType: 'rtu', baudRate: 9600, port: 'COM4' },
       },
     ],
     dpcConstructorList: [
       {
         dpcId: 'DPC_001',
         protocol_info: {
-          mainCategory: 'ETC',
-          subCategory: 'JK_NR_2',
-        },
-      },
-      {
-        dpcId: 'DPC_002',
-        protocol_info: {
-          mainCategory: 'ETC',
-          subCategory: 'BatSm',
+          mainCategory: 'STP',
+          subCategory: 'JungHan',
+          deviceId: 1,
         },
       },
     ],
     dataLoggerStructureList: [
       {
-        target_prefix: 'D_JK',
-        target_name: '릴레이 로거(JK_NR_2)',
+        target_prefix: 'D_MOD_RTU',
+        target_name: '모드버스 RTU 로거',
         dataLoggerDeviceList: [
           {
             dccId: 'DCC_001',
             dpcId: 'DPC_001',
+            serial_number: 1,
             target_code: '001',
-            target_name: 'Lv.1 ~ Lv.2',
-            nodeList: ['R_1', 'R_2'],
-          },
-          {
-            dccId: 'DCC_002',
-            dpcId: 'DPC_001',
-            target_code: '002',
-            target_name: 'Lv.3 ~ Lv.4',
-            nodeList: ['R_3', 'R_4'],
-          },
-        ],
-      },
-      {
-        target_prefix: 'D_B_P',
-        target_name: '배터리 로거',
-        dataLoggerDeviceList: [
-          {
-            dccId: 'DCC_004',
-            dpcId: 'DPC_002',
-            target_code: '003',
-            nodeList: ['B_P'],
+            nodeList: [
+              'AMP_OP_1',
+              'AMP_OP_2',
+              'FDVA_OT_1',
+              'FDVA_OT_2',
+              'FDVA_PTC',
+              'FDVA_SG',
+              'FRCU_SG',
+              'FRCU_PIP',
+              'FRIN_SG',
+              'FRIN_PIP',
+              'FRIN_PIOP',
+              'FRE_PIP',
+              'IRR_ENV',
+              'PRGA_SG',
+              'PRGA_PIP',
+              'SOL_ENV_1',
+              'TEM_ENV',
+              'TEM_OIL_1',
+              'TEM_OIL_2',
+              'TEM_OIL_3',
+              'TEM_OIL_4',
+              'TEM_OIL_5',
+              'TEM_OIL_6',
+              'TEM_STE',
+              'TEM_UNI',
+              'INF_SYOP',
+              'INF_SKY',
+              'INF_SYMO',
+              'MOD_OT_1',
+              'MOD_OT_2',
+              'MOD_OT_3',
+              'MOD_OT_4',
+              'MOD_STE_1',
+              'MOD_STE_2',
+              'MOD_STE_3',
+              'MOD_STE_4',
+              'PUM_OIL_1',
+              'PUM_OIL_2',
+              'PUM_SW',
+              'PTC',
+            ],
           },
         ],
       },
@@ -459,6 +426,11 @@ const map = {
                 target_name: '오일펌프 1',
                 data_logger_index: 1,
                 note: 'D16',
+                modbusInfo: {
+                  fnCode: 3,
+                  address: 16,
+                  dataLength: 2,
+                },
                 svgNodePosOpt: {
                   tblIndex: 0,
                 },
@@ -468,6 +440,11 @@ const map = {
                 target_name: '오일펌프 2',
                 data_logger_index: 0,
                 note: 'D14',
+                modbusInfo: {
+                  fnCode: 3,
+                  address: 14,
+                  dataLength: 2,
+                },
                 svgNodePosOpt: {
                   tblIndex: 1,
                 },
@@ -493,6 +470,10 @@ const map = {
                 target_name: '밸브 피드백',
                 data_logger_index: 0,
                 note: 'D12 오일탱크 1',
+                modbusInfo: {
+                  fnCode: 3,
+                  address: 12,
+                },
                 svgNodePosOpt: {
                   placeId: 'AREA_OT_1',
                   tblIndex: 0,
@@ -503,6 +484,10 @@ const map = {
                 target_name: '밸브 피드백',
                 data_logger_index: 1,
                 note: 'D13 오일탱크 2',
+                modbusInfo: {
+                  fnCode: 3,
+                  address: 13,
+                },
                 svgNodePosOpt: {
                   placeId: 'AREA_OT_2',
                   tblIndex: 0,
@@ -519,6 +504,10 @@ const map = {
               {
                 target_name: '밸브 피드백',
                 note: 'D11 집열기 밸브',
+                modbusInfo: {
+                  fnCode: 3,
+                  address: 11,
+                },
                 svgNodePosOpt: {
                   placeId: 'AREA_PTC',
                   tblIndex: 0,
@@ -535,6 +524,10 @@ const map = {
               {
                 target_name: '밸브 피드백',
                 note: 'D10 스팀발생기 밸브',
+                modbusInfo: {
+                  fnCode: 3,
+                  address: 10,
+                },
                 svgNodePosOpt: {
                   placeId: 'AREA_SG',
                   tblIndex: 0,
@@ -559,6 +552,11 @@ const map = {
               {
                 target_name: '누계 유량',
                 note: 'D100',
+                modbusInfo: {
+                  fnCode: 3,
+                  address: 100,
+                  dataLength: 2,
+                },
                 svgNodePosOpt: {
                   placeId: 'AREA_SG',
                   tblIndex: 3,
@@ -575,6 +573,11 @@ const map = {
               {
                 target_name: '누계 유량',
                 note: 'D604',
+                modbusInfo: {
+                  fnCode: 3,
+                  address: 16,
+                  dataLength: 2,
+                },
                 svgNodePosOpt: {
                   tblIndex: 4,
                 },
@@ -598,6 +601,11 @@ const map = {
               {
                 target_name: '순시 유량',
                 note: 'D102',
+                modbusInfo: {
+                  fnCode: 3,
+                  address: 102,
+                  dataLength: 2,
+                },
                 svgNodePosOpt: {
                   placeId: 'AREA_SG',
                   tblIndex: 4,
@@ -614,6 +622,11 @@ const map = {
               {
                 target_name: '순시 유량',
                 note: 'D600',
+                modbusInfo: {
+                  fnCode: 3,
+                  address: 600,
+                  dataLength: 2,
+                },
                 svgNodePosOpt: {
                   tblIndex: 3,
                 },
@@ -629,6 +642,11 @@ const map = {
               {
                 target_name: '유량 방향',
                 note: 'D602',
+                modbusInfo: {
+                  fnCode: 3,
+                  address: 602,
+                  dataLength: 2,
+                },
                 svgNodePosOpt: {
                   tblIndex: 5,
                 },
@@ -650,6 +668,11 @@ const map = {
               {
                 target_name: '주파수',
                 note: 'D612 파이프 주파수',
+                modbusInfo: {
+                  fnCode: 3,
+                  address: 612,
+                  dataLength: 2,
+                },
                 svgNodePosOpt: {
                   tblIndex: 2,
                 },
@@ -671,6 +694,11 @@ const map = {
               {
                 target_name: '조도',
                 note: 'D20 환경 조도',
+                modbusInfo: {
+                  fnCode: 3,
+                  address: 16,
+                  dataLength: 2,
+                },
                 svgNodePosOpt: {
                   tblIndex: 2,
                 },
@@ -693,6 +721,11 @@ const map = {
               {
                 target_name: '압력',
                 note: 'D18',
+                modbusInfo: {
+                  fnCode: 3,
+                  address: 16,
+                  dataLength: 2,
+                },
                 svgNodePosOpt: {
                   placeId: 'AREA_SG',
                   tblIndex: 5,
@@ -708,6 +741,11 @@ const map = {
             nodeList: [
               {
                 note: 'D610',
+                modbusInfo: {
+                  fnCode: 3,
+                  address: 16,
+                  dataLength: 2,
+                },
                 svgNodePosOpt: {
                   tblIndex: 1,
                 },
@@ -731,6 +769,11 @@ const map = {
                 target_code: '1',
                 target_name: '일사량',
                 note: 'D500',
+                modbusInfo: {
+                  fnCode: 3,
+                  address: 500,
+                  dataLength: 2,
+                },
                 svgNodePosOpt: {
                   tblIndex: 1,
                 },
@@ -738,6 +781,10 @@ const map = {
               {
                 target_code: '2',
                 note: 'D502',
+                modbusInfo: {
+                  fnCode: 3,
+                  address: 502,
+                },
               },
             ],
           },
@@ -758,6 +805,11 @@ const map = {
               {
                 target_name: '온도',
                 note: 'D30 환경 온도',
+                modbusInfo: {
+                  fnCode: 3,
+                  address: 30,
+                  dataLength: 2,
+                },
                 svgNodePosOpt: {
                   tblIndex: 0,
                 },
@@ -774,6 +826,11 @@ const map = {
                 target_name: '입구 온도',
                 data_logger_index: 0,
                 note: 'D22 집열기 입구 온도',
+                modbusInfo: {
+                  fnCode: 3,
+                  address: 22,
+                  dataLength: 2,
+                },
                 svgNodePosOpt: {
                   placeId: 'AREA_PTC',
                   tblIndex: 1,
@@ -784,6 +841,11 @@ const map = {
                 target_name: '출구 온도',
                 data_logger_index: 1,
                 note: 'D24 집열기 출구 온도',
+                modbusInfo: {
+                  fnCode: 3,
+                  address: 24,
+                  dataLength: 2,
+                },
                 svgNodePosOpt: {
                   placeId: 'AREA_PTC',
                   tblIndex: 2,
@@ -794,6 +856,11 @@ const map = {
                 target_name: '오일 탱크 온도',
                 data_logger_index: 2,
                 note: 'D26 오일 탱크 1',
+                modbusInfo: {
+                  fnCode: 3,
+                  address: 26,
+                  dataLength: 2,
+                },
                 svgNodePosOpt: {
                   placeId: 'AREA_OT_1',
                   tblIndex: 1,
@@ -804,6 +871,11 @@ const map = {
                 target_name: '오일 탱크 온도',
                 data_logger_index: 3,
                 note: 'D28 오일 탱크 2',
+                modbusInfo: {
+                  fnCode: 3,
+                  address: 28,
+                  dataLength: 2,
+                },
                 svgNodePosOpt: {
                   placeId: 'AREA_OT_2',
                   tblIndex: 1,
@@ -814,6 +886,11 @@ const map = {
                 target_name: '입구 온도',
                 data_logger_index: 4,
                 note: 'D32 증기발생기 입구 온도',
+                modbusInfo: {
+                  fnCode: 3,
+                  address: 32,
+                  dataLength: 2,
+                },
                 svgNodePosOpt: {
                   placeId: 'AREA_SG',
                   tblIndex: 1,
@@ -824,6 +901,11 @@ const map = {
                 target_name: '내부 온도',
                 data_logger_index: 5,
                 note: 'D34 증기발생기 온도',
+                modbusInfo: {
+                  fnCode: 3,
+                  address: 34,
+                  dataLength: 2,
+                },
                 svgNodePosOpt: {
                   placeId: 'AREA_SG',
                   tblIndex: 2,
@@ -840,6 +922,11 @@ const map = {
                 target_name: '출구 온도',
                 data_logger_index: 0,
                 note: 'D608 증기발생기 출구 온도',
+                modbusInfo: {
+                  fnCode: 3,
+                  address: 608,
+                  dataLength: 2,
+                },
                 svgNodePosOpt: {
                   tblIndex: 0,
                 },
@@ -854,6 +941,10 @@ const map = {
               {
                 target_name: '단위',
                 note: 'D614',
+                modbusInfo: {
+                  fnCode: 3,
+                  address: 614,
+                },
                 svgNodePosOpt: {
                   tblIndex: 6,
                 },
@@ -876,6 +967,10 @@ const map = {
             nodeList: [
               {
                 note: 'M72(0: Off, 1: On)',
+                modbusInfo: {
+                  fnCode: 1,
+                  address: 72,
+                },
                 svgNodePosOpt: {
                   tblIndex: 0,
                 },
@@ -890,6 +985,10 @@ const map = {
             nodeList: [
               {
                 note: 'M75(0: 흐린 날씨, 1: 맑은 날씨)',
+                modbusInfo: {
+                  fnCode: 1,
+                  address: 75,
+                },
                 svgNodePosOpt: {
                   tblIndex: 1,
                 },
@@ -904,6 +1003,10 @@ const map = {
             nodeList: [
               {
                 note: 'M122(0: OP2, 1: OP1)',
+                modbusInfo: {
+                  fnCode: 1,
+                  address: 122,
+                },
               },
             ],
           },
@@ -915,6 +1018,10 @@ const map = {
             nodeList: [
               {
                 note: 'D2330(0: 로컬, 1: 타이머, 2: 원격)',
+                modbusInfo: {
+                  fnCode: 3,
+                  address: 2330,
+                },
                 svgNodePosOpt: {
                   tblIndex: 2,
                 },
@@ -936,6 +1043,10 @@ const map = {
                 target_name: '1#오일탱크 열저장 설정 요구에 부합됨',
                 data_logger_index: 0,
                 note: 'M116',
+                modbusInfo: {
+                  fnCode: 1,
+                  address: 116,
+                },
                 svgNodePosOpt: {
                   tblIndex: 0,
                 },
@@ -945,6 +1056,10 @@ const map = {
                 target_name: '2#오일탱크 열저장 설정 요구에 부합됨',
                 data_logger_index: 1,
                 note: 'M117',
+                modbusInfo: {
+                  fnCode: 1,
+                  address: 117,
+                },
                 svgNodePosOpt: {
                   tblIndex: 1,
                 },
@@ -954,6 +1069,10 @@ const map = {
                 target_name: '1#탱크가 열방출 허용 온도에 도달함',
                 data_logger_index: 2,
                 note: 'M118',
+                modbusInfo: {
+                  fnCode: 1,
+                  address: 118,
+                },
                 svgNodePosOpt: {
                   tblIndex: 2,
                 },
@@ -963,6 +1082,10 @@ const map = {
                 target_name: '2#탱크가 열방출 허용 온도에 도달함',
                 data_logger_index: 3,
                 note: 'M119',
+                modbusInfo: {
+                  fnCode: 1,
+                  address: 119,
+                },
                 svgNodePosOpt: {
                   tblIndex: 3,
                 },
@@ -979,6 +1102,10 @@ const map = {
                 target_name: '증기 직접 공급 모드 운행',
                 data_logger_index: 0,
                 note: 'M123',
+                modbusInfo: {
+                  fnCode: 1,
+                  address: 123,
+                },
                 svgNodePosOpt: {
                   tblIndex: 0,
                 },
@@ -988,6 +1115,10 @@ const map = {
                 target_name: '열저장탱크 열저장모드 운행',
                 data_logger_index: 1,
                 note: 'M124',
+                modbusInfo: {
+                  fnCode: 1,
+                  address: 124,
+                },
                 svgNodePosOpt: {
                   tblIndex: 1,
                 },
@@ -997,6 +1128,10 @@ const map = {
                 target_name: '열저장탱크 열방출모드 운행',
                 data_logger_index: 2,
                 note: 'M125',
+                modbusInfo: {
+                  fnCode: 1,
+                  address: 125,
+                },
                 svgNodePosOpt: {
                   tblIndex: 2,
                 },
@@ -1006,6 +1141,10 @@ const map = {
                 target_name: '우선적 열저장모드 운행',
                 data_logger_index: 3,
                 note: 'M126',
+                modbusInfo: {
+                  fnCode: 1,
+                  address: 126,
+                },
                 svgNodePosOpt: {
                   tblIndex: 3,
                 },
@@ -1028,6 +1167,10 @@ const map = {
                 target_code: '1',
                 data_logger_index: 0,
                 note: 'M70',
+                modbusInfo: {
+                  fnCode: 1,
+                  address: 70,
+                },
                 svgNodePosOpt: {
                   resourceId: 'cmdBtn',
                 },
@@ -1036,6 +1179,10 @@ const map = {
                 target_code: '2',
                 data_logger_index: 1,
                 note: 'M71',
+                modbusInfo: {
+                  fnCode: 1,
+                  address: 71,
+                },
                 svgNodePosOpt: {
                   resourceId: 'cmdBtn',
                 },
@@ -1050,6 +1197,10 @@ const map = {
             nodeList: [
               {
                 note: 'M74',
+                modbusInfo: {
+                  fnCode: 1,
+                  address: 74,
+                },
                 svgNodePosOpt: {
                   resourceId: 'cmdBtn',
                 },
@@ -1069,6 +1220,10 @@ const map = {
             nodeList: [
               {
                 note: 'M73',
+                modbusInfo: {
+                  fnCode: 1,
+                  address: 73,
+                },
                 svgNodePosOpt: {
                   placeId: 'AREA_PTC_OPE',
                   resourceId: 'cmdBtn',
