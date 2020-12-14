@@ -18,8 +18,9 @@ class ThreCmdGoal extends CmdComponent {
    *
    * @param {CoreFacade} coreFacade
    * @param {csCmdGoalInfo} csCmdGoalInfo
+   * @param {mdNodeInfo} mdNodeInfo
    */
-  constructor(coreFacade, csCmdGoalInfo) {
+  constructor(coreFacade, csCmdGoalInfo, mdNodeInfo) {
     super();
     const {
       nodeId = '',
@@ -38,6 +39,8 @@ class ThreCmdGoal extends CmdComponent {
     this.goalRange = goalRange;
     // 이 달성 목표만 성공하면 모든 조건 클리어 여부
     this.isCompleteClear = isCompleteClear;
+
+    this.mdNodeInfo = mdNodeInfo;
 
     // 동적 표현식 메소드 생성
     // eslint-disable-next-line no-new-func
@@ -115,11 +118,11 @@ class ThreCmdGoal extends CmdComponent {
     if (this.nodeList.length) {
       isClear = this.isReachExpression();
     } else {
-      const { data } = this.nodeInfo;
-      if (_.isNumber(data)) {
-        isClear = this.isReachNumGoal(data);
-      } else if (_.isString(data)) {
-        isClear = this.isReachStrGoal(data);
+      const { nodeData } = this.mdNodeInfo;
+      if (_.isNumber(nodeData)) {
+        isClear = this.isReachNumGoal(nodeData);
+      } else if (_.isString(nodeData)) {
+        isClear = this.isReachStrGoal(nodeData);
       }
     }
 
@@ -146,7 +149,7 @@ class ThreCmdGoal extends CmdComponent {
    * 데이터가 달성 목표에 도달하였다면 Critical Stroage에 알림.
    * @param {nodeInfo} nodeInfo
    */
-  updateNode(nodeInfo) {
+  notifyNodeData(nodeInfo) {
     return this.isClear && this.thresholdStorage.handleThresholdClear(this);
   }
 

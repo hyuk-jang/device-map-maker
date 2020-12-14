@@ -9,7 +9,7 @@ const ThreCmdGoal = require('./ThreCmdGoal');
  * 데이터가 갱신될 때 마다 해당 달성 목표가 처리 되었는지 확인.
  * 달성 목표를 완료하였거나 Timer의 동작이 진행되면 Successor에게 전파
  */
-class ThreCmdStorage extends CmdComponent {
+class ThreTriStorage extends CmdComponent {
   /**
    * @param {CoreFacade} coreFacade
    */
@@ -32,7 +32,7 @@ class ThreCmdStorage extends CmdComponent {
    *
    * @param {csCmdGoalContraintInfo} wrapCmdGoalInfo
    */
-  initThreCmd(wrapCmdGoalInfo = {}) {
+  initThreTri(wrapCmdGoalInfo = {}) {
     const { goalDataList = [], limitTimeSec } = wrapCmdGoalInfo;
 
     // 임계치가 존재하지 않을 경우 임계 설정 하지 않음
@@ -160,4 +160,4 @@ class ThreCmdStorage extends CmdComponent {
     }
   }
 }
-module.exports = ThreCmdStorage;
+module.exports = ThreTriStorage;

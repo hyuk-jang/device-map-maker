@@ -44,7 +44,7 @@ const {
     positionInfo: { svgNodeList = [], svgPlaceList = [], svgCmdList = [] },
   },
   setInfo: { nodeStructureList },
-  relationInfo: { placeRelationList = [], convertRelationList = [] },
+  relationInfo: { placeRelationList = [], imgTriggerList = [], convertRelationList = [] },
   controlInfo: {
     singleCmdList = [],
     setCmdList = [],
@@ -926,6 +926,7 @@ function drawSvgElement(svgDrawInfo, drawType) {
  * @param {number|string} data 데이터 값
  */
 function showNodeData(nodeId, data = '') {
+  console.log(nodeId, data);
   try {
     const mdNodeInfo = mdNodeStorage.get(nodeId);
 
