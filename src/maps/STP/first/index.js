@@ -575,7 +575,7 @@ const map = {
                 note: 'D604',
                 modbusInfo: {
                   fnCode: 3,
-                  address: 16,
+                  address: 604,
                   dataLength: 2,
                 },
                 svgNodePosOpt: {
@@ -696,7 +696,7 @@ const map = {
                 note: 'D20 환경 조도',
                 modbusInfo: {
                   fnCode: 3,
-                  address: 16,
+                  address: 20,
                   dataLength: 2,
                 },
                 svgNodePosOpt: {
@@ -723,7 +723,7 @@ const map = {
                 note: 'D18',
                 modbusInfo: {
                   fnCode: 3,
-                  address: 16,
+                  address: 18,
                   dataLength: 2,
                 },
                 svgNodePosOpt: {
@@ -743,7 +743,7 @@ const map = {
                 note: 'D610',
                 modbusInfo: {
                   fnCode: 3,
-                  address: 16,
+                  address: 610,
                   dataLength: 2,
                 },
                 svgNodePosOpt: {

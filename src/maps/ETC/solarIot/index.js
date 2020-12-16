@@ -61,6 +61,7 @@ const map = {
             width: ms.DA.WIDTH,
             height: ms.DA.HEIGHT,
             color: ['url(#bg-sky-1)'],
+            opacity: 1,
             filterInfo: {
               filter: 'url(#deviceShadow)',
             },
