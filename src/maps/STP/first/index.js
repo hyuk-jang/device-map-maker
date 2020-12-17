@@ -392,6 +392,7 @@ const map = {
               'INF_SYOP',
               'INF_SKY',
               'INF_SYMO',
+              'INF_USOP',
               'MOD_OT_1',
               'MOD_OT_2',
               'MOD_OT_3',
