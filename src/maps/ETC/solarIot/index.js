@@ -104,7 +104,7 @@ const map = {
   },
   setInfo: {
     mainInfo: {
-      uuid: 'sector_001',
+      uuid: 'sector_003',
     },
     dccConstructorList: [
       {
@@ -382,31 +382,31 @@ const map = {
     setCmdList: [
       {
         cmdId: 'closeAllDevice',
-        cmdName: '모든 장치 닫기',
+        cmdName: '모든 장치 정지',
         trueNodeList: [],
         falseNodeList: ['R_1', 'R_2', 'R_3', 'R_4'],
       },
       {
         cmdId: 'onUpToLv1',
-        cmdName: 'Lv.1까지 가동',
+        cmdName: 'Lv.1까지 동작',
         trueNodeList: ['R_1'],
         falseNodeList: ['R_2', 'R_3', 'R_4'],
       },
       {
         cmdId: 'onUpToLv2',
-        cmdName: 'Lv.2까지 가동',
+        cmdName: 'Lv.2까지 동작',
         trueNodeList: ['R_1', 'R_2'],
         falseNodeList: ['R_3', 'R_4'],
       },
       {
         cmdId: 'onUpToLv3',
-        cmdName: 'Lv.3까지 가동',
+        cmdName: 'Lv.3까지 동작',
         trueNodeList: ['R_1', 'R_2', 'R_3'],
         falseNodeList: ['R_4'],
       },
       {
         cmdId: 'onUpToLv4',
-        cmdName: 'Lv.4까지 가동',
+        cmdName: 'Lv.4까지 동작',
         trueNodeList: ['R_1', 'R_2', 'R_3', 'R_4'],
         falseNodeList: [],
       },

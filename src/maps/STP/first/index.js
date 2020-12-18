@@ -34,8 +34,8 @@ const mapPath = '/out/defaultMap';
 // const mapPath = '';
 
 const mapSize = {
-  width: 1280,
-  height: 600,
+  width: 1600,
+  height: 786,
 };
 
 const mapPosition = [0, 0];
@@ -167,14 +167,14 @@ const map = {
           type: 'rect',
           elementDrawInfo: {
             width: ms.SIZE.width * 0.11,
-            height: ms.SIZE.height * 0.18,
+            height: ms.SIZE.height * 0.16,
             opacity: 0.5,
             filterInfo: {
               filter: 'url(#deviceShadow)',
             },
             insideInfo: CM.insideSensorTemplate1({
               rowsCount: 3,
-              shareRate: 0.2,
+              shareRate: 0.25,
               vStrokeScale: 0.5,
               dataAnchor: CM.anchor.middle,
             }),
@@ -193,7 +193,7 @@ const map = {
             insideInfo: CM.insideSensorTemplate1({
               rowsCount: 2,
               shareRate: 0.34,
-              vStrokeScale: 0.6,
+              vStrokeScale: 0.5,
             }),
           },
         },
@@ -273,7 +273,7 @@ const map = {
             width: ms.DA.WIDTH,
             height: ms.DA.HEIGHT,
             opacity: 0.5,
-            color: ['lightgray', 'darkgreen'],
+            color: ['gray', 'darkgreen'],
             // color: ['url(#bg-gray-1)', 'url(#bg-green-1)', 'url(#bg-sky-2)'],
             errColor: 'red',
             filterInfo: {
@@ -1041,7 +1041,7 @@ const map = {
             nodeList: [
               {
                 target_code: '1',
-                target_name: '1#오일탱크 열저장 설정 요구에 부합됨',
+                target_name: '1#오일탱크 열저장 설정 부합',
                 data_logger_index: 0,
                 note: 'M116',
                 modbusInfo: {
@@ -1054,7 +1054,7 @@ const map = {
               },
               {
                 target_code: '2',
-                target_name: '2#오일탱크 열저장 설정 요구에 부합됨',
+                target_name: '2#오일탱크 열저장 설정 부합',
                 data_logger_index: 1,
                 note: 'M117',
                 modbusInfo: {
@@ -1067,7 +1067,7 @@ const map = {
               },
               {
                 target_code: '3',
-                target_name: '1#탱크가 열방출 허용 온도에 도달함',
+                target_name: '1#탱크가 열방출 허용 온도 도달',
                 data_logger_index: 2,
                 note: 'M118',
                 modbusInfo: {
@@ -1080,7 +1080,7 @@ const map = {
               },
               {
                 target_code: '4',
-                target_name: '2#탱크가 열방출 허용 온도에 도달함',
+                target_name: '2#탱크가 열방출 허용 온도 도달',
                 data_logger_index: 3,
                 note: 'M119',
                 modbusInfo: {
@@ -1273,7 +1273,7 @@ const map = {
                 nodeList: ['MOD_OT_1', 'MOD_OT_2', 'MOD_OT_3', 'MOD_OT_4'],
                 svgPositionInfo: {
                   resourceId: 'tblAlarmCase3',
-                  point: convertPlacePosition(0.85, 0.6),
+                  point: convertPlacePosition(0.86, 0.6),
                 },
               },
               {
@@ -1282,7 +1282,7 @@ const map = {
                 nodeList: ['MOD_STE_1', 'MOD_STE_2', 'MOD_STE_3', 'MOD_STE_4'],
                 svgPositionInfo: {
                   resourceId: 'tblAlarmCase3',
-                  point: convertPlacePosition(0.85, 0.35),
+                  point: convertPlacePosition(0.86, 0.35),
                 },
               },
             ],
@@ -1296,7 +1296,7 @@ const map = {
                 nodeList: ['INF_SYMO', 'INF_SKY', 'INF_SYOP'],
                 svgPositionInfo: {
                   resourceId: 'tblAlarmCase3x3',
-                  point: convertPlacePosition(0.85, 0.1),
+                  point: convertPlacePosition(0.86, 0.14),
                 },
               },
             ],
@@ -1315,7 +1315,7 @@ const map = {
                 nodeList: ['IRR_ENV', 'SOL_ENV_1', 'TEM_ENV'],
                 svgPositionInfo: {
                   resourceId: 'tblSensorCase3',
-                  point: convertPlacePosition(0.68, 0.45),
+                  point: convertPlacePosition(0.66, 0.57),
                 },
               },
             ],
@@ -1336,7 +1336,7 @@ const map = {
                 nodeList: ['AMP_OP_1', 'AMP_OP_2'],
                 svgPositionInfo: {
                   resourceId: 'tblSensorCase2',
-                  point: convertPlacePosition(0.4, 0.1),
+                  point: convertPlacePosition(0.55, 0.15),
                 },
               },
               {
@@ -1345,7 +1345,7 @@ const map = {
                 nodeList: ['PUM_OIL_1'],
                 svgPositionInfo: {
                   resourceId: 'deviceArea',
-                  point: convertPlacePosition(0.6, 0.1),
+                  point: convertPlacePosition(0.45, 0.23),
                 },
               },
               {
@@ -1354,7 +1354,7 @@ const map = {
                 nodeList: ['PUM_OIL_2'],
                 svgPositionInfo: {
                   resourceId: 'deviceArea',
-                  point: convertPlacePosition(0.6, 0.25),
+                  point: convertPlacePosition(0.45, 0.32),
                 },
               },
             ],
@@ -1375,7 +1375,7 @@ const map = {
                 nodeList: ['TEM_OIL_3', 'FDVA_OT_1'],
                 svgPositionInfo: {
                   resourceId: 'tblSensorCase2',
-                  point: convertPlacePosition(0.25, 0.45),
+                  point: convertPlacePosition(0.33, 0.41),
                 },
               },
               {
@@ -1383,7 +1383,7 @@ const map = {
                 nodeList: ['TEM_OIL_4', 'FDVA_OT_2'],
                 svgPositionInfo: {
                   resourceId: 'tblSensorCase2',
-                  point: convertPlacePosition(0.25, 0.6),
+                  point: convertPlacePosition(0.33, 0.69),
                 },
               },
             ],
@@ -1413,7 +1413,7 @@ const map = {
                 nodeList: ['FDVA_PTC', 'TEM_OIL_1', 'TEM_OIL_2'],
                 svgPositionInfo: {
                   resourceId: 'tblSensorCase3',
-                  point: convertPlacePosition(0.55, 0.45),
+                  point: convertPlacePosition(0.54, 0.57),
                 },
               },
             ],
@@ -1437,7 +1437,7 @@ const map = {
                 nodeList: ['PTC'],
                 svgPositionInfo: {
                   resourceId: 'deviceArea',
-                  point: convertPlacePosition(0.71, 0.25),
+                  point: convertPlacePosition(0.76, 0.4),
                 },
               },
             ],
@@ -1446,14 +1446,14 @@ const map = {
       },
       {
         target_id: 'sgArea',
-        target_name: '스팀발생기',
+        target_name: '증기발생기',
         defList: [
           {
             target_id: 'sgArea',
             target_prefix: 'AREA_SG',
             placeList: [
               {
-                target_name: '스팀발생기',
+                target_name: '증기발생기',
                 nodeList: [
                   'FDVA_SG',
                   'TEM_OIL_5',
@@ -1464,7 +1464,7 @@ const map = {
                 ],
                 svgPositionInfo: {
                   resourceId: 'tblSensorCase6',
-                  point: convertPlacePosition(0.07, 0.4),
+                  point: convertPlacePosition(0.06, 0.6),
                 },
               },
             ],
@@ -1485,7 +1485,7 @@ const map = {
           // },
           {
             target_id: 'sgOutletArea',
-            target_name: '스팀발생기 출구',
+            target_name: '증기발생기 출구',
             target_prefix: 'AREA_SG_OUT',
             placeList: [
               {
@@ -1500,7 +1500,7 @@ const map = {
                 ],
                 svgPositionInfo: {
                   resourceId: 'tblSensorCase7',
-                  point: convertPlacePosition(0.05, 0.05),
+                  point: convertPlacePosition(0.03, 0.07),
                 },
               },
             ],
@@ -1520,7 +1520,7 @@ const map = {
                 nodeList: ['PUM_SW'],
                 svgPositionInfo: {
                   resourceId: 'deviceArea',
-                  point: convertPlacePosition(0.1, 0.72),
+                  point: convertPlacePosition(0.2, 0.78),
                 },
               },
             ],
@@ -1531,7 +1531,14 @@ const map = {
     imgTriggerList: imgTrigger,
     convertRelationList: [
       {
-        nDefId: 'operStsMode',
+        nDefId: 'infoSky',
+        convertInfo: {
+          0: '흐린 날씨',
+          1: '맑은 날씨',
+        },
+      },
+      {
+        nDefId: 'infoSysMode',
         convertInfo: {
           0: '로컬모드 운행중',
           1: '타이머모드 운행중',
@@ -1539,10 +1546,32 @@ const map = {
         },
       },
       {
-        nDefId: 'isModeSysOper',
+        nDefId: 'infoUseOp',
+        convertInfo: {
+          0: '오일펌프 2 사용 중',
+          1: '오일펌프 1 사용 중',
+        },
+      },
+      {
+        nDefId: 'infoSysOper',
         convertInfo: {
           0: '시스템 OFF',
           1: '시스템 ON',
+        },
+      },
+      {
+        nDefId: ['modeOt', 'modeSteam'],
+        isNodeNameUse: true,
+        convertInfo: {
+          0: false,
+          1: true,
+        },
+      },
+      {
+        nDefId: ['pumpOil', 'pumpSw', 'ptc'],
+        convertInfo: {
+          0: 'OFF',
+          1: 'ON',
         },
       },
     ],

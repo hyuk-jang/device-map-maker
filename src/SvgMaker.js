@@ -413,6 +413,7 @@ class SvgMaker {
     const inputMapImgPath = path.join(mapPath, `${SOURCE_FILE}.png`);
 
     const outputMapPath = path.join(process.cwd(), 'out', 'defaultMap.js');
+    const outputBase64Path = path.join(process.cwd(), 'out', 'defaultBase64.js');
     // 이미지 사용될 경우 defaultMap.png 로 저장
     const outputImgPath = path.join(process.cwd(), 'out', 'defaultMap.png');
     const outputProjectMapPath = path.join(
@@ -426,6 +427,13 @@ class SvgMaker {
     // 이미지가 존재할 경우 복사본 생성
     if (isExistMapImg) {
       fs.createReadStream(inputMapImgPath).pipe(fs.createWriteStream(outputImgPath));
+
+      const imgAsBase64 = fs.readFileSync(inputMapImgPath, 'base64');
+      await BU.writeFile(
+        outputBase64Path,
+        `module.exports = 'data:image/png;base64,${imgAsBase64}'`,
+        'w',
+      );
     } else if (fs.existsSync(outputImgPath)) {
       // 프로젝트 이미지가 존재하지 않고 out 경로에 생성된 이미지가 존재할 경우 해당 이미지 삭제
       await fs.accessSync(outputImgPath, fs.constants.F_OK);
