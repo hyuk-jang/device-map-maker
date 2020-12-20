@@ -35,11 +35,28 @@ class SimulatorApp {
       }),
     );
 
+    // 웹 페이지 이미지
     app.use(
       '/img',
       express.static(path.join(__dirname, '..', 'img'), {
         extensions: ['jpg', 'png', 'gif'],
       }),
+    );
+
+    // 맵 이미지
+    app.use(
+      '/map',
+      express.static(
+        path.join(
+          process.cwd(),
+          ...['out', process.env.SOURCE_PATH, process.env.SOURCE_FILE].filter(
+            pjId => typeof pjId === 'string' && pjId.length,
+          ),
+        ),
+        {
+          extensions: ['jpg', 'png', 'gif'],
+        },
+      ),
     );
 
     this.app = app;
@@ -51,10 +68,10 @@ class SimulatorApp {
     this.app.get('/', (req, res) => {
       let backgroudMap = '';
 
-      const outputImgPath = path.join(process.cwd(), 'out', 'defaultMap.png');
-      if (fs.existsSync(outputImgPath)) {
-        backgroudMap = fs.readFileSync(outputImgPath);
-      }
+      // const outputImgPath = path.join(process.cwd(), 'out', 'defaultMap.png');
+      // if (fs.existsSync(outputImgPath)) {
+      //   backgroudMap = fs.readFileSync(outputImgPath);
+      // }
 
       res.render('./index', {
         map: this.deviceMap,

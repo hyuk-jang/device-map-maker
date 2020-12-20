@@ -14,17 +14,17 @@ const {
 const ms = {
   // 센서 영역 (Sensor Area)
   SA: {
-    START_X: 70,
-    START_Y: 70,
+    START_X: 60,
+    START_Y: 50,
     WIDTH: 200,
-    HEIGHT: 500,
+    HEIGHT: 440,
     WIDTH_INTERVAL: 50,
     BIG_HEIGHT: 180,
   },
   // 장치 영역 (Device Area)
   DA: {
     WIDTH: 200,
-    HEIGHT: 500,
+    HEIGHT: 440,
     INTERVAL: 30,
   },
 };
@@ -37,7 +37,7 @@ const map = {
     frame: {
       mapInfo: {
         width: 800,
-        height: 1100,
+        height: 510,
         backgroundInfo: {
           backgroundPosition: [0, 0],
         },
@@ -55,7 +55,7 @@ const map = {
               filter: 'url(#dropShadow)',
             },
           },
-          textStyleInfo: { color: '', fontSize: 30, axisScale: [0.5, -0.07] },
+          textStyleInfo: { color: 'orange', fontSize: 25, axisScale: [0.5, -0.05] },
         },
         {
           id: 'deviceArea',
@@ -68,7 +68,7 @@ const map = {
               filter: 'url(#dropShadow)',
             },
           },
-          textStyleInfo: { color: '', fontSize: 30, axisScale: [0.5, -0.07] },
+          textStyleInfo: { color: 'orange', fontSize: 25, axisScale: [0.5, -0.05] },
         },
         {
           id: 'commandArea',
@@ -81,7 +81,7 @@ const map = {
               filter: 'url(#dropShadow)',
             },
           },
-          textStyleInfo: { color: '', fontSize: 30, axisScale: [0.5, -0.07] },
+          textStyleInfo: { color: 'orange', fontSize: 25, axisScale: [0.5, -0.05] },
         },
         /* *************       Device        ***************** */
         {

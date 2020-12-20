@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const Control = require('./src/Control');
 
 module.exports = Control;
@@ -5,8 +7,6 @@ module.exports = Control;
 // if __main process
 if (require !== undefined && require.main === module) {
   console.log('__main__');
-
-  require('dotenv').config();
 
   const control = new Control();
   control.startMapMaker();

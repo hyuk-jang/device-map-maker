@@ -30,7 +30,8 @@ const imgPattern = {
   ],
 };
 
-const mapPath = '/out/defaultMap';
+// const mapPath = '/out/defaultMap';
+const mapPath = '/map/bg';
 // const mapPath = '';
 
 const mapSize = {
@@ -227,6 +228,23 @@ const map = {
             insideInfo: CM.insideSensorTemplate1({
               rowsCount: 4,
               shareRate: 0.2,
+              vStrokeScale: 0.45,
+            }),
+          },
+        },
+        {
+          id: 'tblSensorCase5',
+          type: 'rect',
+          elementDrawInfo: {
+            width: ms.SIZE.width * 0.11,
+            height: ms.SIZE.height * 0.24,
+            opacity: 0.5,
+            filterInfo: {
+              filter: 'url(#deviceShadow)',
+            },
+            insideInfo: CM.insideSensorTemplate1({
+              rowsCount: 5,
+              shareRate: 0.167,
               vStrokeScale: 0.45,
             }),
           },
@@ -648,9 +666,9 @@ const map = {
                   address: 602,
                   dataLength: 2,
                 },
-                svgNodePosOpt: {
-                  tblIndex: 5,
-                },
+                // svgNodePosOpt: {
+                //   tblIndex: 5,
+                // },
               },
             ],
           },
@@ -946,9 +964,9 @@ const map = {
                   fnCode: 3,
                   address: 614,
                 },
-                svgNodePosOpt: {
-                  tblIndex: 6,
-                },
+                // svgNodePosOpt: {
+                //   tblIndex: 6,
+                // },
               },
             ],
           },
@@ -1495,11 +1513,11 @@ const map = {
                   'FRE_PIP',
                   'FRIN_PIP',
                   'FRCU_PIP',
-                  'FRIN_PIOP',
-                  'TEM_UNI',
+                  // 'FRIN_PIOP',
+                  // 'TEM_UNI',
                 ],
                 svgPositionInfo: {
-                  resourceId: 'tblSensorCase7',
+                  resourceId: 'tblSensorCase5',
                   point: convertPlacePosition(0.03, 0.07),
                 },
               },
@@ -1577,59 +1595,8 @@ const map = {
     ],
   },
   controlInfo: {
-    singleCmdList: [
-      {
-        applyDeviceList: [''],
-        singleCmdName: '펌프',
-        singleMidCateCmdInfo: {
-          scenarioMsg: '제어 동작을 선택하세요.',
-          subCmdList: [
-            {
-              enName: 'ON',
-              krName: '동작',
-              controlValue: reqDCT.TRUE,
-            },
-            {
-              enName: 'OFF',
-              krName: '정지',
-              controlValue: reqDCT.FALSE,
-            },
-          ],
-        },
-      },
-    ],
-    setCmdList: [
-      {
-        cmdId: 'closeAllDevice',
-        cmdName: '모든 장치 닫기',
-        trueNodeList: [],
-        falseNodeList: ['R_1', 'R_2', 'R_3', 'R_4'],
-      },
-      {
-        cmdId: 'onUpToLv1',
-        cmdName: 'Lv.1까지 가동',
-        trueNodeList: ['R_1'],
-        falseNodeList: ['R_2', 'R_3', 'R_4'],
-      },
-      {
-        cmdId: 'onUpToLv2',
-        cmdName: 'Lv.2까지 가동',
-        trueNodeList: ['R_1', 'R_2'],
-        falseNodeList: ['R_3', 'R_4'],
-      },
-      {
-        cmdId: 'onUpToLv3',
-        cmdName: 'Lv.3까지 가동',
-        trueNodeList: ['R_1', 'R_2', 'R_3'],
-        falseNodeList: ['R_4'],
-      },
-      {
-        cmdId: 'onUpToLv4',
-        cmdName: 'Lv.4까지 가동',
-        trueNodeList: ['R_1', 'R_2', 'R_3', 'R_4'],
-        falseNodeList: [],
-      },
-    ],
+    singleCmdList: [],
+    setCmdList: [],
   },
 };
 

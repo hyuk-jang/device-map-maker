@@ -81,6 +81,9 @@ class SvgMaker {
     // Step 4: Map File 생성
     await this.writeMapFile();
 
+    // Step 5: Img 복사
+    await this.copyAndPasteImg();
+
     return map;
   }
 
@@ -413,38 +416,84 @@ class SvgMaker {
     const inputMapImgPath = path.join(mapPath, `${SOURCE_FILE}.png`);
 
     const outputMapPath = path.join(process.cwd(), 'out', 'defaultMap.js');
-    const outputBase64Path = path.join(process.cwd(), 'out', 'defaultBase64.js');
-    // 이미지 사용될 경우 defaultMap.png 로 저장
-    const outputImgPath = path.join(process.cwd(), 'out', 'defaultMap.png');
     const outputProjectMapPath = path.join(
       process.cwd(),
       'out',
       SOURCE_PATH,
-      `output_${SOURCE_FILE}.js`,
+      SOURCE_FILE,
+      'defaultMap.js',
     );
+    // const outputBase64Path = path.join(process.cwd(), 'out', 'defaultBase64.js');
+    // 이미지 사용될 경우 defaultMap.png 로 저장
+    // const outputImgPath = path.join(process.cwd(), 'out', 'defaultMap.png');
+    // const outputProjectMapPath = path.join(
+    //   process.cwd(),
+    //   'out',
+    //   SOURCE_PATH,
+    //   SOURCE_FILE,
+    //   `output_${SOURCE_FILE}.js`,
+    // );
 
-    const isExistMapImg = await fs.existsSync(inputMapImgPath);
-    // 이미지가 존재할 경우 복사본 생성
-    if (isExistMapImg) {
-      fs.createReadStream(inputMapImgPath).pipe(fs.createWriteStream(outputImgPath));
+    // const isExistMapImg = await fs.existsSync(inputMapImgPath);
+    // // 이미지가 존재할 경우 복사본 생성
+    // if (isExistMapImg) {
+    //   fs.createReadStream(inputMapImgPath).pipe(fs.createWriteStream(outputImgPath));
 
-      const imgAsBase64 = fs.readFileSync(inputMapImgPath, 'base64');
-      await BU.writeFile(
-        outputBase64Path,
-        `module.exports = 'data:image/png;base64,${imgAsBase64}'`,
-        'w',
-      );
-    } else if (fs.existsSync(outputImgPath)) {
-      // 프로젝트 이미지가 존재하지 않고 out 경로에 생성된 이미지가 존재할 경우 해당 이미지 삭제
-      await fs.accessSync(outputImgPath, fs.constants.F_OK);
-      fs.unlink(outputImgPath, console.error);
-    }
+    //   // const imgAsBase64 = fs.readFileSync(inputMapImgPath, 'base64');
+    //   // await BU.writeFile(
+    //   //   outputBase64Path,
+    //   //   `module.exports = 'data:image/png;base64,${imgAsBase64}'`,
+    //   //   'w',
+    //   // );
+    // } else if (fs.existsSync(outputImgPath)) {
+    //   // 프로젝트 이미지가 존재하지 않고 out 경로에 생성된 이미지가 존재할 경우 해당 이미지 삭제
+    //   await fs.accessSync(outputImgPath, fs.constants.F_OK);
+    //   fs.unlink(outputImgPath, console.error);
+    // }
     // 모듈화
     const finalStrMap = `module.exports = ${JSON.stringify(map)}`;
 
     await BU.writeFile(outputMapPath, finalStrMap, 'w');
 
     await BU.writeFile(outputProjectMapPath, finalStrMap, 'w');
+  }
+
+  /**
+   * Step 5: 이미지 복사 붙여넣기
+   */
+  async copyAndPasteImg() {
+    const pastePath = path.join(process.cwd(), 'out', SOURCE_PATH, SOURCE_FILE);
+
+    const imgExt = ['png', 'jpg', 'jpeg', 'gif'];
+
+    fs.readdirSync(mapPath).forEach(file => {
+      const copyFilePath = path.join(mapPath, file);
+      const pasteFilePath = path.join(pastePath, file);
+      const lastDotIndex = file.lastIndexOf('.');
+
+      // 이미지 일 경우에만 생성
+      lastDotIndex > 0 &&
+        imgExt.includes(file.slice(lastDotIndex + 1)) &&
+        fs.createReadStream(copyFilePath).pipe(fs.createWriteStream(pasteFilePath));
+    });
+
+    // 하위 폴더 읽음
+    BU.getDirectories(mapPath).forEach(folder => {
+      const copyFolderPath = path.join(mapPath, folder);
+      const pasteFolderPath = path.join(pastePath, folder);
+      // 폴더 없으면 생성
+      !fs.existsSync(pastePath) && fs.mkdirSync(pastePath);
+
+      fs.readdirSync(copyFolderPath).forEach(file => {
+        const copyImgPath = path.join(copyFolderPath, file);
+        const pasteImgPath = path.join(pasteFolderPath, file);
+
+        // 하위 이미지 폴더 없으면 생성
+        !fs.existsSync(pasteFolderPath) && fs.mkdirSync(pasteFolderPath);
+
+        fs.createReadStream(copyImgPath).pipe(fs.createWriteStream(pasteImgPath));
+      });
+    });
   }
 
   /**
