@@ -12,6 +12,7 @@ const {
     dmmModel: { mmSvgBtnClass },
     dcmConfigModel: {
       nodeDataType: { BLOCK, TROUBLE, NONE },
+      goalDataRange: gDR,
       reqDeviceControlType: reqDCT,
     },
     dccFlagModel: { controllerParserType: CPT },
@@ -1546,7 +1547,225 @@ const map = {
         ],
       },
     ],
-    imgTriggerList: imgTrigger,
+    imgTriggerList: [
+      {
+        itId: 'oil_flow_op_pass',
+        imgPath: 'oil_line',
+        position: [0, 0],
+        size: mapSize,
+        triggerGoalList: [
+          {
+            goalDataList: [
+              {
+                nodeId: 'pumpOil',
+                goalValue: reqDCT.TRUE,
+                goalRange: gDR.EQUAL,
+              },
+            ],
+          },
+        ],
+      },
+      {
+        itId: 'oil_flow_ptc_over',
+        imgPath: 'oil_line',
+        size: mapSize,
+        triggerGoalList: [
+          {
+            goalDataList: [
+              {
+                nodeId: 'pumpOil',
+                goalValue: reqDCT.TRUE,
+                goalRange: gDR.EQUAL,
+              },
+              {
+                nodeId: 'FDVA_PTC',
+                goalValue: 50,
+                goalRange: gDR.LOWER,
+              },
+            ],
+          },
+        ],
+      },
+      {
+        itId: 'oil_flow_ptc_pass',
+        imgPath: 'oil_line',
+        size: mapSize,
+        triggerGoalList: [
+          {
+            goalDataList: [
+              {
+                nodeId: 'pumpOil',
+                goalValue: reqDCT.TRUE,
+                goalRange: gDR.EQUAL,
+              },
+              {
+                nodeId: 'FDVA_PTC',
+                goalValue: 50,
+                goalRange: [gDR.EQUAL, gDR.UPPER],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        itId: 'oil_flow_ot1_over',
+        imgPath: 'oil_line',
+        size: mapSize,
+        triggerGoalList: [
+          {
+            goalDataList: [
+              {
+                nodeId: 'pumpOil',
+                goalValue: reqDCT.TRUE,
+                goalRange: gDR.EQUAL,
+              },
+              {
+                nodeId: 'FDVA_OT_1',
+                goalValue: 50,
+                goalRange: gDR.LOWER,
+              },
+            ],
+          },
+        ],
+      },
+      {
+        itId: 'oil_flow_ot1_pass',
+        imgPath: 'oil_line',
+        size: mapSize,
+        triggerGoalList: [
+          {
+            goalDataList: [
+              {
+                nodeId: 'pumpOil',
+                goalValue: reqDCT.TRUE,
+                goalRange: gDR.EQUAL,
+              },
+              {
+                nodeId: 'FDVA_OT_1',
+                goalValue: 50,
+                goalRange: [gDR.EQUAL, gDR.UPPER],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        itId: 'oil_flow_ot2_over',
+        imgPath: 'oil_line',
+        size: mapSize,
+        triggerGoalList: [
+          {
+            goalDataList: [
+              {
+                nodeId: 'pumpOil',
+                goalValue: reqDCT.TRUE,
+                goalRange: gDR.EQUAL,
+              },
+              {
+                nodeId: 'FDVA_OT_2',
+                goalValue: 50,
+                goalRange: gDR.LOWER,
+              },
+            ],
+          },
+        ],
+      },
+      {
+        itId: 'oil_flow_ot2_pass',
+        imgPath: 'oil_line',
+        size: mapSize,
+        triggerGoalList: [
+          {
+            goalDataList: [
+              {
+                nodeId: 'pumpOil',
+                goalValue: reqDCT.TRUE,
+                goalRange: gDR.EQUAL,
+              },
+              {
+                nodeId: 'FDVA_OT_2',
+                goalValue: 50,
+                goalRange: [gDR.EQUAL, gDR.UPPER],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        itId: 'oil_flow_sg_over',
+        imgPath: 'oil_line',
+        size: mapSize,
+        triggerGoalList: [
+          {
+            goalDataList: [
+              {
+                nodeId: 'pumpOil',
+                goalValue: reqDCT.TRUE,
+                goalRange: gDR.EQUAL,
+              },
+              {
+                nodeId: 'FDVA_SG',
+                goalValue: 50,
+                goalRange: gDR.LOWER,
+              },
+            ],
+          },
+        ],
+      },
+      {
+        itId: 'oil_flow_sg_pass',
+        imgPath: 'oil_line',
+        size: mapSize,
+        triggerGoalList: [
+          {
+            goalDataList: [
+              {
+                nodeId: 'pumpOil',
+                goalValue: reqDCT.TRUE,
+                goalRange: gDR.EQUAL,
+              },
+              {
+                nodeId: 'FDVA_SG',
+                goalValue: 50,
+                goalRange: [gDR.EQUAL, gDR.UPPER],
+              },
+            ],
+          },
+        ],
+      },
+      {
+        itId: 'water_flow_sw_pass',
+        imgPath: 'water_line',
+        size: mapSize,
+        triggerGoalList: [
+          {
+            goalDataList: [
+              {
+                nodeId: 'PUM_SW',
+                goalValue: reqDCT.TRUE,
+                goalRange: gDR.EQUAL,
+              },
+            ],
+          },
+        ],
+      },
+      {
+        itId: 'steam_flow_sg_pass',
+        imgPath: 'steam_line',
+        size: mapSize,
+        triggerGoalList: [
+          {
+            goalDataList: [
+              {
+                nodeId: 'FRIN_PIP',
+                goalValue: 100,
+                goalRange: gDR.UPPER,
+              },
+            ],
+          },
+        ],
+      },
+    ],
     convertRelationList: [
       {
         nDefId: 'infoSky',
