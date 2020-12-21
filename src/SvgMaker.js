@@ -31,7 +31,7 @@ class SvgMaker {
         positionInfo: { svgNodeList = [], svgPlaceList = [], svgCmdList = [] } = {},
       },
       setInfo: { nodeStructureList },
-      relationInfo: { placeRelationList },
+      relationInfo: { placeRelationList, imgTriggerList = [] },
       controlInfo: { setCmdList = [], flowCmdList = [], scenarioCmdList = [] },
     } = map;
 
@@ -53,6 +53,9 @@ class SvgMaker {
 
     // RelationInfo 장소 관계 목록, SVG Resouce 관계 목록
     this.mPlaceRelationList = placeRelationList;
+
+    // 이미지 트리거 목록
+    this.mImgTriggerList = imgTriggerList;
 
     // SVG를 생성할 명령 목록
     this.mSetCmdList = setCmdList;
@@ -281,6 +284,20 @@ class SvgMaker {
       this.setCmdStorage('SCENARIO', cmdId, cmdName, svgNodePosOpt);
     });
     // console.dir(this.mCmdStorage);
+
+    this.mImgTriggerList.forEach(imgTriggerInfo => {
+      const { fileName, folderPath = '' } = imgTriggerInfo;
+
+      const pathList = ['map'];
+
+      Array.isArray(folderPath)
+        ? pathList.splice(1, 0, ...folderPath)
+        : pathList.push(folderPath);
+
+      pathList.push(fileName);
+
+      imgTriggerInfo.filePath = path.join(...pathList);
+    });
   }
 
   /** Step 2: Svg Place Position 목록 생성 */

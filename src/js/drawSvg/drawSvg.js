@@ -42,7 +42,7 @@ const {
     positionInfo: { svgNodeList = [], svgPlaceList = [], svgCmdList = [] },
   },
   setInfo: { nodeStructureList },
-  relationInfo: { placeRelationList = [], convertRelationList = [] },
+  relationInfo: { placeRelationList = [], convertRelationList = [], imgTriggerList = [] },
   controlInfo: {
     singleCmdList = [],
     setCmdList = [],
@@ -304,6 +304,11 @@ function initDrawSvg(isProd = true) {
           observerList,
           attach: observer => {
             observerList.push(observer);
+          },
+          dettach: observer => {
+            const obIndex = observerList.findIndex(ob => ob === observer);
+
+            obIndex !== -1 && observerList.splice(obIndex, 1);
           },
         });
       });
@@ -957,11 +962,6 @@ function showNodeData(nodeId, data = '') {
     // 해당 노드가 존재하지 않는다면 처리 X
     if (mdNodeInfo === undefined) return false;
 
-    // 옵저버에게 전파
-    mdNodeInfo.observerList.forEach(ob => {
-      _.get(ob, 'notifyNodeData') && ob.notifyNodeData(mdNodeInfo);
-    });
-
     const {
       nodeData,
       isSensor,
@@ -987,6 +987,11 @@ function showNodeData(nodeId, data = '') {
 
     // data update
     mdNodeInfo.nodeData = data;
+
+    // 옵저버에게 전파
+    mdNodeInfo.observerList.forEach(ob => {
+      _.get(ob, 'notifyNodeData') && ob.notifyNodeData(mdNodeInfo);
+    });
 
     // data의 상태에 따라 tspan(data, dataUnit) 색상 및 Visible 변경
     let isValidData = 0;
@@ -1270,11 +1275,15 @@ function drawSvgBasePlace(svgCanvas) {
     }
   }
 
+  // 트리거 이미지 생성 불러옴
+  // eslint-disable-next-line no-undef
+  initTriggerImg(svgCanvas, mdNodeStorage, imgTriggerList);
+
   // Place 그리기
   svgPlaceList.forEach(svgPositionInfo => {
     const { id: placeId } = svgPositionInfo;
 
-    const resourceOpcity = _.get(
+    const resourceOpacity = _.get(
       mdPlaceStorage.get(placeId),
       'svgModelResource.elementDrawInfo.opacity',
       0,
@@ -1284,7 +1293,7 @@ function drawSvgBasePlace(svgCanvas) {
       {
         svgCanvas,
         svgPositionInfo,
-        isShow: resourceOpcity,
+        isShow: resourceOpacity,
         ownerInfo: mdPlaceStorage.get(placeId),
       },
       DRAW_TYPE.PLACE,
