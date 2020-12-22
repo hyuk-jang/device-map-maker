@@ -1249,6 +1249,7 @@ function confirmCommand(mdCmdInfo) {
 function drawSvgBasePlace(svgCanvas) {
   const {
     backgroundData = '',
+    coverData = '',
     backgroundPosition: [bgPosX, bgPosY] = [0, 0],
   } = backgroundInfo;
 
@@ -1278,6 +1279,11 @@ function drawSvgBasePlace(svgCanvas) {
   // 트리거 이미지 생성 불러옴
   // eslint-disable-next-line no-undef
   initTriggerImg(svgCanvas, mdNodeStorage, imgTriggerList);
+
+  // 이미지 커버가 존재할 경우
+  if (coverData.length) {
+    svgCanvas.image(coverData).move(bgPosX, bgPosY);
+  }
 
   // Place 그리기
   svgPlaceList.forEach(svgPositionInfo => {

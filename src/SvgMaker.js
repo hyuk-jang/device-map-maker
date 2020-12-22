@@ -85,7 +85,7 @@ class SvgMaker {
     await this.writeMapFile();
 
     // Step 5: Img 복사
-    await this.copyAndPasteImg();
+    await this.copyAndPasteFileImg();
 
     return map;
   }
@@ -288,7 +288,8 @@ class SvgMaker {
     this.mImgTriggerList.forEach(imgTriggerInfo => {
       const { fileName, folderPath = '' } = imgTriggerInfo;
 
-      const pathList = ['map'];
+      // 절대경로
+      const pathList = ['/map'];
 
       Array.isArray(folderPath)
         ? pathList.splice(1, 0, ...folderPath)
@@ -476,16 +477,16 @@ class SvgMaker {
   }
 
   /**
-   * Step 5: 이미지 복사 붙여넣기
+   * Step 5: 프로젝트 대상 폴더 및 하위 폴더 이미지 복사 붙여넣기
    */
-  async copyAndPasteImg() {
-    const pastePath = path.join(process.cwd(), 'out', SOURCE_PATH, SOURCE_FILE);
+  async copyAndPasteFileImg() {
+    const outputPath = path.join(process.cwd(), 'out', SOURCE_PATH, SOURCE_FILE);
 
     const imgExt = ['png', 'jpg', 'jpeg', 'gif'];
 
     fs.readdirSync(mapPath).forEach(file => {
       const copyFilePath = path.join(mapPath, file);
-      const pasteFilePath = path.join(pastePath, file);
+      const pasteFilePath = path.join(outputPath, file);
       const lastDotIndex = file.lastIndexOf('.');
 
       // 이미지 일 경우에만 생성
@@ -494,21 +495,33 @@ class SvgMaker {
         fs.createReadStream(copyFilePath).pipe(fs.createWriteStream(pasteFilePath));
     });
 
-    // 하위 폴더 읽음
-    BU.getDirectories(mapPath).forEach(folder => {
-      const copyFolderPath = path.join(mapPath, folder);
-      const pasteFolderPath = path.join(pastePath, folder);
-      // 폴더 없으면 생성
-      !fs.existsSync(pastePath) && fs.mkdirSync(pastePath);
+    // 프로젝트 하위 폴더 이미지 재귀하면서 복사 붙여넣기
+    this.copyAndPasteDeepImg(mapPath, outputPath);
+  }
 
-      fs.readdirSync(copyFolderPath).forEach(file => {
-        const copyImgPath = path.join(copyFolderPath, file);
-        const pasteImgPath = path.join(pasteFolderPath, file);
+  /**
+   * 프로젝트 하위 폴더 이미지 재귀하면서 복사 붙여넣기
+   * @param {string} inputPath
+   * @param {string} outputPath
+   */
+  async copyAndPasteDeepImg(inputPath, outputPath) {
+    // 폴더 목록 탐색
+    BU.getDirectories(inputPath).forEach(folder => {
+      const copyDirPath = path.join(inputPath, folder);
+      const pasteDirPath = path.join(outputPath, folder);
+      // 붙여넣기 할 폴더 없으면 생성
+      !fs.existsSync(pasteDirPath) && fs.mkdirSync(pasteDirPath);
 
-        // 하위 이미지 폴더 없으면 생성
-        !fs.existsSync(pasteFolderPath) && fs.mkdirSync(pasteFolderPath);
+      fs.readdirSync(copyDirPath).forEach(file => {
+        // 폴더일 경우
+        if (file.indexOf('.') === -1) {
+          this.copyAndPasteDeepImg(copyDirPath, pasteDirPath);
+        } else {
+          const copyImgPath = path.join(copyDirPath, file);
+          const pasteImgPath = path.join(pasteDirPath, file);
 
-        fs.createReadStream(copyImgPath).pipe(fs.createWriteStream(pasteImgPath));
+          fs.createReadStream(copyImgPath).pipe(fs.createWriteStream(pasteImgPath));
+        }
       });
     });
   }

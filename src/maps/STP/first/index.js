@@ -32,8 +32,11 @@ const imgPattern = {
 };
 
 // const mapPath = '/out/defaultMap';
-const mapPath = '/map/bg';
+const mapPath = '/map/bg_main_pipe';
 // const mapPath = '';
+
+const mapCoverPath = '/map/bg_cover_device';
+// const mapCoverPath = '';
 
 const mapSize = {
   width: 1600,
@@ -119,6 +122,7 @@ const map = {
         height: ms.SIZE.height,
         backgroundInfo: {
           backgroundData: mapPath,
+          coverData: mapCoverPath,
           backgroundPosition: mapPosition,
         },
       },
@@ -1537,7 +1541,7 @@ const map = {
                 ],
                 svgPositionInfo: {
                   resourceId: 'tblSensorCase5',
-                  point: convertPlacePosition(0.03, 0.07),
+                  point: convertPlacePosition(0.26, 0.05),
                 },
               },
             ],
@@ -1566,6 +1570,8 @@ const map = {
       },
     ],
     imgTriggerList: [
+      /* *************       배관        ***************** */
+      // 오일 펌프 작동
       {
         fileName: 'oil_flow_op_pass',
         folderPath: 'oil_line',
@@ -1575,6 +1581,7 @@ const map = {
           goalDataList: [...itPumpOperation],
         },
       },
+      // PTC
       {
         fileName: 'oil_flow_ptc_over',
         folderPath: 'oil_line',
@@ -1606,6 +1613,7 @@ const map = {
           ],
         },
       },
+      // 오일 탱크 1
       {
         fileName: 'oil_flow_ot1_over',
         folderPath: 'oil_line',
@@ -1637,6 +1645,7 @@ const map = {
           ],
         },
       },
+      // 오일 탱크 2
       {
         fileName: 'oil_flow_ot2_over',
         folderPath: 'oil_line',
@@ -1668,6 +1677,7 @@ const map = {
           ],
         },
       },
+      // 증기 발생기
       {
         fileName: 'oil_flow_sg_over',
         folderPath: 'oil_line',
@@ -1699,6 +1709,7 @@ const map = {
           ],
         },
       },
+      // 보충 펌프 라인
       {
         fileName: 'water_flow_sw_pass',
         folderPath: 'water_line',
@@ -1713,9 +1724,10 @@ const map = {
           ],
         },
       },
+      // 증기 발생기 출구
       {
         fileName: 'steam_flow_sg_pass',
-        folderPath: ['steam_line'],
+        folderPath: 'steam_line',
         size: _.values(mapSize),
         triggerGoalInfo: {
           goalDataList: [
@@ -1723,6 +1735,202 @@ const map = {
               nodeId: 'FRIN_PIP',
               goalValue: 100,
               goalRange: gDR.UPPER,
+            },
+          ],
+        },
+      },
+      {
+        fileName: 'steam_flow_factory_pass',
+        folderPath: 'steam_line',
+        size: _.values(mapSize),
+        triggerGoalInfo: {
+          goalDataList: [
+            {
+              nodeId: 'FRIN_PIP',
+              goalValue: 100,
+              goalRange: gDR.UPPER,
+              isInclusionGoal: 1,
+            },
+          ],
+        },
+      },
+      /* *************       장치 아이콘        ***************** */
+      // 오일 탱크 1
+      {
+        fileName: 'ot1_level1',
+        folderPath: ['icon', 'ot'],
+        size: _.values(mapSize),
+        opacity: 1,
+        triggerGoalInfo: {
+          goalDataList: [
+            {
+              nodeId: 'TEM_OIL_3',
+              goalValue: undefined,
+              goalRange: gDR.EQUAL,
+              isCompleteClear: 1,
+            },
+            {
+              nodeId: 'TEM_OIL_3',
+              goalValue: 100,
+              goalRange: gDR.LOWER,
+              isCompleteClear: 1,
+            },
+          ],
+        },
+      },
+      {
+        fileName: 'ot1_level2',
+        folderPath: ['icon', 'ot'],
+        size: _.values(mapSize),
+        opacity: 1,
+        triggerGoalInfo: {
+          goalDataList: [
+            {
+              nodeId: 'TEM_OIL_3',
+              goalValue: 100,
+              goalRange: gDR.UPPER,
+              isInclusionGoal: 1,
+            },
+            {
+              nodeId: 'TEM_OIL_3',
+              goalValue: 180,
+              goalRange: gDR.LOWER,
+            },
+          ],
+        },
+      },
+      {
+        fileName: 'ot1_level3',
+        folderPath: ['icon', 'ot'],
+        size: _.values(mapSize),
+        opacity: 1,
+        triggerGoalInfo: {
+          goalDataList: [
+            {
+              nodeId: 'TEM_OIL_3',
+              goalValue: 180,
+              goalRange: gDR.UPPER,
+              isInclusionGoal: 1,
+            },
+          ],
+        },
+      },
+      // 오일 탱크 2
+      {
+        fileName: 'ot2_level1',
+        folderPath: ['icon', 'ot'],
+        size: _.values(mapSize),
+        opacity: 1,
+        triggerGoalInfo: {
+          goalDataList: [
+            {
+              nodeId: 'TEM_OIL_4',
+              goalValue: undefined,
+              goalRange: gDR.EQUAL,
+              isCompleteClear: 1,
+            },
+            {
+              nodeId: 'TEM_OIL_4',
+              goalValue: 100,
+              goalRange: gDR.LOWER,
+              isCompleteClear: 1,
+            },
+          ],
+        },
+      },
+      {
+        fileName: 'ot2_level2',
+        folderPath: ['icon', 'ot'],
+        size: _.values(mapSize),
+        opacity: 1,
+        triggerGoalInfo: {
+          goalDataList: [
+            {
+              nodeId: 'TEM_OIL_4',
+              goalValue: 100,
+              goalRange: gDR.UPPER,
+              isInclusionGoal: 1,
+            },
+            {
+              nodeId: 'TEM_OIL_4',
+              goalValue: 180,
+              goalRange: gDR.LOWER,
+            },
+          ],
+        },
+      },
+      {
+        fileName: 'ot2_level3',
+        folderPath: ['icon', 'ot'],
+        size: _.values(mapSize),
+        opacity: 1,
+        triggerGoalInfo: {
+          goalDataList: [
+            {
+              nodeId: 'TEM_OIL_4',
+              goalValue: 180,
+              goalRange: gDR.UPPER,
+              isInclusionGoal: 1,
+            },
+          ],
+        },
+      },
+      // 스팀 발생기
+      {
+        fileName: 'sg_level1',
+        folderPath: ['icon', 'sg'],
+        size: _.values(mapSize),
+        opacity: 1,
+        triggerGoalInfo: {
+          goalDataList: [
+            {
+              nodeId: 'TEM_OIL_6',
+              goalValue: undefined,
+              goalRange: gDR.EQUAL,
+              isCompleteClear: 1,
+            },
+            {
+              nodeId: 'TEM_OIL_6',
+              goalValue: 100,
+              goalRange: gDR.LOWER,
+              isCompleteClear: 1,
+            },
+          ],
+        },
+      },
+      {
+        fileName: 'sg_level2',
+        folderPath: ['icon', 'sg'],
+        size: _.values(mapSize),
+        opacity: 1,
+        triggerGoalInfo: {
+          goalDataList: [
+            {
+              nodeId: 'TEM_OIL_6',
+              goalValue: 100,
+              goalRange: gDR.UPPER,
+              isInclusionGoal: 1,
+            },
+            {
+              nodeId: 'TEM_OIL_6',
+              goalValue: 180,
+              goalRange: gDR.LOWER,
+            },
+          ],
+        },
+      },
+      {
+        fileName: 'sg_level3',
+        folderPath: ['icon', 'sg'],
+        size: _.values(mapSize),
+        opacity: 1,
+        triggerGoalInfo: {
+          goalDataList: [
+            {
+              nodeId: 'TEM_OIL_6',
+              goalValue: 180,
+              goalRange: gDR.UPPER,
+              isInclusionGoal: 1,
             },
           ],
         },
