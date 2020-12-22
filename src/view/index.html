@@ -54,7 +54,7 @@
             <%- include("./plugInMapControlBox.html") %>
 
             <!-- SVG canvas -->
-            <div class="svg_area" id="canvas" style="background-color: aquamarine">
+            <div class="svg_area" id="canvas" style="background-color: aquamarine;">
               <%- include('./filter.html') %> <%- include('./filter.btn.html') %>
             </div>
           </div>
@@ -85,7 +85,7 @@
       </div>
     </div>
 
-    <div id="dialog-dynamic" title="" style="display: none"></div>
+    <div id="dialog-dynamic" title="" style="display: none;"></div>
     <script id="dialog-dynamic-template" type="template">
       <p>{{ confirmMsg }}</p>
       {{#if isSetValue}}
@@ -150,6 +150,11 @@
       // ]);
 
       // showNodeData('ST_CT', 'AUTO');
+      setTimeout(() => {
+        threImgManager.handleThresholdClear();
+        // runSimulator();
+      }, 1000 * 5);
+
       setInterval(() => {
         // runSimulator();
       }, 1000 * 5);

@@ -90,6 +90,24 @@ const ms = {
   },
 };
 
+// 오일 펌프 구동 여부, 오일 순환에 필요한 필수적인 구동 장치
+const itPumpOperation = [
+  {
+    nodeId: 'PUM_OIL_1',
+    goalValue: reqDCT.TRUE,
+    goalRange: gDR.EQUAL,
+    groupId: 'PUM_OIL',
+    isCompleteClear: 1,
+  },
+  {
+    nodeId: 'PUM_OIL_2',
+    goalValue: reqDCT.TRUE,
+    goalRange: gDR.EQUAL,
+    groupId: 'PUM_OIL',
+    isCompleteClear: 1,
+  },
+];
+
 /**
  * @type {mDeviceMap}
  */
@@ -1554,20 +1572,7 @@ const map = {
         position: [0, 0],
         size: _.values(mapSize),
         triggerGoalInfo: {
-          goalDataList: [
-            {
-              nodeId: 'PUM_OIL_1',
-              goalValue: reqDCT.TRUE,
-              goalRange: gDR.EQUAL,
-              isCompleteClear: 1,
-            },
-            {
-              nodeId: 'PUM_OIL_2',
-              goalValue: reqDCT.TRUE,
-              goalRange: gDR.EQUAL,
-              isCompleteClear: 1,
-            },
-          ],
+          goalDataList: [...itPumpOperation],
         },
       },
       {
@@ -1576,11 +1581,7 @@ const map = {
         size: _.values(mapSize),
         triggerGoalInfo: {
           goalDataList: [
-            // {
-            //   nodeId: 'PUM_OIL_1',
-            //   goalValue: reqDCT.TRUE,
-            //   goalRange: gDR.EQUAL,
-            // },
+            ...itPumpOperation,
             {
               nodeId: 'FDVA_PTC',
               goalValue: 50,
@@ -1595,11 +1596,7 @@ const map = {
         size: _.values(mapSize),
         triggerGoalInfo: {
           goalDataList: [
-            // {
-            //   nodeId: 'PUM_OIL_1',
-            //   goalValue: reqDCT.TRUE,
-            //   goalRange: gDR.EQUAL,
-            // },
+            ...itPumpOperation,
             {
               nodeId: 'FDVA_PTC',
               goalValue: 50,
@@ -1615,11 +1612,7 @@ const map = {
         size: _.values(mapSize),
         triggerGoalInfo: {
           goalDataList: [
-            {
-              nodeId: 'PUM_OIL_1',
-              goalValue: reqDCT.TRUE,
-              goalRange: gDR.EQUAL,
-            },
+            ...itPumpOperation,
             {
               nodeId: 'FDVA_OT_1',
               goalValue: 50,
@@ -1634,11 +1627,7 @@ const map = {
         size: _.values(mapSize),
         triggerGoalInfo: {
           goalDataList: [
-            {
-              nodeId: 'PUM_OIL_1',
-              goalValue: reqDCT.TRUE,
-              goalRange: gDR.EQUAL,
-            },
+            ...itPumpOperation,
             {
               nodeId: 'FDVA_OT_1',
               goalValue: 50,
@@ -1654,11 +1643,7 @@ const map = {
         size: _.values(mapSize),
         triggerGoalInfo: {
           goalDataList: [
-            {
-              nodeId: 'PUM_OIL_1',
-              goalValue: reqDCT.TRUE,
-              goalRange: gDR.EQUAL,
-            },
+            ...itPumpOperation,
             {
               nodeId: 'FDVA_OT_2',
               goalValue: 50,
@@ -1673,11 +1658,7 @@ const map = {
         size: _.values(mapSize),
         triggerGoalInfo: {
           goalDataList: [
-            {
-              nodeId: 'PUM_OIL_1',
-              goalValue: reqDCT.TRUE,
-              goalRange: gDR.EQUAL,
-            },
+            ...itPumpOperation,
             {
               nodeId: 'FDVA_OT_2',
               goalValue: 50,
@@ -1693,11 +1674,7 @@ const map = {
         size: _.values(mapSize),
         triggerGoalInfo: {
           goalDataList: [
-            {
-              nodeId: 'PUM_OIL_1',
-              goalValue: reqDCT.TRUE,
-              goalRange: gDR.EQUAL,
-            },
+            ...itPumpOperation,
             {
               nodeId: 'FDVA_SG',
               goalValue: 50,
@@ -1712,11 +1689,7 @@ const map = {
         size: _.values(mapSize),
         triggerGoalInfo: {
           goalDataList: [
-            {
-              nodeId: 'PUM_OIL_1',
-              goalValue: reqDCT.TRUE,
-              goalRange: gDR.EQUAL,
-            },
+            ...itPumpOperation,
             {
               nodeId: 'FDVA_SG',
               goalValue: 50,

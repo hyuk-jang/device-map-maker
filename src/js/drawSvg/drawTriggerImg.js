@@ -96,6 +96,7 @@ class ThreImgGoal extends ThreImgComponent {
       nodeId = '',
       goalValue,
       goalRange,
+      groupId = '',
       isInclusionGoal = 0,
       isCompleteClear = false,
       expressInfo: { expression = '', nodeList = [] } = {},
@@ -108,6 +109,8 @@ class ThreImgGoal extends ThreImgComponent {
     this.goalValue = goalValue;
     // 달성 목표 범위(LOWER, EQUAL, UPPER)
     this.goalRange = goalRange;
+    // 임계치를 확인하는 그룹
+    this.groupId = groupId;
     // 달성 목표 데이터 포함 여부.
     this.isInclusionGoal = isInclusionGoal;
     // 이 달성 목표만 성공하면 모든 조건 클리어 여부
@@ -272,6 +275,7 @@ class ThreImgGoal extends ThreImgComponent {
 }
 
 /**
+ * FIXME: limitTimeCalcUnit 의한 이미지 일정 시간 그리기 로직 적용 필요
  * 명령 달성 목표가 생성될 때 마다 객체를 생성.
  * 임계치 관리 저장소. Storage > Goal 순으로 Tree 구조를 가짐
  * 데이터가 갱신될 때 마다 해당 달성 목표가 처리 되었는지 확인.
@@ -296,6 +300,9 @@ class ThreImgStorage extends ThreImgComponent {
 
     /** @type {ThreImgGoal[]} */
     this.threImgGoals = [];
+
+    /** @type {ThreImgGoal[][]} */
+    this.threImgGroupGoals = [];
 
     this.threImgLimitTimer;
     this.successor;
@@ -324,7 +331,7 @@ class ThreImgStorage extends ThreImgComponent {
   }
 
   /**
-   *
+   * 화면에 그림
    * @param {csCmdGoalContraintInfo} triggerGoalInfo
    */
   initThreImg(triggerGoalInfo = this.triggerGoalInfo) {
@@ -359,6 +366,11 @@ class ThreImgStorage extends ThreImgComponent {
         this.mdNodeStorage.get(nodeId).attach(threImgGoal);
       }
     });
+
+    this.threImgGroupGoals = _.chain(this.threImgGoals)
+      .groupBy('groupId')
+      .values()
+      .value();
   }
 
   /**
@@ -429,30 +441,32 @@ class ThreImgStorage extends ThreImgComponent {
   }
 
   /**
+   * @param {ThreImgGoal} threImgGoal
    * @return {boolean} 임계 명령 완료 여부
    */
   isThreImgClear() {
-    // 중요 달성 목표를 가진 개체가 존재하는지 체크
-    const isCompleteClear = !!_.find(this.threImgGoals, {
-      isClear: true,
-      isCompleteClear: true,
-    });
-    // 중요 달성 목표를 달성 하였다면
-    if (isCompleteClear) return true;
-    // 아닐 경우 모든 달성 목표를 클리어해야 true
+    return this.threImgGroupGoals.every(threImgGoals => {
+      // 중요 달성 목표를 가진 개체가 존재하는지 체크
+      const threClear = threImgGoals.find(threImgGoal => {
+        return threImgGoal.isClear && threImgGoal.isCompleteClear;
+      });
 
-    return _.every(this.threImgGoals, 'isClear');
+      // 중요 달성 목표를 달성 하였다면
+      if (threClear) return true;
+
+      // 아닐 경우 모든 달성 목표를 클리어해야 true
+      return _.every(threImgGoals, 'isClear');
+    });
   }
 
   /**
    * 세부 목표를 완료했다고 알려 올 세부 객체
-   * @param {ThreImgGoal} threImgGoal
    */
-  handleThresholdClear(threImgGoal) {
-    // 요청 처리된 임계치가 isCompleteClear 거나
+  handleThresholdClear() {
+    // console.log('STORAGE ####### handleThresholdClear');
 
     // 모든 조건이 충족되었다면 Successor에게 임계치 명령 달성 처리 의뢰
-    if (threImgGoal.isCompleteClear || this.isThreImgClear()) {
+    if (this.isThreImgClear()) {
       this.threImgLimitTimer && clearTimeout(this.threImgLimitTimer);
 
       this.triggerImgSvg.attr('display', 'block');
@@ -495,8 +509,14 @@ class ThreImgManager extends ThreImgComponent {
    * @param {ThreImgComponent} threImgStorage
    * @return {ThreImgComponent}
    */
-  handleThresholdClear(threImgStorage) {}
+  handleThresholdClear() {
+    this.threImgStorageList.forEach(threImgStorage => {
+      threImgStorage.handleThresholdClear();
+    });
+  }
 }
+
+let threImgManager;
 
 /**
  *
@@ -506,6 +526,6 @@ class ThreImgManager extends ThreImgComponent {
  */
 function initTriggerImg(svgCanvas, mdNodeStorage, mImgTriggerList) {
   // Img Trigger 객체 생성 및 mdNodeStorage에 옵저버 등록
-  const threImgManager = new ThreImgManager(svgCanvas, mdNodeStorage, mImgTriggerList);
+  threImgManager = new ThreImgManager(svgCanvas, mdNodeStorage, mImgTriggerList);
   threImgManager.initThreTriggerImg();
 }
