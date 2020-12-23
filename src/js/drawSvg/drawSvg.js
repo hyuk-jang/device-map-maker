@@ -982,16 +982,16 @@ function showNodeData(nodeId, data = '') {
     // 변환 정보가 존재할 경우 data 값 치환
     const cData = refineNodeData(mdNodeInfo, data);
 
+    // 옵저버에게 전파
+    mdNodeInfo.observerList.forEach(ob => {
+      _.get(ob, 'notifyNodeData') && ob.notifyNodeData(mdNodeInfo);
+    });
+
     // 현재 데이터와 수신 받은 데이터가 같다면 종료
     if (nodeData === cData) return false;
 
     // data update
     mdNodeInfo.nodeData = data;
-
-    // 옵저버에게 전파
-    mdNodeInfo.observerList.forEach(ob => {
-      _.get(ob, 'notifyNodeData') && ob.notifyNodeData(mdNodeInfo);
-    });
 
     // data의 상태에 따라 tspan(data, dataUnit) 색상 및 Visible 변경
     let isValidData = 0;

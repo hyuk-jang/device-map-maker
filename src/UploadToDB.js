@@ -381,6 +381,7 @@ class UploadToDB {
     tempStorage.setExistStorage(prevNCList);
 
     this.setInfo.nodeStructureList.forEach(nodeClassInfo => {
+      nodeClassInfo.is_sensor === undefined && _.set(nodeClassInfo, 'is_sensor', 1);
       const pickInfo = {};
       _.forEach(NODE_CLASS_KEY, key => {
         // save_db_type 지정되지 않았다면 is_sensor 값을 토대로 산정
@@ -405,7 +406,7 @@ class UploadToDB {
       tempStorage.addStorage(pickInfo, 'target_id', 'node_class_seq');
     });
 
-    return this.doQuery(tempStorage, 'DV_NODE_CLASS', ['node_class_seq'], false);
+    return this.doQuery(tempStorage, 'DV_NODE_CLASS', ['node_class_seq'], true);
   }
 
   /**

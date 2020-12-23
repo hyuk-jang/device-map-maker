@@ -136,7 +136,9 @@
 
       drawSvgBasePlace(svgCanvas); // 멥 그리기
 
-      runSimulator();
+      threImgManager.handleThresholdClear();
+
+      // runSimulator();
 
       // updateCommand([
       //   {
@@ -151,9 +153,9 @@
 
       // showNodeData('ST_CT', 'AUTO');
       setTimeout(() => {
-        threImgManager.handleThresholdClear();
+        // threImgManager.handleThresholdClear();
         // runSimulator();
-      }, 1000 * 5);
+      }, 1000 * 1);
 
       setInterval(() => {
         // runSimulator();

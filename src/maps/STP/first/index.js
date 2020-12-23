@@ -11,7 +11,7 @@ const {
   di: {
     dmmModel: { mmSvgBtnClass },
     dcmConfigModel: {
-      nodeDataType: { BLOCK, TROUBLE, NONE },
+      nodeDataType: { SENSOR, BLOCK, TROUBLE, NONE },
       goalDataRange: gDR,
       reqDeviceControlType: reqDCT,
     },
@@ -999,7 +999,8 @@ const map = {
       {
         target_id: 'info',
         target_name: '정보',
-        is_sensor: '1',
+        is_sensor: 2,
+        save_db_type: SENSOR,
         defList: [
           {
             // Mode System Operation
@@ -1074,6 +1075,8 @@ const map = {
       },
       {
         target_id: 'mode',
+        is_sensor: 2,
+        save_db_type: SENSOR,
         defList: [
           {
             target_id: 'modeOt',
@@ -1199,6 +1202,7 @@ const map = {
       {
         target_id: 'pump',
         is_sensor: 2,
+        save_db_type: SENSOR,
         defList: [
           {
             target_id: 'pumpOil',
@@ -1254,6 +1258,7 @@ const map = {
       {
         target_id: 'ptc',
         is_sensor: 2,
+        save_db_type: SENSOR,
         defList: [
           {
             target_id: 'ptc',
@@ -1541,7 +1546,7 @@ const map = {
                 ],
                 svgPositionInfo: {
                   resourceId: 'tblSensorCase5',
-                  point: convertPlacePosition(0.26, 0.05),
+                  point: convertPlacePosition(0.265, 0.05),
                 },
               },
             ],
@@ -1931,6 +1936,248 @@ const map = {
               goalValue: 180,
               goalRange: gDR.UPPER,
               isInclusionGoal: 1,
+            },
+          ],
+        },
+      },
+      // PTC 밸브
+      {
+        fileName: 'vv_ptc_over',
+        folderPath: ['icon', 'vv'],
+        size: _.values(mapSize),
+        opacity: 1,
+        triggerGoalInfo: {
+          goalDataList: [
+            {
+              nodeId: 'FDVA_PTC',
+              goalValue: undefined,
+              goalRange: gDR.EQUAL,
+              isCompleteClear: 1,
+            },
+            {
+              nodeId: 'FDVA_PTC',
+              goalValue: 50,
+              goalRange: gDR.LOWER,
+              isCompleteClear: 1,
+            },
+          ],
+        },
+      },
+      {
+        fileName: 'vv_ptc_pass',
+        folderPath: ['icon', 'vv'],
+        size: _.values(mapSize),
+        opacity: 1,
+        triggerGoalInfo: {
+          goalDataList: [
+            {
+              nodeId: 'FDVA_PTC',
+              goalValue: 50,
+              goalRange: gDR.UPPER,
+              isInclusionGoal: 1,
+            },
+          ],
+        },
+      },
+      // 오일탱크 1 밸브
+      {
+        fileName: 'vv_ot1_over',
+        folderPath: ['icon', 'vv'],
+        size: _.values(mapSize),
+        opacity: 1,
+        triggerGoalInfo: {
+          goalDataList: [
+            {
+              nodeId: 'FDVA_OT_1',
+              goalValue: undefined,
+              goalRange: gDR.EQUAL,
+              isCompleteClear: 1,
+            },
+            {
+              nodeId: 'FDVA_OT_1',
+              goalValue: 50,
+              goalRange: gDR.LOWER,
+              isCompleteClear: 1,
+            },
+          ],
+        },
+      },
+      {
+        fileName: 'vv_ot1_pass',
+        folderPath: ['icon', 'vv'],
+        size: _.values(mapSize),
+        opacity: 1,
+        triggerGoalInfo: {
+          goalDataList: [
+            {
+              nodeId: 'FDVA_OT_1',
+              goalValue: 50,
+              goalRange: gDR.UPPER,
+              isInclusionGoal: 1,
+            },
+          ],
+        },
+      },
+      // 오일탱크 2 밸브
+      {
+        fileName: 'vv_ot2_over',
+        folderPath: ['icon', 'vv'],
+        size: _.values(mapSize),
+        opacity: 1,
+        triggerGoalInfo: {
+          goalDataList: [
+            {
+              nodeId: 'FDVA_OT_2',
+              goalValue: undefined,
+              goalRange: gDR.EQUAL,
+              isCompleteClear: 1,
+            },
+            {
+              nodeId: 'FDVA_OT_2',
+              goalValue: 50,
+              goalRange: gDR.LOWER,
+              isCompleteClear: 1,
+            },
+          ],
+        },
+      },
+      {
+        fileName: 'vv_ot2_pass',
+        folderPath: ['icon', 'vv'],
+        size: _.values(mapSize),
+        opacity: 1,
+        triggerGoalInfo: {
+          goalDataList: [
+            {
+              nodeId: 'FDVA_OT_2',
+              goalValue: 50,
+              goalRange: gDR.UPPER,
+              isInclusionGoal: 1,
+            },
+          ],
+        },
+      },
+      // 증기발생기 밸브
+      {
+        fileName: 'vv_sg_over',
+        folderPath: ['icon', 'vv'],
+        size: _.values(mapSize),
+        opacity: 1,
+        triggerGoalInfo: {
+          goalDataList: [
+            {
+              nodeId: 'FDVA_SG',
+              goalValue: undefined,
+              goalRange: gDR.EQUAL,
+              isCompleteClear: 1,
+            },
+            {
+              nodeId: 'FDVA_SG',
+              goalValue: 50,
+              goalRange: gDR.LOWER,
+              isCompleteClear: 1,
+            },
+          ],
+        },
+      },
+      {
+        fileName: 'vv_sg_pass',
+        folderPath: ['icon', 'vv'],
+        size: _.values(mapSize),
+        opacity: 1,
+        triggerGoalInfo: {
+          goalDataList: [
+            {
+              nodeId: 'FDVA_SG',
+              goalValue: 50,
+              goalRange: gDR.UPPER,
+              isInclusionGoal: 1,
+            },
+          ],
+        },
+      },
+      // 오일 펌프
+      {
+        fileName: 'op_off',
+        folderPath: ['icon', 'op'],
+        size: _.values(mapSize),
+        opacity: 1,
+        triggerGoalInfo: {
+          goalDataList: [
+            {
+              nodeId: 'PUM_OIL_1',
+              goalValue: undefined,
+              goalRange: gDR.EQUAL,
+              groupId: 'PUM_OIL_1',
+              isCompleteClear: 1,
+            },
+            {
+              nodeId: 'PUM_OIL_1',
+              goalValue: reqDCT.FALSE,
+              goalRange: gDR.EQUAL,
+              groupId: 'PUM_OIL_1',
+              isCompleteClear: 1,
+            },
+            {
+              nodeId: 'PUM_OIL_2',
+              goalValue: undefined,
+              goalRange: gDR.EQUAL,
+              groupId: 'PUM_OIL_2',
+              isCompleteClear: 1,
+            },
+            {
+              nodeId: 'PUM_OIL_2',
+              goalValue: reqDCT.FALSE,
+              goalRange: gDR.EQUAL,
+              groupId: 'PUM_OIL_2',
+              isCompleteClear: 1,
+            },
+          ],
+        },
+      },
+      {
+        fileName: 'op_on',
+        folderPath: ['icon', 'op'],
+        size: _.values(mapSize),
+        opacity: 1,
+        triggerGoalInfo: {
+          goalDataList: [...itPumpOperation],
+        },
+      },
+      // 보충 펌프
+      {
+        fileName: 'sw_off',
+        folderPath: ['icon', 'sw'],
+        size: _.values(mapSize),
+        opacity: 1,
+        triggerGoalInfo: {
+          goalDataList: [
+            {
+              nodeId: 'PUM_SW',
+              goalValue: undefined,
+              goalRange: gDR.EQUAL,
+              isCompleteClear: 1,
+            },
+            {
+              nodeId: 'PUM_SW',
+              goalValue: reqDCT.FALSE,
+              goalRange: gDR.EQUAL,
+              isCompleteClear: 1,
+            },
+          ],
+        },
+      },
+      {
+        fileName: 'sw_on',
+        folderPath: ['icon', 'sw'],
+        size: _.values(mapSize),
+        opacity: 1,
+        triggerGoalInfo: {
+          goalDataList: [
+            {
+              nodeId: 'PUM_SW',
+              goalValue: reqDCT.TRUE,
+              goalRange: gDR.EQUAL,
             },
           ],
         },
