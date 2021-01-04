@@ -740,14 +740,15 @@ function drawSvgElement(svgDrawInfo, drawType) {
     cursor,
   };
 
+  // 내부 Draw 정보가 없을 경우
   if (insideInfo === undefined) {
     bgOption.id = positionId;
 
     // 클래스를 지정한다면 Attr 추가
     if (defaultSvgClass) {
-      bgOption.class = errColor;
+      bgOption.class = drawType === DRAW_TYPE.NODE ? errColor : defaultSvgClass;
     }
-
+    // 기본 색상 지정
     defaultColor = drawType === DRAW_TYPE.NODE ? errColor : defaultColor;
   } else {
     // defaultColor = 'transparent';
@@ -1000,7 +1001,7 @@ function showNodeData(nodeId, data = '') {
     let selectedTxtColor = txtBaseColor;
 
     // node 타입이 Sensor 일 경우에는 Number 형식이 와야함. 아닐 경우 에러
-    if (isSensor === 1) {
+    if (isSensor === 1 || typeof cData === 'number') {
       if (cData === '' || cData === undefined) {
         selectedColor = errColor;
       } else {
@@ -1284,7 +1285,6 @@ function drawSvgBasePlace(svgCanvas) {
   if (coverData.length) {
     svgCanvas.image(coverData).move(bgPosX, bgPosY);
   }
-
   // Place 그리기
   svgPlaceList.forEach(svgPositionInfo => {
     const { id: placeId } = svgPositionInfo;

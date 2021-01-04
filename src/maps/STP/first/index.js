@@ -1580,7 +1580,6 @@ const map = {
       {
         fileName: 'oil_flow_op_pass',
         folderPath: 'oil_line',
-        position: [0, 0],
         size: _.values(mapSize),
         triggerGoalInfo: {
           goalDataList: [...itPumpOperation],
