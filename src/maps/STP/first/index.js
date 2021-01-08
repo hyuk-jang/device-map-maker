@@ -1739,6 +1739,7 @@ const map = {
               nodeId: 'FRIN_PIP',
               goalValue: 100,
               goalRange: gDR.UPPER,
+              isInclusionGoal: 1,
             },
           ],
         },
