@@ -3,6 +3,7 @@ const {
     dmmModel: { mmSvgBtnClass },
     dcmConfigModel: {
       nodeDataType: { BLOCK, TROUBLE, NONE },
+      goalDataRange: gDR,
       textAnchorType,
     },
   },
@@ -376,7 +377,7 @@ const map = {
               color: '#000',
             },
           },
-          textStyleInfo: { dataColor: ['black', 'brown'], fontSize: 8 },
+          textStyleInfo: { dataColor: ['blue', 'brown'], fontSize: 8 },
         },
         {
           id: 'pumpControlType',
@@ -390,7 +391,7 @@ const map = {
               color: '#000',
             },
           },
-          textStyleInfo: { dataColor: ['black', 'brown'], fontSize: 8 },
+          textStyleInfo: { dataColor: ['blue', 'brown'], fontSize: 8 },
         },
         {
           id: 'sensor',
@@ -409,7 +410,7 @@ const map = {
             // anchor: textAnchorType.END,
             // axisScale: [0.5, 0.5],
             color: '',
-            dataColor: '',
+            dataColor: ['blue', 'green', 'red'],
             fontSize: 8,
           },
         },
@@ -822,12 +823,9 @@ const map = {
         is_sensor: 0,
         is_submit_api: 1,
         description: '개폐기',
-        operationStatusList: [
-          ['CLOSE', 'CLOSING'],
-          ['OPEN', 'OPENING'],
-          ['FOLD'],
-          ['UNFOLD'],
-        ],
+        svgViewInfo: {
+          thresholdList: [['CLOSE'], ['OPEN']],
+        },
         defList: [
           {
             target_id: 'shutter',
@@ -1033,12 +1031,9 @@ const map = {
         target_id: 'pump',
         target_name: '펌프',
         is_sensor: 0,
-        operationStatusList: [
-          ['CLOSE', 'CLOSING'],
-          ['OPEN', 'OPENING'],
-          ['FOLD'],
-          ['UNFOLD'],
-        ],
+        svgViewInfo: {
+          thresholdList: [['OFF'], ['ON']],
+        },
         defList: [
           {
             target_id: 'pump',
@@ -1064,12 +1059,9 @@ const map = {
         target_id: 'valve',
         target_name: '밸브',
         is_sensor: 0,
-        operationStatusList: [
-          ['CLOSE', 'CLOSING'],
-          ['OPEN', 'OPENING'],
-          ['FOLD'],
-          ['UNFOLD'],
-        ],
+        svgViewInfo: {
+          thresholdList: [['CLOSE'], ['OPEN']],
+        },
         defList: [
           {
             target_id: 'nutrientValve',
@@ -1141,12 +1133,9 @@ const map = {
         target_name: '제어 타입',
         is_sensor: 2,
         description: '자동 or 수동',
-        operationStatusList: [
-          ['CLOSE', 'CLOSING'],
-          ['OPEN', 'OPENING'],
-          ['FOLD'],
-          ['UNFOLD'],
-        ],
+        svgViewInfo: {
+          thresholdList: [['M'], ['A']],
+        },
         defList: [
           {
             target_id: 'shutterControlType',
@@ -1294,6 +1283,25 @@ const map = {
         is_sensor: 1,
         data_unit: 'W/m²',
         description: '1평방 미터당 조사되는 일사에너지의 양이 1W',
+        svgViewInfo: {
+          isStrType: 0,
+          thresholdList: [
+            {
+              goalValue: 300,
+              goalRange: gDR.LOWER,
+              isInclusionGoal: 1,
+            },
+            {
+              goalValue: 600,
+              goalRange: gDR.LOWER,
+              isInclusionGoal: 1,
+            },
+            {
+              goalValue: 600,
+              goalRange: gDR.UPPER,
+            },
+          ],
+        },
         defList: [
           {
             target_id: 'horizontalSolar',

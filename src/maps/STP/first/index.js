@@ -838,6 +838,24 @@ const map = {
         target_name: '온도',
         data_unit: '℃',
         description: '섭씨',
+        svgViewInfo: {
+          isStrType: 0,
+          thresholdList: [
+            {
+              goalValue: 100,
+              goalRange: gDR.LOWER,
+            },
+            {
+              goalValue: 180,
+              goalRange: gDR.LOWER,
+            },
+            {
+              goalValue: 180,
+              goalRange: gDR.UPPER,
+              isInclusionGoal: 1,
+            },
+          ],
+        },
         defList: [
           {
             target_id: 'tempEnv',
@@ -1203,6 +1221,19 @@ const map = {
         target_id: 'pump',
         is_sensor: 2,
         save_db_type: SENSOR,
+        svgViewInfo: {
+          isStrType: 0,
+          thresholdList: [
+            {
+              goalValue: 0,
+              goalRange: gDR.EQUAL,
+            },
+            {
+              goalValue: 1,
+              goalRange: gDR.EQUAL,
+            },
+          ],
+        },
         defList: [
           {
             target_id: 'pumpOil',
@@ -1259,6 +1290,19 @@ const map = {
         target_id: 'ptc',
         is_sensor: 2,
         save_db_type: SENSOR,
+        svgViewInfo: {
+          isStrType: 0,
+          thresholdList: [
+            {
+              goalValue: 0,
+              goalRange: gDR.EQUAL,
+            },
+            {
+              goalValue: 1,
+              goalRange: gDR.EQUAL,
+            },
+          ],
+        },
         defList: [
           {
             target_id: 'ptc',
