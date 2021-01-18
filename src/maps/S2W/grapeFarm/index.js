@@ -410,7 +410,7 @@ const map = {
             // anchor: textAnchorType.END,
             // axisScale: [0.5, 0.5],
             color: '',
-            dataColor: ['blue', 'green', 'red'],
+            dataColor: ['blue'],
             fontSize: 8,
           },
         },

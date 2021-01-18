@@ -230,7 +230,7 @@ function initDrawSvg(isProd = true) {
       target_id: ncId,
       target_name: ncName,
       data_unit: dataUnit,
-      svgViewInfo,
+      svgViewInfo: ncSvgViewInfo,
       operationStatusList = [],
     } = nClassInfo;
 
@@ -244,6 +244,7 @@ function initDrawSvg(isProd = true) {
         target_id: ndId,
         target_prefix: ndPrefix,
         target_name: ndName = ncName,
+        svgViewInfo: ndSvgViewInfo = ncSvgViewInfo,
       } = nDefInfo;
 
       nodeList.forEach(nodeInfo => {
@@ -253,6 +254,7 @@ function initDrawSvg(isProd = true) {
           modbusInfo,
           svgNodePosOpt = {},
           svgNodePosOpt: { resourceId, axisScale, moveScale } = {},
+          svgViewInfo: nSvgViewInfo = ndSvgViewInfo,
         } = nodeInfo;
 
         let { svgNodePosOpt: { placeId } = {} } = nodeInfo;
@@ -303,7 +305,7 @@ function initDrawSvg(isProd = true) {
           moveScale,
           point: [],
           placeIdList,
-          svgViewInfo,
+          svgViewInfo: nSvgViewInfo,
           operationStatusList,
           placeNameList: placeIdList.map(pId => mdPlaceStorage.get(pId).placeName),
           svgModelResource: mdMapStorage.get(resourceId),
@@ -472,7 +474,7 @@ function drawInsideElement(svgDrawInfo, drawType) {
               fontSize: headerFontSize = 10,
             } = {},
             bodyInfo: {
-              fontColor: bodyFontColor = '#fff',
+              fontColor: [bodyFontColor = '#fff'],
               fontSize: bodyFontSize = 10,
               unitColor = '#fff',
               tblInfo: {
@@ -979,7 +981,8 @@ function isReachNumGoal(data, tresholdList = []) {
   });
 
   return {
-    isValid: svgIdx === -1 ? 0 : 1,
+    // 데이터 유효성이 검증되지 않더라도 유효한 데이터로 처리
+    isValid: 1,
     svgIndex: svgIdx,
   };
 }
@@ -996,8 +999,126 @@ function isReachStrGoal(data, tresholdList) {
   );
 
   return {
-    isValid: svgIdx === -1 ? 0 : 1,
+    // 데이터 유효성이 검증되지 않더라도 유효한 데이터로 처리
+    isValid: 1,
     svgIndex: svgIdx,
+  };
+}
+
+/**
+ * 기본 형태의 데이터 변화가 생길 경우
+ * @param {mdNodeInfo} mdNodeInfo
+ * @param {boolean} isValidError
+ */
+function changeSvgViewNormal(mdNodeInfo, isValidError) {
+  const {
+    nodeData,
+    svgViewInfo,
+    svgModelResource: {
+      elementDrawInfo: {
+        color: bgColor,
+        color: [baseColor],
+        errColor = 'red',
+        svgClass = [],
+        svgClass: [baseClass] = [],
+      },
+      textStyleInfo: { dataColor = [], dataColor: [baseTxtColor] = [] } = {},
+    },
+  } = mdNodeInfo;
+
+  let selBgClass = '';
+  let selBgColor = '';
+  let selDataColor = '';
+
+  // 데이터 임계치에 따른 SVG 변화 옵션이 없을 경우 (기본)
+  if (_.isEmpty(svgViewInfo)) {
+    selBgClass = isValidError && svgClass[0] ? 'red' : undefined;
+    selBgColor = isValidError ? errColor : baseColor;
+  } else {
+    const { isStrType = 1, thresholdList } = svgViewInfo;
+
+    // SVG 임계 옵션 flag에 따라 검토. 값의 유효성과 표현해야 할 SVG Index 추출
+    const { isValid, svgIndex } =
+      isStrType === 1
+        ? isReachStrGoal(nodeData, thresholdList)
+        : isReachNumGoal(nodeData, thresholdList);
+
+    isValidError = !isValid;
+
+    // 값이 유효할 경우에만 정의
+    if (isValid) {
+      selBgClass = svgClass[svgIndex] ?? baseClass;
+      selBgColor = bgColor[svgIndex] ?? baseColor;
+      selDataColor = dataColor[svgIndex] ?? baseTxtColor;
+    }
+  }
+
+  return {
+    isValidError,
+    selBgClass,
+    selBgColor,
+    selDataColor,
+  };
+}
+
+/**
+ * 테이블 형태의 데이터 변화가 생길 경우
+ * @param {mdNodeInfo} mdNodeInfo
+ * @param {boolean} isValidError
+ */
+function changeSvgViewInsideTbl(mdNodeInfo, isValidError) {
+  const {
+    nodeData,
+    svgViewInfo,
+    svgModelResource: {
+      elementDrawInfo: {
+        color: bgColor,
+        color: [baseColor],
+        errColor = 'red',
+        svgClass = [],
+        svgClass: [baseClass] = [],
+        insideInfo: {
+          bodyInfo: {
+            fontColor,
+            fontColor: [baseTxtColor],
+          },
+        },
+      },
+    },
+  } = mdNodeInfo;
+
+  let selBgClass = '';
+  let selBgColor = '';
+  let selDataColor = '';
+
+  // 데이터 임계치에 따른 SVG 변화 옵션이 없을 경우 (기본)
+  if (_.isEmpty(svgViewInfo)) {
+    selBgClass = isValidError && svgClass[0] ? 'red' : undefined;
+    selBgColor = isValidError ? errColor : baseColor;
+  } else {
+    const { isStrType = 1, thresholdList } = svgViewInfo;
+
+    // SVG 임계 옵션 flag에 따라 검토. 값의 유효성과 표현해야 할 SVG Index 추출
+    const { isValid, svgIndex } =
+      isStrType === 1
+        ? isReachStrGoal(nodeData, thresholdList)
+        : isReachNumGoal(nodeData, thresholdList);
+
+    isValidError = !isValid;
+
+    // 값이 유효할 경우에만 정의
+    if (isValid) {
+      selBgClass = svgClass[svgIndex] ?? baseClass;
+      selBgColor = bgColor[svgIndex] ?? baseColor;
+      selDataColor = fontColor[svgIndex] ?? baseTxtColor;
+    }
+  }
+
+  return {
+    isValidError,
+    selBgClass,
+    selBgColor,
+    selDataColor,
   };
 }
 
@@ -1016,16 +1137,8 @@ function showNodeData(nodeId, data = '') {
     const {
       nodeData,
       dataUnit = '',
-      svgViewInfo,
       svgModelResource: {
-        elementDrawInfo: {
-          color: bgColor,
-          color: [baseColor],
-          errColor = 'red',
-          svgClass = [],
-          svgClass: [baseClass] = [],
-        },
-        textStyleInfo: { dataColor = [], dataColor: [baseTxtColor] = [] } = {},
+        elementDrawInfo: { insideInfo },
       },
       svgEleBg,
       svgEleData,
@@ -1048,40 +1161,21 @@ function showNodeData(nodeId, data = '') {
 
     const errDataList = ['', null, undefined];
 
-    let selBgClass = '';
-    let selBgColor = '';
-    let selDataColor = '';
+    // 기본적인 데이터 검증 => Error 범위에 들어 올 경우
+    // const isValidError = errDataList.includes(data);
 
-    // 데이터 임계치에 따른 SVG 변화 옵션이 없을 경우 (기본)
-    if (_.isEmpty(svgViewInfo)) {
-      // Error 범위에 들어 올 경우
-      const isValidError = errDataList.includes(data);
+    const { isValidError, selBgClass, selBgColor, selDataColor } =
+      insideInfo === undefined
+        ? changeSvgViewNormal(mdNodeInfo, errDataList.includes(data))
+        : changeSvgViewInsideTbl(mdNodeInfo, errDataList.includes(data));
 
-      selBgClass = isValidError && svgClass[0] ? 'red' : undefined;
-      selBgColor = isValidError ? errColor : baseColor;
-    } else {
-      const { isStrType = 1, thresholdList } = svgViewInfo;
-
-      // SVG 임계 옵션 flag에 따라 검토. 값의 유효성과 표현해야 할 SVG Index 추출
-      const { isValid, svgIndex } =
-        isStrType === 1
-          ? isReachStrGoal(data, thresholdList)
-          : isReachNumGoal(data, thresholdList);
-
-      // 값이 유효할 경우에만 정의
-      if (isValid) {
-        selBgClass = svgClass[svgIndex] ?? baseClass;
-        selBgColor = bgColor[svgIndex] ?? baseColor;
-        selDataColor = dataColor[svgIndex] ?? baseTxtColor;
-      }
-    }
     // 변경하고자 하는 값이 유효하고 SVG Element가 존재할 경우에 적용
     selBgClass && svgEleBg && svgEleBg.attr('class', selBgClass);
     selBgColor && svgEleBg && svgEleBg.fill(selBgColor);
     selDataColor && svgEleData && svgEleData.font({ fill: selDataColor });
 
     // data가 유효범위가 아닐 경우
-    if (errDataList.includes(cData)) {
+    if (isValidError) {
       svgEleData.clear();
       svgEleDataUnit.clear();
     } else {
@@ -1313,8 +1407,10 @@ function drawSvgBasePlace(svgCanvas) {
   }
 
   // 트리거 이미지 생성 불러옴
-  // eslint-disable-next-line no-undef
-  initTriggerImg(svgCanvas, mdNodeStorage, imgTriggerList);
+  initTriggerImg(svgCanvas, mdNodeStorage, imgTriggerList, {
+    width: mapWidth,
+    height: mapHeight,
+  });
 
   // 이미지 커버가 존재할 경우
   if (coverData.length) {

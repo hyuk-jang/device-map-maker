@@ -12,7 +12,11 @@
     "map": true,
     "alert": true,
     "confirm": true,
-    "Handlebars": true
+    "Handlebars": true,
+    "showDynamicDialog": true,
+    "reqCommandControl": true,
+    "reqSingleControl": true,
+    "initTriggerImg": true
   },
   "rules": {
     "linebreak-style": "off",

@@ -1,6 +1,4 @@
 /* eslint-disable max-classes-per-file */
-var _ = _;
-
 /**
  * @interface
  * 명령 달성 목표가 생성될 때 마다 객체를 생성.
@@ -288,8 +286,9 @@ class ThreImgStorage extends ThreImgComponent {
    * @param {SVG.Marker} svgCanvas
    * @param {Map<string, mdNodeInfo>} mdNodeStorage
    * @param {mImgTriggerInfo} mImgTriggerInfo
+   * @param {mMapInfo} mapSize 맵 크기
    */
-  constructor(svgCanvas, mdNodeStorage, mImgTriggerInfo) {
+  constructor(svgCanvas, mdNodeStorage, mImgTriggerInfo, mapSize) {
     super();
     this.svgCanvas = svgCanvas;
     // 노드 저장소
@@ -299,6 +298,8 @@ class ThreImgStorage extends ThreImgComponent {
     this.mImgTriggerInfo = mImgTriggerInfo;
 
     this.triggerGoalInfo = mImgTriggerInfo.triggerGoalInfo;
+
+    this.mapSize = mapSize;
 
     /** @type {ThreImgGoal[]} */
     this.threImgGoals = [];
@@ -311,25 +312,34 @@ class ThreImgStorage extends ThreImgComponent {
 
     this.limitTimeCalcUnit = 1000;
 
-    this.triggerImgSvg;
+    this.triggerImgSvgList = [];
   }
 
-  drawTriggerImg() {
-    const {
-      filePath,
-      position = [0, 0],
-      size = [],
-      opacity = 0.6,
-    } = this.mImgTriggerInfo;
+  /**
+   *
+   * @param {mFilePathInfo} filePathInfo
+   */
+  drawTriggerImg(filePathInfo) {
+    console.dir(filePathInfo);
 
     // 그리기
+    const {
+      fileFullPathList = [],
+      position = [0, 0],
+      size = Object.values(this.mapSize),
+      opacity = 1,
+    } = filePathInfo;
 
-    this.triggerImgSvg = this.svgCanvas
-      .image(filePath)
-      .opacity(opacity)
-      .size(...size)
-      .move(...position)
-      .attr('display', 'none');
+    fileFullPathList.forEach(fullFilePath => {
+      this.triggerImgSvgList.push(
+        this.svgCanvas
+          .image(fullFilePath)
+          .opacity(opacity)
+          .size(...size)
+          .move(...position)
+          .attr('display', 'none'),
+      );
+    });
   }
 
   /**
@@ -337,7 +347,9 @@ class ThreImgStorage extends ThreImgComponent {
    * @param {csCmdGoalContraintInfo} triggerGoalInfo
    */
   initThreImg(triggerGoalInfo = this.triggerGoalInfo) {
-    this.drawTriggerImg();
+    this.mImgTriggerInfo.filePathInfoList.forEach(filePathInfo =>
+      this.drawTriggerImg(filePathInfo),
+    );
 
     const { goalDataList = [], limitTimeSec } = triggerGoalInfo;
 
@@ -471,9 +483,13 @@ class ThreImgStorage extends ThreImgComponent {
     if (this.isThreImgClear()) {
       this.threImgLimitTimer && clearTimeout(this.threImgLimitTimer);
 
-      this.triggerImgSvg.attr('display', 'block');
+      this.triggerImgSvgList.forEach(triggerImgSvg =>
+        triggerImgSvg.attr('display', 'block'),
+      );
     } else {
-      this.triggerImgSvg.attr('display', 'none');
+      this.triggerImgSvgList.forEach(triggerImgSvg =>
+        triggerImgSvg.attr('display', 'none'),
+      );
     }
   }
 }
@@ -487,13 +503,15 @@ class ThreImgManager extends ThreImgComponent {
    * @param {SVG.Marker} svgCanvas
    * @param {Map<string, mdNodeInfo>} mdNodeStorage
    * @param {mImgTriggerInfo[]} mImgTriggerList
+   * @param {mMapInfo} mapSize 맵 크기
    */
-  constructor(svgCanvas, mdNodeStorage, mImgTriggerList) {
+  constructor(svgCanvas, mdNodeStorage, mImgTriggerList, mapSize) {
     super();
 
     // 저장소 목록 설정
     this.threImgStorageList = mImgTriggerList.map(
-      imgTriggerInfo => new ThreImgStorage(svgCanvas, mdNodeStorage, imgTriggerInfo),
+      imgTriggerInfo =>
+        new ThreImgStorage(svgCanvas, mdNodeStorage, imgTriggerInfo, mapSize),
     );
   }
 
@@ -525,9 +543,10 @@ let threImgManager;
  * @param {SVG.Marker} svgCanvas
  * @param {mdNodeInfo[]} mdNodeStorage
  * @param {mImgTriggerInfo[]} mImgTriggerList
+ * @param {mMapInfo} mapSize 맵 크기
  */
-function initTriggerImg(svgCanvas, mdNodeStorage, mImgTriggerList) {
+function initTriggerImg(svgCanvas, mdNodeStorage, mImgTriggerList, mapSize) {
   // Img Trigger 객체 생성 및 mdNodeStorage에 옵저버 등록
-  threImgManager = new ThreImgManager(svgCanvas, mdNodeStorage, mImgTriggerList);
+  threImgManager = new ThreImgManager(svgCanvas, mdNodeStorage, mImgTriggerList, mapSize);
   threImgManager.initThreTriggerImg();
 }

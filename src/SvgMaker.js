@@ -283,10 +283,18 @@ class SvgMaker {
 
       this.setCmdStorage('SCENARIO', cmdId, cmdName, svgNodePosOpt);
     });
-    // console.dir(this.mCmdStorage);
 
+    // 트리거 이미지 설정
     this.mImgTriggerList.forEach(imgTriggerInfo => {
-      const { fileName, folderPath = '' } = imgTriggerInfo;
+      const { fileName = [], folderPath = '', filePathConfigList = [] } = imgTriggerInfo;
+
+      /** @type {mFilePathInfo[]} */
+      const filePathList = [];
+
+      // Wrapper 단에서 경로를 설정하였을 경우
+      fileName.length && this.getFilePath(imgTriggerInfo, filePathList);
+      // 파일 목록 설정에서 경로를 설정하였을 경우
+      filePathConfigList.length && this.getFilePath(filePathConfigList, filePathList);
 
       // 절대경로
       const pathList = ['/map'];
@@ -297,14 +305,54 @@ class SvgMaker {
 
       pathList.push(fileName);
 
-      imgTriggerInfo.filePath = path.join(...pathList);
+      imgTriggerInfo.filePathInfoList = filePathList;
     });
+  }
+
+  /**
+   * 파일 경로 Full Path 계산하여 정의 후 의미있는 데이터 반환
+   * @param {mImgTriggerPathInfo|mImgTriggerPathInfo[]} imgTriggerPath
+   * @param {mFilePathInfo[]} filePathList 정제된 실제 파일 목록
+   * @return {mImgTriggerPathInfo} File Path 목록
+   */
+  getFilePath(imgTriggerPath, filePathList = []) {
+    if (Array.isArray(imgTriggerPath)) {
+      return imgTriggerPath.map(config => this.getFilePath(config, filePathList));
+    }
+
+    const { fileName, folderPath = [] } = imgTriggerPath;
+
+    // 파일 이름 배열로 변환
+    const fileNameList = typeof fileName === 'string' ? [fileName] : fileName;
+
+    // 절대경로
+    const pathList = ['/map'];
+    // 폴더 경로 값에 따라 해체해서 집어넣을지, 배열 끝에 넣을지 선택
+    Array.isArray(folderPath)
+      ? pathList.splice(1, 0, ...folderPath)
+      : pathList.push(folderPath);
+
+    imgTriggerPath.fileFullPathList = _.chain(fileNameList)
+      .map(fName => {
+        return path.join(...pathList, fName);
+      })
+      .union()
+      .value();
+
+    filePathList.push(
+      _.omit(imgTriggerPath, [
+        'fileName',
+        'folderPath',
+        'filePathConfigList',
+        'triggerGoalInfo',
+      ]),
+    );
+    return filePathList;
   }
 
   /** Step 2: Svg Place Position 목록 생성 */
   setSvgPlaceList() {
     this.mdPlaceStorage.forEach(mdPlaceInfo => {
-      // BU.CLI(mdPlaceInfo);
       const {
         placeId,
         placeName,
@@ -313,7 +361,7 @@ class SvgMaker {
           id,
           type: modelType,
           elementDrawInfo,
-          elementDrawInfo: { width, height, color, svgClass },
+          elementDrawInfo: { width, height, color, svgClass, insideInfo },
         },
       } = mdPlaceInfo;
 
@@ -344,10 +392,16 @@ class SvgMaker {
       typeof width === 'number' && _.set(elementDrawInfo, 'width', _.round(width, 3));
       typeof height === 'number' && _.set(elementDrawInfo, 'height', _.round(height, 3));
 
+      // string 형태일 경우 배열 형태로 컬러 변환
       elementDrawInfo.color = Array.isArray(color) ? color : [color];
       // svgClass가 존재하고 스트링일 경우 배열로 변환하여 저장
       if (svgClass && typeof svgClass === 'string' && svgClass.length) {
         elementDrawInfo.svgClass = [svgClass];
+      }
+      // 내부 테이블 컬러
+      const insideTblBodyFontColor = insideInfo?.bodyInfo?.fontColor;
+      if (typeof insideTblBodyFontColor === 'string') {
+        insideInfo.bodyInfo.fontColor = [insideTblBodyFontColor];
       }
 
       if (!svgPosPoint.every(point => _.isNumber(point))) {
@@ -550,6 +604,7 @@ class SvgMaker {
         radius: nModelRadius,
         color,
         svgClass,
+        insideInfo,
       },
       textStyleInfo = {},
       textStyleInfo: { dataColor, anchor } = {},
@@ -581,6 +636,12 @@ class SvgMaker {
     // svgClass가 존재하고 스트링일 경우 배열로 변환하여 저장
     if (svgClass && typeof svgClass === 'string' && svgClass.length) {
       elementDrawInfo.svgClass = [svgClass];
+    }
+
+    // 내부 테이블 컬러
+    const insideTblBodyFontColor = insideInfo?.bodyInfo?.fontColor;
+    if (typeof insideTblBodyFontColor === 'string') {
+      insideInfo.bodyInfo.fontColor = [insideTblBodyFontColor];
     }
 
     // 데이터 색상을 배열 형식으로 변환
