@@ -83,11 +83,6 @@ const mdCmdStorage = new Map();
 /** @type {Map<string, mConvertRelationInfo>} (key: ndId) */
 const mdConvertStorage = new Map();
 
-// /** @type {Map<string, mdConvertInfo>} key: nodeDefId */
-// const mdConvertStorage = new Map();
-
-// console.log(nodeStructureList);
-
 /**
  * 장치 제어 식별 Map 생성
  * @param {mSingleMiddleCmdInfo} dCmdScenarioInfo
@@ -150,7 +145,7 @@ function setCmdStorage(cmdFormat, cmdId, cmdName, svgNodePosOpt) {
 }
 
 /**
- * Map 초기화 진행
+ * (index.html에서 호출)  Map 초기화 진행
  * Map<placeId, mdPlaceInfo>, Map<nodeId, mdNodeInfo> 생성
  * @param {boolean} isProd Map Relation 이 맞지 않더라도 진행할지 여부. (Map Position을 잡기 위해서 필요함)
  */
@@ -235,8 +230,6 @@ function initDrawSvg(isProd = true) {
     } = nClassInfo;
 
     mdNodeClassStorage.set(ncId, []);
-
-    // console.log('ncId', ncId);
 
     nodeDefList.forEach(nDefInfo => {
       const {
@@ -457,6 +450,7 @@ function drawInsideElement(svgDrawInfo, drawType) {
     },
     ownerInfo,
     ownerInfo: {
+      isSensor,
       svgModelResource: {
         elementDrawInfo,
         elementDrawInfo: {
@@ -539,10 +533,10 @@ function drawInsideElement(svgDrawInfo, drawType) {
     ownerInfo.svgEleName.text(positionName);
   }
 
-  const bodyStartY = y1 + headerHeight;
+  const bodyStartY = _.round(y1 + headerHeight, 2);
   // Body 정보에 따라 Draw Rect
-  const bodyHeight = height - headerHeight;
-  // console.log('@@', positionId, height, headerHeight);
+  const bodyHeight = _.round(height - headerHeight, 2);
+
   const bodyCanvasElement = svgCanvas.rect(width, bodyHeight);
 
   const bodyOption = {
@@ -559,7 +553,7 @@ function drawInsideElement(svgDrawInfo, drawType) {
   if (drawType === DRAW_TYPE.NODE) {
     defaultColor = errColor;
     defaultColor && bodyCanvasElement.fill(defaultColor);
-    // bodyOption.cursor = 'pointer';
+    isSensor === SENSOR_TYPE.DEVICE && _.set(bodyOption, 'cursor', 'pointer');
   }
 
   // Body 영역에 Draw Text
@@ -602,10 +596,9 @@ function drawInsideElement(svgDrawInfo, drawType) {
     ownerInfo.svgEleTbls = Array(rowsCount)
       .fill(bodyStartY)
       .map((v, idx) => {
-        const yPoint = bodyStartY + lineHeight * idx;
+        const yPoint = _.round(bodyStartY + lineHeight * idx, 2);
         const yFontPoint = _.round(yPoint + lineHeight * 0.5, 2);
 
-        // console.log(yFontPoint);
         // Text 객체 생성
         const rowSvgInfo = {};
 
@@ -618,7 +611,7 @@ function drawInsideElement(svgDrawInfo, drawType) {
                 .tspan('')
                 .font({ fill: tblTitleFontColor, size: bodyFontSize });
             })
-            .move(x1 + width * tblTitleScale, yFontPoint)
+            .move(_.round(x1 + width * tblTitleScale, 2), yFontPoint)
             .font({ ...fontOption, anchor: tblTitleAnchor })
             .dy(_.round(bodyFontSize * 0.1, 2));
         }
@@ -637,12 +630,12 @@ function drawInsideElement(svgDrawInfo, drawType) {
               .dy(_.round(bodyFontSize * 0.05, 2))
               .dx(_.round(bodyFontSize * 0.4, 2));
           })
-          .move(x1 + width * tblDataScale, yFontPoint)
+          .move(_.round(x1 + width * tblDataScale, 2), yFontPoint)
           .font({ ...fontOption, anchor: tblDataAnchor });
 
         // Draw Horizontal Line (여기서 TH 라인까지 다 그어버림. 수정시 idx 1부터 처리)
         svgCanvas
-          .line(x1, yPoint, x1 + width, yPoint)
+          .line(x1, yPoint, _.round(x1 + width), yPoint)
           .stroke(strokeInfo)
           .attr(headerOption);
 
@@ -650,9 +643,9 @@ function drawInsideElement(svgDrawInfo, drawType) {
       });
     // 수직 선
     if (vStrokeScale > 0) {
-      const xPoint = x1 + width * vStrokeScale;
+      const xPoint = _.round(x1 + width * vStrokeScale, 2);
       svgCanvas
-        .line(xPoint, bodyStartY, xPoint, bodyStartY + bodyHeight)
+        .line(xPoint, bodyStartY, xPoint, _.round(bodyStartY + bodyHeight, 2))
         .stroke(strokeInfo)
         .attr(headerOption);
     }
@@ -712,6 +705,7 @@ function drawSvgElement(svgDrawInfo, drawType) {
     },
     ownerInfo,
     ownerInfo: {
+      isSensor,
       svgModelResource: {
         type: elementType,
         elementDrawInfo,
@@ -757,17 +751,14 @@ function drawSvgElement(svgDrawInfo, drawType) {
       bgOption.class = drawType === DRAW_TYPE.NODE ? errColor : defaultSvgClass;
     }
 
+    isSensor === SENSOR_TYPE.DEVICE && _.set(bgOption, 'cursor', 'pointer');
     defaultColor = drawType === DRAW_TYPE.NODE ? errColor : defaultColor;
-  } else {
-    // defaultColor = 'transparent';
   }
 
   // 필터 정보가 있다면 Attr 추가 정의
   _.forEach(filterInfo, (attrValue, attrKey) => {
     bgOption[attrKey] = attrValue;
   });
-
-  // console.log(bgOption);
 
   let svgCanvasBgElement;
   // 기본 색상 재정의
@@ -820,7 +811,7 @@ function drawSvgElement(svgDrawInfo, drawType) {
     strokeInfo && svgCanvasBgElement.stroke(strokeInfo);
   }
 
-  // TODO: insideInfo 정보가 있을 경우 Draw
+  // insideInfo 정보가 있을 경우 Draw
   if (insideInfo !== undefined) {
     const bodyCanvasElement = drawInsideElement(svgDrawInfo, drawType);
     return bodyCanvasElement;
@@ -828,10 +819,6 @@ function drawSvgElement(svgDrawInfo, drawType) {
 
   // mdNodeInfo|mdPlaceInfo 에 SVG BG 정의
   ownerInfo.svgEleBg = svgCanvasBgElement;
-
-  // if (positionId === 'AREA_ALA_MOD_OT') {
-  //   console.log('@@@@@@@@', ownerInfo.svgEleBg);
-  // }
 
   // tSpan을 그리기 위한 SVG 생성 정보
   const {
@@ -860,9 +847,7 @@ function drawSvgElement(svgDrawInfo, drawType) {
   const movePointX = fontSize * tMoveScaleX;
   const movePointY = fontSize * tMoveScaleY;
   // 데이터를 [좌: 타이틀, 우: 데이터] 로 배치할 경우 배경 데이터 공간을 기준으로 text 각각 생성
-  // if (!(isTitleWrap || isHiddenTitle) && drawType !== DRAW_TYPE.PLACE) {
   if ((isTitleWrap || isHiddenTitle) && drawType !== DRAW_TYPE.PLACE) {
-    // const yAxisPoint = y1 + svgModelHeight * tAxisScaleY + fontSize * 0.1 + movePointY;
     const yAxisPoint = y1 + svgModelHeight * tAxisScaleY + movePointY;
     // Title 생성
     if (!isHiddenTitle) {
@@ -1378,39 +1363,32 @@ function confirmCommand(mdCmdInfo) {
  */
 function drawSvgBasePlace(svgCanvas) {
   const {
-    backgroundData = 'yellowgreen',
+    backgroundData = '#3C4854',
     coverData = '',
     backgroundPosition: [bgPosX, bgPosY] = [0, 0],
   } = backgroundInfo;
 
   // 브라우저 크기에 반응하기 위한 뷰박스 세팅
   svgCanvas.viewbox(0, 0, mapWidth, mapHeight);
+  console.log(typeof backgroundData, backgroundData);
 
   // 백그라운드 정보가 있을 경우
-  if (backgroundData.length > 0) {
-    if (backgroundData.includes('map')) {
-      // map에 배경의 데이터가 있을경우 배경 이미지 지정
-      svgCanvas.image(backgroundData).move(bgPosX, bgPosY);
-    } else {
-      // 일반 색상으로 표현하고자 할 경우
-      const bgColor = backgroundData.length === 0 ? '#fff3bf' : backgroundData;
+  if (backgroundData.includes('map')) {
+    // map에 배경의 데이터가 있을경우 배경 이미지 지정
+    svgCanvas.image(backgroundData).move(bgPosX, bgPosY);
+  } else {
+    // 일반 색상으로 표현하고자 할 경우
+    const bgColor = backgroundData.length === 0 ? '#3C4854' : backgroundData;
 
-      svgCanvas
-        .rect(mapWidth, mapHeight)
-        .fill(bgColor)
-        .stroke({
-          width: 1,
-          color: '#ccc',
-        })
-        .opacity(0.1);
-    }
+    svgCanvas.rect(mapWidth, mapHeight).fill(bgColor).stroke({
+      width: 1,
+      color: '#ccc',
+    });
+    // .opacity(0.1);
   }
 
   // 트리거 이미지 생성 불러옴
-  initTriggerImg(svgCanvas, mdNodeStorage, imgTriggerList, {
-    width: mapWidth,
-    height: mapHeight,
-  });
+  initTriggerImg(svgCanvas, mdNodeStorage, imgTriggerList);
 
   // 이미지 커버가 존재할 경우
   if (coverData.length) {

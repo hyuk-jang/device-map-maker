@@ -13,7 +13,7 @@ const {
   },
 } = require('../../../module');
 
-const imgTriggerList = require('./imgTrigger');
+const imgTriggerList = require('./imgTriggerList');
 
 const imgPattern = {
   patternSize: [10, 10],

@@ -233,7 +233,8 @@ class ThreImgGoal extends ThreImgComponent {
   /** 표현식으로 임계치를 체크할 경우 */
   isReachExpression() {
     const expressResult = this.expressionFn(..._.map(this.nodeList, 'nodeData'));
-    return this.isReachNumGoal(expressResult);
+
+    return expressResult;
   }
 
   /**
@@ -286,9 +287,8 @@ class ThreImgStorage extends ThreImgComponent {
    * @param {SVG.Marker} svgCanvas
    * @param {Map<string, mdNodeInfo>} mdNodeStorage
    * @param {mImgTriggerInfo} mImgTriggerInfo
-   * @param {mMapInfo} mapSize 맵 크기
    */
-  constructor(svgCanvas, mdNodeStorage, mImgTriggerInfo, mapSize) {
+  constructor(svgCanvas, mdNodeStorage, mImgTriggerInfo) {
     super();
     this.svgCanvas = svgCanvas;
     // 노드 저장소
@@ -299,14 +299,12 @@ class ThreImgStorage extends ThreImgComponent {
 
     this.triggerGoalInfo = mImgTriggerInfo.triggerGoalInfo;
 
-    this.mapSize = mapSize;
-
     /** @type {ThreImgGoal[]} */
     this.threImgGoals = [];
 
     /** @type {ThreImgGoal[][]} */
     this.threImgGroupGoals = [];
-
+    // FIXME: LimitTimer에 관해서는 별다른 이슈가 없을 것으로 보여져서 구현하지 않음
     this.threImgLimitTimer;
     this.successor;
 
@@ -320,13 +318,11 @@ class ThreImgStorage extends ThreImgComponent {
    * @param {mFilePathInfo} filePathInfo
    */
   drawTriggerImg(filePathInfo) {
-    console.dir(filePathInfo);
-
     // 그리기
     const {
       fileFullPathList = [],
       position = [0, 0],
-      size = Object.values(this.mapSize),
+      size = ['100%', '100%'],
       opacity = 1,
     } = filePathInfo;
 
@@ -503,15 +499,13 @@ class ThreImgManager extends ThreImgComponent {
    * @param {SVG.Marker} svgCanvas
    * @param {Map<string, mdNodeInfo>} mdNodeStorage
    * @param {mImgTriggerInfo[]} mImgTriggerList
-   * @param {mMapInfo} mapSize 맵 크기
    */
-  constructor(svgCanvas, mdNodeStorage, mImgTriggerList, mapSize) {
+  constructor(svgCanvas, mdNodeStorage, mImgTriggerList) {
     super();
 
     // 저장소 목록 설정
     this.threImgStorageList = mImgTriggerList.map(
-      imgTriggerInfo =>
-        new ThreImgStorage(svgCanvas, mdNodeStorage, imgTriggerInfo, mapSize),
+      imgTriggerInfo => new ThreImgStorage(svgCanvas, mdNodeStorage, imgTriggerInfo),
     );
   }
 
@@ -543,10 +537,9 @@ let threImgManager;
  * @param {SVG.Marker} svgCanvas
  * @param {mdNodeInfo[]} mdNodeStorage
  * @param {mImgTriggerInfo[]} mImgTriggerList
- * @param {mMapInfo} mapSize 맵 크기
  */
-function initTriggerImg(svgCanvas, mdNodeStorage, mImgTriggerList, mapSize) {
+function initTriggerImg(svgCanvas, mdNodeStorage, mImgTriggerList) {
   // Img Trigger 객체 생성 및 mdNodeStorage에 옵저버 등록
-  threImgManager = new ThreImgManager(svgCanvas, mdNodeStorage, mImgTriggerList, mapSize);
+  threImgManager = new ThreImgManager(svgCanvas, mdNodeStorage, mImgTriggerList);
   threImgManager.initThreTriggerImg();
 }

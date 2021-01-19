@@ -435,7 +435,6 @@ class SvgMaker {
       this.mSvgNodeList.push({
         id: nodeId,
         name: nodeName,
-        cursor: isSensor === 0 ? 'pointer' : '',
         is_sensor: isSensor,
         resourceId: svgModelResource.id,
         placeId: mdPlaceInfo.placeId,
@@ -536,7 +535,7 @@ class SvgMaker {
   async copyAndPasteFileImg() {
     const outputPath = path.join(process.cwd(), 'out', SOURCE_PATH, SOURCE_FILE);
 
-    const imgExt = ['png', 'jpg', 'jpeg', 'gif'];
+    const imgExt = ['png', 'jpg', 'jpeg', 'gif', 'svg'];
 
     fs.readdirSync(mapPath).forEach(file => {
       const copyFilePath = path.join(mapPath, file);
