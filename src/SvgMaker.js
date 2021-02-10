@@ -14,12 +14,6 @@ const map = require(mapPath);
 
 require('./module').di;
 
-const STROKE_INFO = {
-  color: '#ccc',
-  linecap: 'rect',
-  width: 0.5,
-};
-
 class SvgMaker {
   constructor() {
     // map 정보를 비구조화 할당 처리하여 내부 메소드에서 사용하는 체인을 줄임
@@ -72,11 +66,9 @@ class SvgMaker {
 
     // Step 2: Svg Place Position 목록 생성
     this.setSvgPlaceList();
-    // BU.CLIN(this.mdPlaceStorage);
 
     // Step 3: Svg Node Position 목록 생성
     this.setSvgNodeList();
-    // BU.CLIN(this.mdNodeStorage);
 
     // Step 4: Svg Command Position 목록 생성
     this.setSvgCmdList();
@@ -112,10 +104,10 @@ class SvgMaker {
       this.mdMapStorage.set(id, modelInfo);
     });
 
-    // PlaceRelationList을 순회하면서 Map<placeId, mSvgStorageInfo> 세팅
-    /** @type {Map<string, mdPlaceInfo>} */
+    /** @type {Map<string, mdPlaceInfo>} (key: placeId)  */
     this.mdPlaceStorage = new Map();
 
+    // PlaceRelationList을 순회하면서 Map<placeId, mSvgStorageInfo> 세팅
     this.mPlaceRelationList.forEach(pClassInfo => {
       const { defList = [], target_name: pcName } = pClassInfo;
       defList.forEach(pDefInfo => {
@@ -494,33 +486,7 @@ class SvgMaker {
       SOURCE_FILE,
       'defaultMap.js',
     );
-    // const outputBase64Path = path.join(process.cwd(), 'out', 'defaultBase64.js');
-    // 이미지 사용될 경우 defaultMap.png 로 저장
-    // const outputImgPath = path.join(process.cwd(), 'out', 'defaultMap.png');
-    // const outputProjectMapPath = path.join(
-    //   process.cwd(),
-    //   'out',
-    //   SOURCE_PATH,
-    //   SOURCE_FILE,
-    //   `output_${SOURCE_FILE}.js`,
-    // );
 
-    // const isExistMapImg = await fs.existsSync(inputMapImgPath);
-    // // 이미지가 존재할 경우 복사본 생성
-    // if (isExistMapImg) {
-    //   fs.createReadStream(inputMapImgPath).pipe(fs.createWriteStream(outputImgPath));
-
-    //   // const imgAsBase64 = fs.readFileSync(inputMapImgPath, 'base64');
-    //   // await BU.writeFile(
-    //   //   outputBase64Path,
-    //   //   `module.exports = 'data:image/png;base64,${imgAsBase64}'`,
-    //   //   'w',
-    //   // );
-    // } else if (fs.existsSync(outputImgPath)) {
-    //   // 프로젝트 이미지가 존재하지 않고 out 경로에 생성된 이미지가 존재할 경우 해당 이미지 삭제
-    //   await fs.accessSync(outputImgPath, fs.constants.F_OK);
-    //   fs.unlink(outputImgPath, console.error);
-    // }
     // 모듈화
     const finalStrMap = `module.exports = ${JSON.stringify(map)}`;
 

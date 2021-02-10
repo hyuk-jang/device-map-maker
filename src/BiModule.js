@@ -1,5 +1,3 @@
-const _ = require('lodash');
-const { BU } = require('base-util-jh');
 const { BM } = require('base-model-jh');
 
 class BiModule extends BM {
@@ -10,7 +8,7 @@ class BiModule extends BM {
   }
 
   /**
-   *
+   * 노드 테이블 데이터 추출
    * @param {number[]=} mainSeqList
    * @return {DV_NODE}
    */
@@ -40,6 +38,7 @@ class BiModule extends BM {
   }
 
   /**
+   * 장소 테이블 데이터 추출
    * @param {number[]=} mainSeqList
    * @return {DV_PLACE}
    */
@@ -66,7 +65,7 @@ class BiModule extends BM {
   }
 
   /**
-   *
+   * 데이터 로거 테이블 데이터 추출
    * @param {number[]=} mainSeqList
    */
   getDataLoggerTbl(mainSeqList) {
@@ -91,7 +90,7 @@ class BiModule extends BM {
   }
 
   /**
-   * 장소 테이블을 삭제
+   * 장소 관계 테이블 데이터 삭제
    * @param {number[]=} mainSeqList
    */
   deletePlaceTbl(mainSeqList) {

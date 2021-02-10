@@ -950,6 +950,7 @@ function refineNodeData(mdNodeInfo, data) {
  * @param {mSvgNumTreholdInfo[]} tresholdList 숫자 값 변화에 따른 SVG 표현
  */
 function isReachNumGoal(data, tresholdList = []) {
+  console.log('isReachNumGoal');
   const svgIdx = _.findIndex(tresholdList, threInfo => {
     const { goalValue, goalRange, isInclusionGoal = 0 } = threInfo;
 
@@ -979,9 +980,7 @@ function isReachNumGoal(data, tresholdList = []) {
  */
 function isReachStrGoal(data, tresholdList) {
   data = typeof data === 'string' ? data : data.toString();
-  const svgIdx = _.findIndex(tresholdList, strThreList =>
-    strThreList.includes(data.toUpperCase()),
-  );
+  const svgIdx = _.findIndex(tresholdList, strThreList => strThreList.includes(data));
 
   return {
     // 데이터 유효성이 검증되지 않더라도 유효한 데이터로 처리
@@ -1015,6 +1014,7 @@ function changeSvgViewNormal(mdNodeInfo, isValidError) {
   let selBgColor = '';
   let selDataColor = '';
 
+  console.log('changeSvgViewNormal', svgViewInfo, isValidError);
   // 데이터 임계치에 따른 SVG 변화 옵션이 없을 경우 (기본)
   if (_.isEmpty(svgViewInfo)) {
     selBgClass = isValidError && svgClass[0] ? 'red' : undefined;
@@ -1143,6 +1143,8 @@ function showNodeData(nodeId, data = '') {
 
     // 현재 데이터와 수신 받은 데이터가 같다면 종료
     if (nodeData === cData) return false;
+
+    console.log('showNodeData', cData);
 
     const errDataList = ['', null, undefined];
 

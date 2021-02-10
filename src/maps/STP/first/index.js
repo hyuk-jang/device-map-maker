@@ -107,17 +107,6 @@ const map = {
       svgModelResourceList: [
         /* *************       Place        ***************** */
         {
-          id: 'imgPattern',
-          type: 'image',
-          elementDrawInfo: {
-            width: mapSize.width * 0.15,
-            height: mapSize.height * 0.17,
-            color: '/img/moduleWave',
-            opacity: 1,
-            patternInfo: imgPattern,
-          },
-        },
-        {
           id: 'imgArea',
           type: 'rect',
           elementDrawInfo: {
@@ -1324,26 +1313,6 @@ const map = {
   },
   relationInfo: {
     placeRelationList: [
-      // {
-      //   target_id: 'imgArea',
-      //   target_name: '이미지',
-      //   defList: [
-      //     {
-      //       target_id: 'img',
-      //       target_prefix: 'IMG_ENV',
-      //       placeList: [
-      //         {
-      //           nodeList: [],
-      //           svgPositionInfo: {
-      //             resourceId: 'imgPattern',
-      //             point: convertPlacePosition(0.2, 0),
-      //           },
-      //         },
-      //       ],
-      //     },
-      //   ],
-      // },
-
       {
         target_id: 'alarmArea',
         target_name: '알람',

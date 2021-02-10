@@ -1,7 +1,6 @@
 const _ = require('lodash');
 const express = require('express');
 const path = require('path');
-const fs = require('fs');
 
 const ejs = require('ejs');
 
@@ -66,16 +65,8 @@ class SimulatorApp {
 
   init() {
     this.app.get('/', (req, res) => {
-      let backgroudMap = '';
-
-      // const outputImgPath = path.join(process.cwd(), 'out', 'defaultMap.png');
-      // if (fs.existsSync(outputImgPath)) {
-      //   backgroudMap = fs.readFileSync(outputImgPath);
-      // }
-
       res.render('./index', {
         map: this.deviceMap,
-        backgroudMap,
       });
     });
 

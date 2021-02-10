@@ -1,4 +1,3 @@
-const { BU } = require('base-util-jh');
 const _ = require('lodash');
 
 const {
@@ -74,7 +73,7 @@ const map = {
           elementDrawInfo: {
             width: ms.DA.WIDTH * 0.17,
             height: ms.DA.HEIGHT * 0.8,
-            svgClass: [mmSvgBtnClass.lightGray, mmSvgBtnClass.orange, mmSvgBtnClass.red],
+            svgClass: [mmSvgBtnClass.lightGray, mmSvgBtnClass.orange, mmSvgBtnClass.blue],
             filterInfo: {
               filter: 'url(#deviceShadow)',
             },
@@ -221,6 +220,9 @@ const map = {
         target_id: 'relay',
         target_name: '릴레이',
         is_sensor: 0,
+        svgViewInfo: {
+          thresholdList: [['OFF'], ['ON']],
+        },
         defList: [
           {
             target_id: 'relay',
