@@ -412,7 +412,6 @@ class SvgMaker {
   /** Step 3: Svg Node Position 목록 생성 */
   setSvgNodeList() {
     this.mdNodeStorage.forEach(mdNodeInfo => {
-      // BU.CLIN(mdNodeInfo);
       const {
         nodeId,
         nodeName,
@@ -469,15 +468,10 @@ class SvgMaker {
         ),
       });
     });
-
-    // BU.CLI(this.mSvgCmdList);
   }
 
   /** Step 4: Map File 생성 */
   async writeMapFile() {
-    // 사용할 프로젝트 맵 이미지 경로
-    const inputMapImgPath = path.join(mapPath, `${SOURCE_FILE}.png`);
-
     const outputMapPath = path.join(process.cwd(), 'out', 'defaultMap.js');
     const outputProjectMapPath = path.join(
       process.cwd(),

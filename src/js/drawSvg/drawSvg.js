@@ -181,9 +181,8 @@ function initDrawSvg(isProd = true) {
           nodeList = [],
           svgPositionInfo: { point, resourceId } = {},
         } = pInfo;
-        // Place ID 정의
 
-        // // svgPositionInfo 정보가 없다면 추가하지 않음
+        // svgPositionInfo 정보가 없다면 추가하지 않음
         if (isProd && resourceId === undefined) {
           return mdPlaceRelationStorage.has(pcId) && mdPlaceRelationStorage.delete(pcId);
         }

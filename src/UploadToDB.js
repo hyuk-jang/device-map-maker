@@ -11,12 +11,13 @@ const {
 
 const { SOURCE_PATH, SOURCE_FILE } = process.env;
 /** @type {mDeviceMap} */
+// eslint-disable-next-line import/no-dynamic-require
 const map = require(`../src/maps/${SOURCE_PATH}/${SOURCE_FILE}`);
 
 const BiModule = require('./BiModule');
 
 const LOGGER_DEF_KEY = ['target_name', 'target_prefix'];
-const LOGGER_KEY = ['serial_number', 'target_code', 'connect_info', 'protocol_info'];
+
 const NODE_CLASS_KEY = [
   'target_id',
   'target_name',
@@ -33,13 +34,7 @@ const NODE_DEF_KEY = [
   'is_avg_center',
   'description',
 ];
-const NODE_KEY = [
-  'target_code',
-  'target_name',
-  'data_logger_index',
-  'data_index',
-  'serial_number',
-];
+
 const PLACE_CLASS_KEY = ['target_id', 'target_name', 'description'];
 const PLACE_DEF_KEY = ['target_id', 'target_prefix', 'target_name'];
 const PLACE_KEY = [
@@ -64,7 +59,6 @@ class UploadToDB {
 
     this.drawInfo = map.drawInfo;
     this.setInfo = map.setInfo;
-    // BU.CLI(map);
     this.relationInfo = map.relationInfo;
     this.controlInfo = map.controlInfo;
 
@@ -199,7 +193,6 @@ class UploadToDB {
    * @param {TempStorage} storage TempStroage Class Object
    * @param {string} tblName
    * @param {string[]} updateKeyList
-   * @return {Promise}
    */
   async doQuery(storage, tblName, updateKeyList, hasViewQuery) {
     const finalStorage = storage.getFinalStorage();
@@ -246,7 +239,7 @@ class UploadToDB {
 
     tempStorage.setExistStorage(prevDLGList);
 
-    this.map.setInfo.dataLoggerStructureList.forEach(dataLoggerInfo => {
+    this.setInfo.dataLoggerStructureList.forEach(dataLoggerInfo => {
       const pickInfo = {};
       _.forEach(LOGGER_DEF_KEY, key => {
         if (!_.has(pickInfo, key)) {
@@ -280,14 +273,12 @@ class UploadToDB {
     /** @type {DV_DATA_LOGGER[]} */
     const prevDLList = await this.biModule.getDataLoggerTbl([this.main_seq]);
 
-    // BU.CLI(prevDLList)
-
     const { dccConstructorList, dpcConstructorList } = this.setInfo;
 
     tempStorage.setExistStorage(prevDLList);
 
     // 데이터 로거 대분류 구조 순회
-    this.map.setInfo.dataLoggerStructureList.forEach(dataLoggerClassInfo => {
+    this.setInfo.dataLoggerStructureList.forEach(dataLoggerClassInfo => {
       const { target_prefix: prefix, dataLoggerDeviceList = [] } = dataLoggerClassInfo;
       // 데이터 로거 장치 목록 순회
       dataLoggerDeviceList.forEach(dataLoggerDeviceInfo => {
@@ -353,7 +344,7 @@ class UploadToDB {
           'data_logger_seq',
           null,
         );
-        // BU.CLI(dataLoggerSeq)
+
         if (_.isNumber(dataLoggerSeq)) {
           _.assign(dataLoggerInfo, {
             data_logger_seq: dataLoggerSeq,
@@ -363,7 +354,6 @@ class UploadToDB {
       });
     });
 
-    // BU.CLI(tempStorage.getFinalStorage());
     return this.doQuery(tempStorage, 'DV_DATA_LOGGER', ['data_logger_seq'], false);
   }
 
@@ -406,7 +396,7 @@ class UploadToDB {
       tempStorage.addStorage(pickInfo, 'target_id', 'node_class_seq');
     });
 
-    return this.doQuery(tempStorage, 'DV_NODE_CLASS', ['node_class_seq'], true);
+    return this.doQuery(tempStorage, 'DV_NODE_CLASS', ['node_class_seq']);
   }
 
   /**
@@ -422,7 +412,6 @@ class UploadToDB {
     const prevNCList = await this.biModule.getTable('DV_NODE_CLASS');
     /** @type {DV_NODE_DEF[]} */
     const prevNDList = await this.biModule.getTable('DV_NODE_DEF');
-    // BU.CLI(prevNDList);
 
     tempStorage.setExistStorage(prevNDList);
 
@@ -432,7 +421,6 @@ class UploadToDB {
       // DEF 목록 순회
       defList.forEach(nodeDefInfo => {
         const { is_submit_api: isSubmitApiByDef } = nodeDefInfo;
-        // const pickInfo = _.omit(nodeDefInfo, 'nodeList');
         // nodeList Key 제외 Pick
         const pickInfo = {};
 
@@ -463,13 +451,10 @@ class UploadToDB {
             null,
           ),
         });
-        // BU.CLI(pickInfo);
 
         tempStorage.addStorage(pickInfo, 'target_id', 'node_def_seq');
       });
     });
-
-    // BU.CLI(tempStorage);
 
     return this.doQuery(tempStorage, 'DV_NODE_DEF', ['node_def_seq'], false);
   }
@@ -528,7 +513,6 @@ class UploadToDB {
             });
           });
 
-          // BU.CLI(nodeInfo);
           // 사용되어지고 있는 데이터 로거 ID 목록 순회
           usedDataLoggerIdList.forEach(dataLoggerId => {
             /**
@@ -576,7 +560,6 @@ class UploadToDB {
       });
     });
 
-    // BU.CLI(tempStorage.getFinalStorage());
     return this.doQuery(tempStorage, 'DV_NODE', ['node_seq'], false);
   }
 
@@ -655,7 +638,6 @@ class UploadToDB {
       });
     });
 
-    // BU.CLI(tempStorage.getFinalStorage());
     return this.doQuery(tempStorage, 'DV_PLACE_DEF', ['place_def_seq'], false);
   }
 
@@ -761,6 +743,7 @@ class UploadToDB {
       defList.forEach(pDefInfo => {
         const { target_prefix: pdPrefix, placeList = [] } = pDefInfo;
         placeList.forEach(placeInfo => {
+          BU.CLIN(placeInfo);
           const { target_code: pCode = null, nodeList: pNodeList = [] } = placeInfo;
           // Place ID 정의
           const placeId = `${pdPrefix}${pCode ? `_${pCode}` : ''}`;
@@ -774,6 +757,7 @@ class UploadToDB {
               nodeId,
             });
 
+            BU.CLIN(nodeInfo);
             /** @type {DV_PLACE_RELATION} */
             const placeRelationInfo = {
               node_seq: _.get(nodeInfo, 'node_seq'),
@@ -793,7 +777,6 @@ class UploadToDB {
       });
     });
 
-    // BU.CLI(tempStorage.getFinalStorage());
     return this.doQuery(tempStorage, 'DV_PLACE_RELATION', ['place_relation_seq'], false);
   }
 }
