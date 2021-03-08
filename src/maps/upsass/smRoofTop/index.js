@@ -137,13 +137,18 @@ const map = {
       {
         dccId: 'DCC_ZB_001',
         dccName: '지그비 데이터로거',
-        connect_info: { type: 'socket', subType: '', port: 15351 },
+        connect_info: {
+          // host: 'http://naver.com',
+          type: 'socket',
+          subType: '',
+          port: 15300,
+        },
         // connect_info: { type: 'zigbee', subType: 'xbee', baudRate: 9600, port: 'COM6' },
       },
       {
         dccId: 'DCC_INV_001',
         dccName: '인버터 데이터로거',
-        connect_info: { type: 'socket', subType: '', port: 15352 },
+        connect_info: { type: 'socket', subType: '', port: 15301 },
         // connect_info: {
         //   type: 'serial',
         //   subType: 'parser',
@@ -163,7 +168,7 @@ const map = {
       },
       {
         dpcId: 'DPC_INV_001',
-        protocol_info: { mainCategory: 'Inverter', subCategory: 'hexPowerSingle' },
+        protocol_info: { mainCategory: 'Inverter', subCategory: 'das_1.3' },
       },
     ],
     repeatNodeList: [
@@ -308,11 +313,13 @@ const map = {
             target_id: 'gridRsVol',
             target_name: 'RS 선간 전압',
             target_prefix: 'INV_G_RS_V',
+            is_submit_api: 1,
             nodeList: [
               {
                 target_code: '001',
                 target_name: '계통 전압',
                 svgNodePosOpt: {
+                  placeId: 'AREA_INV',
                   tblIndex: 0,
                 },
               },
@@ -339,11 +346,13 @@ const map = {
             target_id: 'gridRAmp',
             target_name: '인버터 R상 전류',
             target_prefix: 'INV_G_R_A',
+            is_submit_api: 1,
             nodeList: [
               {
                 target_code: '001',
                 target_name: '계통 전류',
                 svgNodePosOpt: {
+                  placeId: 'AREA_INV',
                   tblIndex: 1,
                 },
               },
@@ -355,7 +364,7 @@ const map = {
         target_id: 'kW',
         target_name: '전력량',
         is_sensor: 2,
-        is_submit_api: 1,
+        is_submit_api: 0,
         save_db_type: BLOCK,
         data_unit: 'kW',
         description:
@@ -373,11 +382,13 @@ const map = {
             target_name: '인버터 현재 전력',
             target_prefix: 'INV_PW_G_KW',
             description: 'Power',
+            is_submit_api: 1,
             nodeList: [
               {
                 target_code: '001',
                 target_name: '출력',
                 svgNodePosOpt: {
+                  placeId: 'AREA_INV',
                   tblIndex: 2,
                 },
               },
@@ -389,7 +400,7 @@ const map = {
         target_id: 'kWh',
         target_name: '전력량',
         is_sensor: 2,
-        is_submit_api: 0,
+        is_submit_api: 1,
         save_db_type: BLOCK,
         data_unit: 'kWh',
         description: '시간당 에너지 단위, 1 kW의 일률로 1 시간 동안 하는 일의 양',
@@ -411,6 +422,7 @@ const map = {
                 target_code: '001',
                 target_name: '발전량',
                 svgNodePosOpt: {
+                  placeId: 'AREA_INV',
                   tblIndex: 3,
                 },
               },
@@ -470,6 +482,26 @@ const map = {
   },
   relationInfo: {
     placeRelationList: [
+      {
+        target_id: 'inverter',
+        target_name: '인버터',
+        description: '인버터를 설치한 공간',
+        defList: [
+          {
+            target_id: 'inverter',
+            target_prefix: 'P_INV',
+            placeList: [
+              {
+                target_code: '001',
+                target_name: '1(I)',
+                chart_color: '#c92a2a',
+                chart_sort_rank: 1,
+                repeatId: 'RE_PREFIX_INV',
+              },
+            ],
+          },
+        ],
+      },
       // 수중 태양광 장소
       {
         target_id: 'upsBlock',
@@ -500,6 +532,7 @@ const map = {
             target_prefix: 'AREA_INV',
             placeList: [
               {
+                // nodeList: [],
                 nodeList: [
                   'INV_G_RS_V_001',
                   'INV_G_R_A_001',
@@ -527,12 +560,12 @@ const map = {
             {
               enName: 'Off',
               krName: '정지',
-              controlValue: 0,
+              controlValue: reqDCT.FALSE,
             },
             {
               enName: 'On',
               krName: '동작',
-              controlValue: 1,
+              controlValue: reqDCT.TRUE,
             },
           ],
         },
@@ -543,14 +576,14 @@ const map = {
           scenarioMsg: '동작을 선택하세요.',
           subCmdList: [
             {
-              enName: 'Clsoe',
+              enName: 'Close',
               krName: '폐쇄',
-              controlValue: 0,
+              controlValue: reqDCT.FALSE,
             },
             {
               enName: 'Open',
               krName: '개방',
-              controlValue: 1,
+              controlValue: reqDCT.TRUE,
             },
           ],
         },

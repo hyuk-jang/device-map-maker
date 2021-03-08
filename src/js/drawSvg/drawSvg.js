@@ -949,17 +949,18 @@ function refineNodeData(mdNodeInfo, data) {
  * @param {mSvgNumTreholdInfo[]} tresholdList 숫자 값 변화에 따른 SVG 표현
  */
 function isReachNumGoal(data, tresholdList = []) {
-  console.log('isReachNumGoal');
+  // console.log('isReachNumGoal');
+  const nData = Number(data);
   const svgIdx = _.findIndex(tresholdList, threInfo => {
     const { goalValue, goalRange, isInclusionGoal = 0 } = threInfo;
 
     switch (goalRange) {
       case goalDR.EQUAL:
-        return data === goalValue;
+        return nData === goalValue;
       case goalDR.LOWER:
-        return isInclusionGoal ? data <= goalValue : data < goalValue;
+        return isInclusionGoal ? nData <= goalValue : nData < goalValue;
       case goalDR.UPPER:
-        return isInclusionGoal ? data >= goalValue : data > goalValue;
+        return isInclusionGoal ? nData >= goalValue : nData > goalValue;
       default:
         break;
     }
@@ -1013,10 +1014,9 @@ function changeSvgViewNormal(mdNodeInfo, isValidError) {
   let selBgColor = '';
   let selDataColor = '';
 
-  console.log('changeSvgViewNormal', svgViewInfo, isValidError);
   // 데이터 임계치에 따른 SVG 변화 옵션이 없을 경우 (기본)
   if (_.isEmpty(svgViewInfo)) {
-    selBgClass = isValidError && svgClass[0] ? 'red' : undefined;
+    selBgClass = isValidError && svgClass[0] ? 'red' : '';
     selBgColor = isValidError ? errColor : baseColor;
   } else {
     const { isStrType = 1, thresholdList } = svgViewInfo;
@@ -1143,7 +1143,9 @@ function showNodeData(nodeId, data = '') {
     // 현재 데이터와 수신 받은 데이터가 같다면 종료
     if (nodeData === cData) return false;
 
-    console.log('showNodeData', cData);
+    // if (nodeId === 'ST_006') {
+    //   console.log('showNodeData', nodeId, data, cData, insideInfo);
+    // }
 
     const errDataList = ['', null, undefined];
 
@@ -1154,6 +1156,10 @@ function showNodeData(nodeId, data = '') {
       insideInfo === undefined
         ? changeSvgViewNormal(mdNodeInfo, errDataList.includes(data))
         : changeSvgViewInsideTbl(mdNodeInfo, errDataList.includes(data));
+
+    // if (nodeId === 'ST_006') {
+    //   console.log(isValidError, selBgClass, selBgColor, selDataColor);
+    // }
 
     // 변경하고자 하는 값이 유효하고 SVG Element가 존재할 경우에 적용
     selBgClass && svgEleBg && svgEleBg.attr('class', selBgClass);
@@ -1371,7 +1377,7 @@ function drawSvgBasePlace(svgCanvas) {
 
   // 브라우저 크기에 반응하기 위한 뷰박스 세팅
   svgCanvas.viewbox(0, 0, mapWidth, mapHeight);
-  console.log(typeof backgroundData, backgroundData);
+  // console.log(typeof backgroundData, backgroundData);
 
   // 백그라운드 정보가 있을 경우
   if (backgroundData.includes('map')) {

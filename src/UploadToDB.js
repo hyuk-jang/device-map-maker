@@ -743,7 +743,6 @@ class UploadToDB {
       defList.forEach(pDefInfo => {
         const { target_prefix: pdPrefix, placeList = [] } = pDefInfo;
         placeList.forEach(placeInfo => {
-          BU.CLIN(placeInfo);
           const { target_code: pCode = null, nodeList: pNodeList = [] } = placeInfo;
           // Place ID 정의
           const placeId = `${pdPrefix}${pCode ? `_${pCode}` : ''}`;
@@ -757,7 +756,7 @@ class UploadToDB {
               nodeId,
             });
 
-            BU.CLIN(nodeInfo);
+            // BU.CLIN(nodeInfo);
             /** @type {DV_PLACE_RELATION} */
             const placeRelationInfo = {
               node_seq: _.get(nodeInfo, 'node_seq'),
